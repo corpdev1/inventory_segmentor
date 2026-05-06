@@ -1,0 +1,28 @@
+[project]
+name = "inventory-segmenter-mcp"
+version = "0.1.0"
+description = "MCP server that classifies a company data inventory into seven buckets via the Anthropic API."
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.0.0",
+    "anthropic>=0.40.0",
+    "pandas>=2.0",
+    "openpyxl>=3.1",
+    "pypdf>=4.0",
+    "python-docx>=1.1",
+    "python-pptx>=0.6",
+    "pymupdf>=1.24",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = []
+include = [
+    "server.py",
+    "segmenter.py",
+    "excel_io.py",
+    "prompt.py",
+]
