@@ -1,6 +1,8 @@
 import JobsTableClient from "@/components/JobsTableClient";
 import RunPanelClient from "@/components/RunPanelClient";
 
+const apiBase = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const AppName = "Inventory Intelligence";
 const Card =
   "rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white dark:bg-zinc-950 shadow-sm";
@@ -29,7 +31,7 @@ export default function Home() {
               </div>
             </div>
             <a
-              href="/api/health"
+              href={`${apiBase}/api/health`}
               className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
             >
               API health
@@ -50,7 +52,7 @@ export default function Home() {
                   </p>
                 </div>
                 <a
-                  href="/api/jobs"
+                  href={`${apiBase}/api/jobs`}
                   className="shrink-0 text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
                 >
                   View JSON

@@ -71,10 +71,11 @@ export async function POST(req: Request) {
 
   await updateJob(job.id, { status: "running", pid, logPath, outputPath: outPath });
 
+  const base = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/$/, "");
   return NextResponse.json({
     jobId: job.id,
     outputPath: outPath,
-    downloadUrl: `/api/jobs/${job.id}/download`,
+    downloadUrl: `${base}/api/jobs/${job.id}/download`,
   });
 }
 
