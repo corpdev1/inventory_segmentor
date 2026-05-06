@@ -16,8 +16,6 @@ import urllib.request
 import urllib.error
 from pathlib import Path
 
-from mcp.server.fastmcp import FastMCP
-
 from checkpoint import append_checkpoint, checkpoint_path_for_output, load_checkpoint
 from excel_io import load_inventory, write_company_inventory_workbook, write_segmented_workbook
 from extractors.core import extract_snippet
@@ -26,8 +24,6 @@ from inventory_writer import summarize_inventory_from_evidence
 from pii import detect_pii
 from artifact_summary import summarize_artifact
 from segmenter import DEFAULT_BATCH_SIZE, DEFAULT_MODEL, classify_dataframe, classify_items
-
-mcp = FastMCP("inventory-segmenter")
 
 
 def _download_and_extract_repo(
@@ -93,7 +89,6 @@ def _download_and_extract_repo(
     return children[0] if len(children) == 1 else extract_dir
 
 
-@mcp.tool()
 def segment_inventory(
     input_path: str,
     output_path: str,
@@ -159,7 +154,6 @@ def segment_inventory(
     return "\n".join(lines)
 
 
-@mcp.tool()
 def build_inventory_from_dump(
     dump_path: str,
     output_path: str,
@@ -281,7 +275,6 @@ def build_inventory_from_dump(
     return "\n".join(lines)
 
 
-@mcp.tool()
 def build_inventory_from_repo(
     provider: str,
     repo_url: str,
@@ -313,5 +306,16 @@ def build_inventory_from_repo(
     )
 
 
-if __name__ == "__main__":
+def _run_mcp() -> None:
+    """Start the MCP server (imports `mcp` only when this entrypoint runs)."""
+    from mcp.server.fastmcp import FastMCP
+
+    mcp = FastMCP("inventory-segmenter")
+    mcp.tool()(segment_inventory)
+    mcp.tool()(build_inventory_from_dump)
+    mcp.tool()(build_inventory_from_repo)
     mcp.run()
+
+
+if __name__ == "__main__":
+    _run_mcp()

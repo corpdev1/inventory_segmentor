@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { existsSync } from "node:fs";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
@@ -12,6 +13,31 @@ function repoRootFromWebCwd() {
   return path.resolve(process.cwd(), "..");
 }
 
+/** Absolute path to the Python binary. Relative `PYTHON_BIN` in `.env` is resolved from `web/` (not from `cwd` passed to `spawn`, which is repo root). */
+function resolvePythonBin(repoRoot: string): string {
+  const webDir = path.join(repoRoot, "web");
+  const venvPython = path.join(repoRoot, ".venv", "bin", "python");
+  const raw = process.env.PYTHON_BIN?.trim();
+
+  if (raw) {
+    const candidate = path.isAbsolute(raw) ? raw : path.resolve(webDir, raw);
+    if (existsSync(candidate)) {
+      return candidate;
+    }
+    const fromRepo = path.resolve(repoRoot, raw);
+    if (existsSync(fromRepo)) {
+      return fromRepo;
+    }
+    return candidate;
+  }
+
+  if (existsSync(venvPython)) {
+    return venvPython;
+  }
+
+  return "python3";
+}
+
 export async function spawnPythonJob(opts: {
   jobId: string;
   pythonCode: string;
@@ -22,7 +48,7 @@ export async function spawnPythonJob(opts: {
   await fs.mkdir(logsDir, { recursive: true });
   const logPath = path.join(logsDir, `${opts.jobId}.log.txt`);
 
-  const pythonBin = process.env.PYTHON_BIN || "python3";
+  const pythonBin = resolvePythonBin(repoRoot);
   const child = spawn(pythonBin, ["-c", opts.pythonCode], {
     cwd: repoRoot,
     env: {
