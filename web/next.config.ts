@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
-/** Served at https://imperium.lh2.online/inventory_segmentor/ (nginx → localhost:3004) */
-const basePath = "/inventory_segmentor";
+/** Public URL on nginx in production (https://imperium.lh2.online/inventory_segmentor/). Dev uses "". */
+const basePath = process.env.NODE_ENV === "production" ? "/inventory_segmentor" : "";
 
 const nextConfig: NextConfig = {
   basePath,
