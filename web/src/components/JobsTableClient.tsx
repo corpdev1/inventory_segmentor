@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { getApiBase } from "@/lib/apiBase";
 import { JOBS_ACTIVE_EVENT } from "@/lib/inventoryEvents";
-
-const apiBase = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 type Job = {
   id: string;
@@ -65,7 +64,7 @@ export default function JobsTableClient() {
   async function refresh(): Promise<Job[] | null> {
     setError(null);
     setLoading(true);
-    const res = await fetch(`${apiBase}/api/jobs`, { cache: "no-store" });
+    const res = await fetch(`${getApiBase()}/api/jobs`, { cache: "no-store" });
     if (!res.ok) {
       setError(`Failed to load jobs (${res.status})`);
       setLoading(false);
@@ -183,7 +182,7 @@ export default function JobsTableClient() {
                   <div className="grid gap-2">
                     {j.status === "succeeded" && j.outputPath ? (
                       <a
-                        href={`${apiBase}/api/jobs/${j.id}/download`}
+                        href={`${getApiBase()}/api/jobs/${j.id}/download`}
                         className="inline-flex h-8 w-fit items-center justify-center rounded-lg bg-zinc-900 px-3 text-xs font-semibold text-white hover:opacity-90 dark:bg-zinc-100 dark:text-black"
                       >
                         Download

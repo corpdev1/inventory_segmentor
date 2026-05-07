@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type FormEvent, type InputHTMLAttributes } from "react";
+import { getApiBase } from "@/lib/apiBase";
 import { JOBS_ACTIVE_EVENT } from "@/lib/inventoryEvents";
+import { parseJsonOrThrow } from "@/lib/parseJson";
 
 function notifyJobsTableActive() {
   if (typeof window === "undefined") return;
@@ -9,8 +11,6 @@ function notifyJobsTableActive() {
 }
 
 type Mode = "dump" | "upload" | "repo" | "segment";
-
-const apiBase = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const Input =
   "h-10 w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black px-3 text-sm text-zinc-900 dark:text-zinc-50 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-zinc-900/10 dark:focus:ring-zinc-100/10";
@@ -86,7 +86,7 @@ export default function RunPanelClient() {
       // If we already have it in state, don't override.
       if (currentJobId) return;
 
-      const res = await fetch("/api/jobs", { cache: "no-store" });
+      const res = await fetch(`${getApiBase()}/api/jobs`, { cache: "no-store" });
       if (!res.ok) return;
       const all = (await res.json()) as Job[];
       const found = Array.isArray(all) ? all.find((j) => j.id === stored) : null;
@@ -151,7 +151,7 @@ export default function RunPanelClient() {
     let tick: ReturnType<typeof setInterval> | null = null;
 
     async function refreshJob() {
-      const res = await fetch(`${apiBase}/api/jobs`, { cache: "no-store" });
+      const res = await fetch(`${getApiBase()}/api/jobs`, { cache: "no-store" });
       if (!res.ok) return;
       const all = (await res.json()) as Job[];
       const found = Array.isArray(all) ? all.find((j) => j.id === currentJobId) : null;
@@ -216,12 +216,11 @@ export default function RunPanelClient() {
         const maxFilesVal = String(form.get("maxFiles") ?? "");
         if (maxFilesVal.trim() !== "") fd.append("maxFiles", maxFilesVal);
         appendUploadFiles(fd, stagedFiles);
-        const res = await fetch(`${apiBase}/api/jobs/upload`, {
+        const res = await fetch(`${getApiBase()}/api/jobs/upload`, {
           method: "POST",
           body: fd,
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data?.error || `Upload failed (${res.status})`);
+        const data = await parseJsonOrThrow<{ jobId: string }>(res, "Upload");
         if (typeof window !== "undefined") {
           window.localStorage.setItem("inventory-intelligence:currentJobId", String(data.jobId));
         }
@@ -237,13 +236,12 @@ export default function RunPanelClient() {
         const dumpFolder = String(form.get("dumpFolder") || "");
         const maxFilesRaw = String(form.get("maxFiles") || "");
         const maxFiles = maxFilesRaw.trim() === "" ? null : Number(maxFilesRaw);
-        const res = await fetch(`${apiBase}/api/jobs/build`, {
+        const res = await fetch(`${getApiBase()}/api/jobs/build`, {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ dumpFolder, maxFiles }),
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data?.error || `Start failed (${res.status})`);
+        const data = await parseJsonOrThrow<{ jobId: string }>(res, "Build");
         if (typeof window !== "undefined") {
           window.localStorage.setItem("inventory-intelligence:currentJobId", String(data.jobId));
         }
@@ -261,7 +259,7 @@ export default function RunPanelClient() {
         const token = String(form.get("token") || "");
         const maxFilesRaw = String(form.get("maxFiles") || "");
         const maxFiles = maxFilesRaw.trim() === "" ? null : Number(maxFilesRaw);
-        const res = await fetch(`${apiBase}/api/jobs/repo`, {
+        const res = await fetch(`${getApiBase()}/api/jobs/repo`, {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({
@@ -272,8 +270,7 @@ export default function RunPanelClient() {
             token: token.trim() ? token : null,
           }),
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data?.error || `Start failed (${res.status})`);
+        const data = await parseJsonOrThrow<{ jobId: string }>(res, "Repo");
         if (typeof window !== "undefined") {
           window.localStorage.setItem("inventory-intelligence:currentJobId", String(data.jobId));
         }
@@ -287,13 +284,12 @@ export default function RunPanelClient() {
       if (mode === "segment") {
         const inputPath = String(form.get("inputPath") || "");
         const outputPath = String(form.get("outputPath") || "");
-        const res = await fetch(`${apiBase}/api/jobs/segment`, {
+        const res = await fetch(`${getApiBase()}/api/jobs/segment`, {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ inputPath, outputPath }),
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data?.error || `Start failed (${res.status})`);
+        const data = await parseJsonOrThrow<{ jobId: string }>(res, "Segment");
         if (typeof window !== "undefined") {
           window.localStorage.setItem("inventory-intelligence:currentJobId", String(data.jobId));
         }

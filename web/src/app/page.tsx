@@ -1,7 +1,6 @@
 import JobsTableClient from "@/components/JobsTableClient";
 import RunPanelClient from "@/components/RunPanelClient";
-
-const apiBase = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+import { getApiBase } from "@/lib/apiBase";
 
 const AppName = "Inventory Intelligence";
 const Card =
@@ -11,6 +10,7 @@ const Title = "text-base font-semibold text-zinc-900 dark:text-zinc-50";
 const Subtle = "text-sm text-zinc-600 dark:text-zinc-400";
 
 export default function Home() {
+  const apiBase = getApiBase();
   // Client-only interactions without bringing in a component library.
   return (
     <div className="relative flex min-h-svh flex-1 flex-col overflow-hidden">
