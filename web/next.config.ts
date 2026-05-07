@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
-/** Public URL on nginx in production (https://imperium.lh2.online/inventory_segmentor/). Dev uses "". */
-const basePath = process.env.NODE_ENV === "production" ? "/inventory_segmentor" : "";
+/**
+ * Public URL (behind nginx) is typically served under a subpath like `/inventory_segmentor`.
+ * In production, prefer an explicit env override to avoid basePath mismatches that return HTML
+ * (and then the client crashes trying to parse JSON).
+ */
+const basePath =
+  process.env.NEXT_PUBLIC_BASE_PATH?.trim() ||
+  (process.env.NODE_ENV === "production" ? "/inventory_segmentor" : "");
 
 const nextConfig: NextConfig = {
   basePath,
