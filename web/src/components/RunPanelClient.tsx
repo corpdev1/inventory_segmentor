@@ -10,6 +10,20 @@ function notifyJobsTableActive() {
   window.dispatchEvent(new Event(JOBS_ACTIVE_EVENT));
 }
 
+async function readJsonOrText(res: Response): Promise<{ json: any | null; text: string }> {
+  const ct = (res.headers.get("content-type") || "").toLowerCase();
+  if (ct.includes("application/json")) {
+    try {
+      const j = await res.json();
+      return { json: j, text: "" };
+    } catch {
+      // fall through
+    }
+  }
+  const t = await res.text().catch(() => "");
+  return { json: null, text: t };
+}
+
 type Mode = "dump" | "upload" | "repo" | "segment";
 
 const Input =
@@ -88,7 +102,8 @@ export default function RunPanelClient() {
 
       const res = await fetch(`${getApiBase()}/api/jobs`, { cache: "no-store" });
       if (!res.ok) return;
-      const all = (await res.json()) as Job[];
+      const { json } = await readJsonOrText(res);
+      const all = (json ?? []) as Job[];
       const found = Array.isArray(all) ? all.find((j) => j.id === stored) : null;
       const running = found && (found.status === "queued" || found.status === "running");
       if (!cancelled && running) {
@@ -153,7 +168,8 @@ export default function RunPanelClient() {
     async function refreshJob() {
       const res = await fetch(`${getApiBase()}/api/jobs`, { cache: "no-store" });
       if (!res.ok) return;
-      const all = (await res.json()) as Job[];
+      const { json } = await readJsonOrText(res);
+      const all = (json ?? []) as Job[];
       const found = Array.isArray(all) ? all.find((j) => j.id === currentJobId) : null;
       if (!found) return;
 

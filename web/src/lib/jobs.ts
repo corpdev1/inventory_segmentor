@@ -25,6 +25,31 @@ export type JobRecord = {
 const DATA_DIR = path.join(process.cwd(), ".data");
 const JOBS_PATH = path.join(DATA_DIR, "jobs.json");
 
+declare global {
+  // eslint-disable-next-line no-var
+  var __inventoryJobsLock: Promise<void> | undefined;
+}
+
+function getJobsLock() {
+  if (!globalThis.__inventoryJobsLock) globalThis.__inventoryJobsLock = Promise.resolve();
+  return globalThis.__inventoryJobsLock;
+}
+
+async function withJobsLock<T>(fn: () => Promise<T>): Promise<T> {
+  let release: (() => void) | undefined;
+  const prev = getJobsLock();
+  const next = new Promise<void>((res) => {
+    release = res;
+  });
+  globalThis.__inventoryJobsLock = prev.then(() => next);
+  await prev;
+  try {
+    return await fn();
+  } finally {
+    if (release) release();
+  }
+}
+
 async function ensureDataDir() {
   await fs.mkdir(DATA_DIR, { recursive: true });
 }
@@ -50,25 +75,29 @@ export function newJobId() {
 }
 
 export async function createJob(init: Omit<JobRecord, "createdAt" | "updatedAt">) {
-  const now = new Date().toISOString();
-  const job: JobRecord = { ...init, createdAt: now, updatedAt: now };
-  const jobs = await listJobs();
-  jobs.unshift(job);
-  await writeJobs(jobs.slice(0, 200));
-  return job;
+  return await withJobsLock(async () => {
+    const now = new Date().toISOString();
+    const job: JobRecord = { ...init, createdAt: now, updatedAt: now };
+    const jobs = await listJobs();
+    jobs.unshift(job);
+    await writeJobs(jobs.slice(0, 200));
+    return job;
+  });
 }
 
 export async function updateJob(id: string, patch: Partial<JobRecord>) {
-  const jobs = await listJobs();
-  const idx = jobs.findIndex((j) => j.id === id);
-  if (idx === -1) return null;
-  const next: JobRecord = {
-    ...jobs[idx],
-    ...patch,
-    updatedAt: new Date().toISOString(),
-  };
-  jobs[idx] = next;
-  await writeJobs(jobs);
-  return next;
+  return await withJobsLock(async () => {
+    const jobs = await listJobs();
+    const idx = jobs.findIndex((j) => j.id === id);
+    if (idx === -1) return null;
+    const next: JobRecord = {
+      ...jobs[idx],
+      ...patch,
+      updatedAt: new Date().toISOString(),
+    };
+    jobs[idx] = next;
+    await writeJobs(jobs);
+    return next;
+  });
 }
 

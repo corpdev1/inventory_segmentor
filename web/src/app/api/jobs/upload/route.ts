@@ -5,7 +5,7 @@ import { createWriteStream } from "node:fs";
 import { Readable } from "node:stream";
 import Busboy from "busboy";
 import { createJob, newJobId, updateJob } from "@/lib/jobs";
-import { spawnPythonJob } from "@/lib/pythonRunner";
+import { enqueuePythonJob } from "@/lib/pythonRunner";
 import { autoOutputPath, ensureDownloadsDir } from "@/lib/paths";
 
 /** Strip traversal; keep nested paths from folder uploads (webkitRelativePath). */
@@ -156,18 +156,12 @@ export async function POST(req: Request) {
     "from server import build_inventory_from_dump; " +
     `print(build_inventory_from_dump(dump_path=${JSON.stringify(uploadsRoot)}, output_path=${JSON.stringify(outPath)}, max_files=${maxFiles ?? "None"}))`;
 
-  try {
-    const { pid, logPath } = await spawnPythonJob({
-      jobId: job.id,
-      pythonCode,
-    });
-
-    await updateJob(job.id, { status: "running", pid, logPath, outputPath: outPath });
-  } catch (spawnErr) {
-    const msg = spawnErr instanceof Error ? spawnErr.message : "Failed to start Python job";
-    await updateJob(job.id, { status: "failed", error: msg, outputPath: outPath });
-    return NextResponse.json({ error: msg }, { status: 500 });
-  }
+  // Enqueue processing to avoid overloading the machine on heavy uploads.
+  await enqueuePythonJob({
+    jobId: job.id,
+    pythonCode,
+    outputPath: outPath,
+  });
 
   const base = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/$/, "");
   return NextResponse.json({

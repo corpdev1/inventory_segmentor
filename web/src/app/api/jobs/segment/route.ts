@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createJob, newJobId, updateJob } from "@/lib/jobs";
-import { spawnPythonJob } from "@/lib/pythonRunner";
+import { enqueuePythonJob } from "@/lib/pythonRunner";
 
 export async function POST(req: Request) {
   const body = (await req.json()) as {
@@ -24,12 +24,11 @@ export async function POST(req: Request) {
     "from server import segment_inventory; " +
     `print(segment_inventory(input_path=${JSON.stringify(body.inputPath)}, output_path=${JSON.stringify(body.outputPath)}))`;
 
-  const { pid, logPath } = await spawnPythonJob({
+  await enqueuePythonJob({
     jobId: job.id,
     pythonCode,
+    outputPath: body.outputPath,
   });
-
-  await updateJob(job.id, { status: "running", pid, logPath });
 
   return NextResponse.json({ jobId: job.id });
 }
