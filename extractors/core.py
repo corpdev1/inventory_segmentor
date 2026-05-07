@@ -42,8 +42,14 @@ def _normalize_extracted_text(text: str) -> str:
     text = _EMOJI_RE.sub(" ", text)
     # Expand compatibility ligatures (ﬁ -> fi, ﬂ -> fl, etc.) for cleaner words.
     text = unicodedata.normalize("NFKC", text)
+    # Drop emoji variation selectors that can leave stray glyphs.
+    text = text.replace("\ufe0f", "")
     # Fix hyphenation across line breaks: "exam-\nple" -> "example"
     text = re.sub(r"(\w)-\n(\w)", r"\1\2", text)
+    # Fix word-wrapping splits without hyphenation (common in extracted PDFs):
+    # "inven\ntory" -> "inventory"
+    text = re.sub(r"([a-z])\n([a-z])", r"\1\2", text)
+    text = re.sub(r"([A-Z])\n([A-Z])", r"\1\2", text)
     # Convert newlines to spaces (later callers may re-split if needed)
     text = text.replace("\r", "\n")
     # Remove soft hyphen and zero-width spaces

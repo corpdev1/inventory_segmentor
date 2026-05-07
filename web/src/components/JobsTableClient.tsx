@@ -54,40 +54,70 @@ export default function JobsTableClient() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [autoRefresh, setAutoRefresh] = useState(true);
 
   const sorted = useMemo(
     () => [...jobs].sort((a, b) => b.createdAt.localeCompare(a.createdAt)),
     [jobs],
   );
 
-  async function refresh() {
+  async function refresh(): Promise<Job[] | null> {
     setError(null);
     setLoading(true);
     const res = await fetch(`${apiBase}/api/jobs`, { cache: "no-store" });
     if (!res.ok) {
       setError(`Failed to load jobs (${res.status})`);
       setLoading(false);
-      return;
+      return null;
     }
     const data = (await res.json()) as Job[];
-    setJobs(Array.isArray(data) ? data : []);
+    const list = Array.isArray(data) ? data : [];
+    setJobs(list);
     setLoading(false);
+    return list;
   }
 
   useEffect(() => {
-    const kickoff = setTimeout(() => void refresh(), 0);
-    const t = setInterval(() => void refresh(), 4000);
+    let cancelled = false;
+    let kickoff: ReturnType<typeof setTimeout> | null = null;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    function hasActive(list: Job[]) {
+      return list.some((j) => j.status === "queued" || j.status === "running");
+    }
+
+    async function loop() {
+      if (cancelled) return;
+      if (!autoRefresh) return;
+      if (typeof document !== "undefined" && document.hidden) {
+        timer = setTimeout(loop, 8000);
+        return;
+      }
+
+      const list = (await refresh()) ?? jobs;
+      const active = hasActive(list);
+      if (!active) {
+        setAutoRefresh(false);
+        return;
+      }
+      timer = setTimeout(loop, 3000);
+    }
+
+    kickoff = setTimeout(() => void loop(), 0);
     return () => {
-      clearTimeout(kickoff);
-      clearInterval(t);
+      cancelled = true;
+      if (kickoff) clearTimeout(kickoff);
+      if (timer) clearTimeout(timer);
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoRefresh, jobs]);
 
   return (
     <div className="grid gap-3">
       <div className="flex items-center justify-between gap-3">
         <div className="text-xs text-zinc-500 dark:text-zinc-400">
-          Auto-refreshing every 4s{loading ? " - updating..." : ""}.
+          {autoRefresh ? "Auto-refreshing while jobs run" : "Auto-refresh paused"}
+          {loading ? " - updating..." : ""}.
         </div>
         <button
           type="button"

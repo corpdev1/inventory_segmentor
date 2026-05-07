@@ -69,6 +69,37 @@ export default function RunPanelClient() {
   const filePickerRef = useRef<HTMLInputElement>(null);
   const folderPickerRef = useRef<HTMLInputElement>(null);
 
+  // Recover an in-flight job after reload/hot-reload.
+  useEffect(() => {
+    let cancelled = false;
+
+    async function recover() {
+      if (typeof window === "undefined") return;
+      const stored = window.localStorage.getItem("inventory-intelligence:currentJobId") || "";
+      if (!stored) return;
+      // If we already have it in state, don't override.
+      if (currentJobId) return;
+
+      const res = await fetch("/api/jobs", { cache: "no-store" });
+      if (!res.ok) return;
+      const all = (await res.json()) as Job[];
+      const found = Array.isArray(all) ? all.find((j) => j.id === stored) : null;
+      const running = found && (found.status === "queued" || found.status === "running");
+      if (!cancelled && running) {
+        setCurrentJobId(found.id);
+        setCurrentJobType(found.type);
+        setJob(found);
+      } else if (!cancelled) {
+        window.localStorage.removeItem("inventory-intelligence:currentJobId");
+      }
+    }
+
+    void recover();
+    return () => {
+      cancelled = true;
+    };
+  }, [currentJobId]);
+
   function mergeIncoming(incoming: FileList | File[] | null) {
     if (!incoming || (incoming instanceof FileList && incoming.length === 0)) return;
     const list = incoming instanceof FileList ? Array.from(incoming) : incoming;
@@ -141,6 +172,9 @@ export default function RunPanelClient() {
       }
 
       if (found.status === "succeeded" || found.status === "failed") {
+        if (typeof window !== "undefined") {
+          window.localStorage.removeItem("inventory-intelligence:currentJobId");
+        }
         setCurrentJobId(null);
         setCurrentJobType(null);
       }
@@ -182,6 +216,9 @@ export default function RunPanelClient() {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data?.error || `Upload failed (${res.status})`);
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem("inventory-intelligence:currentJobId", String(data.jobId));
+        }
         setCurrentJobId(String(data.jobId));
         setCurrentJobType("build_inventory_from_upload");
         setMessage(`Upload started (job ${String(data.jobId).slice(0, 8)}...).`);
@@ -200,6 +237,9 @@ export default function RunPanelClient() {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data?.error || `Start failed (${res.status})`);
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem("inventory-intelligence:currentJobId", String(data.jobId));
+        }
         setCurrentJobId(String(data.jobId));
         setCurrentJobType("build_inventory_from_dump");
         setMessage(`Job started: ${data.jobId}`);
@@ -226,6 +266,9 @@ export default function RunPanelClient() {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data?.error || `Start failed (${res.status})`);
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem("inventory-intelligence:currentJobId", String(data.jobId));
+        }
         setCurrentJobId(String(data.jobId));
         setCurrentJobType("build_inventory_from_repo");
         setMessage(`Job started: ${data.jobId}`);
@@ -242,6 +285,9 @@ export default function RunPanelClient() {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data?.error || `Start failed (${res.status})`);
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem("inventory-intelligence:currentJobId", String(data.jobId));
+        }
         setCurrentJobId(String(data.jobId));
         setCurrentJobType("segment_inventory");
         setMessage(`Job started: ${data.jobId}`);
