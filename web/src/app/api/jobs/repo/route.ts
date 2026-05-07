@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createJob, newJobId, updateJob } from "@/lib/jobs";
-import { spawnPythonJob } from "@/lib/pythonRunner";
+import { enqueuePythonJob } from "@/lib/pythonRunner";
 import { autoOutputPath, ensureDownloadsDir } from "@/lib/paths";
 
 export async function POST(req: Request) {
@@ -43,13 +43,12 @@ export async function POST(req: Request) {
   if (body.provider === "github" && body.token) env.GITHUB_TOKEN = body.token;
   if (body.provider === "gitlab" && body.token) env.GITLAB_TOKEN = body.token;
 
-  const { pid, logPath } = await spawnPythonJob({
+  await enqueuePythonJob({
     jobId: job.id,
     pythonCode,
     env,
+    outputPath: outPath,
   });
-
-  await updateJob(job.id, { status: "running", pid, logPath, outputPath: outPath });
 
   return NextResponse.json({ jobId: job.id });
 }

@@ -8,6 +8,20 @@ function notifyJobsTableActive() {
   window.dispatchEvent(new Event(JOBS_ACTIVE_EVENT));
 }
 
+async function readJsonOrText(res: Response): Promise<{ json: any | null; text: string }> {
+  const ct = (res.headers.get("content-type") || "").toLowerCase();
+  if (ct.includes("application/json")) {
+    try {
+      const j = await res.json();
+      return { json: j, text: "" };
+    } catch {
+      // fall through
+    }
+  }
+  const t = await res.text().catch(() => "");
+  return { json: null, text: t };
+}
+
 type Mode = "dump" | "upload" | "repo" | "segment";
 
 const apiBase = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -88,7 +102,8 @@ export default function RunPanelClient() {
 
       const res = await fetch("/api/jobs", { cache: "no-store" });
       if (!res.ok) return;
-      const all = (await res.json()) as Job[];
+      const { json } = await readJsonOrText(res);
+      const all = (json ?? []) as Job[];
       const found = Array.isArray(all) ? all.find((j) => j.id === stored) : null;
       const running = found && (found.status === "queued" || found.status === "running");
       if (!cancelled && running) {
@@ -153,7 +168,8 @@ export default function RunPanelClient() {
     async function refreshJob() {
       const res = await fetch(`${apiBase}/api/jobs`, { cache: "no-store" });
       if (!res.ok) return;
-      const all = (await res.json()) as Job[];
+      const { json } = await readJsonOrText(res);
+      const all = (json ?? []) as Job[];
       const found = Array.isArray(all) ? all.find((j) => j.id === currentJobId) : null;
       if (!found) return;
 
@@ -220,8 +236,12 @@ export default function RunPanelClient() {
           method: "POST",
           body: fd,
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data?.error || `Upload failed (${res.status})`);
+        const { json, text } = await readJsonOrText(res);
+        const data = json ?? {};
+        if (!res.ok) {
+          const detail = (data as any)?.error || text || `Upload failed (${res.status})`;
+          throw new Error(String(detail).slice(0, 500));
+        }
         if (typeof window !== "undefined") {
           window.localStorage.setItem("inventory-intelligence:currentJobId", String(data.jobId));
         }
@@ -242,8 +262,12 @@ export default function RunPanelClient() {
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ dumpFolder, maxFiles }),
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data?.error || `Start failed (${res.status})`);
+        const { json, text } = await readJsonOrText(res);
+        const data = json ?? {};
+        if (!res.ok) {
+          const detail = (data as any)?.error || text || `Start failed (${res.status})`;
+          throw new Error(String(detail).slice(0, 500));
+        }
         if (typeof window !== "undefined") {
           window.localStorage.setItem("inventory-intelligence:currentJobId", String(data.jobId));
         }
@@ -272,8 +296,12 @@ export default function RunPanelClient() {
             token: token.trim() ? token : null,
           }),
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data?.error || `Start failed (${res.status})`);
+        const { json, text } = await readJsonOrText(res);
+        const data = json ?? {};
+        if (!res.ok) {
+          const detail = (data as any)?.error || text || `Start failed (${res.status})`;
+          throw new Error(String(detail).slice(0, 500));
+        }
         if (typeof window !== "undefined") {
           window.localStorage.setItem("inventory-intelligence:currentJobId", String(data.jobId));
         }
@@ -292,8 +320,12 @@ export default function RunPanelClient() {
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ inputPath, outputPath }),
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data?.error || `Start failed (${res.status})`);
+        const { json, text } = await readJsonOrText(res);
+        const data = json ?? {};
+        if (!res.ok) {
+          const detail = (data as any)?.error || text || `Start failed (${res.status})`;
+          throw new Error(String(detail).slice(0, 500));
+        }
         if (typeof window !== "undefined") {
           window.localStorage.setItem("inventory-intelligence:currentJobId", String(data.jobId));
         }

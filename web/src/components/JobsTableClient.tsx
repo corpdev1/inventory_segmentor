@@ -15,6 +15,7 @@ type Job = {
   status: "queued" | "running" | "succeeded" | "failed";
   createdAt: string;
   updatedAt: string;
+  input?: Record<string, unknown>;
   outputPath?: string;
   error?: string;
 };
@@ -198,6 +199,26 @@ export default function JobsTableClient() {
                           Details
                         </summary>
                         <div className="mt-2 grid gap-2 rounded-xl border border-zinc-200/70 bg-white px-3 py-2 dark:border-zinc-800/70 dark:bg-zinc-950">
+                          {j.input && (j.input["phase"] || j.input["queuePosition"] != null) ? (
+                            <div className="grid gap-1">
+                              <div className="text-[11px] uppercase tracking-wide text-zinc-500 dark:text-zinc-500">
+                                Progress
+                              </div>
+                              <div className="text-xs text-zinc-800 dark:text-zinc-200">
+                                {j.input["phase"] ? (
+                                  <span className="font-medium">{String(j.input["phase"])}</span>
+                                ) : (
+                                  <span className="font-medium">queued</span>
+                                )}
+                                {j.input["queuePosition"] != null ? (
+                                  <span className="text-zinc-500 dark:text-zinc-400">
+                                    {" "}
+                                    (position {String(j.input["queuePosition"])})
+                                  </span>
+                                ) : null}
+                              </div>
+                            </div>
+                          ) : null}
                           {j.outputPath ? (
                             <div className="grid gap-1">
                               <div className="text-[11px] uppercase tracking-wide text-zinc-500 dark:text-zinc-500">

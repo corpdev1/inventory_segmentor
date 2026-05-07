@@ -2,6 +2,8 @@ import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { getJobQueue } from "@/lib/jobQueue";
+import { listJobs, updateJob } from "@/lib/jobs";
 
 export type SpawnResult = {
   pid: number;
@@ -71,5 +73,53 @@ export async function spawnPythonJob(opts: {
   });
 
   return { pid: child.pid ?? -1, logPath };
+}
+
+async function mergeJobInput(jobId: string, patch: Record<string, unknown>) {
+  const jobs = await listJobs();
+  const cur = jobs.find((j) => j.id === jobId);
+  const next = { ...(cur?.input ?? {}), ...patch };
+  await updateJob(jobId, { input: next });
+}
+
+export async function enqueuePythonJob(opts: {
+  jobId: string;
+  pythonCode: string;
+  outputPath?: string;
+  env?: Record<string, string | undefined>;
+}) {
+  const queue = getJobQueue();
+  const { position, promise } = queue.enqueue(opts.jobId, async () => {
+    await updateJob(opts.jobId, { status: "running" });
+    await mergeJobInput(opts.jobId, { phase: "running" });
+    const { pid, logPath } = await spawnPythonJob({
+      jobId: opts.jobId,
+      pythonCode: opts.pythonCode,
+      env: opts.env,
+    });
+    await updateJob(opts.jobId, {
+      status: "running",
+      pid,
+      logPath,
+      outputPath: opts.outputPath,
+    });
+    await mergeJobInput(opts.jobId, { phase: "running" });
+    return { pid, logPath };
+  });
+
+  await updateJob(opts.jobId, {
+    status: "queued",
+    outputPath: opts.outputPath,
+  });
+  await mergeJobInput(opts.jobId, { phase: "queued", queuePosition: position });
+
+  // Fire-and-forget; route handlers return immediately.
+  void promise.catch(async (e) => {
+    const msg = e instanceof Error ? e.message : "Failed to start job";
+    await updateJob(opts.jobId, { status: "failed", error: msg, outputPath: opts.outputPath });
+    await mergeJobInput(opts.jobId, { phase: "failed" });
+  });
+
+  return { position };
 }
 
