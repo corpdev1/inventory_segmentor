@@ -1,9 +1,3 @@
-"""Best-effort text extraction for common file types.
-
-The extractor returns a short text snippet suitable for classification and
-summarization. It is intentionally capped to avoid huge token usage.
-"""
-
 from __future__ import annotations
 
 import json
