@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { JOBS_ACTIVE_EVENT } from "@/lib/inventoryEvents";
 
 const apiBase = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
@@ -78,6 +79,14 @@ export default function JobsTableClient() {
   }
 
   useEffect(() => {
+    function onJobsActive() {
+      setAutoRefresh(true);
+    }
+    window.addEventListener(JOBS_ACTIVE_EVENT, onJobsActive);
+    return () => window.removeEventListener(JOBS_ACTIVE_EVENT, onJobsActive);
+  }, []);
+
+  useEffect(() => {
     let cancelled = false;
     let kickoff: ReturnType<typeof setTimeout> | null = null;
     let timer: ReturnType<typeof setTimeout> | null = null;
@@ -94,7 +103,11 @@ export default function JobsTableClient() {
         return;
       }
 
-      const list = (await refresh()) ?? jobs;
+      const list = await refresh();
+      if (list === null) {
+        timer = setTimeout(loop, 5000);
+        return;
+      }
       const active = hasActive(list);
       if (!active) {
         setAutoRefresh(false);
@@ -109,8 +122,7 @@ export default function JobsTableClient() {
       if (kickoff) clearTimeout(kickoff);
       if (timer) clearTimeout(timer);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoRefresh, jobs]);
+  }, [autoRefresh]);
 
   return (
     <div className="grid gap-3">

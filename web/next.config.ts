@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,
   },
+  // Jobs table polls /api/jobs every few seconds; skip dev spam in the terminal.
+  logging: {
+    incomingRequests: {
+      ignore: [/\/api\/jobs/],
+    },
+  },
 };
 
 export default nextConfig;

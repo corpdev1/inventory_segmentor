@@ -361,11 +361,31 @@ def summarize_artifact(*, filename: str, rel_path: str, extension: str, snippet:
         return "Company document."
 
     # Fallback: file type summary without guessing content.
-    if ext in {"png", "jpg", "jpeg"}:
+    if ext in {"png", "jpg", "jpeg", "webp", "gif", "tiff", "bmp", "heic"}:
         return "Photo / image."
+    if ext in {"mp4", "mov", "m4v", "avi", "mkv", "webm"}:
+        return "Video file."
+    if ext in {"mp3", "wav", "m4a", "aac", "flac", "ogg"}:
+        return "Audio recording."
+    if ext in {"zip", "7z", "rar", "tar", "gz", "tgz", "bz2", "xz"}:
+        return "Archive file."
     if ext in {"pdf", "doc", "docx", "ppt", "pptx"}:
         return "Company document."
     if ext in {"xlsx", "xlsm", "xls", "csv", "tsv"}:
         return "Company spreadsheet."
-    return "File."
+    if ext in {"key", "pem", "crt", "cer", "p12", "pfx"}:
+        return "Certificate / key material."
+    if ext in {"sql"}:
+        return "Database script / SQL export."
+    if ext in {"py", "js", "ts", "tsx", "java", "go", "rb", "php", "c", "cc", "cpp", "h", "hpp", "rs"}:
+        return "Source code file."
+    if ext in {"yml", "yaml", "toml", "ini", "conf", "config", "env"}:
+        return "Configuration file."
+    if ext in {"json"}:
+        return "JSON data file."
+    if ext in {"log"}:
+        return "Log file."
+    if ext:
+        return _compact(f"{ext.upper()} file.")
+    return "Company file."
 

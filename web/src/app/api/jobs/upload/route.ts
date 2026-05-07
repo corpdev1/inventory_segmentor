@@ -18,10 +18,17 @@ function safeRelPath(raw: string) {
 
 export async function POST(req: Request) {
   // Streaming multipart upload so large uploads don't buffer in memory.
-  // Limits are conservative and can be tuned via env vars.
   const MAX_FILES = Number(process.env.UPLOAD_MAX_FILES || "2000");
   const MAX_TOTAL_BYTES = Number(process.env.UPLOAD_MAX_TOTAL_BYTES || String(10 * 1024 * 1024 * 1024)); // 10GB
   const MAX_FILE_BYTES = Number(process.env.UPLOAD_MAX_FILE_BYTES || String(750 * 1024 * 1024)); // 750MB
+
+  const contentType = req.headers.get("content-type") || "";
+  if (!contentType.toLowerCase().includes("multipart/form-data")) {
+    return NextResponse.json({ error: "Expected multipart/form-data upload" }, { status: 400 });
+  }
+  if (!req.body) {
+    return NextResponse.json({ error: "Missing request body" }, { status: 400 });
+  }
 
   const job = await createJob({
     id: newJobId(),
@@ -42,14 +49,9 @@ export async function POST(req: Request) {
   let uploadedFiles = 0;
   let totalBytes = 0;
   const seen = new Set<string>();
-
-  const contentType = req.headers.get("content-type") || "";
-  if (!contentType.toLowerCase().includes("multipart/form-data")) {
-    return NextResponse.json({ error: "Expected multipart/form-data upload" }, { status: 400 });
-  }
-  if (!req.body) {
-    return NextResponse.json({ error: "Missing request body" }, { status: 400 });
-  }
+  /** Busboy "finish" runs when parsing ends, not when disk writes finish — await these too. */
+  const fileWrites: Promise<void>[] = [];
+  let acceptedFileParts = 0;
 
   const busboy = Busboy({
     headers: Object.fromEntries(req.headers.entries()),
@@ -75,14 +77,15 @@ export async function POST(req: Request) {
         file.resume();
         return;
       }
-      if (uploadedFiles >= MAX_FILES) {
+      if (acceptedFileParts >= MAX_FILES) {
         file.resume();
         reject(new Error(`Too many files (max ${MAX_FILES}).`));
         return;
       }
+      acceptedFileParts += 1;
 
       let rel = safeRelPath(info.filename || "file");
-      if (!rel) rel = `upload-${uploadedFiles}`;
+      if (!rel) rel = `upload-${seen.size}`;
       let destRel = rel;
       let i = 2;
       while (seen.has(destRel.toLowerCase())) {
@@ -94,33 +97,43 @@ export async function POST(req: Request) {
       seen.add(destRel.toLowerCase());
 
       const dest = path.join(uploadsRoot, destRel);
-      void fs.mkdir(path.dirname(dest), { recursive: true }).then(() => {
-        const out = createWriteStream(dest);
-        file.on("data", (chunk: Buffer) => {
-          totalBytes += chunk.length;
-          if (totalBytes > MAX_TOTAL_BYTES) {
-            file.unpipe(out);
-            out.destroy();
-            reject(new Error(`Upload too large (max ${(MAX_TOTAL_BYTES / (1024 * 1024 * 1024)).toFixed(0)}GB).`));
-            return;
-          }
-        });
-        out.on("error", (err) => reject(err));
-        file.on("error", (err) => reject(err));
-        file.on("limit", () => reject(new Error(`File too large (max ${(MAX_FILE_BYTES / (1024 * 1024)).toFixed(0)}MB).`)));
-        out.on("finish", async () => {
-          uploadedFiles += 1;
-          await updateJob(job.id, {
-            input: { uploadedFiles, maxFiles },
-          });
-        });
-        file.pipe(out);
-      });
+      const writeDone = fs.mkdir(path.dirname(dest), { recursive: true }).then(
+        () =>
+          new Promise<void>((resolveWrite, rejectWrite) => {
+            const out = createWriteStream(dest);
+            file.on("data", (chunk: Buffer) => {
+              totalBytes += chunk.length;
+              if (totalBytes > MAX_TOTAL_BYTES) {
+                file.unpipe(out);
+                out.destroy();
+                rejectWrite(
+                  new Error(`Upload too large (max ${(MAX_TOTAL_BYTES / (1024 * 1024 * 1024)).toFixed(0)}GB).`),
+                );
+              }
+            });
+            out.on("error", rejectWrite);
+            file.on("error", rejectWrite);
+            file.on("limit", () =>
+              rejectWrite(new Error(`File too large (max ${(MAX_FILE_BYTES / (1024 * 1024)).toFixed(0)}MB).`)),
+            );
+            out.on("finish", () => {
+              uploadedFiles += 1;
+              void updateJob(job.id, {
+                input: { uploadedFiles, maxFiles },
+              });
+              resolveWrite();
+            });
+            file.pipe(out);
+          }),
+      );
+      fileWrites.push(writeDone);
     });
 
     busboy.on("filesLimit", () => reject(new Error(`Too many files (max ${MAX_FILES}).`)));
     busboy.on("error", (err) => reject(err));
-    busboy.on("finish", () => resolve());
+    busboy.on("finish", () => {
+      void Promise.all(fileWrites).then(() => resolve(), reject);
+    });
   });
 
   try {
@@ -137,20 +150,24 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "No files uploaded" }, { status: 400 });
   }
 
-  // Persist final input counts.
   await updateJob(job.id, { input: { uploadedFiles, maxFiles } });
 
-  // Spawn python job against uploads folder
   const pythonCode =
     "from server import build_inventory_from_dump; " +
     `print(build_inventory_from_dump(dump_path=${JSON.stringify(uploadsRoot)}, output_path=${JSON.stringify(outPath)}, max_files=${maxFiles ?? "None"}))`;
 
-  const { pid, logPath } = await spawnPythonJob({
-    jobId: job.id,
-    pythonCode,
-  });
+  try {
+    const { pid, logPath } = await spawnPythonJob({
+      jobId: job.id,
+      pythonCode,
+    });
 
-  await updateJob(job.id, { status: "running", pid, logPath, outputPath: outPath });
+    await updateJob(job.id, { status: "running", pid, logPath, outputPath: outPath });
+  } catch (spawnErr) {
+    const msg = spawnErr instanceof Error ? spawnErr.message : "Failed to start Python job";
+    await updateJob(job.id, { status: "failed", error: msg, outputPath: outPath });
+    return NextResponse.json({ error: msg }, { status: 500 });
+  }
 
   const base = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/$/, "");
   return NextResponse.json({
@@ -159,4 +176,3 @@ export async function POST(req: Request) {
     downloadUrl: `${base}/api/jobs/${job.id}/download`,
   });
 }
-

@@ -1,6 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type FormEvent, type InputHTMLAttributes } from "react";
+import { JOBS_ACTIVE_EVENT } from "@/lib/inventoryEvents";
+
+function notifyJobsTableActive() {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new Event(JOBS_ACTIVE_EVENT));
+}
 
 type Mode = "dump" | "upload" | "repo" | "segment";
 
@@ -221,6 +227,7 @@ export default function RunPanelClient() {
         }
         setCurrentJobId(String(data.jobId));
         setCurrentJobType("build_inventory_from_upload");
+        notifyJobsTableActive();
         setMessage(`Upload started (job ${String(data.jobId).slice(0, 8)}...).`);
         setStagedFiles([]);
         return;
@@ -242,6 +249,7 @@ export default function RunPanelClient() {
         }
         setCurrentJobId(String(data.jobId));
         setCurrentJobType("build_inventory_from_dump");
+        notifyJobsTableActive();
         setMessage(`Job started: ${data.jobId}`);
         return;
       }
@@ -271,6 +279,7 @@ export default function RunPanelClient() {
         }
         setCurrentJobId(String(data.jobId));
         setCurrentJobType("build_inventory_from_repo");
+        notifyJobsTableActive();
         setMessage(`Job started: ${data.jobId}`);
         return;
       }
@@ -290,6 +299,7 @@ export default function RunPanelClient() {
         }
         setCurrentJobId(String(data.jobId));
         setCurrentJobType("segment_inventory");
+        notifyJobsTableActive();
         setMessage(`Job started: ${data.jobId}`);
         return;
       }

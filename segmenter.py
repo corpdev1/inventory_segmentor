@@ -109,8 +109,38 @@ def _classify_batch(
         raise last_err or RuntimeError("Unknown classification retry failure")
 
     for block in response.content:
-        if getattr(block, "type", None) == "tool_use" and block.name == "record_classifications":
-            return list(block.input["classifications"])
+        if getattr(block, "type", None) != "tool_use":
+            continue
+        if block.name != "record_classifications":
+            continue
+
+        raw = block.input.get("classifications")
+        # Defensive: even with tool_choice, some models occasionally return
+        # stringified JSON or mixed element types.
+        if isinstance(raw, str):
+            try:
+                raw = json.loads(raw)
+            except Exception as e:
+                raise RuntimeError(f"Tool returned non-JSON classifications string: {raw[:200]!r}") from e
+        if isinstance(raw, dict) and "classifications" in raw:
+            raw = raw.get("classifications")
+
+        if not isinstance(raw, list):
+            raise RuntimeError(f"Tool returned unexpected classifications type: {type(raw).__name__}")
+
+        out: list[dict[str, Any]] = []
+        for el in raw:
+            if isinstance(el, dict):
+                out.append(el)
+                continue
+            if isinstance(el, str):
+                try:
+                    parsed = json.loads(el)
+                except Exception:
+                    continue
+                if isinstance(parsed, dict):
+                    out.append(parsed)
+        return out
     raise RuntimeError(
         "Model did not return the expected tool_use block. "
         f"stop_reason={response.stop_reason!r}"

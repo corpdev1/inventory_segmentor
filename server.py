@@ -234,10 +234,28 @@ def build_inventory_from_dump(
         for i in range(0, len(items), batch_size):
             batch = items[i : i + batch_size]
             batch_out = classify_items(batch, model=model, batch_size=len(batch))
-            append_checkpoint(ckpt_path, batch_out)
-            newly_classified.extend(batch_out)
+
+            # Defensive: tolerate occasional malformed rows so large runs don't crash.
+            cleaned: list[dict] = []
+            for c in (batch_out or []):
+                if not isinstance(c, dict):
+                    continue
+                rid = c.get("row_id")
+                try:
+                    rid_i = int(rid)
+                except Exception:
+                    continue
+                c["row_id"] = rid_i
+                cleaned.append(c)
+
+            append_checkpoint(ckpt_path, cleaned)
+            newly_classified.extend(cleaned)
+
         for c in newly_classified:
-            existing[int(c["row_id"])] = c
+            try:
+                existing[int(c.get("row_id"))] = c
+            except Exception:
+                continue
 
     by_id = existing
 
