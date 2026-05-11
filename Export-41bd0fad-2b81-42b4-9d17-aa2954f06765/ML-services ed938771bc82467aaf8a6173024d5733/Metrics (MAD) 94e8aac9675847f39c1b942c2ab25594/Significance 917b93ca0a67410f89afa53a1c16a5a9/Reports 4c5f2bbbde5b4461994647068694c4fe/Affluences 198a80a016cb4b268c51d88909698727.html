@@ -1,0 +1,881 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Affluences</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="198a80a0-16cb-4b26-8c51-d88909698727" class="page sans"><header><h1 class="page-title">Affluences</h1><p class="page-description"></p></header><div class="page-body"><p id="df6fff35-2743-481f-bd05-eab9fd9647ac" class="">
+</p><p id="fbbb86fb-7008-44f3-ae64-d5c8d5971cbe" class="">Time span: from 2021-02-24 18:12:20 to 2021-03-15 17:00:00 (18 days)
+Total anomalies: 206501, abnormal periods = 39310, total number of metrics = 956</p><h3 id="72be4b5c-d39f-4add-add5-fd4db0eeaaaf" class="">Number of anomalies according to significance levels:</h3><p id="0ae1bf87-0fbd-4b2c-95ec-d4dd33d8ba31" class="">Significance at least 70.0%:
+25017 anomalies (12.11% of overall amount of anomalies)
+Significance at least 80.0%:
+6355 anomalies (3.08% of overall amount of anomalies)
+Significance at least 90.0%:
+1552 anomalies (0.75% of overall amount of anomalies)</p><p id="630567db-3a79-4dc6-bf9f-79418ad57aea" class="">
+</p><p id="ca168b51-14dd-4aea-b043-d846c4957f7e" class="">
+</p><p id="7a78f851-8204-47ad-9d12-1e04261363bc" class="">
+</p><figure id="fcaded67-bcea-4ece-ac03-4a6e23cad9aa" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/total_amount_of_anomalies.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/total_amount_of_anomalies.png"/></a></figure><h3 id="bbad040c-fbad-4288-9fe1-e570d97c11b5" class="">The most significant anomalies per component:</h3><p id="448ff2b2-c715-4aa1-9276-6a42e84da118" class="">
+</p><pre id="5dd8ec00-c810-451d-aa41-2980846df128" class="code"><code>Source: 6035197a80f3760011ef864c-linux6035396680f3760011ef864d
+Component: a5f700ba1e494a66
+2021-02-25 17:37:50 -- score: 1.000 -- duration: 23 minute(s) 20 s. -- deviation: 0.03 -- time since last anomaly: 20 hour(s) 51 minute(s) 40.0 s. seconds -- ec397a7430f60a39|docker.cpu|docker#cpu#core#0#norm#pct
+2021-02-25 17:37:50 -- score: 1.000 -- duration: 23 minute(s) 20 s. -- deviation: 0.06 -- time since last anomaly: 20 hour(s) 51 minute(s) 40.0 s. seconds -- ec397a7430f60a39|docker.cpu|docker#cpu#core#0#pct</code></pre><pre id="95d65d0d-fad5-40de-ab4c-17cc4a5209ef" class="code"><code>Source: 6035197a80f3760011ef864c-linux6035396680f3760011ef864d
+Component: java13ec80a71d557822
+2021-02-25 17:37:20 -- score: 0.958 -- duration: 3 minute(s) 30 s. -- deviation: 15.71 -- time since last anomaly: 21 hour(s) 4 minute(s) 10.0 s. seconds -- e0aaedf58d483bfa|docker.network|docker#network#in#bytes
+2021-02-25 17:37:20 -- score: 0.916 -- duration: 3 minute(s) 30 s. -- deviation: 0.26 -- time since last anomaly: 21 hour(s) 4 minute(s) 10.0 s. seconds -- e0aaedf58d483bfa|docker.network|docker#network#in#packets</code></pre><pre id="b955583e-ab1e-4b9f-aafa-9b0fe70d028b" class="code"><code>Source: 6035197a80f3760011ef864c-linux6035396680f3760011ef864d
+Component: java7023230adbe3bf77
+2021-02-25 17:37:10 -- score: 0.958 -- duration: 3 minute(s) 20 s. -- deviation: 0.15 -- time since last anomaly: 20 hour(s) 49 minute(s) 40.0 s. seconds -- 10a77830b65c043a|docker.cpu|docker#cpu#user#norm#pct
+2021-02-25 17:37:10 -- score: 0.958 -- duration: 3 minute(s) 20 s. -- deviation: 0.31 -- time since last anomaly: 20 hour(s) 49 minute(s) 40.0 s. seconds -- 10a77830b65c043a|docker.cpu|docker#cpu#user#pct</code></pre><pre id="d45d8ac8-492b-4f63-ac33-0b9433ca2d3f" class="code"><code>Source: 6040a96cdcc614001153fc55-docker
+Component: monitoring_prometheus
+2021-03-08 09:43:20 -- score: 0.965 -- duration: 3 minute(s) 20 s. -- deviation: 7.96 -- time since last anomaly: 18 hour(s) 11 minute(s) 50.0 s. seconds -- ae34c73133279434|docker.network|docker#network#out#packets
+2021-03-10 07:21:20 -- score: 0.948 -- duration: 6 minute(s) 10 s. -- deviation: 8.89 -- time since last anomaly: 1 minute(s) 0.0 s. seconds -- ae34c73133279434|docker.network|docker#network#out#packets
+2021-03-06 06:14:50 -- score: 0.885 -- duration: 2 minute(s) 30 s. -- deviation: 11.05 -- time since last anomaly: 1 minute(s) 10.0 s. seconds -- ae34c73133279434|docker.network|docker#network#in#packets
+2021-03-06 06:14:50 -- score: 0.877 -- duration: 2 minute(s) 30 s. -- deviation: 32182.07 -- time since last anomaly: 1 minute(s) 10.0 s. seconds -- ae34c73133279434|docker.network|docker#network#in#bytes
+2021-03-08 17:00:00 -- score: 0.862 -- duration: 1 minute(s) 30 s. -- deviation: 0.03 -- time since last anomaly: 2 minute(s) 20.0 s. seconds -- ae34c73133279434|docker.cpu|docker#cpu#kernel#norm#pct
+2021-03-08 17:00:00 -- score: 0.862 -- duration: 1 minute(s) 30 s. -- deviation: 0.13 -- time since last anomaly: 2 minute(s) 20.0 s. seconds -- ae34c73133279434|docker.cpu|docker#cpu#kernel#pct
+2021-03-05 12:07:30 -- score: 0.855 -- duration: 2 minute(s) 20 s. -- deviation: 33533.61 -- time since last anomaly: 3 minute(s) 40.0 s. seconds -- ae34c73133279434|docker.network|docker#network#in#bytes
+2021-03-05 16:30:50 -- score: 0.850 -- duration: 50 s. -- deviation: 0.25 -- time since last anomaly: 2 minute(s) 0.0 s. seconds -- ae34c73133279434|docker.cpu|docker#cpu#user#norm#pct
+2021-03-05 16:30:50 -- score: 0.850 -- duration: 50 s. -- deviation: 0.98 -- time since last anomaly: 2 minute(s) 0.0 s. seconds -- ae34c73133279434|docker.cpu|docker#cpu#user#pct
+2021-03-06 06:14:50 -- score: 0.847 -- duration: 2 minute(s) 30 s. -- deviation: 56.04 -- time since last anomaly: 1 minute(s) 20.0 s. seconds -- no_subject|docker.network|docker#network#in#packets
+2021-03-05 12:07:30 -- score: 0.846 -- duration: 2 minute(s) 20 s. -- deviation: 7.96 -- time since last anomaly: 3 minute(s) 40.0 s. seconds -- ae34c73133279434|docker.network|docker#network#out#packets
+2021-03-10 07:18:00 -- score: 0.841 -- duration: 2 minute(s) 30 s. -- deviation: 8.42 -- time since last anomaly: 1 hour(s) 10 minute(s) 40.0 s. seconds -- ae34c73133279434|docker.network|docker#network#out#packets
+2021-03-05 16:30:50 -- score: 0.840 -- duration: 50 s. -- deviation: 0.25 -- time since last anomaly: 2 minute(s) 0.0 s. seconds -- ae34c73133279434|docker.cpu|docker#cpu#total#norm#pct
+2021-03-05 16:30:50 -- score: 0.840 -- duration: 50 s. -- deviation: 1.02 -- time since last anomaly: 2 minute(s) 0.0 s. seconds -- ae34c73133279434|docker.cpu|docker#cpu#total#pct
+2021-03-09 21:24:50 -- score: 0.826 -- duration: 50 s. -- deviation: 9.05 -- time since last anomaly: 1 minute(s) 0.0 s. seconds -- ae34c73133279434|docker.network|docker#network#out#packets
+2021-03-06 06:14:50 -- score: 0.825 -- duration: 2 minute(s) 30 s. -- deviation: 37.40 -- time since last anomaly: 1 minute(s) 20.0 s. seconds -- no_subject|docker.network|docker#network#out#packets
+2021-03-05 12:07:30 -- score: 0.821 -- duration: 2 minute(s) 20 s. -- deviation: 12.72 -- time since last anomaly: 3 minute(s) 40.0 s. seconds -- ae34c73133279434|docker.network|docker#network#in#packets
+2021-03-05 16:30:50 -- score: 0.821 -- duration: 50 s. -- deviation: 0.09 -- time since last anomaly: 2 minute(s) 0.0 s. seconds -- ae34c73133279434|docker.cpu|docker#cpu#core#0#norm#pct
+2021-03-05 16:30:50 -- score: 0.821 -- duration: 50 s. -- deviation: 0.35 -- time since last anomaly: 2 minute(s) 0.0 s. seconds -- ae34c73133279434|docker.cpu|docker#cpu#core#0#pct
+2021-03-05 11:23:30 -- score: 0.820 -- duration: 7 minute(s) 0 s. -- deviation: 27.96 -- time since last anomaly: 10 minute(s) 0.0 s. seconds -- no_subject|docker.network|docker#network#in#packets
+2021-03-09 13:07:50 -- score: 0.817 -- duration: 4 minute(s) 0 s. -- deviation: 8.80 -- time since last anomaly: 3 minute(s) 10.0 s. seconds -- ae34c73133279434|docker.network|docker#network#out#packets
+2021-03-05 16:48:20 -- score: 0.814 -- duration: 50 s. -- deviation: 61.29 -- time since last anomaly: 1 minute(s) 40.0 s. seconds -- no_subject|docker.network|docker#network#in#packets
+2021-03-05 12:07:30 -- score: 0.812 -- duration: 2 minute(s) 20 s. -- deviation: 667.16 -- time since last anomaly: 3 minute(s) 40.0 s. seconds -- ae34c73133279434|docker.network|docker#network#out#bytes
+2021-03-05 11:23:30 -- score: 0.809 -- duration: 7 minute(s) 10 s. -- deviation: 30.30 -- time since last anomaly: 10 minute(s) 10.0 s. seconds -- no_subject|docker.network|docker#network#out#packets
+2021-03-09 09:00:00 -- score: 0.808 -- duration: 4 minute(s) 20 s. -- deviation: 342.99 -- time since last anomaly: 12 minute(s) 50.0 s. seconds -- ae34c73133279434|docker.diskio|docker#diskio#summary#rate
+2021-03-06 17:00:00 -- score: 0.804 -- duration: 2 minute(s) 30 s. -- deviation: 0.04 -- time since last anomaly: 7 minute(s) 0.0 s. seconds -- ae34c73133279434|docker.cpu|docker#cpu#kernel#norm#pct
+2021-03-06 17:00:00 -- score: 0.804 -- duration: 2 minute(s) 30 s. -- deviation: 0.16 -- time since last anomaly: 7 minute(s) 0.0 s. seconds -- ae34c73133279434|docker.cpu|docker#cpu#kernel#pct
+2021-03-05 16:48:20 -- score: 0.801 -- duration: 50 s. -- deviation: 41.12 -- time since last anomaly: 1 minute(s) 40.0 s. seconds -- no_subject|docker.network|docker#network#out#packets</code></pre><pre id="3d41ccc9-4849-443f-8dd3-4bb9c1a26f02" class="code"><code>Source: 6040a96cdcc614001153fc55-docker
+Component: nginxweblate_weblate
+2021-03-12 18:14:20 -- score: 0.810 -- duration: 1 minute(s) 50 s. -- deviation: 5730.09 -- time since last anomaly: 44 minute(s) 20.0 s. seconds -- no_subject|docker.network|docker#network#out#bytes
+2021-03-12 18:14:20 -- score: 0.810 -- duration: 1 minute(s) 50 s. -- deviation: 13558.21 -- time since last anomaly: 44 minute(s) 20.0 s. seconds -- no_subject|docker.network|docker#network#in#bytes</code></pre><pre id="adf01fe8-e432-434c-b7a7-d06a28086684" class="code"><code>Source: 6040a96cdcc614001153fc55-docker
+Component: nodedisplay_front
+2021-03-15 14:34:30 -- score: 0.821 -- duration: 2 minute(s) 20 s. -- deviation: 0.01 -- time since last anomaly: 15 minute(s) 40.0 s. seconds -- no_subject|docker.cpu|docker#cpu#core#3#pct
+2021-03-15 14:34:30 -- score: 0.800 -- duration: 2 minute(s) 20 s. -- deviation: 0.00 -- time since last anomaly: 15 minute(s) 40.0 s. seconds -- no_subject|docker.cpu|docker#cpu#core#3#norm#pct</code></pre><pre id="2a80b7de-ff8b-44cd-ae46-968a0b2f0f23" class="code"><code>Source: 6040a96cdcc614001153fc55-docker
+Component: nodeportal_portal
+2021-03-15 13:18:30 -- score: 0.845 -- duration: 2 minute(s) 50 s. -- deviation: 462694.71 -- time since last anomaly: 10 minute(s) 0.0 s. seconds -- no_subject|docker.network|docker#network#in#bytes</code></pre><pre id="1bd6c92b-138c-4429-93c0-d05c764b6e4b" class="code"><code>Source: 6040a96cdcc614001153fc55-docker
+Component: nodereservation_reservation
+2021-03-15 09:12:40 -- score: 0.850 -- duration: 2 minute(s) 40 s. -- deviation: 1095762.98 -- time since last anomaly: 3 minute(s) 10.0 s. seconds -- no_subject|docker.network|docker#network#in#bytes
+2021-03-15 08:15:20 -- score: 0.826 -- duration: 2 minute(s) 20 s. -- deviation: 300006.75 -- time since last anomaly: 3 minute(s) 10.0 s. seconds -- no_subject|docker.network|docker#network#out#bytes
+2021-03-15 08:45:20 -- score: 0.821 -- duration: 3 minute(s) 0 s. -- deviation: 887647.06 -- time since last anomaly: 3 minute(s) 30.0 s. seconds -- no_subject|docker.network|docker#network#in#bytes
+2021-03-15 09:12:40 -- score: 0.821 -- duration: 2 minute(s) 40 s. -- deviation: 251.87 -- time since last anomaly: 3 minute(s) 10.0 s. seconds -- no_subject|docker.network|docker#network#in#packets
+2021-03-15 08:45:20 -- score: 0.814 -- duration: 3 minute(s) 0 s. -- deviation: 218.92 -- time since last anomaly: 3 minute(s) 30.0 s. seconds -- no_subject|docker.network|docker#network#out#packets
+2021-03-15 08:45:20 -- score: 0.809 -- duration: 3 minute(s) 0 s. -- deviation: 234.25 -- time since last anomaly: 3 minute(s) 30.0 s. seconds -- no_subject|docker.network|docker#network#in#packets
+2021-03-15 09:12:40 -- score: 0.805 -- duration: 2 minute(s) 40 s. -- deviation: 202.24 -- time since last anomaly: 3 minute(s) 10.0 s. seconds -- no_subject|docker.network|docker#network#out#packets
+2021-03-14 20:04:40 -- score: 0.803 -- duration: 2 minute(s) 20 s. -- deviation: 272162.58 -- time since last anomaly: 4 minute(s) 0.0 s. seconds -- no_subject|docker.network|docker#network#out#bytes
+2021-03-14 20:45:50 -- score: 0.803 -- duration: 2 minute(s) 20 s. -- deviation: 246157.86 -- time since last anomaly: 3 minute(s) 30.0 s. seconds -- no_subject|docker.network|docker#network#out#bytes</code></pre><pre id="3872a808-bb6a-4366-a418-e6e6ae801e22" class="code"><code>Source: 6040a96cdcc614001153fc55-docker
+Component: nodescrapers_scrapers
+2021-03-05 17:21:00 -- score: 0.901 -- duration: 2 minute(s) 30 s. -- deviation: 42.45 -- time since last anomaly: 1 minute(s) 30.0 s. seconds -- e227206e6f466739|docker.network|docker#network#in#packets
+2021-03-05 17:21:00 -- score: 0.881 -- duration: 2 minute(s) 30 s. -- deviation: 39.63 -- time since last anomaly: 1 minute(s) 30.0 s. seconds -- e227206e6f466739|docker.network|docker#network#out#packets
+2021-03-05 18:40:00 -- score: 0.848 -- duration: 4 minute(s) 40 s. -- deviation: 62759.96 -- time since last anomaly: 2 minute(s) 50.0 s. seconds -- e227206e6f466739|docker.network|docker#network#in#bytes
+2021-03-05 17:21:00 -- score: 0.846 -- duration: 2 minute(s) 30 s. -- deviation: 6160.05 -- time since last anomaly: 1 minute(s) 30.0 s. seconds -- e227206e6f466739|docker.network|docker#network#out#bytes
+2021-03-05 18:40:00 -- score: 0.831 -- duration: 4 minute(s) 40 s. -- deviation: 49.11 -- time since last anomaly: 2 minute(s) 50.0 s. seconds -- e227206e6f466739|docker.network|docker#network#in#packets
+2021-03-05 18:40:00 -- score: 0.831 -- duration: 4 minute(s) 40 s. -- deviation: 47.01 -- time since last anomaly: 2 minute(s) 50.0 s. seconds -- e227206e6f466739|docker.network|docker#network#out#packets
+2021-03-05 07:00:50 -- score: 0.806 -- duration: 4 minute(s) 20 s. -- deviation: 45.24 -- time since last anomaly: 33 minute(s) 50.0 s. seconds -- e227206e6f466739|docker.network|docker#network#out#packets
+2021-03-05 07:00:50 -- score: 0.806 -- duration: 4 minute(s) 20 s. -- deviation: 44.12 -- time since last anomaly: 33 minute(s) 50.0 s. seconds -- e227206e6f466739|docker.network|docker#network#in#packets</code></pre><pre id="dfa0e935-bbed-455f-9839-429f67de4c43" class="code"><code>Source: 6040a96cdcc614001153fc55-docker
+Component: rabbitmqqueue_rabbitmq
+2021-03-09 06:15:00 -- score: 0.834 -- duration: 3 minute(s) 30 s. -- deviation: 271.96 -- time since last anomaly: 4 minute(s) 40.0 s. seconds -- no_subject|docker.network|docker#network#in#packets
+2021-03-11 23:00:10 -- score: 0.826 -- duration: 10 minute(s) 10 s. -- deviation: 4.19 -- time since last anomaly: 14 minute(s) 10.0 s. seconds -- no_subject|docker.diskio|docker#diskio#summary#rate
+2021-03-07 11:31:10 -- score: 0.809 -- duration: 1 minute(s) 20 s. -- deviation: 93.93 -- time since last anomaly: 3 minute(s) 50.0 s. seconds -- no_subject|docker.network|docker#network#out#packets</code></pre><pre id="20e08018-18a0-4200-9677-64f71dc1da09" class="code"><code>Source: 6040a96cdcc614001153fc55-docker
+Component: rubylogs_fluentd
+2021-03-08 13:46:30 -- score: 0.954 -- duration: 6 minute(s) 30 s. -- deviation: 0.13 -- time since last anomaly: 22 hour(s) 56 minute(s) 20.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#core#2#pct
+2021-03-08 13:46:30 -- score: 0.930 -- duration: 6 minute(s) 30 s. -- deviation: 0.03 -- time since last anomaly: 22 hour(s) 56 minute(s) 20.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#core#2#norm#pct
+2021-03-08 13:47:20 -- score: 0.912 -- duration: 14 minute(s) 20 s. -- deviation: 4.70 -- time since last anomaly: 4 minute(s) 40.0 s. seconds -- a59ae020a6f84d5d|docker.network|docker#network#in#packets
+2021-03-08 13:47:20 -- score: 0.912 -- duration: 22 minute(s) 40 s. -- deviation: 6157.70 -- time since last anomaly: 4 minute(s) 40.0 s. seconds -- a59ae020a6f84d5d|docker.network|docker#network#in#bytes
+2021-03-05 09:05:00 -- score: 0.858 -- duration: 3 minute(s) 20 s. -- deviation: 54432.47 -- time since last anomaly: 2 minute(s) 0.0 s. seconds -- no_subject|docker.network|docker#network#out#bytes
+2021-03-08 13:46:30 -- score: 0.856 -- duration: 6 minute(s) 50 s. -- deviation: 0.28 -- time since last anomaly: 1 hour(s) 6 minute(s) 30.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#user#pct
+2021-03-08 13:46:30 -- score: 0.855 -- duration: 6 minute(s) 50 s. -- deviation: 0.07 -- time since last anomaly: 1 hour(s) 6 minute(s) 30.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#user#norm#pct
+2021-03-08 19:36:20 -- score: 0.853 -- duration: 3 minute(s) 30 s. -- deviation: 0.01 -- time since last anomaly: 1 minute(s) 20.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#core#1#pct
+2021-03-08 10:08:50 -- score: 0.852 -- duration: 50 s. -- deviation: 0.01 -- time since last anomaly: 18 hour(s) 22 minute(s) 0.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#total#pct
+2021-03-08 10:08:50 -- score: 0.851 -- duration: 50 s. -- deviation: 0.00 -- time since last anomaly: 18 hour(s) 22 minute(s) 0.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#total#norm#pct
+2021-03-08 14:05:50 -- score: 0.848 -- duration: 1 minute(s) 40 s. -- deviation: 0.00 -- time since last anomaly: 5 minute(s) 0.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#core#0#pct
+2021-03-08 19:36:20 -- score: 0.846 -- duration: 3 minute(s) 30 s. -- deviation: 0.00 -- time since last anomaly: 1 minute(s) 20.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#core#1#norm#pct
+2021-03-08 18:15:00 -- score: 0.843 -- duration: 2 minute(s) 30 s. -- deviation: 0.02 -- time since last anomaly: 2 minute(s) 0.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#total#pct
+2021-03-08 18:15:00 -- score: 0.841 -- duration: 2 minute(s) 30 s. -- deviation: 0.00 -- time since last anomaly: 2 minute(s) 0.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#total#norm#pct
+2021-03-08 10:04:20 -- score: 0.836 -- duration: 50 s. -- deviation: 0.01 -- time since last anomaly: 18 hour(s) 19 minute(s) 10.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#user#pct
+2021-03-08 10:04:20 -- score: 0.836 -- duration: 50 s. -- deviation: 0.00 -- time since last anomaly: 18 hour(s) 19 minute(s) 10.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#user#norm#pct
+2021-03-08 14:32:30 -- score: 0.835 -- duration: 2 minute(s) 50 s. -- deviation: 0.92 -- time since last anomaly: 2 minute(s) 30.0 s. seconds -- a59ae020a6f84d5d|docker.network|docker#network#in#packets
+2021-03-09 09:48:40 -- score: 0.833 -- duration: 3 minute(s) 20 s. -- deviation: 0.03 -- time since last anomaly: 58 minute(s) 30.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#user#pct
+2021-03-09 09:48:40 -- score: 0.832 -- duration: 3 minute(s) 20 s. -- deviation: 0.01 -- time since last anomaly: 58 minute(s) 30.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#user#norm#pct
+2021-03-08 13:46:30 -- score: 0.825 -- duration: 6 minute(s) 50 s. -- deviation: 0.30 -- time since last anomaly: 2 hour(s) 9 minute(s) 30.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#total#pct
+2021-03-09 08:13:50 -- score: 0.820 -- duration: 3 minute(s) 10 s. -- deviation: 0.04 -- time since last anomaly: 3 minute(s) 40.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#user#pct
+2021-03-09 08:13:50 -- score: 0.819 -- duration: 3 minute(s) 10 s. -- deviation: 0.01 -- time since last anomaly: 3 minute(s) 40.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#user#norm#pct
+2021-03-08 13:46:30 -- score: 0.819 -- duration: 6 minute(s) 50 s. -- deviation: 0.08 -- time since last anomaly: 2 hour(s) 9 minute(s) 30.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#total#norm#pct
+2021-03-08 10:08:50 -- score: 0.817 -- duration: 50 s. -- deviation: 0.01 -- time since last anomaly: 18 hour(s) 22 minute(s) 0.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#core#3#pct
+2021-03-08 14:05:50 -- score: 0.803 -- duration: 1 minute(s) 40 s. -- deviation: 0.00 -- time since last anomaly: 5 minute(s) 0.0 s. seconds -- a59ae020a6f84d5d|docker.cpu|docker#cpu#core#0#norm#pct</code></pre><pre id="9bd6e787-b12b-4395-80fe-5688160e6357" class="code"><code>Source: 6040a96cdcc614001153fc55-linux6040eafa3a9e9f0012cebfd4
+Component: dockerb6d1b1b14d453b25
+2021-03-08 09:38:10 -- score: 0.806 -- duration: 2 minute(s) 10 s. -- deviation: 103557.37 -- time since last anomaly: 1 day(s) 2 hour(s) 38 minute(s) 0.0 s. seconds -- no_subject|docker.network|docker#network#in#bytes</code></pre><pre id="cd58c414-b365-4605-9c0b-e07b59b5b163" class="code"><code>Source: 6040a96cdcc614001153fc55-linux6040f7e73a9e9f0012cec090
+Component: dockerc3fb5b8782cdbf02
+2021-03-15 09:33:10 -- score: 0.813 -- duration: 4 minute(s) 20 s. -- deviation: 88470.97 -- time since last anomaly: 3 minute(s) 10.0 s. seconds -- no_subject|docker.network|docker#network#in#bytes</code></pre><pre id="d7304e08-0966-46aa-b648-8d15a30b7511" class="code"><code>Source: 6040a96cdcc614001153fc55-linux6040f8103a9e9f0012cec095
+Component: linux6040f8103a9e9f0012cec095
+2021-03-11 14:39:50 -- score: 0.816 -- duration: 3 minute(s) 10 s. -- deviation: 25761994.56 -- time since last anomaly: 5 minute(s) 20.0 s. seconds -- sda1|system.diskio|system#diskio#iostat#read#per_sec#bytes
+2021-03-11 14:39:50 -- score: 0.816 -- duration: 3 minute(s) 10 s. -- deviation: 25761994.56 -- time since last anomaly: 5 minute(s) 20.0 s. seconds -- sda|system.diskio|system#diskio#iostat#read#per_sec#bytes</code></pre><pre id="bc4329da-c346-4bfd-972a-93b42ddc3fbe" class="code"><code>Source: 6040a96cdcc614001153fc55-linux6040f81b3a9e9f0012cec097
+Component: linux6040f81b3a9e9f0012cec097
+2021-03-07 17:17:10 -- score: 0.941 -- duration: 4 minute(s) 10 s. -- deviation: 5184407265379.58 -- time since last anomaly: 2 day(s) 0 hour(s) 18 minute(s) 50.0 s. seconds -- no_subject|system.network|system#network#in#bytes
+2021-03-10 10:22:00 -- score: 0.876 -- duration: 3 minute(s) 20 s. -- deviation: 78776461645.76 -- time since last anomaly: 2 day(s) 17 hour(s) 0 minute(s) 50.0 s. seconds -- no_subject|system.network|system#network#in#bytes</code></pre><pre id="c7d310d0-a8b0-42da-a16f-62c6baad005e" class="code"><code>Source: 6040a96cdcc614001153fc55-linux6040f8233a9e9f0012cec099
+Component: docker46fc39686128e9c2
+2021-03-15 07:55:10 -- score: 0.842 -- duration: 4 minute(s) 10 s. -- deviation: 103392.97 -- time since last anomaly: 6 minute(s) 10.0 s. seconds -- no_subject|docker.network|docker#network#in#bytes
+2021-03-15 08:09:30 -- score: 0.831 -- duration: 6 minute(s) 40 s. -- deviation: 98190.64 -- time since last anomaly: 3 minute(s) 30.0 s. seconds -- no_subject|docker.network|docker#network#in#bytes</code></pre><pre id="c1fbb9aa-e770-4be6-a7e8-ae005b39eef9" class="code"><code>Source: 6040a96cdcc614001153fc55-linux6040f8233a9e9f0012cec099
+Component: linux6040f8233a9e9f0012cec099
+2021-03-06 03:08:50 -- score: 0.992 -- duration: 6 minute(s) 20 s. -- deviation: 3.05 -- time since last anomaly: 17 hour(s) 36 minute(s) 20.0 s. seconds -- no_subject|system.cpu|system#cpu#total#pct
+2021-03-10 03:08:10 -- score: 0.991 -- duration: 6 minute(s) 20 s. -- deviation: 3.03 -- time since last anomaly: 17 hour(s) 35 minute(s) 50.0 s. seconds -- no_subject|system.cpu|system#cpu#total#pct
+2021-03-09 03:12:00 -- score: 0.981 -- duration: 7 minute(s) 20 s. -- deviation: 2.86 -- time since last anomaly: 13 hour(s) 9 minute(s) 40.0 s. seconds -- no_subject|system.cpu|system#cpu#total#pct
+2021-03-12 03:08:40 -- score: 0.959 -- duration: 5 minute(s) 20 s. -- deviation: 3.01 -- time since last anomaly: 23 hour(s) 59 minute(s) 30.0 s. seconds -- no_subject|system.cpu|system#cpu#total#pct
+2021-03-13 03:11:10 -- score: 0.917 -- duration: 7 minute(s) 30 s. -- deviation: 2.89 -- time since last anomaly: 18 hour(s) 23 minute(s) 40.0 s. seconds -- no_subject|system.cpu|system#cpu#total#pct
+2021-03-14 03:11:50 -- score: 0.916 -- duration: 7 minute(s) 20 s. -- deviation: 2.85 -- time since last anomaly: 23 hour(s) 53 minute(s) 20.0 s. seconds -- no_subject|system.cpu|system#cpu#total#pct
+2021-03-05 03:09:30 -- score: 0.867 -- duration: 50 s. -- deviation: 3.16 -- time since last anomaly: 4 hour(s) 7 minute(s) 10.0 s. seconds -- no_subject|system.cpu|system#cpu#total#pct
+2021-03-07 03:08:40 -- score: 0.831 -- duration: 6 minute(s) 20 s. -- deviation: 3.01 -- time since last anomaly: 2 hour(s) 21 minute(s) 10.0 s. seconds -- no_subject|system.cpu|system#cpu#total#pct
+2021-03-10 10:25:20 -- score: 0.825 -- duration: 3 minute(s) 10 s. -- deviation: 1103838.34 -- time since last anomaly: 3 minute(s) 40.0 s. seconds -- sda1|system.diskio|system#diskio#iostat#read#per_sec#bytes
+2021-03-10 10:25:20 -- score: 0.825 -- duration: 3 minute(s) 10 s. -- deviation: 1103838.34 -- time since last anomaly: 3 minute(s) 40.0 s. seconds -- sda|system.diskio|system#diskio#iostat#read#per_sec#bytes
+2021-03-05 05:00:00 -- score: 0.806 -- duration: 3 minute(s) 0 s. -- deviation: 993446.45 -- time since last anomaly: 1 hour(s) 58 minute(s) 10.0 s. seconds -- sda1|system.diskio|system#diskio#iostat#read#per_sec#bytes
+2021-03-05 05:00:00 -- score: 0.806 -- duration: 3 minute(s) 0 s. -- deviation: 993446.45 -- time since last anomaly: 1 hour(s) 58 minute(s) 10.0 s. seconds -- sda|system.diskio|system#diskio#iostat#read#per_sec#bytes</code></pre><pre id="e43cb976-cb3c-43d6-9389-c3ebe68af1a3" class="code"><code>Source: 6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f
+Component: linux604b83a14c58ea0011d6220f
+2021-03-15 01:23:00 -- score: 0.923 -- duration: 10 minute(s) 20 s. -- deviation: 123281114.73 -- time since last anomaly: 13 hour(s) 42 minute(s) 40.0 s. seconds -- no_subject|system.network|system#network#out#bytes
+2021-03-15 08:01:20 -- score: 0.904 -- duration: 2 minute(s) 20 s. -- deviation: 28437.71 -- time since last anomaly: 1 day(s) 18 hour(s) 0 minute(s) 50.0 s. seconds -- no_subject|system.network|system#network#in#packets
+2021-03-14 01:22:50 -- score: 0.881 -- duration: 31 minute(s) 40 s. -- deviation: 86900916.09 -- time since last anomaly: 12 hour(s) 42 minute(s) 30.0 s. seconds -- no_subject|system.network|system#network#out#bytes
+2021-03-15 08:20:10 -- score: 0.859 -- duration: 2 minute(s) 50 s. -- deviation: 2.61 -- time since last anomaly: 3 minute(s) 50.0 s. seconds -- no_subject|system.cpu|system#cpu#total#pct
+2021-03-13 10:44:00 -- score: 0.828 -- duration: 1 minute(s) 20 s. -- deviation: 25408762.10 -- time since last anomaly: 3 minute(s) 20.0 s. seconds -- sda1|system.diskio|system#diskio#iostat#read#per_sec#bytes
+2021-03-13 10:44:00 -- score: 0.828 -- duration: 1 minute(s) 20 s. -- deviation: 25408762.10 -- time since last anomaly: 3 minute(s) 20.0 s. seconds -- sda|system.diskio|system#diskio#iostat#read#per_sec#bytes
+2021-03-15 07:59:30 -- score: 0.810 -- duration: 13 minute(s) 0 s. -- deviation: 2.58 -- time since last anomaly: 9 minute(s) 0.0 s. seconds -- no_subject|system.cpu|system#cpu#total#pct
+2021-03-15 08:30:10 -- score: 0.808 -- duration: 5 minute(s) 20 s. -- deviation: 3.24 -- time since last anomaly: 7 minute(s) 20.0 s. seconds -- no_subject|system.cpu|system#cpu#total#pct
+2021-03-13 10:38:10 -- score: 0.804 -- duration: 3 minute(s) 10 s. -- deviation: 1.54 -- time since last anomaly: 2 hour(s) 52 minute(s) 40.0 s. seconds -- no_subject|system.cpu|system#cpu#total#pct
+2021-03-13 10:38:10 -- score: 0.804 -- duration: 2 minute(s) 40 s. -- deviation: 18923732.22 -- time since last anomaly: 4 hour(s) 47 minute(s) 20.0 s. seconds -- sda1|system.diskio|system#diskio#iostat#read#per_sec#bytes
+2021-03-13 10:38:10 -- score: 0.804 -- duration: 2 minute(s) 40 s. -- deviation: 18923732.22 -- time since last anomaly: 4 hour(s) 47 minute(s) 20.0 s. seconds -- sda|system.diskio|system#diskio#iostat#read#per_sec#bytes</code></pre><pre id="e2d6bbf5-fb62-4978-9706-8fea261c495a" class="code"><code>Source: 6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f
+Component: mysql6da701a4c1d3db0e
+2021-03-15 06:54:30 -- score: 0.990 -- duration: 7 minute(s) 20 s. -- deviation: 94797.16 -- time since last anomaly: 3 hour(s) 53 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#queries
+2021-03-13 11:50:10 -- score: 0.979 -- duration: 2 minute(s) 50 s. -- deviation: 9462244.22 -- time since last anomaly: 4 minute(s) 20.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#rows#reads
+2021-03-13 11:15:10 -- score: 0.960 -- duration: 17 minute(s) 40 s. -- deviation: 4987461.37 -- time since last anomaly: 3 minute(s) 30.0 s. seconds -- no_subject|mysql.status|mysql#status#handler#read#rnd_next
+2021-03-13 11:50:10 -- score: 0.949 -- duration: 5 minute(s) 20 s. -- deviation: 5496124.28 -- time since last anomaly: 4 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#handler#read#next
+2021-03-14 16:05:30 -- score: 0.922 -- duration: 2 minute(s) 40 s. -- deviation: 112902.05 -- time since last anomaly: 4 minute(s) 0.0 s. seconds -- no_subject|mysql.status|mysql#status#queries
+2021-03-14 01:00:10 -- score: 0.919 -- duration: 21 minute(s) 20 s. -- deviation: 183.28 -- time since last anomaly: 14 hour(s) 21 minute(s) 10.0 s. seconds -- no_subject|mysql.status|mysql#status#open#tables
+2021-03-13 11:37:20 -- score: 0.901 -- duration: 15 minute(s) 30 s. -- deviation: 5774507.43 -- time since last anomaly: 4 minute(s) 40.0 s. seconds -- no_subject|mysql.status|mysql#status#handler#read#rnd_next
+2021-03-13 11:57:20 -- score: 0.891 -- duration: 2 minute(s) 30 s. -- deviation: 6158410.02 -- time since last anomaly: 4 minute(s) 40.0 s. seconds -- no_subject|mysql.status|mysql#status#handler#read#rnd_next
+2021-03-15 01:03:10 -- score: 0.889 -- duration: 19 minute(s) 20 s. -- deviation: 8546605.23 -- time since last anomaly: 1 hour(s) 45 minute(s) 40.0 s. seconds -- no_subject|mysql.status|mysql#status#handler#read#rnd_next
+2021-03-15 01:00:10 -- score: 0.888 -- duration: 21 minute(s) 20 s. -- deviation: 172.17 -- time since last anomaly: 23 hour(s) 26 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#open#tables
+2021-03-15 06:51:50 -- score: 0.883 -- duration: 28 minute(s) 20 s. -- deviation: 140.44 -- time since last anomaly: 15 hour(s) 0 minute(s) 10.0 s. seconds -- no_subject|mysql.status|mysql#status#handler#read#last
+2021-03-13 12:10:10 -- score: 0.877 -- duration: 5 minute(s) 20 s. -- deviation: 5938624.01 -- time since last anomaly: 4 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#handler#read#next
+2021-03-15 01:00:10 -- score: 0.874 -- duration: 22 minute(s) 50 s. -- deviation: 320.62 -- time since last anomaly: 3 hour(s) 59 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#opened_tables
+2021-03-15 01:00:10 -- score: 0.874 -- duration: 22 minute(s) 50 s. -- deviation: 320.62 -- time since last anomaly: 3 hour(s) 59 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#cache#table#open_cache#misses
+2021-03-14 01:00:10 -- score: 0.872 -- duration: 3 minute(s) 0 s. -- deviation: 22.19 -- time since last anomaly: 3 hour(s) 17 minute(s) 30.0 s. seconds -- no_subject|mysql.status|mysql#status#threads#running
+2021-03-13 10:57:20 -- score: 0.860 -- duration: 5 minute(s) 20 s. -- deviation: 921.37 -- time since last anomaly: 6 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc
+2021-03-15 08:38:40 -- score: 0.856 -- duration: 5 minute(s) 10 s. -- deviation: 109989.91 -- time since last anomaly: 4 minute(s) 40.0 s. seconds -- no_subject|mysql.status|mysql#status#queries
+2021-03-15 07:48:30 -- score: 0.837 -- duration: 3 minute(s) 10 s. -- deviation: 141411.33 -- time since last anomaly: 6 hour(s) 25 minute(s) 40.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#write_requests
+2021-03-15 10:31:20 -- score: 0.836 -- duration: 2 minute(s) 40 s. -- deviation: 105679.82 -- time since last anomaly: 4 minute(s) 0.0 s. seconds -- no_subject|mysql.status|mysql#status#queries
+2021-03-13 11:43:40 -- score: 0.835 -- duration: 4 minute(s) 20 s. -- deviation: 3064910.26 -- time since last anomaly: 3 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#handler#read#key
+2021-03-12 19:47:30 -- score: 0.833 -- duration: 2 minute(s) 50 s. -- deviation: 1039.48 -- time since last anomaly: 29 minute(s) 40.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#rows#deleted
+2021-03-14 06:00:20 -- score: 0.833 -- duration: 2 minute(s) 20 s. -- deviation: 460.52 -- time since last anomaly: 3 minute(s) 30.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc
+2021-03-15 10:12:20 -- score: 0.829 -- duration: 7 minute(s) 10 s. -- deviation: 102392.86 -- time since last anomaly: 4 minute(s) 20.0 s. seconds -- no_subject|mysql.status|mysql#status#queries
+2021-03-13 14:51:50 -- score: 0.829 -- duration: 3 minute(s) 20 s. -- deviation: 2938954.25 -- time since last anomaly: 3 hour(s) 4 minute(s) 0.0 s. seconds -- no_subject|mysql.status|mysql#status#handler#read#key
+2021-03-15 10:24:20 -- score: 0.828 -- duration: 3 minute(s) 10 s. -- deviation: 134909.79 -- time since last anomaly: 5 minute(s) 0.0 s. seconds -- no_subject|mysql.status|mysql#status#queries
+2021-03-15 08:52:50 -- score: 0.825 -- duration: 3 minute(s) 0 s. -- deviation: 97334.30 -- time since last anomaly: 5 minute(s) 0.0 s. seconds -- no_subject|mysql.status|mysql#status#queries
+2021-03-15 08:00:10 -- score: 0.823 -- duration: 2 minute(s) 20 s. -- deviation: 16135401.32 -- time since last anomaly: 59 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#rows#reads
+2021-03-13 12:10:10 -- score: 0.823 -- duration: 2 minute(s) 50 s. -- deviation: 10810293.34 -- time since last anomaly: 9 minute(s) 10.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#rows#reads
+2021-03-15 10:38:40 -- score: 0.819 -- duration: 2 minute(s) 30 s. -- deviation: 127879.72 -- time since last anomaly: 4 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#queries
+2021-03-13 11:59:30 -- score: 0.818 -- duration: 1 minute(s) 40 s. -- deviation: 9523677.26 -- time since last anomaly: 6 minute(s) 40.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#rows#reads
+2021-03-13 17:21:10 -- score: 0.818 -- duration: 2 minute(s) 20 s. -- deviation: 378.83 -- time since last anomaly: 5 minute(s) 30.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc
+2021-03-15 07:39:50 -- score: 0.816 -- duration: 2 minute(s) 20 s. -- deviation: 149812.71 -- time since last anomaly: 6 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#queries
+2021-03-13 10:38:20 -- score: 0.815 -- duration: 1 hour(s) 7 minute(s) 40 s. -- deviation: 6260203.66 -- time since last anomaly: 52 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#rows#reads
+2021-03-15 14:28:50 -- score: 0.815 -- duration: 7 minute(s) 30 s. -- deviation: 114048.04 -- time since last anomaly: 4 minute(s) 0.0 s. seconds -- no_subject|mysql.status|mysql#status#queries
+2021-03-15 09:01:10 -- score: 0.810 -- duration: 13 minute(s) 30 s. -- deviation: 102712.15 -- time since last anomaly: 5 minute(s) 30.0 s. seconds -- no_subject|mysql.status|mysql#status#queries
+2021-03-15 08:17:10 -- score: 0.809 -- duration: 17 minute(s) 0 s. -- deviation: 130427.76 -- time since last anomaly: 6 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#queries
+2021-03-15 07:28:30 -- score: 0.807 -- duration: 4 minute(s) 30 s. -- deviation: 26.00 -- time since last anomaly: 4 minute(s) 10.0 s. seconds -- no_subject|mysql.status|mysql#status#threads#running
+2021-03-15 07:24:10 -- score: 0.807 -- duration: 1 hour(s) 59 minute(s) 40 s. -- deviation: 227.09 -- time since last anomaly: 4 minute(s) 10.0 s. seconds -- no_subject|mysql.status|mysql#status#handler#read#last
+2021-03-15 10:44:20 -- score: 0.803 -- duration: 4 minute(s) 40 s. -- deviation: 62981.03 -- time since last anomaly: 3 minute(s) 20.0 s. seconds -- no_subject|mysql.status|mysql#status#queries</code></pre><pre id="3a64a868-c943-4c2f-8736-df64f5e85ff9" class="code"><code>Source: 6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211
+Component: linux604b83aa4c58ea0011d62211
+2021-03-15 07:00:10 -- score: 0.946 -- duration: 3 minute(s) 30 s. -- deviation: 4348403.97 -- time since last anomaly: 1 day(s) 18 hour(s) 1 minute(s) 30.0 s. seconds -- no_subject|system.network|system#network#in#bytes</code></pre><pre id="f3340d0f-c76a-45ba-90f1-75f5b0c2eb4e" class="code"><code>Source: 6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211
+Component: mysql285f9055e4559221
+2021-03-15 10:34:50 -- score: 0.899 -- duration: 3 minute(s) 20 s. -- deviation: 33.05 -- time since last anomaly: 4 minute(s) 30.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc
+2021-03-15 10:34:50 -- score: 0.882 -- duration: 3 minute(s) 20 s. -- deviation: 31.67 -- time since last anomaly: 4 minute(s) 30.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#data
+2021-03-15 10:34:50 -- score: 0.882 -- duration: 3 minute(s) 20 s. -- deviation: 518825.12 -- time since last anomaly: 4 minute(s) 30.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data
+2021-03-15 09:33:20 -- score: 0.872 -- duration: 4 minute(s) 40 s. -- deviation: 474.88 -- time since last anomaly: 7 minute(s) 10.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#reads
+2021-03-15 00:00:10 -- score: 0.864 -- duration: 3 minute(s) 0 s. -- deviation: 7076780572.08 -- time since last anomaly: 16 hour(s) 44 minute(s) 30.0 s. seconds -- no_subject|mysql.performance|mysql#performance#events_statements#avg#timer#wait
+2021-03-12 19:00:00 -- score: 0.839 -- duration: 2 minute(s) 40 s. -- deviation: 279.54 -- time since last anomaly: 5 minute(s) 10.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#rows#deleted
+2021-03-15 10:18:40 -- score: 0.834 -- duration: 3 minute(s) 10 s. -- deviation: 9.08 -- time since last anomaly: 3 minute(s) 20.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#data
+2021-03-15 10:18:40 -- score: 0.834 -- duration: 3 minute(s) 10 s. -- deviation: 148693.88 -- time since last anomaly: 3 minute(s) 20.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data
+2021-03-15 09:56:50 -- score: 0.829 -- duration: 3 minute(s) 50 s. -- deviation: 17.98 -- time since last anomaly: 6 minute(s) 40.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#data
+2021-03-15 09:56:50 -- score: 0.829 -- duration: 3 minute(s) 50 s. -- deviation: 294610.84 -- time since last anomaly: 6 minute(s) 40.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data
+2021-03-15 07:48:30 -- score: 0.812 -- duration: 3 minute(s) 10 s. -- deviation: 17063.18 -- time since last anomaly: 3 hour(s) 48 minute(s) 10.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#rows#deleted
+2021-03-15 10:26:30 -- score: 0.800 -- duration: 4 minute(s) 0 s. -- deviation: 10.06 -- time since last anomaly: 4 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#data
+2021-03-15 10:26:30 -- score: 0.800 -- duration: 4 minute(s) 0 s. -- deviation: 164866.52 -- time since last anomaly: 4 minute(s) 50.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data</code></pre><pre id="2941741e-b493-4251-8ff3-d79af3d9dc75" class="code"><code>Source: 6040a96cdcc614001153fc55-linux604b83b34c58ea0011d62213
+Component: linux604b83b34c58ea0011d62213
+2021-03-13 10:25:40 -- score: 0.840 -- duration: 12 minute(s) 10 s. -- deviation: 967630601.74 -- time since last anomaly: 3 minute(s) 30.0 s. seconds -- sda1|system.diskio|system#diskio#iostat#read#per_sec#bytes
+2021-03-13 10:25:40 -- score: 0.840 -- duration: 12 minute(s) 10 s. -- deviation: 967630661.72 -- time since last anomaly: 3 minute(s) 30.0 s. seconds -- sda|system.diskio|system#diskio#iostat#read#per_sec#bytes</code></pre><pre id="ad043ce0-6167-475f-a4bf-048fa7dee563" class="code"><code>Source: 6040a96cdcc614001153fc55-linux604b83b34c58ea0011d62213
+Component: mysql1fb662b1147eae28
+2021-03-15 07:48:30 -- score: 0.987 -- duration: 3 minute(s) 10 s. -- deviation: 17062.81 -- time since last anomaly: 1 day(s) 21 hour(s) 7 minute(s) 30.0 s. seconds -- no_subject|mysql.status|mysql#status#innodb#rows#deleted</code></pre><figure id="426f57f7-11f1-4281-914b-d1e4a0ffc8e4" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_8cfe36a0ad3a2573.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_8cfe36a0ad3a2573.png"/></a></figure><figure id="edc618ef-64c5-4583-92e1-fe9ae1163418" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_a5f700ba1e494a66.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_a5f700ba1e494a66.png"/></a></figure><figure id="789a11db-cb35-4dc5-89c3-5e73b4da059f" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_apachedocumentation_bookstack.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_apachedocumentation_bookstack.png"/></a></figure><figure id="673f8ee6-ae35-4a7c-bc52-f30b803b8789" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_docker46fc39686128e9c2.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_docker46fc39686128e9c2.png"/></a></figure><figure id="49bd18b3-21bf-4cb5-85b6-b03cc5e14dde" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_dockerb6d1b1b14d453b25.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_dockerb6d1b1b14d453b25.png"/></a></figure><figure id="7a40ff2c-2ea8-4a7a-938d-87524af4619b" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_dockerc3fb5b8782cdbf02.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_dockerc3fb5b8782cdbf02.png"/></a></figure><figure id="3e937648-2a6f-45e0-9d8f-42ba8a166353" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_dockerc38091176bbac99d.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_dockerc38091176bbac99d.png"/></a></figure><figure id="e95fec80-e00c-49a0-8cd6-8d1c332fc8ad" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_dockerd1ddd642e3f111ee.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_dockerd1ddd642e3f111ee.png"/></a></figure><figure id="90f9805f-3205-4fdb-9b00-cb3d7026b318" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_dockereef51c6fb03db3d7.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_dockereef51c6fb03db3d7.png"/></a></figure><figure id="578c5a61-1ae3-49ed-abef-53ed2f40c68f" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_java4d7fbe3c96d1222a.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_java4d7fbe3c96d1222a.png"/></a></figure><figure id="f52a478b-d952-436d-9086-85c9be263e1a" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_java13ec80a71d557822.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_java13ec80a71d557822.png"/></a></figure><figure id="a9f75400-fce6-40e1-bd4d-cfd394c71bd2" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_java7023230adbe3bf77.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_java7023230adbe3bf77.png"/></a></figure><figure id="b80da9e9-b5a4-427f-aa04-30e5817846b4" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_java00608862882529fd.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_java00608862882529fd.png"/></a></figure><figure id="66c4a7a6-6961-4f53-8118-aeb669ee94de" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux604b83a14c58ea0011d6220f.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux604b83a14c58ea0011d6220f.png"/></a></figure><figure id="7558bc7a-509e-4b3d-afa2-1dc7fdec895e" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux604b83aa4c58ea0011d62211.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux604b83aa4c58ea0011d62211.png"/></a></figure><figure id="7df8aecf-9f7f-4fc7-ad5b-5895d2e0a9fc" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux604b83b34c58ea0011d62213.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux604b83b34c58ea0011d62213.png"/></a></figure><figure id="647a6331-9348-4f33-872e-fe902a126dcd" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux6040eafa3a9e9f0012cebfd4.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux6040eafa3a9e9f0012cebfd4.png"/></a></figure><figure id="14bcefa6-7507-4eb2-a8a1-6895a1b02c6d" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux6040f7e73a9e9f0012cec090.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux6040f7e73a9e9f0012cec090.png"/></a></figure><figure id="a381f6d6-816c-4ee3-bb84-9c3fb53f17a0" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux6040f81b3a9e9f0012cec097.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux6040f81b3a9e9f0012cec097.png"/></a></figure><figure id="4ee15c2d-9f4c-4dcd-ad02-4e785a93669a" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux6040f8103a9e9f0012cec095.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux6040f8103a9e9f0012cec095.png"/></a></figure><figure id="02056554-7949-4042-8882-4a0ad6dd1499" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux6040f8233a9e9f0012cec099.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_linux6040f8233a9e9f0012cec099.png"/></a></figure><figure id="774334fa-c374-49c1-a5ee-07a6fc95a181" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_monitoring_prometheus.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_monitoring_prometheus.png"/></a></figure><figure id="273fc877-1619-4a1f-942d-e3bfc08e2792" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_mysql1fb662b1147eae28.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_mysql1fb662b1147eae28.png"/></a></figure><figure id="500cd07b-a30f-4774-aa9d-6b8b22789b59" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_mysql6da701a4c1d3db0e.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_mysql6da701a4c1d3db0e.png"/></a></figure><figure id="b3b2ce0c-ed6f-403a-becf-903712ec8d10" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_mysql285f9055e4559221.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_mysql285f9055e4559221.png"/></a></figure><figure id="cd961d77-a7a7-448c-b86d-8621bc3225ef" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_nginxweblate_weblate.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_nginxweblate_weblate.png"/></a></figure><figure id="9cf69c6b-9209-4b0b-b4d1-e612326f3697" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_nodedisplay_front.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_nodedisplay_front.png"/></a></figure><figure id="d2ffa0ca-aafe-4857-b9aa-847b26d2a1ef" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_nodeportal_crons.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_nodeportal_crons.png"/></a></figure><figure id="5c9968fa-ba32-4502-b73d-28053f1cc20c" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_nodeportal_portal.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_nodeportal_portal.png"/></a></figure><figure id="32e30e51-397e-4cf2-a052-fb8013a2ad52" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_nodereservation_reservation.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_nodereservation_reservation.png"/></a></figure><figure id="d4ccc904-f3b3-4ade-ba00-9f74713d110b" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_nodescrapers_scrapers.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_nodescrapers_scrapers.png"/></a></figure><figure id="28a11324-72c5-419a-90a6-35f3bda7b685" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_packetai6bce842367549eaa.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_packetai6bce842367549eaa.png"/></a></figure><figure id="4fe9e97c-2929-4bdf-8a22-b235b9343657" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_packetaibcbf6881c8b51cc6.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_packetaibcbf6881c8b51cc6.png"/></a></figure><figure id="db1b6e82-0c05-432f-a1c2-db560ff4252c" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_packetaic8b02ef02e13d5b0.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_packetaic8b02ef02e13d5b0.png"/></a></figure><figure id="6c9ab962-f988-41ed-8efe-352431432db4" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_packetaief61b1d0ff223901.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_packetaief61b1d0ff223901.png"/></a></figure><figure id="83c46ffd-450d-4a7e-9106-78497c0551f1" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_rabbitmqqueue_rabbitmq.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_rabbitmqqueue_rabbitmq.png"/></a></figure><figure id="eaf1ee5e-3430-4e2f-8da0-f2ba543f60cf" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_redisappsmith_redis.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_redisappsmith_redis.png"/></a></figure><figure id="5ed024ad-9fd9-4328-a0b0-e44214185fbb" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_redisweblate_cache.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_redisweblate_cache.png"/></a></figure><figure id="717c3225-0d76-424b-9a9a-68cbdf84287d" class="image"><a href="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_rubylogs_fluentd.png"><img style="width:1600px" src="Affluences%20198a80a016cb4b268c51d88909698727/anomalies_rubylogs_fluentd.png"/></a></figure></div></article></body></html>

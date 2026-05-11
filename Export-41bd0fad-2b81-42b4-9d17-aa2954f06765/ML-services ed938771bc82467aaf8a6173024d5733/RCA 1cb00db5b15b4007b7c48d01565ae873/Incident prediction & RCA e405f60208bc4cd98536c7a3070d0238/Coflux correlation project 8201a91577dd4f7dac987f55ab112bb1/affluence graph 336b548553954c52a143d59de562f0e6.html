@@ -1,0 +1,699 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>affluence graph</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="336b5485-5395-4c52-a143-d59de562f0e6" class="page sans"><header><h1 class="page-title">affluence graph</h1><p class="page-description"></p></header><div class="page-body"><p id="136435ef-9927-4fc2-9c27-1e215a0d0096" class="">graph stablity analysis:</p><p id="8984f021-7c9a-4459-93ba-a2d9b165c038" class="">(each graph run 300s, ex: 1625770800 is start time of the 300s)</p><figure id="07d06ed6-50ba-4a20-aa81-b6e699b1f835" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/diff_affluences_1625770800_vs_1625771100_all.png"><img style="width:1280px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/diff_affluences_1625770800_vs_1625771100_all.png"/></a></figure><figure id="f9c599db-4f1b-4da1-9b39-6285a5de9da0" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/diff_affluences_1625770800_vs_1625771100_threshold0.7.png"><img style="width:720px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/diff_affluences_1625770800_vs_1625771100_threshold0.7.png"/></a></figure><figure id="258e6de1-c9bb-4675-9fad-5d54fe19f37c" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/diff_affluences_1625771100_vs_1625771400_all.png"><img style="width:1280px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/diff_affluences_1625771100_vs_1625771400_all.png"/></a></figure><figure id="b38eca7b-cd54-4b54-a6bd-6d9af71c0a28" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/diff_affluences_1625771100_vs_1625771400_threshold0.7.png"><img style="width:1280px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/diff_affluences_1625771100_vs_1625771400_threshold0.7.png"/></a></figure><p id="fb2fd977-6dc8-470e-91f2-62c9fb3587b8" class="">for all metric absolute correlation which is <code>&gt;0.7</code> , 33%-56% metrics correlation will change from <code>&gt;0.7</code> to <code>&lt;0.7</code></p><p id="efb0d9c6-3558-4aa5-974d-7515944caba3" class="">and the bigger  threshold is, the more percentage of metrics correlation will change from <code>&gt;threshold</code> to <code>&lt;threshold</code></p><p id="8ec91080-0b00-4b26-bd68-33aedb49a7a5" class=""><strong>next step: </strong></p><ol type="1" id="a83a7482-fa4a-4e17-a65e-3bd619ee22aa" class="numbered-list" start="1"><li>analyse from raw metrics why the some metric paris correlation changes</li></ol><p id="3b72f0dd-ea9c-4f8f-a104-3c245bada37b" class="">(venv) dev1s-MBP:coflux dengke$ cat results/coflux_measures_affluence_all_1625771400.jsonl |grep &quot;node750839d8124c6df8:no_subject|docker.memory|docker#memory#usage#pct##javaappsmith_appsmith-internal-server:no_subject|docker.memory|docker#memory#rss#pct&quot;
+{&quot;node750839d8124c6df8:no_subject|docker.memory|docker#memory#usage#pct##javaappsmith_appsmith-internal-server:no_subject|docker.memory|docker#memory#rss#pct&quot;: {&quot;ma&quot;: [-0.7584492133625895, 5772], &quot;avg&quot;: [0.5364092999858009, 5769], &quot;median&quot;: [-0.739813486960351, 5772], &quot;least_sqr&quot;: [-0.7581879854817238, 5772]}}</p><p id="9b4d8977-6a92-486f-936b-431da65adc65" class="">
+(venv) dev1s-MBP:coflux dengke$ cat results/coflux_measures_affluence_all_1625771100.jsonl |grep &quot;node750839d8124c6df8:no_subject|docker.memory|docker#memory#usage#pct##javaappsmith_appsmith-internal-server:no_subject|docker.memory|docker#memory#rss#pct&quot;
+{&quot;node750839d8124c6df8:no_subject|docker.memory|docker#memory#usage#pct##javaappsmith_appsmith-internal-server:no_subject|docker.memory|docker#memory#rss#pct&quot;: {&quot;ma&quot;: [0.7679466746926212, 1497], &quot;avg&quot;: [0.6130889315000057, 1494], &quot;median&quot;: [-0.7541834749544803, 1498], &quot;least_sqr&quot;: [0.7487962305456678, 1497]}}</p><p id="9eae7588-a7c2-42fc-8407-9959e88d7412" class="">
+</p><p id="3c749a4e-df8f-4845-b6bf-481ad57b9db7" class=""> 2.  analyse the stable metrics correlation , PCA pair of metrics</p><p id="1f39c525-5bde-4f07-abce-c29fb1acb823" class="">
+</p><p id="cb960871-c480-4d33-b651-867840dfa73c" class="">3. increase the duration to hours/interval</p><p id="e73ff7bd-10c3-4632-a558-776d01ab5211" class="">currently use 5min is not good, for example:</p><p id="0116fffd-d2ca-44ed-97a7-3a94afe9a523" class="">for <code>node750839d8124c6df8:no_subject|docker.memory|docker#memory#usage#pct</code> and </p><p id="8572adf4-7509-4200-9bf4-c7e696b00f5f" class=""><code>javaappsmith_appsmith-internal-server:no_subject|docker.memory|docker#memory#rss#pct</code></p><p id="e05101e3-37f7-4c20-acc9-19ee2432c653" class="">median correlation is -0.7398 and -0.7541 for two 5 mins, but from chart below((<a href="http://localhost:3000/goto/lPIHoymnz?orgId=1">http://localhost:3000/goto/lPIHoymnz?orgId=1</a>)), we can see from </p><p id="00a7320f-7732-4245-a6a3-19a1773b54d6" class="">19:05 to 19:15,</p><figure id="d2f1ae04-b26b-4382-b383-cf461bff9610" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-15_at_11.30.39.png"><img style="width:3302px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-15_at_11.30.39.png"/></a></figure><p id="19ae8a1a-b5c3-4a39-b225-d7aa10482b40" class="">there is some kind of correlation between two metrics,</p><p id="f8ea033e-6f05-42c9-888f-d137720cb44b" class="">but from long term, the two metrics don&#x27;t have much correlation relation, </p><p id="30b0b030-3d7c-482e-8916-b3965554f129" class="">
+</p><figure id="395e6bae-3760-4a32-a344-bec73138bb26" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-15_at_11.12.29.png"><img style="width:3302px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-15_at_11.12.29.png"/></a></figure><p id="9420c134-756f-4e99-af94-412863a747d6" class="">
+</p><p id="879e313c-0c1b-4067-9a84-40adcf7ac6c1" class="">so we need to increase duration to see the real correlation</p><p id="f1d1c799-67be-4a66-9172-3ff9ef000b4a" class="">
+</p><p id="8345d403-074e-48e7-81da-a91006479cf6" class="">After using 48h as duration:</p><p id="3bded1d8-4aa1-422c-8f3f-905168676093" class="">{&#x27;node750839d8124c6df8:no_subject|docker.memory|docker#memory#rss#pct##node750839d8124c6df8:no_subject|docker.memory|docker#memory#usage#pct&#x27;: {&#x27;ma&#x27;: [0.999958038271424, 0], &#x27;avg&#x27;: [0.9999788443505274, 0], &#x27;median&#x27;: [0.9999761759729188, 0], &#x27;least_sqr&#x27;: [0.9999585423790676, 0]}}</p><figure id="e05da0a8-1117-4fff-ac3f-7efe6c589bed" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-15_at_14.41.28.png"><img style="width:3302px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-15_at_14.41.28.png"/></a></figure><p id="0620b9d0-740a-4d8c-9614-e2d8f4442153" class="">
+</p><p id="70e722a0-ed0a-4567-bd89-40e07aa02dba" class="">which reflect the correlation very well between the two metrics</p><p id="2bbc59ae-029d-499e-8242-3a19f7b83c15" class="">
+</p><p id="b56c242c-181b-414c-b020-ef9e0becee68" class="">some other example:</p><p id="91b8c1c7-123f-413a-b3d9-5a9d160aabc0" class="">{&#x27;node750839d8124c6df8:no_subject|docker.memory|docker#memory#rss#pct##nginxappsmith_appsmith-nginx:no_subject|docker.memory|docker#memory#rss#pct&#x27;: {&#x27;ma&#x27;: [0.9438118053242512, 723], &#x27;avg&#x27;: [0.7616020395544214, 723], &#x27;median&#x27;: [0.6604951322579564, 723], &#x27;least_sqr&#x27;: [0.7885183739741155, 723]}}</p><figure id="d69f35ef-9dcd-4b8b-930b-5dfaf70a3d47" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/original.png"><img style="width:1280px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/original.png"/></a></figure><figure id="6171f7e4-b653-4d95-9407-33050bfda4a7" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/trans.png"><img style="width:1280px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/trans.png"/></a></figure><p id="162d7dbf-288e-4028-8fcd-23423cc3b5f4" class="">so here maybe need adjust the z-score algo</p><p id="5de29ea5-eb7a-476c-a3e7-640c03c9d32c" class="">After filtering by 0.97 for all model, we can see the correlated are basically very similar metric of same component, but exceptions are following:</p><p id="eb226857-2ed5-47e3-b83f-e5a01365be87" class="">{&#x27;koios_koios-api:no_subject|docker.network|docker#network#out#bytes##dockerbd77184213c22822:no_subject|docker.network|docker#network#out#packets&#x27;: {&#x27;ma&#x27;: [0.9838925913981219, 48], &#x27;avg&#x27;: [0.9934281717468719, 48], &#x27;median&#x27;: [0.9828332525048018, 48], &#x27;least_sqr&#x27;: [0.9832735876596904, 48]}}</p><p id="6f50e7c7-d774-4caa-bc8c-c9aff7269291" class=""><a href="http://localhost:3000/goto/6iyqNUm7z?orgId=1">http://localhost:3000/goto/6iyqNUm7z?orgId=1</a></p><p id="0d2be6ff-fd75-4035-9d0a-6da27504515a" class="">{&#x27;koios_koios-api:no_subject|docker.network|docker#network#out#bytes##nodedisplay_front:no_subject|docker.network|docker#network#out#bytes&#x27;: {&#x27;ma&#x27;: [0.9999961340848348, -1364], &#x27;avg&#x27;: [0.9999872521044142, -1364], &#x27;median&#x27;: [0.9999944984468954, -1364], &#x27;least_sqr&#x27;: [0.9999919847577735, -1364]}}</p><p id="d988fc4a-130a-4a05-8b22-2607aa6facca" class="">{&#x27;koios_koios-api:no_subject|docker.network|docker#network#out#bytes##nodedisplay_front:no_subject|docker.network|docker#network#out#packets&#x27;: {&#x27;ma&#x27;: [0.9999961340848348, -1364], &#x27;avg&#x27;: [0.9999872521044142, -1364], &#x27;median&#x27;: [0.9999944984468954, -1364], &#x27;least_sqr&#x27;: [0.9999919847577735, -1364]}}</p><p id="d0c9da62-d7dc-4f0a-b37f-99622a831ced" class="">{&#x27;koios_koios-api:no_subject|docker.network|docker#network#out#packets##dockerbd77184213c22822:no_subject|docker.network|docker#network#out#packets&#x27;: {&#x27;ma&#x27;: [0.9838925410002175, 48], &#x27;avg&#x27;: [0.9934102337388023, 48], &#x27;median&#x27;: [0.9828332525048018, 48], &#x27;least_sqr&#x27;: [0.9832714451349909, 48]}}</p><p id="d95798d9-5262-4c02-ade8-fd8dc74afac3" class="">{&#x27;koios_koios-api:no_subject|docker.network|docker#network#out#packets##nodedisplay_front:no_subject|docker.network|docker#network#out#bytes&#x27;: {&#x27;ma&#x27;: [0.9999961323119101, -1364], &#x27;avg&#x27;: [0.9999877414055568, -1364], &#x27;median&#x27;: [0.9999944984468954, -1364], &#x27;least_sqr&#x27;: [0.9999934647629439, -1364]}}</p><p id="4a3023c1-abf3-4af2-a648-425054f5dfe9" class="">{&#x27;koios_koios-api:no_subject|docker.network|docker#network#out#packets##nodedisplay_front:no_subject|docker.network|docker#network#out#packets&#x27;: {&#x27;ma&#x27;: [0.9999961323119101, -1364], &#x27;avg&#x27;: [0.9999877414055568, -1364], &#x27;median&#x27;: [0.9999944984468954, -1364], &#x27;least_sqr&#x27;: [0.999993464762944, -1364]}}</p><p id="e249b0a1-7fb9-41ed-98f3-0cc2a4da3a6e" class="">{&#x27;pythonpost-processing_post-processing-tasks:no_subject|docker.memory|docker#memory#rss#pct##pythonpost-processing_post-processing-tasks:no_subject|docker.memory|docker#memory#usage#pct&#x27;: {&#x27;ma&#x27;: [0.9999805666718998, 0], &#x27;avg&#x27;: [0.9997910357594468, 0], &#x27;median&#x27;: [0.9999736880620412, 0], &#x27;least_sqr&#x27;: [0.9999728346544158, 0]}}</p><p id="e800d41c-aa8e-4985-be37-c86cb2b907ba" class="">{&#x27;dockerbd77184213c22822:no_subject|docker.network|docker#network#out#packets##nodedisplay_front:no_subject|docker.network|docker#network#out#bytes&#x27;: {&#x27;ma&#x27;: [0.9838968085752879, -1412], &#x27;avg&#x27;: [0.9934270478665912, -1412], &#x27;median&#x27;: [0.9827991724874152, -1412], &#x27;least_sqr&#x27;: [0.9831986340112775, -1412]}}</p><p id="24f5b8cf-a0bc-4506-8a00-5efc04dc52ba" class="">
+</p><p id="cb312e1d-4902-4fd0-a4a0-ed7e694d0a77" class="">{&#x27;dockerbd77184213c22822:no_subject|docker.network|docker#network#out#packets##nodedisplay_front:no_subject|docker.network|docker#network#out#packets&#x27;: {&#x27;ma&#x27;: [0.9838968085752879, -1412], &#x27;avg&#x27;: [0.9934270478665912, -1412], &#x27;median&#x27;: [0.9827991724874152, -1412], &#x27;least_sqr&#x27;: [0.9831986340112775, -1412]}}</p><figure id="baf830b3-8eab-4e34-ba9b-49bbf158a3ed" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-15_at_18.48.12.png"><img style="width:3302px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-15_at_18.48.12.png"/></a></figure><p id="fee7f4e4-047e-4d3f-ba8a-423fdba7a7dc" class="">this is a bit exception, highly correlation value, but from chart, there is one spike</p><p id="2c01b991-2d95-4cad-be00-76bd9b21bfd8" class="">
+</p><p id="b084aff2-70da-486c-ba14-2b3084809dc6" class="">{&#x27;pythonkoios_koios-worker:no_subject|docker.memory|docker#memory#rss#pct##pythonkoios_koios-tasks:no_subject|docker.memory|docker#memory#rss#pct&#x27;: {&#x27;ma&#x27;: [0.9688367087449262, 0], &#x27;avg&#x27;: [0.9802373944458942, -1], &#x27;median&#x27;: [0.9910753021050038, 0], &#x27;least_sqr&#x27;: [0.9899038736248446, 0]}}</p><figure id="f23f037c-9c84-46bd-b338-eee61aea358c" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-16_at_11.57.00.png"><img style="width:3302px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-16_at_11.57.00.png"/></a></figure><p id="16a71d2b-533b-441c-aca4-ae091d609365" class="">so seems this is correlated, so threshold can be 0.968</p><p id="33286989-f975-4a75-8bfd-ec6148b4d15b" class="">
+</p><p id="61953fb3-b84d-4b10-b295-e9b5116a4c40" class="">{&#x27;rubylogs_fluentd:no_subject|docker.network|docker#network#out#bytes##rubylogs_fluentd:no_subject|docker.network|docker#network#out#packets&#x27;: {&#x27;ma&#x27;: [0.9647656782039121, 0], &#x27;avg&#x27;: [0.9609476035707318, 0], &#x27;median&#x27;: [0.9698197091863815, 0], &#x27;least_sqr&#x27;: [0.9699348882792731, 0]}}</p><figure id="d04e6076-36ad-4f93-8dc3-8ddbbaa0d726" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-16_at_12.02.37.png"><img style="width:3302px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-16_at_12.02.37.png"/></a></figure><p id="b517ff3e-23e1-41ee-a47d-30a49143d514" class="">this should not be considered as correlated</p><p id="2008ca1d-3e0a-4b26-84e0-0b61748299b0" class="">
+</p><p id="5cd88408-7712-4376-b7d9-8f03a2b09afb" class="">{&#x27;nodeapp_app-web:no_subject|docker.network|docker#network#out#bytes##nodeapp_app-web:no_subject|docker.network|docker#network#out#packets&#x27;: {&#x27;ma&#x27;: [0.9654297334906664, 0], &#x27;avg&#x27;: [0.9960371548885271, 0], &#x27;median&#x27;: [0.9885468157254684, 0], &#x27;least_sqr&#x27;: [0.9878121095090003, 0]}}</p><figure id="391dc130-04aa-4dd1-84b1-f2913ea4635a" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-16_at_12.05.53.png"><img style="width:3302px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-16_at_12.05.53.png"/></a></figure><p id="078b132b-4466-48c9-9419-a549f98e44c6" class="">this should not be considered as correlated</p><p id="f6361ffa-b0d0-4687-a146-8c90691f677e" class="">analyse reason:</p><p id="e95afdd1-d346-4550-bfe9-7fd3df17dc59" class="">before z-score:</p><figure id="5592f1a3-7f99-4acc-afd4-2287272e8811" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/before_zscore.png"><img style="width:1280px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/before_zscore.png"/></a></figure><p id="a55e2483-68f6-4114-9164-8b67a6f4539b" class="">after apply z-score:</p><figure id="0c7200c6-d976-4875-abe9-0e8e331a4bec" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/after_zscore.png"><img style="width:1280px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/after_zscore.png"/></a></figure><p id="0f6ff121-d138-4c4c-af18-1d1f11af7fb2" class="">
+</p><p id="cb09d9c1-f9d0-4e93-9022-ea6e63bcfcd8" class="">{&#x27;apachegaia_scripts:no_subject|docker.memory|docker#memory#rss#pct##pythonweblate_weblate:no_subject|docker.memory|docker#memory#rss#pct&#x27;: {&#x27;ma&#x27;: [0.9995552796423359, -40], &#x27;avg&#x27;: [0.9765116624128701, -38], &#x27;median&#x27;: [0.9666505569871866, -40], &#x27;least_sqr&#x27;: [0.9735654447019009, -40]}}</p><figure id="4afdb4bc-04c9-4b48-bb3d-7a38c5dac17c" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-16_at_13.23.33.png"><img style="width:3302px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/Screenshot_2021-07-16_at_13.23.33.png"/></a></figure><p id="40ad0bfa-2c5f-4149-98e0-6aeef164d52e" class="">this should not be considered as correlated</p><p id="8e06addf-a9bd-4a7b-8d9d-8e8c71cf609c" class="">
+</p><p id="503eafa8-2f13-4676-b756-6fe509046bc2" class="">nginxappsmith_appsmith-nginx:no_subject|docker.memory|docker#memory#usage#pct vs nodezoho_zoho-service:no_subject|docker.memory|docker#memory#rss#pct: 0.8706433607306918</p><figure id="69e642cc-9db4-4cf9-95e2-a0b7d87e47c6" class="image"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/Figure_1.png"><img style="width:1280px" src="affluence%20graph%20336b548553954c52a143d59de562f0e6/Figure_1.png"/></a></figure><p id="1931e105-c23c-4689-9b89-a0a2a20a5dc4" class="">
+</p><p id="bba98c2e-0760-46b9-bde7-63f33a628462" class="">so from above chart, i think threshold can be fixed at around (0.967 , 0.968)</p><p id="18481024-0200-4dc1-8669-eb5ebedc6ac2" class="">list of highly correlated metric pair(threshold 0.97)</p><figure id="e091eadf-c3aa-4fcd-93dd-70a061e47390" class="link-to-page"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/test1_48h_start_from_08july_19%2000%20e091eadfc3aa4fcd93dd70a061e47390.html">test1_48h_start_from_08july_19:00</a></figure><figure id="7f0a79c9-ac61-4b25-937c-af06fd07f07d" class="link-to-page"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/test2_48h_start_from_10July_19%2000%207f0a79c9ac614b25937caf06fd07f07d.html">test2_48h_start_from_10July_19:00</a></figure><p id="ac1e7149-d028-4fd4-8b65-a0544e0992b6" class="">
+</p><p id="f26634a1-64ee-44f5-abde-ac3bcaa0d04b" class="">
+</p><figure id="ccd1d9fe-572c-4d7e-ab6c-068b0c6c22a5" class="link-to-page"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/top%2030%20metric%20pair%20ccd1d9fe572c4d7eab6c068b0c6c22a5.html">top 30 metric pair</a></figure><figure id="bc834618-1f12-4e02-b9f2-79028bc9889c" class="link-to-page"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/top30%20intercomponent%20metric%20pair%20bc8346181f124e02b9f279028bc9889c.html">top30 intercomponent metric pair</a></figure><figure id="2ccb6ef8-fb15-4779-9d34-65e7131481ac" class="link-to-page"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/top%2030%20inter%20component%20metric%20charts%20on%20raw%20data,%20%202ccb6ef8fb1547799d3465e7131481ac.html">top 30 inter component metric charts on raw data, norm data and final flux graph</a></figure><figure id="c927d9b6-9b17-412b-bff5-3fcd6cda03c7" class="link-to-page"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/top30%20intermodule%20same%20component%20metric%20pair%20c927d9b69b17412bbff53fcd6cda03c7.html">top30 intermodule same component metric pair</a></figure><figure id="5ff4b80b-f3b7-46b8-adc2-ec9d26d89f27" class="link-to-page"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/intermodule%20of%20same%20component%20metric%20pair%205ff4b80bf3b746b8adc2ec9d26d89f27.html">intermodule of same component metric pair</a></figure><figure id="5929ccbc-7810-4887-8d89-7efa5db0dee9" class="link-to-page"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/raw%20flux%20value%20and%20correlation%205929ccbc781048878d897efa5db0dee9.html">raw flux value and correlation</a></figure><figure id="5c10925f-7e0f-4e02-803a-69e0851b68d8" class="link-to-page"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/metric%20correlation%20through%20multiple%20graphs%205c10925f7e0f4e02803a69e0851b68d8.html">metric correlation through multiple graphs</a></figure><figure id="3c9e0103-7272-476a-af6f-1dd3766c097d" class="link-to-page"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/graph%20for%20all%20time%203c9e01037272476aaf6f1dd3766c097d.html">graph for all time</a></figure><figure id="fd21a03e-d9dc-4f82-86d5-b052637fb31a" class="link-to-page"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/rabbitmq%20correlation%20fd21a03ed9dc4f8286d5b052637fb31a.html">rabbitmq correlation</a></figure><figure id="b53b2696-b6c6-42ee-9566-32475840a00f" class="link-to-page"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/cross-component%20correlation%20b53b2696b6c642ee956632475840a00f.html">cross-component correlation</a></figure><p id="d6e19181-ad65-4555-968c-f12a088941b0" class="">
+</p><figure id="a76e5d0f-4aec-4055-a418-aee18c428cb4"><div class="source"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/coflux_measures_affluence_all_1631484000_604800_correlation.jsonl">coflux_measures_affluence_all_1631484000_604800_correlation.jsonl</a></div></figure><p id="821784bf-b17e-49a3-b44d-b07d0210b873" class="">
+</p><figure id="11fcceb6-7548-4496-9162-7b275aa6cb64"><div class="source"><a href="affluence%20graph%20336b548553954c52a143d59de562f0e6/coflux_measures_affluence_threshold0.6_1631484000_604800_correlation.jsonl">coflux_measures_affluence_threshold0.6_1631484000_604800_correlation.jsonl</a></div></figure><p id="d54081af-3d36-41a0-a329-4954d6c0989d" class="">
+</p><p id="758a5f25-deba-4350-a6fc-039734889a98" class="">4. graph timeseries analysis using some library ?</p><p id="a8196762-937d-4820-9abc-d95806a4c0b2" class="">
+</p></div></article></body></html>

@@ -1,0 +1,788 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Create local cluster</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5c8889df-1b8a-4ba4-b156-ffe72d740667" class="page sans"><header><h1 class="page-title">Create local cluster</h1><p class="page-description"></p></header><div class="page-body"><h1 id="b22390aa-9ddd-4ffd-a724-cd98367adf3d" class="">Kubernetes cluster</h1><h2 id="8b51d34f-043d-4a49-9a2f-046eefbf67d7" class="">Install and Set Up kubectl on Linux</h2><p id="cf94f22f-6794-41b6-844e-9ee0776a255f" class="">
+</p><ol type="1" id="d5a377e5-e306-4efe-b125-8343fdc4841b" class="numbered-list" start="1"><li>Download the latest release with the command:<pre id="3529893b-7260-49b5-833c-2fe93e937214" class="code"><code>curl -LO &quot;https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl&quot;
+</code></pre><p id="ded08a57-f77b-4433-a53d-a449546f1b2e" class="">To download a specific version, replace the <code>$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)</code> portion of the command with the specific version.</p><p id="c8f0f0c9-8f23-436b-8e5c-5b9becda86a8" class="">For example, to download version v1.19.0 on Linux, type:</p><pre id="9e68236d-d8fe-44fa-b4e4-6fe254903440" class="code"><code>curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl
+</code></pre></li></ol><ol type="1" id="5af57800-f087-4203-b4a8-f46f94969cdb" class="numbered-list" start="2"><li>Make the kubectl binary executable.<pre id="36b917cf-9493-4110-ab75-d4f27e8f693b" class="code"><code>chmod +x ./kubectl
+</code></pre></li></ol><ol type="1" id="9a7982f9-2729-4826-ac61-6fda7574bdcf" class="numbered-list" start="3"><li>Move the binary in to your PATH.<pre id="6edd9d31-d206-44c0-a78f-b4242fccbfc4" class="code"><code>sudo mv ./kubectl /usr/local/bin/kubectl
+</code></pre></li></ol><ol type="1" id="e4be0f9f-3f96-4600-92d3-29dddf0d6a63" class="numbered-list" start="4"><li>Test to ensure the version you installed is up-to-date:<pre id="03f3f67f-604f-4f03-9f9b-0cd9a16ed62f" class="code"><code>kubectl version --client
+</code></pre></li></ol><p id="8366629b-643c-4356-899e-1a3ae31573e6" class="">
+</p><h2 id="d7a6faca-c386-4f32-b4c3-9ff10c46251c" class="">Create k3s cluster with k3d</h2><ol type="1" id="fffc8656-a5df-40d7-8315-fd89b1e86b4c" class="numbered-list" start="1"><li>Install docker and k3d:<p id="03a461d6-98ad-4d6a-8f33-6fc1c6d6780d" class=""><code>curl -s </code><code><a href="https://raw.githubusercontent.com/rancher/k3d/main/install.sh">https://raw.githubusercontent.com/rancher/k3d/main/install.sh</a></code><code> | bash</code></p></li></ol><ol type="1" id="228cd529-e64b-4b66-9f59-1f0f8c8935a4" class="numbered-list" start="2"><li>Run local registry:<p id="77678b2e-76f8-47d8-bdd7-781119faef49" class=""><code>sudo docker run -d --rm -p 5000:5000 --name registry registry:2</code></p><p id="3cc7351d-464d-4f30-a047-7136912d85a4" class="">
+</p></li></ol><ol type="1" id="adad554f-d0a6-4dc3-abb7-be452b3f03f3" class="numbered-list" start="3"><li>Add registry.local to hosts:<p id="8c8b15fb-b6c8-4bca-911e-4be54d097af0" class=""><code>echo &#x27;127.0.0.1 registry.local&#x27; | sudo tee -a /etc/hosts</code></p></li></ol><ol type="1" id="aab6f2cb-eaa1-4d09-a22b-55b807a7dc83" class="numbered-list" start="4"><li>Create cluster:<p id="10600df0-2f40-47ab-9794-9fd5a12eb352" class=""><code>sudo ./k3d.sh</code></p><p id="a7b6e5c5-e1dd-4afe-bec6-6599316d8525" class="">
+</p><p id="a0832f5d-c592-4e52-9903-146da0f8b638" class="">
+</p></li></ol><h2 id="8da4c575-a817-48d6-84b5-8c9a7410dad3" class="">Create Kafka</h2><p id="3f265e56-8533-475f-924e-d407cb853bfa" class="">From ./k8s run the following command:</p><p id="962fd6ef-868c-41a0-a961-e3a4576d33ed" class=""><code>kubectl apply -k base/kubernetes-kafka/</code></p><h2 id="cd9ed7d0-94e2-45c7-811b-d12e1429ef8c" class="">Create Argo</h2><p id="3e61752f-d3f9-44e5-b8f0-13709c0be154" class="">From ./k8s run the following command:</p><p id="ea250f12-ad62-4a36-accb-90e914154204" class=""><code>kubectl apply -k base/argo</code></p><h2 id="26aa123f-0669-41bc-906b-3f0a4e33cdb7" class="">Create Argo Events</h2><p id="393d9a34-dd3a-42fa-8dcd-79d9912bf9b9" class="">From ./k8s run the following command:</p><p id="f9477d8a-0671-4fab-b844-90db790dd6ca" class=""><code>kubectl apply -k base/argo-events/</code></p><h2 id="e6e634aa-345c-4110-a1b6-20c476147b56" class="">Deploy the EventBus</h2><p id="96648a46-8d25-4229-92fd-935a7c88b281" class="">From ./k8s run the following command:</p><p id="219183fb-0fc5-4cc2-9b2f-f712eb3f6032" class=""><code>kubectl apply -n argo-events -f </code><code><a href="https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml">https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml</a></code></p><h2 id="ea854a94-9cbc-41cc-8976-a93e633f5869" class="">Install skaffold</h2><p id="1a128d44-da2f-453b-9268-6d732f81306e" class="">Install go</p><p id="19edaa5f-b86a-402c-97a4-e331a3bd5111" class="">From route folder (outside <strong>k8s</strong> and <strong>code</strong>) run the following:</p><p id="b30e23c9-eeb2-4795-bea4-305b589a8f45" class="">
+</p><pre id="e5fdc93b-4d1e-42f2-ad2c-24b1baa497de" class="code"><code>git clone https://github.com/ysz/skaffold.git
+cd skaffold 
+make
+./out/skaffold version
+</code></pre><h3 id="c1997263-3f7b-4293-96df-6dac595502c6" class="">To run only MAD we have to</h3><ol type="1" id="1942b169-d313-4881-9962-a2ee083b1cab" class="numbered-list" start="1"><li>Comment all <code>torch</code> mentions in the MAD code (imports and code lines which use these package)</li></ol><ol type="1" id="b46fd196-c51c-4dbf-af30-d33a151e5531" class="numbered-list" start="2"><li>In the <code>code/k8s/kubernetes-kafka/kafka/10broker-config.yml</code> file we should change the following line <code>auto.create.topics.enable=true</code></li></ol><ol type="1" id="186bcacf-7492-4133-a68a-39d30fc182ec" class="numbered-list" start="3"><li>Change <code>code/skaffold.yaml</code> file being as follows:</li></ol><pre id="85a55800-d26c-498c-a29b-e1c43e6a07d8" class="code"><code>apiVersion: skaffold/v2beta1
+kind: Config
+build:
+  artifacts:
+#    - image: aggregatorservice
+#      context: .
+#      docker:
+#        dockerfile: aggregatorservice_Dockerfile
+#    - image: api
+#      context: .
+#      docker:
+#        dockerfile: api_Dockerfile
+#    - image: topologyservice
+#      context: .
+#      docker:
+#        dockerfile: topologyservice_Dockerfile
+#    - image: ingestservice
+#      context: .
+#      docker:
+#        dockerfile: ingestservice_Dockerfile
+#    - image: networkservice
+#      context: .
+#      docker:
+#        dockerfile: networkservice_Dockerfile
+#    - image: processservice
+#      context: .
+#      docker:
+#        dockerfile: processservice_Dockerfile
+#    - image: technoservice
+#      context: .
+#      docker:
+#        dockerfile: technoservice_Dockerfile
+#    - image: activator
+#      context: .
+#      docker:
+#        dockerfile: activator_Dockerfile
+#    - image: accounts
+#      context: .
+#      docker:
+#        dockerfile: accounts_Dockerfile
+#    - image: frontend
+#      context: .
+#      docker:
+#        dockerfile: frontend_Dockerfile
+    - image: mad_worker
+      context: .
+      docker:
+        dockerfile: mad_Dockerfile
+#    - image: lad_worker
+#      context: .
+#      docker:
+#        dockerfile: lad_Dockerfile
+profiles:
+  - name: dev
+    deploy:
+      kustomize:
+        paths: [&quot;k8s/base&quot;]
+      kubeContext: k3d-k3s-default
+</code></pre><p id="addbb533-1839-47d0-830a-53d80a37fd42" class="">4. <code>code/k8s/base/kustomization.yaml</code> file should look like this:</p><p id="efb1bf5d-89cc-46de-8313-a8eac779c5b4" class="">
+</p><pre id="29b7a7de-a52d-41a2-bf57-d40dcaea99cf" class="code"><code>generatorOptions:
+  disableNameSuffixHash: true
+#configMapGenerator:
+#  - name: api-config
+#    literals:
+#      - PORT=8080
+#      - HOST=0.0.0.0
+#      - ACCOUNTS_URL=https://accounts.packetai.co
+#      - AWS_BUCKET_NAME=custom-data-source-uploads
+#      - ELASTICSEARCH_URL=https://kb.packetai.co:9200
+#      - ACCOUNTS_REDIRECT_URI=https://api.packetai.co/auth/packetai/callback
+#      - ACCOUNTS_SCOPE=openid profile email address phone
+#      - ACCOUNTS_RESPONSE_TYPE=code
+#secretGenerator:
+#  - name: kafka-secret
+#    files:
+#      - consumer.server.cer.pem
+#      - consumer.client.key.pem
+#      - consumer.client.cer.pem
+resources:
+#  - api-deployment.yaml
+#  - api-svc.yaml
+#  - aggregatorservice-deployment.yaml
+#  - topologyservice-deployment.yaml
+#  - activator-deployment.yaml
+#  - networkservice-deployment.yaml
+#  - processservice-deployment.yaml
+#  - technoservice-deployment.yaml
+#  - kafka-configmap.yaml
+#  - accounts-deployment.yaml
+#  - ingestservice-deployment.yaml
+  - event_source-deployment.yaml
+  - sensor-deployment.yaml
+#  - lad-event_source-deployment.yaml
+#  - lad-sensor-deployment.yaml
+</code></pre><h2 id="281f89ca-0e11-49d2-a2c2-65a3ef8a95b0" class="">Install Kustomize</h2><p id="e05a6c1d-f76a-4f85-ab11-6a55777098e7" class="">
+</p><pre id="aa22ec87-c1dd-43e8-b863-f7d874b76238" class="code"><code>curl -s &quot;https://raw.githubusercontent.com/\
+kubernetes-sigs/kustomize/master/hack/install_kustomize.sh&quot;  | bash</code></pre><h2 id="2ad2fa98-da9e-4cdb-b334-a600ba43651a" class="">Run skaffold command</h2><p id="c65388f9-7603-4cb0-8706-79b7a0600451" class="">From <code>/code</code> folder run:</p><p id="0c7bd326-7a7e-4165-9295-a3f93164b953" class=""><code>../skaffold/out/skaffold --profile=dev dev --default-repo registry.local:5000</code></p><p id="23246cb6-2bc9-4b13-8844-0e4629c5fed5" class="">
+</p><h2 id="2bd83ff9-5261-4a09-9376-d68d01c808a2" class="">Create metic-activator</h2><p id="4fdf2c01-194a-46fd-82e5-94104abcc560" class="">From folder run:</p><p id="0d132cfa-4e6b-4892-8cce-0546c474ce7b" class=""><code>python kafka_test.py --create-topic metric-activator</code></p><p id="0862136a-7da3-48f5-b8b2-17ec81a7a3bc" class="">Create topic test and put it to metric-activator as message:</p><p id="eba1d811-b37c-4547-bd8c-6a8dc7a42f32" class=""><code>python kafka_test.py --create-topic test --put-to-activator True</code></p><p id="0a2ee164-7afa-41b6-ab26-795ec07ca058" class="">Once a message is published, an argo workflow will be triggered. Run argo list to find the workflow.</p><h2 id="ca917b0b-7b27-48e4-8593-5bf43b71c8e6" class="">Check</h2><p id="d9b41890-f735-44c0-8617-b9a735a92c5a" class=""><code>sudo kubectl get pod -n argo-events</code></p></div></article></body></html>

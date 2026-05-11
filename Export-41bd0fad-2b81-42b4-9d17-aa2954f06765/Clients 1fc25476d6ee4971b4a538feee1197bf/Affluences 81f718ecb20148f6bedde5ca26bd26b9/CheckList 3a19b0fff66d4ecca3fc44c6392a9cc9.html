@@ -1,0 +1,856 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CheckList </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3a19b0ff-f66d-4ecc-a3fc-44c6392a9cc9" class="page sans"><header><h1 class="page-title">CheckList </h1><p class="page-description"></p></header><div class="page-body"><p id="62c5d1cf-b0aa-42fc-bf62-c90eff109b01" class="">
+</p><div id="fa3a3a13-b072-48a7-a786-1d7445804bf3" class="collection-content"><h4 class="collection-title">Check List/Expected time</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Importance</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Topic</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Potential/Identified Risks</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Mitigation Plan</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Advantages</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Owner</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesDate"><path d="M3.29688 14.4561H12.7031C14.1797 14.4561 14.9453 13.6904 14.9453 12.2344V3.91504C14.9453 2.45215 14.1797 1.69336 12.7031 1.69336H3.29688C1.82031 1.69336 1.05469 2.45215 1.05469 3.91504V12.2344C1.05469 13.6973 1.82031 14.4561 3.29688 14.4561ZM3.27637 13.1162C2.70898 13.1162 2.39453 12.8154 2.39453 12.2207V5.9043C2.39453 5.30273 2.70898 5.00879 3.27637 5.00879H12.71C13.2842 5.00879 13.6055 5.30273 13.6055 5.9043V12.2207C13.6055 12.8154 13.2842 13.1162 12.71 13.1162H3.27637ZM6.68066 7.38086H7.08398C7.33008 7.38086 7.41211 7.30566 7.41211 7.05957V6.66309C7.41211 6.41699 7.33008 6.3418 7.08398 6.3418H6.68066C6.44141 6.3418 6.35938 6.41699 6.35938 6.66309V7.05957C6.35938 7.30566 6.44141 7.38086 6.68066 7.38086ZM8.92285 7.38086H9.31934C9.56543 7.38086 9.64746 7.30566 9.64746 7.05957V6.66309C9.64746 6.41699 9.56543 6.3418 9.31934 6.3418H8.92285C8.67676 6.3418 8.59473 6.41699 8.59473 6.66309V7.05957C8.59473 7.30566 8.67676 7.38086 8.92285 7.38086ZM11.1582 7.38086H11.5547C11.8008 7.38086 11.8828 7.30566 11.8828 7.05957V6.66309C11.8828 6.41699 11.8008 6.3418 11.5547 6.3418H11.1582C10.9121 6.3418 10.8301 6.41699 10.8301 6.66309V7.05957C10.8301 7.30566 10.9121 7.38086 11.1582 7.38086ZM4.44531 9.58203H4.84863C5.09473 9.58203 5.17676 9.50684 5.17676 9.26074V8.86426C5.17676 8.61816 5.09473 8.54297 4.84863 8.54297H4.44531C4.20605 8.54297 4.12402 8.61816 4.12402 8.86426V9.26074C4.12402 9.50684 4.20605 9.58203 4.44531 9.58203ZM6.68066 9.58203H7.08398C7.33008 9.58203 7.41211 9.50684 7.41211 9.26074V8.86426C7.41211 8.61816 7.33008 8.54297 7.08398 8.54297H6.68066C6.44141 8.54297 6.35938 8.61816 6.35938 8.86426V9.26074C6.35938 9.50684 6.44141 9.58203 6.68066 9.58203ZM8.92285 9.58203H9.31934C9.56543 9.58203 9.64746 9.50684 9.64746 9.26074V8.86426C9.64746 8.61816 9.56543 8.54297 9.31934 8.54297H8.92285C8.67676 8.54297 8.59473 8.61816 8.59473 8.86426V9.26074C8.59473 9.50684 8.67676 9.58203 8.92285 9.58203ZM11.1582 9.58203H11.5547C11.8008 9.58203 11.8828 9.50684 11.8828 9.26074V8.86426C11.8828 8.61816 11.8008 8.54297 11.5547 8.54297H11.1582C10.9121 8.54297 10.8301 8.61816 10.8301 8.86426V9.26074C10.8301 9.50684 10.9121 9.58203 11.1582 9.58203ZM4.44531 11.7832H4.84863C5.09473 11.7832 5.17676 11.708 5.17676 11.4619V11.0654C5.17676 10.8193 5.09473 10.7441 4.84863 10.7441H4.44531C4.20605 10.7441 4.12402 10.8193 4.12402 11.0654V11.4619C4.12402 11.708 4.20605 11.7832 4.44531 11.7832ZM6.68066 11.7832H7.08398C7.33008 11.7832 7.41211 11.708 7.41211 11.4619V11.0654C7.41211 10.8193 7.33008 10.7441 7.08398 10.7441H6.68066C6.44141 10.7441 6.35938 10.8193 6.35938 11.0654V11.4619C6.35938 11.708 6.44141 11.7832 6.68066 11.7832ZM8.92285 11.7832H9.31934C9.56543 11.7832 9.64746 11.708 9.64746 11.4619V11.0654C9.64746 10.8193 9.56543 10.7441 9.31934 10.7441H8.92285C8.67676 10.7441 8.59473 10.8193 8.59473 11.0654V11.4619C8.59473 11.708 8.67676 11.7832 8.92285 11.7832Z"></path></svg></span>Target Date</th></tr></thead><tbody><tr id="3bd52712-8b3d-4ce1-9b6f-25026baca40d"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Must%20have%203bd527128b3d4ce19b6f25026baca40d.html">Must have</a></td><td class="cell-[:XQ"><mark class="highlight-teal"><strong>Thresholding</strong></mark><mark class="highlight-teal">: [blackbox-exporter] tls certificate expiring in less than 30 days (warning)</mark></td><td class="cell-XvX`">Can do now</td><td class="cell-~e@i">None as of now</td><td class="cell-^^xZ"></td><td class="cell-OGlB"></td><td class="cell-UKsO"><time>@April 1, 2022</time></td></tr><tr id="2bb89fef-f57f-4d3a-ba6b-a39c6bd70b45"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Must%20have%202bb89feff57f4d3aba6ba39c6bd70b45.html">Must have</a></td><td class="cell-[:XQ"><mark class="highlight-teal"><strong>Thresholding</strong></mark><mark class="highlight-teal">: [mysqld-exporter] mysql node flagged as IN RECOVERY during the last 30s (alert)</mark></td><td class="cell-XvX`">Can do now</td><td class="cell-~e@i">None as of now</td><td class="cell-^^xZ"></td><td class="cell-OGlB"></td><td class="cell-UKsO"><time>@April 1, 2022</time></td></tr><tr id="b2e1be2c-b733-42fa-8c86-4f6108749d64"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Must%20have%20b2e1be2cb73342fa8c864f6108749d64.html">Must have</a></td><td class="cell-[:XQ"><mark class="highlight-teal"><strong>Throttling alerts </strong></mark></td><td class="cell-XvX`">If we set it for 24h - how do the aggregated alerts work i.e threshold being surpassed on different component ? </td><td class="cell-~e@i">Can&#x27;t do exactly as prom but present it with advantages - Rama to note a couple of pros </td><td class="cell-^^xZ">We can have a history of all the alerts. We could easily lookup to see when the alert was triggered</td><td class="cell-OGlB"><span class="user">@Rama Rao Ganji</span> </td><td class="cell-UKsO"><time>@July 2, 2021</time></td></tr><tr id="742fc6cc-96fe-4838-a4ff-86d0b820d573"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Must%20have%20742fc6cc96fe4838a4ff86d0b820d573.html">Must have</a></td><td class="cell-[:XQ"><mark class="highlight-teal">Generic</mark><mark class="highlight-teal"><strong> alerts</strong></mark></td><td class="cell-XvX`"></td><td class="cell-~e@i">None as of now</td><td class="cell-^^xZ"></td><td class="cell-OGlB"><span class="user">@Marin Radman</span> </td><td class="cell-UKsO"><time>@July 2, 2021</time></td></tr><tr id="782e87f1-8fa7-47db-a006-1148c38a1d45"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Must%20have%20782e87f18fa747dba0061148c38a1d45.html">Must have</a></td><td class="cell-[:XQ"><mark class="highlight-teal"><strong>Thresholding</strong></mark><mark class="highlight-teal">: [node-exporter] hdd full in less than 6 hours (linear projection) (warning)</mark></td><td class="cell-XvX`"></td><td class="cell-~e@i">None as of now</td><td class="cell-^^xZ"></td><td class="cell-OGlB">Waseem and <span class="user">@Marin Radman</span> </td><td class="cell-UKsO"><time>@July 2, 2021</time></td></tr><tr id="f257d013-228e-4f24-ab41-5cc9827c1d52"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Must%20have%20f257d013228e4f24ab415cc9827c1d52.html">Must have</a></td><td class="cell-[:XQ"><mark class="highlight-teal"><strong>Thresholding</strong></mark><mark class="highlight-teal">: Alerts: [rabbitmq] connections&gt; 1000 for 60s (warning)</mark></td><td class="cell-XvX`">needs to verify with Waseem</td><td class="cell-~e@i">None as of now</td><td class="cell-^^xZ"></td><td class="cell-OGlB">Waseem and <span class="user">@Marin Radman</span> </td><td class="cell-UKsO"><time>@July 2, 2021</time></td></tr><tr id="0b145939-748e-4e31-8416-ae45f874f767"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Must%20have%200b145939748e4e318416ae45f874f767.html">Must have</a></td><td class="cell-[:XQ"><mark class="highlight-teal"><strong>Business Metrics</strong></mark><mark class="highlight-teal">: Collect prometheus Metrics</mark></td><td class="cell-XvX`">Currently we are not running our agent in docker, so not sure if we could reach the docker network from host network. It&#x27;s also not possible to collect blackbox-exporter metrics with prometheus metrics</td><td class="cell-~e@i">We need to run our agent as docker inside swarm cluster</td><td class="cell-^^xZ"></td><td class="cell-OGlB"><span class="user">@Rama Rao Ganji</span> and <span class="user">@florent marmol</span> </td><td class="cell-UKsO"><time>@July 9, 2021</time></td></tr><tr id="cd3a092e-2014-44c4-bfc2-6a3ec6fa3043"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Must%20have%20cd3a092e201444c4bfc26a3ec6fa3043.html">Must have</a></td><td class="cell-[:XQ"><mark class="highlight-yellow"><strong>Business Metrics</strong></mark><mark class="highlight-yellow">: Create equivalent dashboards for all metrics</mark></td><td class="cell-XvX`">It may be not possible to find the equivalent dashboards to grafana dashboards. We need to ask Affluences about their existing grafana dashboards</td><td class="cell-~e@i">Should we provide prometheus as a service using cortex or thanos ? If that&#x27;s the case what should we do with the Machine Learning ? How do we map components with logs and metrics.</td><td class="cell-^^xZ"></td><td class="cell-OGlB">Waseem and <span class="user">@Hardik Thakkar</span> </td><td class="cell-UKsO"><time>@August 2, 2021</time></td></tr><tr id="643f0640-eefb-411e-af3b-3350051b66e1"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Must%20Have%20643f0640eefb411eaf3b3350051b66e1.html">Must Have </a></td><td class="cell-[:XQ"><mark class="highlight-teal">Log Alerts</mark></td><td class="cell-XvX`">Count of level = error &gt; 500 in the past 5 minutes for all apps. Will this be multiple alerts or can be grouped to one ? </td><td class="cell-~e@i">What is the Datadog query ?
+WE should show him the equivalent query in Elasticsearch.</td><td class="cell-^^xZ"></td><td class="cell-OGlB"></td><td class="cell-UKsO"></td></tr><tr id="7e314e38-325a-46b1-a9be-d64634084b05"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Must%20have%207e314e38325a46b1a9bed64634084b05.html">Must have</a></td><td class="cell-[:XQ"><mark class="highlight-red"><strong>Business Metrics</strong></mark><mark class="highlight-red">: Integrate dashboards into Minima/PacketAI</mark></td><td class="cell-XvX`">How to map these dashboards to each component ? Is it possible to reuse these dashboards ?</td><td class="cell-~e@i">No Plan</td><td class="cell-^^xZ"></td><td class="cell-OGlB"><span class="user">@Marin Radman</span> </td><td class="cell-UKsO"><time>@August 4, 2021</time></td></tr><tr id="ae46ffa6-59cf-467b-a45a-d08f79635ec4"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Must%20Have%20ae46ffa659cf467ba45ad08f79635ec4.html">Must Have</a></td><td class="cell-[:XQ"><mark class="highlight-red">Send ML alerts (which algos on which components?) </mark></td><td class="cell-XvX`">Define what would be in the alert - content, tags (info, warning, error) - how do we decide on the tag, hyperlink and the corresponding flow for the user. The alert needs to be sent to gchat </td><td class="cell-~e@i"></td><td class="cell-^^xZ"></td><td class="cell-OGlB"><span class="user">@Marin Radman</span> </td><td class="cell-UKsO"><time>@July 13, 2021</time></td></tr><tr id="392bb4d9-7ad1-4036-9feb-5fb2682555a6"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Must%20Have%20392bb4d97ad140369feb5fb2682555a6.html">Must Have </a></td><td class="cell-[:XQ"><mark class="highlight-teal">Test all alerts for 1-2 weeks and check content for both TM and ML alerts </mark></td><td class="cell-XvX`">Be sure it works well on our slack. Then activate on gchat</td><td class="cell-~e@i"></td><td class="cell-^^xZ"></td><td class="cell-OGlB"></td><td class="cell-UKsO"></td></tr><tr id="9fbe4cd2-f9c6-441e-89f9-978fe30506ae"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Other%209fbe4cd2f9c6441e89f9978fe30506ae.html">Other</a></td><td class="cell-[:XQ"><mark class="highlight-red"><strong>Agent</strong></mark><mark class="highlight-red">: merge non-root installation of agent to dev environment on gitlab repo</mark></td><td class="cell-XvX`">How to update the existing installations ?</td><td class="cell-~e@i">None</td><td class="cell-^^xZ"></td><td class="cell-OGlB"><span class="user">@Rama Rao Ganji</span> </td><td class="cell-UKsO"><time>@January 1, 2022</time></td></tr><tr id="0f19611f-91b9-41a2-a2b7-74d98ef2b137"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Untitled%200f19611f91b941a2a2b774d98ef2b137.html">Untitled</a></td><td class="cell-[:XQ"></td><td class="cell-XvX`"></td><td class="cell-~e@i"></td><td class="cell-^^xZ"></td><td class="cell-OGlB"></td><td class="cell-UKsO"></td></tr><tr id="f5f61df5-2059-4db4-ac93-79efbdad02ac"><td class="cell-title"><a href="CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9/Check%20List%20Expected%20time%20fa3a3a13b07248a7a7861d7445804bf3/Untitled%20f5f61df520594db4ac9379efbdad02ac.html">Untitled</a></td><td class="cell-[:XQ"></td><td class="cell-XvX`"></td><td class="cell-~e@i"></td><td class="cell-^^xZ"></td><td class="cell-OGlB"></td><td class="cell-UKsO"></td></tr></tbody></table><br/><br/></div><p id="5b291374-c824-4f26-8140-7aa34e6ce2d4" class="">
+</p><p id="f9c1f120-b3ce-4a44-87f7-2bf757766d1d" class="">
+</p><p id="016d3cc5-5d9d-433b-a09f-e3908d9cec6d" class="">
+</p><ul id="c87d3f8e-9235-40ba-abe2-e457766866e5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-teal">Change the actions On Becky, add Metricbeat options and filebeat options</mark></span><div class="indented"></div></li></ul><ul id="9015cbc1-329b-482b-b530-5de33b65e836" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">How do we get the business metrics from Docker applications ? </span><div class="indented"><ul id="9d518724-eee1-44be-bbbc-d10272407f66" class="block-color-teal to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Option 1: Run our agent as Dockerized agent. Might face some issues, we didn&#x27;t run our docker agent. we need to run this before and test it.</span><div class="indented"></div></li></ul><ul id="3480e1cf-b231-44c8-8b66-fea71638bcac" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Option 2: Bind the prometheus applications to port on <a href="http://localhost">localhost</a> and use this information on Minima. </span><div class="indented"></div></li></ul></div></li></ul><ul id="7b93bac7-9668-461a-9091-71426f1239fe" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Put links in alerts </span><div class="indented"></div></li></ul><ul id="3e6ca433-03d8-4ea2-9ab0-3793b97503fd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-red">[blackbox-exporter] tls certificate expiring in less than 30 days (warning)</mark></span><div class="indented"></div></li></ul><ul id="4138efa5-9e4d-43a7-9cf2-debb134fa22c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-red">[mysqld-exporter] mysql node flagged as IN RECOVERY during the last 30s (alert)</mark></span><div class="indented"></div></li></ul><ul id="6fa856ad-97e2-4366-9c06-0ad20983011f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-red">[node-exporter] hdd full in less than 6 hours (linear projection) (warning)</mark></span><div class="indented"></div></li></ul><ul id="a67d8ab6-5b87-4767-99fd-5283bc77c106" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow">Alerts: [rabbitmq] connections&gt; 1000 for 60s (warning)</mark></span><div class="indented"></div></li></ul><ul id="67f9d9e9-3896-4429-8f4d-7d8adf1f6a39" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-red">[node-exporter] hdd full in less than 6 hours (linear projection) (warning)</mark></span><div class="indented"></div></li></ul><ul id="e759c931-94b3-49a5-8abc-2f39a7f9c2d6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow">[mysqld-exporter] mysql thread connected count &gt; 80% of mysql_global_variables_max_connections for 60s (warning)</mark></span><div class="indented"></div></li></ul><ul id="89c7413c-d423-421a-80a4-bf14f50825a4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow">[mysqld-exporter] mysql thread running count &gt; 80% of mysql_global_variables_max_connections for 60s (warning)</mark></span><div class="indented"></div></li></ul><ul id="e81dd7f1-9b3f-4c56-a836-60c5b6b9ea83" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Agent: merge non-root installation of agent to dev environment on gitlab repo</span><div class="indented"></div></li></ul><p id="5e1bacb4-3344-4d20-87eb-ceb1476288aa" class="">
+</p><p id="17b2071e-d255-4b9b-9bb0-98cd706e2208" class="">
+</p><p id="cb73b571-582a-4c9d-a644-69bffc9ec40e" class="">
+</p><p id="084abec3-07a8-43af-9d77-56f0ca75772e" class="">
+</p><h2 id="4aa887fc-e295-4282-b629-5141c88446d5" class="">Prometheus Server scrape_configs:</h2><ul id="613c832b-a4a5-4763-95d3-5025c71ac871" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-teal">MySQL Tech metrics</mark></span><div class="indented"></div></li></ul><pre id="5855a9d8-d90f-46fd-b5d5-ab0cabda3c00" class="code code-wrap"><code># Mysql Exporter
+  - job_name: &#x27;mysqld-exporter&#x27;
+    static_configs:
+      - targets: [&#x27;10.0.10.20:9104&#x27;] # mysql-8
+        labels:
+          hostname: &#x27;mysql-8&#x27;
+      - targets: [&#x27;10.0.10.22:9104&#x27;] # mysql-cluster1
+        labels:
+          hostname: &#x27;mysql-cluster1&#x27;
+      - targets: [&#x27;10.0.10.23:9104&#x27;] # mysql-cluster2
+        labels:
+          hostname: &#x27;mysql-cluster2&#x27;</code></pre><p id="89d692ab-cda8-42a6-b19b-249742a172cf" class="">
+</p><ul id="246b70db-570e-455b-8681-5613558eb520" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow"># Windows Exporter Windows Instances</mark></span><div class="indented"></div></li></ul><pre id="b779ac11-4a03-4c6c-b47c-371fd187b770" class="code"><code>- job_name: &#x27;windows-exporter&#x27;
+    static_configs:
+      - targets: [&#x27;10.0.10.50:9182&#x27;] # counters-win-server
+        labels:
+          instance: &#x27;counters-win-server&#x27;</code></pre><p id="b49eb1ca-4d37-4eb1-8041-9a768f9fd0d4" class="">
+</p><ul id="5175a57c-224f-4fd4-8fe5-33b68983e653" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-teal">Node Exporter for Non-Docker Instances</mark></span><div class="indented"></div></li></ul><pre id="2259acf9-ad6b-4d86-8532-9917152b0994" class="code"><code>- job_name: &#x27;node-exporter&#x27;
+    static_configs:
+      - targets: [&#x27;10.0.10.10:9100&#x27;] # prod-front
+      - targets: [&#x27;10.0.10.20:9100&#x27;] # mysql-8
+      - targets: [&#x27;10.0.10.22:9100&#x27;] # mysql-cluster1
+      - targets: [&#x27;10.0.10.23:9100&#x27;] # mysql-cluster2
+      - targets: [&#x27;10.0.10.21:9100&#x27;] # backend
+      - targets: [&#x27;10.0.10.31:9100&#x27;] # mongodb
+      - targets: [&#x27;10.0.10.41:9100&#x27;] # xovis</code></pre><p id="8bacf50f-07f4-4406-b249-a1ad71db9981" class="">
+</p><ul id="9dc4f267-8c23-4aac-85fa-9a8bd1ddb392" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-teal"># Node Exporter for Docker Instances</mark></span><div class="indented"></div></li></ul><pre id="106b24ce-887e-4045-b034-76937b9fa1b3" class="code"><code># Node Exporter for Docker Instances
+    dns_sd_configs:
+    - names:
+      - &#x27;tasks.node-exporter&#x27;
+      type: &#x27;A&#x27;
+      port: 9100</code></pre><p id="26392704-e58e-41e3-992c-88508559671b" class="">
+</p><ul id="1089d252-5594-4661-a22c-0dc444964885" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow"># cAdvisor for container&#x27;s health data</mark></span><div class="indented"></div></li></ul><pre id="d0c99913-d370-4480-95dd-8a6ba695171d" class="code"><code>- job_name: &#x27;cadvisor&#x27;
+    dns_sd_configs:
+    - names:
+      - &#x27;tasks.cadvisor&#x27;
+      type: &#x27;A&#x27;
+      port: 8080</code></pre><p id="ac6ba159-27ef-4e8d-861d-96372996e46a" class="">
+</p><ul id="a252a05f-b342-4368-950e-09bd73fca1c8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"># Caddy</span><div class="indented"></div></li></ul><pre id="a19491d7-0e8f-4270-b504-db254206b7a5" class="code"><code>- job_name: &#x27;caddy&#x27;
+    dns_sd_configs:
+    - names:
+      - &#x27;tasks.caddy_server&#x27;
+      type: &#x27;A&#x27;
+      port: 2019</code></pre><p id="6b32e1fc-5034-4be1-ac4e-9c73e86d358a" class="">
+</p><ul id="7d0b2936-3ef0-40df-8161-243647af3f83" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"># Affluences Data Api</span><div class="indented"></div></li></ul><pre id="3100f942-5015-4fad-bd1e-92de54615e68" class="code"><code>- job_name: &#x27;data-api&#x27;
+    bearer_token: &#x27;&lt;censored&gt;&#x27;
+    metrics_path: &#x27;/_metrics&#x27;
+    dns_sd_configs:
+    - names:
+      - &#x27;tasks.data-api&#x27;
+      type: &#x27;A&#x27;
+      port: 80</code></pre><p id="31fd9b63-37e4-4732-af48-cdf2a149b773" class="">
+</p><ul id="d5fc61bd-dc64-4c7f-9dba-ea2fd5e189e9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"># Affluences Reservations Service</span><div class="indented"></div></li></ul><pre id="ab215300-6f4f-438a-9ed9-324bec863514" class="code"><code>- job_name: &#x27;reservations-service&#x27;
+    bearer_token: &#x27;&lt;censored&gt;&#x27;
+    metrics_path: &#x27;/_metrics&#x27;
+    dns_sd_configs:
+    - names:
+      - &#x27;tasks.reservations-service&#x27;
+      type: &#x27;A&#x27;
+      port: 80</code></pre><p id="5c210e12-7337-4af0-85d0-9497847972df" class="">
+</p><ul id="f1bc611d-4b5f-49f5-b99b-85c51a51ae09" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"># Affluences Sites Service</span><div class="indented"></div></li></ul><pre id="4c97d653-f1ca-4dab-b118-58cb94040b7a" class="code"><code> - job_name: &#x27;sites-service&#x27;
+    bearer_token: &#x27;&lt;censored&gt;&#x27;
+    metrics_path: &#x27;/_metrics&#x27;
+    dns_sd_configs:
+    - names:
+      - &#x27;tasks.site-service&#x27;
+      type: &#x27;A&#x27;
+      port: 80</code></pre><p id="b0a4ecd2-f779-439b-8ce0-c6629e0fd53e" class="">
+</p><ul id="fbb8efef-2e73-45bb-a0c9-971e58155765" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"># MySQL Router</span><div class="indented"></div></li></ul><pre id="97cb94ec-492e-45bb-b488-86d38b7d1e57" class="code"><code>- job_name: &#x27;mysql-router&#x27;
+    metrics_path: &#x27;/metrics&#x27;
+    dns_sd_configs:
+    - names:
+      - &#x27;tasks.mysql_router&#x27;
+      type: &#x27;A&#x27;
+      port: 49152
+</code></pre><p id="20e787e2-f90f-4768-8b48-6ca14dc5e16c" class="">
+</p><ul id="82a592aa-e1c2-4365-ac3f-cc91c2e53c54" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-red"># Blackbox Exporter</mark></span><div class="indented"></div></li></ul><pre id="643c91d9-b6ac-4802-8641-ae35fa2489cb" class="code"><code>- job_name: &#x27;blackbox-exporter-http2xx&#x27;
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+        - https://affluences.com
+        - https://data.affluences.com/v1/info
+        - https://admin.affluences.com
+        - https://hyperion.affluences.com
+        - https://affluences.mobi
+        - https://kb.affluences.com
+        - https://portainer.affluences.com
+        - https://translate.affluences.com
+        - https://ibex.affluences.com
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: tasks.blackbox-exporter:9115  # Blackbox exporter scraping address
+  - job_name: &#x27;blackbox-exporter-http3xx&#x27;
+    metrics_path: /probe
+    params:
+      module: [http_3xx]
+    static_configs:
+      - targets:
+        - https://portail.affluences.com # 301 (redir to admin.affluences.com)       
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: tasks.blackbox-exporter:9115  # Blackbox exporter scraping address
+  - job_name: &#x27;blackbox-exporter-http4xx&#x27;
+    metrics_path: /probe
+    params:
+      module: [http_4xx]
+    static_configs:
+      - targets:
+        - https://collector.affluences.com # 404 (nothing on /)
+        - https://xovis-api.affluences.com # 404 (nothing on /)
+        - https://ibex-im.affluences.com # 401 (http basic auth)
+        - https://xovis-management.affluences.com # 401 (http basic auth)  
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: tasks.blackbox-exporter:9115  # Blackbox exporter scraping address </code></pre><p id="7dca8117-e48a-4ae0-b2a2-06fae811f294" class="">
+</p><ul id="8ff63c6f-abde-4cad-9fc2-eac6770b009f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"># ExpressJS based apps</span><div class="indented"></div></li></ul><pre id="bce7e082-1b57-4105-8837-e1aa2602c147" class="code"><code>- job_name: &#x27;expressjs-exporter&#x27;
+    bearer_token: &#x27;&lt;censored&gt;&#x27;
+    metrics_path: &#x27;/metrics&#x27;
+    dns_sd_configs:
+    - names:
+      - &#x27;tasks.app-api&#x27;
+      type: &#x27;A&#x27;
+      port: 80
+    - names:
+      - &#x27;tasks.collector-api&#x27;
+      type: &#x27;A&#x27;
+      port: 80</code></pre><p id="d0861340-8ed5-41a4-8194-78cf3663d72b" class="">
+</p><ul id="e90c72d6-3eaf-4f87-a6de-eaa0d651dda5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-teal"># RabbitMQ</mark></span><div class="indented"></div></li></ul><pre id="d08fcc95-8d5e-4c47-9e39-609d413ada52" class="code"><code>- job_name: &#x27;rabbitmq-exporter&#x27;
+    metrics_path: &#x27;/metrics&#x27;
+    dns_sd_configs:
+    - names:
+      - &#x27;tasks.rabbitmq&#x27;
+      type: &#x27;A&#x27;
+      port: 15692</code></pre><p id="ef74aa33-c267-4c69-9489-30819dc54214" class="">
+</p><ul id="3345ef30-546c-4aa0-a845-3f8b7d7c1ea1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"># Koios</span><div class="indented"></div></li></ul><pre id="4c71376f-9be8-4ff5-80bf-65d6031804cb" class="code"><code>  - job_name: &#x27;koios-worker&#x27;
+    metrics_path: &#x27;/metrics&#x27;
+    dns_sd_configs:
+    - names:
+      - &#x27;tasks.koios-worker&#x27;
+      type: &#x27;A&#x27;
+      port: 3000</code></pre><p id="28608e81-a35b-491a-960c-9fbcd1796ad9" class="">
+</p><ul id="b71baed9-4b1a-4709-9ae9-652bc43b2899" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"># Gaia (Apache service, Could we use metricbeat to support Gaia?) Not able to collect the metrics. There is potentially to collect metrics</span><div class="indented"></div></li></ul><pre id="2d579f92-34ad-4f9e-ae48-85f7330fe2eb" class="code"><code>- job_name: &#x27;gaia-worker&#x27;
+    bearer_token: &#x27;&lt;censored&gt;&#x27;
+    metrics_path: &#x27;/metrics.php&#x27;
+    dns_sd_configs:
+    - names:
+      - &#x27;tasks.gaia_worker&#x27;
+      type: &#x27;A&#x27;
+      port: 80</code></pre><p id="81eb59e8-de3a-435b-baee-5daae732fa98" class="">
+</p><h2 id="02ab15fc-4505-4c00-9479-ac14d553d7e5" class="">Technologies that we didn&#x27;t detected in Topology</h2><ul id="87dd16ef-445d-492b-8c2f-195a369a7021" class="bulleted-list"><li style="list-style-type:disc"># Caddy</li></ul><ul id="95d3bbd1-da8e-4e82-9fca-2556a3d1142a" class="bulleted-list"><li style="list-style-type:disc">#cAdvisor</li></ul><ul id="00edfcf0-9bb0-4ffb-aa27-e3ffa392b95d" class="bulleted-list"><li style="list-style-type:disc"># Affluences Data Api</li></ul><ul id="cb48ef58-728f-41a8-9348-668f87bbb994" class="bulleted-list"><li style="list-style-type:disc"># MySQL Router</li></ul><ul id="e29006a7-ec36-4703-94ed-053259638b18" class="bulleted-list"><li style="list-style-type:disc"># Blackbox Exporter</li></ul><h2 id="4410a77f-be4b-4831-9955-508e3f26aa8a" class="">Available Options</h2><ul id="ddc28464-ed34-43e6-b029-4de6d8f2d138" class="bulleted-list"><li style="list-style-type:disc">Option1: configure all of this. How are we going todo ?<ul id="ad3bcd7b-96c4-4670-a881-7b9732eda0d6" class="bulleted-list"><li style="list-style-type:circle">using non docker agent</li></ul><ul id="fb91cca0-4e63-4e22-b8c1-cbfdf3df5f09" class="bulleted-list"><li style="list-style-type:circle">or using docker agent</li></ul></li></ul><ul id="d1aef334-962a-43b0-b464-f515a4fd604c" class="bulleted-list"><li style="list-style-type:disc">Option 2: Investigate custom fields for metricbeat</li></ul><ul id="f779350a-5815-4beb-9e7d-e0eb12344101" class="bulleted-list"><li style="list-style-type:disc">Option 3: support Prometheus as a service. WE need to look at cortex(works at scale) used by many companies.</li></ul><p id="f8702f21-2fdc-4bae-8918-ca1dd79c7dc0" class="">
+</p><h2 id="60f094bf-6f3b-4ae1-8c3d-ba32a4dfc2cc" class="">Questions to Affluences:</h2><ul id="654e39c2-d54a-4caa-9b50-80141219b458" class="bulleted-list"><li style="list-style-type:disc">Ask Whether the docker ipaddress reachable from Host machine ? can we do curl request to container ip:port from Host machine ?</li></ul><ul id="90864564-44d6-4142-87e7-52bf262251b3" class="bulleted-list"><li style="list-style-type:disc">Ask Affluences how they are using #cAdvisor for container&#x27;s health data ? It doesn&#x27;t really have any prometheus metrics on this path.</li></ul><ul id="79452b7f-888b-441f-ae4c-96832b1c4d47" class="bulleted-list"><li style="list-style-type:disc">How are you using bearer_token? Is it based Basic Auth available in HTTP ?</li></ul><p id="457a04ec-3b3f-4cd1-a2bd-d63f201d7e59" class="">
+</p><h2 id="c4dc83fa-afbd-4673-9012-3ebf2073dffb" class="">Not supported Technologies:</h2><ul id="8c3c5d6e-6e0b-4a84-8cc1-932b4e547880" class="bulleted-list"><li style="list-style-type:disc">Blackbox Exporter<ul id="226222b4-891f-4929-82c0-7bdb96de2f41" class="bulleted-list"><li style="list-style-type:circle">not possible at all with current prometheus options of metricbeat.</li></ul></li></ul><p id="dcff3404-1267-480f-95ff-58a1d47f0ef4" class="">
+</p><h2 id="3111d734-4713-4f62-ad7f-845091aac89f" class="">Steps in Collecting Business metrics:</h2><ul id="79e74e49-89ed-4d5f-9c36-ea053dc4314f" class="bulleted-list"><li style="list-style-type:disc">Collect prometheus Metrics<ul id="c98d12ef-5204-4d25-9c9b-037e6c77b336" class="bulleted-list"><li style="list-style-type:circle">Not possible at all to collect Blackbox Exporter at the moment with Metricbeat prometheus module.<ul id="dce42900-64a8-4df2-8b2d-7fc040b7ec01" class="bulleted-list"><li style="list-style-type:square">We need to ask about Blackbox exporter whether it&#x27;s possible to export all of them</li></ul></li></ul><ul id="9f850f8b-9263-48b2-a0c8-b7b4db1f5776" class="bulleted-list"><li style="list-style-type:circle">Probably we need to run our docker agent</li></ul><ul id="735b4bae-d81d-4bee-ac1e-cbf5dd867ff0" class="bulleted-list"><li style="list-style-type:circle">We need to test our agent as docker.</li></ul><ul id="2baa01b4-e491-4278-bbf2-3f4c78bfebf9" class="bulleted-list"><li style="list-style-type:circle">We need to add prometheus bearer_token in Minima and metricbeat module.</li></ul></li></ul><ul id="344b620c-0d51-4c34-94b4-fc0550d4541c" class="bulleted-list"><li style="list-style-type:disc">Create equivalent dashboards for all metrics<ul id="10f74654-7d30-4781-ac8f-98837600e48c" class="bulleted-list"><li style="list-style-type:circle">We could ask them about grafana dashboards and export them to JSON.</li></ul><ul id="a9292bc3-2cb6-474d-b8e3-7c137d0f1724" class="bulleted-list"><li style="list-style-type:circle">Needs to offload to external for dash boarding. How long does it take ? we can’t really estimate this yet.</li></ul><ul id="3eedad7b-03c5-4e9a-9d50-4b776818f891" class="bulleted-list"><li style="list-style-type:circle">Not sure whether Kibana dashboards supports all the grafana dashboards equivalents. whom should we ask about this ? should we check this out ourselves ?</li></ul><ul id="4761cc4e-62e4-41fe-ae5e-ae9e84a78597" class="bulleted-list"><li style="list-style-type:circle">Can we find the elastic search queries equivalent to Prometheus query language ? Prometheus queries are quite different to elastic search, who should explore this option ?</li></ul></li></ul><ul id="e82cd715-4587-4d1b-9dca-9bcaaa9a4897" class="bulleted-list"><li style="list-style-type:disc">Integrate this dashboards into Minima/PacketAI<ul id="179c9859-5bb8-41c7-9374-f80549e7fe98" class="bulleted-list"><li style="list-style-type:circle">Last and final step. update the minima for each component with the dashboard ID for business metrics. How to map this ? some components might not have business/prometheus metrics.</li></ul></li></ul><p id="59d4bd8c-31f5-4588-9aff-77e592d73d07" class="">
+</p><p id="4ec94b31-9f5c-4aac-ba86-5dd92e525fd8" class=""><strong>Next Steps:</strong></p><ul id="2844f0fa-325e-40dc-8197-98f7dc1b0feb" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Deploy Docker swarm cluster on sockshop</mark></li></ul><ul id="7d6bcc30-7103-471c-a4b1-605deb2e3a32" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Run our docker agent in docker swarm</mark></li></ul><ul id="e562fcc9-018b-47c8-a256-512d1d1cc17b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">We need to add prometheus bearer_token in Minima and metricbeat module.</mark></li></ul><ul id="e6c67029-f433-488e-977d-ed20fba54c14" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">create a script to remove the previous installation of our agent</mark></li></ul><ul id="00e2941b-c543-4b15-bfb7-f51a1a738060" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red">Check whether it&#x27;s possible to use files of previous installation or not ? (won&#x27;t do)</mark></li></ul><ul id="941fcb75-da37-4f33-a062-4f005139be9a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow">We need to ask Affluences about their Grafana dashboards and sharing these dashboards via JSON.</mark></li></ul><ul id="5786500a-364f-4ab5-b0b9-9c54498d3dab" class="bulleted-list"><li style="list-style-type:disc">We need to Ask Waseem about<ul id="8e664b21-3b44-43bf-9d26-f6280f0eeaf9" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">Grafana dashboards equivalent in Kibana dashboards</mark></li></ul><ul id="48633256-a690-4876-bd03-7c046865b599" class="bulleted-list"><li style="list-style-type:circle">elastic search queries equivalent to Prometheus query language</li></ul></li></ul><ul id="a3f3b06d-fcb2-43a2-b4a6-27b0819b316c" class="bulleted-list"><li style="list-style-type:disc">Send the Grafana dashboards to Waseem and ask him create equivalent ones in Kibana.</li></ul><ul id="713966af-02c7-4839-a576-30265ea49f0e" class="bulleted-list"><li style="list-style-type:disc">Update Minima with these dashboards.</li></ul><p id="5619fac1-28e0-46d1-9a64-c94dea338e89" class="">
+</p><p id="c65cfd4a-4b49-49ad-a123-eb830f7d1650" class="">
+</p><p id="d2f2b7aa-63b2-47ef-92c9-8da58f6494f5" class="">Questions to Affluences:</p><ul id="a7ed0db5-c239-4bfd-9501-cd6125653d1d" class="bulleted-list"><li style="list-style-type:disc">What is the Prometheus expression for mysql node in RECOVERY alert ?<ul id="24d25f12-3e27-4e5a-ad82-427d0d149788" class="bulleted-list"><li style="list-style-type:circle">We couldn&#x27;t find the equivalent one on prometheus.</li></ul></li></ul><ul id="c069145a-eacd-4166-a205-cc125e55c020" class="bulleted-list"><li style="list-style-type:disc">Is it possible to export TLS related information on /metrics path of blackbox exporter ?</li></ul><ul id="81d1fd5e-6870-43d6-ab63-7b224065e164" class="bulleted-list"><li style="list-style-type:disc">Grafana dashboards and sharing these dashboards via JSON</li></ul><ul id="6ae3cda2-890c-4e4a-925f-2f9014b768ca" class="bulleted-list"><li style="list-style-type:disc">what are the alerts that affluences receive daily, and on which components (rabbitmq, mysql or hosts cpu/memory ? ) do you receive these alerts?</li></ul><p id="25bbb124-9e90-4578-aece-aa944a361152" class="">
+</p><p id="08a4ee61-8f91-4b2c-a501-681d5725f1df" class="">
+</p><h2 id="4f36c3fc-e287-4504-bb39-71e192380a5d" class="">Notes for meeting 26th July 2021: </h2><ol type="1" id="7e776187-e1cc-48d6-a1e5-8da15c0ec509" class="numbered-list" start="1"><li>Check the incident on koios - 17th july post midnight</li></ol><ol type="1" id="97c0a852-ed40-4212-b360-342799d0d3dc" class="numbered-list" start="2"><li>In our ML reports include anomalies that match with traditional monitoring alerts</li></ol><ol type="1" id="3a3884b8-79c5-4d7a-909a-2237eb0e03c7" class="numbered-list" start="3"><li>Set up alert for all apps using the condition count(level = error)&gt;500 in the past 5 minutes</li></ol><ol type="1" id="436a62cc-57f6-4e3b-8cd9-256c9e860608" class="numbered-list" start="4"><li>When user clicks on anomaly from the incident page - the anomalies would be on top (following the change to be done by Marin?)</li></ol><ol type="1" id="b3b1f506-56f1-4759-9f29-ac2f10c81e24" class="numbered-list" start="5"><li>Can we help decode metric beat language ? memory_rss for example ? Can we point the users to the documentation ?</li></ol><ol type="1" id="ec3102d6-1ccd-4f87-9611-3304f13b1bbd" class="numbered-list" start="6"><li>Can we hide anomalies on our agent ?</li></ol><ol type="1" id="7d7e0fd4-2ba5-4d4b-a759-3fa2b859e14b" class="numbered-list" start="7"><li>Final check to ensure we are receiving all data following update of the agent</li></ol><ol type="1" id="c2fc7c1f-2cc2-4983-a658-e8d476ae893a" class="numbered-list" start="8"><li>Activate throttling - they need only one alert even if the the metric is above threshold. Not 1 every minute etc.</li></ol><h3 id="00e8c59e-c74a-43e9-b763-a2d30f91c078" class="">Questions to Affluences:</h3><ul id="9c37abee-5305-4b4b-bd84-caaf0c271c97" class="bulleted-list"><li style="list-style-type:disc">What is the Datadog query ? WE should show him the equivalent query in Elasticsearch. Is it per application ?</li></ul><ul id="ed9d3b2c-5fe3-4915-a99a-e44785f6311b" class="bulleted-list"><li style="list-style-type:disc">Alerting needs to be part of it</li></ul><ul id="6311823b-e6b2-40d4-ac4a-9fcdc79112c7" class="bulleted-list"><li style="list-style-type:disc"></li></ul></div></article></body></html>

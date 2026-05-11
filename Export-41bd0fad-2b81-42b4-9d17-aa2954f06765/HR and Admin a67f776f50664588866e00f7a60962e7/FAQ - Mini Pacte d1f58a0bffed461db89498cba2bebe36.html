@@ -1,0 +1,676 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>FAQ - Mini Pacte</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d1f58a0b-ffed-461d-b894-98cba2bebe36" class="page sans"><header><h1 class="page-title">FAQ - Mini Pacte</h1><p class="page-description"></p></header><div class="page-body"><p id="6cf6be28-de6e-4081-9277-abc7a6739412" class=""><strong>General Definitions:</strong></p><p id="eddadf5b-c02d-4032-bbfa-2a4d887f5aee" class=""><strong>Pre-emption right:</strong></p><p id="cdaca873-906c-43d3-9f2d-d8f222caec92" class="">It means if you wish to transfer your shares (or sell them) to a third party - you must notify to the shareholders</p><p id="485701f7-c500-4b50-b674-f1f4b615d454" class=""><strong>Full Tag-along right</strong></p><p id="6d4b3a94-2cad-43fa-a970-f3644189405d" class="">This means that if the majority wishes to sell their shares to an acquirer and if this means that the acquiring company has the controlling stake in PacketAI - you will have the right to sell your shares at the same price and conditions as the majority.</p><p id="2a51c29f-e0ec-40b0-b995-bd695bf5788e" class=""><strong>Drag along</strong></p><p id="a3964728-0007-4f6b-8e72-9a174570bcec" class="">Content of the Option</p><p id="cc713b47-30dd-479b-bcab-8e8242c49a1e" class="">It is hereby agreed that should any Party or Third Party offer to purchase at least 100 % of the share capital of the Company (e.g., a merger), and should the holders of at least 50 % of the share capital of the Companywish to accept the Offer, you shall, if so requested by the Party(ies) having accepted the Offer (the &quot;Beneficiary&quot;) or by the Offeror, Transfer its Shares to the Offeror.</p><p id="4b08f2a0-0a29-4ddc-8046-a7cfd6ca5397" class=""><strong>Liquidity</strong></p><p id="89b017af-8350-4719-8ee7-6e30f8e52a3d" class="">This is a general clause that features in all shareholders agreements in France.</p><p id="bb050eef-b9b1-4e35-93eb-0e16f563a2e7" class=""><strong>DEPARTURE OF A HOLDER – CALL OPTION</strong></p><p id="a50043bf-4e2c-4759-8ed3-c6d80d914ef7" class="">This means that the company can pay you for the options (buy them from you) within 9 months.</p><p id="a3d718af-3243-4dab-af10-f1ef64efc329" class="">In the event of a Departure of the Holder, and if the Holder has exercised its vested BSPCE in accordance with the terms and conditions of the BSPCE (the “BSPCE Exercise Period”), the Signatory Shareholders shall have the right, within nine (9) months following the expiry of the BSPCE Exercise Period, to purchase all or part, at the option of the Signatory Shareholders, of the Securities held directly or indirectly by the Holder as a result of the exercise of the BSPCE (the “Option Securities”) and, in the event the conditions for the exercise of the Call Option are met, the Holder (or as applicable his/her successors) shall be bound to sell to the Signatory Shareholders having exercised the Call Option the number of Securities determined by it, in accordance with the provisions of this article 5 (the “Call Option”).</p><p id="93d7362f-d606-48e7-ba7e-ba1bfd41afa0" class=""><strong>General Explanation:</strong></p><p id="0e73ac05-8f49-481a-8710-f7d6fc58cf06" class="">​​<em>When we raise funds, we create a pool of shares (in agreement with investors) for team members, so everyone in the company benefits financially from our success.</em></p><p id="120f2129-f35a-439e-b275-d81a9df4efa5" class="">As a team member, you will receive stock options. Technically, you will receive BSCPE (short for “<em>Bons de Souscription de Parts de Créateur d’Entreprise”</em>), which is one of several possible French programs tailored to innovative companies.</p><p id="4d2b9887-bc2e-447c-a09f-fad3ef6e5146" class="">Take some time to learn how it works and what it means.</p><p id="0f95a594-ca3e-4d9e-b43c-8aa58dc229d0" class="">Short version: your stock options <em>might</em> earn you money in the future. Whatever happens, it’s good news, and you have nothing to lose, but it’s essential to understand how it works to get the most out of it. It’s quite complex and surprising when you’re not used to how shares work.</p><p id="517d8f48-8943-40b6-bccf-40217424760f" class="">This document is here to help you understand the program and isn’t binding. You’ll have to read and sign a “Contractual Undertaking,” which is a more detailed legal document. Legal stuff blah blah blah.</p><h3 id="d4da618c-cb49-492a-8bfa-a112849f77c6" class=""><strong>You Are a Shareholder Too!</strong></h3><p id="8109b063-d50c-4b53-922e-7066ff0d5973" class="">A company can have one or many shareholders. It’s usually divided into many shares.</p><p id="9cd8a28b-5bc5-4666-b5b2-ac7e63011285" class="">If you have 100 shares in a company that’s cut into 1,000 shares, you’ll have 10% of that company.</p><p id="b6f0dde8-ed9d-4e93-a4c9-dbec82e152a0" class="">A company such as PacketAI has several shareholders:</p><ul id="05173d71-7fa0-46a7-b614-0ce5a781b2a8" class="bulleted-list"><li style="list-style-type:disc">Aster Capital</li></ul><ul id="f5dba2b5-0941-47d0-987b-6f74d22365c6" class="bulleted-list"><li style="list-style-type:disc">BNP Paribas</li></ul><ul id="d64da2d5-effd-460a-ab83-95b51cc5911f" class="bulleted-list"><li style="list-style-type:disc">EF</li></ul><ul id="ac0539d7-5c4d-47f1-946e-11c66ca65bc8" class="bulleted-list"><li style="list-style-type:disc">SGPA</li></ul><p id="33ad3ec4-f028-4db5-af50-2c196f07c8da" class="">And now, everyone in the company can also have shares!</p><p id="0944fe92-5ae4-4893-ac34-609565dffe53" class="">We have decided to give stock options to PacketAI employees.</p><p id="f5b1544f-ccac-4920-9448-bd8b7ba948e5" class="">Most shares are distributed among all current and future PacketAI employees as BSCPE.</p><h3 id="32d30d62-0c15-4539-b049-e2354e3b4abb" class="">How Much Are They Worth?</h3><p id="297a905d-f268-4b2a-b6ef-a73f5a5c0f5c" class="">To keep it simple, we&#x27;ll assume here that you just received 100 shares at 10€ each. This is not the actual value, but this is simple enough to do some calculations.</p><p id="882ed723-d2b8-4f95-b928-0ea1bbfcc806" class="">Now, let&#x27;s see why it doesn&#x27;t mean that you just won 1,000€!</p><p id="7aa59f11-27cd-4be7-bdb1-b9ed7a947fc6" class=""><strong>What is a BSCPE?</strong></p><p id="66729058-85eb-4bb8-8856-e67e0d096464" class="">A BSCPE (short for “Bon de Souscription de Parts de Créateur d’Entreprise”) is like receiving a little piece of paper that says, “Congratulations, you’ve got the right to buy company shares at this fixed price.”</p><p id="adbf4faa-249c-4580-932d-00aabbc0e445" class="">Let’s say the price at the time of the allocation is 10€ per BSPCE received by the company. You’ll be able to transform your BSPCE into shares by buying them at 10€ for each one if you want to; but few people usually do it, because it means spending money (if you want 100 shares, you have to spend 1,000€).</p><p id="ab9c4f59-4147-4434-8fee-972d930a2d0f" class="">However, it becomes more interesting later when some events may occur (explained further down), and the company is worth more than 10€ per share. Hypothetically, if it’s worth 50€ per BSPCE at the time you decide to use them, you’ll be able to transform your BSPCE into shares (without spending money), and you’ll get the difference. You’ll get (50 - 10) x 100 (number of bonds), which is 4,000€ in this example.</p><h3 id="a04771d8-0456-4c3f-b7b4-51fecc8faf42" class=""><strong>How to Use Them?</strong> You have two options:</h3><ul id="9f7280a7-2c19-4ce9-8b46-8725886498f1" class="bulleted-list"><li style="list-style-type:disc">You can transform your BSPCE bonds into shares at any time by buying them at the price of the BSPCE at the time of their allocation. Once that’s done, you’ll be a shareholder of the company!</li></ul><p id="6ec749d4-7a17-4800-840d-18cd3f058cb4" class="">OR</p><ul id="4fae46b2-df4a-4ecb-ba41-a8c56e9e2e78" class="bulleted-list"><li style="list-style-type:disc">You can also wait for an exit event, which happens if the company goes public, is sold, or raises funds again. You will then be able to transform your BSPCE into shares and earn the increased value.</li></ul><p id="06efe205-7d48-49e1-ac14-5f9f8264195c" class=""><strong>There are several conditions:</strong></p><ul id="8e20910f-9a42-43a5-a4e2-862e8cea2587" class="bulleted-list"><li style="list-style-type:disc">A 1-year cliff period: you can only use your BSPCE after a year, which is pretty standard in many companies. It helps avoid the extreme case of a person who works two days to get some shares and then leaves. Not that we expect this to happen, of course. 😉</li></ul><ul id="8baba82f-26e3-4fae-8501-a398254fc1c7" class="bulleted-list"><li style="list-style-type:disc">A 4-year vesting period: you’ll have the right to subscribe part of your BSPCE (subscribe is legalese for actually getting the shares) every year for four years. This is an incentive to keep people long-term. In two years, you’ll have access to 50% of the shares, and in four years, 100% of them.</li></ul><p id="479e151b-3fc6-47bf-a329-37eb4e41db28" class="">In case of exit, things accelerate: if the company is sold before the end of your vesting period, you’ll be able to subscribe 100% of your shares immediately, even if you’ve had BSPCE for less than four years. This is good news for you!</p><p id="6dba3fe9-e311-40c1-a9f8-f083197f7a64" class=""><em>So, let me get this straight: I won 1,000€ today, is that right?</em></p><p id="c3f67cc9-eb1c-4832-b276-a5a02e6fc38f" class="">No. You’ve <em>got the right to buy shares</em> at a fixed value, which is 10€ per share, worth 1,000€ in our theoretical example (100 shares at 10€ per share). Again, this is just an example, not the real value. 😉</p><p id="aeb20b75-6aec-4045-9714-ebc2c118c693" class="">If conditions are met, you’ll be able to use them to receive and sell shares simultaneously at our next fundraising, if we go public, or if we sell the company.</p><p id="01fcdd0d-5da1-41fc-bd7b-c474f20a94cb" class="">You’ll get the difference between 10€ per share and the current share value when you want to sell them.</p><p id="a946b461-56e4-4b71-91ca-884cd6f865fa" class="">If everything goes well, your shares should be worth much more (x2, x3, x10, x20? Anything is possible! 🦄). They could also be worthless: worst-case scenario, you’ll do nothing with them, but you won’t lose money either if you don’t subscribe.</p><p id="587a8318-d675-4469-a43c-df9ba8a725ff" class=""><em>Let’s talk money: how much can I earn?</em></p><p id="41de1d5b-bd46-4ad2-87a6-641e0f310542" class="">It depends on the company value when you sell your shares. This little table should help you understand the scenarios better:</p><div id="d469afc7-81e3-45bc-9847-05ddcd3323fb" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>If PacketAI is worth:</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>I’ll earn (rounded value):</th></tr></thead><tbody><tr id="89a621e8-9892-4f58-8bbe-fef60b2aecb2"><td class="cell-title"><a href="FAQ%20-%20Mini%20Pacte%20d1f58a0bffed461db89498cba2bebe36/Untitled%20Database%20d469afc781e345bc984705ddcd3323fb/2%20times%20more%20than%20the%20last%20fundraising%2089a621e898924f588bbefef60b2aecb2.html">2 times more than the last fundraising</a></td><td class="cell-}dS[">1,000€</td></tr><tr id="59fba7dc-aab5-45a5-96e3-834c0d4b49f3"><td class="cell-title"><a href="FAQ%20-%20Mini%20Pacte%20d1f58a0bffed461db89498cba2bebe36/Untitled%20Database%20d469afc781e345bc984705ddcd3323fb/3%20times%2059fba7dcaab545a596e3834c0d4b49f3.html">3 times</a></td><td class="cell-}dS[">2,000€</td></tr><tr id="4f0dae23-1500-4acc-b51d-8aa7b83c57e5"><td class="cell-title"><a href="FAQ%20-%20Mini%20Pacte%20d1f58a0bffed461db89498cba2bebe36/Untitled%20Database%20d469afc781e345bc984705ddcd3323fb/5%20times%204f0dae2315004accb51d8aa7b83c57e5.html">5 times</a></td><td class="cell-}dS[">4,000€</td></tr><tr id="8578095d-6780-4320-8db8-bf7f3f23a707"><td class="cell-title"><a href="FAQ%20-%20Mini%20Pacte%20d1f58a0bffed461db89498cba2bebe36/Untitled%20Database%20d469afc781e345bc984705ddcd3323fb/10%20times%208578095d678043208db8bf7f3f23a707.html">10 times</a></td><td class="cell-}dS[">9,000€</td></tr><tr id="b5fcebb0-af37-4f53-8135-9742d1efd56b"><td class="cell-title"><a href="FAQ%20-%20Mini%20Pacte%20d1f58a0bffed461db89498cba2bebe36/Untitled%20Database%20d469afc781e345bc984705ddcd3323fb/20%20times%20b5fcebb0af374f5381359742d1efd56b.html">20 times</a></td><td class="cell-}dS[">19,000€</td></tr><tr id="7f1e6f5e-e4d5-4f2d-b6c3-205c8a12feca"><td class="cell-title"><a href="FAQ%20-%20Mini%20Pacte%20d1f58a0bffed461db89498cba2bebe36/Untitled%20Database%20d469afc781e345bc984705ddcd3323fb/50%20times%207f1e6f5ee4d54f2db6c3205c8a12feca.html">50 times</a></td><td class="cell-}dS[">49,000€</td></tr><tr id="12a07985-4dba-409d-8e91-4e3b161ebc9d"><td class="cell-title"><a href="FAQ%20-%20Mini%20Pacte%20d1f58a0bffed461db89498cba2bebe36/Untitled%20Database%20d469afc781e345bc984705ddcd3323fb/100%20times%20%F0%9F%A6%84%F0%9F%A6%84%F0%9F%A6%84%2012a079854dba409d8e914e3b161ebc9d.html">100 times 🦄🦄🦄</a></td><td class="cell-}dS[">99,000€</td></tr></tbody></table><br/><br/></div><p id="38915d00-59a5-44e2-8369-7dbde7950e31" class="">Please remember these are not the exact values! It’s just an example.</p><p id="23b4cc12-3bb7-4642-9b7e-ce41bd51c021" class="">Usually, investors want to see a 4x or 5x value difference, but they can make less (hey, even 0x!) and more (20x, 30x, and sometimes more in some rare cases).</p><p id="13941c1a-5817-430c-9f86-77797c5c4cfe" class="">Please note that you’ll have to pay taxes on your profits.</p><h3 id="7dd56ab2-c55b-439d-903e-2fc26c8f0e99" class=""><em>Who Is It For?</em></h3><p id="700ee527-8b8b-474c-a375-01f1ebd4960d" class="">All full-time employees (permanent contract) get stock options!</p><p id="99ddc82a-1416-44e9-99cd-d81d783ccbb1" class="">Other employees (fixed-term contract, internships) will get stock options as soon as they become full- time “CDI” employees. Good news: the time you spent before your CDI won’t be lost because we’ll take it into account when calculating your vesting period!</p><h3 id="b47a7a7b-468f-490f-95e3-78b6d5ac0e8d" class=""><em>Why Are You Doing This?</em></h3><p id="c0eb79b7-0703-44ac-a2aa-253cd1ae386f" class="">It’s something we’ve had in mind for a while. It’s a bit complex to do, which is why we used our latest fundraising to make it happen and to negotiate it with new investors.</p><p id="da03a7fe-0ba2-475a-ab81-e28101af38cb" class="">There wasn’t a lot of debate, as everyone agreed it was a good idea.</p><p id="44604708-e56d-48b6-b4ae-eb328905bb6c" class="">Why? Because it aligns employees with the founders and investors. It’s a way to share the value we create together every day.</p><p id="b33d2926-7346-449d-bf30-0a7c56f8f6fe" class="">On the plus side, it can be a nice bonus for long-term employees and a way to attract new ones. We give some of our shares, but we think it’ll be better long-term.</p><h3 id="b8ef85fc-0766-42d8-976d-ea3d4ea22fa2" class=""><em>Does This Mean PacketAI Will Be Sold?</em></h3><p id="ce090921-dd5b-4319-8791-187de6af2b31" class="">That’s always a possibility, but not a certainty. As soon as an investor joins a company, they will look for a way to sell their shares a few years later.</p><p id="074d204e-81b6-4c70-9e95-2d36e5c625b8" class="">This can happen when:</p><ul id="e7155fd4-147a-4b64-885d-68f8793d8c07" class="bulleted-list"><li style="list-style-type:disc">A new investor joins the company during a future fundraising: they sell their shares to this new investor.</li></ul><ul id="4e324589-0ed6-438d-951b-300413fd862a" class="bulleted-list"><li style="list-style-type:disc">The company goes public. Everyone can buy some of the shares.</li></ul><ul id="2cbbee6e-2392-4fc1-8a88-c6b351f84f7d" class="bulleted-list"><li style="list-style-type:disc">The company is sold to another company.</li></ul><p id="5226663d-d368-4d1d-a4e1-d2084d53d081" class="">It’s not easy to say what’s going to happen because it depends on many things. We have no plans to sell the company and have already refused some offers in the past. We have a lot of criteria to consider, like how much the company would be worth, of course, and what the buyer would plan to do with it.</p></div></article></body></html>

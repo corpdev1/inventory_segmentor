@@ -1,0 +1,2388 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Test - Shuffle all tokens</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e6be3e0c-a40d-4334-ac94-83a789d7b181" class="page sans"><header><h1 class="page-title">Test - Shuffle all tokens</h1><p class="page-description"></p></header><div class="page-body"><p id="eb2d2953-8605-45d7-ba5a-64ffae79053a" class="">/home/hari/anaconda3/envs/ner/bin/python /home/hari/work/ner/NER-pytorch/train.py --train dataset/train_iob2.txt --dev dataset/dev_iob2.txt --test dataset/test_iob2_shuffle.txt --test_train dataset/toy_iob2.txt --tag_scheme iob --zeros 0 --pre_emb embedding/glove.6B.100d.txt --use_gpu 0</p><p id="ba716cc2-c3f2-4aa7-94cf-4d8e43803c21" class="">Found 17879 unique words (455712 in total)
+Loading pretrained embeddings from embedding/glove.6B.100d.txt...
+Found 58 unique characters
+Found 7 unique named entity tags
+32001 / 3968 / 4031 sentences in train / dev / test.
+Loaded 400000 pretrained embeddings.
+word_to_id:  417852
+char_mode: CNN, out_channels: 25, hidden_dim: 200,
+Setting up a new session...
+EPOCH 1
+torch.nn.utils.clip_grad_norm(model.parameters(), 5.0)
+10 :  tensor(1.1056)
+20 :  tensor(0.6452)
+30 :  tensor(0.4690)
+40 :  tensor(0.2005)
+50 :  tensor(0.2578)
+60 :  tensor(0.2361)
+70 :  tensor(0.1338)
+80 :  tensor(0.1316)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1092 phrases; correct: 1092.
+accuracy:  93.03%; precision: 100.00%; recall:  74.69%; FB1:  85.51
+the best F is  85.51
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  49.86%; FB1:  66.54  364
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)  366.0  364.0    0.0    0.0    0.0   49.863
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 11325 phrases; correct: 11325.
+accuracy:  93.31%; precision: 100.00%; recall:  75.00%; FB1:  85.72
+the best F is  85.72
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision: 100.00%; recall:  50.01%; FB1:  66.67  3775
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37533.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(7549.) 3774.0 3775.0    0.0    0.0    0.0   50.007
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 5938 phrases; correct: 864.
+accuracy:  60.92%; precision:  14.55%; recall:   5.60%; FB1:   8.09
+the best F is  8.09
+LL: precision:  12.07%; recall:   4.51%; FB1:   6.57  1441
+PID: precision:  26.55%; recall:   5.18%; FB1:   8.66  1503
+TS: precision:   9.72%; recall:   7.55%; FB1:   8.50  2994
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)33585.0  658.0  675.0 1762.0 1084.0   88.934
+1  B-PIDtensor(7709.) 6079.0  399.0  228.0  597.0  406.0    5.176
+2   B-LLtensor(3855.) 3062.0  132.0  174.0  315.0  172.0    4.514
+3   B-TStensor(3855.) 3025.0  164.0  147.0  296.0  223.0    7.678
+4   I-TStensor(3855.) 3195.0  150.0  217.0    1.0  292.0    7.575
+90 :  tensor(0.1750)
+100 :  tensor(0.1458)
+110 :  tensor(0.1172)
+120 :  tensor(0.0406)
+130 :  tensor(0.0673)
+140 :  tensor(0.0213)
+150 :  tensor(0.0248)
+160 :  tensor(0.0044)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+the best F is  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+the best F is  100.0
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11793 phrases; correct: 3469.
+accuracy:  59.68%; precision:  29.42%; recall:  22.50%; FB1:  25.50
+the best F is  25.5
+LL: precision:  14.51%; recall:   9.49%; FB1:  11.48  2522
+PID: precision:  52.81%; recall:  33.99%; FB1:  41.36  4961
+TS: precision:  11.21%; recall:  12.53%; FB1:  11.83  4310
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)29942.0 1600.0 1609.0 2733.0 1880.0   79.287
+1  B-PIDtensor(7709.) 3741.0 2620.0  209.0  574.0  565.0   33.986
+2   B-LLtensor(3855.) 2665.0  229.0  366.0  353.0  242.0    9.494
+3   B-TStensor(3855.) 2651.0  298.0  176.0  558.0  172.0   14.475
+4   I-TStensor(3855.) 2916.0  214.0  162.0    9.0  554.0   14.371
+170 :  tensor(0.0111)
+180 :  tensor(0.0035)
+190 :  tensor(0.0053)
+200 :  tensor(0.0024)
+210 :  tensor(0.0022)
+220 :  tensor(0.0030)
+230 :  tensor(0.0013)
+240 :  tensor(0.0021)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11994 phrases; correct: 4987.
+accuracy:  64.36%; precision:  41.58%; recall:  32.34%; FB1:  36.38
+the best F is  36.38
+LL: precision:  16.44%; recall:   8.92%; FB1:  11.57  2093
+PID: precision:  67.28%; recall:  54.62%; FB1:  60.29  6259
+TS: precision:  11.86%; recall:  11.21%; FB1:  11.52  3642
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)31265.0 1414.0 1248.0 2373.0 1464.0   82.790
+1  B-PIDtensor(7709.) 2638.0 4211.0   95.0  336.0  429.0   54.624
+2   B-LLtensor(3855.) 2863.0  139.0  344.0  313.0  196.0    8.923
+3   B-TStensor(3855.) 2788.0  214.0  235.0  446.0  172.0   11.569
+4   I-TStensor(3855.) 2957.0  281.0  171.0    0.0  446.0   11.569
+250 :  tensor(0.0033)
+260 :  tensor(0.0049)
+270 :  tensor(0.0018)
+280 :  tensor(0.0010)
+290 :  tensor(0.0014)
+300 :  tensor(0.0014)
+310 :  tensor(0.0014)
+320 :  tensor(0.0013)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10682 phrases; correct: 4648.
+accuracy:  65.38%; precision:  43.51%; recall:  30.14%; FB1:  35.62
+LL: precision:  17.51%; recall:   8.40%; FB1:  11.36  1850
+PID: precision:  71.20%; recall:  49.99%; FB1:  58.74  5413
+TS: precision:  13.75%; recall:  12.19%; FB1:  12.92  3419
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32125.0 1060.0 1100.0 2181.0 1298.0   85.068
+1  B-PIDtensor(7709.) 3115.0 3854.0   92.0  269.0  379.0   49.994
+2   B-LLtensor(3855.) 2919.0  133.0  324.0  304.0  175.0    8.405
+3   B-TStensor(3855.) 2862.0  162.0  179.0  497.0  155.0   12.892
+4   I-TStensor(3855.) 3005.0  204.0  155.0    0.0  491.0   12.737
+330 :  tensor(0.0011)
+340 :  tensor(0.0025)
+350 :  tensor(0.0008)
+360 :  tensor(0.0100)
+370 :  tensor(0.0013)
+380 :  tensor(0.0012)
+390 :  tensor(0.0169)
+400 :  tensor(0.0017)
+410 :  tensor(0.0007)
+420 :  tensor(0.0059)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 12809 phrases; correct: 5790.
+accuracy:  66.14%; precision:  45.20%; recall:  37.55%; FB1:  41.02
+the best F is  41.02
+LL: precision:  17.66%; recall:   9.29%; FB1:  12.17  2027
+PID: precision:  67.40%; recall:  64.70%; FB1:  66.02  7401
+TS: precision:  13.13%; recall:  11.52%; FB1:  12.27  3381
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)31420.0 1651.0 1219.0 2183.0 1291.0   83.201
+1  B-PIDtensor(7709.) 2087.0 4988.0   75.0  222.0  337.0   64.704
+2   B-LLtensor(3855.) 2840.0  199.0  358.0  289.0  169.0    9.287
+3   B-TStensor(3855.) 2745.0  250.0  220.0  488.0  152.0   12.659
+4   I-TStensor(3855.) 2915.0  313.0  155.0    0.0  472.0   12.244
+430 :  tensor(0.0049)
+440 :  tensor(0.0016)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11662 phrases; correct: 5391.
+accuracy:  66.38%; precision:  46.23%; recall:  34.96%; FB1:  39.81
+LL: precision:  18.41%; recall:   8.64%; FB1:  11.76  1809
+PID: precision:  71.05%; recall:  59.55%; FB1:  64.79  6462
+TS: precision:  13.77%; recall:  12.11%; FB1:  12.89  3391
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)31920.0 1265.0 1093.0 2184.0 1302.0   84.525
+1  B-PIDtensor(7709.) 2521.0 4591.0   60.0  224.0  313.0   59.554
+2   B-LLtensor(3855.) 2884.0  176.0  333.0  296.0  166.0    8.638
+3   B-TStensor(3855.) 2804.0  215.0  181.0  512.0  143.0   13.281
+4   I-TStensor(3855.) 2995.0  215.0  142.0    0.0  503.0   13.048
+450 :  tensor(0.0005)
+460 :  tensor(0.0015)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10655 phrases; correct: 5192.
+accuracy:  67.14%; precision:  48.73%; recall:  33.67%; FB1:  39.83
+LL: precision:  19.23%; recall:   7.91%; FB1:  11.21  1586
+PID: precision:  75.36%; recall:  57.32%; FB1:  65.11  5864
+TS: precision:  14.60%; recall:  12.14%; FB1:  13.26  3205
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32584.0  966.0  938.0 2072.0 1204.0   86.283
+1  B-PIDtensor(7709.) 2762.0 4419.0   59.0  182.0  287.0   57.323
+2   B-LLtensor(3855.) 2975.0  139.0  305.0  291.0  145.0    7.912
+3   B-TStensor(3855.) 2904.0  161.0  154.0  497.0  139.0   12.892
+4   I-TStensor(3855.) 3054.0  179.0  130.0    0.0  492.0   12.763
+470 :  tensor(0.0006)
+480 :  tensor(0.0009)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 9805 phrases; correct: 4844.
+accuracy:  67.27%; precision:  49.40%; recall:  31.42%; FB1:  38.41
+LL: precision:  19.15%; recall:   7.34%; FB1:  10.61  1478
+PID: precision:  78.56%; recall:  52.94%; FB1:  63.25  5195
+TS: precision:  15.33%; recall:  12.45%; FB1:  13.74  3132
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)33008.0  752.0  880.0 2032.0 1092.0   87.406
+1  B-PIDtensor(7709.) 3127.0 4081.0   62.0  164.0  275.0   52.938
+2   B-LLtensor(3855.) 3030.0  106.0  283.0  292.0  144.0    7.341
+3   B-TStensor(3855.) 2965.0  125.0  127.0  502.0  136.0   13.022
+4   I-TStensor(3855.) 3102.0  131.0  126.0    0.0  496.0   12.866
+490 :  tensor(0.0006)
+500 :  tensor(0.0006)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11366 phrases; correct: 5505.
+accuracy:  67.18%; precision:  48.43%; recall:  35.70%; FB1:  41.11
+the best F is  41.11
+LL: precision:  18.46%; recall:   8.35%; FB1:  11.50  1744
+PID: precision:  74.14%; recall:  61.10%; FB1:  66.99  6353
+TS: precision:  14.47%; recall:  12.27%; FB1:  13.28  3269
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32283.0 1095.0 1063.0 2129.0 1194.0   85.486
+1  B-PIDtensor(7709.) 2498.0 4710.0   59.0  168.0  274.0   61.097
+2   B-LLtensor(3855.) 2930.0  158.0  322.0  292.0  153.0    8.353
+3   B-TStensor(3855.) 2865.0  180.0  171.0  506.0  133.0   13.126
+4   I-TStensor(3855.) 3019.0  210.0  129.0    0.0  497.0   12.892
+510 :  tensor(0.0005)
+520 :  tensor(0.0004)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11980 phrases; correct: 5748.
+accuracy:  67.08%; precision:  47.98%; recall:  37.28%; FB1:  41.96
+the best F is  41.96
+LL: precision:  18.33%; recall:   8.56%; FB1:  11.67  1800
+PID: precision:  72.14%; recall:  64.29%; FB1:  67.99  6870
+TS: precision:  13.96%; recall:  11.98%; FB1:  12.90  3310
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)31984.0 1289.0 1102.0 2170.0 1219.0   84.694
+1  B-PIDtensor(7709.) 2272.0 4956.0   49.0  168.0  264.0   64.288
+2   B-LLtensor(3855.) 2899.0  180.0  330.0  291.0  155.0    8.560
+3   B-TStensor(3855.) 2834.0  197.0  190.0  503.0  131.0   13.048
+4   I-TStensor(3855.) 2990.0  248.0  129.0    0.0  488.0   12.659
+530 :  tensor(0.0003)
+540 :  tensor(0.0002)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11859 phrases; correct: 5696.
+accuracy:  67.04%; precision:  48.03%; recall:  36.94%; FB1:  41.76
+LL: precision:  18.62%; recall:   8.59%; FB1:  11.75  1778
+PID: precision:  72.89%; recall:  63.42%; FB1:  67.83  6707
+TS: precision:  14.11%; recall:  12.35%; FB1:  13.17  3374
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)31995.0 1234.0 1083.0 2206.0 1246.0   84.724
+1  B-PIDtensor(7709.) 2304.0 4889.0   50.0  188.0  278.0   63.419
+2   B-LLtensor(3855.) 2903.0  168.0  331.0  295.0  158.0    8.586
+3   B-TStensor(3855.) 2837.0  187.0  179.0  517.0  135.0   13.411
+4   I-TStensor(3855.) 2986.0  229.0  135.0    0.0  505.0   13.100
+550 :  tensor(0.0005)
+560 :  tensor(0.0007)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11427 phrases; correct: 5550.
+accuracy:  67.20%; precision:  48.57%; recall:  35.99%; FB1:  41.35
+LL: precision:  18.68%; recall:   8.38%; FB1:  11.57  1729
+PID: precision:  74.49%; recall:  61.56%; FB1:  67.41  6371
+TS: precision:  14.46%; recall:  12.48%; FB1:  13.39  3327
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32237.0 1092.0 1057.0 2165.0 1213.0   85.364
+1  B-PIDtensor(7709.) 2446.0 4746.0   54.0  182.0  281.0   61.564
+2   B-LLtensor(3855.) 2929.0  154.0  323.0  295.0  154.0    8.379
+3   B-TStensor(3855.) 2871.0  169.0  170.0  517.0  128.0   13.411
+4   I-TStensor(3855.) 3014.0  210.0  125.0    0.0  506.0   13.126
+570 :  tensor(0.0003)
+580 :  tensor(0.0004)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11170 phrases; correct: 5468.
+accuracy:  67.29%; precision:  48.95%; recall:  35.46%; FB1:  41.13
+LL: precision:  19.03%; recall:   8.22%; FB1:  11.48  1666
+PID: precision:  75.62%; recall:  60.49%; FB1:  67.21  6166
+TS: precision:  14.62%; recall:  12.66%; FB1:  13.57  3338
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32365.0 1006.0 1011.0 2168.0 1214.0   85.703
+1  B-PIDtensor(7709.) 2519.0 4663.0   58.0  184.0  285.0   60.488
+2   B-LLtensor(3855.) 2943.0  146.0  317.0  297.0  152.0    8.223
+3   B-TStensor(3855.) 2890.0  158.0  158.0  523.0  126.0   13.567
+4   I-TStensor(3855.) 3027.0  193.0  122.0    0.0  513.0   13.307
+590 :  tensor(0.0003)
+600 :  tensor(0.0003)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11080 phrases; correct: 5438.
+accuracy:  67.31%; precision:  49.08%; recall:  35.27%; FB1:  41.04
+LL: precision:  19.07%; recall:   8.22%; FB1:  11.49  1662
+PID: precision:  76.18%; recall:  59.99%; FB1:  67.13  6071
+TS: precision:  14.82%; recall:  12.87%; FB1:  13.77  3347
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32399.0  968.0 1013.0 2165.0 1219.0   85.793
+1  B-PIDtensor(7709.) 2550.0 4625.0   57.0  189.0  288.0   59.995
+2   B-LLtensor(3855.) 2946.0  143.0  317.0  297.0  152.0    8.223
+3   B-TStensor(3855.) 2894.0  149.0  154.0  533.0  125.0   13.826
+4   I-TStensor(3855.) 3027.0  186.0  121.0    0.0  521.0   13.515
+610 :  tensor(0.0003)
+620 :  tensor(0.0004)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11134 phrases; correct: 5461.
+accuracy:  67.31%; precision:  49.05%; recall:  35.42%; FB1:  41.13
+LL: precision:  18.91%; recall:   8.25%; FB1:  11.49  1682
+PID: precision:  76.11%; recall:  60.28%; FB1:  67.27  6106
+TS: precision:  14.82%; recall:  12.87%; FB1:  13.78  3346
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32372.0  981.0 1031.0 2163.0 1217.0   85.722
+1  B-PIDtensor(7709.) 2526.0 4647.0   58.0  184.0  294.0   60.280
+2   B-LLtensor(3855.) 2946.0  143.0  318.0  297.0  151.0    8.249
+3   B-TStensor(3855.) 2894.0  149.0  154.0  533.0  125.0   13.826
+4   I-TStensor(3855.) 3027.0  186.0  121.0    0.0  521.0   13.515
+630 :  tensor(0.0008)
+640 :  tensor(0.0006)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11630 phrases; correct: 5611.
+accuracy:  67.10%; precision:  48.25%; recall:  36.39%; FB1:  41.49
+LL: precision:  18.62%; recall:   8.87%; FB1:  12.02  1837
+PID: precision:  74.17%; recall:  62.04%; FB1:  67.57  6449
+TS: precision:  14.53%; recall:  12.61%; FB1:  13.50  3344
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32123.0 1123.0 1126.0 2172.0 1220.0   85.062
+1  B-PIDtensor(7709.) 2383.0 4783.0   58.0  176.0  309.0   62.044
+2   B-LLtensor(3855.) 2915.0  155.0  342.0  290.0  153.0    8.872
+3   B-TStensor(3855.) 2863.0  165.0  183.0  518.0  126.0   13.437
+4   I-TStensor(3855.) 2995.0  223.0  128.0    0.0  509.0   13.204
+650 :  tensor(0.0003)
+660 :  tensor(0.0005)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11858 phrases; correct: 5715.
+accuracy:  67.10%; precision:  48.20%; recall:  37.06%; FB1:  41.90
+LL: precision:  18.49%; recall:   9.11%; FB1:  12.20  1898
+PID: precision:  73.98%; recall:  63.32%; FB1:  68.23  6598
+TS: precision:  14.37%; recall:  12.53%; FB1:  13.39  3362
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32017.0 1160.0 1168.0 2183.0 1236.0   84.782
+1  B-PIDtensor(7709.) 2278.0 4881.0   59.0  175.0  316.0   63.316
+2   B-LLtensor(3855.) 2906.0  155.0  351.0  289.0  154.0    9.105
+3   B-TStensor(3855.) 2851.0  170.0  189.0  517.0  128.0   13.411
+4   I-TStensor(3855.) 2985.0  232.0  131.0    0.0  507.0   13.152
+670 :  tensor(0.0003)
+680 :  tensor(0.0004)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11955 phrases; correct: 5763.
+accuracy:  67.08%; precision:  48.21%; recall:  37.38%; FB1:  42.11
+the best F is  42.11
+LL: precision:  18.65%; recall:   9.18%; FB1:  12.31  1898
+PID: precision:  74.25%; recall:  63.67%; FB1:  68.55  6610
+TS: precision:  14.53%; recall:  13.00%; FB1:  13.72  3447
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)31935.0 1167.0 1172.0 2233.0 1257.0   84.565
+1  B-PIDtensor(7709.) 2227.0 4908.0   58.0  191.0  325.0   63.666
+2   B-LLtensor(3855.) 2900.0  147.0  354.0  296.0  158.0    9.183
+3   B-TStensor(3855.) 2844.0  160.0  186.0  539.0  126.0   13.982
+4   I-TStensor(3855.) 2973.0  228.0  128.0    0.0  526.0   13.645
+690 :  tensor(0.0004)
+700 :  tensor(0.0003)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11757 phrases; correct: 5698.
+accuracy:  67.14%; precision:  48.46%; recall:  36.95%; FB1:  41.93
+LL: precision:  18.88%; recall:   9.03%; FB1:  12.21  1843
+PID: precision:  75.10%; recall:  62.76%; FB1:  68.38  6442
+TS: precision:  14.75%; recall:  13.28%; FB1:  13.98  3472
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32014.0 1099.0 1135.0 2238.0 1278.0   84.774
+1  B-PIDtensor(7709.) 2288.0 4838.0   60.0  198.0  325.0   62.758
+2   B-LLtensor(3855.) 2906.0  144.0  348.0  299.0  158.0    9.027
+3   B-TStensor(3855.) 2851.0  150.0  173.0  553.0  128.0   14.345
+4   I-TStensor(3855.) 2977.0  211.0  127.0    0.0  540.0   14.008
+710 :  tensor(0.0003)
+720 :  tensor(0.0002)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11607 phrases; correct: 5648.
+accuracy:  67.21%; precision:  48.66%; recall:  36.63%; FB1:  41.80
+LL: precision:  19.03%; recall:   8.82%; FB1:  12.05  1787
+PID: precision:  75.77%; recall:  62.06%; FB1:  68.23  6314
+TS: precision:  14.95%; recall:  13.59%; FB1:  14.24  3506
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32090.0 1050.0 1102.0 2248.0 1274.0   84.975
+1  B-PIDtensor(7709.) 2332.0 4784.0   58.0  208.0  327.0   62.057
+2   B-LLtensor(3855.) 2912.0  140.0  340.0  303.0  160.0    8.820
+3   B-TStensor(3855.) 2860.0  138.0  164.0  569.0  124.0   14.760
+4   I-TStensor(3855.) 2977.0  202.0  123.0    0.0  553.0   14.345
+730 :  tensor(0.0003)
+740 :  tensor(0.0002)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11729 phrases; correct: 5714.
+accuracy:  67.24%; precision:  48.72%; recall:  37.06%; FB1:  42.10
+LL: precision:  19.03%; recall:   8.98%; FB1:  12.20  1818
+PID: precision:  75.48%; recall:  62.86%; FB1:  68.60  6420
+TS: precision:  14.95%; recall:  13.54%; FB1:  14.21  3491
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32047.0 1081.0 1122.0 2242.0 1272.0   84.861
+1  B-PIDtensor(7709.) 2278.0 4846.0   59.0  201.0  325.0   62.862
+2   B-LLtensor(3855.) 2911.0  140.0  346.0  301.0  157.0    8.975
+3   B-TStensor(3855.) 2854.0  145.0  169.0  564.0  123.0   14.630
+4   I-TStensor(3855.) 2976.0  208.0  122.0    0.0  549.0   14.241
+750 :  tensor(0.0003)
+760 :  tensor(0.0003)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11730 phrases; correct: 5747.
+accuracy:  67.35%; precision:  48.99%; recall:  37.27%; FB1:  42.34
+the best F is  42.34
+LL: precision:  19.24%; recall:   9.00%; FB1:  12.26  1804
+PID: precision:  75.76%; recall:  63.28%; FB1:  68.96  6439
+TS: precision:  14.97%; recall:  13.54%; FB1:  14.22  3487
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32072.0 1072.0 1110.0 2240.0 1270.0   84.927
+1  B-PIDtensor(7709.) 2244.0 4878.0   59.0  198.0  330.0   63.277
+2   B-LLtensor(3855.) 2912.0  139.0  347.0  301.0  156.0    9.001
+3   B-TStensor(3855.) 2855.0  144.0  167.0  566.0  123.0   14.682
+4   I-TStensor(3855.) 2977.0  206.0  121.0    0.0  551.0   14.293
+770 :  tensor(0.0004)
+780 :  tensor(0.0003)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11436 phrases; correct: 5644.
+accuracy:  67.44%; precision:  49.35%; recall:  36.60%; FB1:  42.03
+LL: precision:  19.31%; recall:   8.66%; FB1:  11.96  1730
+PID: precision:  76.97%; recall:  61.98%; FB1:  68.66  6208
+TS: precision:  15.21%; recall:  13.80%; FB1:  14.47  3498
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32223.0  982.0 1064.0 2247.0 1248.0   85.327
+1  B-PIDtensor(7709.) 2344.0 4778.0   58.0  203.0  326.0   61.980
+2   B-LLtensor(3855.) 2930.0  128.0  334.0  303.0  160.0    8.664
+3   B-TStensor(3855.) 2878.0  127.0  155.0  574.0  121.0   14.890
+4   I-TStensor(3855.) 2984.0  193.0  119.0    0.0  559.0   14.501
+790 :  tensor(0.0002)
+800 :  tensor(0.0015)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10178 phrases; correct: 4994.
+accuracy:  67.19%; precision:  49.07%; recall:  32.39%; FB1:  39.02
+LL: precision:  19.33%; recall:   8.07%; FB1:  11.38  1609
+PID: precision:  80.00%; recall:  53.81%; FB1:  64.34  5185
+TS: precision:  15.81%; recall:  13.88%; FB1:  14.78  3384
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32736.0  709.0  986.0 2167.0 1166.0   86.686
+1  B-PIDtensor(7709.) 2971.0 4148.0   65.0  184.0  341.0   53.807
+2   B-LLtensor(3855.) 2997.0   99.0  311.0  304.0  144.0    8.067
+3   B-TStensor(3855.) 2934.0   97.0  128.0  573.0  123.0   14.864
+4   I-TStensor(3855.) 3047.0  132.0  119.0    0.0  557.0   14.449
+810 :  tensor(0.0005)
+820 :  tensor(0.0003)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 8838 phrases; correct: 4301.
+accuracy:  66.97%; precision:  48.66%; recall:  27.89%; FB1:  35.46
+LL: precision:  20.00%; recall:   7.47%; FB1:  10.88  1440
+PID: precision:  83.31%; recall:  45.08%; FB1:  58.50  4171
+TS: precision:  16.67%; recall:  13.96%; FB1:  15.19  3227
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)33312.0  467.0  885.0 2072.0 1028.0   88.211
+1  B-PIDtensor(7709.) 3665.0 3475.0   65.0  159.0  345.0   45.077
+2   B-LLtensor(3855.) 3061.0   72.0  288.0  294.0  140.0    7.471
+3   B-TStensor(3855.) 3001.0   73.0   92.0  570.0  119.0   14.786
+4   I-TStensor(3855.) 3108.0   84.0  110.0    0.0  553.0   14.345
+830 :  tensor(0.0003)
+840 :  tensor(0.0004)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 9313 phrases; correct: 4514.
+accuracy:  66.96%; precision:  48.47%; recall:  29.28%; FB1:  36.50
+LL: precision:  19.83%; recall:   7.68%; FB1:  11.07  1493
+PID: precision:  81.86%; recall:  47.66%; FB1:  60.24  4488
+TS: precision:  16.33%; recall:  14.11%; FB1:  15.14  3332
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)33061.0  551.0  928.0 2130.0 1094.0   87.546
+1  B-PIDtensor(7709.) 3459.0 3674.0   65.0  175.0  336.0   47.659
+2   B-LLtensor(3855.) 3022.0   90.0  296.0  302.0  145.0    7.678
+3   B-TStensor(3855.) 2977.0   77.0   97.0  590.0  114.0   15.305
+4   I-TStensor(3855.) 3082.0   96.0  107.0    0.0  570.0   14.786
+850 :  tensor(0.0005)
+860 :  tensor(0.0005)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10071 phrases; correct: 4901.
+accuracy:  67.03%; precision:  48.66%; recall:  31.79%; FB1:  38.45
+LL: precision:  19.90%; recall:   8.07%; FB1:  11.48  1563
+PID: precision:  79.97%; recall:  52.11%; FB1:  63.10  5023
+TS: precision:  16.44%; recall:  14.86%; FB1:  15.61  3485
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32677.0  700.0  981.0 2212.0 1194.0   86.529
+1  B-PIDtensor(7709.) 3095.0 4017.0   59.0  199.0  339.0   52.108
+2   B-LLtensor(3855.) 2984.0  104.0  311.0  310.0  146.0    8.067
+3   B-TStensor(3855.) 2922.0   93.0  106.0  623.0  111.0   16.161
+4   I-TStensor(3855.) 3036.0  109.0  106.0    0.0  604.0   15.668
+870 :  tensor(0.0003)
+880 :  tensor(0.0002)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10429 phrases; correct: 5076.
+accuracy:  67.06%; precision:  48.67%; recall:  32.92%; FB1:  39.28
+LL: precision:  19.93%; recall:   8.33%; FB1:  11.75  1611
+PID: precision:  79.21%; recall:  54.22%; FB1:  64.38  5277
+TS: precision:  16.24%; recall:  14.92%; FB1:  15.55  3541
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32517.0  765.0 1015.0 2248.0 1219.0   86.106
+1  B-PIDtensor(7709.) 2935.0 4180.0   56.0  203.0  335.0   54.222
+2   B-LLtensor(3855.) 2961.0  106.0  321.0  318.0  149.0    8.327
+3   B-TStensor(3855.) 2903.0  103.0  113.0  627.0  109.0   16.265
+4   I-TStensor(3855.) 3019.0  123.0  106.0    0.0  607.0   15.746
+890 :  tensor(0.0003)
+900 :  tensor(0.0002)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10669 phrases; correct: 5176.
+accuracy:  67.03%; precision:  48.51%; recall:  33.57%; FB1:  39.68
+LL: precision:  19.94%; recall:   8.79%; FB1:  12.21  1700
+PID: precision:  78.65%; recall:  55.35%; FB1:  64.98  5425
+TS: precision:  16.08%; recall:  14.79%; FB1:  15.41  3544
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32404.0  800.0 1067.0 2255.0 1238.0   85.807
+1  B-PIDtensor(7709.) 2841.0 4267.0   59.0  198.0  344.0   55.351
+2   B-LLtensor(3855.) 2941.0  111.0  339.0  311.0  153.0    8.794
+3   B-TStensor(3855.) 2887.0  108.0  128.0  621.0  111.0   16.109
+4   I-TStensor(3855.) 3007.0  139.0  107.0    0.0  602.0   15.616
+910 :  tensor(0.0003)
+920 :  tensor(0.0002)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10761 phrases; correct: 5229.
+accuracy:  67.07%; precision:  48.59%; recall:  33.91%; FB1:  39.95
+LL: precision:  19.91%; recall:   8.77%; FB1:  12.17  1698
+PID: precision:  78.21%; recall:  56.18%; FB1:  65.39  5538
+TS: precision:  15.89%; recall:  14.53%; FB1:  15.18  3525
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32385.0  833.0 1057.0 2252.0 1237.0   85.756
+1  B-PIDtensor(7709.) 2788.0 4331.0   57.0  191.0  342.0   56.181
+2   B-LLtensor(3855.) 2941.0  113.0  338.0  311.0  152.0    8.768
+3   B-TStensor(3855.) 2885.0  112.0  135.0  609.0  114.0   15.798
+4   I-TStensor(3855.) 3003.0  149.0  111.0    0.0  592.0   15.357
+930 :  tensor(0.0004)
+940 :  tensor(0.0003)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10921 phrases; correct: 5323.
+accuracy:  67.17%; precision:  48.74%; recall:  34.52%; FB1:  40.42
+LL: precision:  19.84%; recall:   8.74%; FB1:  12.14  1699
+PID: precision:  77.75%; recall:  57.40%; FB1:  66.04  5691
+TS: precision:  15.89%; recall:  14.55%; FB1:  15.19  3531
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32345.0  872.0 1059.0 2256.0 1232.0   85.650
+1  B-PIDtensor(7709.) 2709.0 4425.0   55.0  192.0  328.0   57.400
+2   B-LLtensor(3855.) 2937.0  119.0  337.0  309.0  153.0    8.742
+3   B-TStensor(3855.) 2879.0  113.0  142.0  614.0  107.0   15.927
+4   I-TStensor(3855.) 2994.0  162.0  106.0    0.0  593.0   15.383
+950 :  tensor(0.0002)
+960 :  tensor(0.0002)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10987 phrases; correct: 5362.
+accuracy:  67.21%; precision:  48.80%; recall:  34.78%; FB1:  40.61
+LL: precision:  19.73%; recall:   8.66%; FB1:  12.04  1693
+PID: precision:  77.67%; recall:  57.92%; FB1:  66.35  5749
+TS: precision:  15.88%; recall:  14.60%; FB1:  15.22  3545
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32327.0  885.0 1057.0 2265.0 1230.0   85.603
+1  B-PIDtensor(7709.) 2673.0 4465.0   54.0  194.0  323.0   57.919
+2   B-LLtensor(3855.) 2936.0  119.0  334.0  313.0  153.0    8.664
+3   B-TStensor(3855.) 2876.0  114.0  143.0  617.0  105.0   16.005
+4   I-TStensor(3855.) 2989.0  166.0  105.0    0.0  595.0   15.435
+970 :  tensor(0.0002)
+980 :  tensor(0.0002)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10969 phrases; correct: 5367.
+accuracy:  67.25%; precision:  48.93%; recall:  34.81%; FB1:  40.68
+LL: precision:  19.70%; recall:   8.77%; FB1:  12.13  1716
+PID: precision:  77.66%; recall:  58.04%; FB1:  66.43  5761
+TS: precision:  15.89%; recall:  14.40%; FB1:  15.11  3492
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32358.0  883.0 1066.0 2236.0 1221.0   85.685
+1  B-PIDtensor(7709.) 2676.0 4474.0   55.0  180.0  324.0   58.036
+2   B-LLtensor(3855.) 2942.0  118.0  338.0  307.0  150.0    8.768
+3   B-TStensor(3855.) 2882.0  115.0  148.0  602.0  108.0   15.616
+4   I-TStensor(3855.) 2989.0  171.0  109.0    0.0  586.0   15.201
+990 :  tensor(0.0001)
+1000 :  tensor(0.0003)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10763 phrases; correct: 5309.
+accuracy:  67.38%; precision:  49.33%; recall:  34.43%; FB1:  40.55
+LL: precision:  19.76%; recall:   8.51%; FB1:  11.89  1660
+PID: precision:  78.51%; recall:  57.45%; FB1:  66.35  5641
+TS: precision:  15.94%; recall:  14.32%; FB1:  15.09  3462
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32496.0  836.0 1031.0 2218.0 1183.0   86.050
+1  B-PIDtensor(7709.) 2725.0 4429.0   56.0  179.0  320.0   57.452
+2   B-LLtensor(3855.) 2961.0  111.0  328.0  309.0  146.0    8.508
+3   B-TStensor(3855.) 2898.0  110.0  136.0  600.0  111.0   15.564
+4   I-TStensor(3855.) 3010.0  155.0  109.0    0.0  581.0   15.071
+1010 :  tensor(0.0001)
+1020 :  tensor(0.0001)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10617 phrases; correct: 5287.
+accuracy:  67.52%; precision:  49.80%; recall:  34.29%; FB1:  40.61
+LL: precision:  19.95%; recall:   8.25%; FB1:  11.67  1594
+PID: precision:  78.93%; recall:  57.30%; FB1:  66.40  5596
+TS: precision:  16.11%; recall:  14.32%; FB1:  15.16  3427
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32603.0  816.0  982.0 2202.0 1161.0   86.334
+1  B-PIDtensor(7709.) 2754.0 4417.0   56.0  175.0  307.0   57.297
+2   B-LLtensor(3855.) 2978.0  108.0  318.0  308.0  143.0    8.249
+3   B-TStensor(3855.) 2913.0  108.0  130.0  595.0  109.0   15.435
+4   I-TStensor(3855.) 3023.0  147.0  108.0    0.0  577.0   14.968
+1030 :  tensor(0.0001)
+1040 :  tensor(0.0002)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10623 phrases; correct: 5295.
+accuracy:  67.53%; precision:  49.84%; recall:  34.34%; FB1:  40.67
+LL: precision:  20.01%; recall:   8.27%; FB1:  11.71  1594
+PID: precision:  78.92%; recall:  57.39%; FB1:  66.45  5606
+TS: precision:  16.13%; recall:  14.32%; FB1:  15.17  3423
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32604.0  820.0  982.0 2200.0 1158.0   86.336
+1  B-PIDtensor(7709.) 2747.0 4424.0   56.0  172.0  310.0   57.387
+2   B-LLtensor(3855.) 2978.0  108.0  319.0  307.0  143.0    8.275
+3   B-TStensor(3855.) 2916.0  107.0  129.0  594.0  109.0   15.409
+4   I-TStensor(3855.) 3023.0  147.0  108.0    0.0  577.0   14.968
+1050 :  tensor(0.0002)
+1060 :  tensor(0.0001)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 10703 phrases; correct: 5328.
+accuracy:  67.52%; precision:  49.78%; recall:  34.55%; FB1:  40.79
+LL: precision:  20.18%; recall:   8.35%; FB1:  11.81  1596
+PID: precision:  78.84%; recall:  57.72%; FB1:  66.65  5644
+TS: precision:  16.06%; recall:  14.42%; FB1:  15.20  3463
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32556.0  825.0  981.0 2221.0 1181.0   86.209
+1  B-PIDtensor(7709.) 2704.0 4450.0   56.0  177.0  322.0   57.725
+2   B-LLtensor(3855.) 2972.0  107.0  322.0  310.0  144.0    8.353
+3   B-TStensor(3855.) 2902.0  111.0  131.0  602.0  109.0   15.616
+4   I-TStensor(3855.) 3015.0  151.0  106.0    0.0  583.0   15.123
+1070 :  tensor(0.0002)
+1080 :  tensor(0.0007)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11209 phrases; correct: 5501.
+accuracy:  67.33%; precision:  49.08%; recall:  35.68%; FB1:  41.32
+LL: precision:  19.79%; recall:   8.64%; FB1:  12.03  1683
+PID: precision:  77.33%; recall:  59.75%; FB1:  67.41  5956
+TS: precision:  15.74%; recall:  14.58%; FB1:  15.14  3570
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32256.0  927.0 1053.0 2286.0 1242.0   85.415
+1  B-PIDtensor(7709.) 2540.0 4606.0   48.0  192.0  323.0   59.748
+2   B-LLtensor(3855.) 2932.0  122.0  333.0  316.0  152.0    8.638
+3   B-TStensor(3855.) 2870.0  122.0  148.0  614.0  101.0   15.927
+4   I-TStensor(3855.) 2983.0  179.0  101.0    0.0  592.0   15.357
+1090 :  tensor(0.0002)
+1100 :  tensor(0.0004)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 12318 phrases; correct: 5944.
+accuracy:  67.10%; precision:  48.25%; recall:  38.55%; FB1:  42.86
+the best F is  42.86
+LL: precision:  19.25%; recall:   9.31%; FB1:  12.55  1865
+PID: precision:  73.73%; recall:  64.99%; FB1:  69.08  6795
+TS: precision:  15.72%; recall:  14.92%; FB1:  15.31  3658
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)31669.0 1257.0 1196.0 2345.0 1297.0   83.860
+1  B-PIDtensor(7709.) 2133.0 5010.0   45.0  194.0  327.0   64.989
+2   B-LLtensor(3855.) 2866.0  152.0  359.0  316.0  162.0    9.313
+3   B-TStensor(3855.) 2803.0  159.0  166.0  627.0  100.0   16.265
+4   I-TStensor(3855.) 2932.0  217.0   99.0    0.0  607.0   15.746
+1110 :  tensor(0.0003)
+1120 :  tensor(0.0001)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 12576 phrases; correct: 6058.
+accuracy:  67.11%; precision:  48.17%; recall:  39.29%; FB1:  43.28
+the best F is  43.28
+LL: precision:  18.92%; recall:   9.34%; FB1:  12.50  1903
+PID: precision:  73.07%; recall:  66.49%; FB1:  69.63  7015
+TS: precision:  15.64%; recall:  14.84%; FB1:  15.23  3658
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)31566.0 1327.0 1226.0 2351.0 1294.0   83.588
+1  B-PIDtensor(7709.) 2027.0 5126.0   43.0  188.0  325.0   66.494
+2   B-LLtensor(3855.) 2857.0  159.0  360.0  314.0  165.0    9.339
+3   B-TStensor(3855.) 2787.0  172.0  175.0  623.0   98.0   16.161
+4   I-TStensor(3855.) 2923.0  231.0   99.0    0.0  602.0   15.616
+1130 :  tensor(0.0002)
+1140 :  tensor(0.0002)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 12261 phrases; correct: 5962.
+accuracy:  67.26%; precision:  48.63%; recall:  38.67%; FB1:  43.08
+LL: precision:  19.09%; recall:   9.08%; FB1:  12.31  1833
+PID: precision:  74.14%; recall:  65.43%; FB1:  69.51  6803
+TS: precision:  15.67%; recall:  14.73%; FB1:  15.19  3625
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)31752.0 1235.0 1172.0 2330.0 1275.0   84.080
+1  B-PIDtensor(7709.) 2109.0 5044.0   44.0  186.0  326.0   65.430
+2   B-LLtensor(3855.) 2887.0  145.0  350.0  312.0  161.0    9.079
+3   B-TStensor(3855.) 2809.0  159.0  169.0  620.0   98.0   16.083
+4   I-TStensor(3855.) 2937.0  220.0   98.0    0.0  600.0   15.564
+1150 :  tensor(0.0002)
+1160 :  tensor(0.0001)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11960 phrases; correct: 5847.
+accuracy:  67.35%; precision:  48.89%; recall:  37.92%; FB1:  42.71
+LL: precision:  19.35%; recall:   9.00%; FB1:  12.29  1793
+PID: precision:  75.24%; recall:  64.03%; FB1:  69.18  6560
+TS: precision:  15.64%; recall:  14.63%; FB1:  15.12  3607
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)31917.0 1136.0 1140.0 2314.0 1257.0   84.517
+1  B-PIDtensor(7709.) 2215.0 4936.0   43.0  189.0  326.0   64.029
+2   B-LLtensor(3855.) 2900.0  139.0  347.0  314.0  155.0    9.001
+3   B-TStensor(3855.) 2831.0  141.0  164.0  618.0  101.0   16.031
+4   I-TStensor(3855.) 2952.0  208.0   99.0    0.0  596.0   15.460
+1170 :  tensor(0.0002)
+1180 :  tensor(0.0001)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1.0    0.0    0.0    0.0   99.997
+1  B-PIDtensor(7549.)    0.0 7549.0    0.0    0.0    0.0  100.000
+2   B-LLtensor(3775.)    0.0    0.0 3775.0    0.0    0.0  100.000
+3   B-TStensor(3775.)    0.0    0.0    0.0 3775.0    0.0  100.000
+4   I-TStensor(3775.)    0.0    0.0    0.0    0.0 3775.0  100.000
+EVALUATE TEST
+processed 57038 tokens with 15419 phrases; found: 11819 phrases; correct: 5805.
+accuracy:  67.43%; precision:  49.12%; recall:  37.65%; FB1:  42.62
+LL: precision:  19.48%; recall:   8.87%; FB1:  12.19  1756
+PID: precision:  75.86%; recall:  63.48%; FB1:  69.12  6451
+TS: precision:  15.75%; recall:  14.76%; FB1:  15.24  3612
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37764.)32004.0 1083.0 1113.0 2317.0 1247.0   84.747
+1  B-PIDtensor(7709.) 2257.0 4894.0   42.0  196.0  320.0   63.484
+2   B-LLtensor(3855.) 2911.0  133.0  342.0  314.0  155.0    8.872
+3   B-TStensor(3855.) 2833.0  140.0  159.0  621.0  102.0   16.109
+4   I-TStensor(3855.) 2956.0  201.0  100.0    0.0  598.0   15.512
+1190 :  tensor(0.0003)
+1200 :  tensor(0.0002)
+EVALUATE TRAIN
+processed 5340 tokens with 1462 phrases; found: 1456 phrases; correct: 1456.
+accuracy:  99.85%; precision: 100.00%; recall:  99.59%; FB1:  99.79
+LL: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+PID: precision: 100.00%; recall:  99.73%; FB1:  99.86  728
+TS: precision: 100.00%; recall:  99.45%; FB1:  99.73  364
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(3512.) 3512.0    0.0    0.0    0.0    0.0  100.000
+1  B-PIDtensor(730.)    2.0  728.0    0.0    0.0    0.0   99.726
+2   B-LLtensor(366.)    2.0    0.0  364.0    0.0    0.0   99.454
+3   B-TStensor(366.)    2.0    0.0    0.0  364.0    0.0   99.454
+4   I-TStensor(366.)    2.0    0.0    0.0    0.0  364.0   99.454
+EVALUATE DEVELOPMENT
+processed 56407 tokens with 15099 phrases; found: 15100 phrases; correct: 15099.
+accuracy: 100.00%; precision:  99.99%; recall: 100.00%; FB1: 100.00
+LL: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+PID: precision:  99.99%; recall: 100.00%; FB1:  99.99  7550
+TS: precision: 100.00%; recall: 100.00%; FB1: 100.00  3775
+ID     NE  Total      O  B-PID   B-LL   B-TS   I-TS  Percent
+0      Otensor(37533.)37532.0    1</p></div></article></body></html>

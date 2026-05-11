@@ -1,0 +1,205 @@
+Results:
+
+
+[[97;41m/home/ubuntu/john/services/netexp/do_trace.go:176[0m] - G404 (CWE-338): Use of weak random number generator (math/rand instead of crypto/rand) (Confidence: MEDIUM, Severity: HIGH)
+    175: 		Body: &icmp.Echo{
+  > 176: 			ID:   rand.Int(), //nolint: gosec
+    177: 			Seq:  1,
+
+
+
+[[97;41m/home/ubuntu/john/helpers/com/config.go:30[0m] - G402 (CWE-295): TLS MinVersion too low. (Confidence: HIGH, Severity: HIGH)
+    29: 	box := packr.New("myBox", "./../../assets")
+  > 30: 	tlsConfig := tls.Config{}
+    31: 
+
+
+
+[[97;41m/home/ubuntu/john/services/netexp/port_scan.go:96[0m] - G109 (CWE-190): Potential Integer overflow made by strconv.Atoi result conversion to int16/32 (Confidence: MEDIUM, Severity: HIGH)
+    95: 			// nolint
+  > 96: 			newpid, err := strconv.Atoi(pid)
+    97: 			if err != nil {
+
+
+
+[[30;43m/home/ubuntu/john/cmd/bench_proc_listing.go:30[0m] - G307 (CWE-703): Deferring unsafe method "Close" on type "*os.File" (Confidence: HIGH, Severity: MEDIUM)
+    29: 	panErr(err)
+  > 30: 	defer f.Close()
+    31: 	err = pprof.StartCPUProfile(f)
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/kafka/kafkascan.go:92[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    91: func readSettings(path string) (settings map[string]interface{}, err error) {
+  > 92: 	content, err := os.Open(path)
+    93: 	if err != nil {
+
+
+
+[[30;43m/home/ubuntu/john/services/beats/main.go:104[0m] - G204 (CWE-78): Subprocess launched with function call as argument or cmd arguments (Confidence: HIGH, Severity: MEDIUM)
+    103: 	args := []string{"-c", beatConfPath, "--path.home", bConf.EnvDir}
+  > 104: 	cmd = exec.Command(bConf.BeatPath, args...) //nolint: gosec
+    105: 	return cmd, beatConfPath
+
+
+
+[[30;43m/home/ubuntu/john/services/beats/main.go:119[0m] - G204 (CWE-78): Subprocess launched with function call as argument or cmd arguments (Confidence: HIGH, Severity: MEDIUM)
+    118: 	args := []string{"-c", beatConfPath, "--path.home", bConf.EnvDir}
+  > 119: 	cmd = exec.Command(bConf.BeatPath, args...) //nolint:gosec
+    120: 
+
+
+
+[[30;43m/home/ubuntu/john/services/beats/main.go:250[0m] - G204 (CWE-78): Subprocess launched with function call as argument or cmd arguments (Confidence: HIGH, Severity: MEDIUM)
+    249: 	log.Info().Msg("Starting beat")
+  > 250: 	newCmd := exec.Command(chans.cmd.Path, chans.cmd.Args[1:]...) //nolint:gosec
+    251: 	newCmd.Dir = bConf.EnvDir
+
+
+
+[[30;43m/home/ubuntu/john/services/beats/main.go:268[0m] - G204 (CWE-78): Subprocess launched with function call as argument or cmd arguments (Confidence: HIGH, Severity: MEDIUM)
+    267: 		"modules"}, techCmd[:2]...)
+  > 268: 	newTCMD := exec.Command(cmd.Path, args...) //nolint:gosec
+    269: 	newTCMD.Dir = bConf.EnvDir
+
+
+
+[[30;43m/home/ubuntu/john/services/beats/main.go:312[0m] - G204 (CWE-78): Subprocess launched with function call as argument or cmd arguments (Confidence: HIGH, Severity: MEDIUM)
+    311: 			"modules"}, techCmd[:2]...)
+  > 312: 		newTCMD := exec.Command(cmd.Path, args...) //nolint: gosec
+    313: 		newTCMD.Dir = bConf.EnvDir
+
+
+
+[[30;43m/home/ubuntu/john/services/beats/mb_module_conf.go:56[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    55: 	// ** II - Unmarshal module config file **
+  > 56: 	f, err := os.Open(path)
+    57: 	if err != nil {
+
+
+
+[[30;43m/home/ubuntu/john/services/beats/try_new_mod.go:15[0m] - G204 (CWE-78): Subprocess launched with variable (Confidence: HIGH, Severity: MEDIUM)
+    14: 	// ** I - Try to start metricbeat **
+  > 15: 	newCmd := exec.Command(path, args...)
+    16: 	newCmd.Dir = bConf.EnvDir
+
+
+
+[[30;43m/home/ubuntu/john/services/beats/try_new_mod.go:58[0m] - G204 (CWE-78): Subprocess launched with variable (Confidence: HIGH, Severity: MEDIUM)
+    57: 		"modules", "disable", newMod}
+  > 58: 	newTCMD := exec.Command(path, disablingArgs...)
+    59: 	newTCMD.Dir = bConf.EnvDir
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/clickhouse/scan.go:25[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    24: 		filePath := fmt.Sprintf("%s/%s", clichouseServerPath, f.Name())
+  > 25: 		content, errF := ioutil.ReadFile(filePath)
+    26: 		if errF != nil {
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/nginx/nginxscan_linux.go:167[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    166: 		filePath := fmt.Sprintf("/etc/nginx/sites-available/%s", f.Name())
+  > 167: 		content, err := ioutil.ReadFile(filePath)
+    168: 		if err != nil {
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/zookeeper/zookeperscan.go:95[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    94: func readSettings(path string) (settings map[string]interface{}, err error) {
+  > 95: 	content, err := os.Open(path)
+    96: 	if err != nil {
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/docker/dockerscan.go:54[0m] - G204 (CWE-78): Subprocess launched with variable (Confidence: HIGH, Severity: MEDIUM)
+    53: 	apiPath := fmt.Sprintf("%s/containers/json", mobyAPIEndpoint)
+  > 54: 	command := exec.Command(dockerMethod, dockerSocket, dockerSocketEndpoint, apiPath)
+    55: 	var stdout, stderr bytes.Buffer
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/mysql/mysqlscan_linux.go:36[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    35: 
+  > 36: 	content, err = ioutil.ReadFile(input)
+    37: 	if err != nil {
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/mysql/mysqlscan_linux.go:48[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    47: 					// Read configurations
+  > 48: 					subConfigurationContent, conferr := ioutil.ReadFile(path)
+    49: 					if conferr != nil {
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/nodejs/nodejsscan.go:41[0m] - G204 (CWE-78): Subprocess launched with variable (Confidence: HIGH, Severity: MEDIUM)
+    40: 	version = "NotRegularNodeJS"
+  > 41: 	command := exec.Command(nodeLocation, "--version")
+    42: 	var stdout, stderr bytes.Buffer
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/postgresql/postgresqlcan_linux.go:27[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    26: 	var content *os.File
+  > 27: 	content, err = os.Open(path)
+    28: 	if err != nil {
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/apache/scan.go:63[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    62: func NewFromFile(file string) (Config, error) {
+  > 63: 	f, err := os.Open(file)
+    64: 	if err != nil {
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/apache/scan.go:323[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    322: 		var err error
+  > 323: 		r, err = os.Open(file)
+    324: 		if err != nil {
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/apache/scan.go:333[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    332: 			fullpath = dir + "/" + file
+  > 333: 			r, err = os.Open(fullpath)
+    334: 			if err == nil {
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/ruby/rubyscan.go:13[0m] - G204 (CWE-78): Subprocess launched with variable (Confidence: HIGH, Severity: MEDIUM)
+    12: func getRubyVersion(cmdname string) string {
+  > 13: 	command := exec.Command(cmdname, "--version")
+    14: 	var stdout, stderr bytes.Buffer
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/scala/scalascan.go:78[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    77: func readScalaSetting(path string) (settings map[string]interface{}, err error) {
+  > 78: 	content, err := os.Open(path)
+    79: 	if err != nil {
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/flink/scan.go:91[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    90: func readSettings(path string) (settings map[string]interface{}, err error) {
+  > 91: 	content, err := os.Open(path)
+    92: 	if err != nil {
+
+
+
+[[30;43m/home/ubuntu/john/services/configuration/scanners/redis/redisscan.go:29[0m] - G304 (CWE-22): Potential file inclusion via variable (Confidence: HIGH, Severity: MEDIUM)
+    28: 		filePath := fmt.Sprintf("%s%s", redisDir, f.Name())
+  > 29: 		content, err = os.Open(filePath)
+    30: 		if err != nil {
+
+
+
+[1;36mSummary:[0m
+   Files: 46
+   Lines: 6028
+   Nosec: 0
+  Issues: [1;31m28[0m
+

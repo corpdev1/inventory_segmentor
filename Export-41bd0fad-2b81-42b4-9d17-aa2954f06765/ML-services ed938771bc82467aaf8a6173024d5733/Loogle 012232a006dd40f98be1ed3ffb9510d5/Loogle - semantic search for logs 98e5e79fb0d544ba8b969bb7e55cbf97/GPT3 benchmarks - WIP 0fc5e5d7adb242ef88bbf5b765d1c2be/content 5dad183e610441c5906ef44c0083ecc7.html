@@ -1,0 +1,1366 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>content</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5dad183e-6104-41c5-906e-f44c0083ecc7" class="page sans"><header><h1 class="page-title">content</h1><p class="page-description"></p></header><div class="page-body"><pre id="75401abf-5322-476f-b0b9-f9addfd78742" class="code code-wrap"><code>Part 1: Monitoring in the Kubernetes era
+Part 2: Monitoring Kubernetes performance metrics
+Part 3: How to collect and graph Kubernetes metrics
+Part 4: Monitoring Kubernetes with Datadog
+     Easily monitor each layer
+     Install the Datadog Agent
+     The Datadog Cluster Agent
+     Configure permissions and secrets
+     Deploy the Cluster Agent
+     Check that the Cluster Agent deployed successfully
+     Deploy the node-based Agent
+     Check that the node-based Agent deployed successfully
+     Dive into the metrics
+     Deploy kube-state-metrics
+     Autodiscovery
+     Get visibility into your Control Plane
+     Monitoring Kubernetes with tags
+     Beyond metrics: Collect logs, traces, and more
+     Collect and analyze Kubernetes logs
+     Track application performance
+     All your Kubernetes data in one place
+FURTHER READING
+EBOOK: MONITORING MODERN INFRASTRUCTURE
+ eBook: Monitoring Modern Infrastructure
+Explore key steps for implementing a successful cloud-scale monitoring
+strategy.
+DOWNLOAD TO LEARN MORE
+monitoring guide / infrastructure monitoring / kubernetes / containers
+
+_Editor’s note: Several URLs in this post contain the term
+“master.” Datadog does not use this term, but GitHub historically
+used “master” as the default name for the main branch of a
+repository. It now uses “main” instead for new repos, and GitHub
+is advising users to wait for upcoming changes that will allow us to
+safely rename the “master” branch in our existing repositories._
+If you’ve read Part 3 of this series, you’ve learned how you can
+use different Kubernetes commands and add-ons to spot-check the health
+and resource usage of Kubernetes cluster objects. In this post we’ll
+show you how you can get more comprehensive visibility into your
+cluster by collecting all your telemetry data in one place and
+tracking it over time. After following along with this post, you will
+have:
+     Deployed the Datadog Agent to collect all the metrics highlighted in
+Part 2 of this series
+     Deployed kube-state-metrics to gain additional visibility into
+cluster-level status
+     Learned how Autodiscovery enables you to automatically monitor your
+containerized workloads, wherever in the cluster they are running
+     Enabled log collection so you can search, analyze, and monitor all
+the logs from your cluster
+     Set up Datadog APM to collect distributed traces from your
+containerized applications
+Datadog’s integrations with Kubernetes, Docker, containerd, etcd,
+Istio, and other related technologies are designed to tackle the
+considerable challenges of monitoring orchestrated containers and
+services, as explained in Part 1.
+ Datadog&#x27;s out-of-the-box Kubernetes dashboard.
+EASILY MONITOR EACH LAYER
+After reading the previous parts of this series, you know that it’s
+essential to monitor the different layers of your container
+infrastructure. Datadog integrates with each part of your Kubernetes
+cluster to provide you with a complete picture of health and
+performance:
+     The Datadog Agent’s Kubernetes integration collects metrics,
+events, and logs from your cluster components, workload pods, and
+other Kubernetes objects
+     Integrations with container runtimes including Docker and containerd
+collect container-level metrics for detailed resource breakdowns
+     Wherever your Kubernetes clusters are running—including Amazon Web
+Services, Google Cloud Platform, or Azure—the Datadog Agent
+automatically monitors the nodes of your Kubernetes clusters
+     Datadog’s Autodiscovery and 500+ built-in integrations
+automatically monitor the technologies you are deploying
+     APM and distributed tracing provide transaction-level insight into
+applications running in your Kubernetes clusters
+COLLECT, VISUALIZE, AND ALERT ON KUBERNETES METRICS IN MINUTES WITH
+DATADOG.
+Try it free
+The first step in setting up comprehensive Kubernetes monitoring is
+deploying the Datadog Agent to the nodes of your cluster.
+INSTALL THE DATADOG AGENT
+The Datadog Agent is open source software that collects and reports
+metrics, distributed traces, and logs from each of your nodes, so you
+can view and monitor your entire infrastructure in one place. In
+addition to collecting telemetry data from Kubernetes, Docker, and
+other infrastructure technologies, the Agent automatically collects
+and reports resource metrics (such as CPU, memory, and network
+traffic) from your nodes, whatever the underlying infrastructure
+platform. In this section we’ll show you how to install the
+node-based Datadog Agent along with the Datadog Cluster Agent to
+provide comprehensive, resource-efficient Kubernetes monitoring.
+The Datadog documentation outlines multiple methods for installing the
+Agent, including using the Helm package manager and installing the
+Agent directly onto the nodes of your cluster. The recommended
+approach for the majority of use cases, however, is to deploy the
+containerized version of the Agent. By deploying the containerized
+Agent to your cluster as a DaemonSet, you can ensure that one copy of
+the Agent runs on each host in your cluster, even as the cluster
+scales up and down. You can also specify a _subset_ of nodes that you
+wish to run the Agent by using nodeSelectors.
+In the sections below, we’ll show you how to install the Datadog
+Agent across your cluster if you are running Docker. For other
+runtimes, such as containerd, consult the Datadog documentation.
+THE DATADOG CLUSTER AGENT
+Datadog’s Agent deployment instructions for Kubernetes provide a
+full manifest for deploying the containerized node-based Agent as a
+DaemonSet. If you wish to get started quickly for experimentation
+purposes, you can follow those directions to roll out the Agent across
+your cluster. In this guide, however, we’ll go one step further to
+show you how you can install the Agent on all your nodes, _and_ deploy
+the specialized Datadog Cluster Agent, which provides several
+additional benefits for large-scale, production use cases. For
+instance, the Cluster Agent:
+     reduces the load on the Kubernetes API server for gathering
+cluster-level data by serving as a proxy between the API server and
+the node-based Agents
+     provides additional security by reducing the permissions needed for
+the node-based Agents
+     enables auto-scaling of Kubernetes workloads using any metric
+collected by Datadog
+ A diagram of Datadog&#x27;s cluster agent.
+Before you deploy the node-based Agent and the Cluster Agent, you’ll
+need to complete a few simple prerequisites.
+CONFIGURE PERMISSIONS AND SECRETS
+_Note: This section includes URLs that use the terms “master.”
+Datadog does not use this term, but GitHub historically used
+“master” as the default name for the main branch of a repository._
+If your Kubernetes cluster uses role-based access control, you can
+deploy the following manifests to create the permissions that the
+node-based Agent and Cluster Agent will need to operate in your
+cluster. The following manifests create two sets of permissions: one
+for the Cluster Agent, which has specific permissions for collecting
+cluster-level metrics and Kubernetes events from the Kubernetes API,
+and a more limited set of permissions for the node-based Agent.
+Deploying these two manifests will create a ClusterRole,
+ClusterRoleBinding, and ServiceAccount for each flavor of Agent:
+Copy
+kubectl create -f &quot;https://raw.githubusercontent.com/DataDog/datadog-agent/master/Dockerfiles/manifests/cluster-agent/cluster-agent-rbac.yaml&quot;
+kubectl create -f &quot;https://raw.githubusercontent.com/DataDog/datadog-agent/master/Dockerfiles/manifests/cluster-agent/rbac.yaml&quot;
+Next, create a Kubernetes secret to provide your Datadog API key to
+the Agent without embedding the API key in your deployment manifests
+(which you may wish to manage in source control). To create the
+secret, run the following command using an API key from your Datadog
+account:
+Copy
+kubectl create secret generic datadog-secret  from-literal api-key=&quot;&quot;
+Finally, create a secret token to enable secure Agent-to-Agent
+communication between the Cluster Agent and the node-based Agents:
+Copy
+echo -n &#x27;&lt;32_CHARACTER_LONG_STRING&gt;&#x27; | base64
+Use the resulting token to create a Kubernetes secret that both
+flavors of Agent will use to authenticate with each other:
+Copy
+kubectl create secret generic datadog-auth-token  from-literal=token=
+DEPLOY THE CLUSTER AGENT
+Now that you’ve created Kubernetes secrets with your Datadog API key
+and with an authentication token, you’re ready to deploy the Cluster
+Agent. Copy the manifest below to a local file and save it as
+DATADOG-CLUSTER-AGENT.YAML:
+datadog-cluster-agent.yaml
+Copy
+apiVersion: v1
+kind: Service
+metadata:
+  name: datadog-cluster-agent
+  labels:
+    app: datadog-cluster-agent
+spec:
+  ports:
+  - port: 5005 # Has to be the same as the one exposed in the DCA. Default is 5005.
+    protocol: TCP
+  selector:
+    app: datadog-cluster-agent
+ -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datadog-cluster-agent
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: datadog-cluster-agent
+  template:
+    metadata:
+      labels:
+        app: datadog-cluster-agent
+      name: datadog-agent
+      annotations:
+        ad.datadoghq.com/datadog-cluster-agent.check_names: &#x27; &quot;prometheus&quot; &#x27;
+        ad.datadoghq.com/datadog-cluster-agent.init_configs: &#x27; {} &#x27;
+        ad.datadoghq.com/datadog-cluster-agent.instances: &#x27; {&quot;prometheus_url&quot;: &quot;http://%%host%%:5000/metrics&quot;,&quot;namespace&quot;: &quot;datadog.cluster_agent&quot;,&quot;metrics&quot;:  &quot;go_goroutines&quot;,&quot;go_memstats_ &quot;,&quot;process_ &quot;,&quot;api_requests&quot;,&quot;datadog_requests&quot;,&quot;external_metrics&quot;, &quot;cluster_checks_ &quot; } &#x27;
+    spec:
+      serviceAccountName: dca
+      containers:
+      - image: datadog/cluster-agent:latest
+        imagePullPolicy: Always
+        name: datadog-cluster-agent
+        env:
+          - name: DD_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: datadog-secret
+                key: api-key
+          # Optionally reference an APP KEY for the External Metrics Provider.
+          # - name: DD_APP_KEY
+          #   value: &#x27;&#x27;
+          - name: DD_CLUSTER_AGENT_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: datadog-auth-token
+                key: token
+          - name: DD_COLLECT_KUBERNETES_EVENTS
+            value: &quot;true&quot;
+          - name: DD_LEADER_ELECTION
+            value: &quot;true&quot;
+          - name: DD_EXTERNAL_METRICS_PROVIDER_ENABLED
+            value: &quot;true&quot;
+The manifest creates a Kubernetes Deployment and Service for the
+Cluster Agent. The Deployment ensures that a single Cluster Agent is
+always running somewhere in the cluster, whereas the Service provides
+a stable endpoint within the cluster so that node-based Agents can
+contact the Cluster Agent, wherever it may be running. Note that the
+Datadog API key and authentication token are retrieved from Kubernetes
+secrets, rather than being saved as plaintext in the manifest itself.
+To deploy the Cluster Agent, apply the manifest above:
+Copy
+kubectl apply -f datadog-cluster-agent.yaml
+CHECK THAT THE CLUSTER AGENT DEPLOYED SUCCESSFULLY
+To verify that the Cluster Agent is running properly, run the first
+command below to find the pod name of the Cluster Agent. Then, use
+that pod name to run the Cluster Agent’s status command, as shown in
+the second command:
+Copy
+kubectl get pods -l app=datadog-cluster-agent
+NAME                                     READY   STATUS    RESTARTS   AGE
+datadog-cluster-agent-7477d549ff-s42zx   1/1     Running   0          11s
+kubectl exec -it datadog-cluster-agent-7477d549ff-s42zx datadog-cluster-agent status
+In the output, you should be able to see that the Cluster Agent is
+successfully connecting to the Kubernetes API server to collect events
+and cluster status data, as shown in this example snippet:
+Copy
+  Running Checks
+  ==============
+   ...
+    kubernetes_apiserver
+
+      Instance ID: kubernetes_apiserver  OK
+      Configuration Source: file:/etc/datadog-agent/conf.d/kubernetes_apiserver.d/conf.yaml.default
+      Total Runs: 4
+      Metric Samples: Last Run: 0, Total: 0
+      Events: Last Run: 0, Total: 52
+      Service Checks: Last Run: 4, Total: 16
+      Average Execution Time : 2.017s
+DEPLOY THE NODE-BASED AGENT
+Once you’ve created the necessary permissions and secrets, deploying
+the node-based Datadog Agent to your cluster is simple. The manifest
+below builds on the standard Kubernetes Agent manifest to set two
+extra environment variables: DD_CLUSTER_AGENT_ENABLED (set to true),
+and DD_CLUSTER_AGENT_AUTH_TOKEN (set via Kubernetes secrets, just as
+in the manifest for the Cluster Agent). Copy the following manifest to
+a local file and save it as DATADOG-AGENT.YAML.
+datadog-agent.yaml
+Copy
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: datadog-agent
+spec:
+  selector:
+    matchLabels:
+      app: datadog-agent
+  template:
+    metadata:
+      labels:
+        app: datadog-agent
+      name: datadog-agent
+    spec:
+      serviceAccountName: datadog-agent
+      containers:
+      - image: datadog/agent:7
+        imagePullPolicy: Always
+        name: datadog-agent
+        ports:
+          - containerPort: 8125
+            # Custom metrics via DogStatsD - uncomment this section to enable custom metrics collection
+            # hostPort: 8125
+            name: dogstatsdport
+            protocol: UDP
+          - containerPort: 8126
+            # Trace Collection (APM) - uncomment this section to enable APM
+            # hostPort: 8126
+            name: traceport
+            protocol: TCP
+        env:
+          - name: DD_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: datadog-secret
+                key: api-key
+          - name: DD_COLLECT_KUBERNETES_EVENTS
+            value: &quot;true&quot;
+          - name: KUBERNETES
+            value: &quot;true&quot;
+          - name: DD_HEALTH_PORT
+            value: &quot;5555&quot;
+          - name: DD_KUBERNETES_KUBELET_HOST
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+          - name: DD_CLUSTER_AGENT_ENABLED
+            value: &quot;true&quot;
+          - name: DD_CLUSTER_AGENT_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: datadog-auth-token
+                key: token
+          - name: DD_APM_ENABLED
+            value: &quot;true&quot;
+        resources:
+          requests:
+            memory: &quot;256Mi&quot;
+            cpu: &quot;200m&quot;
+          limits:
+            memory: &quot;256Mi&quot;
+            cpu: &quot;200m&quot;
+        volumeMounts:
+          - name: dockersocket
+            mountPath: /var/run/docker.sock
+          - name: procdir
+            mountPath: /host/proc
+            readOnly: true
+          - name: cgroups
+            mountPath: /host/sys/fs/cgroup
+            readOnly: true
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5555
+          initialDelaySeconds: 15
+          periodSeconds: 15
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+      volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+          name: dockersocket
+        - hostPath:
+            path: /proc
+          name: procdir
+        - hostPath:
+            path: /sys/fs/cgroup
+          name: cgroups
+Then run the following command to deploy the node-based Agent as a
+DaemonSet, which ensures that one copy of the Agent will run on every
+node in the cluster:
+Copy
+kubectl create -f datadog-agent.yaml
+CHECK THAT THE NODE-BASED AGENT DEPLOYED SUCCESSFULLY
+To verify that the node-based Datadog Agent is running on your
+cluster, run the following command:
+Copy
+kubectl get daemonset datadog-agent
+NAME            DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+datadog-agent   3         3         3       3            3                     12m
+The output above shows that the Agent was successfully deployed across
+a three-node cluster. The number of DESIRED and CURRENT pods should be
+equal to the number of running nodes in your Kubernetes cluster.
+You can then run the status command for any one of your node-based
+Agents to verify that the node-based Agents are successfully
+communicating with the Cluster Agent. First find the name of a
+node-based Agent pod:
+Copy
+kubectl get pods -l app=datadog-agent
+NAME                  READY   STATUS    RESTARTS   AGE
+datadog-agent-7vzqh   1/1     Running   0          27m
+datadog-agent-kfvpc   1/1     Running   0          27m
+datadog-agent-xvss5   1/1     Running   0          27m
+Then use one of those pod names to query the Agent’s status:
+Copy
+kubectl exec -it datadog-agent-7vzqh agent status
+There are at least two items to look for in the output. First, you
+should see that the node-based Agent is _not_ collecting any events
+from the Kubernetes API server nor running any service checks on the
+API server (as these responsibilities have been delegated to the
+Cluster Agent):
+Copy
+  Running Checks
+  ==============
+   ...
+    kubernetes_apiserver
+
+      Instance ID: kubernetes_apiserver  OK
+      Configuration Source: file:/etc/datadog-agent/conf.d/kubernetes_apiserver.d/conf.yaml.default
+      Total Runs: 110
+      Metric Samples: Last Run: 0, Total: 0
+      Events: Last Run: 0, Total: 0
+      Service Checks: Last Run: 0, Total: 0
+      Average Execution Time : 0s
+Second, you should see a section at the end of the status output
+indicating that the node-based Agent is talking to the Cluster Agent:
+Copy
+=====================
+Datadog Cluster Agent
+=====================
+  - Datadog Cluster Agent endpoint detected: https://10.137.5.251:5005
+  Successfully connected to the Datadog Cluster Agent.
+DIVE INTO THE METRICS
+With the Datadog Agent successfully deployed, resource metrics and
+events from your cluster should be streaming into Datadog. You can
+view the data you’re already collecting in the built-in Kubernetes
+dashboard.
+ kubernetes default dashboard in Datadog Datadog&#x27;s out-of-the-box
+Kubernetes dashboard.
+You may recall from earlier in this series that certain cluster-level
+metrics—specifically, the counts of Kubernetes objects such as the
+count of pods desired, currently available, and currently
+unavailable—are provided by an optional cluster add-on called
+kube-state-metrics. If you see that this data is missing from the
+dashboard, it means that you have not deployed the kube-state-metrics
+service. To add these statistics to the lower-level resource metrics
+already being collected by the Agent, you simply need to deploy
+kube-state-metrics to your cluster.
+DEPLOY KUBE-STATE-METRICS
+As covered in Part 3 of this series, you can use a set of manifests
+from the official kube-state-metrics project to quickly deploy the
+add-on and its associated resources. To download the manifests and
+apply them to your cluster, run the following series of commands:
+Copy
+git clone https://github.com/kubernetes/kube-state-metrics.git
+cd kube-state-metrics
+kubectl apply -f examples/standard
+You can then inspect the Deployment to ensure that kube-state-metrics
+is running and available:
+Copy
+kubectl get deploy kube-state-metrics  namespace kube-system
+NAME                 READY   UP-TO-DATE   AVAILABLE   AGE
+kube-state-metrics   1/1     1            1           42m
+Once kube-state-metrics is up and running, your cluster state metrics
+will start pouring into Datadog automatically, without any further
+configuration. That’s because the Datadog Agent’s Autodiscovery
+functionality, which we’ll cover in the next section, detects when
+certain services are running and automatically enables metric
+collection from those services. Since kube-state-metrics is among the
+integrations automatically enabled by Autodiscovery, there’s nothing
+more you need to do to start collecting your cluster state metrics in
+Datadog.
+AUTODISCOVERY
+Thanks to the Datadog Agent’s Autodiscovery feature, you can
+continuously monitor your containerized applications without
+interruption even as they scale or shift across containers and hosts.
+Autodiscovery listens for container creation or deletion events and
+applies configuration templates accordingly to ensure that
+containerized applications are automatically monitored as they come
+online.
+Autodiscovery means that Datadog can automatically configure many of
+its integrations, such as kube-state-metrics (as explained above),
+without any user setup. Other auto-configured services include common
+cluster components such as the Kubernetes API server, Consul, CoreDNS,
+and etcd, as well as infrastructure technologies like Apache (httpd),
+Redis, and Apache Tomcat. When the Datadog Agent detects those
+containers running anywhere in the cluster, it will attempt to apply a
+standard configuration template to the containerized application and
+begin collecting monitoring data.
+For services in your cluster that require user-provided configuration
+details (such as authentication credentials for a database), you can
+use Kubernetes pod annotations to specify which Datadog check to apply
+to that pod, as well as any details necessary to configure the
+monitoring check. For example, to configure the Datadog Agent to
+collect metrics from your MySQL database using an authorized datadog
+user, you would add the following pod annotations to your MySQL pod
+manifest:
+Copy
+annotations:
+  ad.datadoghq.com/mysql.check_names: &#x27; &quot;mysql&quot; &#x27;
+  ad.datadoghq.com/mysql.init_configs: &#x27; {} &#x27;
+  ad.datadoghq.com/mysql.instances: &#x27; {&quot;server&quot;: &quot;%%host%%&quot;, &quot;user&quot;: &quot;datadog&quot;,&quot;pass&quot;: &quot;&quot;} &#x27;
+Those annotations instruct Datadog to apply the MySQL monitoring check
+to any mysql containers, and to connect to the MySQL instances using a
+dynamically provided host IP address and authentication credentials
+for the datadog user.
+GET VISIBILITY INTO YOUR CONTROL PLANE
+Datadog includes integrations with the individual components of your
+cluster’s Control Plane, including the API server, scheduler, and
+etcd cluster. Once you deploy Datadog to your cluster, metrics from
+these components automatically appear so that you can easily visualize
+and track the overall health and workload of your cluster.
+ Datadog&#x27;s Kubernetes controller manager out-of-the-box dashboard.
+See our documentation for more information on our integrations with
+the API server, controller manager, scheduler, and etcd.
+MONITORING KUBERNETES WITH TAGS
+Datadog automatically imports metadata from Kubernetes, Docker, cloud
+services, and other technologies, and creates tags that you can use to
+sort, filter, and aggregate your data. Tags (and their Kubernetes
+equivalent, labels) are essential for monitoring dynamic
+infrastructure, where host names, IP addresses, and other identifiers
+are constantly in flux. With tags in Datadog, you can filter and view
+your resources by Kubernetes Deployment (kube_deployment) or Service
+(kube_service), or by Docker image (image_name). Datadog also
+automatically pulls in tags from your cloud provider, so you can view
+your nodes or containers by availability zone, instance type, and so
+on.
+In your node-based Datadog Agent manifest, you can add custom tags
+with the environment variable DD_TAGS followed by key:value pairs,
+separated by spaces. For example, you could apply the following tags
+to your node-based Agents to indicate the code name of the Kubernetes
+cluster and the team responsible for it:
+Copy
+        env:
+         ...
+          - name: DD_TAGS
+            value: cluster-codename:melange team:core-platform
+You can also import Kubernetes pod labels as tags, which captures
+pod-level metadata that you define in your manifests as tags, so you
+can use that metadata to filter and aggregate your telemetry data in
+Datadog.
+BEYOND METRICS: COLLECT LOGS, TRACES, AND MORE
+The Datadog Agent automatically collects metrics from your nodes and
+containers. To get even more insight into your cluster, you can also
+configure Datadog to collect logs and distributed traces from the
+applications in your cluster. You can easily enable log collection and
+distributed tracing by changing a few configurations to the node-based
+Agent manifest.
+COLLECT AND ANALYZE KUBERNETES LOGS
+Datadog can automatically collect logs from Kubernetes, Docker, and
+many other technologies you may be running on your cluster. Logs can
+be invaluable for troubleshooting problems, identifying errors, and
+giving you greater insight into the behavior of your infrastructure
+and applications.
+In order to enable log collection from your containers, add the
+following environment variables:
+Copy
+        env:
+         ...
+          - name: DD_LOGS_ENABLED
+            value: &quot;true&quot;
+          - name: DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL
+            value: &quot;true&quot;
+          - name: DD_AC_EXCLUDE
+            value: &quot;name:datadog-agent&quot;
+The DD_AC_EXCLUDE environment variable instructs the Datadog Agent to
+exclude certain containers from log collection to reduce the volume of
+collected data—in this case, the Agent will omit its own logs. You
+can skip this configuration item if you wish the Agent to send its own
+logs to Datadog.
+Next, add the following to volumeMounts and volumes:
+Copy
+        volumeMounts:
+         ...
+          - name: pointdir
+            mountPath: /opt/datadog-agent/run
+         ...
+      volumes:
+       ...
+        - hostPath:
+            path: /opt/datadog-agent/run
+          name: pointdir
+Once you make those additions to the node-based Agent manifest,
+redeploy the Agent to enable log collection from your cluster:
+Copy
+kubectl apply -f datadog-agent.yaml
+With log collection enabled, you should start seeing logs flowing into
+the Log Explorer in Datadog. You can filter by your cluster name, node
+names, or any custom tag you applied earlier to drill down to the logs
+from only your deployment.
+ Logs from a Kubernetes cluster flowing into Datadog&#x27;s Log Explorer
+Note that in some container environments, including Google Kubernetes
+Engine, /opt is read-only, so the Agent will not be able to write to
+the standard path provided above. As a workaround, you can replace
+/opt/datadog-agent/run with /var/lib/datadog-agent/logs in your
+manifest if you run into read-only errors.
+VIEW YOUR CLUSTER’S AUDIT LOGS
+Kubernetes audit logs provide valuable information about requests made
+to your API servers. They record data such as which users or services
+are requesting access to cluster resources, and why the API server
+authorized or rejectd those requests. Because audit logs are written
+in JSON, a monitoring service like Datadog can easily parse them for
+filtering and analysis. This enables you to set alerts on unusual
+behavior and troubleshoot potential API authentication issues that
+might affect whether users or services can access your cluster.
+ Collect Kubernetes audit logs with Datadog.
+See our documentation for steps on setting up audit log collection
+with Datadog.
+CATEGORIZE YOUR LOGS
+Datadog automatically ingests, processes, and parses all of the logs
+from your Kubernetes cluster for analysis and visualization. To get
+the most value from your logs, ensure that they have a source tag and
+a service tag attached. For logs coming from one of Datadog’s log
+integrations, the source sets the context for the log (e.g. nginx),
+enabling you to pivot between infrastructure metrics and related logs
+from the same system. The source tag also tells Datadog which log
+processing pipeline to use to properly parse those logs in order to
+extract structured facets and attributes. Likewise, the service tag
+(which is a core tag in Datadog APM) enables you to pivot seamlessly
+from logs to application-level metrics and request traces from the
+same service for rapid troubleshooting.
+The Datadog Agent will attempt to automatically generate these tags
+for your logs from the image name. For example, logs from Redis
+containers will be tagged source:redis and service:redis. You can also
+provide custom values by including them in Kubernetes annotations in
+your deployment manifests:
+Copy
+  annotations:
+    ad.datadoghq.com/.logs: &#x27; {&quot;source&quot;:&quot;&quot;,&quot;service&quot;:&quot;&quot;} &#x27;
+TRACK APPLICATION PERFORMANCE
+Datadog APM traces requests to your application as they propagate
+across infrastructure and service boundaries. You can then visualize
+the full lifespan of these requests from end to end. APM gives you
+deep visibility into application performance, database queries,
+dependencies between services, and other insights that enable you to
+optimize and troubleshoot application performance.
+Datadog APM auto-instruments a number of languages and application
+frameworks; consult the documentation for supported languages and
+details on how to get started with instrumenting your language or
+framework.
+ENABLE APM IN YOUR KUBERNETES CLUSTER
+To enable tracing in your cluster, first ensure that the Datadog Agent
+has the environment variable DD_APM_ENABLED set to true, as in the
+Datadog node-based Agent manifest provided above. If you’re using a
+different Agent manifest, you can add the following configuration to
+set the environment variable:
+Copy
+        env:
+         ...
+          - name: DD_APM_ENABLED
+            value: &quot;true&quot;
+Then, uncomment the hostPort for the Trace Agent so that your manifest
+includes:
+Copy
+          - containerPort: 8126
+            hostPort: 8126
+            name: traceport
+            protocol: TCP
+Apply the changes:
+Copy
+kubectl apply -f datadog-agent.yaml
+Next, provide the host node’s IP as an environment variable to
+ensure that application containers send traces to the Datadog Agent
+instance running on the correct node. This can be accomplished by
+configuring the application’s Deployment manifest to provide the
+host node’s IP as an environment variable using Kubernetes’s
+Downward API. Set the DATADOG_TRACE_AGENT_HOSTNAME environment
+variable in the manifest for the application to be monitored:
+Copy
+spec:
+      containers:
+      - name:
+        image: :
+        env:
+          - name: DATADOG_TRACE_AGENT_HOSTNAME
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+When you deploy your instrumented application, it will automatically
+begin sending traces to Datadog. From the APM tab of your Datadog
+account, you can see a breakdown of key performance indicators for
+each of your instrumented services, with information about request
+throughput, latency, errors, and the performance of any service
+dependencies.
+ APM breakdown for a Kubernetes application in Datadog.
+You can then dive into individual traces to inspect a flame graph that
+breaks down the trace into spans, each one representing an individual
+database query, function call, or operation carried out as part of
+fulfilling the request. For each span, you can view system metrics,
+application runtime metrics, error messages, and relevant logs that
+pertain to that unit of work.
+ A flame graph in Datadog showing a request with an associated error
+stacktrace
+ALL YOUR KUBERNETES DATA IN ONE PLACE
+If you’ve followed along in this post, you’ve already started
+collecting a wealth of data from your Kubernetes cluster by:
+     Deploying the Datadog Cluster Agent and node-based Agent to collect
+metrics and other telemetry data from your cluster
+     Adding kube-state-metrics to your cluster to expose high-level
+statistics on the number and status of cluster objects
+     Enabling Autodiscovery to seamlessly monitor new containers as they
+are deployed to your cluster
+     Collecting logs from your cluster and the workloads running on it
+     Setting up distributed tracing for your applications running on
+Kubernetes
+Datadog provides even more Kubernetes monitoring functionality beyond
+the scope of this post. We encourage you to dive into Datadog’s
+Kubernetes documentation to learn how to set up process monitoring,
+network performance monitoring, and collection of custom metrics in
+Kubernetes.
+If you don’t yet have a Datadog account, you can start monitoring
+Kubernetes clusters with a free trial.
+            -
+_Source Markdown for this post is available on GitHub. Questions,
+corrections, additions, etc.? Please let us know._</code></pre></div></article></body></html>

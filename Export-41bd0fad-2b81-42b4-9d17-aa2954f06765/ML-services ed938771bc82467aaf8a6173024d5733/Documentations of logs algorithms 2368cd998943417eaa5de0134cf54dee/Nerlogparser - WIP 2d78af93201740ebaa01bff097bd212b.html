@@ -1,0 +1,701 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Nerlogparser - WIP</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2d78af93-2017-40eb-aa01-bff097bd212b" class="page sans"><header><h1 class="page-title">Nerlogparser - WIP</h1><p class="page-description"></p></header><div class="page-body"><p id="ee86b4b5-c231-403b-b5f0-3ed50b4d9feb" class="">
+</p><nav id="c3ad32c8-cf72-4991-8879-73f9962e758b" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1c2e93b4-67e1-45c5-be73-ae48f0f459bb">Introduction</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2c82d8aa-2ea3-4055-b1d8-01549b0240e5">Test Examples </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4cd87b96-7dd4-4306-9322-60c232392631">MacOS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0ea7a64a-9f3c-48e9-a70e-025c5a976c6e">GetMyUni Host </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#378c1fa6-8b5c-4183-8c44-88d0a8c09bcc">GetMyUni MySQL</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8753deaf-02ae-489b-8eaf-564593b15af5">GetMyUni Apache</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#db71b478-dc16-4455-8707-4fd90e871735">Conclusion</a></div></nav><h1 id="1c2e93b4-67e1-45c5-be73-ae48f0f459bb" class="">Introduction</h1><p id="585fb676-ce9f-486c-b5f9-cef6f38a8bb4" class="">Repo : <a href="https://github.com/studiawan/nerlogparser">https://github.com/studiawan/nerlogparser</a></p><p id="164a9fdd-1083-4c27-8e2e-30b9980c01ff" class="">Paper : </p><figure id="23ba9b68-dcc9-4e5f-8745-499485a74a77"><div class="source"><a href="Nerlogparser%20-%20WIP%202d78af93201740ebaa01bff097bd212b/Log_parser_paper.pdf">Log parser paper.pdf</a></div></figure><p id="fa74cdcc-39d7-4ac3-bb6d-cf6497e4f290" class="">
+</p><p id="ab38554b-e313-4a4b-93d1-907a0e154b54" class="">Named Entity Recognition technique to parse the logs</p><p id="e38a49fd-458a-4470-b1f6-6665224c8eb2" class="">
+</p><h1 id="2c82d8aa-2ea3-4055-b1d8-01549b0240e5" class="">Test Examples </h1><h2 id="4cd87b96-7dd4-4306-9322-60c232392631" class="">MacOS</h2><p id="b1789f4f-90f5-444c-9cf3-eb1e0ea1adb7" class="">
+</p><div id="2f76ef6f-3690-4307-807f-8e49f034821d" class="column-list"><div id="fc99c8a9-bc89-4f3f-b506-d1f01c003a93" style="width:50%" class="column"><p id="71b51d7d-f2e0-4061-9d11-696cd3287500" class=""><strong>Logs</strong></p><hr id="02b2c3bd-234d-471d-bc9e-12837ab529d7"/><pre id="7b92a683-994b-439a-a825-258867ea26d1" class="code"><code>Log : Mar  4 00:39:27 pc-1 Google Chrome Helper[2107]: Libnotify: notify_register_coalesced_registration failed with code 9 on line 2835</code></pre><p id="f7f5e1fb-c64c-45b0-954a-80bccc1a011a" class="">
+</p><pre id="646a9842-28df-4a88-b00b-e96480e4703d" class="code"><code>Mar  4 00:39:28 pc-1 syslogd[58]: Configuration Notice:
+	ASL Module &quot;com.apple.cdscheduler&quot; claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.</code></pre><p id="61dda5fa-e2d3-4d11-ad31-be4e097aa9dd" class="">
+</p></div><div id="81ef3b04-1fe4-4b52-8d3d-3ec7c648b857" style="width:50%" class="column"><p id="4d875282-64b6-4984-a469-0ac75f720fbe" class=""><strong>Parsed</strong></p><hr id="07c23082-c89a-43ab-82fc-82d1accae60f"/><pre id="bb4fd48d-ff31-46ec-b340-6c464a3b18ef" class="code"><code>{&quot;timestamp&quot;: &quot;Mar 4 00:39:27&quot;, 
+&quot;hostname&quot;: &quot;pc-1&quot;, 
+&quot;message&quot;: &quot;Google Chrome Helper[2107]: Libnotify: notify_register_coalesced_registration failed with code 9 on line 2835&quot;} </code></pre><p id="bac152c0-5e05-4405-9be4-202903b9084a" class="">
+</p><pre id="9e225edc-3291-41f9-b297-68ae9d8058fb" class="code"><code>{&quot;timestamp&quot;: &quot;Mar 4 00:39:28&quot;, &quot;hostname&quot;: &quot;pc-1&quot;, &quot;service&quot;: &quot;syslogd[58]:&quot;, &quot;subservice&quot;: &quot;Configuration Notice:&quot;, &quot;message&quot;: &quot;&quot;}, 
+
+{&quot;message&quot;: &quot;ASL Module \&quot;com.apple.cdscheduler\&quot; claims selected messages.&quot;}, </code></pre><p id="5cb7bea0-5585-49cc-94d1-f4e6ac862142" class="">
+</p></div></div><p id="72b75c51-d72d-4a8e-bdb5-144d03921963" class="">
+</p><ul id="9cdcf7ff-8264-46d2-826e-735bf7cf5a84" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Parsing is correct</mark></li></ul><ul id="a22a7a07-1c90-4897-8e56-2338b62c2f18" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red">Multiline is not supported</mark></li></ul><p id="2c40d62c-0d17-4ca0-883a-47306aa5d476" class=""><strong>Parsed</strong></p><hr id="81008ff8-9edb-48e6-bb29-58f342fae76e"/><pre id="057d7d9b-cae3-49d8-9dbf-2292ab0d2456" class="code"><code>{&#x27;message&#x27;: &#x27;I NETWORK [conn24] end connection 127.0.0.1:53492 (3 connections now open)&#x27;,
+ &#x27;timestamp&#x27;: &#x27;2021-03-01T13:41:15.496+0000&#x27;}</code></pre><p id="27e6911a-e788-408b-bbe4-12397ff8bef2" class="">
+</p><h2 id="0ea7a64a-9f3c-48e9-a70e-025c5a976c6e" class="">GetMyUni Host </h2><div id="2d471190-89f6-447c-a2a2-ba1311a2c750" class="column-list"><div id="6ea163a0-61c4-4766-b96c-ea736cdbb331" style="width:50%" class="column"><p id="92ebcfe0-e6de-45bd-908f-305a3e9f27d2" class=""><strong>Logs</strong></p><hr id="33d92ac6-6c5a-4348-8ff8-d46664d6f00c"/><pre id="8755eb9a-2603-4204-bb4b-15788844d843" class="code"><code>Feb 19 09:18:13 ubuntu-s-2vcpu-4gb-blr1-01 packetai[1754]: PacketAI is running, pid=1756</code></pre><p id="671686e4-e88e-4f26-8193-710c470e8f1c" class="">
+</p><pre id="78159615-e5a3-4f1b-8bf8-71754d9b7844" class="code"><code>Feb 19 15:17:01 lamp-8gb-blr1-01 CRON[19062]: (root) CMD (   cd / &amp;&amp; run-parts --report /etc/cron.hourly)</code></pre></div><div id="24b10f95-aad7-413d-81c2-29e93ec50fbd" style="width:50%" class="column"><p id="dab89bb3-f0bc-4ec9-922a-acc580516bb1" class=""><strong>Parsed</strong></p><hr id="54210533-fd03-4244-9c55-93d3682e2f99"/><pre id="c4a8c653-d160-466b-9621-d526bce7c498" class="code"><code>{&#x27;service&#x27;: &#x27;packetai[1754]:&#x27;, &#x27;message&#x27;: &#x27;PacketAI is running, pid=1756&#x27;, &#x27;hostname&#x27;: &#x27;ubuntu-s-2vcpu-4gb-blr1-01&#x27;, &#x27;timestamp&#x27;: &#x27;Feb 19 09:18:13&#x27;}</code></pre><p id="7a6f4e74-230e-42fa-95f6-0628baea965a" class="">
+</p><pre id="258e9763-4f69-458e-9d7b-17a743b8460e" class="code"><code>{&#x27;service&#x27;: &#x27;CRON[19062]:&#x27;, &#x27;message&#x27;: &#x27;(root) CMD ( cd / &amp;&amp; run-parts --report /etc/cron.hourly)&#x27;, &#x27;hostname&#x27;: &#x27;lamp-8gb-blr1-01&#x27;, &#x27;timestamp&#x27;: &#x27;Feb 19 15:17:01&#x27;}</code></pre></div></div><p id="4cbf42bc-a7a7-461e-a601-5bd0fefefd5f" class="">
+</p><ul id="436a82c9-35cb-4327-8cab-6e4b3ec7d0c6" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Parsing is perfect</mark></li></ul><h2 id="378c1fa6-8b5c-4183-8c44-88d0a8c09bcc" class="">GetMyUni MySQL</h2><div id="95c57a1f-5b2b-4f81-8215-cbd9720c1923" class="column-list"><div id="70be8af6-02b1-41f8-bbbe-d570191913a5" style="width:50%" class="column"><p id="c47bd1ed-07fa-4e10-bf7f-9fdcdd572c34" class=""><strong>Logs</strong></p><hr id="29e5e6e3-5af1-43a2-b8b6-3bd43e095999"/><pre id="ca24df87-b364-4cb6-8ea3-85166f3ada21" class="code"><code>2021-03-03T22:19:26.257003Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).</code></pre></div><div id="3219a198-cec9-40a4-b1a8-188988f1de89" style="width:50%" class="column"><p id="f971d169-f1c9-450e-b2b1-0aac5a28f5d1" class=""><strong>Parsed</strong></p><hr id="16609984-9b66-4946-a49d-2044f4488809"/><pre id="9181cd6a-4d9e-4125-a39d-3be4405e7a67" class="code"><code>{&#x27;service&#x27;: &#x27;[Warning]&#x27;, &#x27;message&#x27;: &#x27;TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).&#x27;, &#x27;timestamp&#x27;: &#x27;2021-03-03T22:19:26.257003Z&#x27;, &#x27;sequence_number&#x27;: &#x27;0&#x27;}</code></pre></div></div><ul id="c3e7f64a-f4be-4fa6-bfab-eda9c5f1042b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red">Loglevel is set as warning</mark></li></ul><h2 id="8753deaf-02ae-489b-8eaf-564593b15af5" class="">GetMyUni Apache</h2><div id="4e415cf9-b74d-4ded-85b2-cfbd0728f2f4" class="column-list"><div id="261c7b78-6b8b-49dc-9e27-fbc1c7f50ca0" style="width:50%" class="column"><p id="b0ecdc80-5a48-4ab5-a0ec-75da948b4934" class=""><strong>Logs</strong></p><hr id="a51a2fea-4f44-4fda-8d74-36e29c8a2b3f"/><pre id="58d0dfd5-ba1c-43ac-b257-c8e47d1806ee" class="code"><code>127.0.0.1 - - [02/Mar/2021:10:23:35 +0000] &quot;GET /server-status?auto= HTTP/1.1&quot; 301 351 &quot;-&quot; &quot;Go-http-client/1.1&quot;</code></pre><p id="d2f02cf7-d8fb-4cf1-a7b6-1d70cf9e7bfc" class="">
+</p><pre id="6042265c-c13c-4352-813e-55c9eb260948" class="code"><code>162.158.74.202 - - [19/Feb/2021:09:25:20 +0000] &quot;GET /soil-institute-of-management-starts-registrations-soil-edu-in/feed/ HTTP/1.1&quot; 200 5300 &quot;-&quot; &quot;Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.153 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)&quot;</code></pre></div><div id="107a8e85-3b73-4317-80b5-70b393a42720" style="width:50%" class="column"><p id="52c99989-8d26-4388-87e8-0652248778e9" class=""><strong>Parsed</strong></p><hr id="b229b3af-cb3a-4be8-87d3-1446c33a596c"/><pre id="476a90b8-2cd6-4f32-be90-a7855006915d" class="code"><code>{&#x27;message&#x27;: &#x27;&#x27;, &#x27;ip_address&#x27;: &#x27;127.0.0.1&#x27;, &#x27;dash&#x27;: &#x27;-&#x27;, &#x27;referrer&#x27;: &#x27;&quot;-&quot;&#x27;, &#x27;status_code&#x27;: &#x27;301&#x27;, &#x27;num_bytes&#x27;: &#x27;351&#x27;, &#x27;timestamp&#x27;: &#x27;[02/Mar/2021:10:23:35 +0000]&#x27;, &#x27;command&#x27;: &#x27;&quot;GET /server-status?auto= HTTP/1.1&quot;&#x27;, &#x27;client_agent&#x27;: &#x27;&quot;Go-http-client/1.1&quot;&#x27;, &#x27;auth&#x27;: &#x27;-&#x27;}</code></pre><p id="29224360-7c37-4ae7-9dff-127bf218604d" class="">
+</p><pre id="1ef877b5-2140-4e05-99bc-88e3d7410a07" class="code"><code>{&#x27;message&#x27;: &#x27;&#x27;, &#x27;ip_address&#x27;: &#x27;162.158.74.202&#x27;, &#x27;dash&#x27;: &#x27;-&#x27;, &#x27;referrer&#x27;: &#x27;&quot;-&quot;&#x27;, &#x27;status_code&#x27;: &#x27;200&#x27;, &#x27;num_bytes&#x27;: &#x27;5300&#x27;, &#x27;timestamp&#x27;: &#x27;[19/Feb/2021:09:25:20 +0000]&#x27;, &#x27;command&#x27;: &#x27;&quot;GET /soil-institute-of-management-starts-registrations-soil-edu-in/feed/ HTTP/1.1&quot;&#x27;, &#x27;client_agent&#x27;: &#x27;&quot;Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.153 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)&quot;&#x27;, &#x27;auth&#x27;: &#x27;-&#x27;}</code></pre></div></div><p id="efd3e0af-704c-41a4-9537-a1b3c4e8cd97" class="">
+</p><ul id="4c759d37-066b-4cd9-ad10-57bf1983b087" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Webservice logs are parsed correctly with many details</mark></li></ul><ul id="7b31956a-4a7a-4f0a-b1cd-e965b3a7679b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red">Message field is empty, command field contains the body of the logs</mark></li></ul><h1 id="db71b478-dc16-4455-8707-4fd90e871735" class="">Conclusion</h1><p id="cb6662d8-eb4b-42e5-ab7a-ebd2f3de8303" class="">The technique is quite promising. </p><p id="d70a9876-23f6-44ae-a3b4-143559fffe13" class="">
+</p><p id="3b26b62e-ee85-4e91-83e2-2cb1b939a62c" class="">
+</p><p id="584dbc81-3bda-4570-abc4-f716623ca4af" class=""><strong>Advantage</strong> :</p><ul id="b2d5ffe0-fd2f-46e5-b736-696a97635832" class="bulleted-list"><li style="list-style-type:disc">Parse logs :  could replace Logstash Groks in the future</li></ul><ul id="38537228-567e-4b64-a271-bd4009576345" class="bulleted-list"><li style="list-style-type:disc">Fully automatic : no need for configuration</li></ul><p id="2f7b71aa-5628-4e7c-8bb8-aea9b87a9471" class=""><strong>Disadvantage</strong> :</p><ul id="e8aa53d8-bc74-4e1a-9bd6-203982762399" class="bulleted-list"><li style="list-style-type:disc">Needs to be trained and maintained </li></ul><ul id="963d0c90-5de8-4d6f-9dfe-c2dced0eea6c" class="bulleted-list"><li style="list-style-type:disc">Works better for OS logs</li></ul><ul id="39a60f8c-0541-45af-a634-38a4f7506eba" class="bulleted-list"><li style="list-style-type:disc">Package written in python 3.5 which has reached its end of life</li></ul></div></article></body></html>

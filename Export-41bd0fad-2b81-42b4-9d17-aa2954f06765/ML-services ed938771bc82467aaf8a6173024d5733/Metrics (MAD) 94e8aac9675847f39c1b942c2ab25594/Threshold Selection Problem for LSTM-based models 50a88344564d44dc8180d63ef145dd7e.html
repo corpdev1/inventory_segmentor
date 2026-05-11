@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Threshold Selection Problem for LSTM-based models</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="50a88344-564d-44dc-8180-d63ef145dd7e" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">〰️</span></div><h1 class="page-title">Threshold Selection Problem for LSTM-based models</h1><p class="page-description"></p></header><div class="page-body"><p id="8fa922d5-1b35-4182-a9c1-0f53e1d0df87" class=""><span class="user">@Valentin Lapparov</span> wrote</p><p id="a786026e-5c2c-4eee-8943-dea95a457809" class="">
+</p><p id="b4897ce0-0baa-4731-af83-2ae053dc83a3" class="">In AIOps, while dealing with anomaly detection people usually use ML models trained on historical data and use them to predict the next state regarding data they have. Then, one should decide when the difference between the real observed value and one predicted by the model is significantly different to alert about an abnormal state.</p><p id="1bdd541d-9d54-42a8-98b3-16f679b3cd8c" class="">While dealing with metrics, <strong>we cannot set a unique threshold for all metrics</strong> as far as they are measured in different units. Some metrics are measured in percentages, some in bytes etc..</p><p id="1ace7426-f356-4601-913e-eb8865ff2a0f" class="">So there is a necessity for an approach that would provide a possible threshold for different types of metrics regarding their historical data.</p><p id="f7b7c8fe-58f7-4a75-856f-1c2d04a5fc23" class=""><strong>At PacketAI, we are currently tracking the following list of metrics</strong> (<mark class="highlight-blue">with the corresponding unit</mark>):</p><ol type="1" id="1b3681ce-c310-491a-940b-6ba54e9722f3" class="numbered-list" start="1"><li><code>system.cpu</code><ul id="64bfd11c-0536-4bd3-b67a-4a60581e5674" class="bulleted-list"><li style="list-style-type:disc">system#cpu#total#pct : <mark class="highlight-blue"> percent %</mark></li></ul></li></ol><ol type="1" id="8c0003a7-5b41-4117-8476-b2c306a4becb" class="numbered-list" start="2"><li><code>system.diskio</code><ul id="1b7780ee-768b-44e0-82cb-3c04ba1ce40a" class="bulleted-list"><li style="list-style-type:disc">system#diskio#iostat#read#per_sec#bytes : <mark class="highlight-blue">The number of Bytes read from the device per second </mark></li></ul><ul id="20f0289d-8a59-4664-90d0-2fc0a32d8933" class="bulleted-list"><li style="list-style-type:disc">system#diskio#iostat#write#per_sec#bytes : <mark class="highlight-blue">The number of Bytes write from the device per second</mark></li></ul></li></ol><ol type="1" id="f0c73799-83dc-4b5f-ae8e-3badb3c390a2" class="numbered-list" start="3"><li><code>system.memory</code><ul id="967b7c47-0bb2-4af3-90ca-6d215be0df8e" class="bulleted-list"><li style="list-style-type:disc">system#memory#actual#used#pct : <mark class="highlight-blue"> The percentage of actual used memory</mark></li></ul><ul id="acebb275-d09c-495a-9e13-4171f2ecac45" class="bulleted-list"><li style="list-style-type:disc">system#memory#swap#used#pct : <mark class="highlight-blue"> The percentage of used swap memory</mark></li></ul></li></ol><ol type="1" id="8714e73f-de87-4905-8bc0-2aa70ab60ea0" class="numbered-list" start="4"><li><code>system.network</code><ul id="61e2ccdc-c369-4bc6-bcdd-730c62ab8fe6" class="bulleted-list"><li style="list-style-type:disc">system#network#in#bytes : <mark class="highlight-blue">bytes</mark></li></ul><ul id="e171f6c1-c1d9-41d0-99d5-eacaebf955fe" class="bulleted-list"><li style="list-style-type:disc">system#network#out#bytes : <mark class="highlight-blue">bytes</mark></li></ul><ul id="8e0b001c-ab40-4909-9101-4d901880681b" class="bulleted-list"><li style="list-style-type:disc">system#network#in#dropped : <mark class="highlight-blue">The number of incoming packets that were dropped</mark></li></ul><ul id="be0e1a8d-5403-4cc2-9a01-fb0242af8f8c" class="bulleted-list"><li style="list-style-type:disc">system#network#out#dropped : <mark class="highlight-blue">The number of outgoing packets that were dropped. This value is always 0 on Darwin and BSD because it is not reported by the operating system.</mark></li></ul><ul id="28739d42-1cbe-4b71-88d5-8a6f41647301" class="bulleted-list"><li style="list-style-type:disc">system#network#in#errors : <mark class="highlight-blue">The number of errors while receiving</mark></li></ul><ul id="5786f696-0d9f-4591-a5cf-6e1331624e81" class="bulleted-list"><li style="list-style-type:disc">system#network#out#errors : <mark class="highlight-blue">The number of errors while sending</mark></li></ul><ul id="d348e616-387c-4b65-9e62-a494d79d53a8" class="bulleted-list"><li style="list-style-type:disc">system#network#in#packets : <mark class="highlight-blue">packets in (bytes)</mark></li></ul><ul id="04ec286b-5de1-4cf6-80c9-c579e1e04868" class="bulleted-list"><li style="list-style-type:disc">system#network#out#packets : <mark class="highlight-blue">packets out (bytes)</mark></li></ul></li></ol><h3 id="5089f43e-f3b5-46e3-b070-e3b01c5a0741" class="">Possible thresholds metric by metric</h3><ul id="4d7bb9e2-be52-4738-a951-6606823658a7" class="bulleted-list"><li style="list-style-type:disc">For such metrics as <code>cpu</code> and <code>memory</code> that represent a number in percentage we could think about 15%-25% being a good threshold, but keeping in mind that <code>cpu</code> is given by <code>100% x Cores</code> </li></ul><ul id="c3487225-8b4c-4385-a9df-b2a81c587919" class="bulleted-list"><li style="list-style-type:disc">For <code>diskio</code> which is in bytes per second and <code>memory</code> in bytes it is <strong>not obvious to establish a unique threshold</strong>.</li></ul><ul id="a7c350d0-25cb-4519-b088-93e7371e670f" class="bulleted-list"><li style="list-style-type:disc">We also have some dimensionless metrics (<code>system#network#in#dropped</code>, <code>system#network#in#errors</code>, <code>system#network#in#packets</code> etc) and for them, we <strong>need to know some additional information</strong> about what is a &quot;good number&quot; of errors, dropped and packets. This could be some fixed number or depending on the historical data. </li></ul><h3 id="a55fa014-3faf-4b0e-a583-76c053e10ffa" class="">Concept shift problem</h3><p id="6d3b23cd-a417-4cb4-a9e4-1cfc1d4fdc6c" class="">There is also a problem of <em>concept shift</em>: if a client changes the infrastructure, LSTM models will not adapt to it. In this case, we need to retrain the model and provide with new threshold. <strong>It seems to be very hard to automate keeping in mind that we will need to collect new data and train on it which requires a lot of time (estimated amount of data would be at least 3 months in the beginning)</strong>.</p><h2 id="cee5e5ce-eee5-47dc-a2bf-6fa4e27d7942" class="">Conclusion</h2><p id="2fda689c-9c04-4fe4-97e7-0fda5c3faeea" class=""><strong>It doesn’t seem to be obvious to set up a good threshold for all possible cases</strong> as far as it depends on a particular infrastructure and data used for training. One of the possible solutions could be <strong>metrics normalization</strong>: if we have all values in percentages we could have established a threshold being within the range between 15% and 25%, but after making research for common solutions and talking with @Valentin Manes and @Marwen Sallem a <strong>task of metric normalization appears to be non-obvious.</strong></p><p id="c9f77c59-2228-4995-ac72-258a1847ccb5" class="">Another possible solution could be <strong>giving users the possibility to change the threshold by themselves</strong>. It will simplify our lives as developers but could have <strong>harmful consequences on the product</strong> as far as they could set the thresholds being too high and miss an important alert.</p><p id="13c6ad2f-33c8-4a8d-8bf4-21f7aef6c6d8" class="">The other very important point against the usage of the LSTM-based models applied metric by metric is that this approach <strong>doesn&#x27;t take into account the overall picture and</strong> <strong>couldn&#x27;t reflect the system&#x27;s overall state</strong>. It is very unlikely that trouble on one metric will not be reflected by the others. <strong>It is preferable to have a model that takes into account all metrics at the same time and not one-by-one</strong>.</p><p id="123ac97f-e5c1-4085-9397-22f7eb8d8606" class="">Lastly, and the most important, is the <strong>inability of the LSTM-models to overcome </strong><em><strong>&quot;concept shift&quot;</strong></em><strong> cases</strong>. If a user changes something in the infrastructure which would change metrics scale (which is likely possible) we will need to retrain our models and to set up new thresholds. <strong>It</strong> <strong>seems to be very hard to automate</strong> (we need to know when <em>concept shift</em> happens) and it <strong>will produce a lot of false positives (and/or false negatives, which is worst).</strong></p><h3 id="3b9ab4b5-d153-46ec-a25a-820f3c5d767b" class="">Possible solution</h3><p id="7b0424f9-487c-45ab-a417-8881af7fe11c" class="">Calculate a z-score of prediction errors. This will allow us to compute the anomaly score regardless metrics units.</p></div></article></body></html>

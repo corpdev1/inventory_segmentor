@@ -1,0 +1,698 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Design</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="27a1069e-d073-4fa4-a338-94b4e486dc44" class="page sans"><header><h1 class="page-title">Design</h1><p class="page-description"></p></header><div class="page-body"><h2 id="197efa87-cb3b-4583-aa00-d042166de02d" class="">Pipeline: </h2><ul id="a6482663-4085-4c22-b327-3372718782b0" class="bulleted-list"><li style="list-style-type:disc">high level: </li></ul><p id="38222e4c-0b3d-467e-9b89-992be6b6caa6" class="">Ticket → predicting ticket tags → similar questions retrieval → relevant answers retrieval → answer summary  </p><p id="2d44e160-d472-43c5-8d20-a775f04b1e71" class="">
+</p><ul id="b820f5a1-e331-4d5c-b56c-07cf22c1d5ff" class="bulleted-list"><li style="list-style-type:disc">Details: </li></ul><h2 id="3b7d786b-da80-473b-85d2-9c936209f56a" class="">Data Management</h2><ol type="1" id="cca69f26-9ca7-4b4b-ae4a-8cf3b4c11e5f" class="numbered-list" start="1"><li>Save Data from Google BigQuery to Google Cloud Storage into multiple csv&#x27;s</li></ol><ol type="1" id="d3454f78-ece3-4a47-8163-1d99430e1731" class="numbered-list" start="2"><li>Send the csv files from Google Cloud Storage to S3 (Save in local then upload)</li></ol><ol type="1" id="3eaa8b53-813c-4d74-988a-7e691a59ed18" class="numbered-list" start="3"><li>total size of csv data is 28GB, on 115 files, grouped them into 4 files of 7ishGB</li></ol><ol type="1" id="25d3fabd-a32f-4548-ad7f-49ef53a65e16" class="numbered-list" start="4"><li>the output matrix of word2vec is ~40GB, needs to be stored in memory for distance computation </li></ol><ol type="1" id="afc4de4b-a3fe-4192-b420-94562b40f60d" class="numbered-list" start="5"><li>once distance is computed, original data (28GB) must be charged to memory for original doc retrieval </li></ol><p id="163c8312-a5f4-4c15-aa38-ba007f6661b8" class="">
+</p><p id="c21ffda8-c7fd-481b-8c7f-8ac33a2b0ea3" class=""><mark class="highlight-yellow_background">update 1 </mark></p><p id="f67a8edc-7add-4d11-8142-6ce5016c9730" class=""><span class="user">@Marwen Sallem</span> </p><p id="d39fa9c8-f79e-4299-a01f-754712efb959" class=""><strong>1st step,</strong> we do it manually: split data into four big csv files, charge files to sagemaker instance (100GB SMB volume) and apply processing on it. </p><p id="217e7ab9-7227-4f4a-afdc-ccb498a2d807" class=""> <strong>2nd step:</strong> PoC HDF5 and explore other formats to store and use data. A few ideas here: <div class="indented"><ul id="a0fa4968-ce17-4028-b54f-803c071a1bb1" class="bulleted-list"><li style="list-style-type:disc"><a href="https://towardsdatascience.com/guide-to-file-formats-for-machine-learning-columnar-training-inferencing-and-the-feature-store-2e0c3d18d4f9">https://towardsdatascience.com/guide-to-file-formats-for-machine-learning-columnar-training-inferencing-and-the-feature-store-2e0c3d18d4f9</a><p id="42ba3413-dadc-470d-816c-05af413bd74e" class="">(<mark class="highlight-orange_background">takeawys</mark>: While both parquet and orc have similar properties, <a href="https://github.com/uber/petastorm">Petastorm</a> is uniquely designed to support ML data — it is the only columnar file format that natively supports multi-dimensional data. Columnar file formats typically assume 2-dimensional relational data, but tensors can have much higher dimensionality than 1-d vector or 2-d relational data sources. Petastorm provides multi-dimensional data capability by extending Parquet with its own Unischema designed explicitly for machine learning use-cases. The Unischema enables petastorm files to store multi-dimensional tensors natively in Parquet. The unischema is also compatible with PyTorch and TensorFlow so you can convert the petastorm schema directly to TensorFlow schema or PyTorch schema, which enables native TensorFlow/PyTorch readers for petastorm.)</p><p id="6aad4512-7756-4f54-81d4-a851f4b67a49" class="">
+</p></li></ul></div></p><p id="7db2e29c-5591-4f15-9cf7-adc3bf5d213f" class=""><strong>3rd step A </strong>detailed analysis should be made on this tutorial to understand the different pieces, their usefulness and portability  <a href="https://aws.amazon.com/blogs/machine-learning/exploring-data-warehouse-tables-with-machine-learning-and-amazon-sagemaker-notebooks/">https://aws.amazon.com/blogs/machine-learning/exploring-data-warehouse-tables-with-machine-learning-and-amazon-sagemaker-notebooks/</a></p><p id="10ccfccb-ec46-443b-8360-b18f1f2f53f3" class="">
+</p><h2 id="bb7fb491-6dbd-4904-b0ed-021d0a4ceb93" class="">1. Predicting tickets/questions tags </h2><p id="6363dfe5-a4a1-4ca6-aab5-3ab6884a4e8d" class="">ping <span class="user">@Marwen Sallem</span> </p><h3 id="211bf6cc-2af1-4791-8a30-5e16659ac607" class="">1..1. Resources: </h3><p id="dbda7c79-be75-44ec-ad88-e33fbb8995a6" class=""><a href="https://towardsdatascience.com/journey-to-the-center-of-multi-label-classification-384c40229bff">https://towardsdatascience.com/journey-to-the-center-of-multi-label-classification-384c40229bff</a><div class="indented"><p id="f21e64cc-70bc-4cb2-bc09-7dea69c314dd" class="">Interesting article on multilabel classification and tags prediction.</p></div></p><p id="d2945bef-79dc-4032-a28a-ed2e96e2a26c" class=""><a href="https://stackoverflow.blog/2019/05/06/predicting-stack-overflow-tags-with-googles-cloud-ai/">https://stackoverflow.blog/2019/05/06/predicting-stack-overflow-tags-with-googles-cloud-ai/</a> :<div class="indented"><p id="085ce49e-eb54-4402-94c9-d23dd7ddc831" class="">a simple tutorial for predicting tags on stackoverflow</p><p id="88b2a7ef-ce5a-4905-a746-bf5c8fd1eddd" class="">used a processed data : not mentioned how they did it</p><p id="5aeb6266-c42d-452c-b256-78aeaf169a5c" class="">used a binary_crossentropy as a loss function : not suited for large number of tags</p><p id="c046c078-e45f-4cd5-a826-0ae3de5254f7" class="">used keras for ML / SHAP as explainer</p></div></p><p id="8e58bf42-6dec-487b-be20-a1800d98d11a" class=""><a href="https://www.kaggle.com/miljan/predicting-tags-for-stackoverflow">https://www.kaggle.com/miljan/predicting-tags-for-stackoverflow</a><div class="indented"><p id="ad8f427a-e58d-425e-b906-0f4f64f9cad1" class="">top 100 tag classification only </p></div></p><p id="df502e2c-066f-428c-a870-d8abf8a4b886" class=""><a href="https://github.com/yashkim24/Predict-tags-on-StackOverflow-with-linear-models">https://github.com/yashkim24/Predict-tags-on-StackOverflow-with-linear-models</a><div class="indented"><p id="be1c0311-239e-429b-9bc0-a050fd443291" class="">a trier</p></div></p><p id="6cbdb947-92a8-4d2b-a3fb-9ca9931bd4d0" class=""><a href="https://github.com/sai977/stack-overflow-tag-predictor">https://github.com/sai977/stack-overflow-tag-predictor</a><div class="indented"><p id="e6a12763-bfd8-46e0-8d90-6937113aee09" class="">top 20 tag only</p></div></p><p id="3d44a303-d7f9-456f-96ba-0b5fc6d510a2" class=""><a href="https://github.com/saugatapaul1010/Stack-Overflow-Tag-Prediction">https://github.com/saugatapaul1010/Stack-Overflow-Tag-Prediction</a><div class="indented"><p id="6cf196ce-a80c-44c8-abd3-7e439a1a63e0" class="">very interesting + 5500 tags classification</p></div></p><p id="d137c91e-018c-40c5-97e8-ba726ddcc04b" class=""><a href="https://medium.com/datadriveninvestor/predicting-tags-for-the-questions-in-stack-overflow-29438367261e">https://medium.com/datadriveninvestor/predicting-tags-for-the-questions-in-stack-overflow-29438367261e</a><div class="indented"><p id="ae6486f7-8425-4d7e-9d64-9930b4252b34" class="">Implementing the same ideas as the previous</p></div></p><p id="35f1579b-8db5-491e-995f-53fff94aa08a" class=""><a href="https://sachinkalsi.github.io/blog/category/ml/2018/08/22/stack-overflow-tag-prediction.html">https://sachinkalsi.github.io/blog/category/ml/2018/08/22/stack-overflow-tag-prediction.html</a><div class="indented"><p id="4b205ad5-fa16-4f74-a9c5-71b2b16401a4" class="">Top 600 tags only</p></div></p><p id="a9b228a6-5db8-4d21-a511-812750931f94" class=""><a href="https://www.manasikulkarni.com/predicting-stack-overflow-tags">https://www.manasikulkarni.com/predicting-stack-overflow-tags</a><div class="indented"><p id="e206c4bc-a6f4-4529-ae14-bf5c587ec229" class="">using doc2vec</p></div></p><p id="1a303462-5ee0-466f-b853-4616a6c46c01" class=""><a href="http://cs229.stanford.edu/proj2013/SchusterZhuCheng-PredictingTagsforStackOverflowQuestions.pdf">http://cs229.stanford.edu/proj2013/SchusterZhuCheng-PredictingTagsforStackOverflowQuestions.pdf</a><div class="indented"><p id="bffdfa4a-1c9f-4ccb-b4c5-77579f90ea1a" class="">programming-languages tags only</p></div></p><p id="f6530a1d-0638-44fe-acbd-3634823cc2b2" class=""><a href="https://ieeexplore.ieee.org/document/8389059">https://ieeexplore.ieee.org/document/8389059</a><div class="indented"><p id="25c22fd1-97dd-4188-bc07-91a80931bdae" class="">a trier</p></div></p><p id="025b7a67-711b-43d3-9e64-a17777212b57" class=""><a href="https://arxiv.org/pdf/1809.07954.pdf">https://arxiv.org/pdf/1809.07954.pdf</a><div class="indented"><p id="90e7a01d-23cc-4e87-b042-09dc72305140" class="">programming languages tags only</p><p id="9fa0b6cc-5ca7-4cb3-a994-2235f6ad4f0b" class="">
+</p></div></p><p id="9b8896ca-06ba-4ff9-a0c7-d0004337c52c" class="">
+</p><h3 id="6264a8e3-caaf-4595-a322-71c39c817b54" class="">1.2. Problem Discussion</h3><p id="c4f16bab-260f-448e-b7a7-cb2fd8544bfd" class="">Utility :</p><ul id="0ace7918-7d14-4276-9b98-1245ca3668c5" class="bulleted-list"><li style="list-style-type:disc">Real time ?<ul id="6a020dd2-2554-44f8-93e2-287973088ca2" class="bulleted-list"><li style="list-style-type:circle">Very Fast in prediction and preprocessing<p id="096bedf0-e1b5-4ac5-8517-7e80668e079f" class=""><mark class="highlight-orange_background">→ yes must be v fast  </mark></p></li></ul></li></ul><ul id="3df982f3-535d-4cb5-9d3e-61e96cb30d33" class="bulleted-list"><li style="list-style-type:disc">Needs to be easily updated on new tags with different input data ?<ul id="718333ad-e840-44c6-9ee0-7f91b4186240" class="bulleted-list"><li style="list-style-type:circle">Not to use stackoverflow-specific content</li></ul><ul id="0b752be2-e46d-42b5-9ccf-243f63aa362c" class="bulleted-list"><li style="list-style-type:circle">Easily add new tags ?<p id="d98ba0bf-bbc5-4fa3-9a35-6d2af54b0881" class=""><mark class="highlight-orange_background">→ yes needs to be extensible, new tags are very frequent</mark></p><p id="07f9567a-956f-42b9-b5a4-abb6c25f1b53" class="">if we use Binary Relevance, adding tag should be easy, just train new model for each new tag. But Binary Relevance is not efficient for our task</p><p id="9059f377-3098-4c57-b9be-706077158af3" class="">If we use other scalable approaches, we should retrain the whole model. Not very efficient</p><p id="a50ddf92-50b8-4dc6-bedc-fa0e5c2a77a0" class="">Shall we fin another way ? Or just suppose that we need to retrain one time for every new client</p><p id="a24421d1-e92d-46c2-b1d2-d1b41d4270ee" class=""><span class="user">@Abdelhadi Azzouni</span> </p></li></ul><p id="026e1df5-af77-4c20-af34-20fcfe033d89" class="">
+</p></li></ul><p id="0844310e-526f-41a1-8e31-b6340234ba1c" class="">
+</p><p id="02881cc4-1202-44a3-a181-8f9ef3f50b06" class="">Multilabel Classification Approaches :</p><ul id="5bb9629b-5954-4ec7-858f-e191e449768d" class="bulleted-list"><li style="list-style-type:disc">Binary Relevance : consider each target as a separate binary classification problem<ul id="49d5cd20-ec75-4f5d-98a0-6e1b71b4f6a2" class="bulleted-list"><li style="list-style-type:circle">+ Very easy to implement</li></ul><ul id="f34b16bd-4ff7-4ab7-a394-bb2810e9b325" class="bulleted-list"><li style="list-style-type:circle">- Doesn’t handle many tags (we need a model for each tag)<p id="88e83316-ac47-4703-83e0-02fe0170f508" class="">→ <mark class="highlight-orange_background">not scalable </mark></p></li></ul></li></ul><ul id="122deded-eb47-4906-baaf-24b8330c6c48" class="bulleted-list"><li style="list-style-type:disc">Classifier chains : We construct Model A as a Binary Classification model using the input instances we try to predict just 1 of the Label as the output.<ul id="95e32a8d-69c4-4922-8408-661020adb713" class="bulleted-list"><li style="list-style-type:circle">+ Preserve correlation of tags</li></ul><ul id="0c6b328d-e110-4e49-b3fe-4080055f9b0e" class="bulleted-list"><li style="list-style-type:circle">- Fails when number of tags is huge / useless when tags are not correlated<p id="e9aad07f-59ae-4766-a5a4-a89f428fc0e4" class="">→ <mark class="highlight-orange_background">not scalable </mark></p></li></ul></li></ul><ul id="66dc063f-d9b9-43a0-b5c3-d702cbdde72e" class="bulleted-list"><li style="list-style-type:disc">Label Powerest : A Multi-class Classifier is trained on all unique label combinations found in the Data.<ul id="b2fcc275-6d08-4279-b2e8-66f33fb976da" class="bulleted-list"><li style="list-style-type:circle">+ Easy</li></ul><ul id="7d5f8c81-8909-41d5-976f-e8484e2c5e98" class="bulleted-list"><li style="list-style-type:circle">- Fail when number of tags is huge<p id="0c6d5baa-688e-4d72-87a4-441d014d0d77" class="">→ <mark class="highlight-orange_background">O(n!) so no </mark></p></li></ul></li></ul><ul id="98f806a1-19f8-47a4-aa4d-d333c42d3404" class="bulleted-list"><li style="list-style-type:disc">Deep Learning Approaches : Simply a sigmoid at the output layer </li></ul><p id="b834ac22-0718-49a5-97cd-048912ae879a" class="">Output Tag</p><ul id="3ec04ca7-294d-45d8-97b6-fe312c0d646d" class="bulleted-list"><li style="list-style-type:disc">How many tags shall we cover ?<ul id="19eed6d9-4cfd-4348-95b6-bd5340b06a09" class="bulleted-list"><li style="list-style-type:circle">Many tags are created by user and are very useless (only few </li></ul><ul id="5a5314e0-1d84-4780-8efc-61c393b54bb5" class="bulleted-list"><li style="list-style-type:circle">Pareto of number of tags : =⇒ Around 10000 tags cover 95% of the tags</li></ul><ul id="0f5b643f-010a-4c44-9d4b-b47cd512245a" class="bulleted-list"><li style="list-style-type:circle">Impact Loss Function and Performance Metric ⇒ Hamming Loss / Micro F1-score for metric</li></ul><p id="5afe2742-c559-4601-8346-8df9d3737fc6" class="">
+</p></li></ul><ul id="3bf8edae-7232-4dc0-ade8-47fb90c6238d" class="bulleted-list"><li style="list-style-type:disc">How Tags are correlated ?<ul id="00c0dfe7-9d09-4a64-907e-9f54df8c5ac9" class="bulleted-list"><li style="list-style-type:circle">Tags co-occurences</li></ul></li></ul><ul id="64c0f07e-72fc-496e-a31a-87cbec3f8ba0" class="bulleted-list"><li style="list-style-type:disc">Is there important and less important tags ?<ul id="a46e3ac7-6adf-44f2-9804-25286a4c4ad7" class="bulleted-list"><li style="list-style-type:circle">Depends on the task </li></ul></li></ul><p id="d3532e43-1ea9-4556-aed2-d0c78e781f58" class="">Input </p><ul id="fc98d65e-d9e8-435e-b236-cf13a34a567c" class="bulleted-list"><li style="list-style-type:disc">Title Only<ul id="f54fba47-441c-4c57-8100-f634edd2f39c" class="bulleted-list"><li style="list-style-type:circle">+ Fastest / Less information</li></ul><ul id="526bf955-826d-4da2-9889-4cd1b05fb447" class="bulleted-list"><li style="list-style-type:circle">- Might be not very informative</li></ul></li></ul><ul id="903eeb21-427e-42f0-9205-ba79ad882e02" class="bulleted-list"><li style="list-style-type:disc">Titile + Body :<ul id="750b359b-6d0f-4eaf-b0f8-86f860463ee4" class="bulleted-list"><li style="list-style-type:circle">+ More informative</li></ul><ul id="b19e8ffd-48c4-42c9-ac88-228e5a890a63" class="bulleted-list"><li style="list-style-type:circle">- Slower<p id="5c28839c-d97f-4631-88e0-64eb33e6ab72" class="">→ <mark class="highlight-orange_background">definitely title and body  </mark></p></li></ul></li></ul><ul id="d07a95ec-bf86-4df8-af44-0a8d4abdf4cc" class="bulleted-list"><li style="list-style-type:disc">Title + Body + Answers :<ul id="494081f2-f5b5-4c5c-9f23-e2a380dd3a31" class="bulleted-list"><li style="list-style-type:circle">+ Contains enough information</li></ul><ul id="bb27c738-e41d-4427-83a1-efed589c56bf" class="bulleted-list"><li style="list-style-type:circle">- Might not have answer at the moment of prediction /Slower</li></ul></li></ul><p id="bc8a5b36-ad35-49f3-bbbb-c49cc180a14b" class="">ML Approach</p><ul id="48a83e20-7f51-43d4-95c5-bbb2869e2caa" class="bulleted-list"><li style="list-style-type:disc">Traditional ML :<ul id="cfbf1cb3-5cb6-4071-977e-6d493274a22d" class="bulleted-list"><li style="list-style-type:circle">+ Faster</li></ul><ul id="f0543ea1-6b55-4c18-a0cc-81d988a233b9" class="bulleted-list"><li style="list-style-type:circle">- Less performant / Could fail if number of tags is large</li></ul></li></ul><ul id="fce0a87c-e076-42a0-b808-892748e485d8" class="bulleted-list"><li style="list-style-type:disc">Deep ML :<ul id="3f712316-ea2b-47a0-840d-25455b2a3da5" class="bulleted-list"><li style="list-style-type:circle">+ More performant / Could include sequence information (LSTM) + Could handle large number of tags (if used)</li></ul><ul id="a97f44ed-3047-43ef-9488-18ac77adf3be" class="bulleted-list"><li style="list-style-type:circle">- Slower Prediction</li></ul><p id="1b6ea44a-9ff2-4187-9154-7a73bea5ae66" class="">
+</p><p id="2630c05c-5e9e-44d8-9199-3afbe1efc5b2" class="">
+</p></li></ul><h3 id="0c71a199-dbd0-45a1-831b-99146a4e1207" class="">1.3. Pipeline: </h3><p id="a9f884c9-1dca-4c10-9eeb-a581c348ef5d" class="">TBD once state of the art is reviewed and best method is chosen  <span class="user">@Marwen Sallem</span> </p><h3 id="f071583a-4f3a-4ecc-8ac7-6d181036e6a7" class="">Version 0.1</h3><p id="ab6ba1bc-4ee3-4231-987e-3845b6d87127" class="">
+</p><p id="1a8e03f2-0dfe-4d18-bd6a-a69d20484c95" class=""><strong>Number of tags</strong> : Top 5000 tags (~91% of the tags)</p><p id="80240c14-d010-4d5b-b1dc-0ffb64dd35a1" class=""><strong>Metric</strong> : micro-average F1 score / speed of prediction in ms</p><p id="1211d043-66dd-4ac4-9669-6a2ce686674b" class=""><strong>Approaches</strong> :</p><ul id="4205865f-d660-4958-a7f2-94702d75ddbb" class="bulleted-list"><li style="list-style-type:disc"></li></ul><p id="55ca31f3-4c02-481d-ba2f-36977b194c90" class="">
+</p><h2 id="d425e877-aa9b-4834-86a3-91f88440c38d" class="">2. Similar questions retrieval: </h2><h3 id="976c7c5e-2a80-4970-99fb-70e431dc8772" class="">2.1. Resources:</h3><p id="2a7050dd-0b8c-439c-bd80-15bdda5acd4b" class="">AnswerBot 1st : <a href="https://xin-xia.github.io/publication/ase17.pdf">https://xin-xia.github.io/publication/ase17.pdf</a></p><p id="8cb7d666-d949-42a0-98d6-fa3353389a34" class="">AnswerBot 2nd : <a href="http://www.bowenxu.me/publications/FSE2019_Tool.pdf">http://www.bowenxu.me/publications/FSE2019_Tool.pdf</a></p><p id="d59e5f09-e118-4a19-9dcd-a73a82b4f227" class="">The implementation of AnswerBot : <a href="https://github.com/XBWer/AnswerBot">https://github.com/XBWer/AnswerBot</a></p><p id="018c9913-b2c5-46c6-b2ce-9016af888ec1" class="">
+</p><p id="91e46895-d147-4249-b1a3-8562837486ea" class="">
+</p><p id="5ef9caf5-573e-41df-ae6f-9ed6153650de" class="">
+</p><p id="279631a1-7d5c-4ab6-ab2a-e11a9dbeab4c" class=""><mark class="highlight-pink_background">AnswerBot</mark>: <a href="Reading%20List%205612979d9f104f3a8d2f604e34a58a93/NLP%205c347ee294a947938152d20e9659308f/AnswerBot%20Automated%20Generation%20of%20Answer%20Summary%20t%20b36783dfbbdf4b9f859b94c1ef712a27.html">https://www.notion.so/packetai/AnswerBot-Automated-Generation-of-Answer-Summary-to-Developers-Technical-Questions-b36783dfbbdf4b9f859b94c1ef712a27</a></p><h3 id="17861267-c977-45f8-bcdc-816cd5ef8145" class="">2.2. Pipeline: </h3><ol type="1" id="c17bf136-f422-4373-a9c0-6564b4bc240d" class="numbered-list" start="1"><li>Clean Title+Body text (remove html tags, remove remove links, ...)<ol type="a" id="82a971fa-da14-44e0-baab-a27286082da2" class="numbered-list" start="1"><li>Follow the cleaning of DSE <a href="https://chunyang-chen.github.io/publication/SEthesaurusWordnet_TSE19.pdf">https://chunyang-chen.github.io/publication/SEthesaurusWordnet_TSE19.pdf</a> (<a href="https://github.com/DunZhang/DomainSpecificThesaurus/blob/master/DST/datasets/CleanData.py">https://github.com/DunZhang/DomainSpecificThesaurus/blob/master/DST/datasets/CleanData.py</a>)</li></ol><ol type="a" id="25d516c9-296d-4e83-8a00-31d51914497e" class="numbered-list" start="2"><li>Concatenate Title&amp;Body to construct a parallel text</li></ol></li></ol><ol type="1" id="cb1afc65-a73f-4d77-a892-bd6deb5e2290" class="numbered-list" start="2"><li>Train word embedding model (word2vec) with gensim to be able to vectorize words
+Follow this tutorial : <a href="https://www.kaggle.com/pierremegret/gensim-word2vec-tutorial">https://www.kaggle.com/pierremegret/gensim-word2vec-tutorial</a> with a lot of changes on hyperparameters </li></ol><ol type="1" id="fa6f4491-c594-4ecd-ba11-881146c7cd03" class="numbered-list" start="3"><li>Vectorize all the Title&amp;Body cleaned text and save them into multiple arrays<ol type="a" id="357b7607-2f53-47f6-b5ca-993e15137307" class="numbered-list" start="1"><li>Used simple average at first place</li></ol><ol type="a" id="f736a358-528f-4c84-82b6-b54098fc790d" class="numbered-list" start="2"><li>TODO : compute average of word embeddings weighted with IDF</li></ol></li></ol><ol type="1" id="3bb52b57-af5d-4208-a5e8-87939b8c78eb" class="numbered-list" start="4"><li>Search the top-10 similar vector whenever title&amp;body are provided<ol type="a" id="5c6ee553-a291-46fe-9385-0c6bebdb9e77" class="numbered-list" start="1"><li>MAP : Compute the cosine the similarity between the Vector and all the arrays → select the top-10 similar vectors</li></ol><ol type="a" id="8cbec384-001a-4bdf-b33a-7a2c7e864309" class="numbered-list" start="2"><li>REDUCE : Compute the top-10 similar vector on the list of top-10s of all arrays</li></ol><ol type="a" id="32686363-c56e-47e0-8ae6-0f1cbb0c6f13" class="numbered-list" start="3"><li>SELECT : Match the similar vectors to their corresponding Title&amp;Body</li></ol></li></ol><p id="efddeeed-091c-41e9-be7a-0698836cd652" class="">
+</p><h3 id="2feb9dd2-3aac-407e-aadc-762d8c69615c" class="">2.3. Utils: </h3><ul id="ae1944b8-ba2b-4b0b-b8a3-287c71ec4c08" class="bulleted-list"><li style="list-style-type:disc"><strong>SEThesaurus</strong></li></ul><p id="686191fd-251c-4700-a42b-3b212e1b0bab" class="">API: <a href="https://se-thesaurus.appspot.com/">https://se-thesaurus.appspot.com/</a></p><p id="15e16c0b-5f1f-4274-aab0-37de966f47a6" class="">package: <a href="https://pypi.org/project/DomainThesaurus/">https://pypi.org/project/DomainThesaurus/</a></p><p id="a26a2315-46c0-4889-bb45-c106d9d53640" class="">paper: <a href="https://chunyang-chen.github.io/publication/SEthesaurusWordnet_TSE19.pdf">https://chunyang-chen.github.io/publication/SEthesaurusWordnet_TSE19.pdf</a></p><p id="ec3adf76-0480-4e27-825a-be0e1a4192da" class="">
+</p><h2 id="186fa513-70d0-4179-8325-e12f702d769f" class="">Random</h2><p id="0d2554f0-aa18-40aa-80f0-6f6253fe3d89" class="">
+</p><h2 id="e5df4b15-a8b9-4daa-b021-cae346d5534b" class="block-color-orange_background">TODO next</h2><ol type="1" id="dda1f109-a9bd-4488-9333-5bb6b911ccc0" class="block-color-orange_background numbered-list" start="1"><li>Automate downloading data from BigQuery </li></ol><ol type="1" id="6ee5df5f-d02f-4838-8091-94e9c9847260" class="block-color-orange_background numbered-list" start="2"><li>Create test cases for the search engine <ol type="a" id="d04c68b4-50d7-44bd-b902-e4cc109c5ecc" class="numbered-list" start="1"><li>Baseline : give an existing input and wait for it as output</li></ol><ol type="a" id="b07654a2-be2d-432c-9a90-3a5bef974942" class="numbered-list" start="2"><li>Search cases to compare with google</li></ol><ol type="a" id="7df97574-cfd1-4a0f-9a1e-c3f239025e8b" class="numbered-list" start="3"><li>Search cases that should be better than google</li></ol></li></ol><ol type="1" id="bfda5801-0dc8-454b-b94f-df8ac2aec2e5" class="block-color-orange_background numbered-list" start="3"><li>Ameliorate the similarity<ol type="a" id="1508153b-add4-4f79-b40b-4572864cdce0" class="numbered-list" start="1"><li>Weight word2vec average with Idf</li></ol><ol type="a" id="5e160f81-5989-4c61-aca5-1705f6180611" class="numbered-list" start="2"><li>Use doc2vec/fasttext/bag of tricks</li></ol><ol type="a" id="6dc644cc-4466-46c5-8dab-f5a1e0375487" class="numbered-list" start="3"><li>Use Bert like vectorization</li></ol></li></ol><ol type="1" id="48f86fd8-d4b9-4ede-8361-dc165dfd0643" class="block-color-orange_background numbered-list" start="4"><li>Ameliorate the execution time</li></ol><ol type="1" id="6e97f501-e07b-40a5-8941-a79076fc4e53" class="block-color-orange_background numbered-list" start="5"><li>Clean the code </li></ol><ol type="1" id="9e24c46c-2ea4-4cea-8c49-7e0066aa1384" class="block-color-orange_background numbered-list" start="6"><li>Find the best answer after the question retrieval step</li></ol><ol type="1" id="30d74337-f7e5-476d-863b-de28b249c4d3" class="block-color-orange_background numbered-list" start="7"><li>Target prediction to ameliorate the search/similarity</li></ol><p id="c5498724-44ef-47fc-9b5a-07ec6c4be4aa" class="">
+</p><p id="a8d10942-44e8-4677-a90d-e392176a7f7e" class="">
+</p><p id="f856ded4-c54c-4ad3-873c-b5d7818075f5" class=""><span class="user">@Abdelhadi Azzouni</span> , <span class="user">@Valentin Lapparov</span>  this is the todo that i suggest</p></div></article></body></html>

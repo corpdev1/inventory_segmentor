@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>ML-services</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ed938771-bc82-467a-af8a-6173024d5733" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🤖</span></div><h1 class="page-title">ML-services</h1><p class="page-description"></p></header><div class="page-body"><p id="f9db9397-68a5-4422-86ac-e39d823490e8" class="">
+</p><figure id="6fc13503-c1e2-494b-b12f-dae7c4c77faf" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/ML%20documentation%20reference%20book%206fc13503c1e2494bb12fdae7c4c77faf.html">ML documentation reference book</a></figure><figure id="6c4bcdda-b682-4b32-baa1-bea3300c18e7" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/ML%20required%20input%20and%20output%20format%206c4bcddab6824b32baa1bea3300c18e7.html">ML required input and output format</a></figure><h1 id="4d1fb873-8e4b-4809-a49c-6a02b8050047" class="">Projects</h1><p id="e63e5540-0379-4454-a83b-e03234771569" class="">
+</p><figure id="27ba3bdf-cba0-41aa-a773-ecfaa0ccb338" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Alerting%20Manager%20(AM)%2027ba3bdfcba041aaa773ecfaa0ccb338.html"><span class="icon">🚨</span>Alerting Manager (AM)</a></figure><figure id="94e8aac9-6758-47f3-9c1b-942c2ab25594" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Metrics%20(MAD)%2094e8aac9675847f39c1b942c2ab25594.html"><span class="icon">📈</span>Metrics (MAD)</a></figure><figure id="f0cf5184-eb4b-437d-89bc-0258ed0898c4" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Grok%20Wizard%20f0cf5184eb4b437d89bc0258ed0898c4.html"><span class="icon">🧙🏻</span>Grok Wizard</a></figure><figure id="05ac6fc9-f488-4d5b-b348-fc00618ecaee" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Logfrequency%2005ac6fc9f4884d5bb348fc00618ecaee.html"><span class="icon">📉</span>Logfrequency</a></figure><figure id="e88ea010-30c6-40aa-ae4c-d2e52401d0ba" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Log%20Pattern%20Alerting%20e88ea01030c640aaae4cd2e52401d0ba.html"><span class="icon">🎭</span>Log Pattern Alerting</a></figure><figure id="1cb00db5-b15b-4007-b7c4-8d01565ae873" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/RCA%201cb00db5b15b4007b7c48d01565ae873.html"><img class="icon" src="https://www.notion.so/icons/branch-merge_brown.svg"/>RCA</a></figure><figure id="ee6661c5-0105-4c65-bbdf-40f3f3118c5a" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/conan%20ee6661c501054c65bbdf40f3f3118c5a.html"><img class="icon" src="https://www.notion.so/icons/binoculars_purple.svg"/>conan</a></figure><figure id="d7d7fe82-afa4-4ebb-b4d8-27e419d06c19" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/pipeline%20customized%20monitoring%20d7d7fe82afa44ebbb4d827e419d06c19.html"><img class="icon" src="https://www.notion.so/icons/arrows-swap-vertically_green.svg"/>pipeline customized monitoring</a></figure><figure id="30887203-a271-4955-af72-b531e3ce4be1" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/vpa%2030887203a2714955af72b531e3ce4be1.html">vpa</a></figure><figure id="93d478bf-e0f8-4744-b98a-84320692e4c2" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/backup%2093d478bfe0f84744b98a84320692e4c2.html">backup</a></figure><figure id="012232a0-06dd-40f9-8be1-ed3ffb9510d5" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Loogle%20012232a006dd40f98be1ed3ffb9510d5.html">Loogle</a></figure><figure id="7b5daefa-94ec-4aec-b6f5-ba344905886d" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Log%20Health%20Feature%207b5daefa94ec4aecb6f5ba344905886d.html"><span class="icon">🚑</span>Log Health Feature</a></figure><figure id="c740c765-ef4f-41fa-8ff6-f0cf2b23393c" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Sampler%20c740c765ef4f41fa8ff6f0cf2b23393c.html"><span class="icon">🎲</span>Sampler</a></figure><figure id="bae5fda9-f052-4d80-b05b-675b5667a00a" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Novelty%20Qualifier%20bae5fda9f0524d80b05b675b5667a00a.html"><span class="icon">🆕</span>Novelty Qualifier</a></figure><figure id="7dad6ee2-7017-4ba3-8e2e-6aef834ed270" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Drain%207dad6ee270174ba38e2e6aef834ed270.html"><span class="icon">🗜️</span>Drain</a></figure><figure id="8e823872-09df-4556-8b20-6f49693f0bf7" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Logpatterns%208e82387209df45568b206f49693f0bf7.html"><span class="icon">🗞️</span>Logpatterns</a></figure><figure id="355b689b-1498-4328-a2f8-2667904a782d" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/ML%20meetings%20355b689b14984328a2f82667904a782d.html"><span class="icon">📜</span>ML meetings</a></figure><hr id="7ca9922c-77bf-4d29-a62f-ddc8f24de5ea"/><p id="eeea7122-4373-4479-9355-9c2660e82da8" class="block-color-red_background"><strong>Notes: </strong></p><ul id="08c1faa1-3f71-436a-a734-25b1a0e5396b" class="block-color-red_background bulleted-list"><li style="list-style-type:disc">Loogle doc is up-to-date</li></ul><ul id="04f47226-6dbd-4bcb-a33c-34dd9421d6d8" class="block-color-red_background bulleted-list"><li style="list-style-type:disc">Conan doc is up-to-date</li></ul><ul id="7d992080-71ef-44ae-8b26-0d7ec62c4087" class="block-color-red_background bulleted-list"><li style="list-style-type:disc">Other pages are general design/documentation pages </li></ul><p id="14312bbe-6295-4dc7-ac05-dd672a64ab2d" class="">
+</p><p id="e3cf7b7b-772c-4cb8-9765-4b5fb7385297" class="">Ex-Machina is PacketAI&#x27;s ML engine for analysing IT data in order to detect anomalies, predict IT incidents and notify clients &quot;Bephor&quot; they are impacted. Ex-Machina is one of the two parts of Bephor&#x27;s deepend (ML part), the other part is Actum. </p><p id="4a79f127-1ff8-401f-aec3-81eaabc1cb09" class="">This page is used as an incubation place for new projects. Once a project is mature enough, it graduates and will have its own page (eg MAD and LAD)</p><p id="1b647bfa-9593-48e2-b95d-20ebb5732c14" class="">
+</p><figure id="e2c990f2-d344-4c82-a71f-0b810a3b72c7" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Design%20e2c990f2d3444c82a71f0b810a3b72c7.html">Design </a></figure><figure id="4b4084a3-66b2-45c0-a932-2c36c32d77c0" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Studying%20Anodot%204b4084a366b245c0a9322c36c32d77c0.html">Studying Anodot</a></figure><figure id="f1ef34b2-555d-4e2b-bd4c-28980116ba10" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/PoCs%20f1ef34b2555d4e2bbd4c28980116ba10.html">PoCs</a></figure><figure id="3e85dfdf-43f1-4107-a192-376f6a989dcc" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Node%20Importance%20Determination%203e85dfdf43f14107a192376f6a989dcc.html">Node Importance Determination</a></figure><figure id="ffa1b298-31b5-4ad9-ac36-1434a10a31b4" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Dataset%20catalogue%20ffa1b29831b54ad9ac361434a10a31b4.html"><span class="icon">📊</span>Dataset catalogue </a></figure><figure id="a9178938-6e50-481b-baa7-310298779e31" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Predicting%20KPIs%20a91789386e50481bbaa7310298779e31.html">Predicting KPIs  </a></figure><figure id="af9d0b95-2de4-41b0-8603-03456d52848c" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c.html">Scaling DL algos  -wip</a></figure><figure id="36c34d6d-b21b-48ce-9119-b00a144c5c00" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/AIOps%20reading%20list%2036c34d6db21b48ce9119b00a144c5c00.html">AIOps reading list</a></figure><figure id="286ff0df-e5ef-4e1c-b4c8-e58e0e84d2d1" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/User%20input%20&amp;%20user%20feedback%20286ff0dfe5ef4e1cb4c8e58e0e84d2d1.html">User input &amp; user feedback </a></figure><figure id="e006af1b-b376-42be-9590-c15fbb96d257" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Studying%20Prophet%20e006af1bb37642be9590c15fbb96d257.html">Studying Prophet</a></figure><figure id="7e225def-44c1-4184-b827-66c2d8cb3e7a" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/MAD%202%200%207e225def44c14184b82766c2d8cb3e7a.html">MAD 2.0</a></figure><figure id="8170ba45-5fe9-4f9a-b4fe-84e7f628a070" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/End-to-end%20chaos%20engineering%208170ba455fe94f9ab4fe84e7f628a070.html">End-to-end chaos engineering </a></figure><figure id="ec95346c-61d4-4027-b076-cd4bd26047b6" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/What-if%20analysis%20ec95346c61d44027b076cd4bd26047b6.html">What-if analysis </a></figure><figure id="6917b2af-7397-4afd-9dbd-62c4a4c4909d" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Predictive%20resource%20management%206917b2af73974afd9dbd62c4a4c4909d.html">Predictive resource management </a></figure><figure id="921f670e-489b-413f-85f4-715df3824e56" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Change%20management%20921f670e489b413f85f4715df3824e56.html"><span class="icon">🦘</span>Change management </a></figure><figure id="320664b8-c231-4e31-8109-dbaffc3a34e2" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Pertinent%20alerting%20-%20wip%20320664b8c2314e318109dbaffc3a34e2.html">Pertinent alerting  - wip</a></figure><figure id="5026fe6f-a9bd-4878-823d-ca8306dab573" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Explainable%20AIOps%205026fe6fa9bd4878823dca8306dab573.html">Explainable AIOps </a></figure><figure id="bde002f6-9b45-4d42-95d7-8b1ec02ba01e" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Time%20Series%20Anomaly%20Detection%20bde002f69b454d4295d78b1ec02ba01e.html">Time Series Anomaly Detection</a></figure><figure id="cb80ecf9-1172-4484-b9e6-98d4b60ed2c3" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Flow%20monitoring%20cb80ecf911724484b9e698d4b60ed2c3.html">Flow monitoring </a></figure><figure id="51db2e40-a8cb-475c-a694-88b208aa1037" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Partner%20monitoring%2051db2e40a8cb475ca69488b208aa1037.html">Partner monitoring </a></figure><figure id="9bf85226-196f-4f71-bfd2-7e159994ac38" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/SAC%20Supervised%20Anomaly%20Classifier%209bf85226196f4f71bfd27e159994ac38.html"><span class="icon">🐕</span>SAC: Supervised Anomaly Classifier</a></figure><figure id="2a02a5e8-8517-457c-9eb5-28a63f064746" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/User%20profiling%20from%20logs%20(feature)%202a02a5e88517457c9eb528a63f064746.html">User profiling from logs (feature)</a></figure><figure id="a80804d5-fbcd-4296-8b56-60d44af13196" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/LAD%202%200%20a80804d5fbcd42968b5660d44af13196.html"><span class="icon">📄</span>LAD 2.0</a></figure><figure id="9eb367ad-bd8a-4c32-b410-73c392b0bfec" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Evaluation%20of%20an%20anomaly%20alert%209eb367adbd8a4c32b41073c392b0bfec.html"><span class="icon">💯</span>Evaluation of an anomaly alert </a></figure><figure id="3875e2cf-eed2-420f-a246-6019295c4406" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Content%20for%20publishing%203875e2cfeed2420fa2466019295c4406.html"><span class="icon">✍️</span>Content for publishing </a></figure><figure id="ecb28cda-3516-44fd-8c1b-0b02f6ee4fbb" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Kubernetes%20design%20-%20WIP%20ecb28cda351644fd8c1b0b02f6ee4fbb.html"><span class="icon">🚢</span>Kubernetes design  - WIP</a></figure><figure id="6974445b-233a-4c58-9afc-d807715cd892" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Playgrounds%206974445b233a4c589afcd807715cd892.html"><span class="icon">🎮</span>Playgrounds  </a></figure><figure id="6544b2ed-f4e2-4583-95dd-e1ff6a72b78f" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/APM%206544b2edf4e2458395dde1ff6a72b78f.html"><span class="icon">🥗</span>APM </a></figure><figure id="dfe89add-72c4-4eca-88f0-857ab79c0eba" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/iFOD%20Idea%20to%20Feature%20in%20One%20Day%20dfe89add72c44eca88f0857ab79c0eba.html"><span class="icon">🏎️</span>iFOD: Idea to Feature in One Day  </a></figure><figure id="5902bf55-1720-466a-82a6-7d03c2bc4750" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Massively%20Scale%20PacketAI%205902bf551720466a82a67d03c2bc4750.html"><span class="icon">🚀</span>Massively Scale PacketAI  </a></figure><figure id="45461a08-a3f9-430f-a8ce-4eafe2cc569e" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Partnerships%2045461a08a3f9430fa8ce4eafe2cc569e.html"><span class="icon">🧵</span>Partnerships</a></figure><figure id="4161f52e-0b7c-42a7-bd07-89b87a7a90ca" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Prometheus-as-a-service%204161f52e0b7c42a7bd0789b87a7a90ca.html"><span class="icon">🔢</span>Prometheus-as-a-service </a></figure><figure id="5e213535-00c3-4acf-b327-1b46b0fb178e" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/UI%20improvements%205e21353500c34acfb3271b46b0fb178e.html"><span class="icon">🦋</span>UI improvements </a></figure><figure id="6975bcde-9394-4d43-8e32-b0896d291c25" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Dealing%20with%20data%20discontinuity%20model%20fault%20tolera%206975bcde93944d438e32b0896d291c25.html"><span class="icon">⚠️</span>Dealing with data discontinuity: model fault tolerance and dealing with holidays </a></figure><figure id="781bdf14-7438-4b24-8d4d-54664fb58a8f" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Data%20processing%20modularity%20-%20Vector%20support%20781bdf1474384b248d4d54664fb58a8f.html"><span class="icon">🧩</span>Data processing modularity - Vector support </a></figure><figure id="5d9d8761-c354-41ed-a654-b5a917a11115" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Using%20spot%20instances%205d9d8761c35441eda654b5a917a11115.html"><span class="icon">🥸</span>Using spot instances </a></figure><figure id="ca0b2aaf-56b9-46fd-8886-4bbb11a6b846" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Finops%20features%20-%20k8s%20ca0b2aaf56b946fd88864bbb11a6b846.html"><span class="icon">💲</span>Finops features - k8s</a></figure><figure id="7c853503-ffeb-4888-aa05-c58af750a108" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/GCP%20managed%20services%20-%20Cloud%20Composer%207c853503ffeb4888aa05c58af750a108.html">GCP managed services - Cloud Composer</a></figure><figure id="c9a9af67-ed89-4bb0-b1c3-4db913b955f9" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Drain%202%200%20c9a9af67ed894bb0b1c34db913b955f9.html"><span class="icon">🚰</span>Drain 2.0</a></figure><figure id="0b43f403-99f7-43d6-b696-8b9892a0e313" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Website%200b43f40399f743d6b6968b9892a0e313.html"><span class="icon">🌐</span>Website</a></figure><figure id="58138df9-00df-4fa7-9efc-3bd5144ce7dd" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Alerting%20on%20Log%20Patterns%2058138df900df4fa79efc3bd5144ce7dd.html"><span class="icon">⚠️</span>Alerting on Log Patterns </a></figure><figure id="7e006dc5-ade7-402f-8706-238aa959c377" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Literature%20Review%207e006dc5ade7402f8706238aa959c377.html"><span class="icon">📖</span>Literature Review</a></figure><figure id="ff0d50e9-1ad6-494c-a016-517d38da6f7a" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a.html"><span class="icon">📏</span>Tests &amp; Benchmarks</a></figure><figure id="531e4516-3afb-47bc-ad44-bbd451c47cf1" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/LAD%20architecture%20531e45163afb47bcad44bbd451c47cf1.html"><span class="icon">🪜</span>LAD architecture</a></figure><figure id="2368cd99-8943-417e-aa5d-e0134cf54dee" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Documentations%20of%20logs%20algorithms%202368cd998943417eaa5de0134cf54dee.html">Documentations of logs algorithms</a></figure><p id="47010d79-fdfd-4859-80b1-ba9a875424f2" class="">
+</p><p id="5c79c4b9-f74f-4d7e-a66e-ae08b12169d4" class="">
+</p><figure id="ad166e17-4fd7-4197-bac0-8fbe1f821dd5" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Word2Vec%20vs%20Grok%20Drain%20episode%202%20ad166e174fd74197bac08fbe1f821dd5.html">Word2Vec vs. Grok/Drain : episode 2</a></figure><figure id="bc145eaa-5b70-48a8-9bfd-11553cf3b343" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Using%20GPT3%20chatGPT%20bc145eaa5b7048a89bfd11553cf3b343.html">Using GPT3 / chatGPT</a></figure><p id="a869e01f-f681-4f91-bd0c-f189c58f5d13" class="">
+</p><figure id="c8d33c5d-42a1-46d1-b57d-c1329284b687" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Fine-tuned%20models%20c8d33c5d42a146d1b57dc1329284b687.html">Fine-tuned models</a></figure><p id="50a6dece-1ce7-470e-9c6b-50f4f118ca02" class="">
+</p><figure id="9ad6679b-e376-4e2c-9f46-29ad1a43db91" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Log%20pattern%20variable%20representation%20and%20solution%209ad6679be3764e2c9f4629ad1a43db91.html">Log pattern variable representation and solution</a></figure><h2 id="5b79e98d-d1c8-4e2f-9554-228e54b393e9" class="">Other ML readings:</h2><p id="94f449e3-70ca-47d7-b4fb-df0eeb1d82b7" class="">Attention is all you need: <a href="https://arxiv.org/pdf/1706.03762.pdf">https://arxiv.org/pdf/1706.03762.pdf</a></p><figure id="e5928978-4087-4431-90b0-fba5be42a13f" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Experience%20Report%20Log%20Mining%20using%20Natural%20Languag%20e59289784087443190b0fba5be42a13f.html">Experience Report: Log Mining using Natural Language Processing and Application to Anomaly Detection</a></figure><figure id="3981a4df-22fd-42a6-857b-283107f3a2c7" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Software-specific%20Named%20Entity%20Recognition%20in%20Soft%203981a4df22fd42a6857b283107f3a2c7.html">Software-specific Named Entity Recognition in Software Engineering Social Content</a></figure><figure id="c2fe69da-d807-41d0-85ee-120c252c5a79" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/AnswerBot%20Automated%20Generation%20of%20Answer%20Summary%20t%20c2fe69dad80741d085ee120c252c5a79.html">AnswerBot: Automated Generation of Answer Summary to Developers’ Technical Questions</a></figure><h1 id="ce8c1472-13f8-48c6-8a70-40f3849468b9" class=""></h1><figure id="247d4574-ae07-4bda-9777-ee8f2949f64b" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/ML%20roadmap%20247d4574ae074bda9777ee8f2949f64b.html"><span class="icon">🛣️</span>ML roadmap </a></figure><figure id="a7c1a738-22dd-4553-8cb8-db86e8c56be1" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Data%20for%20ML%20a7c1a73822dd45538cb8db86e8c56be1.html"><span class="icon">💾</span>Data for ML</a></figure><figure id="9e9f5915-7f27-47be-b278-d8b33445baca" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Testing%20for%20ML%209e9f59157f2747beb278d8b33445baca.html"><span class="icon">🩺</span>Testing for ML</a></figure><figure id="52b33892-b01b-46c5-8bd0-13ef022340d9" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/ML%20kube%20pipeline%20architecture%2052b33892b01b46c58bd013ef022340d9.html">ML kube pipeline architecture</a></figure><figure id="86d46033-8cf9-447d-a0c9-bdb853d8ff82" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Deploying%20a%20model%20with%20kfserving%2086d460338cf9447da0c9bdb853d8ff82.html"><span class="icon">📝</span>Deploying a model with kfserving</a></figure><figure id="38b0efea-3295-41b3-99ec-8c94bda17031" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Demo%20Deploying%20Kube-lad_trainer%20from%20scratch%20on%20k3%2038b0efea329541b399ec8c94bda17031.html"><span class="icon">🥢</span>Demo: Deploying Kube-lad_trainer from scratch on k3s</a></figure><figure id="656a34d3-3351-4798-8399-12e2453eb2bd" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/LogPatterns%20benchmark%20656a34d333514798839912e2453eb2bd.html">LogPatterns benchmark</a></figure><figure id="29177c83-2d44-4c52-80c2-abbec31cbaaf" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/ML%20deployment%2029177c832d444c5280c2abbec31cbaaf.html">ML deployment</a></figure><p id="b1b386dc-a66d-4be2-801a-6bea886d8461" class="">
+</p><h2 id="14013700-94e3-4cd9-b82d-c66f118446bb" class=""></h2><figure id="e8add674-d2d3-4dc3-9842-f76dcf5c00aa" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/LogPattern%20operational%20organization%20e8add674d2d34dc39842f76dcf5c00aa.html">LogPattern operational organization</a></figure><figure id="c547a35d-6e9e-4857-842a-02a91909e8fa" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Troubleshoot%20ML%20deployment%20c547a35d6e9e4857842a02a91909e8fa.html">Troubleshoot ML deployment</a></figure><figure id="f2a67cf6-ed31-4496-948a-f569ee3e60e9" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/ML%20MAD%20release%20management%20f2a67cf6ed314496948af569ee3e60e9.html">ML/MAD release management</a></figure><figure id="0f41c572-3bde-4ba8-b86c-ea834f5de78b" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/GrokParser%20Design%200f41c5723bde4ba8b86cea834f5de78b.html">GrokParser Design</a></figure><figure id="8a9cddd5-2177-45e6-88b2-7005ba680367" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Quality%20process%20for%20grok%20mask%20drain%208a9cddd5217745e688b27005ba680367.html">Quality process for grok / mask / drain</a></figure><figure id="0d6e0f12-eda7-4ab5-a347-5ab387df5a7c" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/ML%20testing%20and%20benchmark%200d6e0f12eda74ab5a3475ab387df5a7c.html">ML testing and benchmark</a></figure><figure id="5ac6d309-06a1-48c2-ab64-07502ef549f0" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/ML%20testing%20update%205ac6d30906a148c2ab6407502ef549f0.html">ML testing update</a></figure><figure id="774bdb06-fa8c-40ce-841b-b72fe332b3a7" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/LAD%20Unittests%20774bdb06fa8c40ce841bb72fe332b3a7.html">LAD Unittests</a></figure><figure id="5902a431-587c-4b0f-bc20-b273724fba15" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/ml%20issue%20checking%20responsability%20distribution%205902a431587c4b0fbc20b273724fba15.html">ml issue checking responsability distribution</a></figure><figure id="be932fdb-0532-40f6-b6d4-3a7af7bc5686" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/LAD%20Architecture%20&amp;%20KPI%20&amp;%20Monitoring%20be932fdb053240f6b6d43a7af7bc5686.html">LAD Architecture &amp; KPI &amp; Monitoring</a></figure><figure id="3fc6c77f-293c-4744-9fe3-36127ddf8ffc" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/ML%20deployment%203fc6c77f293c47449fe336127ddf8ffc.html">ML deployment </a></figure><figure id="c8069ce2-572d-4cfa-92ae-01cff4c1d083" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/Grokbot%201%200%201%20test%20update%2019%2011%2021%20c8069ce2572d4cfa92ae01cff4c1d083.html">Grokbot 1.0.1 test update 19.11.21</a></figure><figure id="db447950-4b8c-4348-89bd-c94fe1859824" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/PacketAI%20ML%20python%20to%20java%20db4479504b8c434889bdc94fe1859824.html">PacketAI ML python to java</a></figure><figure id="0234d4f2-2f06-46f4-ade6-dbc2c40967c3" class="link-to-page"><a href="ML-services%20ed938771bc82467aaf8a6173024d5733/LogNER%200234d4f22f0646f4ade6dbc2c40967c3.html">LogNER</a></figure></div></article></body></html>

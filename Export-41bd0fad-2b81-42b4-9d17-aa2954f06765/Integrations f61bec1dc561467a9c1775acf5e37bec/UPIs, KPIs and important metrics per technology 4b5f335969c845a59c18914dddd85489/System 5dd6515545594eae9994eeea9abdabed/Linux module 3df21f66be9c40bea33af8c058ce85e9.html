@@ -1,0 +1,747 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Linux module</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3df21f66-be9c-40be-a33a-f8c058ce85e9" class="page sans"><header><h1 class="page-title">Linux module</h1><p class="page-description"></p></header><div class="page-body"><p id="93b46e29-f17e-4140-ad9e-d53f607a5581" class="">
+</p><p id="9e0a59b4-53e1-435d-9a49-db8c770ae49c" class=""><mark class="highlight-red_background">To alert on   </mark></p><p id="7775065d-4f41-4371-bb69-c21850c40f82" class=""><mark class="highlight-yellow_background">too much details , to be removed completely?</mark></p><p id="0882219b-08f4-4a9e-882a-29f3c74e3dca" class=""><mark class="highlight-blue_background">Resource count metric</mark></p><p id="df59e261-226e-475e-8394-f1ff9c481ec1" class=""><del>to exclude from MAD input </del></p><h1 id="734ef6b0-2a46-4ac5-9eb3-f3d4efd4ff8d" class=""><strong>linux fields</strong></h1><p id="65bd6b58-eb50-4fc4-9b32-0c12be5cfac3" class="">linux module</p><h3 id="89c37fd6-164e-4ff9-ac15-53dc117f4b2c" class=""><strong>linux</strong></h3><p id="0a8e7bf1-3749-4012-b1c2-1ae7874addc7" class="">linux system metrics</p><h3 id="944f4119-d5e6-4259-81be-6bd525ab66a2" class=""><strong>conntrack</strong></h3><p id="b1d7bb44-076e-4855-87e1-3868f197c4e3" class="">conntrack<div class="indented"><h3 id="86e51aa3-14af-48d6-a8a7-852b63b17bab" class=""><strong>summary</strong></h3></div></p><p id="2265d4ce-3ceb-4bf4-8ab3-9f16d0f95784" class="">summary of nf_conntrack statistics, summed across CPU cores</p><p id="1d0a483b-80e2-4cc4-b3ab-7b4b6c95f3b0" class=""><code><strong>linux.conntrack.summary.drop</strong></code>packets dropped due to conntrack failiure
+type: long</p><p id="58f6c40c-5e74-490a-8765-2dd9d877bbb1" class=""><code><strong>linux.conntrack.summary.early_drop</strong></code>conntrack entries dropped to make room for new ones
+type: long</p><p id="a16fdf32-70da-415a-a123-06520d5613f5" class=""><code><strong>linux.conntrack.summary.entries</strong></code>entries in the conntrack table
+type: long</p><p id="b0908e98-b4b7-4a05-b8a2-a27d34bfe3eb" class=""><code><strong>linux.conntrack.summary.found</strong></code>successfully searched entries
+type: long</p><p id="7dac7b5b-8ac3-43be-bc6a-b03fb5b36dde" class=""><code><strong>linux.conntrack.summary.ignore</strong></code>packets seen already connected to a conntrack entry
+type: long</p><p id="1dc8644d-6ae4-4d0a-b047-35a7b7ba35ce" class=""><code><strong>linux.conntrack.summary.insert_failed</strong></code>Number of entries where list insert insert failed
+type: long</p><p id="0e199ab7-f9d1-4069-945c-eeee631125fc" class=""><code><strong>linux.conntrack.summary.invalid</strong></code>packets seen that cannot be tracked
+type: long</p><p id="517c02de-a6f3-43f2-9b2a-b08175c0b5c8" class=""><code><strong>linux.conntrack.summary.search_restart</strong></code>table lookups which had to be restarted due to table resizes
+type: long</p><h3 id="daf8cf95-dfe8-4a6e-a709-defb7aefc9f3" class=""><strong>iostat</strong></h3><p id="72d6e533-d98c-4031-bff2-2dbf73a6c5cd" class="">iostat</p><p id="93c91783-608c-4941-ad10-4e60c181042b" class=""><code><strong>linux.iostat.read.request.merges_per_sec</strong></code>The number of read requests merged per second that were queued to the device.
+type: float</p><p id="7f77746b-2e99-4721-b005-0bc541ab5369" class=""><code><strong>linux.iostat.write.request.merges_per_sec</strong></code>The number of write requests merged per second that were queued to the device.
+type: float</p><p id="6918490f-eec6-44cc-a800-06151ab4183e" class=""><code><strong>linux.iostat.read.request.per_sec</strong></code>The number of read requests that were issued to the device per second
+type: float</p><p id="3fc12293-5c10-45df-ab72-36651283001b" class=""><code><strong>linux.iostat.write.request.per_sec</strong></code>The number of write requests that were issued to the device per second
+type: float</p><p id="ebdf92da-04ca-46ca-a658-32d0b9987866" class=""><code><strong>linux.iostat.read.per_sec.bytes</strong></code>The number of Bytes read from the device per second.
+type: float
+format: bytes</p><p id="faa657fd-962e-4d99-ab42-2b70d0c98016" class=""><code><strong>linux.iostat.read.await</strong></code>The average time spent for read requests issued to the device to be served.
+type: float</p><p id="40e93504-b4c3-4fc3-ae5d-98f3d38abfa1" class=""><code><strong>linux.iostat.write.per_sec.bytes</strong></code>The number of Bytes write from the device per second.
+type: float
+format: bytes</p><p id="54289392-f399-4c13-a625-5aa9f0492bbc" class=""><code><strong>linux.iostat.write.await</strong></code>The average time spent for write requests issued to the device to be served.
+type: float</p><p id="c4b74f90-c667-4dce-ad57-d1e3c3039a29" class=""><code><strong>linux.iostat.request.avg_size</strong></code>The average size (in bytes) of the requests that were issued to the device.
+type: float</p><p id="53218195-a4a1-4aef-a966-72973980ad3f" class=""><code><strong>linux.iostat.queue.avg_size</strong></code>The average queue length of the requests that were issued to the device.
+type: float</p><p id="38cc352e-c744-42d4-b337-0af8e269711e" class=""><code><strong>linux.iostat.await</strong></code>The average time spent for requests issued to the device to be served.
+type: float</p><p id="a31d2fce-4358-48ff-a1f5-1e897ef34503" class="block-color-pink_background"><code><strong>linux.iostat.service_time</strong></code>The average service time (in milliseconds) for I/O requests that were issued to the device.    <strong>-PERF</strong>
+type: float   </p><p id="8ec06560-d713-408d-977d-12fac8fb4372" class="block-color-pink_background"><code><strong>linux.iostat.busy</strong></code>Percentage of CPU time during which I/O requests were issued to the device (bandwidth utilization for the device). Device saturation occurs when this value is close to 100%. <strong>-PERF</strong>
+type: float</p><h3 id="14f8d82d-3172-4c12-841e-f33fe2335ca4" class=""><strong>ksm</strong></h3><p id="32346646-e562-49c4-8c94-8998a3c6a26a" class="">ksm</p><h3 id="d285d6e3-8d6a-450b-aea5-58f597c08ea8" class=""><strong>stats</strong></h3><p id="712d9a52-3357-4007-bfb5-e42d725d86f4" class="">KSM statistics</p><p id="836109d7-9042-4415-b7e7-f3c68ffe4859" class=""><code><strong>linux.ksm.stats.pages_shared</strong></code>Shared pages in use.
+type: long</p><p id="6ab0316f-b6ee-4bd0-96cb-607a6643fe29" class=""><code><strong>linux.ksm.stats.pages_sharing</strong></code>Sites sharing pages.
+type: long</p><p id="3b9838f9-97f6-4b87-b518-61a6ada1fbd9" class=""><code><strong>linux.ksm.stats.pages_unshared</strong></code>Unique pages.
+type: long</p><p id="386d1c5a-863c-4851-840c-ef4e9b6f122d" class=""><code><strong>linux.ksm.stats.full_scans</strong></code>Number of times mergable pages have been scanned.
+type: long</p><p id="835f1004-8c7d-4f83-92cc-eab9b716f62f" class="block-color-pink_background"><code><strong>linux.ksm.stats.stable_node_chains</strong></code>Pages that have reached max_page_sharing.
+type: long  <strong>-PERF</strong></p><p id="ef5645bd-28a8-4d33-bf36-71f4610bc1e0" class="block-color-pink_background"><code><strong>linux.ksm.stats.stable_node_dups</strong></code>Number of duplicated KSM pages.
+type: long  <strong>-PERF</strong></p><h3 id="8e2bcca0-ba03-4ee2-9d9a-323c820f4013" class=""><strong>memory</strong></h3><p id="bc9af869-0548-4e66-9cbe-b3c8d11eec67" class="">Linux memory data<div class="indented"><h3 id="ca70d163-30a2-4466-9f52-2877359c35a5" class=""><strong>page_stats</strong></h3></div></p><p id="1514bc66-c04e-4c13-b4a2-6e1c7b98c688" class="">memory page statistics</p><p id="a0f26f5d-ff1f-491b-b498-1fbfaae6f2c7" class=""><code><strong>linux.memory.page_stats.pgscan_kswapd.pages</strong></code>pages scanned by kswapd
+type: long
+format: number</p><p id="0c5a439a-2073-43bd-9ed2-1eef490b2625" class=""><code><strong>linux.memory.page_stats.pgscan_direct.pages</strong></code>pages scanned directly
+type: long
+format: number</p><p id="0ae78a83-28c1-4f67-b062-84dacaf92c97" class=""><code><strong>linux.memory.page_stats.pgfree.pages</strong></code>pages freed by the system
+type: long
+format: number</p><p id="5028cbfe-0b54-430f-8fc6-20185ac217ad" class=""><code><strong>linux.memory.page_stats.pgsteal_kswapd.pages</strong></code>number of pages reclaimed by kswapd
+type: long
+format: number</p><p id="fc653577-a4b3-46ad-8e66-bfe2b9fd2bae" class=""><code><strong>linux.memory.page_stats.pgsteal_direct.pages</strong></code>number of pages reclaimed directly
+type: long
+format: number</p><p id="0af78f24-6910-4c8a-a132-07c37b50433f" class=""><code><strong>linux.memory.page_stats.direct_efficiency.pct</strong></code>direct reclaim efficiency percentage. A lower percentage indicates the system is struggling to reclaim memory.
+type: scaled_float
+format: percent</p><p id="6100f3ef-72e4-4310-9749-4e22aa96be3e" class=""><code><strong>linux.memory.page_stats.kswapd_efficiency.pct</strong></code>kswapd reclaim efficiency percentage. A lower percentage indicates the system is struggling to reclaim memory.
+type: scaled_float
+format: percent<div class="indented"><h3 id="165270a3-cb03-4bcd-a621-9511dd40ce10" class=""><strong>hugepages</strong></h3></div></p><p id="b30dbb96-413d-42cd-8fa5-33605ace8d06" class="">This group contains statistics related to huge pages usage on the system.</p><p id="e506461e-de3e-432f-9b2b-01b2d98423ba" class="block-color-pink_background"><code><strong>linux.memory.hugepages.total</strong></code>Number of huge pages in the pool.
+type: long  <strong>-PERF</strong>
+format: number</p><p id="dc020036-69db-4460-99ea-aefe2ec2538e" class="block-color-pink_background"><code><strong>linux.memory.hugepages.used.bytes</strong></code>Memory used in allocated huge pages.
+type: long   <strong>-PERF</strong>
+format: bytes</p><p id="e524abc7-0475-476c-a40a-54753b39fbee" class=""><code><strong>linux.memory.hugepages.used.pct</strong></code>Percentage of huge pages used.
+type: long
+format: percent</p><p id="ac253e6f-f688-4d84-b05e-eff5d8316dd7" class=""><code><strong>linux.memory.hugepages.free</strong></code>Number of available huge pages in the pool.
+type: long
+format: number</p><p id="7bef0ff1-ef04-4312-bb8e-84abd232a275" class=""><code><strong>linux.memory.hugepages.reserved</strong></code>Number of reserved but not allocated huge pages in the pool.
+type: long
+format: number</p><p id="551c19fe-091e-4fea-83d5-36bf736ad17e" class=""><code><strong>linux.memory.hugepages.surplus</strong></code>Number of overcommited huge pages.
+type: long
+format: number</p><p id="923e5c20-fdca-41cf-9e66-4b83a2a38ce4" class=""><code><strong>linux.memory.hugepages.default_size</strong></code>Default size for huge pages.
+type: long
+format: bytes<div class="indented"><h3 id="2ae1c364-f783-43e8-b7c8-2ad81ec7778d" class=""><strong>pageinfo</strong></h3></div></p><p id="6c6f386f-ece3-4d11-bee4-b563bf85ec1d" class="">pageinfo<div class="indented"><h3 id="bcf98783-e050-49c8-a260-2bbd6f5975d3" class=""><strong>buddy_info</strong></h3></div></p><p id="aac8a3e5-e157-4a1d-822c-694be328ae80" class="">Data from /proc/buddyinfo grouping used pages by order<div class="indented"><h3 id="fd8c8075-cde8-485a-a250-93e9da83728d" class=""><strong>DMA</strong></h3></div></p><p id="a5c834e9-d3b2-4847-b03b-736bd08d2f4b" class="">DMA page Data</p><p id="cd0cc66a-3caa-40e8-85cf-3f66787cb5fa" class=""><code><strong>linux.pageinfo.buddy_info.DMA.0</strong></code>free chunks of 2^0*PAGE_SIZE
+type: long</p><p id="72eeee67-f53d-4a73-a7e1-77c34efd8a05" class=""><code><strong>linux.pageinfo.buddy_info.DMA.1</strong></code>free chunks of 2^1*PAGE_SIZE
+type: long</p><p id="7e9c271d-412d-4910-bdae-75ddf87462b2" class=""><code><strong>linux.pageinfo.buddy_info.DMA.2</strong></code>free chunks of 2^2*PAGE_SIZE
+type: long</p><p id="38d0b9aa-163c-4bd0-a350-b7089ee040de" class=""><code><strong>linux.pageinfo.buddy_info.DMA.3</strong></code>free chunks of 2^3*PAGE_SIZE
+type: long</p><p id="83d9dee7-8676-4162-b1ae-fee20e5e4d03" class=""><code><strong>linux.pageinfo.buddy_info.DMA.4</strong></code>free chunks of 2^4*PAGE_SIZE
+type: long</p><p id="71585f10-46d6-414c-b76b-c261d339e1b3" class=""><code><strong>linux.pageinfo.buddy_info.DMA.5</strong></code>free chunks of 2^5*PAGE_SIZE
+type: long</p><p id="57aee0fc-ca80-4fff-a690-6e79ca7ad7d9" class=""><code><strong>linux.pageinfo.buddy_info.DMA.6</strong></code>free chunks of 2^6*PAGE_SIZE
+type: long</p><p id="fdc7224a-6e39-44bd-8a6a-becb25d24487" class=""><code><strong>linux.pageinfo.buddy_info.DMA.7</strong></code>free chunks of 2^7*PAGE_SIZE
+type: long</p><p id="f936496a-2e73-418c-b490-b505bdd19ab8" class=""><code><strong>linux.pageinfo.buddy_info.DMA.8</strong></code>free chunks of 2^8*PAGE_SIZE
+type: long</p><p id="3c08249e-4cf9-49ac-a1fb-daab5ad267d5" class=""><code><strong>linux.pageinfo.buddy_info.DMA.9</strong></code>free chunks of 2^9*PAGE_SIZE
+type: long</p><p id="696797f3-e00f-4554-b5a7-94525d16160b" class=""><code><strong>linux.pageinfo.buddy_info.DMA.10</strong></code>free chunks of 2^10*PAGE_SIZE
+type: long</p><p id="bf76bceb-7b11-4373-ac6e-b5ff6fb2af44" class=""><code><strong>linux.pageinfo.nodes.*</strong></code>Raw allocation info from /proc/pagetypeinfo
+type: object</p><p id="eb41a057-130a-4f68-b7ec-0e2bc76752b5" class="">
+</p></div></article></body></html>

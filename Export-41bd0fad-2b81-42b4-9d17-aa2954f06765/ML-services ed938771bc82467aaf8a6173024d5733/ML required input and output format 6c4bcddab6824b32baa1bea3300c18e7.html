@@ -1,0 +1,1993 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>ML required input and output format</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="6c4bcdda-b682-4b32-baa1-bea3300c18e7" class="page sans"><header><h1 class="page-title">ML required input and output format</h1><p class="page-description"></p></header><div class="page-body"><nav id="25b16068-e6c5-4ecf-a092-3e9237c9c58e" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d6f3ddac-dc28-415a-9296-94155610ae1c">Intro</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0bab8bcf-1670-4557-a08b-f1527c22f17f">MAD</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9868d0a1-be80-4d23-8e74-88f473040696">Input format</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#081fdfa6-fc61-4133-b5d3-ce5c2b454994">Deployment information</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#20e382a5-e32a-435f-8006-01ba73baa938">Output format</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c86bd56c-0272-43a5-add8-c9fc6cda4732">LAD</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fe84fe75-aba7-4c8a-8b9b-4c725f9b4775">Input format</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4fdd03c2-820f-4df8-a839-c2fa1cf4ba73">Output format</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#82a94168-10d6-4c29-a2a3-af9264d2a07d">MLLOG : infraID-agentID-mllog-componentID</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8274b247-e1d4-4308-92de-5d0b3b22771e">Templates : infraID-templates</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b66ec097-5197-4bb5-8325-1e16cd88e05e"><strong>Template </strong><strong>Indexer</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#677ea427-5711-47da-acdd-40f2cb4c85cd"><strong>Input format</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#75861948-7f17-44cf-82a4-76ed61391ef3"><strong>Output format</strong> in ES</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2559d737-c656-48bd-bc35-ffc67493786f">SIRE</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b57388ea-8404-4b7e-a49f-36631f500684">Input format</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#856e197a-42e7-42f8-835d-fde94b965e61">Output format</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c4c12c8a-1277-42a9-a0dc-b0fefa73d40a">DBSCAN</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#45500beb-9be9-4267-ab19-7d801478cd87">Output format</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d9278c7b-7d20-44ea-a321-cd32bef12fd4">MAD</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#95781610-aaa0-4610-955c-dfc13861dfff">LAD</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8927e923-e5e2-4da4-8996-05dbe4ff7152">Logfrequency</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6118dd03-3ad1-4ac7-8955-21eac2b31837">Log count classifier MongoDB configuration document</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#56c71c3c-045e-49cd-b591-9e80833119e2">Alerting Manager</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f50f9ba8-aa87-4dac-b291-a25689bc07ec">ML rules</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#22c555a4-c305-4c03-951d-b04a86cad2dd">Limit rule</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#3ebe0c73-d819-44e4-b66b-6652c88e23f0">Multiple Limit rule</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f964995c-6c9a-420c-8887-20fd09bf273c">ID rule</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a24fa966-0777-4cfb-9d14-ce70c905032d">ID Limit rule</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1f0207c6-9ed2-4b7e-a7cc-0b73ffe37fc2">Activator</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2ebefc0f-298e-4092-a610-b80bfdeee586">Input</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#97175fe5-28ea-4d20-823a-04aa626aafad">Output</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2bd34e03-75fc-40cd-8e88-65a8ca17227b">Metrics</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8dc85b9a-514e-4b01-97ed-3856d06c5f22">Logs</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9c14b665-cd31-429a-a992-4c2af6a06beb">New ML output data structure proposal</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3d3a8e66-aab5-4f54-b4c6-99f233431afb">General structure common for all modules</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2244ca0f-ee91-4563-b712-76c0c963ec3d">MAD output example</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5ddf48cd-ebfd-49c3-aa7d-b00027a3feb3">Log frequency output example</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#05176c94-ae9b-4240-b59d-49d968d9c8b9">Log pattern drift detection</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6e6a1390-8b83-4a28-9e8c-a7fffad28b5a"><strong>Configuration Document Schema</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#633fd7e8-d5d5-4543-be97-3f9650a295a8">Output</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f521d867-3d17-4340-b0df-dce94634f9e8">Logpatterns</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#df0694b5-a71c-46c2-a938-7d5c69214e97">Input</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#cdc1294e-d418-4890-b211-765e842c991f">Output in kafka</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6cbe5173-6eaa-44cd-b279-2103f87e70e5">Output DB</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#aadc7003-ccac-4cdd-9fa4-4e8bb15a7715">Anomaly qualification</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#54dd6118-f8a1-4c66-8cab-096787bd3f0c">input:</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7295d097-ef9e-4e97-9d52-66f399066156">output </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bcaab758-d51f-48f6-901e-aed5fadbe35e">Log Health Feature</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ce2a20a9-f742-4ba0-8ad6-7c4d1e51c8d4">Input from kafka messages</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#86d0deeb-c328-44d6-8821-57b7b9b1833a">Input from hygiene api</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#59ca0622-9aef-4aed-86b8-3551f38ce68d">Output</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#570aa78f-568e-4a97-a93f-a134fd810c9e">Sampler</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14051daa-c6ed-46de-acab-24da2e572634">Input</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f7a6235b-ee9a-4cc5-bfa5-ebfd69d0147d">Output</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1238fcfd-bbec-4334-8883-0e8620055ec6">Novelty qualifier</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#98be5633-c00e-4012-8894-0fea3f34620c">Input</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5a3a7e47-2e96-4972-a0d7-2e812dbf01aa">Output</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#685e8050-c18c-4e0c-96c1-0d3f89d35c9d">Output after qualification</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0f2ded47-3121-414a-99b3-62e26d67ccaf">Grok Wizard</a></div></nav><h1 id="d6f3ddac-dc28-415a-9296-94155610ae1c" class="">Intro</h1><p id="09624bc3-4390-4b32-ac00-728f675604ac" class="">The required input and output format are listed below. <mark class="highlight-red">All fields are required</mark> except those <span style="border-bottom:0.05em solid">underlined ones</span>.</p><p id="1c9cb497-c7b6-41cc-8176-29a2b4a4e8be" class="">Variable field names are coloured in <mark class="highlight-yellow">yellow</mark>.</p><h1 id="0bab8bcf-1670-4557-a08b-f1527c22f17f" class="">MAD</h1><h2 id="9868d0a1-be80-4d23-8e74-88f473040696" class="">Input format</h2><p id="4a46d74c-b1e7-4199-aa3d-40e4f6b05d32" class="">The incoming message should have the following mandatory fields:</p><pre id="f2927785-a02c-4f6b-af48-6d38bedec13e" class="code code-wrap"><code>{
+		&quot;timeI&quot;: int # timestamp in seconds
+		&quot;timeS&quot;: str  # human timestamp of the format &quot;%YYYY-%mm-%ddT%HH:%MM:%SS&quot;
+		&quot;infraID&quot;: str # infrastructure ID
+		&quot;agentID&quot;: str # agent ID
+		&quot;componentID&quot;: str # component ID
+		&quot;techno&quot;: str # technology type name
+		&quot;metrics&quot;: list # list of metrics 
+}</code></pre><p id="0c0b050d-91d0-4ba0-aa2b-498d0ad145f7" class="">The list of metrics should be of the following format:</p><pre id="4f8f4c29-6479-4510-befc-ee1aeec34061" class="code"><code>[
+		{
+				&quot;subject&quot;: str, # subject name (could be an empty string)
+				&quot;metric&quot;: str, # metric name
+				&quot;value&quot;: float, # metric value
+				&quot;dataset&quot;: str, # metric dataset
+				&quot;time&quot;: str, # datetime of the format &quot;YYYY-mm-ddTHH:MM:SS.msZ&quot;
+		},
+		...
+]</code></pre><p id="9b0ba487-d2a1-4161-9dc3-fc0544a7a7dc" class="">
+</p><h2 id="081fdfa6-fc61-4133-b5d3-ce5c2b454994" class="">Deployment information</h2><p id="9466a3f2-769e-496e-a26a-f720a1e8d986" class="">Deployment documents structure sent to the MongoDB collection <code>mad_deployments</code></p><pre id="05375e4d-e97e-4871-abad-e5d5e57e4b07" class="code"><code>{
+        &quot;deployment_datetime&quot;: int,
+        &quot;deployment_timestamp&quot;: str,
+        &quot;topic&quot;: str,
+        &quot;infra_id&quot;: str,
+        &quot;agent_id&quot;: str,
+        &quot;component_id&quot;: str,
+        &quot;detector_state&quot;: dict,
+        &quot;detector_parameters&quot;: dict,
+        &quot;kafka_settings&quot;: dict,
+        &quot;data_preprocessing_map&quot;: dict,
+        &quot;mad_weights&quot;: dict,
+    }</code></pre><p id="e60c1e6f-cb03-4672-aabf-59957802ba0d" class="">Example:</p><pre id="91ed31b7-b76e-4dba-a50a-f1479c0b6afe" class="code"><code>{
+  &quot;_id&quot;: {
+    &quot;$oid&quot;: &quot;643da9da88bdaae99ec08e5a&quot;
+  },
+  &quot;deployment_datetime&quot;: &quot;2023-04-17 20:19:38&quot;,
+  &quot;deployment_timestamp&quot;: 1681762778,
+  &quot;topic&quot;: &quot;6435340337c155e1fe219bba-linux643da86489e4212ea52566af-metric-linux643da86489e4212ea52566af-stashed&quot;,
+  &quot;infra_id&quot;: &quot;6435340337c155e1fe219bba&quot;,
+  &quot;agent_id&quot;: &quot;linux643da86489e4212ea52566af&quot;,
+  &quot;component_id&quot;: &quot;linux643da86489e4212ea52566af&quot;,
+  &quot;detector_state&quot;: {
+    &quot;metric_names&quot;: [],
+    &quot;metrics_dict&quot;: {},
+    &quot;min_required_data_points&quot;: 20,
+    &quot;max_possible_data_points&quot;: 30000,
+    &quot;initial_tolerance_unexpected_metrics&quot;: 1,
+    &quot;tolerance_unexpected_metrics&quot;: 1,
+    &quot;unexpected_metrics&quot;: [],
+    &quot;missing_metrics&quot;: [],
+    &quot;missing_metrics_last_seen&quot;: {},
+    &quot;missing_metric_wait_time&quot;: 3600,
+    &quot;metric_age&quot;: {},
+    &quot;save_detector&quot;: false,
+    &quot;metric_transformation&quot;: {},
+    &quot;preprocess_map&quot;: [],
+    &quot;topic&quot;: &quot;6435340337c155e1fe219bba-linux643da86489e4212ea52566af-metric-linux643da86489e4212ea52566af-stashed&quot;,
+    &quot;infra_agent_id&quot;: &quot;6435340337c155e1fe219bba-linux643da86489e4212ea52566af&quot;,
+    &quot;component_id&quot;: &quot;linux643da86489e4212ea52566af&quot;,
+    &quot;timestamps&quot;: [],
+    &quot;walter_num_trees&quot;: 10,
+    &quot;walter_window&quot;: 10,
+    &quot;walter_tree_size&quot;: 256,
+    &quot;walter_threshold&quot;: 4,
+    &quot;walter_nb_points&quot;: 0,
+    &quot;walter_com&quot;: 50,
+    &quot;walter_alpha&quot;: 0.6,
+    &quot;skyline_com&quot;: 50,
+    &quot;skyline_median_absolute_deviation_threshold&quot;: 6,
+    &quot;skyline_model_restore_stream_array&quot;: false,
+    &quot;threshold&quot;: 0.9,
+    &quot;sire_threshold&quot;: 0.7,
+    &quot;weights_path&quot;: &quot;/code/ml/mad/results/weights/6435340337c155e1fe219bba-linux643da86489e4212ea52566af/linux643da86489e4212ea52566af&quot;,
+    &quot;optimal_weights&quot;: null,
+    &quot;aggregation_time&quot;: 60,
+    &quot;aggregation_counter&quot;: 0,
+    &quot;aggregation_array&quot;: [],
+    &quot;aggregation_timestamp&quot;: 0,
+    &quot;sliding_window&quot;: 10080,
+    &quot;warmup_period&quot;: 0,
+    &quot;adaptation_period&quot;: 5,
+    &quot;discount_factors&quot;: [
+      0.8,
+      0.6,
+      0.4,
+      0.19999999999999996,
+      0
+    ],
+    &quot;average_adaptation_lookup&quot;: 30,
+    &quot;discount_dict_idx&quot;: {},
+    &quot;updated_value&quot;: null,
+    &quot;deviation&quot;: {},
+    &quot;duration_wait&quot;: {},
+    &quot;max_anom_wait_time&quot;: 180,
+    &quot;light_skyline&quot;: false,
+    &quot;tb_dict&quot;: {},
+    &quot;tb_window&quot;: 14,
+    &quot;tb_weight&quot;: 0.3,
+    &quot;detection_mode&quot;: &quot;prod&quot;,
+    &quot;enable_sire_r&quot;: true,
+    &quot;enable_flux&quot;: false
+  },
+  &quot;detector_parameters&quot;: {
+    &quot;MAX_POSSIBLE_DATA_POINTS&quot;: 30000,
+    &quot;TOLERANCE_UNEXPECTED_METRICS&quot;: 1,
+    &quot;MIN_REQUIRED_DATA_POINTS&quot;: 20,
+    &quot;GLOBAL_THRESHOLD&quot;: 0.9,
+    &quot;SIRE_THRESHOLD&quot;: 0.7,
+    &quot;WALTER_NUM_TREES&quot;: 10,
+    &quot;WALTER_WINDOW&quot;: 10,
+    &quot;WALTER_TREE_SIZE&quot;: 256,
+    &quot;WALTER_THRESHOLD&quot;: 4,
+    &quot;WALTER_COM&quot;: 50,
+    &quot;WALTER_ALPHA&quot;: 0.6,
+    &quot;SKYLINE_COM&quot;: 50,
+    &quot;SKYLINE_MADEV_THRESHOLD&quot;: 6,
+    &quot;SKYLER_THRESHOLD&quot;: 4,
+    &quot;SKYLER_WINDOW&quot;: 200,
+    &quot;SKYLER_SENSITIVITY&quot;: 2,
+    &quot;HANK_N_CLUSTERS&quot;: 5,
+    &quot;TB_WINDOW&quot;: 14,
+    &quot;TB_WEIGHT&quot;: 0.3,
+    &quot;ADAPTATION_PERIOD&quot;: 300,
+    &quot;ADAPTATION_LOOKUP&quot;: 1800,
+    &quot;MAX_ANOMALY_WAIT_TIME&quot;: 180,
+    &quot;MAX_MISSING_METRIC_WAIT_TIME&quot;: 3600,
+    &quot;AGG_TIME&quot;: 60,
+    &quot;DETECTION_MODE&quot;: &quot;prod&quot;,
+    &quot;DETECTOR_UPLOAD_FREQUENCY&quot;: 96,
+    &quot;S3_ML_OUTPUT_UPLOAD_FREQUENCY&quot;: 180,
+    &quot;ENABLE_WARMUP&quot;: false,
+    &quot;ENABLE_SIRE_R&quot;: true,
+    &quot;ENABLE_FLUX&quot;: false
+  },
+  &quot;kafka_settings&quot;: {
+    &quot;KAFKA_BROKERS&quot;: [
+      &quot;packetai-kafka-0.packetai-kafka-brokers.kafka.svc.cluster.local:19093&quot;,
+      &quot;packetai-kafka-1.packetai-kafka-brokers.kafka.svc.cluster.local:19093&quot;,
+      &quot;packetai-kafka-2.packetai-kafka-brokers.kafka.svc.cluster.local:19093&quot;
+    ],
+    &quot;CERTS_PRODUCER_SERVER_CER&quot;: &quot;/code/certs/producer.server.cer.pem&quot;,
+    &quot;CERTS_PRODUCER_CLIENT_CER&quot;: &quot;/code/certs/producer.client.cer.pem&quot;,
+    &quot;CERTS_PRODUCER_CLIENT_KEY&quot;: &quot;/code/certs/producer.client.key.pem&quot;,
+    &quot;KAFKA_GROUP_ID&quot;: &quot;mad_group&quot;,
+    &quot;consumer_timeout_ms&quot;: -1,
+    &quot;enable_auto_commit&quot;: false,
+    &quot;seek_latest&quot;: false,
+    &quot;offset_reset&quot;: &quot;latest&quot;,
+    &quot;commit_freq&quot;: 2
+  },
+  &quot;data_preprocessing_map&quot;: {
+    &quot;mysql#status#aborted#clients&quot;: &quot;diff&quot;,
+    &quot;mysql#status#aborted#connects&quot;: &quot;diff&quot;,
+    &quot;mysql#status#binlog#cache#disk_use&quot;: &quot;diff&quot;,
+    &quot;mysql#status#binlog#cache#use&quot;: &quot;diff&quot;,
+    &quot;mysql#status#bytes#received&quot;: &quot;diff&quot;,
+    &quot;mysql#status#bytes#sent&quot;: &quot;diff&quot;,
+    &quot;mysql#status#threads#created&quot;: &quot;diff&quot;,
+    &quot;mysql#status#connections&quot;: &quot;diff&quot;,
+    &quot;mysql#status#created#tmp#disk_tables&quot;: &quot;diff&quot;,
+    &quot;mysql#status#created#tmp#files&quot;: &quot;diff&quot;,
+    &quot;mysql#status#created#tmp#tables&quot;: &quot;diff&quot;,
+    &quot;mysql#status#delayed#errors&quot;: &quot;diff&quot;,
+    &quot;mysql#status#delayed#insert_threads&quot;: &quot;diff&quot;,
+    &quot;mysql#status#delayed#writes&quot;: &quot;diff&quot;,
+    &quot;mysql#status#flush_commands&quot;: &quot;diff&quot;,
+    &quot;mysql#status#max_used_connections&quot;: &quot;diff&quot;,
+    &quot;mysql#status#opened_tables&quot;: &quot;diff&quot;,
+    &quot;mysql#status#command#delete&quot;: &quot;diff&quot;,
+    &quot;mysql#status#command#insert&quot;: &quot;diff&quot;,
+    &quot;mysql#status#command#select&quot;: &quot;diff&quot;,
+    &quot;mysql#status#command#update&quot;: &quot;diff&quot;,
+    &quot;mysql#status#cache#table&quot;: &quot;diff&quot;,
+    &quot;mysql#status#handler&quot;: &quot;diff&quot;,
+    &quot;mysql#status#innodb#buffer_pool#write_requests&quot;: &quot;diff&quot;,
+    &quot;mysql#status#innodb#buffer_pool#reads&quot;: &quot;diff&quot;,
+    &quot;mysql#status#innodb#rows#deleted&quot;: &quot;diff&quot;,
+    &quot;mysql#status#innodb#inserted&quot;: &quot;diff&quot;,
+    &quot;mysql#status#innodb#updated&quot;: &quot;diff&quot;,
+    &quot;mysql#status#innodb#read&quot;: &quot;diff&quot;,
+    &quot;mysql#status#queries&quot;: &quot;diff&quot;,
+    &quot;mysql#status#questions&quot;: &quot;diff&quot;,
+    &quot;mysql#performance#events_statements#quantile&quot;: &quot;diff&quot;,
+    &quot;mysql#performance#events_statements#max#timer#wait&quot;: &quot;diff&quot;,
+    &quot;mysql#performance#events_statements#count#star&quot;: &quot;diff&quot;,
+    &quot;mysql#performance#table_io_waits#count#fetch&quot;: &quot;diff&quot;,
+    &quot;mysql#performance#events_statements#avg#timer#wait&quot;: &quot;diff&quot;,
+    &quot;mysql#galera_status#cluster#conf_id&quot;: &quot;diff&quot;,
+    &quot;mysql#galera_status#flow_ctl#paused_ns&quot;: &quot;diff&quot;,
+    &quot;mysql#galera_status#last_committed&quot;: &quot;diff&quot;,
+    &quot;mysql#galera_status#local#commits&quot;: &quot;diff&quot;,
+    &quot;mysql#galera_status#received#count&quot;: &quot;diff&quot;,
+    &quot;mysql#galera_status#received#bytes&quot;: &quot;diff&quot;,
+    &quot;mysql#galera_status#repl#data_bytes&quot;: &quot;diff&quot;,
+    &quot;mysql#galera_status#repl#keys&quot;: &quot;diff&quot;,
+    &quot;mysql#galera_status#repl#keys_bytes&quot;: &quot;diff&quot;,
+    &quot;mysql#galera_status#repl#other_bytes&quot;: &quot;diff&quot;,
+    &quot;mysql#galera_status#repl#count&quot;: &quot;diff&quot;,
+    &quot;mysql#galera_status#repl#bytes&quot;: &quot;diff&quot;,
+    &quot;system#diskio#read&quot;: &quot;diff&quot;,
+    &quot;system#diskio#write&quot;: &quot;diff&quot;,
+    &quot;system#diskio#io#time&quot;: &quot;diff&quot;,
+    &quot;system#memory#swap#total&quot;: &quot;diff&quot;,
+    &quot;system#memory#swap#in#pages&quot;: &quot;diff&quot;,
+    &quot;system#memory#swap#out#pages&quot;: &quot;diff&quot;,
+    &quot;system#memory#swap#readahead#pages&quot;: &quot;diff&quot;,
+    &quot;system#memory#swap#readahead#cached&quot;: &quot;diff&quot;,
+    &quot;system#memory#page_stats&quot;: &quot;diff&quot;,
+    &quot;system#memory#hugepages&quot;: &quot;diff&quot;,
+    &quot;system#network&quot;: &quot;diff&quot;,
+    &quot;system#process#cpu#total#value&quot;: &quot;diff&quot;,
+    &quot;docker#diskio#summary#ops&quot;: &quot;base&quot;,
+    &quot;docker#diskio#summary#bytes&quot;: &quot;base&quot;,
+    &quot;docker#diskio#summary#service_time&quot;: &quot;base&quot;,
+    &quot;docker#diskio#summary#wait_time&quot;: &quot;base&quot;,
+    &quot;docker#diskio#summary#queued&quot;: &quot;base&quot;,
+    &quot;docker#diskio#summary#total&quot;: &quot;base&quot;,
+    &quot;docker#memory#commit#total&quot;: &quot;base&quot;,
+    &quot;docker#memory#fail#count&quot;: &quot;base&quot;,
+    &quot;docker#memory#usage#total&quot;: &quot;diff&quot;,
+    &quot;docker#memory#rss#total&quot;: &quot;diff&quot;,
+    &quot;docker#memory#rss#pct&quot;: &quot;base&quot;,
+    &quot;docker#memory#usage#pct&quot;: &quot;base&quot;,
+    &quot;docker#network#out#errors&quot;: &quot;base&quot;,
+    &quot;nginx#stubstatus#accepts&quot;: &quot;diff&quot;,
+    &quot;nginx#stubstatus#handled&quot;: &quot;diff&quot;,
+    &quot;nginx#stubstatus#dropped&quot;: &quot;diff&quot;,
+    &quot;nginx#stubstatus#requests&quot;: &quot;diff&quot;,
+    &quot;apache#status#total_&quot;: &quot;diff&quot;,
+    &quot;apache#status#workers&quot;: &quot;diff&quot;,
+    &quot;apache#status#connections&quot;: &quot;diff&quot;,
+    &quot;apache#status#scoreboard&quot;: &quot;diff&quot;,
+    &quot;mongodb#&quot;: &quot;diff&quot;,
+    &quot;redis#info#cpu#&quot;: &quot;diff&quot;,
+    &quot;redis#info#persistence#rdb#last_save#changes_since&quot;: &quot;diff&quot;,
+    &quot;redis#info#persistence#rdb#last_save#time&quot;: &quot;diff&quot;,
+    &quot;redis#info#replication#master_offset&quot;: &quot;diff&quot;,
+    &quot;redis#info#replication#backlog#first_byte_offset&quot;: &quot;diff&quot;,
+    &quot;redis#info#replication#master#offset&quot;: &quot;diff&quot;,
+    &quot;redis#info#replication#slave#offset&quot;: &quot;diff&quot;,
+    &quot;redis#info#server#lru_clock&quot;: &quot;diff&quot;,
+    &quot;redis#info#server#uptime&quot;: &quot;diff&quot;,
+    &quot;redis#info#stats#connections&quot;: &quot;diff&quot;,
+    &quot;redis#info#stats#net&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#queue#messages#unacknowledged#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#queue#messages#total#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#queue#messages#ready#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#queue#messages#persistent#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#queue#consumers#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#exchange#messages#publish_out#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#exchange#messages#publish_in#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#connection#packet_count#pending&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#connection#packet_count#sent&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#connection#packet_count#received&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#connection#octet_count#received&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#connection#octet_count#sent&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#mnesia#ram#tx#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#mnesia#disk#tx#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#io#seek#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#io#write#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#io#sync#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#io#reopen#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#io#file_handle#open_attempt#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#io#read#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#queue#index#journal_write#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#queue#index#write#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#queue#index#read#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#msg#store_read#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#msg#store_write#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#gc#num#count&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#io#write#bytes&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#uptime&quot;: &quot;diff&quot;,
+    &quot;rabbitmq#node#gc#reclaimed#bytes&quot;: &quot;diff&quot;,
+    &quot;kubernetes#container#cpu#usage#core#ns&quot;: &quot;diff&quot;,
+    &quot;kubernetes#container#memory#pagefaults&quot;: &quot;diff&quot;,
+    &quot;kubernetes#container#rootfs#used#bytes&quot;: &quot;diff&quot;,
+    &quot;kubernetes#container#memory#majorpagefaults&quot;: &quot;diff&quot;,
+    &quot;kubernetes#container#logs#used#bytes&quot;: &quot;diff&quot;,
+    &quot;kubernetes#node#network#rx#bytes&quot;: &quot;diff&quot;,
+    &quot;kubernetes#node#network#tx#bytes&quot;: &quot;diff&quot;,
+    &quot;kubernetes#node#cpu#usage#core#ns&quot;: &quot;diff&quot;,
+    &quot;kubernetes#node#memory#pagefaults&quot;: &quot;diff&quot;,
+    &quot;kubernetes#node#memory#usage#bytes&quot;: &quot;diff&quot;,
+    &quot;kubernetes#pod#network#rx#bytes&quot;: &quot;diff&quot;,
+    &quot;kubernetes#pod#network#tx#bytes&quot;: &quot;diff&quot;,
+    &quot;kubernetes#pod#memory#page_faults&quot;: &quot;diff&quot;,
+    &quot;kubernetes#pod#memory#major_page_faults&quot;: &quot;diff&quot;,
+    &quot;kubernetes#system#cpu#usage#core#ns&quot;: &quot;diff&quot;,
+    &quot;kubernetes#system#memory#pagefaults&quot;: &quot;diff&quot;,
+    &quot;kubernetes#proxy#sync#rules#duration#us#bucket#64000&quot;: &quot;diff&quot;,
+    &quot;kubernetes#proxy#sync#rules#duration#us#bucket#256000&quot;: &quot;diff&quot;,
+    &quot;kubernetes#proxy#sync#rules#duration#us#bucket#16384000&quot;: &quot;diff&quot;,
+    &quot;kubernetes#proxy#sync#rules#duration#us#bucket#2048000&quot;: &quot;diff&quot;,
+    &quot;kubernetes#proxy#sync#rules#duration#us#bucket#+Inf&quot;: &quot;diff&quot;,
+    &quot;kubernetes#proxy#sync#rules#duration#us#bucket#4096000&quot;: &quot;diff&quot;,
+    &quot;kubernetes#proxy#sync#rules#duration#us#count&quot;: &quot;diff&quot;,
+    &quot;kubernetes#proxy#sync#rules#duration#us#bucket#8192000&quot;: &quot;diff&quot;,
+    &quot;kubernetes#proxy#sync#rules#duration#us#sum&quot;: &quot;diff&quot;,
+    &quot;kubernetes#proxy#sync#rules#duration#us#bucket#512000&quot;: &quot;diff&quot;,
+    &quot;kubernetes#proxy#process#cpu#sec&quot;: &quot;diff&quot;,
+    &quot;kubernetes#proxy#sync#rules#duration#us#bucket#128000&quot;: &quot;diff&quot;,
+    &quot;kubernetes#proxy#sync#rules#duration#us#bucket#1024000&quot;: &quot;diff&quot;,
+    &quot;kubernetes#apiserver#process#cpu#sec&quot;: &quot;diff&quot;,
+    &quot;prometheus#metrics#go_gc_duration_seconds_count&quot;: &quot;diff&quot;,
+    &quot;prometheus#metrics#go_memstats_frees_total&quot;: &quot;diff&quot;,
+    &quot;prometheus#metrics#go_memstats_last_gc_time_seconds&quot;: &quot;diff&quot;,
+    &quot;prometheus#metrics#go_gc_duration_seconds_sum&quot;: &quot;diff&quot;,
+    &quot;prometheus#metrics#process_cpu_seconds_total&quot;: &quot;diff&quot;,
+    &quot;prometheus#metrics#go_memstats_buck_hash_sys_bytes&quot;: &quot;diff&quot;,
+    &quot;prometheus#metrics#go_memstats_mspan_sys_bytes&quot;: &quot;diff&quot;,
+    &quot;prometheus#metrics#go_memstats_mallocs_total&quot;: &quot;diff&quot;,
+    &quot;prometheus#metrics#go_memstats_alloc_bytes_total&quot;: &quot;diff&quot;
+  },
+  &quot;mad_weights&quot;: {
+    &quot;first_hour_average&quot;: {
+      &quot;cpu&quot;: 0.033120217391304344,
+      &quot;disk&quot;: 0.04007965517241379,
+      &quot;memory&quot;: 0.019907083333333332,
+      &quot;network&quot;: 0.09235771428571428
+    },
+    &quot;histogram_bins&quot;: {
+      &quot;cpu&quot;: 0.4861867391304347,
+      &quot;disk&quot;: 0.21594931034482762,
+      &quot;memory&quot;: 0.32403041666666665,
+      &quot;network&quot;: 0.4577934285714285
+    },
+    &quot;least_squares&quot;: {
+      &quot;cpu&quot;: 0.01742195652173913,
+      &quot;disk&quot;: 0.12509103448275857,
+      &quot;memory&quot;: 0.034371875,
+      &quot;network&quot;: 0.05093171428571429
+    },
+    &quot;mean_subtraction_cumulation&quot;: {
+      &quot;cpu&quot;: 0.051538043478260874,
+      &quot;disk&quot;: 0.14837620689655176,
+      &quot;memory&quot;: 0.057666041666666654,
+      &quot;network&quot;: 0.035897428571428566
+    },
+    &quot;median_absolute_deviation&quot;: {
+      &quot;cpu&quot;: 0.035871304347826094,
+      &quot;disk&quot;: 0.08559965517241382,
+      &quot;memory&quot;: 0.027037500000000003,
+      &quot;network&quot;: 0.03705742857142857
+    },
+    &quot;stddev_from_average&quot;: {
+      &quot;cpu&quot;: 0.032515434782608696,
+      &quot;disk&quot;: 0.10492206896551722,
+      &quot;memory&quot;: 0.08997354166666667,
+      &quot;network&quot;: 0.07933714285714284
+    },
+    &quot;stddev_from_moving_average&quot;: {
+      &quot;cpu&quot;: 0.26370413043478264,
+      &quot;disk&quot;: 0.12818137931034482,
+      &quot;memory&quot;: 0.22559812500000004,
+      &quot;network&quot;: 0.14727771428571432
+    },
+    &quot;walter&quot;: {
+      &quot;cpu&quot;: 0.07964391304347826,
+      &quot;disk&quot;: 0.1517986206896552,
+      &quot;memory&quot;: 0.2214164583333333,
+      &quot;network&quot;: 0.09934828571428572
+    }
+  }
+}</code></pre><h2 id="20e382a5-e32a-435f-8006-01ba73baa938" class="">Output format</h2><pre id="381578e7-466c-4e0c-9f2a-b8f193c3596a" class="code code-wrap"><code>{
+		&quot;timestamp&quot;: int, # timestamp in milliseconds
+    &quot;isAnomaly&quot;: bool, # True if any of the metrics was detected as anomaly
+		&quot;@timestamp&quot;: str, # timestamp in str format &quot;%Y-%m-%dT%H:%M:%S.%fZ&quot;
+		&quot;detector&quot;: &quot;mad&quot;,
+		metric_name1: {
+                &quot;isAnomaly&quot;: bool, # prediction, True if detected as anomaly
+                &quot;value&quot;: float, # metric value
+                &quot;anomalyScore&quot;: float, # metrics anomaly score (value between 0 and 1)
+                &quot;threshold&quot;: float # MAD anomaly threshold (value between 0 and 1)
+                &quot;absolute_delta&quot;: float, # absolute delta (equals to -1 in case no abslolute delta is provided))
+            }
+		metric_name2: {...},
+		...
+		&quot;warmup&quot;: bool, # True if MAD is in warmup period
+		
+		
+		&quot;ml_data&quot;: {
+		        &quot;warmup&quot;: {
+												&quot;general&quot;: bool, # True if #{points processed by MAD} &gt; warmup_period
+												&quot;metric_name&quot;: bool, # if we have collected enough data for this metric 
+											},
+						&quot;duration_deviation&quot;: dict, # this dictionary contains SIRE input. See the required format below
+		        &quot;noise_reduction&quot;: {
+																		&quot;metric_name&quot;: {
+																                        &quot;dbscan_importance&quot;: bool, # True if anomaly is significant according to dbscan importance algorithm
+																                        &quot;sire_p_importance&quot;: bool, # True if anomaly is significant according to sire-p importance algorithm
+																                    },
+																},
+		        &quot;sire_p&quot;: {
+												&quot;metric_name&quot;: float, # sire-p relevance score per metric
+											},
+		        &quot;detector_outputs&quot;: dict, # contains individual scores of each MAD detector
+		    }
+}</code></pre><ul id="aac8d894-4550-45ac-bf71-1b5e2b9882fb" class="bulleted-list"><li style="list-style-type:disc">More details about the absolute delta could be found <a href="Metrics%20(MAD)%2094e8aac9675847f39c1b942c2ab25594/Significance%20917b93ca0a67410f89afa53a1c16a5a9/Absolute%20delta%20d093ac551de946bdb287fb117485ec99.html">here</a></li></ul><ul id="9c64d9f3-12d8-4d0b-9b56-8cb953502b29" class="bulleted-list"><li style="list-style-type:disc"><code>metric_name</code> is formed based on metric (<code>metric</code>) and subject (<code>subject</code>) names as follows: <code>metric-subject</code></li></ul><ul id="f76d038f-4827-45a6-b3bd-06993e559008" class="bulleted-list"><li style="list-style-type:disc"><code>duration_deviation</code> dictionary should be of the following format:</li></ul><pre id="431ef0f0-a80b-43ef-9d2d-cc92dc763f10" class="code code-wrap"><code>{
+    &quot;deviation&quot;: float, # abnormal period&#x27;s deviation
+    &quot;duration&quot;: int, # abnormal period&#x27;s duration in seconds
+    &quot;start&quot;: int, # abnormal period&#x27;s start timestamp in milliseconds
+    &quot;end&quot;: int, # abnormal period&#x27;s end timestamp in milliseconds
+}</code></pre><ul id="d0b0b543-96f9-4242-abae-fb91a079d1ec" class="bulleted-list"><li style="list-style-type:disc"><code>detector_outputs</code> dictionary should be of the following format:</li></ul><pre id="1180e80a-d3a3-4208-b5f1-5203fe84ed25" class="code"><code>&quot;detector_outputs&quot;: {
+		detector_name: [anomaly_score_for_metric_1, anomaly_score_for_metric_2, ...],
+		...
+}</code></pre><p id="c69ea3c4-6e61-44aa-9c2b-9f9f515cbdad" class="">Example for two metrics:</p><pre id="2797a442-5ebe-4047-a73e-fae0a0fb9123" class="code"><code>&quot;detector_outputs&quot;: {
+		&quot;walter&quot;: [
+							0.017134569446366047,
+							0.017134569446366047,
+							],
+		&quot;median_absolute_deviation&quot;: [
+							0.18023257812472798,
+							0.2317485633322257,
+							],
+		&quot;first_hour_average&quot;: [
+							0.1617495878796543,
+							0.884269552696963,
+							],
+		&quot;stddev_from_average&quot;: [
+							0.08234318460438109,
+							0.19129746995093813,
+							],
+		&quot;mean_subtraction_cumulation&quot;: [
+							0.31438711542862574,
+							0.20306823355944423,
+							],
+		&quot;stddev_from_moving_average&quot;: [
+							0.09295532203922847,
+							0.20001730123568975,
+							],
+		&quot;least_squares&quot;: [
+							0,
+							0,
+							],
+		&quot;histogram_bins&quot;: [
+							0,
+							0,
+							]
+}</code></pre><h1 id="c86bd56c-0272-43a5-add8-c9fc6cda4732" class="">LAD</h1><h2 id="fe84fe75-aba7-4c8a-8b9b-4c725f9b4775" class="">Input format</h2><p id="a57adcb0-ff2d-4767-8767-21dbc1d4f380" class="">
+</p><pre id="587a85a4-e64f-4f56-bdaf-2a2264828a4f" class="code"><code>{
+&quot;message&quot;: str, # log
+&quot;grok_parsed_msg&quot;: {
+				&quot;content&quot;: str, # message content
+				}, 
+&quot;timestamp_unix&quot;: int, # timestamp in seconds
+&quot;logseverity&quot;: str, # [&quot;info&quot;, &quot;error&quot;, &quot;warning&quot;, &quot;other&quot;]
+&quot;logID&quot;: str,
+}</code></pre><h2 id="4fdd03c2-820f-4df8-a839-c2fa1cf4ba73" class="">Output format</h2><h3 id="82a94168-10d6-4c29-a2a3-af9264d2a07d" class="">MLLOG : infraID-agentID-mllog-componentID</h3><pre id="384950f4-b95c-485d-84ca-e3ae5aeb8116" class="code"><code>{
+		&quot;timestamp&quot;: int, # timestamp in milliseconds
+		&quot;datetime&quot;: str, # datetime of the format &quot;%Y/%m/%d, %H:%M:%S&quot;,
+		&quot;@timestamp&quot;: str, # timestamp in str format &quot;%Y-%m-%dT%H:%M:%S.%fZ&quot;
+		&quot;detector&quot;: &quot;lad&quot;,
+		&quot;isAnomaly&quot;: bool, # True if any of output[&#x27;negativeLogs&#x27;][&quot;isAnomaly&quot;] or output[&#x27;logFrequency&#x27;][&quot;isAnomaly&quot;] is True
+		&quot;value&quot;: int, # log count
+		&quot;logFrequency&quot;: {
+		    &quot;value&quot;: int # number of messages,
+		    &quot;isAnomaly&quot; : bool # any(levels[isAnomaly])
+		    &quot;anomalyScore&quot; : float # max(levels[anomalyScore])
+		    &quot;levels&quot; : [
+		        {
+		           &quot;filter&quot;: &quot;general&quot;, # log filter related to all incoming logs
+		           &quot;value&quot;: int, # log count
+		           &quot;isAnomaly&quot; : bool, # True or False
+		           &quot;anomalyScore&quot; : float, # anomaly score (value between 0 and 1)
+		           &quot;models&quot; : { # info about deployed models
+										logFrequency_detector: {
+													&quot;isAnomaly&quot;: bool, # True or False 
+													&quot;anomalyScore&quot;: float, # anomaly score (value between 0 and 1) 
+													}
+										}
+		        },
+		        {
+		           &quot;filter&quot;: &quot;warning&quot;, 
+		           &quot;value&quot;: int, # log count
+		           &quot;isAnomaly&quot; : bool, # True or False
+		           &quot;anomalyScore&quot; : float, # anomaly score (value between 0 and 1)
+		           &quot;models&quot; : { # info about deployed models
+										logFrequency_detector: {
+													&quot;isAnomaly&quot;: bool, # True or False 
+													&quot;anomalyScore&quot;: float, # anomaly score (value between 0 and 1) 
+													}
+										}
+		        },
+		        {
+		           &quot;filter&quot;: &quot;error&quot;, 
+		           &quot;value&quot;: int, # log count
+		           &quot;isAnomaly&quot; : bool, # True or False
+		           &quot;anomalyScore&quot; : float, # anomaly score (value between 0 and 1)
+		           &quot;models&quot; : { # info about deployed models
+										logFrequency_detector: {
+													&quot;isAnomaly&quot;: bool, # True or False 
+													&quot;anomalyScore&quot;: float, # anomaly score (value between 0 and 1) 
+													}
+										}
+		        },
+					]
+				},
+		&quot;negativeLogs&quot;: {
+						&quot;isAnomaly&quot;: bool, # prediction, True if detected as anomaly (could be null)
+						&quot;anomalyScore&quot;: float, # anomaly score (value between 0 and 1)
+						&quot;logs&quot;: list, # list of negative logs. See the required format below
+				},
+		&quot;contentPattern&quot;: {
+						&quot;isAnomaly&quot;: bool, # prediction, True if detected as anomaly (could be null)
+						&quot;anomalyScore&quot;: float, # anomaly score (value between 0 and 1)
+				},
+		&quot;logSequence&quot;: {
+						&quot;isAnomaly&quot;: bool, # prediction, True if detected as anomaly (could be null)
+						&quot;anomalyScore&quot;: float, # anomaly score (value between 0 and 1)
+				},
+}</code></pre><ul id="e8a04436-8d53-4cd9-ba11-f3d1f1e04f90" class="bulleted-list"><li style="list-style-type:disc"><code>&quot;negativeLogs&quot;[&quot;logs&quot;]</code> required format:</li></ul><pre id="d5ae3daf-dc39-41c8-9a0e-5ecd6d72fd82" class="code code-wrap"><code>[
+	{
+		&quot;timestamp&quot;: float, # timestamp in seconds
+		&quot;log&quot;: str, # log line
+		&quot;score&quot;: float, # anomaly score (value between 0 and 1)
+		&quot;rarenessScore&quot;: float, # rareness model anomaly score (value between 0 and 1)
+		&quot;sentimentScore&quot;: float, # sentiment model anomaly score (value between 0 and 1)
+	},
+...
+]</code></pre><ul id="15f32577-2e17-4903-8aec-584860c323c8" class="bulleted-list"><li style="list-style-type:disc">Logfrequency detector outputs:<ul id="908f4cec-fb50-4f18-b44c-cb2c002b447e" class="bulleted-list"><li style="list-style-type:circle"><code>HB</code></li></ul><pre id="60b69e75-0f7e-4d15-96b4-3678862c338c" class="code"><code>{
+  &quot;isAnomaly&quot;: bool, # verdict
+  &quot;anomalyScore&quot;: float, # anomaly score
+  &quot;absoluteDelta&quot;: float, # absolute delta
+  &quot;avgLevel_threshold&quot;: float, # threshold for the average level to reduce FP
+  &quot;avgLevel&quot;: float, # current average level
+  &quot;bins_structure&quot;: [ # bins structure for model explainability
+    {&quot;bin&quot;: [float(b.left), float(b.right)], &quot;count&quot;: int(b.count)}
+      ],
+  &quot;maxBins&quot;: int, # maximum number of bins allowed by the model
+  &quot;minimumHist_count&quot;: int, # minimum number of points per bin (anomaly threshold)
+}</code></pre><ul id="1ab1ef33-b844-45ee-af92-f1b746946cd8" class="bulleted-list"><li style="list-style-type:circle"><code>&quot;logFrequency&quot;[&quot;HB&quot;]</code>  field <code>absolute_delta</code>: more info <a href="Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232.html">here</a></li></ul><ul id="cd73f1c8-b249-449f-81c3-ccf99e1d3ae4" class="bulleted-list"><li style="list-style-type:circle"><code>Skyline</code>
+<pre id="8dca03e5-284d-4720-9ec6-3a74739f5bf3" class="code"><code>{
+	&quot;isAnomaly&quot;: bool, # verdict
+	&quot;anomalyScore&quot;: float, # anomaly score
+	&quot;algo_name&quot;: bool, # individual algorithms outputs
+}</code></pre></li></ul></li></ul><h3 id="8274b247-e1d4-4308-92de-5d0b3b22771e" class="">Templates : infraID-templates</h3><pre id="56dd8af5-8915-4460-94c4-d79e050eacb8" class="code"><code>{
+    &quot;topic&quot;: str, # topic name
+    &quot;documents&quot;: [
+                     {&quot;log_id&quot;: &quot;LOG-ID&quot;, &quot;template_id&quot;: &quot;TEMPLATE-ID&quot;}, # Template ID obtained after hashing template 
+                     {&quot;log_id&quot;: &quot;LOG-ID&quot;, &quot;template_id&quot;: &quot;TEMPLATE-ID&quot;}, # LogID from Logstash
+                 ]
+}</code></pre><p id="81338a9d-7a7d-4bed-a3cc-90a8522669dc" class="">
+</p><h1 id="b66ec097-5197-4bb5-8325-1e16cd88e05e" class=""><strong>Template </strong><strong>Indexer</strong></h1><h2 id="677ea427-5711-47da-acdd-40f2cb4c85cd" class=""><strong>Input format</strong></h2><pre id="d1e4c49f-0af1-4104-b252-0bf6df8d83ed" class="code"><code>{
+    &quot;topic&quot;: str, # topic name
+    &quot;documents&quot;: [
+                     {&quot;log_id&quot;: &quot;LOG-ID&quot;, &quot;template_id&quot;: &quot;TEMPLATE-ID&quot;}, # Template ID obtained after hashing template 
+                     {&quot;log_id&quot;: &quot;LOG-ID&quot;, &quot;template_id&quot;: &quot;TEMPLATE-ID&quot;}, # LogID from Logstash
+                 ]
+}</code></pre><h2 id="75861948-7f17-44cf-82a4-76ed61391ef3" class=""><strong>Output format</strong> in ES</h2><pre id="d40a3266-32ad-4c46-bd6d-1cc9a6d3a73c" class="code"><code>{&#x27;logID&#x27;: &#x27;logID&#x27;, &#x27;templateID&#x27;: &#x27;templateID&#x27;}</code></pre><p id="0833af49-eeb8-4b09-a277-9db75a312539" class="">
+</p><h1 id="2559d737-c656-48bd-bc35-ffc67493786f" class="">SIRE</h1><h2 id="b57388ea-8404-4b7e-a49f-36631f500684" class="">Input format</h2><p id="c9cbcad0-7c0e-4e4a-a221-16504c3381ea" class="">
+</p><pre id="a3caaafc-2fbe-48ef-a03b-0f9c6c8c5fe5" class="code"><code>{
+	&quot;metric&quot; : str, # metric name of the format &quot;subject|metric_set|metric_name&quot;,
+	&quot;info&quot; : {
+			&quot;deviation&quot; : float, # abnormal period&#x27;s deviation
+			&quot;duration&quot; : int, # abnormal period&#x27;s duration in seconds
+			&quot;start&quot; : int, # abnormal period&#x27;s start timestamp in milliseconds,
+			&quot;end&quot; : int, # abnormal period&#x27;s end timestamp in milliseconds
+			},
+	&quot;timestamp&quot; : int, # timestamp in milliseconds when MAD sent the message
+	&quot;source&quot; : str, # metric source of the format &quot;infraID-agentID-componentID&quot;
+}</code></pre><h2 id="856e197a-42e7-42f8-835d-fde94b965e61" class="">Output format</h2><p id="8286a989-a491-4397-ac5b-e9d66809c104" class="">
+</p><pre id="62285f5b-0ca4-4fb8-a5e4-94b123cb6dc2" class="code code-wrap"><code>{
+		&quot;timestamp&quot;: int, # timestamp in milliseconds    
+		&quot;infrastructureId&quot;: str # infrastructure ID
+    &quot;agentId&quot;: str # agent ID
+    &quot;ITComponentId&quot;: str # component ID
+    &quot;metricType&quot;: str, # metric name
+    &quot;relevanceScore&quot;: # relevance score (value between 0 and 1)
+    &quot;anomalyStart&quot;: int, # abnormal period&#x27;s start timestamp in milliseconds
+    &quot;anomalyEnd&quot;: int, # abnormal period&#x27;s end timestamp in milliseconds
+}</code></pre><ul id="e9eadd14-4bd0-41c0-8eb5-dab2be092a47" class="bulleted-list"><li style="list-style-type:disc"><code>metricType</code> is formed based on metric and subject names as follows: <code>metric-subject</code></li></ul><h1 id="c4c12c8a-1277-42a9-a0dc-b0fefa73d40a" class="">DBSCAN</h1><h2 id="45500beb-9be9-4267-ab19-7d801478cd87" class="">Output format</h2><h3 id="d9278c7b-7d20-44ea-a321-cd32bef12fd4" class="">MAD</h3><pre id="a1844dc0-759e-4f25-a84c-09d643b8c894" class="code"><code>{
+	&quot;metric&quot;: str, # metric name of the format &quot;metric_name-subject&quot;,
+	&quot;value&quot;: float, # metric value
+	&quot;absolute_delta&quot;: float, # absolute delta (equals to -1 in case no abslolute delta is provided)
+	&quot;timestamp&quot;: int, # timestamp in seconds when MAD sent the message
+	&quot;datetime&quot;: str, # datetime of format &quot;YYYY-mm-DD HH:MM:SS&quot;,
+	&quot;source&quot;: str, # metric source of the format &quot;infraID-agentID-componentID&quot;
+	&quot;detector&quot;: &quot;mad&quot;
+}</code></pre><h3 id="95781610-aaa0-4610-955c-dfc13861dfff" class="">LAD</h3><pre id="9eb842c8-0c28-4abc-81af-11bb6f8db759" class="code"><code>{
+	&quot;metric&quot;: &quot;log_count&quot;, # currently only LogFrequency sends data
+	&quot;value&quot;: float, # log count
+	&quot;absolute_delta&quot;: float, # absolute delta (equals to -1 in case no abslolute delta is provided)
+	&quot;timestamp&quot;: int, # timestamp in seconds when LAD sent the message
+	&quot;datetime&quot;: str, # datetime of format &quot;YYYY-mm-DD HH:MM:SS&quot;,
+	&quot;source&quot;: str, # log source of the format &quot;infraID-agentID-componentID&quot;
+	&quot;detector&quot;: &quot;lad&quot;,
+	&quot;level&quot;: str, # log level (currently general, warning, error)
+}</code></pre><p id="7857f3c0-ad51-4973-9852-92061d1498d7" class="">
+</p><h1 id="8927e923-e5e2-4da4-8996-05dbe4ff7152" class="">Logfrequency</h1><h2 id="6118dd03-3ad1-4ac7-8955-21eac2b31837" class="">Log count classifier MongoDB configuration document</h2><pre id="90ae11ce-fa1b-4719-bd59-771ebc88750a" class="code"><code>{
+    &quot;topic&quot;: str,
+    &quot;levels&quot;: [
+								{
+			            &quot;filter&quot;: &quot;general&quot;,
+			            &quot;shape&quot;: str,
+			            &quot;models&quot;: {
+											algorithm_configuration
+							            }
+				        },
+								{
+			            &quot;filter&quot;: &quot;info&quot;,
+			            &quot;shape&quot;: str,
+			            &quot;models&quot;: {
+											algorithm_configuration
+							            }
+				        },
+								{
+			            &quot;filter&quot;: &quot;warning&quot;,
+			            &quot;shape&quot;: str,
+			            &quot;models&quot;: {
+											algorithm_configuration
+							            }
+				        },
+								{
+			            &quot;filter&quot;: &quot;error&quot;,
+			            &quot;shape&quot;: str,
+			            &quot;models&quot;: {
+											algorithm_configuration
+							            }
+				        },
+			    ]
+}</code></pre><p id="e2dc7fe9-affb-4972-9f12-2356d06b0fe2" class="">
+</p><ul id="3525ef41-d0d2-4382-8f7f-f0c4bb542204" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange"><span style="border-bottom:0.05em solid">algorithm_configuration</span></mark>:</li></ul><p id="614b8737-9f50-42de-9a00-7082588f7c13" class="">
+</p><pre id="1028e287-f13a-42ab-a42f-d7869f01b44b" class="code"><code>
+      &quot;HB&quot;: {
+         &quot;max_bins&quot;:5, # number of bins 
+         &quot;alpha&quot;:0.5, # exponential weighted mean parameter
+         &quot;max_points&quot;:10080, # sliding window length in number of points 
+         &quot;warmup_period_in_number_of_points&quot;:10080, # warmup period in number of points
+         &quot;time_to_reset&quot;:10080 # model reset period in seconds 
+				 &quot;avg_level_alpha&quot;: 0.6, # exponential weighted mean parameter for the average level
+         &quot;avg_level_threshold&quot;: 10,  # average level threshold
+      },
+			&quot;Skyline&quot;: {
+	        &quot;alpha&quot;: 0.7,
+	        &quot;median_absolute_deviation_threshold&quot;: 6,
+	        &quot;histogram_bins_min_points&quot;: 100,
+	        &quot;n_bins&quot;: 10,
+	        &quot;n_points&quot;: 5,
+	        &quot;max_history_time&quot;: int(60 * 60 * 24 * 7),
+	        &quot;threshold&quot;: 0.8,
+	    },</code></pre><p id="849613f5-2ab2-49c8-9cba-598ec8ea9306" class="">
+</p><h1 id="56c71c3c-045e-49cd-b591-9e80833119e2" class="">Alerting Manager</h1><h2 id="f50f9ba8-aa87-4dac-b291-a25689bc07ec" class="">ML rules</h2><h3 id="22c555a4-c305-4c03-951d-b04a86cad2dd" class="">Limit rule</h3><ul id="b7835a09-dba0-41b2-94d5-77ad3bd358eb" class="bulleted-list"><li style="list-style-type:disc"><code>high</code> is replaced by <code>+inf</code> in case if it is missing </li></ul><ul id="7b68e5cd-7883-45b5-a26c-a7d90cca9c40" class="bulleted-list"><li style="list-style-type:disc"><code>low</code> is replaced by <code>-inf</code> in case if it is missing  </li></ul><pre id="dec7db6d-1b35-4095-9d1f-36e1d3c7f1d6" class="code"><code>{&#x27;name&#x27;: str, # any name but every rule should be called in a unique manner
+ &#x27;parameters&#x27;: {&#x27;kpi&#x27;: str, # variable name to limit
+                &#x27;labels&#x27;: {&#x27;critical&#x27;: {&#x27;high&#x27;: float, &#x27;low&#x27;: float},
+                           &#x27;info&#x27;: {&#x27;high&#x27;: float, &#x27;low&#x27;: float},
+                           &#x27;warning&#x27;: {&#x27;high&#x27;: float, &#x27;low&#x27;: float}}},
+ &#x27;type&#x27;: &#x27;LIMIT&#x27;,
+ &#x27;text_rule&#x27;: Optional[str] # text rule used to construct config file
+}</code></pre><h3 id="3ebe0c73-d819-44e4-b66b-6652c88e23f0" class="">Multiple Limit rule</h3><pre id="11700874-7114-4db3-94b3-902ed2cba19a" class="code"><code>{&#x27;name&#x27;: str, # any name but every rule should be called in a unique manner
+ &#x27;parameters&#x27;: {&#x27;label&#x27;: str, # either&#x27;info&#x27;, &#x27;warning&#x27;, &#x27;error&#x27;
+                &#x27;limit_rules&#x27;: [...]}, # list of Limit rule configuraion files (see above)
+ &#x27;type&#x27;: &#x27;MULTIPLE_LIMIT&#x27;,
+ &#x27;text_rule&#x27;: Optional[str] # text rule used to construct config file
+}</code></pre><p id="51697693-4557-4a43-910a-b3f034523a37" class="">
+</p><h3 id="f964995c-6c9a-420c-8887-20fd09bf273c" class="">ID rule</h3><pre id="e2d569c0-3208-4b3d-b25a-609f5b6b559d" class="code"><code>{&#x27;name&#x27;: str, # any name but every rule should be called in a unique manner
+ &#x27;parameters&#x27;: {&#x27;label&#x27;: str, # either&#x27;info&#x27;, &#x27;warning&#x27;, &#x27;error&#x27;
+								&#x27;key&#x27;: str, # variable field name in the incident document
+                &#x27;value&#x27;: str # expected value that will be checked 
+								&#x27;anti&#x27;: bool, # False by default. Revert id rule: check if value is NOT in key},
+ &#x27;type&#x27;: &#x27;ID&#x27;,
+ &#x27;text_rule&#x27;: Optional[str] # text rule used to construct config file
+}</code></pre><h3 id="a24fa966-0777-4cfb-9d14-ce70c905032d" class="">ID Limit rule</h3><pre id="0f64efdf-6e58-4cbd-b2f5-63c678189edd" class="code"><code>{&#x27;name&#x27;: str, # any name but every rule should be called in a unique manner
+ &#x27;parameters&#x27;: {&#x27;label&#x27;: str, # either&#x27;info&#x27;, &#x27;warning&#x27;, &#x27;error&#x27;
+								&#x27;id_rules&#x27;: [...], # list of ID rule configuraion files (see above)
+                &#x27;limit_rules&#x27;: [...]}, # list of Limit rule configuraion files (see above)
+ &#x27;type&#x27;: &#x27;ID_LIMIT&#x27;,
+ &#x27;text_rule&#x27;: Optional[str] # text rule used to construct config file}</code></pre><p id="663f956b-fe00-4ad2-a8cb-8889e39d995d" class="">
+</p><h1 id="1f0207c6-9ed2-4b7e-a7cc-0b73ffe37fc2" class="">Activator</h1><pre id="9e75b4b5-ead9-45f6-8794-8e677657b3cf" class="code code-wrap"><code>{
+	&quot;status&quot;: str, # ACTIVE/INACTIVE
+	&quot;topicName&quot;: str,
+	&quot;infraID&quot;: str,
+	&quot;agentID&quot;: str,
+	&quot;componentID&quot;: str,
+	&quot;nb_metric&quot;: int, # number of metrics of the component
+}
+</code></pre><h2 id="2ebefc0f-298e-4092-a610-b80bfdeee586" class="">Input</h2><h2 id="97175fe5-28ea-4d20-823a-04aa626aafad" class="">Output</h2><h3 id="2bd34e03-75fc-40cd-8e88-65a8ca17227b" class="">Metrics</h3><p id="82fb065b-0ce4-4730-a003-08bce2f33449" class="">Topics that has been detected as active by the Activator will output a message to <code>metric-activator</code>.</p><p id="485b7ac9-21ab-446c-abfa-51c81d458d81" class="">
+</p><pre id="e154277c-cb30-4a67-a0e6-390713d359d8" class="code"><code>{
+	&quot;topicName&quot;: &quot;string&quot;,
+	&quot;infraID&quot;: &quot;string&quot;,
+	&quot;agentID&quot;: &quot;string&quot;,
+	&quot;status&quot;: &quot;ACTIVE&quot;,
+	&quot;componentID&quot;: &quot;string&quot;,
+	&quot;frequency&quot;: &quot;string&quot;,
+	&quot;nb_metric&quot;: &quot;string&quot;,
+}</code></pre><p id="c0515526-5615-480b-9878-780a72ce66ff" class="">
+</p><p id="32915cf6-9338-4379-b9a6-cef35baa1409" class="">Frequency is calculated depending of the technology name. By default, it will be set to “10s”</p><h3 id="8dc85b9a-514e-4b01-97ed-3856d06c5f22" class="">Logs</h3><p id="c249f931-312f-4ee7-8ce0-d1164ae5efb4" class="">Topics that has been detected as active by the Activator will output a message to <code>log-activator</code>.</p><p id="27f6d828-8151-4f2c-a0dc-e8250047fbcb" class="">
+</p><pre id="362a389c-a418-44e9-80a1-768bef38649e" class="code"><code>{
+	&quot;topicName&quot;: &quot;string&quot;,
+	&quot;infraID&quot;: &quot;string&quot;,
+	&quot;agentID&quot;: &quot;string&quot;,
+	&quot;status&quot;: &quot;ACTIVE&quot;,
+	&quot;componentID&quot;: &quot;string&quot;,
+}</code></pre><h1 id="9c14b665-cd31-429a-a992-4c2af6a06beb" class="">New ML output data structure proposal</h1><h2 id="3d3a8e66-aab5-4f54-b4c6-99f233431afb" class="">General structure common for all modules</h2><pre id="34cb9023-75c4-4784-a958-64586cf5c45b" class="code"><code>{
+		&quot;timestamp&quot;: int, # timestamp in milliseconds
+		&quot;@timestamp&quot;: str, # timestamp in str format &quot;%Y-%m-%dT%H:%M:%S.%fZ&quot;
+    &quot;isAnomaly&quot;: bool, # True if any of the detection results is abnormal
+		&quot;detector&quot;: str, # detector name 
+		&quot;data&quot;: [{&quot;key&quot;: str, &quot;result&quot;: dict}], # detection result documents
+		&quot;metadata&quot;: {} # additional metadata
+}</code></pre><h2 id="2244ca0f-ee91-4563-b712-76c0c963ec3d" class="">MAD output example</h2><pre id="3f51c9b3-91fe-4f75-8013-d0ef53352fd8" class="code"><code>{
+		&quot;timestamp&quot;: int, # timestamp in milliseconds
+		&quot;@timestamp&quot;: str, # timestamp in str format &quot;%Y-%m-%dT%H:%M:%S.%fZ&quot;
+    &quot;isAnomaly&quot;: bool, # True if any of the detection results is abnormal
+		&quot;detector&quot;: &quot;mad&quot;,
+		&quot;data&quot;: [
+								{
+									&quot;key&quot;: &quot;docker#diskio#summary#wait_time-no_subject&quot;, 
+									&quot;result&quot;: {
+								                &quot;isAnomaly&quot;: bool, # prediction, True if detected as anomaly
+								                &quot;value&quot;: float, # metric value
+								                &quot;anomalyScore&quot;: float, # metrics anomaly score (value between 0 and 1)
+								                &quot;threshold&quot;: float # MAD anomaly threshold (value between 0 and 1)
+								                &quot;absolute_delta&quot;: float, # absolute delta (equals to -1 in case no abslolute delta is provided))
+								            }
+								}, 	
+								{
+									&quot;key&quot;: &quot;docker#memory#rss#pct-no_subject&quot;, 
+									&quot;result&quot;: {
+								                &quot;isAnomaly&quot;: bool, # prediction, True if detected as anomaly
+								                &quot;value&quot;: float, # metric value
+								                &quot;anomalyScore&quot;: float, # metrics anomaly score (value between 0 and 1)
+								                &quot;threshold&quot;: float # MAD anomaly threshold (value between 0 and 1)
+								                &quot;absolute_delta&quot;: float, # absolute delta (equals to -1 in case no abslolute delta is provided))
+								            }
+								}, 
+						],
+			&quot;metadata&quot;: {
+								&quot;ml_data&quot;: {
+								        &quot;warmup&quot;: {
+																		&quot;general&quot;: bool, # True if #{points processed by MAD} &gt; warmup_period
+																		&quot;metric_name&quot;: bool, # if we have collected enough data for this metric 
+																	},
+												&quot;duration_deviation&quot;: dict, # this dictionary contains SIRE input. See the required format below
+								        &quot;noise_reduction&quot;: {
+																								&quot;metric_name&quot;: {
+																						                        &quot;dbscan_importance&quot;: bool, # True if anomaly is significant according to dbscan importance algorithm
+																						                        &quot;sire_p_importance&quot;: bool, # True if anomaly is significant according to sire-p importance algorithm
+																						                    },
+																						},
+								        &quot;sire_p&quot;: {
+																		&quot;metric_name&quot;: float, # sire-p relevance score per metric
+																	},
+								        &quot;detector_outputs&quot;: dict, # contains individual scores of each MAD detector
+											    }
+						}
+}</code></pre><p id="d5e7197a-390c-4d9f-ae84-dbb24bc0ead7" class="">
+</p><h2 id="5ddf48cd-ebfd-49c3-aa7d-b00027a3feb3" class="">Log frequency output example</h2><pre id="82805342-57e7-4d78-86db-372b5e95891a" class="code"><code>{
+                &quot;@timestamp&quot;: &quot;2022-10-05T07:57:00.000000Z&quot;,
+                &quot;data&quot;: [
+                    {
+                        &quot;key&quot;: &quot;general&quot;,
+                        &quot;result&quot;: {
+                            &quot;HB&quot;: {
+                                &quot;absoluteDelta&quot;: 2.65,
+                                &quot;anomalyScore&quot;: 0.0,
+                                &quot;avgLevel&quot;: 2.65,
+                                &quot;avgLevel_threshold&quot;: 10.0,
+                                &quot;bins_structure&quot;: [
+                                    {&quot;bin&quot;: [0, 5.44], &quot;count&quot;: 9962}
+                                ],
+                                &quot;isAnomaly&quot;: False,
+                                &quot;maxBins&quot;: 5,
+                                &quot;minimumHist_count&quot;: 3,
+                            },
+                            &quot;Skyline&quot;: {
+                                &quot;anomalyScore&quot;: 0.0,
+                                &quot;first_hour_average&quot;: False,
+                                &quot;histogram_bins&quot;: False,
+                                &quot;isAnomaly&quot;: False,
+                                &quot;least_squares&quot;: False,
+                                &quot;mean_subtraction_cumulation&quot;: False,
+                                &quot;median_absolute_deviation&quot;: False,
+                                &quot;stddev_from_average&quot;: False,
+                                &quot;stddev_from_moving_average&quot;: False,
+                            },
+                            &quot;anomalyScore&quot;: 0.0,
+                            &quot;isAnomaly&quot;: False,
+                            &quot;value&quot;: 0,
+                        },
+                    },
+                    {
+                        &quot;key&quot;: &quot;warning&quot;,
+                        &quot;result&quot;: {
+                            &quot;HB&quot;: {
+                                &quot;anomalyScore&quot;: 0.0,
+                                &quot;isAnomaly&quot;: False,
+                                &quot;absoluteDelta&quot;: None,
+                                &quot;avgLevel&quot;: None,
+                                &quot;avgLevel_threshold&quot;: None,
+                                &quot;bins_structure&quot;: None,
+                                &quot;maxBins&quot;: None,
+                                &quot;minimumHist_count&quot;: None,
+                            },
+                            &quot;Skyline&quot;: None,
+                            &quot;anomalyScore&quot;: 0.0,
+                            &quot;isAnomaly&quot;: False,
+                            &quot;value&quot;: 0,
+                        },
+                    },
+                    {
+                        &quot;key&quot;: &quot;error&quot;,
+                        &quot;result&quot;: {
+                            &quot;HB&quot;: {
+                                &quot;anomalyScore&quot;: 0.0,
+                                &quot;isAnomaly&quot;: False,
+                                &quot;absoluteDelta&quot;: None,
+                                &quot;avgLevel&quot;: None,
+                                &quot;avgLevel_threshold&quot;: None,
+                                &quot;bins_structure&quot;: None,
+                                &quot;maxBins&quot;: None,
+                                &quot;minimumHist_count&quot;: None,
+                            },
+                            &quot;Skyline&quot;: None,
+                            &quot;anomalyScore&quot;: 0.0,
+                            &quot;isAnomaly&quot;: False,
+                            &quot;value&quot;: 0,
+                        },
+                    },
+                ],
+                &quot;detector&quot;: &quot;log frequency&quot;,
+                &quot;isAnomaly&quot;: False,
+                &quot;metadata&quot;: {
+                    &quot;ITComponentId&quot;: &quot;alimentos-polar-depl-df-etl-files-detector&quot;,
+                    &quot;infrastructureId&quot;: &quot;62c540a95dfbf40012868ee3&quot;,
+                },
+                &quot;timestamp&quot;: 1664956620000,
+            }</code></pre><pre id="88370740-cdfe-44a5-8c6a-1a30828709c5" class="code"><code>{
+		&quot;timestamp&quot;: int, # timestamp in milliseconds
+		&quot;@timestamp&quot;: str, # timestamp in str format &quot;%Y-%m-%dT%H:%M:%S.%fZ&quot;
+    &quot;isAnomaly&quot;: bool, # True if any of the detection results is abnormal
+		&quot;detector&quot;: &quot;log frequency&quot;,
+		&quot;data&quot;: [
+								{
+									&quot;key&quot;: &quot;general&quot;, 
+									&quot;result&quot;: {
+											        &quot;isAnomaly&quot;: False,
+											        &quot;value&quot;: 0
+											        &quot;anomalyScore&quot;: 0,
+											        &quot;HB&quot;: {
+											          &quot;isAnomaly&quot;: false,
+											          &quot;anomalyScore&quot;: 0,
+											          &quot;absoluteDelta&quot;: 2.65,
+											          &quot;avgLevel_threshold&quot;: 10,
+											          &quot;avgLevel&quot;: 2.65,
+											          &quot;bins_structure&quot;: [
+											            {
+											              &quot;bin&quot;: [
+											                0,
+											                5.44
+											              ],
+											              &quot;count&quot;: 9962
+											            },
+											          ],
+											          &quot;maxBins&quot;: 5,
+											          &quot;minimumHist_count&quot;: 3
+											        },
+											        &quot;Skyline&quot;: {
+											          &quot;isAnomaly&quot;: False,
+											          &quot;anomalyScore&quot;: 0,
+											          &quot;median_absolute_deviation&quot;: False,
+											          &quot;first_hour_average&quot;: False,
+											          &quot;mean_subtraction_cumulation&quot;: False,
+											          &quot;stddev_from_average&quot;: False,
+											          &quot;stddev_from_moving_average&quot;: False,
+											          &quot;least_squares&quot;: False,
+											          &quot;histogram_bins&quot;: False
+											        },
+											      }
+								}, 	
+								{
+									&quot;key&quot;: &quot;warning&quot;, 
+									&quot;result&quot;: {
+															&quot;isAnomaly&quot;: False,
+											        &quot;value&quot;: 0
+											        &quot;anomalyScore&quot;: 0,
+											        &quot;HB&quot;: {
+											          &quot;isAnomaly&quot;: false,
+											          &quot;anomalyScore&quot;: 0
+											        },
+														}
+								},
+								{
+									&quot;key&quot;: &quot;error&quot;, 
+									&quot;result&quot;: {
+															&quot;isAnomaly&quot;: False,
+											        &quot;value&quot;: 0
+											        &quot;anomalyScore&quot;: 0,
+											        &quot;HB&quot;: {
+											          &quot;isAnomaly&quot;: false,
+											          &quot;anomalyScore&quot;: 0
+											        },
+														}
+								},
+
+						],
+			&quot;metadata&quot;: {
+								&quot;infrastructureId&quot;: str,
+						    &quot;ITComponentId&quot;: str
+								}
+}</code></pre><p id="045d955a-7767-4368-baaf-9861e0b7d20d" class="">
+</p><h1 id="05176c94-ae9b-4240-b59d-49d968d9c8b9" class="">Log pattern drift detection</h1><h2 id="6e6a1390-8b83-4a28-9e8c-a7fffad28b5a" class=""><strong>Configuration Document Schema</strong></h2><pre id="438be3d9-cb41-4240-a857-7d6f1e54e25e" class="code"><code>{
+		template: str
+		infra_id: str
+    aggregation: Optional[str] = &quot;5m&quot;
+    detect_drift: Optional[bool] = True
+    detect_presence: Optional[bool] = False
+		filters: str: List[str]
+}</code></pre><p id="46a1d9a4-be0e-4cdb-ac93-0cbb91faa288" class="">Example:</p><pre id="e87ef756-54cd-42a2-9505-b5cf69100bdc" class="code"><code>{
+
+  &quot;infra_id&quot;: &quot;62a9ed185b54ce0013c37d66&quot;,
+  &quot;template&quot;: &quot;ece4abad-error&quot;,
+  &quot;aggregation&quot;: &quot;5m&quot;,
+  &quot;detect_drift&quot;: true,
+  &quot;detect_presence&quot;: true,
+  &quot;filters&quot;: {
+    &quot;componentID&quot;: [
+      &quot;packetai-system-depl-vector-ingester&quot;
+    ]
+  }
+}</code></pre><h2 id="633fd7e8-d5d5-4543-be97-3f9650a295a8" class="">Output</h2><pre id="6ae93e24-c7e4-45f8-9d48-e357f13094d9" class="code"><code>{
+  &quot;timestamp&quot;: int, # timestamp in milliseconds
+  &quot;isAnomaly&quot;: bool,
+  &quot;@timestamp&quot;: str # Datetime in utc &quot;2022-10-06T16:05:00.000000Z&quot;,
+  &quot;detector&quot;: &quot;log patterns&quot;,
+  &quot;data&quot;: [
+    {
+      &quot;key&quot;: str, # template ID
+      &quot;result&quot;: {
+        &quot;isAnomaly&quot;: bool,
+        &quot;drift&quot;: Optional[
+          start: datetime.datetime
+			    end: datetime.datetime
+			    start_ts: int # drift start timestamp in milliseconds
+			    end_ts: int # drift end timestamp in milliseconds
+        ],
+        &quot;presence&quot;: Optional[
+          timestamp: int # timestamp in milliseconds 1665052500000
+			    datetime: str # datetime &quot;2021-12-21T23:12:00.132Z&quot;
+			    )
+			    doc_count: int # template count
+        ]
+      }
+    }
+  ],
+  &quot;metadata&quot;: Optional[dict]
+}</code></pre><p id="1190af7d-6f11-4393-97c5-0d1ec49674a3" class="">Example:</p><p id="40d5e588-262d-4da9-b222-627f536b8389" class="">
+</p><pre id="14ec55e5-f1bb-4a45-a766-daa32b9ec317" class="code"><code>{
+  &quot;timestamp&quot;: 1682002800000,
+  &quot;isAnomaly&quot;: true,
+  &quot;@timestamp&quot;: &quot;2023-04-20T15:00:00.000000Z&quot;,
+  &quot;detector&quot;: &quot;log patterns&quot;,
+  &quot;data&quot;: [
+    {
+      &quot;key&quot;: &quot;presence&quot;,
+      &quot;result&quot;: {
+        &quot;isAnomaly&quot;: true,
+        &quot;datapoints&quot;: [
+          {
+            &quot;timestamp&quot;: 1682002800000,
+            &quot;datetime&quot;: &quot;2023-04-20T15:00:00.000Z&quot;,
+            &quot;doc_count&quot;: 867
+          }
+        ]
+      }
+    }
+  ],
+  &quot;metadata&quot;: {
+    &quot;drift_range&quot;: {
+      &quot;start&quot;: null,
+      &quot;end&quot;: null
+    },
+    &quot;presence_range&quot;: {
+      &quot;start&quot;: 1682002800000,
+      &quot;end&quot;: 1682002800000
+    },
+    &quot;templateId&quot;: &quot;797ee3c9-info&quot;,
+    &quot;infrastructureId&quot;: &quot;62a9ed185b54ce0013c37d66&quot;,
+    &quot;templateConfigId&quot;: &quot;63c577e6e09c444bb2b46ab4&quot;,
+    &quot;isImportant&quot;: true
+  }
+}</code></pre><h1 id="f521d867-3d17-4340-b0df-dce94634f9e8" class="">Logpatterns</h1><h2 id="df0694b5-a71c-46c2-a938-7d5c69214e97" class="">Input</h2><pre id="b45b9c23-7ad0-4dfd-bb66-b268e89bcd33" class="code"><code>{
+    componentID: str,
+		grok_parsed_msg: {content: str, logseverity: str}
+		@timestamp: str
+}</code></pre><h2 id="cdc1294e-d418-4890-b211-765e842c991f" class="">Output in kafka</h2><p id="b44dbb19-a9a4-416e-b3b6-1bdcdab5c7ee" class="">Normal stashed message with the 1 below field as required :</p><pre id="9f6fd2ba-ad07-4249-a238-76b9fbf8cac3" class="code"><code>{
+	templateID: str,
+}</code></pre><h2 id="6cbe5173-6eaa-44cd-b279-2103f87e70e5" class="">Output DB</h2><pre id="d7b7a2a3-d5a6-4826-8fbd-78e64471279a" class="code"><code>{
+	topic: str, # corresponds to the componentID
+	template: str, # the template
+	template_id: str, # template id which is the hash of the template concatenated to the severity 
+	logseverity: str, # other, info, warning, other
+}</code></pre><p id="ff6d4aec-ce01-4aea-b4d2-ed1887bc274f" class="">
+</p><h1 id="aadc7003-ccac-4cdd-9fa4-4e8bb15a7715" class="">Anomaly qualification</h1><h2 id="54dd6118-f8a1-4c66-8cab-096787bd3f0c" class="">input:</h2><p id="b0ec0972-7477-458e-a770-cf3685ac4164" class="">topic {infraid}-<strong><strong>mlanomalies with message like:</strong></strong></p><pre id="ad09ddc9-bcec-4614-8d5e-8545931234fa" class="code"><code>{
+  &quot;timestamp&quot;: 1681829700000,
+  &quot;isAnomaly&quot;: true,
+  &quot;@timestamp&quot;: &quot;2023-04-18T14:55:00.000000Z&quot;,
+  &quot;detector&quot;: &quot;log patterns&quot;,
+  &quot;data&quot;: [
+    {
+      &quot;key&quot;: &quot;drift&quot;,
+      &quot;result&quot;: {
+        &quot;isAnomaly&quot;: false,
+        &quot;regions&quot;: [
+
+        ]
+      }
+    },
+    {
+      &quot;key&quot;: &quot;presence&quot;,
+      &quot;result&quot;: {
+        &quot;isAnomaly&quot;: true,
+        &quot;datapoints&quot;: [
+          {
+            &quot;timestamp&quot;: 1681829700000,
+            &quot;datetime&quot;: &quot;2023-04-18T14:55:00.000Z&quot;,
+            &quot;doc_count&quot;: 4061
+          }
+        ]
+      }
+    }
+  ],
+  &quot;metadata&quot;: {
+    &quot;drift_range&quot;: {
+      &quot;start&quot;: null,
+      &quot;end&quot;: null
+    },
+    &quot;presence_range&quot;: {
+      &quot;start&quot;: 1681829700000,
+      &quot;end&quot;: 1681829700000
+    },
+    &quot;templateId&quot;: &quot;797ee3c9-info&quot;,
+    &quot;infrastructureId&quot;: &quot;62a9ed185b54ce0013c37d66&quot;,
+    &quot;templateConfigId&quot;: &quot;63c577e6e09c444bb2b46ab4&quot;
+  }
+}
+</code></pre><h2 id="7295d097-ef9e-4e97-9d52-66f399066156" class="">output </h2><p id="49a91aba-162f-45fe-afe4-bb6ee3ab6b42" class="">output is {infraid}<strong><strong>-mlanomalies-qualified with message like:</strong></strong></p><pre id="38b86c26-40f5-435f-903e-6aee354d88c7" class="code"><code>{
+  &quot;timestamp&quot;: 1681830000000,
+  &quot;isAnomaly&quot;: true,
+  &quot;@timestamp&quot;: &quot;2023-04-18T15:00:00.000000Z&quot;,
+  &quot;detector&quot;: &quot;log patterns&quot;,
+  &quot;data&quot;: [
+    {
+      &quot;key&quot;: &quot;presence&quot;,
+      &quot;result&quot;: {
+        &quot;isAnomaly&quot;: true,
+        &quot;datapoints&quot;: [
+          {
+            &quot;timestamp&quot;: 1681830000000,
+            &quot;datetime&quot;: &quot;2023-04-18T15:00:00.000Z&quot;,
+            &quot;doc_count&quot;: 3341
+          }
+        ]
+      }
+    }
+  ],
+  &quot;metadata&quot;: {
+    &quot;drift_range&quot;: {
+      &quot;start&quot;: null,
+      &quot;end&quot;: null
+    },
+    &quot;presence_range&quot;: {
+      &quot;start&quot;: 1681830000000,
+      &quot;end&quot;: 1681830000000
+    },
+    &quot;templateId&quot;: &quot;797ee3c9-info&quot;,
+    &quot;infrastructureId&quot;: &quot;62a9ed185b54ce0013c37d66&quot;,
+    &quot;templateConfigId&quot;: &quot;63c577e6e09c444bb2b46ab4&quot;,
+    &quot;isImportant&quot;: true
+  }
+}</code></pre><h1 id="bcaab758-d51f-48f6-901e-aed5fadbe35e" class="">Log Health Feature</h1><p id="9deae7ae-ced4-43fb-a49c-6bc62fc1dbb6" class="">Normal stashed message with the 3 below fields as required :</p><h2 id="ce2a20a9-f742-4ba0-8ad6-7c4d1e51c8d4" class="">Input from kafka messages</h2><p id="8ec64c7a-8954-4825-8b59-b061d2ffdd3a" class="">Normal stashed message with the 3 below fields as required :</p><pre id="57f3833e-962a-4b49-b86c-04a145fc78e1" class="code"><code>{
+		templateID: str,
+    componentID: str,
+		@timestamp: str
+}</code></pre><h2 id="86d0deeb-c328-44d6-8821-57b7b9b1833a" class="">Input from hygiene api</h2><pre id="4a668e33-4484-455b-9761-8057b10b489a" class="code"><code>{
+  &quot;userConfigs&quot;: [
+    {
+      &quot;definitions&quot;: [
+        {
+          &quot;key&quot;: &quot;level_mismatch&quot;,
+          &quot;title&quot;: &quot;Incoherent severity&quot;,
+          &quot;description&quot;: &quot;Indicates a mismatch in the  different severity levels found in the same log line.&quot;,
+          &quot;healthyKey&quot;: &quot;true&quot;,
+          &quot;allowedValues&quot;: [
+            &quot;true&quot;,
+            &quot;false&quot;
+          ],
+          &quot;enabled&quot;: true
+        },
+        {
+          &quot;key&quot;: &quot;customized_61af40d4d639300012970d44_test_xxxxxxx&quot;,
+          &quot;title&quot;: &quot;Test XXXXXXX&quot;,
+          &quot;description&quot;: &quot;&quot;,
+          &quot;healthyKey&quot;: &quot;true&quot;,
+          &quot;allowedValues&quot;: [
+            &quot;true&quot;,
+            &quot;false&quot;
+          ],
+          &quot;enabled&quot;: true,
+          &quot;customization&quot;: {
+            &quot;regex&quot;: &quot;An account.*&quot;,
+            &quot;examples&quot;: {
+              &quot;message&quot;: &quot;An account failed to log on.&quot;,
+              &quot;id&quot;: &quot;SHErhoQBTqG9tnZKcTm_&quot;
+            }
+          }
+        }
+      ],
+      &quot;infrastructure&quot;: &quot;61af40d4d639300012970d44&quot;
+    }
+  ],
+  &quot;default&quot;: [
+    {
+      &quot;key&quot;: &quot;level_mismatch&quot;,
+      &quot;title&quot;: &quot;Incoherent severity&quot;,
+      &quot;description&quot;: &quot;Indicates a mismatch in the  different severity levels found in the same log line.&quot;,
+      &quot;healthyKey&quot;: &quot;true&quot;,
+      &quot;allowedValues&quot;: [
+        &quot;true&quot;,
+        &quot;false&quot;
+      ],
+      &quot;enabled&quot;: true
+    }
+  ]
+}</code></pre><h2 id="59ca0622-9aef-4aed-86b8-3551f38ce68d" class="">Output</h2><p id="1b767e7d-6887-4fc2-8bad-0c66ef81cefb" class="">Attach this field to the original message</p><pre id="4b6cbd03-6b83-42a1-b605-16085a3d5dc8" class="code"><code>&quot;lhf&quot; : {
+	&quot;level_mismatch&quot;: true,
+	&quot;size_10K&quot;: true, 
+	&quot;pii_email&quot; : true,
+	&quot;pii_name&quot; : false,
+	&quot;pii_cardnum&quot; : false,
+	&quot;pii_cert&quot;: false,
+  &quot;lang_en&quot; : true,  // P0 - would correspond to UC1 - 1 lang
+  &quot;lang_fr&quot; : true,  // P0 - would correspond to UC1 - 1 lang 
+	&quot;lang_multi&quot;: false // P1 - would correspond to UC2 - 2+ langs in same message
+}</code></pre><p id="aed7200c-550c-4e9c-b666-d05753bdef86" class="">
+</p><h1 id="570aa78f-568e-4a97-a93f-a134fd810c9e" class="">Sampler</h1><h2 id="14051daa-c6ed-46de-acab-24da2e572634" class="">Input</h2><p id="df9d68ad-ee8b-4e1e-91f8-785303f8e2b7" class="">If strategy is based on template, then : </p><pre id="77e61989-7006-44f5-a64b-bd37206409f4" class="code"><code>{
+		templateID: str,
+}</code></pre><p id="cdb74993-c563-4e18-81f2-a9f18da54aca" class="">
+</p><h2 id="f7a6235b-ee9a-4cc5-bfa5-ebfd69d0147d" class="">Output</h2><p id="ce240ee3-c00f-4703-ac04-aa11282ca84d" class="">The output is any message received in the input</p><h1 id="1238fcfd-bbec-4334-8883-0e8620055ec6" class="">Novelty qualifier</h1><h2 id="98be5633-c00e-4012-8894-0fea3f34620c" class="">Input</h2><pre id="efe6ba94-f3da-4d1f-87d5-c2799286228d" class="code"><code>{
+		templateID: st
+    componentID: str,
+		fields: {&#x27;infraID&#x27;: str},
+		@timestamp: str
+}</code></pre><p id="9c8d2d01-6421-4d8d-b6c8-fff98938f2ae" class="">
+</p><h2 id="5a3a7e47-2e96-4972-a0d7-2e812dbf01aa" class="">Output</h2><pre id="d2072ec5-66eb-44ce-99ff-8360a8d81289" class="code"><code>
+{
+  &quot;timestamp&quot;: int, # timestamp in milliseconds
+  &quot;isAnomaly&quot;: bool,
+  &quot;@timestamp&quot;: str # Datetime in utc &quot;2022-10-06T16:05:00.000000Z&quot;,
+  &quot;detector&quot;: &quot;novelty&quot;,
+  &quot;data&quot;: [
+    {
+      &quot;key&quot;: str, # presence
+      &quot;result&quot;: {
+      &quot;isAnomaly&quot;: bool,
+			&quot;datapoints&quot;: [
+          {
+            &quot;timestamp&quot;: int, # 1665152700000,
+            &quot;datetime&quot;: str, # &quot;2022-10-07T14:25:00.000Z&quot;
+						&quot;seen_x_seconds_ago&quot;: int, # -1 if never seen
+          }
+        ]
+      }
+    }
+  ],
+
+	&quot;metadata&quot;: {
+	    &quot;infrastructureId&quot;: str, # &quot;62c540a95dfbf40012868ee3&quot;,
+	    &quot;templateId&quot;: str, # &quot;ea2b2676&quot;,
+	    &quot;componentId&quot;: str, 
+	  },
+}</code></pre><h3 id="685e8050-c18c-4e0c-96c1-0d3f89d35c9d" class="">Output after qualification</h3><pre id="d9a956a7-7944-4b31-9037-50a00e525ec4" class="code"><code>{
+  &quot;@timestamp&quot;: str, # &quot;2023-02-03T13:25:25.370Z&quot;,
+  &quot;data&quot;: [
+      {
+          &quot;key&quot;: str, # &quot;presence&quot;,
+          &quot;result&quot;: {
+              &quot;datapoints&quot;: [
+                  {
+                      &quot;datetime&quot;: str, # &quot;2022-10-06T16:05:00.00Z&quot;,
+                      &quot;seen_x_seconds_ago&quot;: int, # -1,
+                      &quot;timestamp&quot;: int, # 1675430725000,
+                  }
+              ],
+              &quot;isAnomaly&quot;: bool, # True,
+          },
+      }
+  ],
+  &quot;detector&quot;: &quot;novelty&quot;,
+  &quot;isAnomaly&quot;: bool, # True,
+  &quot;metadata&quot;: {
+      &quot;componentId&quot;: str, # &quot;packetai-system-depl-vector-ingester&quot;,
+      &quot;infrastructureId&quot;: str, # &quot;62a9ed185b54ce0013c37d66&quot;,
+      &quot;isImportant&quot;: bool, # False,
+      &quot;templateId&quot;: str, # &quot;34hg1234-info&quot;,
+  },
+  &quot;timestamp&quot;: int, # 1675430725000,
+}</code></pre><h1 id="0f2ded47-3121-414a-99b3-62e26d67ccaf" class="">Grok Wizard</h1><p id="5c2d1369-1c1e-48dc-9d3a-10db2080a989" class="">
+</p><pre id="ec900beb-9af7-4852-9c27-56493aa56b06" class="code"><code>class ValidationGrok(BaseModel):
+    grok: str
+    log: str
+
+
+class ValidationResultGrok(BaseModel):
+    valid: bool
+    reason: str
+    preview: Optional[Dict[str, str]] = {}
+
+
+class ClusterGrokMetadata(BaseModel):
+    score: float
+    type: str
+
+
+class ClusterGrokObject(BaseModel):
+    grok: str
+    metadata: ClusterGrokMetadata
+
+
+class ClusterGrok(BaseModel):
+    label: str
+    representative: str
+    log_type: str
+    groks: List[ClusterGrokObject]
+
+
+class ClusteringGrokResult(BaseModel):
+    infrastructureId: str
+    filters: Optional[Dict[str, Union[str, List[str]]]] = {}
+    clusters: List[ClusterGrok]
+
+
+class TemplateCount(BaseModel):
+    template: str
+    count: int
+
+
+class TemplatesResult(BaseModel):
+    match: List[TemplateCount]
+    failed: List[str]
+
+
+class ESFilter(BaseModel):
+    key: str
+    values: List[str]
+
+
+class GrokCoverage(BaseModel):
+    start_datetime: datetime
+    end_datetime: datetime
+    infrastructureId: Union[str, None] = None
+    additionalFilters: List[ESFilter]
+    top_values: int = 100
+    aggregateBy: str = &quot;componentID&quot;
+
+
+class OverallMetrics(BaseModel):
+    percentage_logs_has_groks: float
+    percentage_logs_failed_groks: float
+    percentage_logs_parsed_groks: float
+    percentage_components_has_groks: float
+
+
+class DetailsMetrics(BaseModel):
+    key: str
+    results: Dict
+
+
+class GrokCoverageResult(BaseModel):
+    overall: OverallMetrics
+    details: DetailsMetrics
+
+
+class GrokSchema(BaseModel):
+    groks: Optional[List[str]] = []
+    default_groks: Optional[List[str]] = []
+    user_defined_groks: Optional[List[str]] = []
+
+
+class FilterGrokRequest(BaseModel):
+    infrastructureId: Union[str, List[str]] = []
+    filters: Optional[Dict[str, Union[str, List[str]]]] = {}
+
+
+class GroksSummary(BaseModel):
+    groks: GrokSchema
+    infrastructureId: Optional[str] = &quot;&quot;
+    filters: Dict[str, Union[str, List[str]]]
+
+
+class UpdateGrokSchema(BaseModel):
+    default_groks: Optional[List[str]] = []
+    user_defined_groks: Optional[List[str]] = []
+
+
+class UpdateGroksRequest(BaseModel):
+    groks: UpdateGrokSchema
+    infrastructureId: str
+    filters: Optional[Dict[str, Union[str, List[str]]]] = {}
+
+
+class UpdateGroksResponse(BaseModel):
+    result: bool
+    reason: Optional[str]
+
+
+class GroksDocument(BaseModel):
+    groks: GrokSchema
+    infrastructureId: str
+    filters: Optional[Dict[str, Union[str, List[str]]]] = {}
+    api_version: Optional[str] = &quot;&quot;
+
+
+class MongoGrokRequest(BaseModel):
+    groks: Optional[UpdateGrokSchema]
+    infrastructureId: Union[str, List[str]] = []
+    filters: Optional[Dict[str, Union[str, List[str]]]] = {}
+    queryType: str
+    api_version: Optional[str] = &quot;&quot;</code></pre><p id="8c9611d3-1dce-4082-9403-3d7669fe5354" class="">
+</p><p id="b3cc269a-8610-4abd-b3b6-114722de7e59" class=""><a href="ML%20required%20input%20and%20output%20format%206c4bcddab6824b32baa1bea3300c18e7.html">Table of contents</a></p></div></article></body></html>

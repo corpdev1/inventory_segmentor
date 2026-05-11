@@ -1,0 +1,46 @@
+﻿name,info,warning,critical,type
+kube_cpu_info_multi_limit_rule_3,info|if (kubernetes#pod#cpu_abs_change_pct <= 0.1),,,kube
+kube_cpu_info_multi_limit_rule_4,info|if (kubernetes#container#cpu_abs_change_pct <= 0.1),,,kube
+kube_cpu_warning_multi_limit_rule_1,,warning|if (kubernetes#pod#cpu_abs_change_pct > 0.1) and (kubernetes#pod#cpu_min_pct > 0.2),,kube
+kube_cpu_warning_multi_limit_rule_2,,warning|if (kubernetes#container#cpu_abs_change_pct > 0.1) and (kubernetes#container#cpu_min_pct > 0.2),,kube
+kube_major_page_faults_rule_1,info| -inf <= major_page_faults_abs_change_ <= 1000.0,warning| 1000.0 <= major_page_faults_abs_change_ <= 6000.0,critical| 6000.0 <= major_page_faults_abs_change_ <= +inf,kube
+kube_major_page_faults_rule_2,info| -inf <= majorpagefaults_abs_change_ <= 1000.0,warning| 1000.0 <= majorpagefaults_abs_change_ <= 6000.0,critical| 6000.0 <= majorpagefaults_abs_change_ <= +inf,kube
+kube_network_info_id_limit_rule_1,info|if (duration <= 61) and (network#tx#bytes > 0.5),,,kube
+kube_network_info_id_limit_rule_2,info|if (duration <= 61) and (network#rx#bytes > 0.5),,,kube
+kube_network_warning_id_limit_rule_1,,warning|if (network#rx_abs_change_bytes > 100000000000) and (network#rx#bytes > 0.5),,kube
+kube_network_warning_id_limit_rule_2,,warning|if (network#tx_abs_change_bytes > 100000000000) and (network#tx#bytes > 0.5),,kube
+kube_page_faults_rule_1,info| -inf <= #page_faults_abs_change_ <= 500000.0,warning| 500000.0 <= #page_faults_abs_change_ <= 140000000.0,critical| 140000000.0 <= #page_faults_abs_change_ <= +inf,kube
+kube_page_faults_rule_2,info| -inf <= #pagefaults_abs_change_ <= 500000.0,warning| 500000.0 <= #pagefaults_abs_change_ <= 140000000.0,critical| 140000000.0 <= #pagefaults_abs_change_ <= +inf,kube
+kube_replicas_unavailable_critical_id_limit_rule_1,,,critical|if (replicas#unavailable > 0.5) and (duration > 300),kube
+kube_replicas_unavailable_warning_id_rule_1,,warning|if (replicas#unavailable > 0.5),,kube
+lf_critical_id_limit_rule_4,,,critical|if (log frequency > 0.5) and (replicas#unavailable_abs_change_ > 0) and (duration > 300),log frequency
+lf_info_id_limit_rule_1,info|if (log frequency > 0.5) and (duration <= 300),,,log frequency
+lf_warning_id_limit_rule_2,,warning|if (log frequency > 0.5) and (duration > 300),,log frequency
+lf_warning_id_rule_1,,warning|if (log frequency > 0.5) and (replicas#unavailable_abs_change_ > 0),,log frequency
+regular_metric_critical_multi_limit_rule_10,,,critical|if (duration > 120) and (count_anomaly_regions > 2) and (memory_min_pct > 0.2),regular metric
+regular_metric_critical_multi_limit_rule_11,,,critical|if (duration > 120) and (count_anomaly_regions > 2) and (cpu_min_norm#pct > 0.2) and (cpu_abs_change_norm#pct > 0.2),regular metric
+regular_metric_critical_multi_limit_rule_12,,,critical|if (count_anomalies > 50) and (count_affectedITComponentIds > 5.5) and (duration > 290),regular metric
+regular_metric_critical_multi_limit_rule_13,,,critical|if (memory_abs_change_pct > 0.3) and (duration > 500),regular metric
+regular_metric_info_id_limit_rule_1,info|if (system#cpu#system#norm#pct > 0.5) and (duration <= 61.0),,,regular metric
+regular_metric_info_id_limit_rule_10,info|if (docker#memory#usage#total > 0.5) and (duration <= 300.0) and (cpu_abs_change_norm#pct <= 0.05),,,regular metric
+regular_metric_info_id_limit_rule_11,info|if (system#diskio#iostat#busy > 0.5) and (duration <= 61.0),,,regular metric
+regular_metric_info_id_limit_rule_12,info|if (system#memory#actual#used#pct > 0.5) and (duration <= 61.0),,,regular metric
+regular_metric_info_id_limit_rule_13,info|if (docker#diskio#read#wait_time > 0.5) and (diskio_abs_change_time <= 1000000000),,,regular metric
+regular_metric_info_id_limit_rule_14,info|if (docker#diskio#read#service_time > 0.5) and (diskio_abs_change_time <= 1000000000),,,regular metric
+regular_metric_info_id_limit_rule_2,info|if (system#cpu#system#norm#pct > 0.5) and (duration <= 240.0) and (cpu_max_norm#pct <= 0.1),,,regular metric
+regular_metric_info_id_limit_rule_3,info|if (docker#memory#rss#total > 0.5) and (duration <= 61.0),,,regular metric
+regular_metric_info_id_limit_rule_4,info|if (docker#memory#usage#pct > 0.5) and (duration <= 61.0),,,regular metric
+regular_metric_info_id_limit_rule_5,info|if (docker#memory#usage#pct > 0.5) and (duration <= 460.0) and (cpu_abs_change_norm#pct <= 0.14),,,regular metric
+regular_metric_info_id_limit_rule_6,info|if (docker#memory#usage#pct > 0.5) and (duration <= 460.0) and (cpu_max_norm#pct <= 0.15),,,regular metric
+regular_metric_info_id_limit_rule_7,info|if (docker#memory#usage#pct > 0.5) and (duration <= 460.0) and (diskio_abs_change_time <= 1000000000),,,regular metric
+regular_metric_info_id_limit_rule_8,info|if (docker#memory#usage#pct > 0.5) and (duration <= 460.0) and (memory_abs_change_pct <= 0.05),,,regular metric
+regular_metric_info_id_limit_rule_9,info|if (docker#memory#usage#total > 0.5) and (duration <= 61.0),,,regular metric
+regular_metric_info_multi_limit_rule_1,info|if (memory_abs_change_pct <= 0.1),,,regular metric
+regular_metric_warning_multi_limit_rule_2,,warning|if (duration > 80) and (count_anomaly_regions > 1) and (cpu_min_norm#pct > 0.15),,regular metric
+regular_metric_warning_multi_limit_rule_3,,warning|if (duration > 40) and (duration <= 80) and (count_anomaly_regions > 1),,regular metric
+regular_metric_warning_multi_limit_rule_4,,warning|if (duration > 80) and (count_anomaly_regions > 1) and (memory_abs_change_pct > 0.4),,regular metric
+regular_metric_warning_multi_limit_rule_5,,warning|if (duration > 80) and (count_anomaly_regions > 1) and (memory_min_pct > 0.4),,regular metric
+regular_metric_warning_multi_limit_rule_6,,warning|if (duration > 300) and (count_anomalies > 10),,regular metric
+regular_metric_warning_multi_limit_rule_7,,warning|if (memory_abs_change_pct <= 0.1) and (cpu_max_norm#pct > 0.2),,regular metric
+regular_metric_warning_multi_limit_rule_8,,warning|if (memory_abs_change_pct > 0.1) and (memory_abs_change_pct <= 0.3),,regular metric
+regular_metric_warning_multi_limit_rule_9,,warning|if (count_anomalies > 30) and (count_anomalies <= 50) and (count_affectedITComponentIds > 5.5),,regular metric

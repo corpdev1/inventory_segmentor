@@ -1,0 +1,723 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Activator</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9e580d15-3e98-4fbc-ae26-14d49a14d185" class="page sans"><header><h1 class="page-title">Activator</h1><p class="page-description"></p></header><div class="page-body"><h2 id="529a7e4e-6a81-4aba-b7ca-4bd25a9df582" class="">Disconnection cases</h2><p id="a4036994-35ad-434a-a07f-4dbef7637471" class="">The goal of these tests is to check if the microservice can handle network disconnections correctly.</p><h3 id="81fc5aaf-c383-4259-b5fb-0997c2aeaa06" class=""><mark class="highlight-teal">Case 1</mark>: <strong>Run activator without internet</strong></h3><p id="7e329017-8c18-4f8b-a8aa-5690d4659d67" class="">Steps:</p><ul id="ab8e226f-6630-4902-8bba-8bb03f3411d9" class="bulleted-list"><li style="list-style-type:disc">Run the activator without internet</li></ul><p id="5946abad-f46e-43df-b6b4-9c253cfd1b84" class=""><strong>Results</strong>:
+Exited because it could not get the list of brokers.</p><p id="2cb68fdc-30c4-43dc-a0d4-41dc1258e8d2" class="">
+</p><pre id="bcb1139e-08c2-4864-878d-84b613a8c71d" class="code"><code>INFO[0000] Verbose mode activated                       
+ERRO[0005] could not get brokers                         error=&quot;Get \&quot;https://api-dev.packetai.co/brokers\&quot;: context deadline exceeded (Client.Timeout exceeded while awaiting headers)&quot;
+ERROR: 1</code></pre><h3 id="ff9953f0-2cc2-4cfa-81d0-e09b18ce2788" class=""><mark class="highlight-teal">Case 2</mark>: Run activator with Kafka down</h3><p id="856d39b9-4846-4cee-9a68-01c9bb078dfe" class="">Steps:</p><ul id="a3be3e0b-769d-4893-8035-035c02424bad" class="bulleted-list"><li style="list-style-type:disc">Run the activator without brokers active</li></ul><p id="5edf5938-11b1-484e-96f8-840000e883e8" class=""><strong>Results</strong>:
+Exited because it could not get the list of brokers.</p><pre id="475c35cb-c217-4a33-b83f-d1cb56c28de4" class="code"><code>INFO[0000] Verbose mode activated                       
+INFO[0000] got default brokers [broker3.packetai.co:19092 broker3.packetai.co:29092 broker3.packetai.co:39092] 
+ERRO[0001] could not create Kafka consumer for topic log-activator  error=&quot;could not get partitions: kafka server: Request was for a topic or partition that does not exist on this broker.&quot;
+ERRO[0001] could not create listener                     error=&quot;could not get partitions: kafka server: Request was for a topic or partition that does not exist on this broker.&quot;
+ERROR: 1</code></pre><h3 id="ed2cf65c-f5fa-40e9-8db3-847b99b7d4e4" class=""><mark class="highlight-red">Case 3</mark>: Stop the activator while recovering previously activated topics</h3><p id="6fb8b5d0-986f-471e-b943-f75933eea942" class="">Steps:</p><ul id="18e0a024-fc25-411c-9270-fed383905052" class="bulleted-list"><li style="list-style-type:disc">Run the activator</li></ul><ul id="1243d50b-9e7a-47c7-b880-5cce05c8e56d" class="bulleted-list"><li style="list-style-type:disc">Disconnect internet during the process of recovering</li></ul><p id="cd8bea94-81f3-47c7-b148-72940589e437" class=""><strong>Results:
+</strong><mark class="highlight-red">Process does not stopped (as it should), started its main job, but had a segmentation after trying to create the Sarama client.</mark></p><p id="2e372857-cf59-4067-9846-9f7ed404410e" class="">
+</p><pre id="05860c7c-6cc6-45a1-8968-204f061830c3" class="code"><code>ERRO[0153] could not initialize kafka client             error=&quot;kafka: client has run out of available brokers to talk to (Is your cluster reachable?)&quot;
+INFO[0153] main Kafka listener started                  
+panic: runtime error: invalid memory address or nil pointer dereference
+        panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x7b9c82]
+
+goroutine 40 [running]:
+gitlab.packetai.co/all/code/microservices/pkg/kafka/sarama.(*Client).Close(...)
+        /builder/pkg/kafka/sarama/client.go:53
+main.listener.listenKafka.func1(0x0)
+        /builder/cmd/activator/main.go:332 +0x22
+panic(0x80d0c0, 0xb31900)
+        /usr/local/go/src/runtime/panic.go:965 +0x1b9
+gitlab.packetai.co/all/code/microservices/pkg/kafka/sarama.(*Client).RefreshMetadata(...)
+        /builder/pkg/kafka/sarama/client.go:45
+main.listener.listenKafka(0xc00032e0c0, 0x3, 0x4, 0xc000404280, 0xc0002c0300, 0x914e90, 0xc0004ac130, 0x914e90, 0xc0004ac190, 0xc00018a180, ...)
+        /builder/cmd/activator/main.go:345 +0x252
+created by main.listener.listen
+        /builder/cmd/activator/main.go:245 +0xf2
+ERROR: 2</code></pre><p id="c038e25f-71a2-4fb9-9b44-a6caa15cfb0b" class=""><strong>Issues :</strong></p><ul id="bae0e778-efb1-4fcf-801b-cb434829026c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Activator should exit if it cannot start properly. In this case, it could not recover the list of activated topics, so it should exit if something wrong happens. </mark><ul id="8ac03739-0e44-4044-a943-a0f054301281" class="bulleted-list"><li style="list-style-type:circle">Consumer does not throw an error on disconnection issues while reading a message</li></ul><ul id="e1ca38f9-1d42-43cb-874a-570fd4bfef3b" class="bulleted-list"><li style="list-style-type:circle">Activator only closes the recovering loop if there is an internet issue. It should close the client</li></ul><p id="a197b6e8-906d-46c2-b7db-dbc1108deef3" class="">
+</p></li></ul><ul id="977c1471-a174-4050-8c0a-df8a6da4d666" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Activator should exit if it cannot start properly. In this case, it cannot create the main Sarama client, and does not exit.</mark> <ul id="4115e9b8-cd85-42c4-9f84-5af8090093e0" class="bulleted-list"><li style="list-style-type:circle">Prints the error but does not returns the function. </li></ul></li></ul><p id="e410b926-0684-4699-9aae-67fc08d5c3f1" class="">
+</p><h3 id="f5cd845a-70e3-4624-8c43-685f9eced075" class=""><mark class="highlight-teal">Case 4</mark>: Disconnect internet during the main loop</h3><p id="a9401b02-acc2-40d4-8ce5-c2f7180f9190" class="">Steps:</p><ul id="a02c95a2-9f07-4706-bb25-25468df7ebf4" class="bulleted-list"><li style="list-style-type:disc">Run the activator</li></ul><ul id="21facec2-cb24-4a69-aab6-655e89c2f9a3" class="bulleted-list"><li style="list-style-type:disc">Wait for activator to recover list of activated topics</li></ul><ul id="c0a02eed-952f-460e-afca-90675a494436" class="bulleted-list"><li style="list-style-type:disc">Disconnect internet while checking the activity of topics</li></ul><ul id="135e42eb-9c5d-4f83-9b5f-bc83732cee72" class="bulleted-list"><li style="list-style-type:disc">Create a topic that matches the metric regex with data</li></ul><ul id="fefe6c12-3e34-457b-8b50-2f2191136169" class="bulleted-list"><li style="list-style-type:disc">Create a topic that matches the log regex</li></ul><ul id="0187d5e3-f1c1-44aa-a44a-416b93631787" class="bulleted-list"><li style="list-style-type:disc">Re-enable internet</li></ul><ul id="b0d855d3-299d-4d0c-bbb8-282ccd23772e" class="bulleted-list"><li style="list-style-type:disc">Check if<ul id="f1f2ac2e-b184-48e8-b28d-2b42b5261310" class="bulleted-list"><li style="list-style-type:circle">Topic is detected</li></ul><ul id="4e9ec272-ba78-439a-ae87-3184c768f897" class="bulleted-list"><li style="list-style-type:circle">Log topic is sent correctly to the log-activator topic</li></ul><ul id="38cad24f-eef6-43ff-95e4-5b0601cdc0c6" class="bulleted-list"><li style="list-style-type:circle">Metric topic is computed and sent correctly to the metric-activator topic</li></ul></li></ul><p id="251b79e1-4a46-4d18-97f3-5ca98867b7ce" class="">
+</p><p id="0760a7ed-b73f-4473-ad9a-90cbca385fd2" class=""><strong>Test logs</strong>:</p><ul id="9c3a2015-fdc7-4c7a-a7da-301e2c42beb9" class="bulleted-list"><li style="list-style-type:disc">After disconnecting the container&#x27;s network, checking metadata before getting the list of topics is blocking for ~230 seconds, and returns an error, and abort the task to check for new topics. Tries again just after because of the ticker chan.</li></ul><ul id="1c8c553a-0deb-4538-be9a-bc19b4856f4b" class="bulleted-list"><li style="list-style-type:disc">Checking inactive topics create goroutines for each topics to check (limited in the number available), but they are completely stuck, checking for partitions. I waited at least 10 minutes.</li></ul><ul id="cf867fab-4c5f-4068-97ba-3086aa0c6a26" class="bulleted-list"><li style="list-style-type:disc">Created topic &quot;aaaa-aaaactivator-log-aaa-stashed&quot; with no message inside on AKHQ</li></ul><ul id="1d72ae21-259b-4b4e-b501-46015ce41354" class="bulleted-list"><li style="list-style-type:disc">Created topic &quot;aaaa-aaaactivator22-metric-aaa-stashed&quot; with c/c data</li></ul><ul id="65198a00-da4b-493c-99f9-9d85dbc016f4" class="bulleted-list"><li style="list-style-type:disc">Activated network again</li></ul><ul id="317293a1-784b-4714-b344-a01a19562ea5" class="bulleted-list"><li style="list-style-type:disc">Unstuck immediatly threads, and continues the job to check if topics are active and terminates the loop correctly (?)</li></ul><ul id="21f6d7a9-4de1-4f22-bca9-cd7581174bb2" class="bulleted-list"><li style="list-style-type:disc">Detected log topic, sent correctly to &quot;log-activator&quot;</li></ul><ul id="a3426912-99ee-44b5-87bd-88a71f9757c7" class="bulleted-list"><li style="list-style-type:disc">Detected metric topic, sent correctly to &quot;metric-activator&quot;</li></ul><p id="e908e71f-f800-494d-a774-8cfef58c3e1c" class="">
+</p><pre id="d4d83c70-8fd1-4dd1-9f10-f3c75f70d09a" class="code"><code>INFO[3432] checked 166 topics in 108.63732807 seconds   
+DEBU[3432] registered 166 inactive topics               
+INFO[3432] sending topic to log pipe                     topic=aaaa-aaaactivator-log-aaa-stashed
+INFO[3432] started to check topic activity              
+DEBU[3432] reading topic aaaa-aaaactivator22-metric-aaa-stashed from Kafka 
+INFO[3432] checked 1 topics in 0.302349404 seconds      
+DEBU[3432] registered 0 inactive topics                 
+INFO[3432] new topic detected, sending to metric analyser  topic=aaaa-aaaactivator22-metric-aaa-stashed
+DEBU[3432] no new topics to test</code></pre><p id="f6473fa2-9279-4a7b-9038-e1d61270edcc" class="">
+</p><p id="e136941c-1ef8-46fb-9269-24725e97a455" class=""><strong>Results</strong>:</p><ul id="0840182b-c1bb-41e0-b57b-523b9e4b4434" class="bulleted-list"><li style="list-style-type:disc">After disconnecting the container&#x27;s network, checking metadata before getting the list of topics is blocking for ~230 seconds, and returns an error, and abort the task to check for new topics. Tries again just after because of the ticker chan.</li></ul><ul id="245b2c64-2f87-4977-ad19-3c9bd4d39f9f" class="bulleted-list"><li style="list-style-type:disc">Checking inactive topics create goroutines for each topics to check (limited in the number available), but they are completely stuck, checking for partitions. I waited at least 10 minutes.</li></ul><p id="167b1970-eacb-40ab-9d78-6279e9c11edd" class="">
+</p><p id="d64e2760-a972-45ae-b95e-61ddbb48b336" class="">
+</p><h2 id="27a1cc56-f3cb-45ff-971e-51b0f97da70d" class="">Code review :</h2><ul id="f9b46f00-6708-4878-9e49-5a185652c72a" class="bulleted-list"><li style="list-style-type:disc">The initialisation can get stuck if another instance of the activator runs on an active broker. Recovering activated topics waits for a new message on the activator output, and for each message recovered, the recovering timeout timer is reset to 20 seconds again.</li></ul><ul id="3a3e2da0-b9c8-482c-9603-186932ecec2c" class="bulleted-list"><li style="list-style-type:disc">Signals are not handled, closing the activator can have goroutines leaks.</li></ul><ul id="899214eb-c3d6-44e1-ac95-2813d8a37b65" class="bulleted-list"><li style="list-style-type:disc">Kafka Producers for &quot;metric-activator&quot; and &quot;log-activator&quot; are not closed when closing activator</li></ul><ul id="959cecbe-1935-4505-9c5f-5c36d1e15173" class="bulleted-list"><li style="list-style-type:disc">There is no fallback when sending a message to an &quot;-activator&quot; topic fails. If a topic is detected and considered as active, but could not been sent to Kafka, the topic will never be activated unless the activator is restarted. We are currently only printing the error if the issue occurs.<ul id="eeb4e245-7d23-4a66-be3a-175f5d0f7329" class="bulleted-list"><li style="list-style-type:circle">We should add the topic in the inactivity list again if any error occurs while sending to the &quot;-activator&quot; topic</li></ul></li></ul><ul id="8848eb4e-26f8-46c3-a576-b1a5ea5fdd3c" class="bulleted-list"><li style="list-style-type:disc">Main loop will not exit properly if the context is canceled, because it uses &quot;break&quot; instead of &quot;return&quot; when the signal is handled. (not an issue now since we are not closing properly the activator)</li></ul><p id="ddba0f93-87df-44c5-8fe4-59dd1365dbb9" class="">
+</p><h2 id="4ecee877-a695-4d0c-83c8-03bf3531ac51" class="">Related tasks :</h2><ul id="c54e771f-89c3-4cdb-9453-a1fa4e5a52c4" class="bulleted-list"><li style="list-style-type:disc">Marking a topic as inactive again if the producer fails to send the activation message to Kafka<ul id="4a2e7644-5769-44d2-af46-c3e420d6a63a" class="bulleted-list"><li style="list-style-type:circle">Actually, if an error happens while producing a message, the topic is considerate as sent and will remain ignored.</li></ul></li></ul><ul id="f10223f3-cb4a-41c8-97f5-bcdc25de8cf6" class="bulleted-list"><li style="list-style-type:disc">Exit the program if the Kafka client cannot be created (currently segmentation fault) → DONE</li></ul><ul id="a92099c8-e5cd-407a-b5b9-50ff58399d77" class="bulleted-list"><li style="list-style-type:disc">Handle closure of activator (not a priority since we are containerising)<ul id="1d620941-bc28-424f-8b20-208b45c1dcbf" class="bulleted-list"><li style="list-style-type:circle">Handle termination signal</li></ul><ul id="629ee814-43ed-4575-99b6-bd65f12a83e1" class="bulleted-list"><li style="list-style-type:circle">Close Kafka producers</li></ul><ul id="0052a68a-19ef-46b7-a2ad-c0d720a36692" class="bulleted-list"><li style="list-style-type:circle">Stop goroutines on closure</li></ul><p id="38d32a0f-c9cf-481c-bd67-69f94f60246f" class="">
+</p></li></ul></div></article></body></html>

@@ -1,0 +1,795 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>ML kube pipeline architecture</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="52b33892-b01b-46c5-8bd0-13ef022340d9" class="page sans"><header><h1 class="page-title">ML kube pipeline architecture</h1><p class="page-description"></p></header><div class="page-body"><h1 id="4330b67f-c1ea-42e0-8f1d-8f35e7f48c49" class=""><strong>Three component:</strong></h1><p id="af9ff76b-bee3-4e5c-9ec8-df738f0fc288" class="">for mad pipeline:</p><p id="9339baac-e83d-4f75-a4b8-38475201729b" class="">1. mad(also contains online model:skyline, walter) <a href="https://gitlab.packetai.co/all/code/-/blob/dev/mad_Dockerfile">https://gitlab.packetai.co/all/code/-/blob/dev/mad_Dockerfile</a></p><p id="fe9aa807-9816-4dae-b7cd-c2c0a9496870" class="">2. mad gus model server <a href="https://gitlab.packetai.co/ex-machina/kube-pytorchtrain/-/blob/master/serving.Dockerfile">https://gitlab.packetai.co/ex-machina/kube-pytorchtrain/-/blob/master/serving.Dockerfile</a> (first version don&#x27;t have)</p><p id="d1536e7e-9705-445d-ad70-7133e6fbcbf3" class="">3. mad gus training pipeline <a href="https://gitlab.packetai.co/ex-machina/kube-pytorchtrain/-/blob/master/train.Dockerfile">https://gitlab.packetai.co/ex-machina/kube-pytorchtrain/-/blob/master/train.Dockerfile</a>  (first version don&#x27;t have)</p><p id="7d10d69d-981c-4773-87a8-72f77324e064" class="">
+</p><p id="1a701a17-9a4c-42ce-b235-0d302cdefd97" class="">for lad pipeline:</p><p id="08e82488-19dd-4ec7-a9ec-84765eee7923" class="">1.  lad(also contains online model: skyline) <a href="https://gitlab.packetai.co/all/code/-/blob/dev/lad_server_Dockerfile">https://gitlab.packetai.co/all/code/-/blob/dev/lad_server_Dockerfile</a></p><p id="6904e5fe-e5bf-47a9-a108-c8e0102bbfcc" class="">2. lad model(deeplog, logcluster) server <a href="https://gitlab.packetai.co/ex-machina/kube-lad_server/-/blob/master/Dockerfile">https://gitlab.packetai.co/ex-machina/kube-lad_server/-/blob/master/Dockerfile</a> (first version only have logcluster)</p><p id="2059bcc9-396a-418c-9c2a-d4d687250e39" class="">3. lad training pipeline(deeplog, logcluster) <a href="https://gitlab.packetai.co/ex-machina/kube-lad_trainer/-/blob/master/Dockerfile">https://gitlab.packetai.co/ex-machina/kube-lad_trainer/-/blob/master/Dockerfile</a> (first version only have logcluster)</p><p id="fc93cc0b-f3ea-4f9c-81d5-f6df6af60ac7" class="">
+</p><h1 id="8a83eb16-62f4-48d2-9eef-184b54152f51" class=""><strong>Scheduling</strong></h1><p id="b05476d5-038a-4011-a6c5-e50167720b6d" class="">meta data in database:</p><p id="54248311-b367-462d-bb26-7d728bc7f00b" class="">one example:</p><p id="0bb4ea76-1b26-4b52-af95-c42d692da2ff" class="">[<div class="indented"><p id="4ed91661-fedc-4b9d-b4e8-40670cd239c0" class="">{</p><p id="4e7ec605-28a2-4d12-8d71-197af1309be0" class="">&#x27;modelServer_name or INFERENCE_SERVICE&#x27;: &#x27;pytorchmodel&#x27;,</p><p id="d5f41d89-43c2-4441-8e8a-c0b2ba4d8996" class="">&#x27;loaded&#x27;: true or false,</p><p id="79f01f52-1b9b-4cdd-b1cb-420c19073822" class="">&#x27;svc&#x27;: &#x27;pytorchmodel-predictor-default-ftx67-private&#x27;,</p><p id="d62f4878-a7c6-4999-9314-67e9d971833b" class="">topics&#x27;: [&#x27;topic1&#x27;, &#x27;topic2&#x27;, ...],</p><p id="1bbaacaa-9924-4006-8e69-1277461af849" class="">ns: namespace</p><p id="29ebb04c-ab3d-4430-838a-6135f1dfeb9c" class="">},</p><p id="31116d74-1255-4502-a838-a46bbab328d2" class="">{..},</p><p id="35ce569a-daf9-47d5-b578-fb47b33c8e68" class="">...</p></div></p><p id="c8c51fe2-ea59-4f92-9e7d-b8b4d1952d5d" class="">]</p><h3 id="7c0d2df3-5194-4355-85e7-f63d332a4fe9" class="">1.<strong>model serving prediction api call from mad/lad</strong></h3><p id="cc0270fb-def5-47fa-9d9e-2f19f3745296" class="">mad/lad check metatdata in db, and use its incoming topic to get INFERENCE_SERVICE and svc from metadata to construct endpoint to get prediction from model server inference service.</p><h3 id="e680d117-bf9e-4270-bc9f-39659f91f28f" class="">2. initial model servers creation</h3><p id="d8b1e23b-857a-47df-a273-3f6c7a623ac8" class="">once topic models are ready on S3, we can send one message contains a list of topic to kafka, argo pipeline will trigger a model server, and each model server will load its corresponding list of topic models from S3 and serve them as inference service, and update modelserver endpoint svc for db metadata</p><p id="10deeaff-1f76-42df-a63b-acd0d3cda969" class="">
+</p><h3 id="e17301ac-702e-42d5-9a5c-2bc1d5f7240c" class="">3. new model rolling update</h3><p id="75757899-a6b7-4ecc-b349-9550a853c168" class="">once same topic models are renewed by training pipeline and updated on S3, </p><p id="40fdd85d-d904-4b80-8444-2fbd9ce9cdaf" class="">two solutions:</p><ol type="1" id="c580d905-1688-48c2-84e9-818ceb5c3862" class="numbered-list" start="1"><li>solution1</li></ol><p id="fedf2ee7-f3ce-4979-9788-c8559eb7ffba" class="">we can send s message contains a list of topic to kafka and indicate a key as &#x27;roll&#x27;, argo pipeline will trigger a new model server, and each model server will load its corresponding list of topic models from S3 and serve them as inference service, and update modelserver endpoint svc for db metadata, then we should wait 3 mins to manually delete the old modelserver for these topics.</p><p id="1d16e6a3-981d-4365-ad98-cfd6197cfbca" class="">The http service is always available for lad during this rolling update.</p><p id="a4cad5d0-22b6-4c7e-9c25-c6a4f35fd7bf" class="">2.  solution2</p><p id="8bdfa8da-e5e0-4921-b920-d11cc4097289" class="">since each modelserver is deployment, we can use kube deployment&#x27;s rolling update, like</p><p id="21b4d654-2111-4606-a018-852cb5c2d78d" class="">kubectl scale deployment $name —replicas=0 -n argo-events</p><p id="da1f694c-f69d-4ed6-951e-8936ef9f2d83" class="">kubectl scale deployment $name —replicas=1 -n argo-events</p><p id="290fff80-a45d-443f-ac2b-0f419587e1a4" class="">or </p><p id="cffb9da6-873b-47ef-afac-a11d90a5b131" class="">kubectl edit deployment $name -n argo-events, then add or modify some useless environment varibale to trigger rolling update</p><p id="c31a8234-c079-41a0-a96c-4b9d14f25abf" class="">but this rolling update way will have some service not availbale issue, espcially when the topics are many, and during rolling update, before topics are download and load to memory, it takes 1s*number_topics time before the service is available</p><p id="e55d9654-535a-43dd-8ed6-a576493def2c" class="">
+</p><p id="85756671-fa1d-4302-abca-6e148e7ac933" class="">
+</p><h3 id="538d41cb-249c-43af-ac4c-c8617c66baeb" class="">4. training pipeline scheduling(need to be discussed with ML members)</h3><p id="70189640-0e9a-41a4-a52b-db7403b4c5ee" class="">training scheduling script should launch job for each topic to get training data and training and push model to S3 under its topic folder, then job should be finished and deleted</p><p id="9b8b3938-2ea1-4353-a5e7-b7fe111f7d5e" class="">
+</p><p id="b5ea1483-86b2-4244-ae15-79f89ed13d82" class="">for a bunch of new topics, once training data is accumulated enough, after training models pushed to S3, should also push related info(unique model server name, list of topics, loaded as False) to db metadata</p><p id="b48eebe1-e614-43fc-b361-33cb63973afc" class="">
+</p><h3 id="77d04ba9-98da-4c0b-a7a1-4124313a4ced" class="">5. MAD, LAD </h3><p id="c9d80968-bdcb-432b-97c3-bd74edefd993" class="">solution A. </p><p id="3e1455d4-d21d-4cef-b593-b90b0da0b651" class="">argo create one statefulset(pod) for one topic</p><p id="b046512c-dd3c-4684-b2b7-34b1bc88e138" class="">disavantage: too many pods, and one node can maximum take 57 pods, even the resource is much available</p><p id="082a6ce3-a4d7-41ca-b87c-f7f9f511179a" class="">
+</p><p id="d53b0dfe-2f9d-4216-b262-76ce0933abc0" class="">solution B. (current used in prod by valentine)</p><p id="c4ba0e15-cb7c-46f3-b3db-b87b171f1e04" class="">client, server mode, client detect each topic and send it to existing statefulset server,</p><p id="65261d47-3cee-4ef1-871d-661763678c8c" class="">another component called &#x27;monitor&#x27; will monitor the topic load for each server, and decide to create new server</p><p id="79c06c9e-7eaf-4016-b6a9-b467120a5d5d" class="">avantage: one server can hold much more number of topic</p><p id="6726ef6a-455b-4a39-a4b7-58357f5657fd" class="">
+</p><p id="e0911f93-6e3d-43ae-92f0-814954b86f61" class="">
+</p><h1 id="c58ccebf-745c-43b6-8429-1f5f4de2ddd9" class="">First version Product</h1><p id="42feeba4-b9da-40e7-b8c8-0a1ca31c38c5" class="">based on above architecture, features for First version ML product on kube</p><ol type="1" id="4e978f31-0f75-46e6-a871-d330030f4280" class="numbered-list" start="1"><li>lad only support logcluster, and different topic model will be preloaded and served as model serving</li></ol><ol type="1" id="0836f219-ea34-42e8-8493-4fa5fc7eced2" class="numbered-list" start="2"><li>lad, mad both have `argo one container for one topic` and `client, server mode`, after pressure test, we use `client, server mode` for lad, and now still use `argo one container for one topic` for mad, maybe later can change if it has some other problem</li></ol><ol type="1" id="0d3e6742-d264-4ffa-8375-7f370e524cff" class="numbered-list" start="3"><li>MAD will not support GUS</li></ol><p id="8c5cf1b8-a753-4131-8de1-9334ecae40d9" class="">
+</p><p id="d55d9308-923b-444b-a153-3abb574dfce4" class="">
+</p><p id="6918a334-9749-46ad-a4da-3aa0ce298085" class="">
+</p><h1 id="c37df799-e1c7-4dd0-8484-2259a5616d21" class="">Diagram</h1><p id="693c8b6d-2948-4281-87f4-b3b76e918a44" class="">
+</p><p id="e8de3505-8eb9-4c25-b905-3f3fc67bafa5" class=""><a href="https://docs.google.com/drawings/d/1VIh8m2UILfd5ac-rhwFhIeg_V2rYgI6A10Ggf6e0JFA/edit">https://docs.google.com/drawings/d/1VIh8m2UILfd5ac-rhwFhIeg_V2rYgI6A10Ggf6e0JFA/edit</a></p><p id="5e9cf01b-a50c-4e8a-91a8-79f3afc7121d" class="">
+</p><p id="2ad62935-6fe9-43e0-baef-8c09e5ff9f1c" class="">
+</p><p id="3de66804-0e2b-4174-bc30-19e5486bb183" class="">
+</p><p id="c80715a1-9e46-40e5-83a6-ad46040bbc48" class="">
+</p><p id="cecab788-9e81-488e-88c4-fc096a0fb1be" class="">
+</p><p id="5662d2ce-9c41-437e-9c7e-c1bcd17031ce" class="">
+</p><p id="aa4858dd-91d9-4910-a5bd-a185fe208611" class="">
+</p><p id="417ee775-777a-4645-8058-d113eea89c5e" class="">
+</p><p id="e02f37e6-abd0-474e-a099-d5308cf4f282" class="">
+</p><p id="3885ffa4-aef5-45c2-ab66-0f466e6abac3" class="">
+</p><p id="0ca81911-58c2-4b56-b756-6c0f5fd2b745" class="">
+</p><p id="118f74d5-3e61-4129-b833-791e90f13f87" class="">
+</p><p id="f189814b-0d51-4883-8689-b1ad281a2579" class="">
+</p><p id="acf56487-404d-458d-ade2-e4bbb18cf912" class="">
+</p><p id="5b0e3297-ad54-4f0d-97a1-5eb0405a052d" class="">
+</p><p id="7c657071-f3d1-4afd-ad12-8c0295b17c7c" class="">
+</p><p id="db1024af-7136-4440-8b93-616798e4a6aa" class="">
+</p><h2 id="66501ea7-8ca7-492f-bab4-97c5d9dfe1d2" class="">TEST Pipeline for LAD</h2><p id="f28ebfa5-a6ea-4866-bbc3-1a22bfcda778" class="">Prerequiste:</p><p id="1f183a02-7a9a-4420-9eae-0b683cc3a7a0" class="">have connection to EKS</p><p id="00fb7975-e565-4de6-989d-566b644800d6" class="">launch following command in your local</p><p id="5bbc8e5f-a5eb-4f1f-a723-9c5d3b9744dc" class=""><code>kubectl port-forward kafka-0 9094 -n kafka</code></p><p id="17b4c4b0-8d88-4fad-b11a-94bac5e14569" class="">
+</p><h3 id="8f08b5ff-7103-4eaa-863d-512df29d89a4" class="">Case Argo solution: one statefulset of lad for each new topic</h3><p id="481d31ac-f57e-4453-baeb-8be51dea4cf6" class="">1. make sure mad sensor and mad event source running<div class="indented"><p id="ea978314-aef4-4b3c-854d-67dd22c1de8d" class=""><code>kubectl get pods -n argo-events</code></p></div></p><p id="021d8d0d-4df3-4153-9509-04407bc5f600" class="">2. Generate data to kafka stashed topic and topic metric-activator</p><p id="8700a5a8-4daa-48c4-aa60-3f1707d2a1cd" class="">by example:</p><p id="39a9220c-fbe2-4d68-8ae5-2b5846daa773" class="">python MAD_kafka_source_generator.py --create-topic 5f6c6dd211aaba5154bc75f511-5f6cb7e4c77c0e476a94becd11-metric-5f6cb7e4c77c0e476a94becd12-stashed --put-to-activator True</p><p id="788d04e8-a7de-43f4-91ec-1029a79e8ce5" class="">3. check the statefulsets and pods generated in argo-events namespace</p><p id="7c01e0c2-7bc2-4d05-941f-1977a7b898fb" class="">4. useful tool like:</p><p id="ffdf6540-ed2e-4201-bc35-e6ccdb8de152" class=""><code>kubectl logs $podname -n argo-events </code></p><p id="12467e6e-a789-4825-b5ca-c3f479fe1b24" class="">to check log and also go into container using</p><p id="669ad20b-e052-4515-a62f-32468bfbfd68" class=""><code>kubectl exec -it $podname -n argo-events —- /bin/bash</code></p><p id="cd2e525f-00b9-4ece-aec9-86d67652851c" class="">to check results folder and log</p><p id="4a18ca4c-c57d-432e-b6af-cfe864c08203" class="">
+</p><p id="c525aec0-9d16-4b3d-8f98-845987824a99" class="">check resource consumption for each statefulset using <code>kubectl top pod -A</code></p><p id="620f6fdf-b17a-4c28-853a-d5840322bcf9" class="">to see the resource consumption of this solution, check the pressure test of LAD</p><p id="622dbbd6-519d-456c-adfa-8abaf03d6b1b" class="">
+</p><p id="36b1c3f5-fd6c-4c97-b56f-3bcc6dbe7281" class="">Advantage of this solution: </p><ol type="1" id="e99a9ed5-3bc9-458d-bd06-735a2c5c8841" class="numbered-list" start="1"><li>fine grained control for each topic process without impact on other topic</li></ol><ol type="1" id="c10bc0fe-264b-4f1b-86db-f1701e09af40" class="numbered-list" start="2"><li></li></ol><p id="de15ea5b-b98f-42c7-9f5f-3b85c10b36a5" class="">Disadvantage: one node can have maximum pod number limit, by example 57 pod for </p><p id="bca0feed-3c37-4cf0-904c-06e7b448f23c" class="">
+</p><p id="2de26141-a1c1-43ca-a39b-911973c49715" class="">
+</p><h3 id="b0b106d7-bfc1-4cd3-90fa-ff306b7e8546" class=""> for case client/server mode</h3><p id="b895f990-fc44-4164-8398-9764edd94cd0" class="">
+</p><p id="00d12b38-9d85-416b-aaa7-abca8fda5be0" class="">deploy <a href="https://gitlab.packetai.co/all/code/-/blob/dev/k8s/ml/lad/kustomization.yaml">https://gitlab.packetai.co/all/code/-/blob/dev/k8s/ml/lad/kustomization.yaml</a> to cluster</p><p id="b13b40b9-12ef-4d5a-a60b-de379610e92f" class="">
+</p><p id="4fbd8024-9108-4a1c-9142-fafcc56fce9d" class="">if topic models are ready on S3, send one message to kafka topic &quot;log-model-activator&quot;</p><p id="9587977a-d94a-43f2-8936-85f0c84b3219" class="">example message: </p><p id="c6b33681-dd98-4ed4-9de7-4a8ae2e09962" class="">
+</p><pre id="86592960-6c97-4194-acd8-830f2d7c1e37" class="code"><code>{&#x27;modelServerId&#x27;: &#x27;lad-model-7-20201115141441&#x27;, &#x27;topicList&#x27;: &#x27;abcd-abcd-ladpressure43,abcd-abcd-ladpressure44&#x27;,
+       &#x27;mode&#x27;: &#x27;new&#x27;, &#x27;oldModelServerId&#x27;: &#x27;lad-model-7-20201115141440&#x27;}</code></pre><p id="7d12c721-616a-4313-8100-35e33347b183" class="">please assure modelServerId is unique, argo will trigger a new modelserver once it detect the message</p><p id="9f806428-70ec-4620-870b-993ae87f78ee" class="">After deployment of lad and lad modelserver, if log-activator has new message opic, lad client will choose a lad server from available servers and send topic to server to process</p><p id="4dd7467f-6348-4288-bef6-3fd9b3bcfe46" class="">
+</p><p id="8c335b30-5325-4667-b3ee-a4c68b42d8ca" class="">lad monitor will watch the pressure of each lad server and create a new lad server if all existing lad servers pressure is bigger than a threshold</p><p id="6b204afb-a23f-4e60-b998-b6aa70d5553a" class="">
+</p><p id="633ecd7a-43eb-480f-a56d-7152488b6ee5" class="">For logcluster, lad server will call logcluster model serving endpoint to get prediction result together with skyline&#x27;s result and send back to kafka</p><p id="9370dd07-9b79-42e2-9099-25a6dc68ff36" class="">check logs inside of lad server pod or kafka for this trace</p><p id="48b4a951-e6ee-4d1d-b550-0dd253c2767c" class=""><code>kubectl get pods -n lad</code></p><p id="a106f0a3-91bc-4d2f-901a-f5113ad25fc2" class="">to get lad server pod</p><p id="b8446df3-97da-4afc-880d-2ad6701a52d4" class=""><code>kubectl exec -it $podname -n lad — /bin/bash</code>  go into log to see the trace</p><p id="d1299f91-3e15-4c93-8f19-2399cf834567" class="">or <code>kubectl logs $podname -n lad</code> this will show all `print`</p><p id="e2f4c95a-034d-41c0-b1cb-d9af16db4ce2" class=""> In order to do the test, launch </p><p id="8964b92c-f2d4-49ab-818b-13ca06b05df0" class="">python LAD_kafka_source_generator.py --create-topic 5f802a9b7f91631d8951ac4b-logagent5-log-logcomp5-stashed --put-to-activator True</p><p id="0d3eeb91-2dff-44fb-b4e6-3a7fc2b47202" class="">which will add the topic to log-activator, in this way lad-client can see it</p><p id="250f53ae-2198-458f-afa0-81fd00aa67d1" class="">
+</p><p id="8f360598-a20d-4633-a68d-5105180e9c69" class="">Test training pipeline</p><p id="aad56b24-9533-4ef2-aaf5-3bcac0f671f9" class="">Training pipeline for offline model (logcluster)</p><ol type="1" id="2dcce509-b787-4d39-9986-44aeea34c8e2" class="numbered-list" start="1"><li>if the training data is in kafka, then create training data in kafka, launch kafka data generator script to generate data for one topic used for training<p id="a19929be-58e9-476e-afe9-fcced6bae222" class="">python LAD_kafka_source_generator.py --create-topic 5f802a9b7f91631d8951ac4b-logagent5-log-logcomp5-stashed --put-to-activator False</p><p id="15274a21-19a4-4543-a830-6d8bc200e454" class="">
+</p></li></ol><ol type="1" id="e43c4557-3394-43e4-a6f2-db37d0224190" class="numbered-list" start="2"><li>launch lad trainer to train on these kafka data with a good timestamp(not the maximum timestamp) and step1&#x27;s topic<p id="69ec611d-ae09-4840-9c33-7c1513822685" class="">python pipelines/train.py or use its docker image</p><p id="9a29c1f7-e68e-4b28-a210-0484455890b9" class="">it will train and push model to S3</p></li></ol><p id="3ef86081-31f1-4e58-a367-4c9d1d4453ce" class="">
+</p><h2 id="e7897909-c504-4ebc-8c6f-c216a497b5fe" class="">TEST MAD PIPELINE</h2><p id="bf185e1a-8d87-4780-bd18-2b14285cf959" class="">
+</p><p id="ce90079c-6601-42cc-91f7-3ee5fcce9cb1" class="">launch following command in your local</p><p id="cb0f79e8-79b6-46ae-83e6-9ec487b79c41" class=""><code>kubectl port-forward kafka-0 9094 -n kafka</code></p><h3 id="e9a99909-bc91-44f4-a3e0-57a0b4d8b1b2" class="">Argo solution: one statefulset of mad for each new topic</h3><p id="bea96f2f-f97c-4e46-a6c9-510f7af7af7b" class="">1. make sure mad sensor and mad event source running<div class="indented"><p id="444ec371-1049-43a7-9cd5-1e5069fbab1f" class=""><code>kubectl get pods -n argo-events</code></p></div></p><p id="bed06556-5618-450f-9e4d-4298f1352f08" class="">2. Generate data to kafka</p><p id="251ebe42-cb04-4c17-abda-44d46793a537" class="">by example:</p><p id="c478f2fb-657a-4483-bfc1-046461d4d502" class="">python MAD_kafka_source_generator.py --create-topic 5f6c6dd211aaba5154bc75f511-5f6cb7e4c77c0e476a94becd11-metric-5f6cb7e4c77c0e476a94becd12-stashed --put-to-activator True</p><p id="0abd6634-b7cd-4aa3-ad3b-ba73c842dbdc" class="">3. check the statefulsets and pods generated in argo-events namespace</p><p id="68c1b94b-2edc-44ad-958e-45854145b667" class="">4. useful tool like:</p><p id="87439074-710e-49b0-b2ab-4cafa049350e" class=""><code>kubectl logs $podname -n argo-events </code></p><p id="219a7232-21e3-47c2-8772-dcdf587f1c97" class="">to check log and also go into container using</p><p id="b7dd1fb0-f177-4bd2-992e-f6d6ef884e6a" class=""><code>kubectl exec -it $podname -n argo-events —- /bin/bash</code></p><p id="0545d220-95a0-4e20-9563-7ba51e6312f5" class="">to check results folder and log</p><p id="6fa97cd9-bfa0-424b-8593-ec34b18b65ed" class="">
+</p><p id="aa48a0bb-a5aa-4e03-8b7a-3b976e8ab849" class="">check resource consumption for each statefulset using <code>kubectl top pod -A</code></p><p id="21bc8e9a-6ff4-4751-9cdf-0b02f7652f93" class="">
+</p><p id="ff28401f-6f3b-4228-88e5-f1974dab96b7" class="">Advantage of this solution: </p><ol type="1" id="046a470d-4c87-429a-8c09-b9f52620c246" class="numbered-list" start="1"><li>fine grained control for each topic process without impact on other topic</li></ol><ol type="1" id="c3d28a73-e17c-4b0b-9521-8882953d0af8" class="numbered-list" start="2"><li></li></ol><p id="b6d204b8-b8a8-46e0-a4bc-97db0cad4189" class="">
+</p><p id="764c50c1-c95b-42ca-b920-bf8c996a2d04" class="">Disadvantage: one node can have maximum pod number limit, by example 57 pod for </p><p id="bc630d32-6437-40bc-a228-56a996a75335" class="">
+</p><p id="4b6921c9-2e26-4cd1-8f2a-1764e22124a5" class="">
+</p><h3 id="cea136d9-1ff4-4905-9a0d-ae71d9628839" class="">Topic dispatcher solution(each mad server can hold multiple topic, and we can control the attribution)</h3><p id="c03300db-2329-4c6e-bb9a-3d62702b2951" class="">Same as LAD client-server topic dispatch solution</p><p id="9b4c28f3-c472-4f6b-8436-8ce06c4d84b0" class="">
+</p><p id="676be5bb-c0ba-47d5-a73e-5167224262e0" class="">3. Generate data to kafka<div class="indented"><p id="95e4ff7e-dcec-4c4f-9b84-36bdd33429ab" class="">example: </p><p id="1a2b7d20-b041-4b66-bcf7-bb195097f4f9" class="">python MAD_kafka_source_generator.py --create-topic 5f6c6dd211aaba5154bc75f511-5f6cb7e4c77c0e476a94becd11-metric-5f6cb7e4c77c0e476a94becd12-stashed --put-to-activator True</p></div></p><p id="f5c8d74c-07bd-4735-8c6c-31aa24a87389" class="">advantage of this solution</p><ol type="1" id="28bde1d4-5f1d-4fea-a698-f466b5e61074" class="numbered-list" start="1"><li>make multiple topic process inside of one container, reduce resource consumption</li></ol><p id="6b6606b4-728a-4bef-8079-aac9caf5c3e7" class="">Disadvantage:</p><p id="d6687f48-2bdf-4093-bc08-8a992ffd1ba8" class="">2. if one container hold too many topics, and thus the container can not be held by one node, in this case, container will be stopped, so we should control the number of topic</p><p id="064b19e6-93e4-46bd-b2bc-5dd27cd1816c" class="">
+</p><p id="c7b8646b-e4d0-4afd-942e-7de7c2151c78" class="">
+</p><figure id="9c7a1096-9f0c-4d85-be69-ff02fd125f7b" class="link-to-page"><a href="ML%20kube%20pipeline%20architecture%2052b33892b01b46c58bd013ef022340d9/Copy%20of%20MAD%20pressure%20test%20on%20eks%209c7a10969f0c4d85be69ff02fd125f7b.html">Copy of MAD pressure test on eks</a></figure><figure id="b1f3d961-983a-44bc-b6af-e8d9c87d40ef" class="link-to-page"><a href="ML%20kube%20pipeline%20architecture%2052b33892b01b46c58bd013ef022340d9/Copy%20of%20LAD%20pressure%20test%20on%20EKS%20b1f3d961983a44bcb6afe8d9c87d40ef.html">Copy of LAD pressure test on EKS</a></figure><p id="d89fa68e-0e66-41d1-91f9-3cb2986f3e7d" class="">
+</p><p id="291f1d5f-c7b8-4f1e-b440-685a20330e61" class="">
+</p><p id="7c41bafb-58ae-419b-83e8-95206344305a" class="">
+</p><p id="0cae3e2b-3c26-4326-95a8-f4604303ffc1" class="">
+</p><h3 id="6406711b-6d11-4921-be31-4eed38b8366d" class="">Some tech details and decision for lad clien-server solution:</h3><p id="ddac8ac3-8363-4a79-8463-c68e60437506" class="">
+</p><ol type="1" id="95b8cf16-26fe-40da-a395-e9d3f44be74b" class="numbered-list" start="1"><li>update new topic for a server to DB for each topic message, because server restart can happen at anytime, if in db, one server don&#x27;t have its compet topics, then it will lost this topic when restart<ol type="a" id="bbb3c22e-3dc2-45d5-90b3-aac2449b6a74" class="numbered-list" start="1"><li>should not be done inside of one topic process of one server, because the processes is executed in parallel, and erase for each other if they both apply to same server mongo document</li></ol><ol type="a" id="b1f901d7-3348-49af-8ff2-8419df04d78d" class="numbered-list" start="2"><li>Can be done in lad client side</li></ol><ol type="a" id="63436c25-d3c2-42a4-9db4-d5cea5d15e56" class="numbered-list" start="3"><li>can be done in server api side, this is what i choose</li></ol><ol type="a" id="de906af8-5ac7-4618-adeb-dcfe6a93fd43" class="numbered-list" start="4"><li>server once restart(can be on another node), should load its complet topics from db</li></ol></li></ol><ol type="1" id="3c233406-fff8-4105-bec7-60cd692416f8" class="numbered-list" start="2"><li>restart topics for a server , when the server is restarted<ol type="a" id="66f526f4-fabb-42a7-a1bf-6def3c0eb7cc" class="numbered-list" start="1"><li>get topics from db, and launch topic process asychronised way or use <a href="http://request.post">request.post</a> to <a href="http://localhost">localhost</a> inside of api.py</li></ol></li></ol><ol type="1" id="8c134c9c-6020-449e-ae47-c61794f4641e" class="numbered-list" start="3"><li>lad client should avoid duplicate topic because of different error or rolling update<ol type="a" id="2586f13c-e216-4d93-99f4-bc46a92aab2b" class="numbered-list" start="1"><li>if consumer error happens before post, then it will take the topic again, if happen between post and commit, then it will not taken into account, because we have available_topics to filter(normal it is supposed to be executed just after the post), if error happens after commit, then everything is ok</li></ol><ol type="a" id="85ff65d3-bba7-4d4e-b3e9-3a9826433e90" class="numbered-list" start="2"><li>if it is the cluster or human operation cause the client deployment total failed (i think happens ) or rolling update client deployment, then restart, <p id="4a2656ee-ad5d-4c39-8e00-9916f32a2892" class="">       if this(error or rolling termination) happens before post, then it is ok, </p><p id="9cb172dc-211d-4051-9f3c-afab3694928b" class="">
+</p><p id="4ed03066-d800-47e7-91ea-d7d951a28b80" class="">       if between post and commit, then the topic should be updated to db by lad server, and when you restart deployment, you can get this topic from db and update it to available_topic, then the topic will be avoid to be duplicate process<div class="indented"><p id="e11f97f4-c445-4acc-80d6-1f0cfcb0f718" class="">(for this case, if you implement the topic updating_to_server in client side, you have to do it just after post method, but still have risk,if error happens just between post and this method)</p><p id="6b3ca504-e8af-4280-a268-30d66534ff31" class="">if happens after commit, then everything is ok</p></div></p></li></ol><ol type="a" id="6d8bd026-333c-46bc-86cf-8cb02efb7db4" class="numbered-list" start="3"><li>lad client only read data from db, only lad server can write to db, to assure db table no overwritten risk</li></ol></li></ol><p id="5364bc76-8252-40c6-a850-5821bcc4516e" class="">
+</p><p id="61f3022d-0de1-4792-8159-725f027fa0d4" class=""><strong>Data storage </strong></p><p id="f322569b-fcb8-45d7-8f0b-e1ce78ab528c" class="">objective: it is best to have a shard storage across different node in different AZ, in this case, if our pod restart on another node, it can still get its previous data from its shared storage </p><p id="93bfc636-45d9-4233-8cad-081900e25d3e" class="">potential solution:</p><p id="5afbb6be-704b-4dc0-b19b-80622778f0ae" class="">
+</p><ol type="1" id="da80018f-87cf-4133-918b-85fb96f5f224" class="numbered-list" start="1"><li>mount using <strong>hostpath</strong>:</li></ol><p id="79deb53f-39f3-4624-ba8f-a4859001af11" class="">data is stored in node level, so if a pod restart from another node, then it will not access its previous data</p><p id="8adf4707-c01f-4b1d-a80f-2bb2f64fc2e6" class="">according to kube doc, it is not recommended to use in production environment</p><p id="6675f80b-2830-4066-b9c7-f44e8bf8ae92" class="">
+</p><p id="8f375878-bd12-439b-bec8-a5b8a122f0cc" class="">2. mount from <strong>ebs volume</strong>:</p><p id="587c8c42-2b1e-41c4-a6fe-b6eeed4c0f82" class="">There are some restrictions when using an <code>awsElasticBlockStore</code> volume:</p><ul id="1b8624e2-f917-4908-8d09-04855d977348" class="bulleted-list"><li style="list-style-type:disc">the nodes on which pods are running must be AWS EC2 instances</li></ul><ul id="218d5c5e-f5b6-4785-9905-f2c90e8f7654" class="bulleted-list"><li style="list-style-type:disc">those instances need to be in the same region and availability zone as the EBS volume</li></ul><ul id="f51c605a-18da-4090-af73-72ff6a54db88" class="bulleted-list"><li style="list-style-type:disc">EBS only supports a single EC2 instance mounting a volume</li></ul><p id="7a4a803e-1fd9-4fcf-bbe2-29acb8183604" class="">so it means one volume can support only one node, if a pod restart from another node, then it will not access its previous volume, in this case, i don&#x27;t see the advantage of using ebs compared with hostpath</p><p id="9957f6b9-a527-4f7c-884e-e39ce617a512" class="">
+</p><p id="5bfd8a77-d41c-43aa-b204-1d0ac91e05af" class="">
+</p><pre id="c44e81c5-a1bc-478a-a3ec-94beed2304c2" class="code"><code>sts-test-0: ip-192-168-161-24.eu-central-1.compute.internal/192.168.161.24 eu-central-1a
+sts-test-1: ip-192-168-137-201.eu-central-1.compute.internal/192.168.137.201 eu-central-1c
+sts-test-2: ip-192-168-161-24.eu-central-1.compute.internal/192.168.161.24
+
+sts-test-0: pvc-dc50f6ff-d486-4b38-bdd8-07d7c3312149 eu-central-1a/vol-0f4179e08d7e35537
+sts-test-1: pvc-32d94e60-31ad-4109-8e33-b4566019b9b5 eu-central-1c/vol-049eabb46d8646cda
+sts-test-2: pvc-ddd27e8f-987a-4389-b64b-772a9f748176 eu-central-1a/vol-0061c54c3834a8352
+
+sts-test1-0: ip-192-168-161-24.eu-central-1.compute.internal/192.168.161.24
+sts-test1-1: ip-192-168-161-24.eu-central-1.compute.internal/192.168.161.24
+sts-test1-2: ip-192-168-137-201.eu-central-1.compute.internal/192.168.137.201
+
+sts-test1-0: pvc-753678b6-e66a-4ef8-9343-1030a469af8d eu-central-1a/vol-07148f9b5ce3216a8
+sts-test1-1: pvc-0988bf2c-2984-4308-b5f6-418c1385a761 eu-central-1a/vol-060e657639b192923
+sts-test1-2: pvc-2f1efa32-d6a5-4d67-a827-e05e87eb59f6 eu-central-1c/vol-0e311cadd28268d13</code></pre><p id="9f1d5a4d-1baf-47f2-aa3e-c28a409f3fdc" class="">from the above test, we can see pods inside of one sts, can be on different node, and pods on same node will go to its AZ to get volume, but the volume id is different for different pod(maybe can be same volumeid), so once a pod restart, i think it can be considered as new pod, and can get new volumeid, this is worse than the hostpath which still can access to same local host volume when the pod restart on same host. if we want to use ebs, should specify a fixed volumeid instead of create a volumeid for each pod</p><p id="f4e6b7a7-73df-4160-a3b0-8e262df6d380" class="">some resource:</p><p id="fc84e93a-156b-458e-af75-986fea0e273a" class=""><a href="https://blog.abyssale.com/shared-storage-volume-on-amazon/">https://blog.abyssale.com/shared-storage-volume-on-amazon/</a></p><pre id="fda4f640-12e0-4a69-9eb6-bf343d7df97e" class="code"><code>EBS: The major drawback is that it can be only mounted to one EC2 instance. This also means that it can&#x27;t be shared between multiple pods.</code></pre><p id="5d8cd6a2-af5a-4342-8420-e4f84f2808a6" class=""><a href="https://aws.amazon.com/premiumsupport/knowledge-center/ebs-access-volumes-using-multi-attach/?nc1=h_ls">https://aws.amazon.com/premiumsupport/knowledge-center/ebs-access-volumes-using-multi-attach/?nc1=h_ls</a></p><p id="d039eabd-3bcb-4122-bb3c-cc36d8c6b3a4" class="">
+</p><p id="8408de63-48fe-43a9-bb27-45935d5dbddd" class="">
+</p><p id="6eaa9806-7d8d-4dd9-8ee0-172d3fa9d191" class="">3. <strong>S3</strong>:<div class="indented"><p id="d2356bd8-9820-420e-877f-6fcb153313cf" class="">here we use S3 to back our data, and if a pod restart from another node, and it can&#x27;t find its previous data, it will download previous data from S3, then start from that data offset</p><p id="99a2b40c-dbf4-4f23-a534-e5e35a2ecd1e" class="">upload and download detector pickle file(contains 22490 points,1000metrics), both take about 2.9s, from memory write to disk take 1s, load from disk take 0.24 s</p></div></p><p id="47f3c3b8-eaf3-4f7e-821a-4f60b244c0b2" class="">
+</p><p id="26c21317-4d32-4c29-9c31-7b9c40fa7432" class="">current solution taken: use hostpath to share data for all pods of same node, if pod restart from another node, and it can&#x27;t find its previous data, it will download previous data from S3, then start from that data offset</p><p id="e57d6ab7-5b12-4e3f-9f0e-f23c7de50a63" class="">
+</p><h3 id="bfe5ec1a-03be-464c-90c5-a173d8e72f8a" class="">MAD LAD Kafka review</h3><p id="016ac490-b857-4b35-8373-0c5cf0cc9995" class="">client level consume from metric-activator and log-activator, it is more critical, because each lost or duplicate message means lost or duplication of one component processing</p><p id="d6028545-031c-4122-a9a4-055545b26ac6" class="">For kube lad:</p><p id="1ed9d90d-e094-4db2-aa39-4a29956afbc9" class="">client: group_id=lad, enable_auto_commit=False, auto_offset_reset=&quot;earliest&quot;</p><p id="3a3327e8-3754-4655-a8cd-9e0d5b161617" class="">Then manually commit with a avaiblble_topic, so even rolling update, it will start from offset, and the list avaiblble_topic can assure to skip duplicate message</p><p id="b4d1d91e-fef6-42f0-8fc8-d3321353a9a4" class="">Server: it is same kafka conf, so even with rolling update, server topic process start from previous offset, and in order to receive its topic name, in api.py, there is step to get topics from db</p><p id="647ac44b-6847-4d10-bc70-724951c4d29a" class="">
+</p><p id="69f629b4-393e-4cc9-ba89-264af9d78a73" class="">For kube mad(one topic one pod ):</p><p id="dd4ba3dd-6a97-41b4-87a7-6d6cd2bdb112" class="">client side is controlled by argo, for worker side, each pod receive topicname during pod creation,  if we do rolling update the pod(statefulset), the new pod still keep the topic name, so it can continue running, and start from the latest offset</p><p id="9f68b281-6731-46d5-9899-bd6667db5245" class="">
+</p><p id="ad5b6eb1-f12c-4c65-b843-77b308c2d5b0" class="">in term of consumer groupid, since our topic process consume its own topic, so in topic level, different topic consumer&#x27;s target is already separated, so it doesn&#x27;t matter if different topic consumer process use same groupid or not, even with groupid=None(it will use default group.id=test-consumer-group).</p><p id="551ce666-ef97-4fd7-a733-9cb690d300fc" class="">
+</p><p id="7c07b3a3-e9fb-4904-ac8c-5527488a1eec" class="">argo kafka consumer behavior</p><p id="c9745e7b-058f-4f7e-89e3-1bb2327856d5" class="">
+</p><p id="88dc0e6d-7a25-4f46-96ca-da79c7bddb28" class="">
+</p><p id="a8f5298a-d5c5-402c-a7a4-e1c448762101" class="">some reference of method to implement exact one delivery for kafka:</p><p id="69f44d9c-4224-4d8a-98b2-40ffd7b55d9f" class=""> <a href="https://dzone.com/articles/kafka-clients-at-most-once-at-least-once-exactly-o">https://dzone.com/articles/kafka-clients-at-most-once-at-least-once-exactly-o</a></p><p id="79f12aff-fa29-4822-b439-6d645bdfebe7" class="">
+</p><h3 id="955876db-5a1d-4188-8e23-8f8711bfec92" class="">Other Issue found during test:</h3><ol type="1" id="c0c8480f-fef9-449a-bfce-654829b7d6ef" class="numbered-list" start="1"><li>kakfa endpoint often disconnected, issue can see in mad worker results/log/</li></ol><pre id="390f2fd6-2721-4417-a400-e08f55397a90" class="code"><code>2020-11-01 19:47:50.240 [INFO]: (Re-)joining group 123456789012345676
+2020-11-01 19:47:52.270 [INFO]: Successfully joined group 123456789012345676 with generation 61
+2020-11-01 19:47:52.271 [INFO]: Updated partition assignment: []
+2020-11-01 19:47:52.271 [INFO]: Setting newly assigned partitions set() for group 123456789012345676
+2020-11-01 19:47:52.277 [WARNING]: Initiated Kafka consumer
+2020-11-01 19:47:52.280 [WARNING]: Initiated Kafka producer
+2020-11-01 19:47:52.281 [WARNING]: Initiated new detector
+2020-11-01 19:47:52.281 [WARNING]: Start metrics anomaly detection for topic 5f6c6dd211aaba5154bc75f511-5f6cb7e4c77c0e476a94becd11-metric-5f6cb7e4c77c0e476a94becd12-stashed
+2020-11-01 19:47:52.341 [INFO]: &lt;BrokerConnection node_id=bootstrap-0 host=bootstrap.kafka.svc.cluster.local:9092 &lt;connecting&gt; [IPv4 (&#x27;10.100.206.32&#x27;, 9092)]&gt;: connecting to bootstrap.kafka.svc.cluster.local:9092 [(&#x27;10.100.206.32&#x27;, 9092) IPv4]
+2020-11-01 19:47:52.341 [INFO]: &lt;BrokerConnection node_id=bootstrap-0 host=bootstrap.kafka.svc.cluster.local:9092 &lt;connecting&gt; [IPv4 (&#x27;10.100.206.32&#x27;, 9092)]&gt;: Connection complete.
+2020-11-01 19:47:55.335 [WARNING]: Heartbeat failed for group 123456789012345676 because it is rebalancing
+2020-11-01 19:47:55.335 [INFO]: Revoking previously assigned partitions set() for group 123456789012345676
+2020-11-01 19:47:55.335 [INFO]: (Re-)joining group 123456789012345676
+2020-11-01 19:47:55.354 [INFO]: Successfully joined group 123456789012345676 with generation 62
+2020-11-01 19:47:55.355 [INFO]: Updated partition assignment: [TopicPartition(topic=&#x27;5f6c6dd211aaba5154bc75f511-5f6cb7e4c77c0e476a94becd11-metric-5f6cb7e4c77c0e476a94becd12-stashed&#x27;, partition=0)]
+2020-11-01 19:47:55.355 [INFO]: Setting newly assigned partitions {TopicPartition(topic=&#x27;5f6c6dd211aaba5154bc75f511-5f6cb7e4c77c0e476a94becd11-metric-5f6cb7e4c77c0e476a94becd12-stashed&#x27;, partition=0)} for group 123456789012345676
+2020-11-01 19:52:52.396 [INFO]: &lt;BrokerConnection node_id=0 host=kafka-0.kafka.kafka.svc.cluster.local:9092 &lt;connecting&gt; [IPv4 (&#x27;192.168.150.4&#x27;, 9092)]&gt;: connecting to kafka-0.kafka.kafka.svc.cluster.local:9092 [(&#x27;192.168.150.4&#x27;, 9092) IPv4]
+2020-11-01 19:52:52.396 [INFO]: &lt;BrokerConnection node_id=0 host=kafka-0.kafka.kafka.svc.cluster.local:9092 &lt;connecting&gt; [IPv4 (&#x27;192.168.150.4&#x27;, 9092)]&gt;: Connection complete.
+2020-11-01 19:52:52.397 [INFO]: &lt;BrokerConnection node_id=bootstrap-0 host=bootstrap.kafka.svc.cluster.local:9092 &lt;connected&gt; [IPv4 (&#x27;10.100.206.32&#x27;, 9092)]&gt;: Closing connection.</code></pre><p id="2cefcf8d-bd80-4d34-99ad-ce3b7c318c67" class="">
+</p><ol type="1" id="949ac379-59f4-43be-a83f-8509bda7cfc1" class="numbered-list" start="1"><li>it is best to use compute optimised instance</li></ol><p id="0bfcefe1-a7ac-4f46-81f4-26479cd7e4be" class="">
+</p><p id="f09f6ee4-6c58-40bc-97f5-630b3d2d7d40" class="">
+</p><p id="9e2c4a2c-e074-43d1-9ef1-5db1dceeab33" class=""><strong>Comparison between above offline model serving design and other model solution</strong></p><p id="4b6e53be-2412-42d1-ba67-489dc671b456" class="">other model solution:</p><ol type="1" id="aac2b29c-44b2-4923-be17-bad03c1bdd90" class="numbered-list" start="1"><li>each topic process, once got kafka message, it try to fetch its own topic models parameters from S3, if exist new one, it download to disk, and then load model to memory.<p id="0aed8dbe-2887-4f21-9ca8-0f1e59671295" class="">once a new model parameters arrives, it also need to delete old model in memory</p><p id="8cd89324-31db-4852-a98a-237f1a4dca65" class="">I think all these operations together takes time, because we now have gale, logcluster, deeplog, and it is not very scalable if we have more models in future. and in future, we can have one model to server multiple topic case, in this case, the two topic should have same model in their own process memory</p><p id="a6cfbd2b-2451-4c1a-aa62-f5e2c5d880ed" class="">and put deeplearning model in same memory with online processing part, i think it is risky, if have memory leak issue, then the online part failed, client can&#x27;t get any response.</p><p id="1acb8c46-ceed-4fe0-b0ec-4c0520325fdb" class="">
+</p></li></ol><p id="bad6e3c9-4093-41eb-a3b0-ab7e825e4b62" class=""><strong>above offline model serving design </strong>don&#x27;t have above time issue, because before the new model is totally up, online part can still use old model, and once the new model is ready, it can switch without any delay, and separate offline model including deeplearning model with online part as a new microservice, i think it is less coupled and safer.</p><p id="8451daa0-6566-4ce7-87e6-99ad7bc6af7a" class="">And it is scalable and flexible for future models: more models or one model for multiple topic etc</p><p id="72aaaa10-47cb-41e8-853b-1446a850cae0" class="">all new implement on model side can be done in this microservice without impact on online microservice which directly relate to  reponse to client</p><p id="4ce17d9b-35ca-45c3-b0eb-6133f2e7e0f2" class="">
+</p><p id="0e5c1f18-15e5-4945-9615-70e6a5603e8b" class="">
+</p><p id="864c68a5-a0c6-4375-a470-7a314627081d" class="">
+</p><p id="eade7bdb-715b-4674-83f8-e5f17ac349cc" class="">
+</p><h3 id="55c29446-f374-4e01-a1a4-8b6e87dbb742" class="">Other note:</h3><p id="481bc27f-099b-4e66-8717-e8b18767a1b9" class="">docker image </p><p id="e0511a6e-73d7-4d68-a7fb-52593ef16185" class="">use <code>python:3.7-slim</code> as base image which is almost two times smaller than other choice like ubuntu base image( + python) and python:3.7 stretch, alpin python image is not recommended for python because it is slow building, big image size, and potential for obscure bugs(<a href="https://pythonspeed.com/articles/alpine-docker-python/">https://pythonspeed.com/articles/alpine-docker-python/</a>)</p><p id="88a5df94-7115-4cf5-aa59-e21ae8258ed2" class="">since logstash output use snappy compression on kafka message, so in ML side, should use snappy to uncompress, use snappy and its related package on  <code>python:3.7-slim</code> bring additional 70 MB compressed image size on ECR</p><p id="f54f86c8-30af-4311-85b3-fe4cad0c371b" class="">
+</p><p id="deb78fcd-a35e-4dd3-8013-77ae7e01d57c" class="">
+</p><p id="005f4eae-54a2-4c6c-910d-81745d0024b8" class="">
+</p><p id="02760f45-d1db-446c-8168-bb1d13f536e8" class="">
+</p></div></article></body></html>

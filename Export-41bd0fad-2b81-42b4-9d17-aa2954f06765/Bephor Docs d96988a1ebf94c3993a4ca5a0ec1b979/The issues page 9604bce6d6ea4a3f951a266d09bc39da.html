@@ -1,0 +1,693 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>The issues page</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9604bce6-d6ea-4a3f-951a-266d09bc39da" class="page sans"><header><h1 class="page-title">The issues page</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-last_edited_by"><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedBy"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 10.4229C6.05176 10.4229 4.54785 11.1133 3.83008 11.9131C2.90039 10.9082 2.33301 9.55469 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 9.55469 13.1064 10.9082 12.1699 11.9131C11.4521 11.1133 9.94824 10.4229 8 10.4229ZM8 9.30176C9.32617 9.30859 10.3516 8.18066 10.3516 6.71094C10.3516 5.33008 9.31934 4.18164 8 4.18164C6.6875 4.18164 5.6416 5.33008 5.64844 6.71094C5.65527 8.18066 6.68066 9.28809 8 9.30176Z"></path></svg></span>Last Edited By</th><td><span class="user"><span class="icon text-icon user-icon"><span class="user-icon-inner">V</span></span>Valentin Manes</span></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Last Edited Time</th><td><time>@April 8, 2020 11:56 AM</time></td></tr></tbody></table></header><div class="page-body"><p id="fe5b051a-2646-4daf-a2f2-6f49604cf202" class="">Agent-john (topology mapper, data collector) → agent-Emma (workers) </p><p id="2f4b1292-46ab-4475-9ec5-9b52d2dbc817" class="">→ kafka (topology topics, data topics )</p><p id="f65fd63a-ef29-4a4c-969c-19eb5719aa65" class="">→ topology topics: one per infrastructure  &amp;  data topics: two per component (metrics and logs)</p><p id="bd200b68-c4a5-4a60-af7b-d264ab4c99a7" class="">→ Logstash<div class="indented"><p id="08dae9dd-2e8b-4d67-82f7-6a3ea8071232" class="">|  → LK<strong> pipe:  (</strong>ELK on managed ELK). </p><p id="eea70b65-5ab9-4366-88a9-540e34cbadce" class="">|  → ML<strong> pipe: </strong></p><p id="bdd05c9d-0961-498d-90ce-d2bbc528f363" class="">→ processed data for logs and metrics</p><p id="8f5fd9fb-845d-4762-879f-00280d5f9bc9" class="">→ kafka topics: <div class="indented"><ul id="ad4ca9a9-3ba4-4140-9a72-6aa94f80dd58" class="bulleted-list"><li style="list-style-type:disc">one pipeline for logs, each document contains tags of all types of anomalies <p id="d3c1f84c-0ed4-4dd7-a698-fe1edf738f09" class="">we need to think about what values to display? </p><p id="aef6d9f8-346c-47e0-bac0-e834d133a0fb" class=""><strong>1st iteration: </strong></p><p id="ab1be67c-523c-44ec-ab2b-a67ad0d6f105" class="">    ( {&quot;timestamp&quot;: &quot;12-02-2020&quot;,      </p><p id="6e9fa7a6-5586-4e72-a9ed-72ba14ebc904" class="">                        &quot;value&quot;:&quot;56&quot;,  </p><p id="1c46aaf4-ac50-4161-9ec6-3000a04eae8d" class="">                        &quot;anomaly-score&quot;:&quot;10&quot;,   # anomaly score, optional (relative entropy does    </p><p id="f5cb102c-ceae-458a-95df-8e2b02f60e80" class="">                                                                      #  not have ?)</p><p id="7d0ccd8c-fc15-41a9-b47e-cf20d7647360" class="">                        &quot;msre-threshold&quot;:&quot;5&quot;,  # optional (relative entropy does not have ?)</p><p id="69b671e8-8a59-47f9-906e-83069e077428" class="">                        &quot;normal&quot;: 1, <div class="indented"><p id="61b611fd-a1a8-44d3-bd7e-542462964f64" class="">                  &quot;anomaly type&quot;: &quot;sequence anomaly&quot;</p></div></p><p id="5702f5c8-4f71-4f64-a8d0-073be081dad1" class="">    } )</p><p id="576f08af-ad63-4c81-bbb8-08e7e9441268" class="">
+</p><p id="b4042c3e-77f7-4078-86c4-e71bef4e109e" class="">
+</p></li></ul><ul id="65e61e2a-38fd-4695-b87c-6b5618a257e5" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">(remember all metrics are sent in one pipeline) one pipeline for all metrics </li></ul><p id="89a021a3-e988-40d4-89b0-996fb702b251" class=""><mark class="highlight-red"><strong>NOTE</strong></mark><mark class="highlight-red">: this is per component </mark></p><p id="dac3c5a1-d8e6-4c9b-b96b-648768ced8c0" class="">    ( {&quot;timestamp&quot;: &quot;12-02-2020&quot;, </p><p id="bf937356-e948-43e3-b639-2131d1f77d07" class="">         &quot;cpu&quot;:  { </p><p id="ba716f68-bcd1-4fcc-ad97-fd9f91ca3a89" class="">                       &quot;value&quot;:&quot;56&quot;, </p><p id="a59b56ab-fa1c-408e-a621-a9c0d40368bb" class="">                       &quot;upper-bound&quot;:&quot;12&quot;,      # optional, will be used only with Gus </p><p id="98d7277c-37e0-45d6-ab2a-3ca744c554d4" class="">                       &quot;lower-bound&quot;: &quot; 3&quot; ,      # optional, will be used only with Gus </p><p id="e203c63d-8a24-4b68-b0d2-1ed85847d1e6" class="">                        &quot;msre&quot;:&quot;10&quot;,                     # anomaly score, will be used for other than Gus </p><p id="82507d44-e7b4-43e3-a824-4d93a99b2960" class="">                        &quot;msre-threshold&quot;:&quot;5&quot;,    # anomaly threshold, will be used for other than Gus </p><p id="8aba6132-ffea-4873-90c6-e3358ef28dee" class="">                        &quot;normal&quot;: 1</p><p id="6f92a0c0-70a2-4fa9-aee8-fa2513b59b36" class="">                       },  </p><p id="37b3b8d1-744e-491b-b75d-7173c2d12322" class="">        &quot;memory&quot;: {</p><p id="ca79d44c-3c74-43bf-85a3-5c0d57fd692e" class="">                       &quot;value&quot;:&quot;44&quot;, </p><p id="aa213c00-c6c9-4495-b896-632e04fc4c51" class="">                       &quot;upper-bound&quot;:&quot;47&quot;, </p><p id="f6ed2dc0-6c5e-456a-8cae-9c25673ce05e" class="">                       &quot;lower-bound&quot;: &quot; 40&quot; , </p><p id="d6e584f0-21ac-4edc-a492-fc427d9bf9ce" class="">                        &quot;msre&quot;:&quot;10&quot;, </p><p id="c59a276b-9dd2-42c3-a915-549f8931334a" class="">                        &quot;msre-threshold&quot;:&quot;12&quot;, </p><p id="a99c271d-c7a7-46a9-9a97-de99aa16e124" class="">                        &quot;normal&quot;: 0</p><p id="5cf4fe54-b96d-4d52-ae62-197f1be99bdd" class="">                        },</p><p id="7fce10f0-59e7-471e-be98-d6d2387362fb" class="">          ...</p><p id="56a580eb-7f97-4f49-8658-824288e89861" class="">       } )</p><figure id="725d2b88-dfa8-47a2-b198-ca252865fd55" class="image"><a href="The%20issues%20page%209604bce6d6ea4a3f951a266d09bc39da/Screenshot_2020-04-01_at_11.22.20.png"><img style="width:672px" src="The%20issues%20page%209604bce6d6ea4a3f951a266d09bc39da/Screenshot_2020-04-01_at_11.22.20.png"/></a></figure><p id="570e7326-984d-4f66-a93f-10694f7a4aed" class="">    <strong>NOTE</strong>: we limit the number of metrics to 5 per component , only the most important ones    </p><p id="fb9783c2-87f3-42cf-a848-2ae1993d5121" class="">    (TBD from documentations)   -    please refer to Datadog doc for the list of these metrics  <div class="indented"><p id="4d673680-5749-4fae-9655-7788560fcee2" class="">
+</p><p id="3656418e-62ef-4093-9899-9ccd8da9e7cc" class="">
+</p></div></p></div></p></div></p><p id="597eabe2-5c7b-4ff4-a7a8-c7e11c9b1b05" class="">→ take processed data (anomalies pipelines) and display them on minima </p><p id="f49659e7-c5cd-49b8-8dca-e1a962047a7d" class="">→ store pipelines in elasticsearch with index names same as topic names </p><p id="eb1eac71-20ce-4ad2-9e32-8dc31935ee3b" class="">
+</p><p id="19ea3cef-de25-4fb7-ad8d-9af8b665dd47" class=""><strong>→ For creating Issue objects:</strong></p><p id="bc68d3eb-7eef-401c-bc1c-3d55f4c05657" class="">If a critical anomaly appears on a critical node → create an issue object </p><p id="f116b02d-48ae-40d9-8340-8c74f24be66e" class="">
+</p><p id="6f77411a-71ae-4981-b80d-3f55604e2a57" class="">
+</p><p id="7042a801-1fb9-46b7-89e1-34e10e90f980" class="">
+</p><p id="cc935404-3a92-451c-b493-eea8c6ed968a" class="">
+</p><p id="159e1984-da56-4388-b86c-067790035f1b" class="">terminology: </p><p id="f035e1aa-59fa-4bb6-86bf-2fc176c8bc75" class="">important nodes: nodes that we need to track data from </p><p id="a76b742a-5ba1-4a13-85a6-7b5e10953786" class="">
+</p><p id="96f28126-b030-488c-995c-9e2662596a4b" class="">
+</p><p id="7c391b72-7db0-4b5e-9ddb-8ce7843df9af" class=""><strong>issue</strong> :  when we have 1000 processes , do they all generate metrics and logs? do we consider all them? where to find the data?  if yes ⇒ we need 1000 consumer, heavy? </p><p id="0f91c1af-96f0-4ce3-8567-34dfe35f888d" class="">
+</p><p id="290c9f01-f7c3-4ad0-9d59-802964a529ab" class=""><strong>issue</strong>: the set of integrations is not exactly the set of displayed services in the topology graph </p><p id="dd37e6d0-e6d0-4be6-b866-e9c5d8b1fb7a" class="">
+</p><p id="7984b48f-861b-44ba-ac49-95a14c7e97b1" class=""><mark class="highlight-teal"><strong>issue</strong></mark>: do we keep multiple topics for metrics or one for all?  - Lapparov </p><p id="92e0293f-0eb2-4802-a476-06c0e1b6d064" class="">we keep one topic that contains one json file that contains all metric results </p><p id="f8d05a43-ccca-40cc-8fb2-7068bfe9cc70" class="">⇒  to make it easier for Lapparov, Valentin Manes needs to assemble metrics by timestamp point:</p><p id="8a19fd44-61a7-4cec-a0cd-73ad345b6966" class="">     {&quot;timestamp&quot;: &quot;2020-12-02T16:42:42&quot;, </p><p id="3e2b9698-615b-467d-bce0-6c2e28152747" class="">         &quot;component1&quot;:  [</p><p id="464ad118-bdca-42b2-9965-b39b42fa1598" class="">                       {&quot;metric&quot;: &quot;metric1&quot;, subject: &quot;foo1&quot;, &quot;value&quot;:&quot;70&quot;}, <div class="indented"><p id="ced63917-9a3a-4103-bae7-572fc91393ad" class="">                 {&quot;metric&quot;: &quot;metric2&quot;, subject: &quot;foo2&quot;, &quot;value&quot;:&quot;67&quot;},</p></div></p><p id="dae52e45-04f2-4c71-b92e-db67bd52328d" class="">                        ...</p><p id="096157df-5282-495d-b8f3-fc572dd26e54" class="">                       {&quot;metric&quot;: &quot;metric10&quot;, subject: &quot;foo1&quot;, &quot;value&quot;:&quot;89&quot;}</p><p id="c7cff879-1a46-43ea-b9aa-782f4d19de97" class="">                  ],  </p><p id="2d02fcfe-cb92-4e17-b96a-528667ccaad6" class="">         &quot;component2&quot;:  [                        </p><p id="6798104d-d368-4637-a6c4-fa9d22ffa4ec" class="">                       {&quot;metric&quot;: &quot;metric1&quot;, subject: &quot;foo1&quot;, &quot;value&quot;:&quot;42&quot;}, <div class="indented"><p id="a63426f7-fed3-46f7-a77c-e3a6b937524f" class="">                 {&quot;metric&quot;: &quot;metric2&quot;, subject: &quot;foo2&quot;, &quot;value&quot;:&quot;13&quot;},</p></div></p><p id="225cb494-f3d9-4c76-a10c-3e973fdf9d78" class="">                        ...</p><p id="a5bda5bd-8fbb-4f44-8d7f-a428aef06494" class="">                       {&quot;metric&quot;: &quot;metric10&quot;, subject: &quot;foo3&quot;, &quot;value&quot;:&quot;29&quot;}</p><p id="74e96433-185f-424c-9602-c25b881deb12" class="">                   ],  </p><p id="0d73cd8e-d829-454d-b958-cc1d779028b3" class="">          ...</p><p id="45043817-44c9-494b-9f62-8a23975de234" class="">      }  </p><p id="923ff82b-913d-4d7e-8c03-b25e7aafabe7" class="">
+</p><h3 id="dc033fa4-9837-4613-9961-d2a97824b5f0" class=""><strong>Causality display: </strong></h3><ul id="f292b642-188b-4ec9-afef-01f781a83529" class="bulleted-list"><li style="list-style-type:disc">Causal node is the one that got first anomaly NOT the critical one:<p id="234ad2d8-8d60-4206-b576-ecb4c4c62025" class="">when we detect significant anomaly on critical component, we go back 30 min and get all anomalies on all correlated components and the component that got the first anomaly is the causal component </p></li></ul><p id="99dbeb06-0a8b-4193-8d43-dbd5f5650050" class="">
+</p><p id="92cd24e1-ddc4-4df0-ac7c-d38334a53bb7" class="">
+</p><p id="7bd6e34b-fe69-4c15-863d-803ae74aef33" class="">
+</p></div></article></body></html>

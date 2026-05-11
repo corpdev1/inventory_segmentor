@@ -1,0 +1,683 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Role based Access</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3153034f-6573-4b92-86f0-c7088a7fbdcb" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🔓</span></div><h1 class="page-title">Role based Access</h1><p class="page-description"></p></header><div class="page-body"><h2 id="7bd749ca-817d-4b29-879d-cafdce4527b8" class="">Grafana</h2><p id="8e998cc7-1720-465c-adc3-31fe5021d4d9" class=""><a href="https://grafana.com/docs/grafana/latest/permissions/">https://grafana.com/docs/grafana/latest/permissions/</a></p><p id="7d762420-b6f6-4840-b793-ba648ecf5e9d" class=""><strong>Organizations:</strong></p><ul id="a89e7100-f1c7-4197-a45c-6e673b955b35" class="bulleted-list"><li style="list-style-type:disc">An organization is a group of users on a Grafana server</li></ul><ul id="f7c9a9c6-a80f-4488-9bfa-a033bc2390f6" class="bulleted-list"><li style="list-style-type:disc">Each user can belong to more than one organization</li></ul><ul id="b401b393-bfd4-45e4-83c4-1fcafaed438e" class="bulleted-list"><li style="list-style-type:disc">Every member of the organization has a role in that organization that grants them a certain level of permissions</li></ul><p id="1cf03876-02d0-4e3f-916f-bcab3b67eb1a" class=""><strong>Teams:</strong></p><ul id="36d9ac1f-d80f-4960-ad17-5beced851218" class="bulleted-list"><li style="list-style-type:disc">A team is a group of users assigned to an organization on a Grafana server</li></ul><ul id="bfd9c322-25ea-4129-9df2-93118019c901" class="bulleted-list"><li style="list-style-type:disc">Each user can belong to more than one organization and more than one team</li></ul><p id="3bc38a6e-c8c1-4e8c-9832-80de6ed7194f" class=""><strong>Dashboards:</strong></p><ul id="c8a671c3-5312-4c8a-b00d-44e4a0bcb16c" class="bulleted-list"><li style="list-style-type:disc">A dashboard is a set of one or more panels organized and arranged into one or more rows.</li></ul><ul id="134b1c51-7361-4834-9012-89875c899c98" class="bulleted-list"><li style="list-style-type:disc">Dashboards in Grafana are shared through folder or dashboard permissions assigned to a user account or a team</li></ul><ul id="03d9476b-7203-4a82-87b3-4a50f358af2f" class="bulleted-list"><li style="list-style-type:disc">Folders are a way to organize and group dashboards - very useful if you have a lot of dashboards or multiple teams using the same Grafana instance</li></ul><ul id="97be862b-2aa1-4c38-9b40-8a28d463cd27" class="bulleted-list"><li style="list-style-type:disc">A playlist is a list of dashboards that are displayed in a sequence. You might use a playlist to build situational awareness or to present your metrics to your team or visitors.</li></ul><p id="4aed52fb-cc29-425a-8b0b-8e8c4d86dcb5" class=""><strong>Data sources:</strong></p><ul id="d8fce7de-3db6-4151-bc5e-94a7dfb2c0f5" class="bulleted-list"><li style="list-style-type:disc">Grafana supports many different storage backends for your time series data (data source)</li></ul><ul id="603bef5c-0323-4462-b989-085e230f31f5" class="bulleted-list"><li style="list-style-type:disc">For each data source there is a permission page that allows you to enable permissions and restrict query permissions to specific users and teams </li></ul><ul id="ec42d47d-1106-4440-a7a7-766cdcc4b744" class="bulleted-list"><li style="list-style-type:disc"><a href="https://grafana.com/docs/grafana/latest/enterprise/datasource_permissions/">Data source permissions</a> are only available in Grafana Enterprise</li></ul><p id="21d73b06-4d0e-4c50-9022-505030b3a740" class=""><strong>Organization roles are:</strong><div class="indented"><ul id="6878d9b7-8108-4eda-8d2d-a5c1e38f3f9c" class="bulleted-list"><li style="list-style-type:disc">Admin</li></ul><ul id="b6da5576-5a34-40cd-868f-8ddb6e6bf45f" class="bulleted-list"><li style="list-style-type:disc">Editor</li></ul><ul id="e2ca7849-140a-446c-a330-4efc6c766da4" class="bulleted-list"><li style="list-style-type:disc">Viewer</li></ul></div></p><div id="f5a7be50-4f01-4175-b41b-b4f3155cf325" class="collection-content"><h4 class="collection-title">Role permissions</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Permissions</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesSelect"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM7.62402 10.6348C7.79492 10.915 8.20508 10.9287 8.37598 10.6348L10.666 6.73145C10.8574 6.41016 10.7002 6.04102 10.3652 6.04102H5.62793C5.29297 6.04102 5.14941 6.43066 5.32031 6.73145L7.62402 10.6348Z"></path></svg></span>Admin</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesSelect"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM7.62402 10.6348C7.79492 10.915 8.20508 10.9287 8.37598 10.6348L10.666 6.73145C10.8574 6.41016 10.7002 6.04102 10.3652 6.04102H5.62793C5.29297 6.04102 5.14941 6.43066 5.32031 6.73145L7.62402 10.6348Z"></path></svg></span>Editor</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Viewer</th></tr></thead><tbody><tr id="07f4f59a-789f-4524-b8fe-674e4b02ca93"><td class="cell-title"><a href="Role%20based%20Access%203153034f65734b9286f0c7088a7fbdcb/Role%20permissions%20f5a7be504f014175b41bb4f3155cf325/View%20dashboards%2007f4f59a789f4524b8fe674e4b02ca93.html">View dashboards</a></td><td class="cell-wgVV"><span class="selected-value select-value-color-yellow">x</span></td><td class="cell-wGb="><span class="selected-value select-value-color-pink">x</span></td><td class="cell-K&gt;TC">x</td></tr><tr id="ee6d3677-7b15-47cd-b2f0-32303c2eafa1"><td class="cell-title"><a href="Role%20based%20Access%203153034f65734b9286f0c7088a7fbdcb/Role%20permissions%20f5a7be504f014175b41bb4f3155cf325/Add,%20edit,%20delete%20dashboards%20ee6d36777b1547cdb2f032303c2eafa1.html">Add, edit, delete dashboards</a></td><td class="cell-wgVV"><span class="selected-value select-value-color-yellow">x</span></td><td class="cell-wGb="><span class="selected-value select-value-color-pink">x</span></td><td class="cell-K&gt;TC"></td></tr><tr id="fa475357-f5a8-4c6a-a300-4e2b9f3fe0ce"><td class="cell-title"><a href="Role%20based%20Access%203153034f65734b9286f0c7088a7fbdcb/Role%20permissions%20f5a7be504f014175b41bb4f3155cf325/Add,%20edit,%20delete%20folders%20fa475357f5a84c6aa3004e2b9f3fe0ce.html">Add, edit, delete folders</a></td><td class="cell-wgVV"><span class="selected-value select-value-color-yellow">x</span></td><td class="cell-wGb="><span class="selected-value select-value-color-pink">x</span></td><td class="cell-K&gt;TC"></td></tr><tr id="8cdb842a-56cd-4339-b045-fe3022596c3d"><td class="cell-title"><a href="Role%20based%20Access%203153034f65734b9286f0c7088a7fbdcb/Role%20permissions%20f5a7be504f014175b41bb4f3155cf325/View%20playlists%208cdb842a56cd4339b045fe3022596c3d.html">View playlists</a></td><td class="cell-wgVV"><span class="selected-value select-value-color-yellow">x</span></td><td class="cell-wGb="><span class="selected-value select-value-color-pink">x</span></td><td class="cell-K&gt;TC">x</td></tr><tr id="841e8ee0-4c3c-48f8-8831-8602e13a9afe"><td class="cell-title"><a href="Role%20based%20Access%203153034f65734b9286f0c7088a7fbdcb/Role%20permissions%20f5a7be504f014175b41bb4f3155cf325/Create,%20update,%20delete%20playlists%20841e8ee04c3c48f888318602e13a9afe.html">Create, update, delete playlists</a></td><td class="cell-wgVV"><span class="selected-value select-value-color-yellow">x</span></td><td class="cell-wGb="><span class="selected-value select-value-color-pink">x</span></td><td class="cell-K&gt;TC"></td></tr><tr id="fd113872-2b38-4745-addd-ab01fa5446cf"><td class="cell-title"><a href="Role%20based%20Access%203153034f65734b9286f0c7088a7fbdcb/Role%20permissions%20f5a7be504f014175b41bb4f3155cf325/Access%20Explore%20fd1138722b384745adddab01fa5446cf.html">Access Explore</a></td><td class="cell-wgVV"><span class="selected-value select-value-color-yellow">x</span></td><td class="cell-wGb="><span class="selected-value select-value-color-pink">x</span></td><td class="cell-K&gt;TC"></td></tr><tr id="50a833b2-739e-4251-b958-142bb048c149"><td class="cell-title"><a href="Role%20based%20Access%203153034f65734b9286f0c7088a7fbdcb/Role%20permissions%20f5a7be504f014175b41bb4f3155cf325/Add,%20edit,%20delete%20data%20sources%2050a833b2739e4251b958142bb048c149.html">Add, edit, delete data sources</a></td><td class="cell-wgVV"><span class="selected-value select-value-color-yellow">x</span></td><td class="cell-wGb="></td><td class="cell-K&gt;TC"></td></tr><tr id="dd7329fb-1a0a-4218-96ae-d002b63eaee8"><td class="cell-title"><a href="Role%20based%20Access%203153034f65734b9286f0c7088a7fbdcb/Role%20permissions%20f5a7be504f014175b41bb4f3155cf325/Add%20and%20edit%20users%20dd7329fb1a0a421896aed002b63eaee8.html">Add and edit users</a></td><td class="cell-wgVV"><span class="selected-value select-value-color-yellow">x</span></td><td class="cell-wGb="></td><td class="cell-K&gt;TC"></td></tr><tr id="5796aeb7-d455-4978-aec2-4dbf5cd044ba"><td class="cell-title"><a href="Role%20based%20Access%203153034f65734b9286f0c7088a7fbdcb/Role%20permissions%20f5a7be504f014175b41bb4f3155cf325/Add%20and%20edit%20teams%205796aeb7d4554978aec24dbf5cd044ba.html">Add and edit teams</a></td><td class="cell-wgVV"><span class="selected-value select-value-color-yellow">x</span></td><td class="cell-wGb="></td><td class="cell-K&gt;TC"></td></tr><tr id="ec02d586-e398-460d-9a62-d44de7a0c0d7"><td class="cell-title"><a href="Role%20based%20Access%203153034f65734b9286f0c7088a7fbdcb/Role%20permissions%20f5a7be504f014175b41bb4f3155cf325/Change%20organizations%20settings%20ec02d586e398460d9a62d44de7a0c0d7.html">Change organizations settings</a></td><td class="cell-wgVV"><span class="selected-value select-value-color-yellow">x</span></td><td class="cell-wGb="></td><td class="cell-K&gt;TC"></td></tr><tr id="869bd567-8f80-4011-9f79-2558ccf2ae30"><td class="cell-title"><a href="Role%20based%20Access%203153034f65734b9286f0c7088a7fbdcb/Role%20permissions%20f5a7be504f014175b41bb4f3155cf325/Change%20team%20settings%20869bd5678f8040119f792558ccf2ae30.html">Change team settings</a></td><td class="cell-wgVV"><span class="selected-value select-value-color-yellow">x</span></td><td class="cell-wGb="></td><td class="cell-K&gt;TC"></td></tr><tr id="a9745edd-10c6-450b-9a16-8dcae3e36786"><td class="cell-title"><a href="Role%20based%20Access%203153034f65734b9286f0c7088a7fbdcb/Role%20permissions%20f5a7be504f014175b41bb4f3155cf325/Configure%20app%20plugins%20a9745edd10c6450b9a168dcae3e36786.html">Configure app plugins</a></td><td class="cell-wgVV"><span class="selected-value select-value-color-yellow">x</span></td><td class="cell-wGb="></td><td class="cell-K&gt;TC"></td></tr></tbody></table><br/><br/></div><p id="4405a4e3-9cd3-421e-9166-edb682813b73" class="">
+</p><h2 id="54268a32-238c-4449-b876-bca2b6211388" class="">Datadog</h2><p id="1ff63dc7-db27-4786-a260-8772b4414537" class=""><a href="https://docs.datadoghq.com/account_management/rbac/?tab=datadogapplication">https://docs.datadoghq.com/account_management/rbac/?tab=datadogapplication</a></p><p id="1079ad67-a94f-48f7-8d5c-1d9d5a9f0901" class=""><strong>Roles:</strong></p><ul id="b3f2be5b-b680-40a0-8e25-db87afce8456" class="bulleted-list"><li style="list-style-type:disc"><a href="https://docs.datadoghq.com/account_management/rbac/?tab=datadogapplication#datadog-default-roles">Three roles by default:</a><ul id="10d98cf2-19a7-4325-b774-ff2a181a3cfb" class="bulleted-list"><li style="list-style-type:circle">Admin - all access</li></ul><ul id="8c17abe0-00d4-466c-bab5-6effbd0f2d34" class="bulleted-list"><li style="list-style-type:circle">Standard - read and edit</li></ul><ul id="092c9688-e099-4d9a-844a-a9c89ea619b5" class="bulleted-list"><li style="list-style-type:circle">Read only - read</li></ul></li></ul><ul id="1bcabe4d-c5eb-4f72-917a-3efe08d6a65e" class="bulleted-list"><li style="list-style-type:disc">Custom roles is an opt-in Enterprise feature (not sure if they offer fine grained data access or just <a href="https://docs.datadoghq.com/account_management/rbac/permissions/#advanced-permissions">global permissions for logs, metrics</a>...)</li></ul><p id="e9fcb64e-244f-4e00-a315-ead7f894f31f" class=""><strong>Dashboards:</strong></p><ul id="68f7e458-8858-4959-a62a-59850dac51ac" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.datadoghq.com/blog/dashboard-sharing/">Dashboard can easily be shared to outside users</a> without a Datadog account:<ul id="5051f180-36eb-4a9e-93ee-8b3b17400178" class="bulleted-list"><li style="list-style-type:circle">Via email</li></ul><ul id="b6632ba8-b5ac-41a9-9431-506b35f11c71" class="bulleted-list"><li style="list-style-type:circle">By domain</li></ul></li></ul><ul id="14c3c9c6-a1c4-4b97-a521-1c52cd149567" class="bulleted-list"><li style="list-style-type:disc">Time selectors and template variables can be used to restrict the data shown in the dashboards</li></ul><h2 id="31cd70a4-2100-4be3-a657-aaa0a8221d8e" class="">ODFE</h2><p id="ed8e4713-22fc-4c76-9daf-865c3913cb3c" class=""><a href="https://opendistro.github.io/for-elasticsearch-docs/docs/security/access-control/users-roles/">https://opendistro.github.io/for-elasticsearch-docs/docs/security/access-control/users-roles/</a></p><p id="2a26421c-698a-4efb-b67a-f4876edf2331" class=""><strong>Kibana multi-tenancy </strong></p><ul id="712667d8-b7f3-4f6f-84b6-8ac3dd12e58d" class="bulleted-list"><li style="list-style-type:disc">Tenants in Kibana are spaces for saving index patterns, visualizations, dashboards, and other Kibana objects</li></ul><ul id="9d90ed39-89a2-4c61-b6eb-f638747c3069" class="bulleted-list"><li style="list-style-type:disc">Tenants are useful for safely sharing your work with other Kibana users</li></ul><ul id="fc110ffe-ea6e-43e1-be78-53f484964905" class="bulleted-list"><li style="list-style-type:disc">You can control which roles have access to a tenant and whether those roles have read or write access</li></ul><ul id="fc4bec34-4b49-4002-a959-5a3c1529b838" class="bulleted-list"><li style="list-style-type:disc">Tenant access is given to user roles and it has 2 options:<ul id="1b056800-7bf4-4aaf-9006-da584d0b6363" class="bulleted-list"><li style="list-style-type:circle">Read only</li></ul><ul id="1eb36b11-b2a4-49e8-ba10-7203c27720bd" class="bulleted-list"><li style="list-style-type:circle">Read and Write</li></ul></li></ul><p id="87fb4528-f0c0-4e22-b1a6-c9cc58a907d0" class=""><strong>Roles</strong></p><ul id="1c0f77fc-f7d7-4a4c-b229-28180e85fbcd" class="bulleted-list"><li style="list-style-type:disc">Roles are the core way of controlling access to your cluster/data</li></ul><ul id="84d10e02-d22b-4ca8-8ffd-db64b99c82b0" class="bulleted-list"><li style="list-style-type:disc">Roles contain any combination of cluster-wide permissions, index-specific permissions, document- and field-level security, and tenants</li></ul><ul id="8948ee34-cbbd-4956-8ce3-10c8954ddfee" class="bulleted-list"><li style="list-style-type:disc">Users are mapped to roles in order to get those permissions</li></ul><ul id="7ca5c6e3-efda-4da3-b5e1-f3dc44ef9c90" class="bulleted-list"><li style="list-style-type:disc">The users who sign up through Minima are automatically added the admin role which has read and write access to everything (until we offer multitenancy)</li></ul><h3 id="246b8dff-558f-48d8-bebd-606f9d28dd75" class=""><strong>Creating a user with dashboard access workflows</strong></h3><p id="634c641c-fa77-4535-ac87-c5cde9ceac90" class=""><strong>ODFE:</strong></p><ol type="1" id="ce05fca0-0588-4ed9-a2e9-e630b9126a68" class="numbered-list" start="1"><li>A new user is created on Minima/Accounts with access to the new role</li></ol><ol type="1" id="105098cd-e47c-4c45-9568-200d2df16e2f" class="numbered-list" start="2"><li>Create a dashboard on a new or existing tenant, or use an existing dashboard</li></ol><ol type="1" id="789dfe44-95ff-4b1e-bc17-97631e374664" class="numbered-list" start="3"><li>Create a specific new role for the new user</li></ol><ol type="1" id="1245544d-38a3-410f-a7c0-2afb868b0cea" class="numbered-list" start="4"><li>Add index permissions to the role which restrict data access</li></ol><ol type="1" id="993df578-c1cc-4e58-9cc8-d40370feb144" class="numbered-list" start="5"><li>Add tenant permissions to the role so the user has access to the dashboard</li></ol><ol type="1" id="b9f0fed6-c5a3-4f7a-af37-2d2e25421498" class="numbered-list" start="6"><li>Map the user to the created role inside of ODFE</li></ol><p id="160e2656-8497-4f18-a9f4-6be775654114" class="">
+</p><p id="4b6bd0bb-f3fb-430f-822c-d981e349cfe0" class=""><strong>Grafana (</strong><a href="https://www.youtube.com/watch?v=_69Em27WdXY"><strong>video</strong></a><strong>):</strong></p><ol type="1" id="4defb5db-ce14-4f35-a394-f9bcf50f941a" class="numbered-list" start="1"><li>Create a new dashboard(or folder)</li></ol><ol type="1" id="f3c5ddf2-9862-4aed-bfc2-2d8dbaf6648c" class="numbered-list" start="2"><li>Create a user and add him to a team/organization</li></ol><ol type="1" id="26d08791-b602-4629-ac50-7a8f7f4ad44e" class="numbered-list" start="3"><li>Enable user to have access to the dashboard by adding his team or organization</li></ol><ol type="1" id="a502a633-af1b-4799-aa99-d9d325ad523a" class="numbered-list" start="4"><li>Enable user to have access to the data source by adding his team or organization</li></ol><p id="d41e010c-bbf2-4639-8eff-9dd64d93f042" class="">
+</p><p id="2fda9a9c-fc86-4388-8bf9-7f2864b263b7" class=""><strong>Datadog:</strong></p><ol type="1" id="7eb9f0db-b544-453d-8b4e-5c5957a85dfe" class="numbered-list" start="1"><li>Choose or create a dashboard</li></ol><ol type="1" id="e3e501e8-31d2-421b-a2e3-19fcf9edb717" class="numbered-list" start="2"><li>Enter emails of (non company) users </li></ol><ol type="1" id="619da4ea-027b-4ae3-afae-c42949be25e3" class="numbered-list" start="3"><li>Edit Time &amp; Variable Settings to control data access</li></ol><ol type="1" id="62038e97-4194-4d17-819a-c8f27d41469f" class="numbered-list" start="4"><li>Datadog will email a magic link to the dashboard to the chosen users</li></ol><p id="b2cf36b8-8686-484d-9575-156072338224" class="">
+</p><h3 id="cd9ca800-b2d7-4447-b278-be7e30e0579d" class="">ODFE cons<strong>:</strong></h3><ul id="a834dd0e-ead2-4508-956a-50e0222bab6b" class="bulleted-list"><li style="list-style-type:disc">Access to dashboards and the actual data is separate, dashboards are handled via Kibana multi tenancy and data access via roles</li></ul><ul id="61a0d5c0-3afd-4aed-a6a4-070c4ca3b5dc" class="bulleted-list"><li style="list-style-type:disc">All tenant dashboards are saved under a single index which means that the you cannot grant access to individual dashboards/visualizations inside of a tenant</li></ul><ul id="d23c7242-894a-4afd-ae7d-a4d42e2e7900" class="bulleted-list"><li style="list-style-type:disc">The user always has access to all of the dashboards inside of a tenant while Grafana works on adding access per dashboard(folder)</li></ul><ul id="b53fd66b-3eb5-4a85-a5b7-aa4a8db0d806" class="bulleted-list"><li style="list-style-type:disc">If a user has access to multiple tenants he cannot automatically see all of the combined tenants dashboards. The user needs to switch to a tenant through the UI to see the dashboards of that specific tenant</li></ul><h3 id="dbb2f330-ca92-43a6-8cec-6a75da5cf355" class=""><strong>ODFE pros:</strong></h3><ul id="3c871e76-5931-4e30-ac11-d5c41db9aacb" class="bulleted-list"><li style="list-style-type:disc">More fine grained security:<ul id="a3efd10a-46db-49fd-a9cc-1fbd4da2f417" class="bulleted-list"><li style="list-style-type:circle"><a href="https://opendistro.github.io/for-elasticsearch-docs/docs/security/access-control/document-level-security/">Document-level security</a> lets you restrict a role to a subset of documents in an index</li></ul><ul id="8169ebbf-77b2-45c4-852e-23bd57120777" class="bulleted-list"><li style="list-style-type:circle"><a href="https://opendistro.github.io/for-elasticsearch-docs/docs/security/access-control/field-level-security/">Field-level security</a> lets you control which document fields a user can see</li></ul></li></ul><ul id="26cfa68a-d8eb-4a87-a5ce-21ec1f58a98d" class="bulleted-list"><li style="list-style-type:disc"><a href="https://opendistro.github.io/for-elasticsearch-docs/docs/security/access-control/field-masking/">Field masking</a> lets you allow certain roles to see sensitive fields in plain text and mask them for others</li></ul><ul id="33f77f2f-04b4-4ce0-b021-2146459f0d19" class="bulleted-list"><li style="list-style-type:disc">Specific index access restrictions</li></ul><h2 id="99c7e309-5063-42ea-b137-0b9a72255927" class=""><strong>Conclusion:</strong></h2><ul id="04ea3f41-bf13-4964-9945-362b8fedfdfe" class="bulleted-list"><li style="list-style-type:disc">Setting up basic user roles and dashboard sharing is more difficult and unintuitive on ODFE than the other two, even when you disregard the Minima user creation requirement</li></ul><ul id="843d9358-d2c6-411e-b4e7-a89d0e98b5b7" class="bulleted-list"><li style="list-style-type:disc">It would take more effort for the users to learn how to do it themselves so either we do it for them or add a feature on Minima which would make it easier</li></ul><ul id="ddea86e6-e2a5-4d1e-9a3e-dfaff27c442a" class="bulleted-list"><li style="list-style-type:disc">Datadog dashboard sharing is the easiest and doesn&#x27;t require account creation</li></ul><ul id="eb9a82bf-ef9f-45a2-b2a1-85195a07d5b8" class="bulleted-list"><li style="list-style-type:disc">Data restrictions on Grafana and Datadog are Enterprise features </li></ul><ul id="96d30620-a2ee-41b5-b74a-7a14d8e19a79" class="bulleted-list"><li style="list-style-type:disc">The ODFE fine grained data access options are a plus but I am not sure if such a functionality is what the users need and it would require ODFE and ELK knowledge to set up</li></ul><p id="b5c34d25-208d-43c5-a717-9a929ef5e8de" class="">
+</p><p id="9206154a-eeeb-41d5-a5ec-a0bda0b63bd2" class="">
+</p><p id="3f0ffdf1-5256-451b-aeb3-77cd514481a7" class="">
+</p></div></article></body></html>

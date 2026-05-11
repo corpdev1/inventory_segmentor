@@ -1,0 +1,679 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Notes about papers</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d439969f-59af-44f6-bd73-70784048269d" class="page sans"><header><h1 class="page-title">Notes about papers</h1><p class="page-description"></p></header><div class="page-body"><p id="845604c3-301c-4bdc-82cc-bbaa213deaff" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><p id="a4e19e9c-f1ab-4fef-a99b-094515ba4cb0" class="">
+</p><nav id="5ee28617-3afd-418f-a571-23d38e67a1eb" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d5954579-1605-4645-86d9-127f6f8fd1b7">Experience Report: Deep Learning-based System Log Analysis for Anomaly Detection</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fcec1c41-53bb-4120-8154-a3425002c411">Tools and Benchmarks for Automated Log Parsing</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#50a3624e-cb93-42d1-8be1-5d4959b2aab2">Other survey papers</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f4dce19b-f29a-49ab-9abc-f2a2d0280b95">Log2Vec</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1916c4b0-4bdb-4cdd-b845-e8e8828f65e8">Self-supervised log parsing</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#07608dd5-b562-4bb5-a396-2a0ba2e17752">LogAnomaly: Unsupervised Detection of Sequential and Quantitative Anomalies in Unstructured Logs</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5a13979c-0b67-4110-986f-cfe03881bd0e">LogBERT: Log Anomaly Detection via BERT</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#28ced649-94b8-484e-82ea-3be5faadab31">Self-Attentive Classification-Based Anomaly Detection in Unstructured Logs</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bc2367be-a32e-447a-90e7-26acbae06eee">Log-based Anomaly Detection Without Log Parsing</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1b1bf793-1281-40e2-80ef-2cb8967f44a1">LogDTL: Network Log Template Generation with Deep Transfer Learning</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#78c0eb04-e3d5-49e8-acaf-905bb7251f8f">Robust Log-Based Anomaly Detection on Unstable Log Data</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8b4a4653-babd-4562-83af-4a9616e0495f">Robust and Transferable Anomaly Detection in Log Data using Pre-Trained Language Models</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#dc8522b5-8805-4364-9694-fedea5e88bcc">Learning and Evaluating Contextual Embedding of Source Code</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d4259588-7dc8-43ef-9e5f-9f1dac55e1eb">Automated IT System Failure Prediction: A Deep Learning Approach</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5112e9a7-3eab-40ea-9b29-aaf2f650ab8d">A Directed Acyclic Graph Approach to Online Log Parsing</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d7e15dbe-aaec-4cad-82f4-b65c90933a2f">LogParse: Making Log Parsing Adaptive through Word Classification</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c73c36ab-c582-4325-a700-404e2dd409d0">Towards Automated Log Parsing for Large-Scale Log Data Analysis</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#288a5554-1c28-4c12-a250-fb60551d3f8a">log2seq</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ddc76ae7-2b12-463e-a20f-367cf9dae366">Lifelong Anomaly Detection Through Unlearning</a></div></nav><h3 id="d5954579-1605-4645-86d9-127f6f8fd1b7" class="">Experience Report: Deep Learning-based System Log Analysis for Anomaly Detection</h3><p id="1b5e7bd2-a095-416c-9451-4073066fd62c" class="">Chen et al, 2021</p><ul id="bd08f0c5-2f96-4e25-b8aa-72a70d5b5909" class="bulleted-list"><li style="list-style-type:disc">From the LOGPAI people. Their sections on log parsing have not led to unseen references or ideas. However, there are many references regarding deep learning.</li></ul><ul id="be986345-1515-4876-9190-2e479ffbcae4" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/logpai/deep-loglizer">https://github.com/logpai/deep-loglizer</a></li></ul><h3 id="fcec1c41-53bb-4120-8154-a3425002c411" class="">Tools and Benchmarks for Automated Log Parsing</h3><p id="aaa65744-5c9a-4aca-8def-8ff930052ac0" class="">Zhu et al, arxiv 2019</p><ul id="51703eaf-9c6d-4cd6-8998-307b0d17d6f2" class="bulleted-list"><li style="list-style-type:disc">Categorize the methods mainly as those based on frequent pattern mining, clustering and heuristics (exploiting nature of logs).</li></ul><ul id="029f63d6-8ba6-479e-8801-c01dcdae5e9c" class="bulleted-list"><li style="list-style-type:disc">From the results, we can briefly conclude that log parsers should take full advantage of the inherent structure and characteristics of log messages to achieve good parsing accuracy.<ul id="6fd32bb7-b9f4-48a3-8f87-0d84819cbf7e" class="bulleted-list"><li style="list-style-type:circle">AEL, IPLoM, Drain.</li></ul></li></ul><ul id="9f237e7d-6482-46cb-bdf0-62122b453138" class="bulleted-list"><li style="list-style-type:disc">There is still no log parser that performs well on all log data. Therefore, we suggest users to try different log parsers on their own logs first.</li></ul><ul id="5bd46089-b189-40ab-b001-a9c6446b19a9" class="bulleted-list"><li style="list-style-type:disc">At Huawei, to reduce the efforts of engineers, a platform (called LogKit) has been built to automate the log analysis process, including log search, rule-based diagnosis, and dashboard reporting of event statistics and correlations. A key feature of this platform is to parse logs into structured data.</li></ul><ul id="eba4edee-a899-43ef-9f62-609bf91c5b17" class="bulleted-list"><li style="list-style-type:disc">In sub-section &quot;Success stories&quot;, they describe four ways by which they improved the performance of Drain, when they deployed in Huawei. Especially, preprocessing (using filters like Grok filters) and partitioning (grouping logs according to a higher level property like the level) could be useful to us.</li></ul><ul id="90e58936-d533-49d7-b7f6-d3d2b6c78a6c" class="bulleted-list"><li style="list-style-type:disc">In sub-section &quot;Potential improvements&quot;, they discuss three aspects to address.<ul id="b633febd-bd83-4400-a1c6-f7f1051213be" class="bulleted-list"><li style="list-style-type:circle">For us, &quot;state identification&quot; could be the first thing to target. SARA is already doing something similar.</li></ul><ul id="46522638-3908-4da1-ba30-c09d973b16f5" class="bulleted-list"><li style="list-style-type:circle">Length variability: In real world logs, it is possible that logs belonging to one template are of variable length. We are also observing this in our data-sets. Probably, we can post-process in some way.</li></ul></li></ul><ul id="3eb4fc33-4f56-4b6f-bdc1-f6ae6cdf7817" class="bulleted-list"><li style="list-style-type:disc">Findings from their earlier paper &quot;An Evaluation Study on Log Parsing and Its Use in Log Mining&quot;, 2016:<ol type="1" id="3290ab5b-b15c-401c-83c2-80bc6530642e" class="numbered-list" start="1"><li>Current log parsing methods could obtain high overall accuracy especially when log messages are preprocessed with some domain knowledge based rules.</li></ol><ol type="1" id="ed2d8502-8868-4d4a-8e8c-d61de4b5f3ed" class="numbered-list" start="2"><li>Clustering-based log parsing methods could not scale well with the volume of logs and the tuning of parameters (e.g., number of clusters) is time-consuming.</li></ol><ol type="1" id="0de9f9f3-caac-46cc-88da-0c0ee51a2366" class="numbered-list" start="3"><li>Log mining is effective only when the parsing accuracy is high enough. Because log mining can be sensitive to some critical events. 4% parsing errors on critical events can cause an order of magnitude performance degradation in log mining.</li></ol></li></ul><h3 id="50a3624e-cb93-42d1-8be1-5d4959b2aab2" class="">Other survey papers</h3><p id="f2982ee3-0a01-498c-b823-99e3665745f5" class="">A Survey on Automated Log Analysis for Reliability Engineering, He et al, arxiv 2021</p><p id="7ae051eb-889b-45ac-a7c1-6056d1af700f" class="">A Systematic Literature Review on Automated Log Abstraction Techniques, El-Masri et al, Information and Software Technology, 2020</p><h3 id="f4dce19b-f29a-49ab-9abc-f2a2d0280b95" class="">Log2Vec</h3><p id="06c6ad72-3848-4eaa-8c5c-9bdbf36a5413" class="">Meng et al, ICCCN 2020</p><ul id="655bdf6c-aa69-405b-8e27-3a34cf5a0877" class="bulleted-list"><li style="list-style-type:disc">They represent the log as a weighted average of vector representations of the words.</li></ul><ul id="b82ac1f5-7e40-4c99-be48-04a63fa15afb" class="bulleted-list"><li style="list-style-type:disc">In order to get the embeddings of the words, they have a loss function based on synonyms, antonyms, triplets and also, Word2Vec based context window.</li></ul><ul id="98ddc65a-5364-43a4-a0b0-28c89888ae96" class="bulleted-list"><li style="list-style-type:disc">They also handle OOV words using the approach in the paper &quot;<a href="https://aclanthology.org/D17-1010.pdf">Mimicking Word Embeddings using Subword RNNs</a>&quot;.</li></ul><ul id="30834911-d4b4-42dd-b162-317e6dd4cf7a" class="bulleted-list"><li style="list-style-type:disc">Further leads about individual tasks: <ul id="00b576b8-1005-4567-b88c-a25d73ecaec9" class="bulleted-list"><li style="list-style-type:circle">TransE model is the most effective representation method for triplets.</li></ul><ul id="9c3fe3da-ee4f-449a-a64f-15f665eaeceb" class="bulleted-list"><li style="list-style-type:circle">Universal antonyms can be found in WordNet, which is a lexical database for English.</li></ul><ul id="7bd55a69-c5f5-4245-9031-8fce637a2729" class="bulleted-list"><li style="list-style-type:circle">Relation triples can be extracted from processed logs using dependence trees, which is a prevalent semantic parsing method.</li></ul></li></ul><ul id="36aa5c1f-2b43-4d92-ae2f-02f253595170" class="bulleted-list"><li style="list-style-type:disc">Data-sets<ul id="9751c795-84c6-4e0b-9522-1238d9c25f8c" class="bulleted-list"><li style="list-style-type:circle">Spark, HDFS, Windows, Hadoop.<p id="d0ac45a4-f174-4708-b36e-c5c41d940bd3" class="">These data-sets are relatively less challenging.</p></li></ul><ul id="f6c953f9-8f20-4d69-93fc-f3191b17d980" class="bulleted-list"><li style="list-style-type:circle">Other data-sets: BGL (What supercomputers say: A study of five system logs, 2007).</li></ul><ul id="774c40df-68a7-4015-964a-eed07ff9901f" class="bulleted-list"><li style="list-style-type:circle">Logs produced by switches in a top cloud service provider.<p id="dee08a0c-b815-477c-8e97-f5447ca80311" class="">Clustering results are shown on this data-set only. The results don&#x27;t appear to be very good.</p></li></ul></li></ul><h3 id="1916c4b0-4bdb-4cdd-b845-e8e8828f65e8" class="">Self-supervised log parsing</h3><p id="312698f1-24e1-41f2-a79c-fc3652c1c339" class="">Nedelkoski et al, arxiv 2020</p><ul id="1cce44f5-7db0-484d-8ebd-69ab54d4c1d5" class="bulleted-list"><li style="list-style-type:disc">Learns the representation based on masked language modeling (MLM).<ul id="2f50637c-f828-4114-bc18-68189866c598" class="bulleted-list"><li style="list-style-type:circle">&quot;Cloze Procedure&quot;: A New Tool For Measuring Readability&quot;, W L Taylor, 1953.</li></ul><ul id="1b953a60-84fb-4fd7-acc6-c855a9d46171" class="bulleted-list"><li style="list-style-type:circle">&quot;Bert: Pre-training of deep bidirectional transformers for language understanding&quot;, Devlin et al, 2018.</li></ul><ul id="6dba9a22-f130-41b1-a35e-72c94ab89b00" class="bulleted-list"><li style="list-style-type:circle">The architecture shown in the paper appears to be an application of the transformer based architecture trained on a loss based on masked word prediction.</li></ul></li></ul><ul id="8b81113f-7823-4c87-ae7d-b94fce91d07c" class="bulleted-list"><li style="list-style-type:disc">All logs are padded such that they will have the same length M (= max(|ti|) + 1, ∀i), which is the maximal number of tokens across all log messages within the log dataset added by one, and |ti| is the number of tokens in the ith log message. Also, logs are appended with a token called &lt;CLS&gt;. A token called &lt;SPEC&gt; is used for padding.<ul id="f7a3d4b2-48de-42b9-b8da-a692da92c5c7" class="bulleted-list"><li style="list-style-type:circle">Not sure why all the logs should be of the same length.</li></ul></li></ul><ul id="2142e575-0fc3-4b0c-8126-0075f7b6c342" class="bulleted-list"><li style="list-style-type:disc">Output during test time: Vector based representation of the log and a template (static and dynamic tags) based representation of the log.</li></ul><ul id="2cf68a84-abd0-47e3-a9fb-3f0b443ef641" class="bulleted-list"><li style="list-style-type:disc">It looks like the representation of the &lt;CLS&gt; token of the log (which is the first token of the modified log) is expected to represent the log. Need to understand this part.<ul id="a72ab282-439b-4f25-9629-5328ad93d5c0" class="bulleted-list"><li style="list-style-type:circle">From the paper: &quot;Since the last vector embedding of the &lt;CLS&gt; token is used for prediction, it is forced to summarize the log message. Otherwise, it would not be able to solve the masked token prediction task well enough across all tokens. We hypothesize that the constant part of log templates will constraint the model to learn similar &lt;CLS&gt; token embeddings when log messages are of the same template.&quot;</li></ul></li></ul><ul id="57bb712c-eb72-4265-89fd-04c74f233df6" class="bulleted-list"><li style="list-style-type:disc">Log template extraction<ul id="3ed14f60-de28-4b71-ae63-63742e4a6409" class="bulleted-list"><li style="list-style-type:circle">Log is passed through the trained model, where each word is masked one after the other.</li></ul><ul id="509238a6-8253-4245-9538-904511260c53" class="bulleted-list"><li style="list-style-type:circle">The idea for obtaining the template is that a high confidence prediction of the masked word means that the word is a static part of the log template otherwise, dynamic parameter &lt;*&gt;.</li></ul></li></ul><ul id="38c89ebd-bb5d-477f-bb84-7366b64da7a5" class="bulleted-list"><li style="list-style-type:disc">Results shown using metrics based on &quot;Tools and Benchmarks for Automated Log Parsing&quot;, Zhu et al, 2019. Their method has high accuracy and robustness to data-sets.</li></ul><ul id="9d561e32-2350-4e6e-b653-e79109260e20" class="bulleted-list"><li style="list-style-type:disc">Transformer based approach takes care of:<ul id="6b59c297-9028-457d-9b6b-7f13f88bae77" class="bulleted-list"><li style="list-style-type:circle">The generated vector representations should be closer for log messages belonging to the same log template and distant for log messages belonging to distinct log templates.</li></ul><ul id="2a819d2f-0f5f-407a-8280-d2494c743892" class="bulleted-list"><li style="list-style-type:circle">Token embeddings are adjusted during training to represent the semantic meaning of tokens depending on their context.</li></ul></li></ul><ul id="f863e200-02f1-491d-932f-6b90797ce598" class="bulleted-list"><li style="list-style-type:disc">Nice properties of the approach:<ul id="a97c8455-3719-4bbf-91c5-c5b8a4fd4387" class="bulleted-list"><li style="list-style-type:circle">Simple tokenization approach.</li></ul><ul id="6eab0299-cdbc-4e97-a352-8d76f2c47f24" class="bulleted-list"><li style="list-style-type:circle">Each token is predicted using all the other tokens in the log, along with positional information. Better way to model context compared to triplets based approach of Log2Vec.</li></ul><ul id="53859e8b-a977-499f-ab35-d170dcca1b77" class="bulleted-list"><li style="list-style-type:circle">By-product of vector based representation of the log and the representations of nearby logs are expected to be close to each other.</li></ul></li></ul><ul id="9de3a67b-e6c9-4b55-be83-d96a12171857" class="bulleted-list"><li style="list-style-type:disc">Possible weaknesses:<ul id="3df065a2-9821-484f-95d8-14ed69268829" class="bulleted-list"><li style="list-style-type:circle">Not sure how their approach can be affected by very long logs. All the logs will be padded to this length. Even though handling long lengths is one of the strengths of the transformer architecture.</li></ul><ul id="df964b25-8bed-49bc-a2d7-863e0ff57da9" class="bulleted-list"><li style="list-style-type:circle">Could two logs with several dynamic tokens still have nearby vector based representations?</li></ul></li></ul><ul id="aaae5966-3011-4df4-ba9c-f88df05376da" class="bulleted-list"><li style="list-style-type:disc">About their tokenization approach: White space based tokenization. &quot;In contrast to several related approaches that use additional hand-crafted regular expressions to parses parameters like IP addresses, numbers, and URLs, we do not parse any parameters with a regex expression. Such an approach is known to be error-prone and requires manual adjustments in different systems and even updates within the same system.&quot;</li></ul><ul id="e6c989bb-0e43-4177-bfe6-b42bea68592c" class="bulleted-list"><li style="list-style-type:disc">Doubts<ul id="c8dd22f3-5381-4dba-81b0-b27ef49d43b7" class="bulleted-list"><li style="list-style-type:circle">What is the parameter <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">ϵ</span></span></span></span></span><span>﻿</span></span>?</li></ul><ul id="da2535e9-34f0-4f8b-b8d4-bc25592af795" class="bulleted-list"><li style="list-style-type:circle">What is the size of the training, validation and test data-sets for each of the data-sets?</li></ul></li></ul><h3 id="07608dd5-b562-4bb5-a396-2a0ba2e17752" class="">LogAnomaly: Unsupervised Detection of Sequential and Quantitative Anomalies in Unstructured Logs</h3><p id="f905e8ce-9243-40f4-9a36-b91a14e6c20c" class="">Meng et al, IJCAI 2019</p><ul id="74c5a9ef-b2ea-42fd-9eb6-429f7a6c950b" class="bulleted-list"><li style="list-style-type:disc">Approach called Template2Vec (baseline in Log2Vec paper).<ul id="1bb5f679-414e-4235-ae43-681f6eba1ec1" class="bulleted-list"><li style="list-style-type:circle">Log2Vec is an extension of this work. Log2Vec uses the ideas of synonym and antonym based embedding and averaging the token embeddings. Template2Vec considers only the words in the matched template, while Log2Vec considers all the words in the original log. Log2Vec has some additional terms regarding triplet based loss and OOV representation.</li></ul></li></ul><ul id="0ffbaebf-dca4-4c97-a6f4-1361116025e6" class="bulleted-list"><li style="list-style-type:disc">Uses FT-Tree for initial parsing.<ul id="267f94f5-0fe3-4be7-9cdf-75a706aa0510" class="bulleted-list"><li style="list-style-type:circle">Forms log template groups offline. Periodic retraining.</li></ul></li></ul><ul id="169f2c8f-56e1-450d-ac98-3df232024b02" class="bulleted-list"><li style="list-style-type:disc">Aims to capture both sequential and quantitative behavior of a set of logs. Highlights the importance of sequential behavior of logs, which happens because of the sequential execution of programs.<ul id="dbae3dc9-234e-46bd-960d-97c6d6b31c7b" class="bulleted-list"><li style="list-style-type:circle">LSTM based model.</li></ul></li></ul><ul id="28052d32-9839-4c11-a827-97d552948113" class="bulleted-list"><li style="list-style-type:disc">During test time, incoming log is matched to the closest existing template group (even if it is very approximate).</li></ul><ul id="208bba20-9856-4e25-a81c-40f40737418d" class="bulleted-list"><li style="list-style-type:disc">Uses &quot;Integrating Distributional Lexical Contrast into Word Embeddings for Antonym–Synonym Distinction&quot; for word embeddings that emphasizes the nature of synonyms and antonyms.<ul id="05ba8b9b-d9c2-4438-9bee-7b0899eac285" class="bulleted-list"><li style="list-style-type:circle">Called dLCE.</li></ul><ul id="fca6e427-2c2c-432d-a79b-b7038bc30479" class="bulleted-list"><li style="list-style-type:circle">Recommends adding domain specific synonyms and antonyms.</li></ul></li></ul><h3 id="5a13979c-0b67-4110-986f-cfe03881bd0e" class="">LogBERT: Log Anomaly Detection via BERT</h3><p id="d62da5cd-3496-4eeb-97f0-a41cc12fe275" class="">Guo et al, arxiv 2021</p><ul id="5e6b6b00-6fcf-4e44-84f4-2afd31e817bb" class="bulleted-list"><li style="list-style-type:disc">Anomaly detection in a sequence of log keys.</li></ul><ul id="73b93d89-c34e-4a30-9956-c2efb3059eeb" class="bulleted-list"><li style="list-style-type:disc">Uses Drain to match logs to log keys.</li></ul><ul id="3b10bfa8-dd3a-4c9f-b1d4-50d4a9a33db4" class="bulleted-list"><li style="list-style-type:disc">The log key representations are learnt by the model: &quot;Each self-attention makes each key attend to all the log keys in an input sequence and computes the hidden representation for each log key with an attention distribution over the sequence.&quot;</li></ul><ul id="8f0c0cfb-bdac-4187-a45d-ee5a2a58dece" class="bulleted-list"><li style="list-style-type:disc">Similar learning of embedded representation of log keys happens in the LAMA paper, also. Need to ask <span class="user">@Marwen Sallem</span> about his observations. Since, LogBERT uses masked token prediction using bi-directional information, the performance could be better.</li></ul><ul id="316f170f-e91a-45e7-a15e-036efa56bff1" class="bulleted-list"><li style="list-style-type:disc">Similar to a few other papers, an extra token is added to the beginning, whose learned embedded representation is expected to correspond to the entire sequence.</li></ul><ul id="a1ef841e-6c86-4284-ba00-e17e97a49e06" class="bulleted-list"><li style="list-style-type:disc">During training, the representation of the sequences are encouraged to be close to a center. Each sequence is represented by the token added to the beginning of the sequence. The center is the average of the representations of the beginning extra token of all the log sequences. Thus the log sequences are assumed to be normal behavior.</li></ul><ul id="a2c5fd08-faab-407b-8129-6b37f564309b" class="bulleted-list"><li style="list-style-type:disc">Doubt: Averaging the representation of all the logs may not be desirable. We could partition logs (based on the value of the level etc) and average representations of each partition.</li></ul><h3 id="28ced649-94b8-484e-82ea-3be5faadab31" class="">Self-Attentive Classification-Based Anomaly Detection in Unstructured Logs</h3><p id="52edf12a-7f9c-4211-8063-f3f347319c58" class="">Nedelkoshi et al, ICDM 2020.</p><ul id="2d170a48-33ee-40fa-a3b7-25c68f5183b3" class="bulleted-list"><li style="list-style-type:disc">Anomaly classification which assumes that normal logs will be clustered compactly.</li></ul><ul id="90a44247-6f75-4a4a-8c90-36b2f6ee680d" class="bulleted-list"><li style="list-style-type:disc">Need to understand better: &quot;Add domain bias on the anomalous distribution to improve detection [19]. We provide such bias by employing easily accessible log datasets as an auxiliary data source.&quot; &quot;The auxiliary dataset helps to learn a better representation of the normal data while regularizing against overfitting.&quot;</li></ul><ul id="55a67a07-52d9-4d54-b623-cc0ea73f7c2e" class="bulleted-list"><li style="list-style-type:disc">An extra token is added to the beginning (like the Self supervised log parsing paper), which is used to summarize the entire log.</li></ul><ul id="01e2f64c-6e0b-40ba-86a9-86152e4a46c6" class="bulleted-list"><li style="list-style-type:disc">During training, it looks like they label the target data-set as normal and auxiliary data-set as abnormal.<ul id="73472634-a58a-474c-a9ca-7f40f1fc54de" class="bulleted-list"><li style="list-style-type:circle">From the paper: &quot;Not using any anomaly data from the target system for learning purposes in our experiments.&quot;</li></ul></li></ul><ul id="3ea90ca1-f4c1-4132-8321-8c6f417151b3" class="bulleted-list"><li style="list-style-type:disc">The model applies two operations on the input tokens: token vectorization (token embeddings) and positional encoding. The subsequent structure is the encoder of the Transformer module with multi-head self-attention, which takes the result of these operations as input. At the output of the encoder, are the transformed vector representations of the initial tokens.</li></ul><ul id="49eb1ebf-5ad5-4135-8b7b-75310482e6a5" class="bulleted-list"><li style="list-style-type:disc">The representation of the appended prefix token is utilized in the objective function for clustering.<ul id="d5e05ac3-bdcb-4ac3-b8c9-d735665ad5ca" class="bulleted-list"><li style="list-style-type:circle">Gaussian radial basis function in binary cross entropy loss.</li></ul><ul id="64c42bb2-3654-4f8b-8e1e-545d7ba2efa4" class="bulleted-list"><li style="list-style-type:circle">Many anomaly detection papers utilize this spherical loss. e.g., LogBERT: Log Anomaly Detection via BERT.</li></ul></li></ul><ul id="eb10a551-9d5a-4a46-ba3c-88d6bc2f7df0" class="bulleted-list"><li style="list-style-type:disc">Tokenization: <a href="https://www.nltk.org/">https://www.nltk.org/</a> Used for tokenization. This is what they say about what they do for tokenization:
+The message is first filtered for HTTP and system path endpoints (e.g., /p/gb2/stella/RAPTOR/). Lower case transformation of all characters is applied, and all of the ASCII special characters are removed. The log message is split into word tokens. We remove every token that contains numerical characters, as they often represent variables in the log message. Additionally, we remove the most commonly used English words that are in the stop words dictionary of NLTK (e.g., the and is).</li></ul><h3 id="bc2367be-a32e-447a-90e7-26acbae06eee" class="">Log-based Anomaly Detection Without Log Parsing</h3><p id="c31b30eb-aef6-4c61-9190-84d7ee9f8edf" class="">Le and Zhang, arxiv 2021</p><ul id="7e222c3c-655b-405a-9c37-682897ba5f16" class="bulleted-list"><li style="list-style-type:disc">Existing methods usually analyze only message content and remove other information (header). In this paper, NeuralLog uses all textual information such as verbosity, component, and content to extract the semantic meaning of log messages.</li></ul><ul id="e139d008-18c0-4db2-9f2c-25e0f98969ec" class="bulleted-list"><li style="list-style-type:disc">Subword tokenization using WordPiece: To deal with OOV words.</li></ul><ul id="39e8907d-bcbe-4455-a7fc-0fc3bba63d40" class="bulleted-list"><li style="list-style-type:disc">Employs the feature extraction function of pre-trained BERT to obtain the semantic meaning of log messages.<ul id="1b482dc7-374f-4ae8-98ed-99722182c664" class="bulleted-list"><li style="list-style-type:circle">(Need to understand the architecture better) &quot;Each layer generates embeddings for each subword in a log message. We use the word embeddings generated by the last encoder layer of BERT in our work. Then, the embedding of a log message is calculated as the average of its corresponding word embeddings.&quot;</li></ul></li></ul><h3 id="1b1bf793-1281-40e2-80ef-2cb8967f44a1" class="">LogDTL: Network Log Template Generation with Deep Transfer Learning</h3><ul id="b1c3593d-502a-4af9-a188-25ff0b6e6ed0" class="bulleted-list"><li style="list-style-type:disc">The key idea is to leverage transfer learning that applies log templates available from public datasets to unknown vendor’s logs to obtain its log template.</li></ul><ul id="79d14096-538b-495f-a10a-f04e658a9114" class="bulleted-list"><li style="list-style-type:disc">Assumes a few labelled samples in the target domain.</li></ul><h3 id="78c0eb04-e3d5-49e8-acaf-905bb7251f8f" class="">Robust Log-Based Anomaly Detection on Unstable Log Data</h3><p id="20a51b8d-6261-4bba-9836-1d11e743ce82" class="">Zhang et al, ESEC/FSE 2019</p><ul id="e94b92b2-d7f5-45ce-8ee6-d1a69661c6e2" class="bulleted-list"><li style="list-style-type:disc">TF-IDF based weighted average of token vectors represents the log.</li></ul><ul id="5ecbfdad-14ec-4c02-90ee-13e6b33e9785" class="bulleted-list"><li style="list-style-type:disc">Other papers also discuss this approach. e.g., &quot;Experience Report: Deep Learning-based System Log Analysis for Anomaly Detection&quot;, &quot;Server-Language Processing: A Semi-Supervised approach to Server Failure Detection&quot; and more.</li></ul><h3 id="8b4a4653-babd-4562-83af-4a9616e0495f" class="">Robust and Transferable Anomaly Detection in Log Data using Pre-Trained Language Models</h3><p id="b9fb2c1e-2266-4e7f-9672-5fe02feefafd" class="">Bogatinovski and Ott et al, 2021</p><ul id="2bd22bb4-1b8c-4043-924c-1e486efcbc80" class="bulleted-list"><li style="list-style-type:disc">Unsupervised approach. Code: <a href="https://github.com/haraldott/anomaly_detection_main">https://github.com/haraldott/anomaly_detection_main</a></li></ul><ul id="e67dc9cb-a8ad-4134-b4fe-036848daf605" class="bulleted-list"><li style="list-style-type:disc">Uses Drain, also. Represents a log as a template and as a vector.<ul id="fe0daf40-73be-4a5f-b7e2-df8b16a218f3" class="bulleted-list"><li style="list-style-type:circle">It is the log template that is mapped to an embedding vector.</li></ul></li></ul><ul id="cc317ac8-83bd-4f9b-92f0-867c7d17dff4" class="bulleted-list"><li style="list-style-type:disc">Uses sentence level embedding instead of word level embedding. Directly map a log template to its embedding.<ul id="604bfe8d-c46e-424e-925d-2dc578c2945f" class="bulleted-list"><li style="list-style-type:circle">Shows comparison between language models BERT, XL-Transformers and GPT-2 for the log sentence embedding.</li></ul><ul id="9bf0e789-8f1f-4520-8189-215e1799d4c9" class="bulleted-list"><li style="list-style-type:circle">Pre-trained versions of these models are used. Helps with cold starting on unseen log data, according to them.</li></ul><ul id="dbcf3598-847a-4312-a3dc-a922c552d14c" class="bulleted-list"><li style="list-style-type:circle">According to them, using a language model to get the sentence embedding is better than weighted averaging of word embeddings.</li></ul><ul id="a53f0240-15b5-4444-b863-8730060722d8" class="bulleted-list"><li style="list-style-type:circle">GPT-2 with a regression based approach gave best F1 scores. However, BERT is more stable.</li></ul></li></ul><ul id="0cb970ad-e6f1-42c3-b5e1-e3f58942ffde" class="bulleted-list"><li style="list-style-type:disc">During anomaly detection:<ul id="583ff4bd-a770-4b37-9d65-70125fa45828" class="bulleted-list"><li style="list-style-type:circle">The number of classes is equal to the number log template groups.</li></ul><ul id="8b26d8b3-bd95-45b6-bd04-54db2708ffbc" class="bulleted-list"><li style="list-style-type:circle">This approach allows for the incoming log to be close to one of the existing template groups, even if its template doesn&#x27;t match with any of the groups. It assigns a template group to the incoming log based on the pairwise distance of the vector representations.</li></ul><ul id="a653e667-98db-426b-b6ed-75fb592cd4cf" class="bulleted-list"><li style="list-style-type:circle">If the incoming log neither has a directly matching template nor a close-by log vector representation, then it is directly marked as an anomaly.</li></ul><ul id="412837cb-ccf9-4207-8d77-4d8d5517417d" class="bulleted-list"><li style="list-style-type:circle">Classification approach: If incoming log is matched to an existing template group, it is marked as anomaly based whether the bi-LSTM is able to predict this template class.</li></ul><ul id="4ecddb3f-2339-46db-ac53-bb6c6f5168f7" class="bulleted-list"><li style="list-style-type:circle">Regression approach: Works directly with the embedding vectors.</li></ul><ul id="2697ea75-ca2e-4379-96e9-a8f641e16041" class="bulleted-list"><li style="list-style-type:circle">They have found classification based approach to be better.</li></ul></li></ul><ul id="f522e926-5bec-403c-beb4-ef004ba11ce0" class="bulleted-list"><li style="list-style-type:disc">Doubts:<ul id="5e48ceea-ddea-4358-91e8-d505b8b722f4" class="bulleted-list"><li style="list-style-type:circle">Are sentence embeddings of the logs learnt using pre-trained models (similar to LogBERT etc) or the pre-trained model directly gives the sentence embedding of a log?</li></ul><ul id="5ca80f6e-7edc-483d-b19d-a01621d7803b" class="bulleted-list"><li style="list-style-type:circle">What exactly happens to adapt a model learnt on data-set A to data-set B, using few shot learning (Section III.C Model transfer)?</li></ul></li></ul><h3 id="dc8522b5-8805-4364-9694-fedea5e88bcc" class="">Learning and Evaluating Contextual Embedding of Source Code</h3><p id="c44da02b-ee99-41af-a6ad-be1cac19ef89" class="">Kanade et al, 2019</p><ul id="c1d6626a-fac7-4734-a2bf-a9f97b757bd3" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/google-research/google-research/tree/master/cubert">https://github.com/google-research/google-research/tree/master/cubert</a></li></ul><ul id="ab9dca2e-b3ea-4271-966e-689c7f662489" class="bulleted-list"><li style="list-style-type:disc">Source code of computer programs are more structured than logs, still the idea of contextual embedding can be tried by us.</li></ul><ul id="d3faff34-abe9-40ce-b2f7-336fb0580dee" class="bulleted-list"><li style="list-style-type:disc">Even though Word2Vec models the context of a word (either continuous bag-of-words or skip-grams), people are trying to improve how the context is modeled.</li></ul><ul id="fd8a841c-be10-4db4-8fa5-f076b8499e88" class="bulleted-list"><li style="list-style-type:disc">&quot;... the subtle differences in the meaning of a token in varying contexts are lost when each word is associated with a single representation. Recent techniques for learning contextual embeddings (McCann et al., 2017; Peters et al., 2018; Radford et al., 2018; 2019; Devlin et al., 2019; Yang et al., 2019) provide ways to compute representations of tokens based on their surrounding context, and have shown significant accuracy improvements in downstream tasks, even with only a small number of task-specific parameters.&quot;
+&quot;To deal with varying word context, contextual word embeddings were developed (McCann et al., 2017; Peters et al., 2018; Radford et al., 2018; 2019), in which an embedding is learned for the context of a word in a particular sentence, namely the sequence of words preceding it and possibly following it.&quot;</li></ul><ul id="3f2ebe0a-7ff6-439a-ad8e-6c698690827f" class="bulleted-list"><li style="list-style-type:disc">Some of the references from the paper. Please, check the paper for the others: CoVe (Context Vectors), &quot;<a href="https://proceedings.neurips.cc/paper/2017/file/20c86a628232a67e7bd46f76fba7ce12-Paper.pdf">Learned in Translation: Contextualized Word Vectors</a>&quot;, McCann et al, NeurIPS 2017, &quot;<a href="https://arxiv.org/abs/1802.05365">Deep contextualized word representations</a>&quot;, Peters et al, NAACL-HLT 2018.</li></ul><ul id="564fb90f-e707-4564-8f0a-5fdf0c0d788b" class="bulleted-list"><li style="list-style-type:disc">To understand better:<ul id="cb5596be-d4f0-48c1-8598-2cb9f33d7676" class="bulleted-list"><li style="list-style-type:circle">How much more powerful is this compared to the context modeled by Word2Vec (continuous bag-of-words (CBOW) and skip-gram) or the triplet based context used in Log2Vec?</li></ul></li></ul><h3 id="d4259588-7dc8-43ef-9e5f-9f1dac55e1eb" class="">Automated IT System Failure Prediction: A Deep Learning Approach</h3><p id="72357025-fa4f-4b1d-a503-223f2b6a9f4b" class="">Zhang et al, Big Data 2016</p><ul id="6eae5b68-861b-4255-96ad-dbd3ac9a9903" class="bulleted-list"><li style="list-style-type:disc">About tokenization and masking:<ul id="5421b670-1222-4a26-a5a0-ef3b359e785b" class="bulleted-list"><li style="list-style-type:circle">Tokenization based on only single empty space as delimiter: Without speciﬁc knowledge or human inspection, it will be easily unfair to use or not any pre-deﬁned tokenizer for the entire set of heterogeneous log data. Thus, a very general delimiter should be used. The use of such delimiter should avoid interfering with the possible, even unknown, delimiters from the log data, or should it introduce confusion into the original data.</li></ul><ul id="2b760451-e50c-4810-ab51-5103224a2259" class="bulleted-list"><li style="list-style-type:circle">Recognize special units like IP addresses and URLs as a whole even if they are all delimited by multiple single empty spaces.</li></ul></li></ul><h3 id="5112e9a7-3eab-40ea-9b29-aaf2f650ab8d" class="">A Directed Acyclic Graph Approach to Online Log Parsing</h3><p id="8bdf82d0-134c-4f1c-adbe-131a2a57c8d3" class="">He et al, 2018</p><ul id="364e086f-a3b2-4c24-9af0-60f0af009f4d" class="bulleted-list"><li style="list-style-type:disc">Extension of Drain, by the same people. Approach to merge log groups.</li></ul><ul id="450e1022-cbab-4722-828d-edfd976f2adb" class="bulleted-list"><li style="list-style-type:disc">The Drain that we use most likely doesn&#x27;t have these extensions (discussed this with <span class="user">@Marwen Sallem</span>). Not sure if implementation is available.</li></ul><ul id="faacb2ef-d86c-4aaf-87a4-7b840076b891" class="bulleted-list"><li style="list-style-type:disc">However, IBM/Drain3 (an enhancement to Drain) is available: <a href="https://github.com/IBM/Drain3">https://github.com/IBM/Drain3</a><ul id="bb579775-1171-473c-9f69-0979823c654b" class="bulleted-list"><li style="list-style-type:circle">Found this feature called &quot;Masking&quot; in IBM/Drain3 page: Replace some message parts (e.g numbers, IPs, emails) with wildcards. This improves the accuracy of template mining.</li></ul></li></ul><ul id="57e32206-747b-4874-8298-7c59fa27224e" class="bulleted-list"><li style="list-style-type:disc">According to IBM/Drain3: &quot;It is recommended to extract structured headers like timestamp, hostname. severity, etc.. from log messages before passing to Drain3, in order to improve mining accuracy.&quot; In other words, they recommend splitting the log into header and content. </li></ul><h3 id="d7e15dbe-aaec-4cad-82f4-b65c90933a2f" class="">LogParse: Making Log Parsing Adaptive through Word Classification</h3><p id="1666f345-c153-49c8-964b-b33d97e1a0b8" class="">Meng et al, ICCCN 2020</p><ul id="e5f8c410-77d4-4dd6-9d41-7b3cea5cbc11" class="bulleted-list"><li style="list-style-type:disc">SVM based word classification.</li></ul><ul id="2cdc5de8-d25b-44dd-9a5a-6096e93866b8" class="bulleted-list"><li style="list-style-type:disc">Leverages output of other log parsing algorithms. Could give us some heuristics.</li></ul><h3 id="c73c36ab-c582-4325-a700-404e2dd409d0" class="">Towards Automated Log Parsing for Large-Scale Log Data Analysis</h3><p id="60f70135-146c-4f6c-91f5-5422262b545f" class="">He et al, Transactions On Dependable And Secure Computing, 2018.</p><ul id="5efcb3b6-82a2-4bbe-97ff-12e4cdf0233b" class="bulleted-list"><li style="list-style-type:disc">Not deep learning based. Could have useful heuristics.</li></ul><h3 id="288a5554-1c28-4c12-a250-fb60551d3f8a" class="">log2seq</h3><ul id="b99fc430-0e15-4bd1-9fa3-5a95b277da2f" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/cpflat/log2seq">https://github.com/cpflat/log2seq</a></li></ul><ul id="6b78628b-97ac-4224-b49f-6256519d1a50" class="bulleted-list"><li style="list-style-type:disc">Could have useful rules for parsing log content (they call it the statement).</li></ul><h3 id="ddc76ae7-2b12-463e-a20f-367cf9dae366" class="">Lifelong Anomaly Detection Through Unlearning</h3><p id="bbe656ba-b149-4b00-adfe-30c8366873c8" class="">Du et al, CCS 2019</p><ul id="6565ad58-f2f9-4ebd-bfd2-238df8862436" class="bulleted-list"><li style="list-style-type:disc">Represents logs are already represented as log keys (like DeepLog etc) by a log parser.</li></ul><ul id="07c0fe51-837d-49f2-9b2f-136272932a22" class="bulleted-list"><li style="list-style-type:disc">However, the goal of the paper looks very interesting.</li></ul></div></article></body></html>

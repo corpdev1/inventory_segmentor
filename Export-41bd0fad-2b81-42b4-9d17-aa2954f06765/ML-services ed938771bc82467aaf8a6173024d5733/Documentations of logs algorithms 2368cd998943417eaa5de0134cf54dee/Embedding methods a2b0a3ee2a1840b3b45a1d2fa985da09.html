@@ -1,0 +1,693 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Embedding methods</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a2b0a3ee-2a18-40b3-b45a-1d2fa985da09" class="page sans"><header><h1 class="page-title">Embedding methods</h1><p class="page-description"></p></header><div class="page-body"><p id="fac986d7-dacb-4a12-948c-68fb9507efbf" class="">
+</p><p id="a12a2de7-5cad-402b-8174-3a422911685e" class=""><span class="user">@Isaac Cohen Sabban</span> wrote</p><p id="498ffc03-d46a-4e36-944b-4d4ec67685c6" class="">State-of-the-art Embedding methods</p><nav id="805aaa70-7284-4723-b7ed-09b9d880a2dc" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3bd3702f-0cd3-4ff9-bf6e-f03779df9189">Summary Table</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#be30c0a7-8c1a-43b7-a1e7-a0a95e7509f0">Word2Vec</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d41ebf43-2e50-4904-bc1e-df757091815b"><strong>Continuous Bag-of-Words (CBOW)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9ae8224b-6e82-40d7-a176-4f24fbd8aed0"><strong>Skip-Gram</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#95914c7a-95fd-4ccd-a77a-2601b7ef9e11">Fasttext</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1b2bd412-1c32-4212-ab0d-dbd7724fbf8c">Poincaré Embeddings</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e047038d-4aa1-402d-b016-7f53ae363448">TOP2VEC</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#012b60a0-059a-4a00-908c-4162768cf429">LogEvent2Vec</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ebed5de9-6c88-4f83-bb33-123e8c2e5150">Log2Vec</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#361a5d20-2228-42f1-b51d-a05d7df961bc">GloVe</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3faca6a1-1583-485c-8303-9620d5d88c5f">CuBERT</a></div></nav><h1 id="3bd3702f-0cd3-4ff9-bf6e-f03779df9189" class="">Summary Table</h1><div id="9c8a77a7-9c66-4103-b8b4-69843e67918a" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Paper</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Code</th></tr></thead><tbody><tr id="be46f111-f0dd-4082-8f9a-a2f209c6651f"><td class="cell-title"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/Untitled%20Database%209c8a77a79c664103b8b469843e67918a/TOP2VEC%20be46f111f0dd40828f9aa2f209c6651f.html">TOP2VEC</a></td><td class="cell-AETX"><a href="https://arxiv.org/pdf/2008.09470.pdf">https://arxiv.org/pdf/2008.09470.pdf</a></td><td class="cell-ekFW"><a href="https://github.com/ddangelov/Top2Vec">https://github.com/ddangelov/Top2Vec</a></td></tr><tr id="1f7879b6-058b-4d1c-8577-8d77bfde2f4e"><td class="cell-title"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/Untitled%20Database%209c8a77a79c664103b8b469843e67918a/Poincare%CC%81%20Embeddings%201f7879b6058b4d1c85778d77bfde2f4e.html">Poincaré Embeddings</a></td><td class="cell-AETX"><a href="https://arxiv.org/pdf/1705.08039.pdf">https://arxiv.org/pdf/1705.08039.pdf</a></td><td class="cell-ekFW"><a href="https://github.com/facebookresearch/poincare-embeddings">https://github.com/facebookresearch/poincare-embeddings</a></td></tr><tr id="5c9cecd7-cfba-4bfc-8c96-4e457cf39b34"><td class="cell-title"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/Untitled%20Database%209c8a77a79c664103b8b469843e67918a/Word2vec%205c9cecd7cfba4bfc8c964e457cf39b34.html">Word2vec</a></td><td class="cell-AETX"><a href="https://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf">https://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf</a></td><td class="cell-ekFW"><a href="https://radimrehurek.com/gensim/models/word2vec.html">https://radimrehurek.com/gensim/models/word2vec.html</a></td></tr><tr id="a41fb262-cae4-45e7-8ad4-324b293b90d5"><td class="cell-title"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/Untitled%20Database%209c8a77a79c664103b8b469843e67918a/Fasttext%20a41fb262cae445e78ad4324b293b90d5.html">Fasttext</a></td><td class="cell-AETX"><a href="https://arxiv.org/pdf/1612.03651.pdf">https://arxiv.org/pdf/1612.03651.pdf</a></td><td class="cell-ekFW"><a href="https://github.com/facebookresearch/fastText">https://github.com/facebookresearch/fastText</a> <mark class="highlight-orange">Also available on </mark><a href="https://radimrehurek.com/gensim/auto_examples/tutorials/run_fasttext.html#sphx-glr-auto-examples-tutorials-run-fasttext-py"><mark class="highlight-orange">gensim</mark></a></td></tr><tr id="e2502174-5479-417d-b0a7-ad962a71c007"><td class="cell-title"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/Untitled%20Database%209c8a77a79c664103b8b469843e67918a/LogEvent2vec%20e25021745479417db0a7ad962a71c007.html">LogEvent2vec</a></td><td class="cell-AETX"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7249657/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7249657/</a></td><td class="cell-ekFW"></td></tr><tr id="7a952994-2c54-4f1d-93ea-87e0897ea2cc"><td class="cell-title"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/Untitled%20Database%209c8a77a79c664103b8b469843e67918a/Log2Vec%207a9529942c544f1d93ea87e0897ea2cc.html">Log2Vec</a></td><td class="cell-AETX"><a href="https://netman.aiops.org/wp-content/uploads/2020/05/Log2Vec-icccn20.pdf">https://netman.aiops.org/wp-content/uploads/2020/05/Log2Vec-icccn20.pdf</a></td><td class="cell-ekFW"><a href="https://github.com/WeibinMeng/Log2Vec">https://github.com/WeibinMeng/Log2Vec</a></td></tr><tr id="f94b6e42-e38f-47cc-9c2f-7a773a62757e"><td class="cell-title"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/Untitled%20Database%209c8a77a79c664103b8b469843e67918a/GloVe%20f94b6e42e38f47cc9c2f7a773a62757e.html">GloVe</a></td><td class="cell-AETX"><a href="https://nlp.stanford.edu/pubs/glove.pdf">https://nlp.stanford.edu/pubs/glove.pdf</a></td><td class="cell-ekFW"><a href="https://radimrehurek.com/gensim/scripts/glove2word2vec.html">https://radimrehurek.com/gensim/scripts/glove2word2vec.html</a></td></tr><tr id="3127741e-92c5-47e0-a2ca-037d28f9ef72"><td class="cell-title"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/Untitled%20Database%209c8a77a79c664103b8b469843e67918a/CuBert%203127741e92c547e0a2ca037d28f9ef72.html">CuBert</a></td><td class="cell-AETX"><a href="http://proceedings.mlr.press/v119/kanade20a/kanade20a.pdf#page=10&amp;zoom=100,0,0">http://proceedings.mlr.press/v119/kanade20a/kanade20a.pdf#page=10&amp;zoom=100,0,0</a></td><td class="cell-ekFW"><a href="https://github.com/google-research/google-research/tree/master/cubert">https://github.com/google-research/google-research/tree/master/cubert</a></td></tr><tr id="ed1f3dc3-0039-4d0c-8acb-761549d7daab"><td class="cell-title"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/Untitled%20Database%209c8a77a79c664103b8b469843e67918a/Untitled%20ed1f3dc300394d0c8acb761549d7daab.html">Untitled</a></td><td class="cell-AETX"></td><td class="cell-ekFW"></td></tr></tbody></table><br/><br/></div><p id="802949c7-41e7-48dc-9e80-ee022991811a" class="">
+</p><h1 id="be30c0a7-8c1a-43b7-a1e7-a0a95e7509f0" class="">Word2Vec</h1><p id="599c3c1c-52ec-4838-9646-0765587460e6" class="">
+</p><figure id="4ba611d5-47a3-4a99-ac00-18a0b4e8b966" class="image"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/1X88FNisWZNkLZak3uhcpjQ.png"><img style="width:1400px" src="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/1X88FNisWZNkLZak3uhcpjQ.png"/></a></figure><p id="f80e41f0-c629-4316-88d5-73762694090d" class="">
+</p><p id="1abccdf5-77f7-40f6-88de-31351259b116" class="">Word2Vec is a shallow, two-layer neural networks which is trained to reconstruct linguistic contexts of words.</p><p id="b9308d49-d53a-48d3-8bfe-e05a1c11b7af" class="">It takes as its input a large corpus of words and produces a vector space, typically of several hundred dimensions, with each unique word in the corpus being assigned a corresponding vector in the space.</p><p id="2f1343e3-ca53-45bc-843a-2c23481e650c" class="">Word vectors are positioned in the vector space such that words that share common contexts in the corpus are located in close proximity to one another in the space.</p><p id="786c5c8f-c67f-4287-960d-85c4bae60f79" class="">Word2Vec is a particularly computationally-efficient predictive model for learning word embeddings from raw text.</p><p id="af5b24e9-93b4-4287-95c6-a164f556c0de" class="">It comes in two flavors, the Continuous Bag-of-Words (CBOW) model and the Skip-Gram model.</p><h2 id="d41ebf43-2e50-4904-bc1e-df757091815b" class=""><strong>Continuous Bag-of-Words (CBOW)</strong></h2><p id="dbe48113-1774-45f6-b744-aba7e5c4ae35" class="">CBOW predicts target words  from the surrounding context words.Statistically, it has the effect that CBOW smoothes over a lot of the distributional information (by treating an entire context as one observation). For the most part, this turns out to be a useful thing for smaller datasets.</p><h2 id="9ae8224b-6e82-40d7-a176-4f24fbd8aed0" class=""><strong>Skip-Gram</strong></h2><p id="3b4efc15-c8b9-446b-b786-b7ab87eb9c2d" class="">Skip-gram predicts surrounding context words from the target words (inverse of CBOW).Statistically, skip-gram treats each context-target pair as a new observation, and this tends to do better when we have larger datasets.</p><figure id="387cd39f-fbc9-47b8-b420-8c3b55a3eeb9" class="image"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/word2vec_diagrams.png"><img style="width:833px" src="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/word2vec_diagrams.png"/></a></figure><p id="8108c462-f63f-4709-ae10-24d2fe460704" class="">
+</p><h1 id="95914c7a-95fd-4ccd-a77a-2601b7ef9e11" class="">Fasttext</h1><p id="dd44eaa0-2964-4c37-b7ff-c04d5adfa4b5" class="">FastText combines some of the most successful concepts introduced by the natural language processing and machine learning communities in the last few decades. These include representing sentences with bag of words and bag of n-grams, as well as using subword information, and sharing information across classes through a hidden representation. They also employ a hierachical softmax that takes advantage of the unbalanced distribution of the classes to speed up computation. These different concepts are being used for two different tasks: efficient text classification and learning word vector representations.</p><p id="1ec5e415-7503-4d90-9537-0f51bb5040c0" class="">
+</p><figure id="8bf43c07-0ba9-4143-ad1b-f4d817f5dae4" class="image"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/fasttext-center-word-embedding.png"><img style="width:518px" src="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/fasttext-center-word-embedding.png"/></a></figure><h1 id="1b2bd412-1c32-4212-ab0d-dbd7724fbf8c" class="">Poincaré Embeddings</h1><p id="0789ea86-30d4-44f9-9232-dbbe2961debe" class="">This  approach learns hierarchical representations of symbolic data by embedding them into hyperbolic space – or more precisely into an n-dimensional Poincaré ball. Due to the underlying hyperbolic geometry, this allows us to learn parsimonious representations of symbolic data by simultaneously capturing hierarchy and similarity. They introduce an efficient algorithm to learn the embeddings based on Riemannian optimization and show experimentally that Poincaré embeddings outperform Euclidean embeddings significantly on data with latent hierarchies, both in terms of representation capacity and in terms of generalization ability.</p><p id="d5a1af7e-d3de-45b9-be19-3ac1e1077cc1" class="">
+</p><figure id="3a5b61c5-f90d-4038-a43d-ccb83196bbd2" class="image"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/8435c41a-a112-41f7-88c0-b8edb0d4365c.jpg"><img style="width:800px" src="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/8435c41a-a112-41f7-88c0-b8edb0d4365c.jpg"/></a></figure><h1 id="e047038d-4aa1-402d-b016-7f53ae363448" class="">TOP2VEC</h1><p id="e52bdf83-5ee3-4c8b-a6b5-8f0fcf5ba517" class="">Top2Vec is an algorithm for topic modeling and semantic search. It automatically detects topics present in text and generates jointly embedded topic, document and word vectors. This model does not require stop-word lists, stemming or lemmatization, and it automatically finds the number of topics. The resulting topic vectors are jointly embedded with the document and word vectors with distance between them representing semantic similarity.</p><figure id="93ed3234-30ea-4697-ba20-3076fb720483" class="image"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/doc_word_embedding.svg"><img style="width:960px" src="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/doc_word_embedding.svg"/></a></figure><p id="c2a3c227-91b0-4407-8b57-6740de4245e7" class="">
+</p><h1 id="012b60a0-059a-4a00-908c-4162768cf429" class="">LogEvent2Vec</h1><p id="a1431a93-a0ad-4017-8f80-2fcc8c5db858" class="">
+</p><p id="21f4abdf-56f3-4790-9a44-2707d7503ef8" class="">Word2vec can extract the relevance between words and vectorize the words. However, the computing cost of training word2vec is high. Anomalies in logs are dependent on not only an individual log message but also on the log message sequence. Therefore, the vector of words from word2vec can not be used directly, which needs to be transformed into the vector of log events and further transformed into the vector of log sequences. To reduce computational cost and avoid multiple transformations, in this paper, they propose an offline feature extraction model, named LogEvent2vec, which takes the log event as input of word2vec to extract the relevance between log events and vectorize log events directly.</p><p id="f57e8bb1-eac4-42a1-95a5-f558b4549e05" class="">
+</p><h1 id="ebed5de9-6c88-4f83-bb33-123e8c2e5150" class="">Log2Vec</h1><p id="0f9f03f3-e9a8-4aec-b968-1d71526ab896" class="">
+</p><p id="7758577e-05c4-495b-a9c1-6791d4189dd7" class="">They propose, a semantic-aware representation framework for log analysis. Log2Vec combines a log-specific word embedding method to accurately extract the semantic information of logs, with an OOV word processor to embed OOV words into vectors at runtime.</p><h1 id="361a5d20-2228-42f1-b51d-a05d7df961bc" class="">GloVe</h1><p id="413df16d-c61d-41bc-b741-01bf4b1f9f65" class="">
+</p><p id="55acc169-d4ff-44fd-96d6-a7ccffe9bb7b" class="">GloVe is a word vector technique that rode the wave of word vectors after a brief silence. Just to refresh, word vectors put words to a nice vector space, where similar words cluster together and different words repel. The advantage of GloVe is that, unlike Word2vec, GloVe does not rely just on local statistics (local context information of words), but incorporates global statistics (word co-occurrence) to obtain word vectors. GloVe method is built on an important idea, you can derive semantic relationships between words from the co-occurence matrix.</p><p id="686fd329-7454-428d-928f-9c1d64f01864" class="">
+</p><figure id="d494f3bd-13f8-4c35-9e70-7c01cf5ca029" class="image"><a href="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/1QWcK8CIDs8kMkOwsOxvywA.png"><img style="width:347px" src="Embedding%20methods%20a2b0a3ee2a1840b3b45a1d2fa985da09/1QWcK8CIDs8kMkOwsOxvywA.png"/></a></figure><p id="4812fb9f-de80-4746-a52b-df1746c6f7bb" class="">
+</p><p id="7f716ee6-eeb5-4042-9d4d-8d204d64e3c6" class="">
+</p><h1 id="3faca6a1-1583-485c-8303-9620d5d88c5f" class="">CuBERT</h1><p id="07a06db5-5268-468c-84ab-8df917a996e1" class=""><a href="http://proceedings.mlr.press/v119/kanade20a/kanade20a.pdf">Learning and Evaluating Contextual Embedding of Source Code</a></p><p id="3bdf83c7-76f0-4563-8527-320c45613732" class="">Inspired by the success of pre-trained contextual embeddings for natural languages, they present the first attempt to apply the underlying techniques to source code. Based on BERT, CuBert ( for Code Understanding BERT.) is a fine-tuned modelfor downstream supervised tasks and has been shown to produce state-of-the-art results on Learning and Evaluating Contextual Embedding of Source Code.</p><p id="91f677bd-e76b-42ed-9eb0-db3aa39e2c50" class="">
+</p><p id="30503150-e01c-4b30-9424-b4e3f6b3c61c" class="">
+</p></div></article></body></html>

@@ -1,0 +1,766 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Sparse Data Paper</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e6eb1763-b268-41bc-be7d-7f19fef8b249" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📈</span></div><h1 class="page-title">Sparse Data Paper</h1><p class="page-description"></p></header><div class="page-body"><p id="35143b5e-5848-43fd-ac78-a45398e70037" class=""><span class="user">@Isaac Cohen Sabban</span> wrote it </p><figure id="a41543da-9a0b-4674-8025-fc53d7efbdea" class="link-to-page"><a href="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/DL%20for%20Sparse%20Data%20a41543da9a0b46748025fc53d7efbdea.html">DL for Sparse Data</a></figure><nav id="1f5a6c08-011f-4a56-9b9b-858be1f0e136" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#148f8e8a-7314-4fa9-91c0-6784e214a0ca">Notion and problematic </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6c4e8a8d-3f16-4556-8658-6c20d23deb0c">Detection of Anomalous Drops with Limited Features and Sparse Examples in Noisy
+Highly Periodic Data (Google)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#15e46154-10fd-4bf8-84c2-f249338db890">Abstract</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1394eab4-cfea-4671-8445-20d8105ced06">Introduction </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b0c4e34c-fe0e-41cb-bcc3-7f32f7375ef5">A. About the Data   </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#aea3f724-96a0-4303-a461-56d770591449">B. About the Problem</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d59a0869-0ed9-4365-8baf-088897cda1d9">II. RELATED WORK</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#efd5c3e2-dd86-42c7-ade0-59c9bb8c6137">DATA PREPROCESSING</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2741cd05-6832-4f4b-803f-6dce4711a4cd">DETECTION RULES</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#6537cfd5-9220-41b6-92ac-6c24e4d4479b">Accumulator</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e23f891c-1494-495d-b15a-7b3410ab1a6c">Gaussian Tail Probability</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fd1ded35-289b-48c1-8369-0117ac87966f">Models</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#17d3cfec-de56-4163-a6f5-640309480760"><strong>Statistical</strong> Methods</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a93cb7df-2c79-423e-b137-23864d62a0df"><strong>Holt-Winters (Triple Exponential Smoothing)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b08dc4c9-dcfe-4945-9615-9d870a4cc2f1"><strong>ARIMA (Auto-Regressive Integrated Moving Average)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c90f103d-58bb-48cf-8199-f467b5c37ac9">SARIMAX<strong> (Seasonal Auto-Regressive Integrated Moving Average Exogenous)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#513f0cfc-1ec5-4bab-a293-35d5f8ba7004"><strong>Histogram-Based Outlier Detection</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#721e98c5-6ffe-43b6-b938-a47f39a7f406">Machine Learning Methods</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#cb4e9477-05fc-4f47-943c-f0c49bedb1dc">Using PCA</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ff9b9735-f329-4505-a7a8-b9bacee304bf">Tree models</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#faa93f1d-1d59-45ca-805d-27206f27e80e">Clustering models</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#698065f0-4e34-4f0a-b5f9-81f8068271bd">Using DL</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3b82024e-13ab-40c5-92fb-087b2ed039df">Other </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#92635cca-c958-4caf-a172-56ee804e6184">Summary</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#28a7e9fc-68ee-4011-b3db-83e8a16d498b">Sources</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8b486cc0-7f8d-4029-a0da-db369b497716">Code</a></div></nav><p id="45f8c990-baa5-4c31-959f-69e4ce1b5e96" class="">
+</p><p id="4a164876-bb35-4670-ab57-4e62adfcefdf" class="">
+</p><h1 id="148f8e8a-7314-4fa9-91c0-6784e214a0ca" class="">Notion and problematic </h1><p id="ce73ddac-3259-4f9e-bb9e-d00de1a21f48" class="">
+</p><p id="34df50b1-3bf9-4a9f-af9e-80670c87c5bf" class=""><strong>Global/Local</strong>: We observe distinct seasonal patterns in some of the time series we monitor in production.  The seasonal nature can be ascribed to a multitude of reasons. Additionally, over longer periods of time, we observe an underlying trend. This can be explained, in part, by organic growth. As the figure below shows, global anomalies typically extend above or below expected seasonality and are therefore not subject to seasonality and underlying trend. On the other hand, local anomalies, or anomalies which occur inside seasonal patterns, are masked and thus are much more difficult to detect in a robust fashion.</p><figure id="3ac7118e-0621-4c3d-af59-597314aad780" class="image"><a href="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Untitled.png"><img style="width:1400px" src="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Untitled.png"/></a></figure><figure id="e52ce38d-7a47-4dd9-8bd7-46e3ec977285" class="image"><a href="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Untitled%201.png"><img style="width:1845px" src="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Untitled%201.png"/></a><figcaption>Global anomaly in red, local in blue</figcaption></figure><p id="861a3451-a813-4115-9b94-c8b3ac5e6b97" class="">
+</p><p id="a13ec880-6ad8-40c6-8732-224d6c0ab2b7" class="">
+</p><p id="cb16f2f1-fc35-47a0-ace4-0e1bd214e146" class="">Netflix identified four generic challenges that are ubiquitous in outlier detection on “big data.”</p><ul id="fbcc4e8c-1427-4a2c-80a6-c6eacb697593" class="bulleted-list"><li style="list-style-type:disc"><strong>High cardinality</strong><strong> dimensions</strong>: High cardinality data sets — especially those with large combinatorial permutations of column groupings — makes human inspection impractical.</li></ul><ul id="c88bf946-79d4-4be0-a1b2-3795e70f2791" class="bulleted-list"><li style="list-style-type:disc"><strong>Minimizing False Positives</strong>: A successful anomaly detection tool must minimize false positives. In our experience there are many alerting platforms that “sound an alarm” that goes ultimately unresolved. The goal is to create alerting mechanisms that can be tuned to appropriately balance noise and information.</li></ul><ul id="0a5528f9-7164-44fb-8ee1-5e7106e19c21" class="bulleted-list"><li style="list-style-type:disc"><strong>Seasonality</strong>: Hourly/Weekly/Bi-weekly/Monthly seasonal effects are common and can be mis-identified as outliers deserving attention if not handled properly. Seasonal variability needs to be ignored.</li></ul><ul id="90e173f9-a16a-41f6-9f3c-3e220fcc777d" class="bulleted-list"><li style="list-style-type:disc"><strong>Data is not always normally distributed</strong>: This has been a particular challenge since Netflix has been growing over the last 24 months. Generally though, an outlier tool must be robust so that it works on data that is not normally distributed.</li></ul><p id="792d56d4-1881-4e3c-80f7-d3bee43b5827" class="">
+</p><p id="eff43f6a-ce79-45e9-9648-a8b5305d099b" class="">
+</p><p id="b9da876e-29ba-4755-9bd9-16ceedf9a718" class="">How to measure deviation?</p><p id="f254db17-f6b5-4ec8-9f6f-c3d94182af00" class="">
+</p><blockquote id="ec6ce2d5-c997-43ab-9214-79b7df9f4b93" class="">The most common way to measure deviation is some kind of <strong>errors </strong>.We will use the <em><strong>squared error </strong></em>between the predicted value (<em><strong>x*</strong></em>) and the true one (<em><strong>x</strong></em>). <em><strong>Squared error = </strong></em><strong>❨𝑥*−𝑥❩² </strong>For ARIMA we will use <em><strong>absolute error</strong></em>=<strong>|𝑥*−𝑥</strong><em><strong>| </strong></em>since it performed better. The absolute error may also be used in other models instead of the squared error.</blockquote><p id="1d8633cf-89bf-4dd4-8322-c7319f58ad92" class=""><a href="https://becominghuman.ai/time-series-and-how-to-detect-anomalies-in-them-part-i-7f9f6c2ad32e">https://becominghuman.ai/time-series-and-how-to-detect-anomalies-in-them-part-i-7f9f6c2ad32e</a></p><p id="e02e9775-997c-4f8c-b857-d1f97204cc9e" class="">
+</p><p id="b9ecfacc-3337-4628-bc0b-e8f392d45b85" class="">Use for Threshold : <a href="https://en.wikipedia.org/wiki/68%E2%80%9395%E2%80%9399.7_rule">https://en.wikipedia.org/wiki/68–95–99.7_rule</a></p><p id="39285695-e470-4411-8e71-14d77a92d82d" class="">
+</p><p id="841567a5-1588-4b8b-868b-d3213aad456e" class="">
+</p><h1 id="6c4e8a8d-3f16-4556-8658-6c20d23deb0c" class="">Detection of Anomalous Drops with Limited Features and Sparse Examples in Noisy
+Highly Periodic Data (Google)</h1><p id="6e571c33-391b-454d-8ca4-009cc09e8d94" class="">reading augmented by <span class="user">@Abdelhadi Azzouni</span> </p><h1 id="15e46154-10fd-4bf8-84c2-f249338db890" class="">Abstract</h1><p id="61b15303-163c-49ec-ab31-03f56b995ab2" class="">Google uses continuous streams of data from industry partners in order to deliver accurate results to users. Unexpected drops in traffic can be an indication of an underlying issue and may be an early warning that remedial action may be necessary. Detecting such drops is non-trivial because streams are variable and noisy, with roughly regular spikes (in many different shapes) in traffic data. They investigated the question of whether or not we can predict anomalies in these data streams.They use Machine Learning and statistical approaches to classify anomalous drops in periodic, but noisy, traffic patterns. They approached the problem in two parts. First they used TensorFlow to train a various models including DNNs, RNNs, and LSTMs to perform regression and predict the expected value in the time series. Secondly they created anomaly detection rules that compared the actual values to predicted values.</p><p id="449c4772-8d01-490e-92cf-e0fee0a3ca44" class="">
+</p><h1 id="1394eab4-cfea-4671-8445-20d8105ced06" class="">Introduction </h1><h3 id="b0c4e34c-fe0e-41cb-bcc3-7f32f7375ef5" class="">A. About the Data   </h3><p id="af28e6e7-4505-4b48-a34a-f5cae18ed709" class="">We looked at <mark class="highlight-yellow_background">14 different sets </mark>of data that were saved at <mark class="highlight-yellow_background">5 minute intervals</mark>. This means that that each hour had 12 data points, and each day had 288. Our goal is to detect anomalies such as absences of daily traffic bursts on unexpected decreases in the throughput volume, while not detecting anomalies on regular low -- or even 0-- values. The only two attributes of this dataset were a unix timestamp and
+the bytes per second value, both sampled every 5 minutes.</p><p id="02d83c63-1709-4e06-982e-bb636abd1e9c" class="">...</p><h3 id="aea3f724-96a0-4303-a461-56d770591449" class="">B. About the Problem</h3><p id="59b89540-ff85-4666-b9e4-30515fc52ee7" class="">...</p><p id="7fea2bbb-9049-46ba-a2ab-a73669ec11eb" class="">We trained a separate model for each data stream since we found no significant correlation between each of the data streams. Our models returned predictions that we compared to the actual data stream values using our anomaly detection rules to determine if the current point is anomalous. Although all of our models and metrics are done in an offline environment, they are all approaches that are adaptable to online training, predicting, and anomaly detection. The adaptability of our models is a result of our machine learning models and anomaly detection rules only requiring either the past or current points. Additionally, to make sure our models were effective we compared them to a threshold model, which would constantly predict a very low value.</p><p id="452cb004-a387-45a9-bd79-1e41f0e78a4d" class="">Since our models are only predicting a point through regression, we need a defined rule to determine whether a point is anomalous or not by comparing the prediction and actual value. The intuitive approach for comparing the predictions actual value to determine whether a point is anomalous or not is by simply calculating the euclidean distance and setting a threshold. However, this could lead to numerous false positives especially with noisy data. Therefore, we implemented two different detection rules for anomaly detection: one using an accumulator to detect continuous outages and another using a probabilistic approach as outlined by Ahmad and Purdy [2]. Both methods attempt to mitigate high false positive rates by avoiding a simple threshold technique applied to one datapoint. The accumulator method works by having a metric defined to determine a local outage, and then increment the counter for every outage and decrement it for every non-anomalous value.</p><p id="2646e7e2-4b16-497d-9605-a5b8bd960252" class="">The statistical method based on the Numenta’s formulation [2] worked by comparing short term variance to long term variance, meaning that it would also adjust to the data in addition to our model [2]. We found both of these methods to work similarly well; they both fired at almost exactly the same points. Despite this, each offers theoretical and practical approaches, particularly in potential future experiments, since the accumulator method is easily modifiable and controllable, and the statistical method gives a percentage chance of being an outlier, which could be
+multiplied between models to give a more robust score [2].</p><p id="519f4192-60bd-458f-8f0c-7e08fdbc8721" class="">We found that for this problem it was the anomaly detection method that mattered more than the model itself, since our anomaly rules were able to be quite effective on most of our models.</p><p id="593ca76c-58ab-4552-8a8f-1b113d3629f5" class="">...</p><h1 id="d59a0869-0ed9-4365-8baf-088897cda1d9" class="">II. RELATED WORK</h1><p id="d2eedfb8-d632-4739-8e81-a7ffacd8d6e2" class="">Anomaly detection is actively and heavily researched [3][4]. While classification techniques are a popular approach to solve anomaly detection, it is unrealistic to expect to always have a dataset with a sufficient and diverse set of labeled anomalies [1]. Statistical and regression techniques seem more promising in these cases. Netflix recently released their solution for anomaly detection in big data using Robust Principle Component Analysis [5]. Netflix’s solution proved to be successful however, their statistical approach relies on high cardinality data sets to compute a low rank approximation which limits its applications [5]. Twitter also released an approach to anomaly detection which considers seasonality using the Seasonal Hybrid Extreme Studentized Deviate test (S-H-ESD) [6]. The technique employed by Twitter is promising as it is suited for breakout anomalies, not just point anomalies [6]. There are many other machine learning techniques that could be used to detect anomalies, such as regression using LSTMs, RNNs, DNNs or other  model types [1].<mark class="highlight-orange_background"> In this paper we focus on the performance of regression-based machine learning techniques on </mark><mark class="highlight-red_background">periodic time series</mark><mark class="highlight-orange_background"> data with limited features and few labeled examples of anomalies.</mark></p><h2 id="efd5c3e2-dd86-42c7-ade0-59c9bb8c6137" class="">DATA PREPROCESSING</h2><p id="17635c7e-0eb8-490a-ad6e-c34f25f6669f" class="">We decided to see if any form of composite data streams would make sense as a feature, such as the average value of all streams or using the principal components to decrease it to a few significant streams. However, we found that almost none of the streams had any linear correlation to each other through calculating the covariance matrix, meaning that a composite based on principal component analysis would not add information. </p><p id="2a6f4303-876e-43d5-a026-537cb6f57c51" class="">
+</p><p id="72b5a070-cefc-4a20-ba0e-18663205478c" class="">〚 The only feature available for them to use is the unix time stamp and the only label is the number of bytes (amount of data) received.</p><p id="8c922caf-68f5-4eb0-b7bb-686a7fd349f4" class="">
+</p><p id="da7ada28-19f9-4199-8925-607e0e992525" class="">For each models they converted the unix timestamp into a weekday, hour, and minutes feature. Then they decomposed the time features into multiple, non-linearly correlated features by converting hours and weekday into one hot encodings, while adding a linear minutes feature in the hopes that it could help the model learn better by creating more features with more complicated relations.</p><p id="90053cd4-d451-4f30-ab52-a8e14440def9" class="">They normalized the bytes per second metric to be from 0 to 1 because while the Fourier Model could work with values as high and variable as our inputs, approaches with Neural Networks are much less effective when the values are that high. Additionally normalizing the data made training faster even for the Fourier Model, so they used normalized data for all of our models. (also Akvelon did this choice to normalize the data) 〛</p><h2 id="2741cd05-6832-4f4b-803f-6dce4711a4cd" class="">DETECTION RULES</h2><p id="32ca1d4f-ddbf-4322-a41e-f9aad3f841c5" class="">
+</p><p id="77c04a3a-d139-4ea0-bb00-c262eb9684d3" class="">Two types of detection rules, an accumulator method and a gaussian tail probability method.</p><p id="949fc5cf-3dd0-48c2-81c3-6493fa7d93f7" class="">For the final prediction, they take intersection of the two models .</p><p id="ae3b64d3-010a-4b87-b50b-3d5cd644ac4f" class="">
+</p><h3 id="6537cfd5-9220-41b6-92ac-6c24e4d4479b" class="">Accumulator</h3><p id="9014c011-355e-4059-8139-f7ac00f5420d" class="">
+</p><p id="82538a42-a0eb-4239-b45f-6c904e6840ab" class="">The goal of the accumulator rule was to require multiple point anomalies to occur in a short period of time before signalling a sustained anomaly.</p><p id="200122b0-4632-4a04-b61f-6eb0ce370847" class="">This rule involved a counter that would grow as point anomalies are detected, and shrink in cases where the predicted value is correct. The goal of this is to prevent noise that a local anomaly detection algorithm would incur, by requiring multiple anomalies in a short timeframe to cause it to reach a threshold for signaling. For every local anomaly the accumulator grows by one, and for every non-anomalous value it shrinks by two so that pure noise causes the accumulator to shrink. The accumulator is capped between 0 and 1.5x the value of the threshold for signalling, although these numbers were chosen based on testing and other optimal values could be possible.</p><p id="9e6f618a-08cb-43dd-b69a-0aaf7cd2da27" class="">For all models they defined the threshold for a non-anomalous value at 0.3, a peak value at 0.35, had a an accumulator threshold at 15 and had the delta for a local outage at 0.1</p><p id="17094987-0ca6-4bcc-8409-047802e62ca1" class="">
+</p><h3 id="e23f891c-1494-495d-b15a-7b3410ab1a6c" class="">Gaussian Tail Probability</h3><p id="2543f21a-e372-41c5-b80f-229209b15993" class="">The raw anomaly score calculation is simply the difference between the inference and ground-truth, however, points above inference are not considered as we are only concerned with a lack of activity. Therefore, our raw anomaly score is as follows, where f(x ) is the prediction at t
+time t and a is the ground-truth:</p><p id="ce3c8314-3a7f-43a3-9482-620483de82b3" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>s</mi><mi>t</mi></msub><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mi>t</mi></msub><mo stretchy="false">)</mo><mtext>−</mtext><msub><mi>a</mi><mi>t</mi></msub><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">s_t = max(f(x_t) − a_t , 0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">ma</span><span class="mord mathnormal">x</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">−</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p><p id="1dc7acf9-8084-4d5b-ac8e-45fb9bd3f018" class="">The series of resulting raw anomaly scores are used to calculate the rolling mean and variance. The rolling mean has two windows where the length of W2 &lt; W1. The two rolling means and variance are used to calculate the tail probability which is the final anomaly likelihood score.</p><p id="21af22a8-711e-4203-bfe7-59eaad573bbd" class="">
+</p><p id="a15cff35-efeb-434a-9314-f13c7344ec0e" class="">
+</p><p id="5eaf9f58-8a4d-49df-8a7f-3da66e31db00" class="">
+</p><h1 id="fd1ded35-289b-48c1-8369-0117ac87966f" class="">Models</h1><p id="f1292c47-82e8-4385-bd50-b1e96152554d" class="">
+</p><p id="81684059-fc1e-4789-b69b-1f6975fdb6da" class=""><strong>Statistical Methods</strong></p><ul id="ba524d62-ee3b-444f-bc09-0729b383c383" class="bulleted-list"><li style="list-style-type:disc">Holt-Winters (Triple Exponential Smoothing)</li></ul><ul id="dbc987b7-00c9-4625-9185-ba92f2022057" class="bulleted-list"><li style="list-style-type:disc">ARIMA (<em>Auto-Regressive Integrated Moving Average</em>)</li></ul><ul id="6ed71184-1eb3-4f22-ab89-b3573d08f547" class="bulleted-list"><li style="list-style-type:disc">Histogram-Based Outlier Detection (HBOS)</li></ul><p id="fd7ee6ee-7897-4719-becf-494fda6cbb39" class="">Conventional statistical methods are generally <strong>more interpretable</strong> and sometimes <strong>more useful</strong> than machine learning-based methods, depending on the specified problem.</p><p id="6e4eedf9-bc36-42ca-b781-b95fe1567010" class="">
+</p><p id="5764739b-0068-4403-9dba-0d08dad6d8ee" class=""><strong>Machine Learning Methods</strong></p><ul id="54ca91ce-ab1b-4cd1-bf94-b67b2788f90b" class="bulleted-list"><li style="list-style-type:disc">Supervised (e.g. Decision Tree, SVM, LSTM Forecasting)</li></ul><ul id="1322745d-55b2-4569-9432-f3d246e2a567" class="bulleted-list"><li style="list-style-type:disc">Unsupervised (e.g. K-Means, Hierarchical Clustering, DBSCAN)</li></ul><ul id="5e44e1ac-dd42-4fea-a73b-38587d72025a" class="bulleted-list"><li style="list-style-type:disc">Self-Supervised (e.g. LSTM Autoencoder)</li></ul><p id="282eeedf-0fc4-40c4-bb04-e6bc3ba36fbb" class="">Machine Learning methods can <strong>model more complex data</strong> and hence able to detect <strong>more complex anomalies</strong> than conventional statistical methods.</p><p id="416e74ef-7a1e-4bcc-aedf-b20669c587ef" class="">
+</p><figure id="1b1d4122-2229-4cad-8011-8fe8d2a0be5d" class="image"><a href="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Capture_decran_2021-06-25_a_15.04.28.png"><img style="width:1012px" src="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Capture_decran_2021-06-25_a_15.04.28.png"/></a></figure><p id="0fdd404d-4c1a-402a-ac76-930dd446181b" class="">
+</p><h2 id="17d3cfec-de56-4163-a6f5-640309480760" class=""><strong>Statistical</strong> Methods</h2><p id="02837a0d-dba6-4c4d-b77f-6f3279f99fda" class="">
+</p><p id="231df438-cc98-47b8-a622-b240167fcf0a" class=""><a href="https://eprints.whiterose.ac.uk/767/1/ho">https://eprints.whiterose.ac.uk/767/1/ho</a></p><p id="74155228-4081-4c11-b411-b434131b0faa" class=""><a href="https://arxiv.org/pdf/2010.14946.pdf">https://arxiv.org/pdf/2010.14946.pdf</a></p><p id="736aab90-4e91-4c4f-af7b-682f3800eeb5" class="">
+</p><p id="b16ef9d5-9d71-4c39-a805-27ac411c7617" class="">With statistical methods, it is assumed that the data points in a system are generated according to some statistical model. Any deviation from the expected model is regarded as an anomaly. In order to detect anomalies, statistic inference tests are applied. The types of techniques in this
+category can be parametric or non-parametric. For the parametric category, the underlying distribution of the data is known, and the parameters are estimated based on the data.
+Examples of parametric methods include those based on the Gaussian model, the Regression model, or a mixture of Parametric Distributions.</p><p id="9d447e53-af9c-4318-9daf-c46099d8be0d" class="">On the other hand, in the non-parametric case, the parameters of the underlying distribution are not known; they are determined from the existing data. Examples include methods based on histograms or on the Kernel Function, we also considers the case of Proximity based techniques, such as k-NN, as well as that of Semi-Parametric methods, where local kernel models are applied instead of a single global distribution model</p><p id="10b3239f-f0a7-4ea7-bcbb-3a4bf42fcb83" class="">
+</p><p id="304a9cd4-be7f-421b-93f0-3a65e3f28edb" class="">Statistical techniques have the advantage of being <strong>explainable</strong> as well as interpretable, especially when the distribution of the underlying data is known. In addition, some of these techniques, such as histogram-based or those which model single exponential distributions, can be<strong> easy to implement, or computationally efficient</strong>. However, kernel based techniques and models with complex distribution induce a <strong>higher computational complexity.</strong> A limitation of the statistical approaches is that testing for outliers assumes that a <strong>specific distribution characterizes</strong>  the recorded data points. This turns out <strong>not to be the case for most of the high dimensional data.</strong> Another challenge is that it may <strong>not be straightforward to choose the best statistics test for detecting the anomalies</strong>. Furthermore, histogram based techniques are <strong>not suited for multivariate data</strong>, as they do no take into account the interaction between the attributes of the data. When dealing with high dimensional data, machine learning techniques tend to perform better, as fewer assumptions are made about the actual data         values.</p><p id="c2c333a2-d0a0-45a4-99dd-2711ba4a5b4b" class="">
+</p><p id="fbd4849c-3a31-46e0-ab05-fdcb04c2fa98" class="">The problem with <strong>ARIMA and SARIMAX</strong> models is that these are linear combinations of Autoregressive and Moving Average terms whereas many business time series are non-linear in nature. Although, the problem of automatic determination of order has been addressed using autoarima, these models still suffer from problems such as <strong>heteroskedasticity and automatic periodicity determination</strong>. Apart from this, these statistical models assume that the timeseries is ergodic with a <strong>gaussian noise model which might not hold in every case</strong>.</p><p id="c65d322c-491b-413a-aae8-31425caa527c" class="">
+</p><h3 id="a93cb7df-2c79-423e-b137-23864d62a0df" class=""><strong>Holt-Winters (Triple Exponential Smoothing)</strong></h3><p id="195998a5-337b-47a0-ab13-0eb0baf097ac" class="">Holt-Winters is a forecasting technique for <em>seasonal</em> <em>(i.e. cyclical)</em> time series data, based on previous timestamps.</p><p id="598aa9dd-ced2-4288-8e50-71e44fb53163" class="">Holt-Winters models a time series in 3 ways – <strong>average</strong>, <strong>trend</strong> and <strong>seasonality</strong>. An average is a value referenced upon, a trend is a general increase/decrease over time and a seasonality is a cyclical repeating pattern over a period.</p><p id="99426408-efae-4168-92ef-0e654cb698f1" class="">
+</p><p id="e1b5f7d4-8dd0-4401-9b13-50130555a872" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>x</mi></msub><mo>=</mo><mi>α</mi><mo>⋅</mo><msub><mi>y</mi><mi>x</mi></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mtext>−</mtext><mi>α</mi><mo stretchy="false">)</mo><mo>⋅</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\hat{y}_x=α⋅y_x + (1−α)⋅\hat{y}_{x-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.44445em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1−</span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.902771em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></p><p id="eafa760f-0396-47a8-9fe2-6ff925210ac8" class="">The value forecast at t=x is a factor of the value at t=x, along with a discounted value of the value forecast at t=x-1. (1-a) is recursively multiplied every timestamp back, resulting in an exponential computation.</p><p id="9033a766-8f3f-4081-a56b-962859893f67" class=""><a href="https://www.statsmodels.org/dev/generated/statsmodels.tsa.holtwinters.ExponentialSmoothing.html">code</a> </p><p id="fb1cc3c6-69a2-4bb9-ae7b-8df71880c7b9" class="">
+</p><h3 id="b08dc4c9-dcfe-4945-9615-9d870a4cc2f1" class=""><strong>ARIMA (Auto-Regressive Integrated Moving Average)</strong></h3><p id="c97df8a7-8201-4678-bac3-5348c776c8c4" class="">ARIMA is a statistical model for time series data, capturing 3 key aspects of the temporal information — Auto-Regression(AR), Integration(I) and Moving Average(MA).</p><p id="45e56bc9-8dee-4730-b1ca-658ab29bad6a" class=""><strong>Auto-Regression</strong> — Observations are regressed on its own lagged (i.e., prior) values.</p><p id="bcc9e541-6cf5-49b6-87e1-d676300b8d5b" class=""><strong>Integrated</strong> — Data values are replaced by the difference between values.</p><p id="a3078951-cf38-4c1b-b494-70b08914001f" class=""><strong>Moving Average</strong> — Regression errors are dependent on lagged observations.</p><h3 id="c90f103d-58bb-48cf-8199-f467b5c37ac9" class="">SARIMAX<strong> (Seasonal Auto-Regressive Integrated Moving Average Exogenous)</strong></h3><p id="c9265fef-841d-4aba-a707-b12c00bfb15f" class="">SARIMAX — which is just a modified ARIMA model with the same idea that adds seasonal causes into ARIMA. SARIMAX will deal with the separation of seasons for us, so we don’t have to provide anything else except our dataset.</p><p id="d5c3a3ee-a39e-42bd-9a09-ecaf419fcd40" class="">
+</p><figure id="50844d2b-5d82-4c0e-8c42-c41f7632369f" class="image"><a href="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Untitled%202.png"><img style="width:700px" src="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Untitled%202.png"/></a><figcaption>Training process and architecture of the SARIMAX model</figcaption></figure><p id="142498d1-35d6-490f-a42d-92f42053c3e4" class="">
+</p><p id="ea4403d2-9f31-4581-a287-fad4a552777b" class="">
+</p><h3 id="513f0cfc-1ec5-4bab-a293-35d5f8ba7004" class=""><strong>Histogram-Based Outlier Detection</strong></h3><p id="8d588b77-3c52-4c18-8472-1cfdcb465be2" class="">Histogram-Based Outlier Score (HBOS) is a <strong>O(n) linear time </strong>unsupervised algorithm that is faster than multivariate approaches <strong>at the cost of less precision</strong>. It can detect global outliers well but <strong>performs poorly on local outlier problems.</strong></p><p id="56f2d4b0-8b2c-468e-b276-19b1b4fc6a9f" class="">
+</p><h2 id="721e98c5-6ffe-43b6-b938-a47f39a7f406" class="">Machine Learning Methods</h2><p id="bfab1417-3253-43e2-8531-5cc6d7e2e805" class="">Anomaly classifiers based on One-class SVMs are an attractive alternative because they can naturally detect outliers in a set of vectors. However, these models do not generalize to all scenarios and require the proportion of outliers in the dataset as a hyper-parameter, hence limiting their usage for real time data. Netflix’s anomaly detection based on Principle Component Analysis and Twitter’s S-H-ESD are also promising alternatives. However, drawbacks such as requirement of high cardinality of data for PCA to work limit the usage of these algorithms for every time series.</p><h3 id="cb4e9477-05fc-4f47-943c-f0c49bedb1dc" class="">Using PCA</h3><p id="b5e575fe-3bea-4177-a9e2-69ae11a7c7bf" class="">use PCA as a feature processing for sparse data seems very common.</p><p id="ba871ec7-7662-4db0-b444-23e918969b51" class="">
+</p><p id="760320d0-abd7-46d6-86b0-172c37ddccf0" class="">
+</p><figure id="2acc156e-9447-4ee3-8c34-e63980cb7c39"><div class="source"><a href="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/06974327.pdf">06974327.pdf</a></div></figure><p id="6ecb0bf2-6780-44f0-93e3-f0ebaffa595e" class=""><a href="https://netflixtechblog.com/rad-outlier-detection-on-big-data-d6b0494371cc">https://netflixtechblog.com/rad-outlier-detection-on-big-data-d6b0494371cc</a></p><p id="4d5aa653-4c21-487f-9489-07842301aea1" class="">uses the Singular Value Decomposition (SVD) to find low rank representations of the data. The robust version of PCA (RPCA) identifies a low rank representation, random noise, and a set of outliers by repeatedly calculating the SVD and applying “thresholds” to the singular values and error for each iteration.</p><p id="94a888b2-be59-412f-9c66-19773cad5d4f" class=""><a href="https://netman.aiops.org/~peidan/ANM2018/6.AnomalyLocalization/ReadingLists/2011KDD_Anomaly%20Localization%20for%20Network%20Data%20Streams%20with%20Graph%20Joint%20Sparse%20PCA.pdf">https://netman.aiops.org/~peidan/ANM2018/6.AnomalyLocalization/ReadingLists/2011KDD_Anomaly Localization for Network Data Streams with Graph Joint Sparse PCA.pdf</a></p><p id="07f7b563-064e-4376-8975-ed8787689439" class="">
+</p><h3 id="ff9b9735-f329-4505-a7a8-b9bacee304bf" class="">Tree models</h3><p id="1af1aeec-088b-43d6-8718-f3fc8eced92a" class="">Isolation-based Anomaly Detection</p><p id="eb205fd9-4a66-45ae-b55b-ca29d9fad4d1" class="">
+</p><p id="ee84324d-c86e-46c7-928e-1b54c6368248" class="">Isolation Forest (IF) is a method cited in among the ensemble-based algorithms.
+This algorithm is specifically designed for anomaly detection with performances challenging sometimes those of the more sophisticated and recent neural network approaches . The method starts building an ensemble of decision trees to classify the data instances. Then, the average of path lengths from the root to the sample location in the trees is computed to determine an anomaly score. The assumption is that anomalies are easier to isolate and so they should have shorter path lengths than normal instances. The method is computationally efficient and can be adapted for application to detect anomalies in streaming data by using a sliding window. More recently, <a href="https://arxiv.org/pdf/1811.02141.pdf">Hariri et al</a>.  present a variant of the IF improving the quality of the anomaly scores by correcting the bias induced by the way the branching is done in the classical IF.</p><p id="25e77845-a544-420a-ad09-851325589fd4" class="">
+</p><p id="8c5f9f76-a99e-434d-bd4f-844ed353d25f" class=""><a href="https://www.eltesanmobil.com/public/uploads/catalogs/1530195830-buying-guide-wine-coolers-tr.pdf">https://www.eltesanmobil.com/public/uploads/catalogs/1530195830-buying-guide-wine-coolers-tr.pdf</a></p><p id="55a951cf-fcf5-40f6-9959-d43ab60c4a79" class="">
+</p><h3 id="faa93f1d-1d59-45ca-805d-27206f27e80e" class="">Clustering models</h3><p id="bd2626ae-03e5-4717-944b-e05f58d92a3e" class="">
+</p><p id="25a61c75-de15-451a-ba31-704d14c23c76" class="">Clustering-based anomaly detection methods suffer from the lack of scalability and the curse
+of dimensionality, but the test phase is faster as only requires comparison with a few clusters. Thus, more computationally efficient variants are proposed in the literature based on heuristic techniques such as in k-means, approximate clustering or advanced-indexing techniques to partition the data. A possible way to tackle problems of dimensionality is to first project samples into a smaller dimension space (dimension reduction) before applying clustering techniques on this space. Dimension reduction techniques include PCA , t-SNE  or autoencoders</p><p id="8f5d27f0-572f-45f1-a87c-d4fae3bf1638" class="">
+</p><p id="26e03600-8d8c-48d2-8059-4ed1dd1352b4" class="">
+</p><p id="7dae7433-23dc-47bd-abf4-19419f465eed" class=""><strong>Supervised :</strong></p><p id="03c3a93a-b21b-4bf5-a8c5-44f110306b9d" class="">K-Means Clustering is generally <strong>not useful</strong> in anomaly detection due to its sensitivity to outliers. Centroids cannot be updated if a set of objects close to it is empty.</p><p id="0628f5fa-893e-4c02-a179-4d0ea75cc329" class="">Hierarchical Clustering, unlike K-Means, does not require specification of the number of clusters at initialisation. It creates a dendrogram and clusters can be separately selected thereafter. Scipy’s Hierarchical Clustering is recommended over Scikit-Learn’s because of its customisability, ability to select number of clusters after the clustering, and dendrogram plots.</p><p id="461a422f-90dd-4382-9547-d42a163abcdd" class="">
+</p><p id="b519006a-18ad-4051-a39b-c05b313616cc" class="">
+</p><p id="5e61904b-3710-4342-8715-d54b42f54df0" class=""><strong>Unsupervised:</strong></p><p id="79f9e1b4-d73e-4f6a-87f2-40c4410ee892" class=""><a href="https://crpit.scem.westernsydney.edu.au/confpapers/CRPITV38Leung.pdf">https://crpit.scem.westernsydney.edu.au/confpapers/CRPITV38Leung.pdf</a></p><ol type="1" id="86d4d875-f103-4958-8f0d-d0c15c8ff522" class="numbered-list" start="1"><li> Partitioning Methods
+Given a database of n objects, a partitioning method constructs k partitions of data where each partition represents a cluster. The main advantage of the fixed width algorithm is that it scales linearly with the number of objects in the data set and the number of attributes of the objects. Nevertheless the quality of the clusters is sensitive to the definition of the width of cluster w.
+Often the user needs several repetitions of the algorithm to choose the best value of w in any particular application.</li></ol><ol type="1" id="70e7b2e4-8ac1-46f4-bca3-606611b752c7" class="numbered-list" start="2"><li>Density-based Methods
+Density-based methods are based on a simple assumption: clusters are dense regions in the data space that are separated by regions of lower density. Their general idea is to continue growing the given cluster as long as the density in the neighbourhood exceeds some threshold. In other words, for each data point within a given cluster, the neighbourhood of a given radius has to contain at least a minimum number of points. These methods are good at filtering out outliers and discovering clusters of arbitrary shapes. Some examples of density-based methods are DBSCAN</li></ol><ol type="1" id="22b28753-65f9-4d04-8298-6e1fa1bcd652" class="numbered-list" start="3"><li>Grid-based Methods
+Grid-based methods divide the object space into a finite number of cells that form a grid structure. All of the clustering operations are performed on the grid structure. The main advantage of this approach is its fast processing time, which is typically dependent mainly on the number of cells in each dimension in the quantised space. </li></ol><p id="716864b5-3f00-4ce6-820d-9acffa819c89" class="">KNN:</p><p id="7ed4ad67-5034-4797-a0a5-f96e895a1e4c" class=""><a href="https://towardsdatascience.com/k-nearest-neighbors-knn-for-anomaly-detection-fdf8ee160d13">https://towardsdatascience.com/k-nearest-neighbors-knn-for-anomaly-detection-fdf8ee160d13</a></p><p id="24cd04d1-0191-4c0f-aa5e-fe93cb5caac4" class=""><a href="https://hal.archives-ouvertes.fr/hal-02056558/file/dsn2019.pdf">https://hal.archives-ouvertes.fr/hal-02056558/file/dsn2019.pdf</a></p><p id="89cdc802-7a47-4699-97d8-cd6fbce9b0a1" class="">
+</p><h2 id="698065f0-4e34-4f0a-b5f9-81f8068271bd" class="">Using DL</h2><p id="e3931ebd-06ac-4fea-a2f1-5e725d57c0ea" class=""><a href="https://arxiv.org/pdf/2007.02500.pdf">https://arxiv.org/pdf/2007.02500.pdf</a></p><p id="e21224f6-6c0d-49fb-b9ea-38ebba4eabc6" class="">Some challenges, such as scalability w.r.t. data size, have been well addressed in recent years, while the following are largely unsolved, to which deep anomaly detection can play some essential roles.
+<strong>• CH1: Low anomaly detection recall rate. 
+• CH2: Anomaly detection in high-dimensional and/or not-independent data.
+• CH3: Data-efficient learning of normality/abnormality. 
+• CH4: Noise-resilient anomaly detection. 
+• CH5: Detection of complex anomalies. 
+• CH6: Anomaly explanation.</strong></p><p id="02ae49f8-34e4-4bd4-9c9a-c80b045f7f49" class="">
+</p><p id="95426263-3e31-430e-b264-bcfc40bc069b" class="">Deep methods enable end-to-end optimization of the whole anomaly detection pipeline, and
+they also enable the learning of representations specifically tailored for anomaly detection. These two capabilities are crucial to tackle the above six challenges, but traditional methods do not have. Particularly they help largely improve the utilization of labeled normal data or some labeled anomaly data regardless of the data type, reducing the need of large-scale labeled data as in fully supervised settings (CH2, CH3, CH4, CH5). This subsequently results in more informed models and thus better recall rate (CH1). For the anomaly explanation challenge, although deep methods are often black-box models, they offer options to unify anomaly detection and explanation into single frameworks, resulting in more genuine explanation of the anomalies spotted by specific
+models. Deep methods also excel at learning intricate structures and relations from diverse types of data, such as high-dimensional data, image data, video data, graph data, etc. This
+capability is important to address various challenges, such as CH1, CH2, CH3, and CH5. Further, they offer many effective and easy-to-use network architectures and principled frameworks to seamlessly learn unified representations of heterogeneous data sources. This empowers the deep models to tackle some key challenges such as CH3 and CH5. Although there are shallow methods for handling those complex data, they are generally substantially weaker and less adaptive than the deep methods. </p><figure id="df8afae0-92bb-4b54-a40f-c1145dccc4e9" class="image"><a href="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Capture_decran_2021-06-17_a_15.43.43.png"><img style="width:971px" src="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Capture_decran_2021-06-17_a_15.43.43.png"/></a></figure><p id="008e3b93-54ef-450f-ad80-43809ebb0377" class="">
+</p><figure id="e1066348-39b2-4048-9532-1166e25a30f9" class="image"><a href="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Capture_decran_2021-06-17_a_15.50.56.png"><img style="width:971px" src="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Capture_decran_2021-06-17_a_15.50.56.png"/></a></figure><p id="e6ff2454-0760-49f4-8639-2835075025bf" class="">Compared to the dimension reduction methods that are popular in anomaly detection, such
+as principal component analysis (PCA)  and random projection, deep learning techniques have been demonstrating substantially better capability in extracting semantic rich features and non-linear feature relations</p><p id="5045d248-994d-4fa7-87a3-38018e0d715b" class="">
+</p><p id="17887049-5d0b-4e1a-a057-ef3a443d4049" class="">LEARNING FEATURE REPRESENTATIONS OF NORMALITY</p><p id="d3d73b75-a653-4d93-8006-1bc7ac4a4e89" class="">AutoEncoder or GAN</p><p id="2139dc76-e666-4a18-94e2-ea035f7629c6" class="">
+</p><p id="074c2fde-713d-48b8-8455-a3300bc0b115" class="">Convolutional Neural Network :</p><p id="bf6329d0-985b-4cee-8a1c-39559d8a004a" class="">They are usually used for image processing, but if you dig deeper into them, you may find that they actually look for the patterns in the images. Our time series also consists of patterns</p><p id="fdd71da2-e0ef-4538-ad2a-1c41057e6eda" class="">
+</p><p id="81d6593c-ffca-40e2-a2fc-e6191df01950" class="">LSTM</p><p id="c6680e8e-6379-4c63-b5b6-bf8701cb4eb9" class="">
+</p><p id="2f14618f-0786-4e2c-be71-1e0b2df9b4a7" class="">LSTM was designed especially for time-related data</p><p id="715dde0c-aa63-4f29-acdb-5ae3498c84c3" class="">LSTM Forecasting is a supervised method that, given a time series sequence as input, predicts the value at the next timestamp. It trains on normal data only, and the prediction error is used as the anomaly score.</p><p id="49ab55b8-ce52-4fa8-875c-da325773b7bd" class="">
+</p><p id="8af9f643-31f2-4048-ab7c-593d59effc7e" class=""><a href="https://arxiv.org/pdf/1708.03665.pdf">https://arxiv.org/pdf/1708.03665.pdf</a></p><p id="292c0b5b-9a00-4cfd-b4c3-0bf84ddb5c20" class="">
+</p><p id="5c695681-e49b-4541-a8bc-06a0ff624607" class="">VAE:</p><p id="38d7e582-2dc3-4c01-babc-69c2fed6f507" class="">
+</p><p id="6cae8781-54c0-473b-9062-9e126e393730" class="">LSTM Autoencoder is a self-supervised method that, given a time series sequence as input, predicts the same input sequence as its output. With this approach, it learns a representation of normal sequences and the prediction error can be interpreted as the anomaly score.</p><p id="b4073bce-d7b3-40ca-88e4-aeccb8a338b9" class="">
+</p><p id="2a0c04e1-ece0-4ded-a9be-cba00450e03e" class=""><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8386760">https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8386760</a></p><figure id="4ba31c99-0fa3-42f9-ae79-02d32ba36bcf" class="image"><a href="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Capture_decran_2021-06-17_a_12.03.59.png"><img style="width:940px" src="Sparse%20Data%20Paper%20e6eb1763b26841bcbe7d7f19fef8b249/Capture_decran_2021-06-17_a_12.03.59.png"/></a></figure><p id="cff72e14-d34d-48fd-871c-0b10975d7fbd" class="">
+</p><h2 id="3b82024e-13ab-40c5-92fb-087b2ed039df" class="">Other </h2><p id="307768a9-0635-4dc9-8989-afff435de2aa" class=""><strong>Online Anomaly Detection with Sparse Gaussian Processe</strong></p><p id="53dea4a8-db48-4ef3-a418-6123366b23ec" class="">The existing online anomaly detection methods have some limitations. The actual GP adds a data point to the training data no matter whether the data point is abnormal or not. Concept drift  means that the characteristics of data and the mapping from input to output change over time. For example, when the computer’s software is updated or its configuration is changed, data such as CPU utilization and the speed of reading or writing data in the disk will change. In this case, online anomaly detection methods should be able to adapt to the new data and redefine the meanings of abnormal behaviors. Specifically, the SGP-Q uses the technique of sliding window, and the size of the sliding window is set as a model parameter.</p><p id="f6d8a83b-6196-4dc0-a614-b42884be31ea" class=""><a href="https://arxiv.org/pdf/1905.05761.pdf">https://arxiv.org/pdf/1905.05761.pdf</a></p><p id="f37e3267-7ee2-4205-bb1a-2d56beee5c84" class="">
+</p><p id="0fed3e53-fcae-4f18-aac2-17a95bfddd62" class=""><strong>Proximity-Based Anomaly Detection using Sparse Structure Learning</strong></p><p id="cd9ce537-b39e-4687-b76c-7e0146fc9c56" class=""><a href="https://epubs.siam.org/doi/pdf/10.1137/1.9781611972795.9">https://epubs.siam.org/doi/pdf/10.1137/1.9781611972795.9</a></p><p id="a6c8a1b4-b65c-4ae3-8119-0664d9d4712d" class="">
+</p><p id="325e7117-8dc4-436f-87db-200be4bea5fc" class=""><strong>Sparse Decomposition for Time Series Forecasting and Anomaly Detection</strong></p><p id="f151a6f4-83e0-40ad-a04c-9c735eb7d2a4" class=""><a href="https://epubs.siam.org/doi/pdf/10.1137/1.9781611975321.59">https://epubs.siam.org/doi/pdf/10.1137/1.9781611975321.59</a></p><p id="ffd052c9-442e-401d-82fb-8ee198a24530" class="">
+</p><p id="5f29eb0c-6431-4c64-8348-d90c0e9675ec" class=""><strong>Anomaly detection in mixed telemetry data using a sparse representation and dictionary learning</strong></p><p id="b0a56f69-a6eb-4231-883b-8aa39b0e74b8" class=""><a href="https://hal.archives-ouvertes.fr/hal-02466360/document">https://hal.archives-ouvertes.fr/hal-02466360/document</a></p><p id="abeba89c-08b8-481b-a883-979a3d690594" class="">ML-based algorithms for AD in telemetry can be divided in two categories depending on their application to univariate or multivariate data. Univariate AD strategies process the different telemetry parameters independently, which is the most widely used approach. Popular ML methods that have been investigated in this framework include the one-class support vector machine , nearest neighbour techniques  or neural networks. These solutions showed competitive results.</p><p id="c7666536-343b-4b9d-ba03-2cc0c7145e2a" class="">It is important to formulate the problem in a multivariate framework and take into account possible correlations between the different metrics, allowing contextual anomalies to be detected. </p><p id="728ba5bc-6d70-4034-891f-0fcdfef74c59" class="">
+</p><h1 id="92635cca-c958-4caf-a172-56ee804e6184" class="">Summary</h1><p id="b7b48744-cfb9-4799-8f8d-7f1e9cb3761a" class="">
+</p><p id="73b7b6a5-dd6c-4852-89f0-d441a9e66747" class="">My point of view, is clustering seems the best way to identify anomaly in sparse data. </p><p id="bac74b73-34fa-4b13-b4f2-c7ba76863f25" class="">In  <a href="https://crpit.scem.westernsydney.edu.au/confpapers/CRPITV38Leung.pdf">Unsupervised Anomaly Detection in Network Intrusion Detection Using Clusters</a>, they create a clustering which performer better in term of scoring and time computation compare to classical clustering methods.</p><p id="fba6da62-c369-48b3-8461-0159aed48ae8" class="">Deep Learning Models could be use as a Feature Extractor or for the prediction. </p><p id="22950c2a-f5da-4119-8f8e-e360734f0e32" class="">Also, Google combine  Accumulator and Gaussian Tail rules for a better clustering performance on LSTM. </p><p id="0eb6c202-1152-4f16-a298-834d33e41b29" class="">A first idea could be combine actual detectors with &quot;Google rules&quot; and then implement a clustering modeling. </p><p id="35c2cf64-3762-462e-a161-45e2b3b74489" class="">
+</p><p id="51a8dedc-27f8-4efa-9b93-fa87ee8e7007" class="">
+</p><h1 id="28a7e9fc-68ee-4011-b3db-83e8a16d498b" class="">Sources</h1><ul id="f46b19f1-ddb2-47dd-a76d-9e7426355903" class="bulleted-list"><li style="list-style-type:disc">Twitter: <a href="https://blog.twitter.com/engineering/en_us/a/2015/introducing-practical-and-robust-anomaly-detection-in-a-time-series">https://blog.twitter.com/engineering/en_us/a/2015/introducing-practical-and-robust-anomaly-detection-in-a-time-series</a></li></ul><ul id="93aecd61-b496-4f0b-aaf7-76cee0d751be" class="bulleted-list"><li style="list-style-type:disc">Netflix: <a href="https://netflixtechblog.com/rad-outlier-detection-on-big-data-d6b0494371cc">https://netflixtechblog.com/rad-outlier-detection-on-big-data-d6b0494371cc</a></li></ul><ul id="3f963052-9ac5-4462-9bc1-7e6f47f30af5" class="bulleted-list"><li style="list-style-type:disc">Google: <a href="https://arxiv.org/pdf/1708.03665.pdf">https://arxiv.org/pdf/1708.03665.pdf</a></li></ul><ul id="6a1c0ca4-9906-4d4e-a74a-c315d43270b2" class="bulleted-list"><li style="list-style-type:disc">Robust PCA : <a href="https://tevgeniou.github.io/EquityRiskFactors/bibliography/RobustPCA.pdf">https://tevgeniou.github.io/EquityRiskFactors/bibliography/RobustPCA.pdf</a></li></ul><ul id="ebf2acbe-a77e-480a-a7da-c0ea20e8e003" class="bulleted-list"><li style="list-style-type:disc"><a href="https://medium.com/@jetnew/anomaly-detection-of-time-series-data-e0cb6b382e33">https://medium.com/@jetnew/anomaly-detection-of-time-series-data-e0cb6b382e33</a></li></ul><ul id="326385a8-531f-492a-bb0c-9002c14f5984" class="bulleted-list"><li style="list-style-type:disc"><a href="https://hal.archives-ouvertes.fr/hal-02470453/document">https://hal.archives-ouvertes.fr/hal-02470453/document</a></li></ul><p id="a9a3074d-8ce3-4d24-bf00-247683c82d03" class="">
+</p><h1 id="8b486cc0-7f8d-4029-a0da-db369b497716" class="">Code</h1><p id="409805ed-7800-4c28-9780-8e4009a20b4e" class=""><a href="https://github.com/Netflix/Surus">https://github.com/Netflix/Surus</a></p></div></article></body></html>

@@ -1,0 +1,689 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Component types and lists </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="00fd2f2f-266c-4700-aa57-5fb2bb3ff774" class="page sans"><header><h1 class="page-title">Component types and lists </h1><p class="page-description"></p></header><div class="page-body"><p id="29405b01-ee41-4f12-9144-1e7beadcfbab" class="">the smart agent must be installed on the host needs to be monitored: </p><p id="ef77c9ca-afd0-492f-88da-1acbe42f6e45" class="">PacketAI automatically maps the following infrastructure component types: </p><h3 id="432cc882-8c1c-4539-baec-b91f5aded42b" class="">Sources: <a href="https://www.dynatrace.com/support/help/how-to-use-dynatrace/smartscape/visualize-your-environment-topology-through-smartscape/">https://www.dynatrace.com/support/help/how-to-use-dynatrace/smartscape/visualize-your-environment-topology-through-smartscape/</a></h3><h2 id="bb29d9a0-c85a-4d39-9df9-ce61d61357d6" class=""><strong>Applications</strong></h2><p id="644f5441-8231-4343-8bea-75cf4df7faff" class="">In the following example, the <strong>Applications</strong> tab is selected and the <strong>12</strong> detected applications in this environment are displayed on the right. There are no application connections or dependencies because,<em><strong> in Dynatrace, applications are viewed from the perspective of the user and therefore only constitute user endpoints</strong></em>. Therefore, multiple applications may use the same services, but applications can&#x27;t be connected directly to one another.</p><p id="c635da80-4450-4af8-95ee-6019f102d9ec" class="">Dynatrace supports monitoring of web-based applications and mobile apps. See the following table to understand the two entity symbols. If you hold your cursor over an application symbol, you can view the name of the application. If you click the small arrow next to the application’s name, you will be taken to that application&#x27;s overview page.</p><h2 id="fe35d26d-75ed-4e31-b086-67229397edc3" class="">Services</h2><p id="85532122-3735-477f-8550-50d06d452e70" class="">The Services tab displays the topology of all the services that are running in your environment. Each node represents a different service. Each service node is represented by a symbol that signifies the underlying service type. These symbols are the commercial logos of the respective service technologies supported by Dynatrace.</p><ul id="2f0ebbd6-5d66-4745-abbf-7c379a77e8a5" class="bulleted-list"><li style="list-style-type:disc">Java and Scala<ul id="3f43fe07-0a69-4ca4-9a88-aa3a8f9a5322" class="bulleted-list"><li style="list-style-type:circle">Virtual machines: list of versions and types of jvm</li></ul><ul id="6536935d-cdc9-47bd-b7d1-1ef2fa1dfc97" class="bulleted-list"><li style="list-style-type:circle">Application servers: </li></ul><div id="1bbc6fb3-aaab-490e-94b4-885c7aacc946" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Apache Tomcat</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>6, 7, 8, 8.5, 9</th></tr></thead><tbody><tr id="691764cc-4847-4d2c-bf13-b5c1fccaddac"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%201bbc6fb3aaab490e94b4885c7aacc946/Apache%20TomEE%20691764cc48474d2cbf13b5c1fccaddac.html">Apache TomEE</a></td><td class="cell-4v&lt;P">1.6</td></tr><tr id="bba89fe8-8507-4c2a-bcac-f9ded0cd1e61"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%201bbc6fb3aaab490e94b4885c7aacc946/Eclipse%20Glassfish%20bba89fe885074c2abcacf9ded0cd1e61.html">Eclipse Glassfish</a></td><td class="cell-4v&lt;P">5.1</td></tr><tr id="dce4975c-52c3-4a6b-b5d0-92f417d76615"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%201bbc6fb3aaab490e94b4885c7aacc946/Fujitsu%20Interstage%20dce4975c52c34a6bb5d092f417d76615.html">Fujitsu Interstage</a></td><td class="cell-4v&lt;P">121</td></tr><tr id="a5527344-07fc-4480-a75a-07f610e63fd5"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%201bbc6fb3aaab490e94b4885c7aacc946/Glassfish%20a552734407fc4480a75a07f610e63fd5.html">Glassfish</a></td><td class="cell-4v&lt;P">3.1.x, 4.x, 5.x</td></tr><tr id="3f6f2df7-1959-4969-b3c6-c290d48b1e69"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%201bbc6fb3aaab490e94b4885c7aacc946/IBM%20WebSphere%20Application%20Server%203f6f2df719594969b3c6c290d48b1e69.html">IBM WebSphere Application Server</a></td><td class="cell-4v&lt;P">8.0, 8.5, 8.53, 8.5.5, 9.0</td></tr><tr id="06cf60ee-d721-4fa7-8c57-6dce37eaba74"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%201bbc6fb3aaab490e94b4885c7aacc946/IBM%20WebSphere%20Liberty%2006cf60eed7214fa78c576dce37eaba74.html">IBM WebSphere Liberty</a></td><td class="cell-4v&lt;P">8.5.5.8 - 19.0.0.8</td></tr><tr id="8328e0aa-7077-4679-8c92-40f1b4e2479d"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%201bbc6fb3aaab490e94b4885c7aacc946/JBOSS%20Application%20Server%208328e0aa707746798c9240f1b4e2479d.html">JBOSS Application Server</a></td><td class="cell-4v&lt;P">6, 7</td></tr><tr id="b211b444-6318-467d-80a6-921e4d67e7f5"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%201bbc6fb3aaab490e94b4885c7aacc946/JBOSS%20Enterprise%20Application%20Platform%20(Preview)%20b211b4446318467d80a6921e4d67e7f5.html">JBOSS Enterprise Application Platform (Preview)</a></td><td class="cell-4v&lt;P">6, 7</td></tr><tr id="9f9da884-04a8-4eaa-a458-3715612c4180"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%201bbc6fb3aaab490e94b4885c7aacc946/Jetty%209f9da88404a84eaaa4583715612c4180.html">Jetty</a></td><td class="cell-4v&lt;P">7, 8, 9</td></tr><tr id="18b49898-eecd-4bf6-9869-d305a0d542e4"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%201bbc6fb3aaab490e94b4885c7aacc946/Oracle%20WebLogic%2018b49898eecd4bf69869d305a0d542e4.html">Oracle WebLogic</a></td><td class="cell-4v&lt;P">11g4, 12c4</td></tr><tr id="87efcfc9-c79e-43bd-91ed-a3336f8614f8"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%201bbc6fb3aaab490e94b4885c7aacc946/Payara%2087efcfc9c79e43bd91eda3336f8614f8.html">Payara</a></td><td class="cell-4v&lt;P">4.x2, 5.x2</td></tr><tr id="28af94a9-5549-40cc-84d4-54e1529f331a"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%201bbc6fb3aaab490e94b4885c7aacc946/WildFly%2028af94a9554940cc84d454e1529f331a.html">WildFly</a></td><td class="cell-4v&lt;P">8, 9, 10, 11, 12, 13, 14, 15, 16, 17</td></tr></tbody></table><br/><br/></div><ul id="9744b73f-5fa6-438e-97a6-34ee32ddb8dd" class="bulleted-list"><li style="list-style-type:circle">ESBs and SOAs</li></ul><div id="05ed81b4-9242-4f47-8966-c8aff7a3bc07" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>ESBs and SOA</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Versions</th></tr></thead><tbody><tr id="7d926d22-8a9a-419a-8501-a39235e6b7e7"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%2005ed81b492424f478966c8aff7a3bc07/Apache%20OpenEJB%207d926d228a9a419a8501a39235e6b7e7.html">Apache OpenEJB</a></td><td class="cell-{n%Y">3.1.4</td></tr><tr id="8939cae5-4f8d-4896-a488-a7ceb06185ba"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%2005ed81b492424f478966c8aff7a3bc07/Mule%20(HTTP%20Listener)%208939cae54f8d4896a488a7ceb06185ba.html">Mule (HTTP Listener)</a></td><td class="cell-{n%Y">3.5, 3.6, 3.7, 3.8, 3.9</td></tr><tr id="6c187447-45d1-4ad2-8631-d52ec8ac531b"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%2005ed81b492424f478966c8aff7a3bc07/Oracle%20Service%20Bus%206c18744745d14ad28631d52ec8ac531b.html">Oracle Service Bus</a></td><td class="cell-{n%Y">10.3.41, 12c1</td></tr><tr id="5c581962-244a-4ce5-a72d-2a2d97c87254"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%2005ed81b492424f478966c8aff7a3bc07/TIBCO%20ActiveMatrix%20BusinessWorks%205c581962244a4ce5a72d2a2d97c87254.html">TIBCO ActiveMatrix BusinessWorks</a></td><td class="cell-{n%Y">5.8.2-5.13, 6.4, 6.5</td></tr></tbody></table><br/><br/></div><ul id="09234fe2-fa27-48bd-bf29-d0ce20e166d8" class="bulleted-list"><li style="list-style-type:circle">Web Frameworks</li></ul><div id="cf68ffd0-5b89-4cc7-b50c-e5bc3a530874" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Web framework</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Versions</th></tr></thead><tbody><tr id="ce51254f-c0ee-4511-99e3-82ef3286ded2"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Akka%20Http%20client%20ce51254fc0ee451199e382ef3286ded2.html">Akka Http client</a></td><td class="cell-V$}&#x27;">10.1</td></tr><tr id="296d4c02-3ac5-49ac-8f8b-3d8dd4e902db"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Akka%20Http%20server%20296d4c023ac549ac8f8b3d8dd4e902db.html">Akka Http server</a></td><td class="cell-V$}&#x27;">10.1</td></tr><tr id="28cc117c-a29c-4260-9efb-0527d10e9c88"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Apache%20HTTP%20Core%20(synchronous%20only)%2028cc117ca29c42609efb0527d10e9c88.html">Apache HTTP Core (synchronous only)</a></td><td class="cell-V$}&#x27;">4.0.x, 4.1.x</td></tr><tr id="02b210e7-dfca-456b-96ca-ac517f0c1725"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Apache%20HttpAsyncClient%2002b210e7dfca456b96caac517f0c1725.html">Apache HttpAsyncClient</a></td><td class="cell-V$}&#x27;">4.0.x, 4.1.x</td></tr><tr id="68d3fcc3-2c70-4f06-bec4-fc95acc55cd4"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Apache%20HttpClient%2068d3fcc32c704f06bec4fc95acc55cd4.html">Apache HttpClient</a></td><td class="cell-V$}&#x27;">3.1, 4.x</td></tr><tr id="9a853fae-4cbf-4cb4-bba5-12cef4a3ca2d"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Elasticsearch%209a853fae4cbf4cb4bba512cef4a3ca2d.html">Elasticsearch</a></td><td class="cell-V$}&#x27;">1.71, 2.01, 2.11, 2.21</td></tr><tr id="32db5db1-1c9d-4795-bab8-260801ec08d6"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Grails%2032db5db11c9d4795bab8260801ec08d6.html">Grails</a></td><td class="cell-V$}&#x27;">3.x2</td></tr><tr id="e15232e9-8370-4f0a-aaa3-d35cc47668e5"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Java%20HttpUrlConnection%20e15232e983704f0aaaa3d35cc47668e5.html">Java HttpUrlConnection</a></td><td class="cell-V$}&#x27;">All versions supported</td></tr><tr id="73d5d1fc-6bd9-483e-b866-f47968946a21"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Java%20IMS%20Soap%20Gateway%20client%2073d5d1fc6bd9483eb866f47968946a21.html">Java IMS Soap Gateway client</a></td><td class="cell-V$}&#x27;">3.2</td></tr><tr id="917f7bce-5875-48f8-aae9-616e4a0ebf72"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/LinkerdD%20917f7bce587548f8aae9616e4a0ebf72.html">LinkerdD</a></td><td class="cell-V$}&#x27;">1.x</td></tr><tr id="8ee55ac9-da0d-4c7e-b0d9-b252d2c0a687"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Netty%208ee55ac9da0d4c7eb0d9b252d2c0a687.html">Netty</a></td><td class="cell-V$}&#x27;">3.10, 4.x</td></tr><tr id="da16978a-c472-4f9d-9c3d-ef1d65e4692f"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Ning%20Asynchronous%20HTTP%20Client%20da16978ac4724f9d9c3def1d65e4692f.html">Ning Asynchronous HTTP Client</a></td><td class="cell-V$}&#x27;">1.8, 1.9</td></tr><tr id="3bd1470e-04ca-4b08-8495-b3d81bfecc21"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/OkHttp%203bd1470e04ca4b088495b3d81bfecc21.html">OkHttp</a></td><td class="cell-V$}&#x27;">3.x</td></tr><tr id="65d76714-ced9-4d1e-a257-9d7102d86e46"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Play%20Framework%2065d76714ced94d1ea2579d7102d86e46.html">Play Framework</a></td><td class="cell-V$}&#x27;">2.2, 2.3, 2.4, 2.5, 2.6, 2.7</td></tr><tr id="7fde8426-7d77-46bc-a69c-3551e3396be3"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Reactor-Netty%207fde84267d7746bca69c3551e3396be3.html">Reactor-Netty</a></td><td class="cell-V$}&#x27;">0.6, 0.7, 0.8, 0.9</td></tr><tr id="7f8a26f0-c04c-4b3c-8531-bc3eb9a7a067"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Servlet%20Engine%207f8a26f0c04c4b3c8531bc3eb9a7a067.html">Servlet Engine</a></td><td class="cell-V$}&#x27;">2.5, 3.0, 3.1</td></tr><tr id="b328b27f-9dc5-4404-9e9b-d6ac5f25f5b1"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Software%20AG%20WebMethods%20Integration%20Server%20b328b27f9dc544049e9bd6ac5f25f5b1.html">Software AG WebMethods Integration Server</a></td><td class="cell-V$}&#x27;">9.03, 9.5-9.103, 10.0-10.33</td></tr><tr id="9cca4e6a-529a-4962-bed7-507890630ef8"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Spring%20WebFlux%209cca4e6a529a4962bed7507890630ef8.html">Spring WebFlux</a></td><td class="cell-V$}&#x27;">5.x</td></tr><tr id="ca503a81-30ec-4a58-b9bb-93db95380ed3"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Spring%20WebFlux%20WebClient%20ca503a8130ec4a58b9bb93db95380ed3.html">Spring WebFlux WebClient</a></td><td class="cell-V$}&#x27;">5.x</td></tr><tr id="6c529184-c215-450e-ad3a-afd37822b76f"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20cf68ffd05b894cc7b50ce5bc3a530874/Vert%20x%206c529184c215450ead3aafd37822b76f.html">Vert.x</a></td><td class="cell-V$}&#x27;">2.x, 3.0-3.5, 3.6, 3.7</td></tr></tbody></table><br/><br/></div><ul id="bf6d3c8e-de02-45f2-bb92-c8d15f479c8e" class="bulleted-list"><li style="list-style-type:circle">Web services: </li></ul><div id="ef3f36d8-e0cf-4ba6-988f-1126a24e4bfc" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Web services</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Versions</th></tr></thead><tbody><tr id="e535bece-94c2-4977-b3d8-d24fb476b904"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20ef3f36d8e0cf4ba6988f1126a24e4bfc/Apache%20Axis2%20e535bece94c24977b3d8d24fb476b904.html">Apache Axis2</a></td><td class="cell-4ep7">1.6</td></tr><tr id="e4a5d867-99f8-41e6-87c1-4bc405b64d06"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20ef3f36d8e0cf4ba6988f1126a24e4bfc/Apache%20CXF%20e4a5d86799f841e687c14bc405b64d06.html">Apache CXF</a></td><td class="cell-4ep7">2.x, 3.x</td></tr><tr id="15fd3d1b-0067-4421-a6f4-d39d7fdcc735"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20ef3f36d8e0cf4ba6988f1126a24e4bfc/Hessian%20web%20services%2015fd3d1b00674421a6f4d39d7fdcc735.html">Hessian web services</a></td><td class="cell-4ep7">2.1, 3.1, 4.0</td></tr><tr id="cddaf45f-72c3-4439-b811-898c946ee215"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20ef3f36d8e0cf4ba6988f1126a24e4bfc/JAX-WS%20cddaf45f72c34439b811898c946ee215.html">JAX-WS</a></td><td class="cell-4ep7">2.x</td></tr><tr id="ea0ce716-588d-4873-a4df-60bb67642b5c"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20ef3f36d8e0cf4ba6988f1126a24e4bfc/JBossWS%20(JBoss%20AS)%20ea0ce716588d4873a4df60bb67642b5c.html">JBossWS (JBoss AS)</a></td><td class="cell-4ep7">4.x1</td></tr><tr id="e53eca77-81e8-4573-b80b-b12fcec22233"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20ef3f36d8e0cf4ba6988f1126a24e4bfc/JBossWS%20(Wildfly)%20e53eca7781e84573b80bb12fcec22233.html">JBossWS (Wildfly)</a></td><td class="cell-4ep7">4.x2, 5.x3</td></tr><tr id="ce86b174-58f5-4db1-8805-f2f043de35a2"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20ef3f36d8e0cf4ba6988f1126a24e4bfc/Jersey%20ce86b17458f54db18805f2f043de35a2.html">Jersey</a></td><td class="cell-4ep7">1.x, 2.x</td></tr><tr id="e0429965-76c5-4a7a-ba88-a5df11f94ad1"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20ef3f36d8e0cf4ba6988f1126a24e4bfc/Play%20WS%20API%20e042996576c54a7aba88a5df11f94ad1.html">Play WS API</a></td><td class="cell-4ep7">2.2, 2.3, 2.4</td></tr><tr id="65a54eb9-5433-49ae-9960-c9a67de68405"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20ef3f36d8e0cf4ba6988f1126a24e4bfc/REST%20web%20services%20via%20WINK%20framework%2065a54eb9543349ae9960c9a67de68405.html">REST web services via WINK framework</a></td><td class="cell-4ep7">1.2, 1.4</td></tr><tr id="5778003c-b647-4253-a4cd-6b731e69d7dd"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%20ef3f36d8e0cf4ba6988f1126a24e4bfc/Spring%20Web%20Services%205778003cb6474253a4cd6b731e69d7dd.html">Spring Web Services</a></td><td class="cell-4ep7">2.x</td></tr></tbody></table><br/><br/></div><ul id="2e2afaaa-788d-4c71-a349-39d215c29007" class="bulleted-list"><li style="list-style-type:circle">Database frameworks</li></ul><div id="6708bf21-a70b-4999-87b9-e238556674f7" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Database frameworks</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Versions</th></tr></thead><tbody><tr id="b7ddd2a5-b268-4849-8157-0d178a1b2d35"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%206708bf21a70b499987b9e238556674f7/Cassandra%20(CQL3)%20-%20cassandra-driver-core%20b7ddd2a5b268484981570d178a1b2d35.html">Cassandra (CQL3) - cassandra-driver-core</a></td><td class="cell-LlVk">2.11-3.32</td></tr><tr id="f5947075-30c3-48c0-8c9a-7d0de31c3495"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%206708bf21a70b499987b9e238556674f7/Cassandra%20(Thrift)%20f594707530c348c08c9a7d0de31c3495.html">Cassandra (Thrift)</a></td><td class="cell-LlVk">2.x</td></tr><tr id="0383ec3f-3965-4f07-bc6a-67c585ac413f"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%206708bf21a70b499987b9e238556674f7/JDBC%200383ec3f39654f07bc6a67c585ac413f.html">JDBC</a></td><td class="cell-LlVk">4+</td></tr><tr id="20bd5f6f-5273-4be6-a1dc-cd4ca045435a"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%206708bf21a70b499987b9e238556674f7/Jedis%20Redis%2020bd5f6f52734be6a1dccd4ca045435a.html">Jedis Redis</a></td><td class="cell-LlVk">2.x</td></tr><tr id="0b9c847c-05b8-444c-90ba-fcb3d664ca1f"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%206708bf21a70b499987b9e238556674f7/MongoDB%20Async%20driver%200b9c847c05b8444c90bafcb3d664ca1f.html">MongoDB Async driver</a></td><td class="cell-LlVk">3.0-3.6.4</td></tr><tr id="7d996962-23ad-4d1c-844e-a8ba207290a6"><td class="cell-title"><a href="Component%20types%20and%20lists%2000fd2f2f266c4700aa575fb2bb3ff774/Untitled%20Database%206708bf21a70b499987b9e238556674f7/MongoDB%20driver%207d99696223ad4d1c844ea8ba207290a6.html">MongoDB driver</a></td><td class="cell-LlVk">2.x, 3.0.x, 3.1.x, 3.2.x, 3.3.x, 3.4.x, 3.5.x, 3.6.x, 3.7 - 3.11</td></tr></tbody></table><br/><br/></div></li></ul><p id="ca7ff207-e899-405c-88cc-257467750d12" class="">
+</p><h2 id="1642648a-1779-47d7-9d43-e3145940f14a" class=""><strong>Processes</strong></h2><p id="fe42728f-e795-46b3-975e-234edacf4e57" class="">The <strong>Processes</strong> tab provides a visualisation within which each node corresponds to a process and each connection represents a TCP/IP request. Not all processes running in your environment are shown because the number of running processes is often quite high. For clarity, only the <a href="https://www.dynatrace.com/support/help/how-to-use-dynatrace/process-groups/#which-are-the-most-important-processes">most important processes</a> are shown.</p><p id="f9960890-2ee6-4618-aa1a-75008ffdf36a" class="">
+</p><ul id="6e3887ad-b0e3-4a50-adc2-68b1825cf24f" class="bulleted-list"><li style="list-style-type:disc">Processes that are well known applications:<ul id="fd847872-0cec-4692-820c-f96fc683e54c" class="bulleted-list"><li style="list-style-type:circle">Java application servers (Tomcat, WebSphere, Weblogic, Glassfish, JBoss)</li></ul><ul id="a1d667db-ca45-4db3-9656-43b4359cd2a7" class="bulleted-list"><li style="list-style-type:circle">All other Java applications</li></ul><ul id="77bf0e20-d031-4ac9-b7fd-4b71417fdc90" class="bulleted-list"><li style="list-style-type:circle">All .NET applications</li></ul><ul id="a3cf5b3f-bc0b-452b-89bd-adec8178b29a" class="bulleted-list"><li style="list-style-type:circle">Databases: MS SQL, Oracle, MySQL, Cassandra, SQL server, CouchDB, MongoDB, PostgresSQL</li></ul><ul id="0a6b72ea-f030-471b-9410-c323cbec1355" class="bulleted-list"><li style="list-style-type:circle">Additional technologies: Node.js, PHP</li></ul><ul id="08be44f5-312b-4d10-b980-c78f1abdb70f" class="bulleted-list"><li style="list-style-type:circle">Web servers: NGINX, Apache HTTP, IIS</li></ul></li></ul><p id="ea3daf34-dc94-4f07-89d1-9cf9ff55677e" class="">
+</p><ul id="4e0ac39a-5beb-47d3-98a3-f451098c8777" class="bulleted-list"><li style="list-style-type:disc">Processes that have an open TCP listening port</li></ul><ul id="165fbb20-0c16-47c9-a43e-41e2ca72ce0a" class="bulleted-list"><li style="list-style-type:disc">Processes for which one of the following conditions is met for at least 3 of the last 5 one-minute intervals:<ul id="6442626f-6ab8-4884-8364-59d6794940eb" class="bulleted-list"><li style="list-style-type:circle"><strong>Avg(CPU) &gt; 5%</strong></li></ul><ul id="13e86ace-0949-4037-b567-8b321e105772" class="bulleted-list"><li style="list-style-type:circle"><strong>Max(Memory) &gt; 5%</strong></li></ul><ul id="355ee8a9-dee9-4952-9ef9-e5898714dda3" class="bulleted-list"><li style="list-style-type:circle"><strong>Network Traffic &gt; 5%</strong>.</li></ul></li></ul><ul id="bffae07c-215c-4c3b-b8ee-b1cd5a56fe88" class="bulleted-list"><li style="list-style-type:disc">Processes that have been defined by a user as being important. For example, by enabling Log Monitoring for a process.</li></ul><p id="958d81cb-9a45-4e45-a0e6-b6b6b52dbc9a" class="">
+</p><h2 id="ee73adae-85b9-403a-9577-bac70e466476" class="">Current Emma algorithm</h2><p id="c084d84a-590d-416b-ac9a-f7c6b9b0ed19" class="">The code below shows how a system process is classified either as an application, as a service or as a process. This isn&#x27;t a true code snippet because this decision is made at different stage in the process and the topology service.</p><pre id="a31b4de1-9437-4fa8-be62-8aac2cd537f1" class="code"><code>// `proc` represents the system process under classification.
+if proc.isFirstLayerProcess  {
+	proc.Level = &quot;Service&quot;
+} else if proc.port == 80 || proc.port == 443 || proc.hasBeenDetectedAsWebApp {
+	proc.Level = &quot;Application&quot;
+} else if proc.isAnIdentifiedTechnology {
+	proc.Level = &quot;Service&quot;
+} else {
+	proc.Level = &quot;Process&quot;
+}</code></pre></div></article></body></html>

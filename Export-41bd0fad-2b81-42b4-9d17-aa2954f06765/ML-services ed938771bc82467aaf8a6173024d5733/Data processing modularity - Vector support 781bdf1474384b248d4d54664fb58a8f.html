@@ -1,0 +1,972 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Data processing modularity - Vector support </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="781bdf14-7438-4b24-8d4d-54664fb58a8f" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🧩</span></div><h1 class="page-title">Data processing modularity - Vector support </h1><p class="page-description"></p></header><div class="page-body"><h1 id="cf6f3cf4-fda6-4831-a296-4af5c72bfadf" class="">Introduction </h1><ul id="2bdf5655-7dfd-4335-a31e-563da4185165" class="bulleted-list"><li style="list-style-type:disc">Many users have tools in place to process logs. For example, Vector, logstash etc </li></ul><ul id="e288a715-14dc-4ae3-9864-5a38ece45ada" class="bulleted-list"><li style="list-style-type:disc">Ideally, when we deploy our agents we impose minimal to no change to their existing workflow </li></ul><h1 id="890e8e98-9b91-4dc4-89db-f919e2dc420e" class="">Overview of Vector </h1><p id="7a7309c0-0d9f-42be-b085-6e6476fb3f1e" class="">Simple tool to:</p><ul id="50f3fdce-bbf1-4901-8c2c-eeec7a47b6ee" class="bulleted-list"><li style="list-style-type:disc">collect </li></ul><ul id="b9882e64-38aa-411c-80f8-1f9b73246e8f" class="bulleted-list"><li style="list-style-type:disc">transform</li></ul><ul id="d6e0a1ee-997e-49c9-80c8-2b03496b8839" class="bulleted-list"><li style="list-style-type:disc">route </li></ul><p id="81424f18-0522-482d-8c08-a121f1b48cba" class="">data, logs and metrics.  </p><p id="9a92e41f-23c9-471f-9542-1b886d8f7cc5" class="">Just like logstash, Vector can be used as agent to collect data or as processor only to only process data collected by other collectors. </p><figure id="32c32e7c-292f-4ad3-9123-2036c3d3d655" class="image"><a href="Data%20processing%20modularity%20-%20Vector%20support%20781bdf1474384b248d4d54664fb58a8f/Screenshot_2022-04-14_at_16.27.44.png"><img style="width:432px" src="Data%20processing%20modularity%20-%20Vector%20support%20781bdf1474384b248d4d54664fb58a8f/Screenshot_2022-04-14_at_16.27.44.png"/></a></figure><h1 id="685ba830-2f1c-4cf3-832c-20a8a59b2833" class="">Vector integration </h1><p id="39609918-a5cc-43ab-9b06-2f098f4c20a5" class="">We have 4 options:</p><p id="06ece1b6-c87f-4ac4-8bc8-cdc84d9539a4" class=""><strong>Option1: local Vector (client infra) without corr tags</strong></p><ul id="7c76294f-529a-4ed4-a80f-bf34b2e34a90" class="bulleted-list"><li style="list-style-type:disc">no need for our agent installation since collectors are already in place in</li></ul><ul id="529de54c-c807-4bf2-94fc-81681c952c1c" class="bulleted-list"><li style="list-style-type:disc">at least tagging of data sources </li></ul><ul id="c7c571e4-41cc-4f51-a8c9-a52a0ab722eb" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">correlation of logs and metrics is not guaranteed </li></ul><ul id="089acebc-ec1b-422a-a60e-bde9abf027d9" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">RCA is not possible </li></ul><figure id="48e7bc10-a46e-4b0c-b966-fdc904ad2b2d" class="image"><a href="Data%20processing%20modularity%20-%20Vector%20support%20781bdf1474384b248d4d54664fb58a8f/Screenshot_2022-04-15_at_10.02.41.png"><img style="width:1150px" src="Data%20processing%20modularity%20-%20Vector%20support%20781bdf1474384b248d4d54664fb58a8f/Screenshot_2022-04-15_at_10.02.41.png"/></a></figure><p id="793e6e54-9db6-40c0-a45f-59afc676c219" class=""><strong>Option2: local Vector (client infra) with corr tags</strong></p><ul id="4a1d6f10-81bf-4218-bd9a-4bb3cbca84cb" class="bulleted-list"><li style="list-style-type:disc">no need for our agent installation since collectors are already in place</li></ul><ul id="54fb1b2b-c8b9-42f5-b7ad-292018db50f6" class="bulleted-list"><li style="list-style-type:disc">correct tagging of data sources and links between data sources, on client side </li></ul><ul id="5f87f4ae-430b-4ada-9861-8dec136f57bb" class="bulleted-list"><li style="list-style-type:disc">supporting tags on our side and rely on tags to: <ul id="97da0f55-8828-4617-87da-dc94e460a7f6" class="bulleted-list"><li style="list-style-type:circle">have list of components </li></ul><ul id="1c1539aa-c8a6-4cfc-ba00-f6217cff2286" class="bulleted-list"><li style="list-style-type:circle">construct physical topology</li></ul></li></ul><ul id="6a8ca405-a3ff-42b0-ae3e-ebc4889c188a" class="bulleted-list"><li style="list-style-type:disc">correlation of logs and metrics is possible </li></ul><ul id="25fe057d-b043-48f2-8e77-030225282e4f" class="bulleted-list"><li style="list-style-type:disc">RCA is possible <figure id="a6945448-f801-4397-b50d-86888077ba35" class="image"><a href="Data%20processing%20modularity%20-%20Vector%20support%20781bdf1474384b248d4d54664fb58a8f/Screenshot_2022-04-15_at_10.03.01.png"><img style="width:1100px" src="Data%20processing%20modularity%20-%20Vector%20support%20781bdf1474384b248d4d54664fb58a8f/Screenshot_2022-04-15_at_10.03.01.png"/></a></figure></li></ul><p id="695142ff-1648-45d4-abe4-7bff960294f1" class="">
+</p><p id="f917700e-7d52-4c12-a596-a120be1c02ec" class=""><strong>Option3: local Vector (client infra) as Man-in-the-middle </strong></p><ul id="ec6c7ad6-3919-4010-a48c-cad38a70d727" class="bulleted-list"><li style="list-style-type:disc">our agent collects logs and metrics </li></ul><ul id="7a85313d-c116-4db9-9691-2674093e4338" class="bulleted-list"><li style="list-style-type:disc">data is sent to local vector </li></ul><ul id="6d7d39da-be74-4cf8-9ff2-67efb069eac1" class="bulleted-list"><li style="list-style-type:disc">local Vector transforms data, only updating user-space data (not packetai meta data) </li></ul><ul id="02c571d5-0ded-4f19-a47d-3e0dd1fd357c" class="bulleted-list"><li style="list-style-type:disc">vector routes data to our kafka <figure id="50f409a2-822a-416d-8446-ba9fbf0e5947" class="image"><a href="Data%20processing%20modularity%20-%20Vector%20support%20781bdf1474384b248d4d54664fb58a8f/Screenshot_2022-04-15_at_10.03.20.png"><img style="width:1110px" src="Data%20processing%20modularity%20-%20Vector%20support%20781bdf1474384b248d4d54664fb58a8f/Screenshot_2022-04-15_at_10.03.20.png"/></a></figure></li></ul><p id="7f6c605f-7939-4ab2-9174-54b39516baa2" class="">
+</p><p id="6f961c18-9d59-4b30-9a57-2d838c25da22" class=""><strong>Option4: integrate Vector in our pipeline </strong></p><ul id="d5ef3e33-d3a9-4a91-b0b0-9dc755dd9d7a" class="bulleted-list"><li style="list-style-type:disc">replacing logstash by Vector </li></ul><ul id="f037ebcc-b4f7-4c95-8f61-4e830c763963" class="bulleted-list"><li style="list-style-type:disc">openning Vector UI to users to do transforms </li></ul><h1 id="6b5a7a83-79f4-48b6-bd6c-f397fc4e6e47" class="">Rollout plan </h1><ul id="5dc559b2-8948-45de-b02d-98a733c26634" class="bulleted-list"><li style="list-style-type:disc">We go incrementally providing templates to clients first - option1</li></ul><ul id="6e61004d-beb5-4fdc-beb6-4c2f0f53a8b8" class="bulleted-list"><li style="list-style-type:disc">The implementation must be smoothly extensible to option3 </li></ul><p id="fe28e6c4-5fea-4911-9b97-8bba7c13f861" class="">
+</p><h1 id="c0557062-e799-4570-b0d5-7da8f66756ad" class="">Detailed implementation (Option1) </h1><h2 id="01d8fce8-41d1-4570-af74-e1f756376d66" class=""><strong>Requirements</strong></h2><ul id="7042f227-3adf-43cf-ac88-14afee3c1d22" class="bulleted-list"><li style="list-style-type:disc">HTTP endpoint </li></ul><ul id="12f9b662-5a17-410c-8bd9-1e8c83554530" class="bulleted-list"><li style="list-style-type:disc">adapting Vector data format to PacketAI pipeline </li></ul><figure id="4df89df4-f6d1-497c-9f8d-0126e392c41e" class="image"><a href="Data%20processing%20modularity%20-%20Vector%20support%20781bdf1474384b248d4d54664fb58a8f/Screenshot_2022-04-15_at_15.04.31.png"><img style="width:1320px" src="Data%20processing%20modularity%20-%20Vector%20support%20781bdf1474384b248d4d54664fb58a8f/Screenshot_2022-04-15_at_15.04.31.png"/></a></figure><p id="c97ce226-badb-48e2-9bad-99aa3afe1a41" class=""><strong>Reminder</strong></p><ul id="ac3b2287-0adf-4702-aae9-6d3db5661330" class="bulleted-list"><li style="list-style-type:disc">no need for our agent installation since collectors are already in place</li></ul><ul id="30083814-ceb8-4364-a08b-9d89a4531a2e" class="bulleted-list"><li style="list-style-type:disc">at least tagging of data sources (componentID)</li></ul><ul id="a892fccd-a189-434c-89de-c0a41f234e73" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">correlation of logs and metrics is not guaranteed </li></ul><ul id="9b2fa2f8-d66b-4871-943f-0d5da45809b9" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">RCA is not possible </li></ul><h2 id="5330f3bd-7c40-4fba-aee2-63434638cea3" class="">Configuration</h2><h3 id="0f89e991-5867-4378-b516-3e59fb6c1169" class="">Sink config</h3><pre id="4184a723-ac74-466d-b43b-3b4b9df18e79" class="code code-wrap"><code>sinks:
+  packetai_sink:
+    type: http
+    inputs:
+      - packetai_transform
+    uri: https://app-metron.packetai.co/endpoint
+    acknowledgements: null
+    batch: null
+    compression: none
+    encoding:
+      codec: json
+    healthcheck: null</code></pre><h3 id="0adb65a2-5317-45fc-95ad-3453cd4a16d8" class="">Transform config</h3><pre id="f89d1ec4-b134-42fa-82ae-f7d7c8066951" class="code code-wrap"><code>transforms:
+  packetai_transform:
+    type: remap
+    inputs:
+      - metron-sources
+    source: |-
+      . = parse_json!(.message)
+      here is where to inject the transformation      </code></pre><h3 id="4512b7ec-caef-47ec-889a-da26276ac1fd" class="">PacketAI API message format  </h3><ul id="273345d6-e2a3-43ba-a905-0453f3560cd1" class="toggle"><li><details open=""><summary>simplified (only mandatory fields)</summary><pre id="b945bfe7-d28f-48ed-b7c2-9be134f102c7" class="code"><code>---
+&quot;@timestamp&quot;: &#x27;yyyy-mm-ddTHH:MM:SS.ZZZZ&#x27;
+message: message-text
+fields:
+  infraID: infra_id  // to be copied from account 
+  agentID: agent_id  // to be copied from account
+  clusterName: cluster_name  // to be determined by user, it should match /[a-z]+/
+kubernetes:
+  // to be activated by user https://vector.dev/docs/reference/configuration/sources/kubernetes_logs/
+  // mandatory fields are 
+	container:
+    name: container_name
+  pod:
+    name: pod_name
+  controller:
+    name: controller_name</code></pre></details></li></ul><ul id="050529ae-775d-48bb-bc8d-c24e73fe3b42" class="toggle"><li><details open=""><summary>detailed (with optional fields)</summary><pre id="1cd89e00-679b-4a76-9b44-71ddda266654" class="code"><code>---
+&quot;@timestamp&quot;: &#x27;yyyy-mm-ddTHH:MM:SS.ZZZZ&#x27;
+&quot;@metadata&quot;:
+  beat: filebeat/metricbeat/vector
+  type: _doc
+  version: x.xx.x
+  _id: unique_id
+stream: stdout
+message: message-text
+fields:
+  infraID: infra_id
+  agentID: agent_id
+  clusterName: cluster_name
+kubernetes:
+  namespace_uid: namespace_uid
+  namespace: namespace
+  deployment:
+    name: deployment_name
+  replicaset:
+    name: replicaset_name
+  node:
+    labels:
+      list_of_labels
+    hostname: hostname
+    name: name
+    uid: uid
+  namespace_labels:
+    list_of-namespace_labels
+  pod:
+    name: pod_name
+    uid: uid
+    ip: xx.xx.xx.xx
+  labels:
+    list_of_pod_labels
+  container:
+    name: container_name
+cloud:
+  region: region
+  availability_zone: availability_zone
+  service:
+    name: EC2
+  account:
+    id: &#x27;id&#x27;
+  image:
+    id: image_id
+  instance: {}
+  machine: {}
+container:
+  image:
+    name: image_name
+  id: container_id
+  runtime: docker
+log:
+  offset: 1318433
+  file:
+    path: &quot;log_file_path&quot;
+input:
+  type: container</code></pre></details></li></ul><ul id="e493b996-c528-442d-9ca5-e301780cfda6" class="toggle"><li><details open=""><summary>In json</summary><pre id="8eeb7358-f8a9-4a16-9871-a42a5bad93d0" class="code"><code>{
+&quot;@timestamp&quot;: &quot;2022-04-21T13:30:23.558Z&quot;,
+&quot;@metadata&quot;: {
+&quot;beat&quot;: &quot;filebeat/metricbeat/vector&quot;,
+&quot;type&quot;: &quot;_doc&quot;,
+&quot;version&quot;: &quot;x.xx.x&quot;,
+&quot;_id&quot;: &quot;unique_id&quot;
+},
+&quot;stream&quot;: &quot;stdout&quot;,
+&quot;message&quot;: &quot;message-text&quot;,
+&quot;fields&quot;: {
+&quot;infraID&quot;: &quot;infra_id&quot;,
+&quot;agentID&quot;: &quot;agent_id&quot;,
+&quot;clusterName&quot;: &quot;cluster_name&quot;
+},
+&quot;kubernetes&quot;: {
+&quot;namespace_uid&quot;: &quot;namespace_uid&quot;,
+&quot;namespace&quot;: &quot;namespace&quot;,
+&quot;deployment&quot;: {
+&quot;name&quot;: &quot;deployment_name&quot;
+},
+&quot;replicaset&quot;: {
+&quot;name&quot;: &quot;replicaset_name&quot;
+},
+&quot;node&quot;: {
+&quot;labels&quot;: &quot;list_of_labels&quot;,
+&quot;hostname&quot;: &quot;hostname&quot;,
+&quot;name&quot;: &quot;name&quot;,
+&quot;uid&quot;: &quot;uid&quot;
+},
+&quot;namespace_labels&quot;: &quot;list_of-namespace_labels&quot;,
+&quot;pod&quot;: {
+&quot;name&quot;: &quot;pod_name&quot;,
+&quot;uid&quot;: &quot;uid&quot;,
+&quot;ip&quot;: &quot;xx.xx.xx.xx&quot;
+},
+&quot;labels&quot;: &quot;list_of_pod_labels&quot;,
+&quot;container&quot;: {
+&quot;name&quot;: &quot;container_name&quot;
+}
+},
+&quot;cloud&quot;: {
+&quot;region&quot;: &quot;region&quot;,
+&quot;availability_zone&quot;: &quot;availability_zone&quot;,
+&quot;service&quot;: {
+&quot;name&quot;: &quot;EC2&quot;
+},
+&quot;account&quot;: {
+&quot;id&quot;: &quot;id&quot;
+},
+&quot;image&quot;: {
+&quot;id&quot;: &quot;image_id&quot;
+},
+&quot;instance&quot;: {
+},
+&quot;machine&quot;: {
+}
+},
+&quot;container&quot;: {
+&quot;image&quot;: {
+&quot;name&quot;: &quot;image_name&quot;
+},
+&quot;id&quot;: &quot;container_id&quot;,
+&quot;runtime&quot;: &quot;docker&quot;
+},
+&quot;log&quot;: {
+&quot;offset&quot;: 1318433,
+&quot;file&quot;: {
+&quot;path&quot;: &quot;log_file_path&quot;
+}
+},
+&quot;input&quot;: {
+&quot;type&quot;: &quot;container&quot;
+},
+&quot;ecs&quot;: {
+},
+&quot;host&quot;: {
+&quot;hostname&quot;: &quot;hostname&quot;,
+&quot;name&quot;: &quot;name&quot;
+},
+&quot;agent&quot;: {
+&quot;type&quot;: &quot;filebeat/metricbeat/vector&quot;,
+&quot;version&quot;: &quot;x.xx.x&quot;
+}
+}</code></pre></details></li></ul><ul id="1cd7e12b-e658-49a9-929a-03be97404d03" class="toggle"><li><details open=""><summary>Example</summary><pre id="9cfdc1f9-7a7c-4d3a-a6bf-94eda7935863" class="code code-wrap"><code>---
+&quot;@timestamp&quot;: &#x27;2022-04-21T13:30:23.558Z&#x27;
+&quot;@metadata&quot;:
+  beat: filebeat
+  type: _doc
+  version: 7.16.0
+  _id: ZDdRTIAB189XDMipE0Ld
+stream: stdout
+message: message-text
+fields:
+  infraID: 622737b3a93c6c0012cc3ada
+  agentID: linux625f9cb01f82ac00773b3f1c
+  clusterName: kubernetessprodcommon
+kubernetes:
+  namespace_uid: 679c5fd7-2c2f-4180-8d52-89ee975d2783
+  namespace: front-prod
+  deployment:
+    name: front-commodities-clientapi
+  replicaset:
+    name: front-commodities-clientapi-55bf58f67c
+  node:
+    labels:
+      kubernetes_io/os: linux
+      topology_kubernetes_io/zone: eu-west-1c
+      beta_kubernetes_io/arch: amd64
+      kubernetes_io/arch: amd64
+      node_kubernetes_io/instance-type: m5.2xlarge
+      kubernetes_io/hostname: ip-10-30-10-20.eu-west-1.compute.internal
+      eks_amazonaws_com/capacityType: ON_DEMAND
+      topology_ebs_csi_aws_com/zone: eu-west-1c
+      eks_amazonaws_com/nodegroup: ng_2xlarge_c-20220218090629084200000010
+      beta_kubernetes_io/os: linux
+      eks_amazonaws_com/nodegroup-image: ami-0329fc26fc159cec5
+      failure-domain_beta_kubernetes_io/zone: eu-west-1c
+      topology_kubernetes_io/region: eu-west-1
+      failure-domain_beta_kubernetes_io/region: eu-west-1
+      kpler_com/workload-type: default
+      beta_kubernetes_io/instance-type: m5.2xlarge
+    hostname: ip-10-30-10-20.eu-west-1.compute.internal
+    name: ip-10-30-10-20.eu-west-1.compute.internal
+    uid: 8b005b8a-1237-4980-a6d7-c34894f08ffb
+  namespace_labels:
+    app_kubernetes_io/managed-by: Helm
+    argocd_argoproj_io/instance: front-prod-namespace
+    helm_sh/chart: namespace-0.1.0
+    kubernetes_io/metadata_name: front-prod
+  pod:
+    name: front-commodities-clientapi-55bf58f67c-4j2vz
+    uid: 1679ac56-5585-406e-aead-8a12da301d3c
+    ip: 10.30.11.48
+  labels:
+    tags_datadoghq_com/service: clientapi
+    tags_datadoghq_com/version: v4.0.863
+    app: clientapi
+    app_kubernetes_io/instance: front-commodities
+    app_kubernetes_io/name: front
+    app_kubernetes_io/version: v4.0.863
+    pod-template-hash: 55bf58f67c
+    tags_datadoghq_com/env: prod1
+  container:
+    name: clientapi
+cloud:
+  region: eu-west-1
+  availability_zone: eu-west-1c
+  service:
+    name: EC2
+  account:
+    id: &#x27;923490415114&#x27;
+  image:
+    id: ami-0329fc26fc159cec5
+  instance: {}
+  machine: {}
+container:
+  image:
+    name: 447157256452.dkr.ecr.eu-west-1.amazonaws.com/stable/client-api:v4.0.863
+  id: 9b9a91b819766131be5222c7cb929204a8d49bf16815be56fabdd1bdff2fa75d
+  runtime: docker
+log:
+  offset: 1318433
+  file:
+    path: &quot;/var/lib/docker/containers/9b9a91b819766131be5222c7cb929204a8d49bf16815be56fabdd1bdff2fa75d/9b9a91b819766131be5222c7cb929204a8d49bf16815be56fabdd1bdff2fa75d-json.log&quot;
+input:
+  type: container
+ecs: {}
+host:
+  hostname: ip-10-30-10-20.eu-west-1.compute.internal
+  name: ip-10-30-10-20.eu-west-1.compute.internal
+agent:
+  type: filebeat
+  version: 7.16.0</code></pre></details></li></ul><ul id="55f54390-4904-4e89-a9d4-400e0a7cd0c7" class="toggle"><li><details open=""><summary>Plezi Vector output example  </summary><pre id="6ee08809-66b8-40bb-8af4-0e9b725e0d8c" class="code"><code>---
+file: &quot;/var/log/pods/mongodb_mongodb-1_d1203d86-880a-4e3d-9257-0467560cf5cd/mongodb/0.log&quot;
+kubernetes:
+  container_id: containerd://e9540a7191f627dd742abb14e70dbac5eea85447197647c1028411caa220c016
+  container_image: docker.io/bitnami/mongodb:4.4.3-debian-10-r31
+  container_name: mongodb
+  namespace_labels:
+    kubernetes.io/metadata.name: mongodb
+  pod_ip: 10.12.120.35
+  pod_ips:
+  - 10.12.120.35
+  pod_labels:
+    app.kubernetes.io/component: mongodb
+    app.kubernetes.io/instance: mongodb
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: mongodb
+    controller-revision-hash: mongodb-7b7fd69575
+    helm.sh/chart: mongodb-10.6.1
+    statefulset.kubernetes.io/pod-name: mongodb-1
+  pod_name: mongodb-1
+  pod_namespace: mongodb
+  pod_node_name: aks-d4sv3zone1-25073398-vmss000006
+  pod_owner: StatefulSet/mongodb
+  pod_uid: d1203d86-880a-4e3d-9257-0467560cf5cd
+message: &#x27;{&quot;t&quot;:{&quot;$date&quot;:&quot;2022-04-28T09:17:33.298+00:00&quot;},&quot;s&quot;:&quot;I&quot;,  &quot;c&quot;:&quot;NETWORK&quot;,  &quot;id&quot;:22943,   &quot;ctx&quot;:&quot;listener&quot;,&quot;msg&quot;:&quot;Connection
+  accepted&quot;,&quot;attr&quot;:{&quot;remote&quot;:&quot;10.12.120.229:11478&quot;,&quot;connectionId&quot;:1408876,&quot;connectionCount&quot;:52}}&#x27;
+source_type: kubernetes_logs
+stream: stdout</code></pre></details></li></ul><p id="e1c49bd8-454c-49f8-9a3c-9303d7d14a82" class="">
+</p><p id="02d8009f-44a2-436e-9cfc-c4aad7bb87a6" class="">
+</p><p id="5735c944-e671-4134-8979-cbb310b7bfe6" class="">
+</p></div></article></body></html>

@@ -1,0 +1,735 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Performance</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5b719683-d1bb-4117-bdfa-8e573db1d265" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🖊️</span></div><h1 class="page-title">Performance</h1><p class="page-description"></p></header><div class="page-body"><p id="d7080d94-2e42-47ed-8767-cc6eebade606" class=""><span class="user">@Valentin Lapparov</span> wrote</p><nav id="8f2d6172-3140-4423-a27d-88186d6f7874" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6f881e3e-dfe1-41cb-af9a-fd3097541094">Skyler</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#731c00c6-6a44-4bb2-a0d6-aab9305a5f76">1) Test: detection time for fixed window and variable input size </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4531943c-f41f-45ec-95d8-2da699ebf6c6">2) Test: detection time for fixed input size and variable window</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d1dcf1cf-a94c-447d-b85c-c486c20bf2a0">EC2 performance</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#323c6b91-3915-4a6a-9af1-57728c82a322"><strong>Stress test for 1000 metrics, 45100 points</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#281d325d-1201-47ef-8e5a-7e410af290d2"><strong>Memory profiling</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c121334f-c3df-49b8-9058-d64cc851b868"><strong>Memory consumption as a function of the total number of points and number of trees in Walter model</strong> except gunicorn and system (for 1 topic):</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#79b5378b-940d-4965-9fb7-4ca7798f566d">Memory profiling revision:</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#48a24654-e021-4594-9309-292bf7a994e8"><strong>CPU profiling</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1f0b95e8-4646-442f-bccd-0645b8362efd">One general purpose machine of 16G, 4cpu, with 10 trees for Walter</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#811d8c46-54b1-4777-835a-34e7003d10dd">S<strong>ome test report on general purpose machine</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2182271a-9caf-4276-8446-13dbc6a932f0">Some test on compute optimized machine 4CPU, 8G</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5549ff40-816c-4f57-a25c-61bf85f71367"><strong>Dispatch formula</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4c5196a5-790f-4f61-983e-1a394b8b7173"><strong>Skyline algo time complexity</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#094f826f-3467-4758-925d-53c8cdda5681">Gus </a></div></nav><h1 id="6f881e3e-dfe1-41cb-af9a-fd3097541094" class="">Skyler</h1><p id="8f605625-f32b-4342-9c6c-fdc6c6a08708" class="">Detection time was assessed by generating random values from [0, 100) and applying Skyler to detect anomalies. Each test was performed on MacBook Pro (15-inch, 2019), 2,3 GHz 8-Core Intel Core i9, 16 GB 2400 MHz DDR4</p><h3 id="731c00c6-6a44-4bb2-a0d6-aab9305a5f76" class="">1) Test: detection time for fixed window and variable input size </h3><p id="67d69e53-1d42-4108-9569-cf722d36e524" class="">The <code>window</code> parameter for each model was set to 200. We made 210 iterations, where on each iteration a vector of size <code>(1, n_features)</code> was generated, appended to the list of metrics and evaluated for being an anomaly or not. Finally, after 200 iterations we end up with a matrix of size <code>(200, n_features)</code> which we then use to detect anomalies for a new vector of metrics. </p><p id="ed625345-825c-4c1a-a544-8892d8968f37" class=""><strong>Performance:</strong></p><p id="761db1c7-ebd9-4d73-bab9-deb362a5cabd" class="">(here the number of features is equal to the number of metrics taken into the consideration)</p><p id="81323c3b-bc9f-4510-ab95-d786cbb406b5" class="">
+</p><pre id="13b8806b-46d1-4ed5-977c-b6ab76bbd639" class="code"><code>	 5 features:  0.011 s. per prediction
+  10 features:  0.015 s. per prediction
+  20 features:  0.023 s. per prediction
+  50 features:  0.141 s. per prediction
+ 100 features:  0.461 s. per prediction
+ 200 features:  0.879 s. per prediction
+ 500 features:  2.938 s. per prediction
+1000 features:  5.784 s. per prediction
+2000 features: 13.367 s. per prediction
+
+Avg: 0.004 s. per feature</code></pre><p id="0d2f8c54-b22e-4c4b-914f-5be607d3b65d" class="">
+</p><figure id="fdc2861d-b12e-4bed-8c24-5f4ecaca2fb5" class="image"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Screenshot_2020-04-06_at_14.00.10.png"><img style="width:892px" src="Performance%205b719683d1bb4117bdfa8e573db1d265/Screenshot_2020-04-06_at_14.00.10.png"/></a></figure><h3 id="4531943c-f41f-45ec-95d8-2da699ebf6c6" class="">2) Test: detection time for fixed input size and variable window</h3><p id="ced1980c-a513-40cf-b4be-176be5d58b1d" class=""><code>n_features</code> was set to 100. The <code>window</code> parameter ranged from 10 to 2500 (possible values were:<code>[10, 25, 50, 100, 200, 300, 500, 1000, 2500]</code>). We made <code>k + 10</code> iterations (where k was in range <code>[10, 25, 50, 100, 200, 300, 500, 1000, 2500]</code>), where on each iteration a vector of size <code>(1, n_features)</code> was generated, appended to the list of metrics and evaluated for being an anomaly or not. Finally, after <code>window</code>-size number of iterations we end up with a matrix of size <code>(window, 100)</code> which we then use to detect anomalies for a new vector of metrics. </p><p id="53940113-cf06-4330-a3fd-d6cb99015c00" class=""><strong>Performance:</strong></p><pre id="309992ea-04a3-40bf-a93a-35962a58644a" class="code"><code>Window size =   10: 0.007 s. per prediction (n_features = 100)
+Window size =   25: 0.017 s. per prediction (n_features = 100)
+Window size =   50: 0.052 s. per prediction (n_features = 100)
+Window size =  100: 0.150 s. per prediction (n_features = 100)
+Window size =  200: 0.435 s. per prediction (n_features = 100)
+Window size =  300: 0.711 s. per prediction (n_features = 100)
+Window size =  500: 1.323 s. per prediction (n_features = 100)
+Window size = 1000: 2.133 s. per prediction (n_features = 100)
+Window size = 2500: 4.730 s. per prediction (n_features = 100)</code></pre><p id="4357770a-ca91-476e-bf8c-9321e3323b1d" class="">
+</p><figure id="e2916d71-befe-4a7a-9d89-adabc5bc51b9" class="image"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Screenshot_2020-04-08_at_16.15.25.png"><img style="width:1766px" src="Performance%205b719683d1bb4117bdfa8e573db1d265/Screenshot_2020-04-08_at_16.15.25.png"/></a></figure><p id="380d4820-785c-4ddc-98a4-4e444bcefb74" class="">
+</p><p id="ffe48810-3755-46be-b3a7-ce38303540b3" class="">
+</p><figure id="d6188d88-8d2a-493d-9743-a6871140927b" class="link-to-page"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Code%20quality%20d6188d888d2a493d9743a6871140927b.html">Code quality</a></figure><p id="a6eb7d83-7613-49d8-9fbf-8e2de2295f25" class="">
+</p><div id="bfd11437-13ff-4111-ba6e-e8d87a7ef76f" class="collection-content"><h4 class="collection-title">[OLD] Memory Consumption for detection.py (per one pipe) </h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Algorithm</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>PRI</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>NI</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>VIRT</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>RES</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>CPU%</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>MEM%</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Comment</th></tr></thead><tbody><tr id="d86ad155-f85d-4fc3-8a4b-c66a084a34eb"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/%5BOLD%5D%20Memory%20Consumption%20for%20detection%20py%20(per%20one%20bfd1143713ff4111ba6ee8d87a7ef76f/Skyler%20d86ad155f85d4fc38a4bc66a084a34eb.html">Skyler</a></td><td class="cell-*n)i">24</td><td class="cell-ah}^">0</td><td class="cell-UTkP">5522M</td><td class="cell-};}F">260M</td><td class="cell-)3*u">0.8</td><td class="cell-/XD*">1.6</td><td class="cell-}Vdo"></td></tr><tr id="f804f018-1d98-4020-b421-108c559e6341"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/%5BOLD%5D%20Memory%20Consumption%20for%20detection%20py%20(per%20one%20bfd1143713ff4111ba6ee8d87a7ef76f/Hank%20(clustering)%20f804f0181d984020b421108c559e6341.html">Hank (clustering)</a></td><td class="cell-*n)i">24</td><td class="cell-ah}^">0</td><td class="cell-UTkP">5543M</td><td class="cell-};}F">261M</td><td class="cell-)3*u">0.4</td><td class="cell-/XD*">1.6</td><td class="cell-}Vdo"></td></tr><tr id="bb5d0a88-56bc-4f05-9f72-ecd4f1b27593"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/%5BOLD%5D%20Memory%20Consumption%20for%20detection%20py%20(per%20one%20bfd1143713ff4111ba6ee8d87a7ef76f/Walter%20(RRCF)%20bb5d0a8856bc4f059f72ecd4f1b27593.html">Walter (RRCF)</a></td><td class="cell-*n)i">24</td><td class="cell-ah}^">0</td><td class="cell-UTkP">5514M</td><td class="cell-};}F">260M</td><td class="cell-)3*u">0.5</td><td class="cell-/XD*">1.6</td><td class="cell-}Vdo"></td></tr><tr id="1074687b-1a6e-45ac-926e-e07e395bc21a"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/%5BOLD%5D%20Memory%20Consumption%20for%20detection%20py%20(per%20one%20bfd1143713ff4111ba6ee8d87a7ef76f/Skyline%201074687b1a6e45ac926ee07e395bc21a.html">Skyline</a></td><td class="cell-*n)i">24</td><td class="cell-ah}^">0</td><td class="cell-UTkP">5508M</td><td class="cell-};}F">262M</td><td class="cell-)3*u">0.7</td><td class="cell-/XD*">1.6</td><td class="cell-}Vdo"></td></tr><tr id="d058bfb4-89f4-442e-9060-21bdcc2d05ba"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/%5BOLD%5D%20Memory%20Consumption%20for%20detection%20py%20(per%20one%20bfd1143713ff4111ba6ee8d87a7ef76f/Relative%20Entropy%20d058bfb489f4442e906021bdcc2d05ba.html">Relative Entropy</a></td><td class="cell-*n)i">24</td><td class="cell-ah}^">0</td><td class="cell-UTkP">5524M</td><td class="cell-};}F">260M</td><td class="cell-)3*u">0.6</td><td class="cell-/XD*">1.6</td><td class="cell-}Vdo"></td></tr><tr id="77ce105e-e733-4493-8418-86a6c58befd7"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/%5BOLD%5D%20Memory%20Consumption%20for%20detection%20py%20(per%20one%20bfd1143713ff4111ba6ee8d87a7ef76f/Gus%20(LSTM)%2077ce105ee7334493841886a6c58befd7.html">Gus (LSTM)</a></td><td class="cell-*n)i"></td><td class="cell-ah}^"></td><td class="cell-UTkP"></td><td class="cell-};}F"></td><td class="cell-)3*u"></td><td class="cell-/XD*"></td><td class="cell-}Vdo"></td></tr><tr id="9acfc6da-a88c-4053-b0b9-12f6447d4960"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/%5BOLD%5D%20Memory%20Consumption%20for%20detection%20py%20(per%20one%20bfd1143713ff4111ba6ee8d87a7ef76f/Flin%20(Auto-Encoder)%209acfc6daa88c4053b0b912f6447d4960.html">Flin (Auto-Encoder)</a></td><td class="cell-*n)i"></td><td class="cell-ah}^"></td><td class="cell-UTkP"></td><td class="cell-};}F"></td><td class="cell-)3*u"></td><td class="cell-/XD*"></td><td class="cell-}Vdo"></td></tr><tr id="94728b0d-c2f9-4cc8-90c0-bd812196e277"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/%5BOLD%5D%20Memory%20Consumption%20for%20detection%20py%20(per%20one%20bfd1143713ff4111ba6ee8d87a7ef76f/All%20models%2094728b0dc2f94cc890c0bd812196e277.html">All models</a></td><td class="cell-*n)i">24</td><td class="cell-ah}^">0</td><td class="cell-UTkP">5538M</td><td class="cell-};}F">263M</td><td class="cell-)3*u">0.9</td><td class="cell-/XD*">1.6</td><td class="cell-}Vdo"></td></tr></tbody></table><br/><br/></div><p id="c07a00d9-6c5f-480c-9aae-8302985b0931" class="">
+</p><p id="6fb4cd83-4a58-471f-9753-66dac19a7925" class="">Memo:</p><p id="40a2d80b-aabc-4f83-a8d7-1b693f734842" class="">
+</p><ul id="4acd47d9-7814-4907-bfe6-266c64c2d60f" class="bulleted-list"><li style="list-style-type:disc"><strong>PID</strong>: A process’s process ID number.</li></ul><ul id="44241892-3b89-4df1-9aba-5242fb2bc0ad" class="bulleted-list"><li style="list-style-type:disc"><strong>USER</strong>: The process’s owner.</li></ul><ul id="8c48aebd-8ce0-4cd1-8f67-7f54cb5456da" class="bulleted-list"><li style="list-style-type:disc"><strong>PR</strong>: The process’s priority. The lower the number, the higher the priority.</li></ul><ul id="1bbe9341-ed65-457d-8fd5-70e04806467c" class="bulleted-list"><li style="list-style-type:disc"><strong>NI</strong>: The nice value of the process, which affects its priority.</li></ul><ul id="44970f9b-6258-4814-906f-5551b900f211" class="bulleted-list"><li style="list-style-type:disc"><strong>VIRT</strong>: How much virtual memory the process is using.</li></ul><ul id="0f75e687-56a5-4d67-bc32-af61d02f431a" class="bulleted-list"><li style="list-style-type:disc"><strong>RES</strong>: How much physical RAM the process is using, measured in kilobytes.</li></ul><ul id="9131eceb-86c3-4b45-87ec-a5a11225b489" class="bulleted-list"><li style="list-style-type:disc"><strong>SHR</strong>: How much shared memory the process is using.</li></ul><ul id="8dbf8fd9-f781-44c4-99c0-1636e4d1e1d7" class="bulleted-list"><li style="list-style-type:disc"><strong>S</strong>: The current status of the process (zombied, sleeping, running, uninterruptedly sleeping, or traced).</li></ul><ul id="60596ece-3ba8-45ae-9036-49b17d319923" class="bulleted-list"><li style="list-style-type:disc"><strong>%CPU</strong>: The percentage of the processor time used by the process.</li></ul><ul id="13ecc5c8-6009-481e-9116-c6700e2a0265" class="bulleted-list"><li style="list-style-type:disc"><strong>%MEM</strong>: The percentage of physical RAM used by the process.</li></ul><ul id="366db042-ac5d-44fa-a41c-8b0485b23673" class="bulleted-list"><li style="list-style-type:disc"><strong>TIME+</strong>: How much processor time the process has used.</li></ul><ul id="808ba403-cf1a-463f-820c-a99c5e1efce3" class="bulleted-list"><li style="list-style-type:disc"><strong>COMMAND</strong>: The name of the command that started the process.</li></ul><p id="6fba59f7-158d-4a1f-99b7-86ccbeab3d20" class="">
+</p><pre id="89d09ed1-e0ad-42de-b5a8-0dd6c84a009e" class="code"><code>new_instance_topic = &#x27;5d8c7a61c91008148894cc84-5e871561bb6f7d5df402f8ef-metric-system-stashed&#x27;
+new_instance_infra_id = &#x27;d8c7a61c91008148894cc84&#x27;
+new_instance_agent_id = &#x27;5e871561bb6f7d5df402f8ef&#x27;
+new_instance_component_id = &#x27;5e871561bb6f7d5df402f8ef&#x27;</code></pre><p id="0799a124-0695-42b8-bba7-9f7c2d51fe01" class="">
+</p><h1 id="d1dcf1cf-a94c-447d-b85c-c486c20bf2a0" class="">EC2 performance</h1><div id="aeaaad8f-ffba-433c-a2d7-4441c6c9b055" class="collection-content"><h4 class="collection-title">Skyline ec2 performance</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Approx time span</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Average detection time (s)</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Number of metrics</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Number of points</th></tr></thead><tbody><tr id="f466c488-2682-4295-a395-63b0f4add333"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20ec2%20performance%20aeaaad8fffba433ca2d74441c6c9b055/6%20days%20f466c48826824295a39563b0f4add333.html">6 days</a></td><td class="cell-ae5#">10.14</td><td class="cell-y#bs">626</td><td class="cell-8&lt;&amp;G">55000</td></tr><tr id="e1689f7e-70ea-4202-beb2-1b5b2da4cc6b"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20ec2%20performance%20aeaaad8fffba433ca2d74441c6c9b055/5%205%20days%20e1689f7e70ea4202beb21b5b2da4cc6b.html">5.5 days</a></td><td class="cell-ae5#">9.303</td><td class="cell-y#bs">626</td><td class="cell-8&lt;&amp;G">50000</td></tr><tr id="7ba1969b-03fd-46fb-b332-a34728289438"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20ec2%20performance%20aeaaad8fffba433ca2d74441c6c9b055/5%20days%207ba1969b03fd46fbb332a34728289438.html">5 days</a></td><td class="cell-ae5#">8.427</td><td class="cell-y#bs">626</td><td class="cell-8&lt;&amp;G">45000</td></tr><tr id="f4be511b-52ef-4873-914d-72af434463df"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20ec2%20performance%20aeaaad8fffba433ca2d74441c6c9b055/4%205%20days%20f4be511b52ef4873914d72af434463df.html">4.5 days</a></td><td class="cell-ae5#">7.796</td><td class="cell-y#bs">626</td><td class="cell-8&lt;&amp;G">40000</td></tr><tr id="ca19c09d-949d-4987-ab9e-17d07462d89e"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20ec2%20performance%20aeaaad8fffba433ca2d74441c6c9b055/3%203%20days%20ca19c09d949d4987ab9e17d07462d89e.html">3.3 days</a></td><td class="cell-ae5#">6.201</td><td class="cell-y#bs">626</td><td class="cell-8&lt;&amp;G">30000</td></tr><tr id="2b570ce5-4a33-4dd0-a932-ec2f012bfcfd"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20ec2%20performance%20aeaaad8fffba433ca2d74441c6c9b055/Untitled%202b570ce54a334dd0a932ec2f012bfcfd.html">Untitled</a></td><td class="cell-ae5#"></td><td class="cell-y#bs"></td><td class="cell-8&lt;&amp;G"></td></tr></tbody></table><br/><br/></div><div id="b0c5c19f-260f-493b-ba39-90468bf84e60" class="collection-content"><h4 class="collection-title">Walter ec2 performance</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Average time (s)</th></tr></thead><tbody><tr id="87fced3e-257a-4ba1-ad16-508105d3c347"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Walter%20ec2%20performance%20b0c5c19f260f493bba3990468bf84e60/Process%20a%20batch%20of%2030%20points%2087fced3e257a4ba1ad16508105d3c347.html">Process a batch of 30 points</a></td><td class="cell-MIP~">2.73</td></tr><tr id="67e3daa7-5bab-40f4-a377-78f7fecb092f"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Walter%20ec2%20performance%20b0c5c19f260f493bba3990468bf84e60/Average%20insert%20time%20(detection%20for%201%20point)%2067e3daa75bab40f4a37778f7fecb092f.html">Average insert time (detection for 1 point)</a></td><td class="cell-MIP~">0.23</td></tr><tr id="feb0791b-ac98-4d40-beb8-aa582fd03c45"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Walter%20ec2%20performance%20b0c5c19f260f493bba3990468bf84e60/Average%20detection%20time%20(overall)%20feb0791bac984d40beb8aa582fd03c45.html">Average detection time (overall)</a></td><td class="cell-MIP~">0.25</td></tr><tr id="e5ba6b6f-577a-4945-a2bf-5694ebca4723"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Walter%20ec2%20performance%20b0c5c19f260f493bba3990468bf84e60/Untitled%20e5ba6b6f577a4945a2bf5694ebca4723.html">Untitled</a></td><td class="cell-MIP~"></td></tr></tbody></table><br/><br/></div><h2 id="323c6b91-3915-4a6a-9af1-57728c82a322" class=""><strong>Stress test for 1000 metrics, 45100 points</strong></h2><h3 id="281d325d-1201-47ef-8e5a-7e410af290d2" class=""><strong>Memory profiling</strong></h3><div id="08e65327-d751-47d3-b804-81e30355421d" class="collection-content"><h4 class="collection-title">One machine of 16G, 4cpu (for 1000 metrics)</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Memory consumption</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Number of points</th></tr></thead><tbody><tr id="b453b033-4218-4a80-bb70-6e07436f3045"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/One%20machine%20of%2016G,%204cpu%20(for%201000%20metrics)%2008e65327d75147d3b80481e30355421d/System%20b453b03342184a80bb706e07436f3045.html">System</a></td><td class="cell-&#x27;y!A">252Mb</td><td class="cell-Mz,,"></td></tr><tr id="c79801e0-b014-4414-8b4c-86c7ef3ead33"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/One%20machine%20of%2016G,%204cpu%20(for%201000%20metrics)%2008e65327d75147d3b80481e30355421d/Gunicorn%20c79801e0b01444148b4c86c7ef3ead33.html">Gunicorn</a></td><td class="cell-&#x27;y!A">555Mb</td><td class="cell-Mz,,"></td></tr><tr id="6e611fc2-56cf-457a-8b6d-1891801868a1"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/One%20machine%20of%2016G,%204cpu%20(for%201000%20metrics)%2008e65327d75147d3b80481e30355421d/1%20slave%20topic%20Kafka%20consumer%206e611fc256cf457a8b6d1891801868a1.html">1 slave topic Kafka consumer</a></td><td class="cell-&#x27;y!A">100Mb</td><td class="cell-Mz,,"></td></tr><tr id="93836616-4e1e-468a-b41d-1de652cc364c"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/One%20machine%20of%2016G,%204cpu%20(for%201000%20metrics)%2008e65327d75147d3b80481e30355421d/Master%20Kafka%20consumer%20938366164e1e468ab41d1de652cc364c.html">Master Kafka consumer</a></td><td class="cell-&#x27;y!A">60Mb</td><td class="cell-Mz,,"></td></tr><tr id="3904c11c-1015-4b30-a9e8-808925b1310b"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/One%20machine%20of%2016G,%204cpu%20(for%201000%20metrics)%2008e65327d75147d3b80481e30355421d/Skyline%20+%20Walter%20models%203904c11c10154b30a9e8808925b1310b.html">Skyline + Walter models</a></td><td class="cell-&#x27;y!A">80Kb</td><td class="cell-Mz,,">under 30 </td></tr><tr id="2fc12748-c693-46fd-a58e-c1bf4fb485fb"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/One%20machine%20of%2016G,%204cpu%20(for%201000%20metrics)%2008e65327d75147d3b80481e30355421d/Untitled%202fc12748c69346fda58ec1bf4fb485fb.html">Untitled</a></td><td class="cell-&#x27;y!A">80Kb + 80Kb*2*<code>nb_tree</code></td><td class="cell-Mz,,">between 30 and 270</td></tr><tr id="bb97f49d-d220-481f-ba2f-e60494734423"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/One%20machine%20of%2016G,%204cpu%20(for%201000%20metrics)%2008e65327d75147d3b80481e30355421d/Untitled%20bb97f49dd220481fba2fe60494734423.html">Untitled</a></td><td class="cell-&#x27;y!A">theorically it should be 80k/iter, but we observed that it is about 27k or even less in pratical (guess it is due to swapping between disk and RAM)</td><td class="cell-Mz,,">more than 270</td></tr></tbody></table><br/><br/></div><p id="833afed3-fd6c-4eed-abac-2bc99f5304bc" class="">
+</p><h3 id="c121334f-c3df-49b8-9058-d64cc851b868" class=""><strong>Memory consumption as a function of the total number of points and number of trees in Walter model</strong> except gunicorn and system (for 1 topic):</h3><p id="2472b01e-48e5-40f4-941a-33c977d68305" class=""><code>consumption(point_total, nb_tree) = 2400k+80k*240+160k*nb_tree*240 + (point_total-270)*80k + 100M(from kafka)</code>  </p><p id="b32257dd-88ff-4b54-b5e4-26f4856f3f0d" class="">so </p><p id="bb529de3-ef8d-4b4e-b7c6-d7450c3e66e1" class=""><strong>Case 1:</strong> if <code>nb_tree=40</code>, <code>topic_nb=1</code>, <code>point_total=45100</code></p><p id="408748e9-65e6-4128-8396-70dc875609b9" class=""><strong>consumption = 1557M+3586M + 100M = 5243M</strong></p><p id="5411c76e-6870-4f36-a9a9-8cffebbb2a7a" class=""><strong>Case 2:</strong> if <code>nb_tree=10</code>, <code>topic_nb=1</code>, <code>point_total=22550</code></p><p id="4f0d1c41-2e23-4f1e-b4c5-5014a4e4d5dd" class=""><strong>consumption = 406M+1782M + 100M = 2288M</strong></p><p id="24dfa407-1612-4bf0-8162-7f23adca8939" class="">based on that, for <strong>6 topic</strong> for case 2 on one machine: </p><p id="426e2171-ca91-4e75-ac23-86f6faf3fe7f" class=""><strong>2288*6 Mb + gunicorn + system = 14535 Mb</strong></p><p id="cacfe7b7-c6b1-47b0-8a01-ee8e4324fe41" class="">
+</p><p id="3dfe0c8f-063f-4e9e-b1ec-cdcca9de56ae" class="">
+</p><h3 id="79b5378b-940d-4965-9fb7-4ca7798f566d" class="">Memory profiling revision:</h3><p id="bd1e7b5f-8dde-4584-9b80-f737fc63ec65" class=""><code>consumption(point_total, nb_tree) = 2400k+80k*240+160k*nb_tree*240 + (point_total-270)*30k + 100M (from kafka)</code></p><p id="d092d116-b3d8-4208-bcd1-033c2c018edf" class="">here change 80k to 30k, because as we observe, as the number points increase, it will not be below 80k/iter for each topic theoretically, the reason can be swapping between disk and memory</p><p id="ccf6979b-e4bf-4556-8eec-4ba3ed8a764a" class="">
+</p><p id="49e439af-c403-4d08-9e4a-8dc39cb80b9f" class=""><strong>Сase 2</strong>: if <code>nb_tree=10</code>,<code> topic_nb=1</code>, <code>point_total=22550</code></p><p id="41af1efa-8248-4628-a70b-e7094de0fcda" class=""><strong>consumption = 406M+668M + 100M = 1174M</strong></p><p id="71288de2-4b46-4f9f-938c-913d96c7a47e" class="">based on that if <strong>9 topic</strong> for case 2 on one machine: <strong>1174*9+gunicorn+system = 11373M</strong></p><p id="c3b45191-d238-487f-a5ca-fed0bf7086cb" class="">so <span style="border-bottom:0.05em solid"><strong>one 16G machine, can hold 12 topic in terms of memory</strong></span></p><p id="5fdb3b9a-bca8-4b1a-bc0c-5285cadebc95" class=""><span style="border-bottom:0.05em solid"><strong>on 8G machine, can hold 6 topic in terms of memory</strong></span></p><p id="d43b7e92-a0b9-4ff7-a3f9-8b2c300085d9" class="">
+</p><h2 id="48a24654-e021-4594-9309-292bf7a994e8" class=""><strong>CPU profiling</strong></h2><h3 id="1f0b95e8-4646-442f-bccd-0645b8362efd" class="">One general purpose machine of 16G, 4cpu, with 10 trees for Walter</h3><ul id="cbf17ff8-252e-4b66-858b-8008429a7774" class="bulleted-list"><li style="list-style-type:disc">if use 4 topic, then detection time is 2 second</li></ul><ul id="8d4376dd-82d6-431f-8ba5-ae919a2d6e39" class="bulleted-list"><li style="list-style-type:disc">if use 5 topic or 6 topic, then detection time is 3second, but after 300 points, the time will sometimes arrive at 14s, sometimes back to 3s</li></ul><ul id="bf83693a-a63e-4807-b4cf-362e2c3b025f" class="bulleted-list"><li style="list-style-type:disc">if 9 topic, then detection time is 4second, but after 200 points, the time will sometimes arrive at 20s, sometimes back to 4s. This behaviour we can&#x27;t accept because it can be bigger than 10s </li></ul><p id="3c856bf2-1043-44fe-a751-e0646c5b41df" class="">
+</p><p id="447333c9-ab4c-45b8-b2f7-afe2f6538208" class="">
+</p><p id="70b5d9a5-3a6b-4cd9-a2d8-ead827101b9b" class=""><strong>On cpu optimised machine with 4 CPU:</strong></p><p id="108e805c-efbb-4fb4-9f79-c4d24f725f3f" class="">4 cpu on 7 topic, while detection time is 4.5 second, while the 30 point walter batch process time is 7.8s,</p><p id="14df4d51-ed7e-4f97-85de-764a0b01f5ac" class="">if 9 topic, detection time is 5.7s, while detection time is 4.5 second, while the 30 point walter batch process time is 9.6s</p><p id="00f1bfb3-19c5-4121-afff-039a8e0e0643" class="">we can see that the detection time is very stable(increase a little as theorically expected)</p><p id="bfd82def-a371-485a-9aff-0349cead37db" class="">
+</p><p id="f9bc901d-4994-426a-b32e-4e61049d8100" class="">
+</p><p id="348b2c9f-0b9e-44f4-8f01-4dd151f583b7" class="">when the accumulated list increase at huge level like 45100/2, the time will also increase, skyline detection will surely increase, but not linearly, i think it will pass 10s for this 1000metric on mutiple topic, and we have done the test for this.</p><p id="3c1c1dc0-21eb-409c-81d0-4485e6b7475c" class="">
+</p><h3 id="811d8c46-54b1-4777-835a-34e7003d10dd" class="">S<strong>ome test report on general purpose machine</strong></h3><div id="cac0af6a-15be-41a6-88d9-8d8cc821a2cb" class="collection-content"><h4 class="collection-title">1 topic&#x27;s 40 trees Walter + Skyline</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span># points</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Memory Gb</th></tr></thead><tbody><tr id="3c1fc2de-cfb1-45e1-b66e-e363a472785b"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%2040%20trees%20Walter%20+%20Skyline%20cac0af6a15be41a688d98d8cc821a2cb/62%203c1fc2decfb145e1b66ee363a472785b.html">62</a></td><td class="cell--aZ=">2.45</td></tr><tr id="a2417eb9-d6db-444e-a147-ba197ece1fbc"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%2040%20trees%20Walter%20+%20Skyline%20cac0af6a15be41a688d98d8cc821a2cb/93%20a2417eb9d6db444ea147ba197ece1fbc.html">93</a></td><td class="cell--aZ=">3.2</td></tr><tr id="e2011ccc-7ad4-4988-a355-cc473f7183a4"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%2040%20trees%20Walter%20+%20Skyline%20cac0af6a15be41a688d98d8cc821a2cb/112%20e2011ccc7ad44988a355cc473f7183a4.html">112</a></td><td class="cell--aZ=">3.65</td></tr><tr id="db81fb14-c11c-40c7-8d9d-85377999d941"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%2040%20trees%20Walter%20+%20Skyline%20cac0af6a15be41a688d98d8cc821a2cb/144%20db81fb14c11c40c78d9d85377999d941.html">144</a></td><td class="cell--aZ=">4.43</td></tr><tr id="f27c422b-d42e-4ef2-8350-e13327459e09"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%2040%20trees%20Walter%20+%20Skyline%20cac0af6a15be41a688d98d8cc821a2cb/189%20f27c422bd42e4ef28350e13327459e09.html">189</a></td><td class="cell--aZ=">5.59</td></tr><tr id="0d8da489-4170-4571-b36d-3f234b0ddb05"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%2040%20trees%20Walter%20+%20Skyline%20cac0af6a15be41a688d98d8cc821a2cb/205%200d8da48941704571b36d3f234b0ddb05.html">205</a></td><td class="cell--aZ=">5.92</td></tr><tr id="3b18b9db-a773-4d84-b8a1-14347afa609f"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%2040%20trees%20Walter%20+%20Skyline%20cac0af6a15be41a688d98d8cc821a2cb/214%203b18b9dba7734d84b8a114347afa609f.html">214</a></td><td class="cell--aZ=">6.15</td></tr><tr id="2495c055-e686-4b48-999a-eae595c8a55d"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%2040%20trees%20Walter%20+%20Skyline%20cac0af6a15be41a688d98d8cc821a2cb/265%202495c055e6864b48999aeae595c8a55d.html">265</a></td><td class="cell--aZ=">7.38</td></tr><tr id="b4600564-e901-41e5-b440-0539c14277e8"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%2040%20trees%20Walter%20+%20Skyline%20cac0af6a15be41a688d98d8cc821a2cb/278%20b4600564e90141e5b4400539c14277e8.html">278</a></td><td class="cell--aZ=">7.46</td></tr><tr id="354e91a3-113d-48d6-884a-dc5776a8c4ed"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%2040%20trees%20Walter%20+%20Skyline%20cac0af6a15be41a688d98d8cc821a2cb/375%20354e91a3113d48d6884adc5776a8c4ed.html">375</a></td><td class="cell--aZ=">7.47</td></tr><tr id="020bbf0a-94e1-4ad9-a4c1-60d1aff4ef67"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%2040%20trees%20Walter%20+%20Skyline%20cac0af6a15be41a688d98d8cc821a2cb/751%20020bbf0a94e14ad9a4c160d1aff4ef67.html">751</a></td><td class="cell--aZ=">7.47</td></tr></tbody></table><br/><br/></div><div id="49a8024b-b89f-48d4-944c-1058cbc6d797" class="collection-content"><h4 class="collection-title">1 topic&#x27;s Skyline only</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span># points</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Memory Mb</th></tr></thead><tbody><tr id="afbdedba-8f88-4064-abc0-657defbca99d"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%20Skyline%20only%2049a8024bb89f48d4944c1058cbc6d797/46%20afbdedba8f884064abc0657defbca99d.html">46</a></td><td class="cell-Ez,Q">950</td></tr><tr id="1cb8fbc3-345d-4cd3-b714-71b1135c1b04"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%20Skyline%20only%2049a8024bb89f48d4944c1058cbc6d797/120%201cb8fbc3345d4cd3b71471b1135c1b04.html">120</a></td><td class="cell-Ez,Q">953</td></tr><tr id="6aabfdf4-0890-4367-bc87-c3f87f1b0d4a"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/1%20topic&#x27;s%20Skyline%20only%2049a8024bb89f48d4944c1058cbc6d797/250%206aabfdf408904367bc87c3f87f1b0d4a.html">250</a></td><td class="cell-Ez,Q">958</td></tr></tbody></table><br/><br/></div><div id="5c8ab602-b111-478e-9ac9-eacfae0ad21a" class="collection-content"><h4 class="collection-title">4 topic&#x27;s 10 tree Walter</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span># points</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Memory Gb</th></tr></thead><tbody><tr id="6673091d-0772-4bca-accb-de35fd53d6c2"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/4%20topic&#x27;s%2010%20tree%20Walter%205c8ab602b111478e9ac9eacfae0ad21a/43%206673091d07724bcaaccbde35fd53d6c2.html">43</a></td><td class="cell-js&gt;j">1.49</td></tr><tr id="6c22fda8-d465-46a9-b0d7-af37301d7748"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/4%20topic&#x27;s%2010%20tree%20Walter%205c8ab602b111478e9ac9eacfae0ad21a/70%206c22fda8d46546a9b0d7af37301d7748.html">70</a></td><td class="cell-js&gt;j">1.66</td></tr><tr id="05e0529f-c2cc-4a92-8617-f94664ef0f86"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/4%20topic&#x27;s%2010%20tree%20Walter%205c8ab602b111478e9ac9eacfae0ad21a/432%2005e0529fc2cc4a928617f94664ef0f86.html">432</a></td><td class="cell-js&gt;j">2.94</td></tr><tr id="b7372e01-09b0-4f46-a77e-9c653886ed5c"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/4%20topic&#x27;s%2010%20tree%20Walter%205c8ab602b111478e9ac9eacfae0ad21a/816%20b7372e0109b04f46a77e9c653886ed5c.html">816</a></td><td class="cell-js&gt;j">2.99</td></tr><tr id="e77b345f-c79c-4352-9bd0-9d5f8094bde8"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/4%20topic&#x27;s%2010%20tree%20Walter%205c8ab602b111478e9ac9eacfae0ad21a/894%20e77b345fc79c43529bd09d5f8094bde8.html">894</a></td><td class="cell-js&gt;j">2.99</td></tr></tbody></table><br/><br/></div><h3 id="2182271a-9caf-4276-8446-13dbc6a932f0" class="">Some test on compute optimized machine 4CPU, 8G</h3><div id="6cecc959-6ad7-4864-b33c-ebc2cdc041bf" class="collection-content"><h4 class="collection-title">9 topic&#x27;s 10 tree Walter + Skyline</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span># points</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Memory Gb</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>detection time (s)</th></tr></thead><tbody><tr id="8abfeacf-9cee-406b-b9dd-bd643fa2c95a"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/42%208abfeacf9cee406bb9ddbd643fa2c95a.html">42</a></td><td class="cell-z-w7">2.8</td><td class="cell-KOK2">5.5</td></tr><tr id="3b1fd2dd-645e-4167-a3f1-76c11510054c"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/46%203b1fd2dd645e4167a3f176c11510054c.html">46</a></td><td class="cell-z-w7">2.86</td><td class="cell-KOK2"></td></tr><tr id="5a9c4b60-2d32-4772-b281-1ef68d431e7e"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/50%205a9c4b602d324772b2811ef68d431e7e.html">50</a></td><td class="cell-z-w7">2.92</td><td class="cell-KOK2"></td></tr><tr id="ad58b150-b317-4f17-983e-9af486647edf"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/55%20ad58b150b3174f17983e9af486647edf.html">55</a></td><td class="cell-z-w7">3</td><td class="cell-KOK2"></td></tr><tr id="517a98ec-7e38-492f-b15f-e30b112a96ac"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/60%20517a98ec7e38492fb15fe30b112a96ac.html">60</a></td><td class="cell-z-w7">3.08</td><td class="cell-KOK2"></td></tr><tr id="60637636-718d-49cc-b3fd-1f13d0063d2e"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/75%2060637636718d49ccb3fd1f13d0063d2e.html">75</a></td><td class="cell-z-w7">3.28</td><td class="cell-KOK2"></td></tr><tr id="03e9c6ec-3e86-4315-ba75-9d2ba99edd82"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/107%2003e9c6ec3e864315ba759d2ba99edd82.html">107</a></td><td class="cell-z-w7">3.76</td><td class="cell-KOK2"></td></tr><tr id="02bdd681-2e17-4339-93d1-a5110278307a"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/113%2002bdd6812e17433993d1a5110278307a.html">113</a></td><td class="cell-z-w7">3.83</td><td class="cell-KOK2"></td></tr><tr id="95351755-4337-4c13-a91e-40686cb8022a"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/160%209535175543374c13a91e40686cb8022a.html">160</a></td><td class="cell-z-w7">4.52</td><td class="cell-KOK2"></td></tr><tr id="2022bf30-8a48-42ae-8ee0-85830460ea3e"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/191%202022bf308a4842ae8ee085830460ea3e.html">191</a></td><td class="cell-z-w7">4.99</td><td class="cell-KOK2"></td></tr><tr id="1ed02f64-9cea-41e0-b0ec-9d757a887c65"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/267%201ed02f649cea41e0b0ec9d757a887c65.html">267</a></td><td class="cell-z-w7">6.08</td><td class="cell-KOK2"></td></tr><tr id="079582aa-dca7-4f1e-8e4f-1e213f7e985e"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/275%20079582aadca74f1e8e4f1e213f7e985e.html">275</a></td><td class="cell-z-w7">6.13</td><td class="cell-KOK2"></td></tr><tr id="df73c20e-43c6-468d-aa52-2fb858044e07"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/356%20df73c20e43c6468daa522fb858044e07.html">356</a></td><td class="cell-z-w7">6.13</td><td class="cell-KOK2"></td></tr><tr id="05444d93-1bd3-4d54-a9aa-c1ed6c1af41d"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/387%2005444d931bd34d54a9aac1ed6c1af41d.html">387</a></td><td class="cell-z-w7">6.15</td><td class="cell-KOK2">6.2</td></tr><tr id="87029752-91c8-42b1-afac-dfb58931b65e"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/400%208702975291c842b1afacdfb58931b65e.html">400</a></td><td class="cell-z-w7">6.17</td><td class="cell-KOK2"></td></tr><tr id="a01bb871-b164-47ca-bf7a-fce2be0a5832"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/422%20a01bb871b16447cabf7afce2be0a5832.html">422</a></td><td class="cell-z-w7">6.17</td><td class="cell-KOK2"></td></tr><tr id="7a817268-7e22-4997-8610-8bc8fa8c6134"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/460%207a8172687e22499786108bc8fa8c6134.html">460</a></td><td class="cell-z-w7">6.19</td><td class="cell-KOK2"></td></tr><tr id="3319f0a9-1d1f-48bf-b569-b013d6af4e4e"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/1457%203319f0a91d1f48bfb569b013d6af4e4e.html">1457</a></td><td class="cell-z-w7">6.44</td><td class="cell-KOK2">7.4</td></tr><tr id="a872c36c-9c4a-4328-93fc-9acefe3c80c3"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/1893%20a872c36c9c4a432893fc9acefe3c80c3.html">1893</a></td><td class="cell-z-w7">6.53</td><td class="cell-KOK2"></td></tr><tr id="339d8695-54c6-4e02-940e-c94fd1a77e34"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/9%20topic&#x27;s%2010%20tree%20Walter%20+%20Skyline%206cecc9596ad74864b33cebc2cdc041bf/2372%20339d869554c64e02940ec94fd1a77e34.html">2372</a></td><td class="cell-z-w7">6.62</td><td class="cell-KOK2">8.3</td></tr></tbody></table><br/><br/></div><p id="89ac35f7-e9f3-46a0-adcf-94e34f4e0bf1" class="">so (6.17-6.13)/(400-267)=300k or 250K, instead of 80k*9 per iteration</p><p id="b5410019-46d2-49f5-a130-c83a9e5df76b" class="">
+</p><p id="d94dcdaf-4e5a-4b6a-b0f9-cd432924a3ba" class="">
+</p><p id="3ef49874-7a95-4c5e-8406-1e470cda7e74" class="">6 topic with 22500 point with 1000metrics on skyline and walter</p><p id="bca0625f-1345-4945-8eb2-bc4912521423" class="">for the sixth topic, the detection time arrive at 17s</p><p id="4c42085f-8344-4e47-a148-52d80650f067" class="">RAM consumption still less than 5G, we think there should be some swapping between disk and memory</p><p id="a6bec7bc-5f24-4858-83b4-eb20be9979e8" class="">
+</p><p id="d5c6aeda-c72a-40e7-a060-c7a9989ae5bb" class="">4 topic of 22500 point with 50, 100,150,200,250,300 metrics, in total 24 topic on skyline and walter</p><p id="206b3fdf-6d83-4b95-8870-d55bb23ba8b3" class="">for 300 metrics topic, the detection time arrive at 24s</p><p id="a1072ac7-f535-4455-b70a-d6efe3e8a1f5" class="">RAM consumption still less than 7G, we think there should be some swapping between disk and memory</p><p id="b5006e24-354e-433a-b05d-d08f31f390e8" class="">
+</p><p id="c2597d63-658b-470f-910f-005ac04e60f5" class=""><strong>Conclusion</strong></p><p id="2d874f00-4f02-406b-9a8e-cceecbb697ad" class="">Based on the test, we will use compute optimised EC2 instance for MAD and we should design a smart topic dispatcher at the client activator-detection.py</p><p id="cd2e417b-7626-4832-ad64-6df672f486f8" class=""><span style="border-bottom:0.05em solid"><strong>Finally, supposing we use machine with 4 cpu, 8G, then each machine can hold and process as much as 6 big topics (metric number &gt; 600) the same time</strong></span></p><p id="097ea5be-0d6b-47e9-8578-ce337b885aa8" class="">
+</p><p id="5ff97333-5c98-4b53-8bac-61bff6bd18ef" class=""><strong>Other factors</strong>: topic message frequency, more topic with less metric number</p><p id="1de31dc7-9432-4870-857b-7480b1ce1640" class="">
+</p><p id="fb85ccbb-79bd-4d69-8564-0a3585ea626f" class="">According to metric number and frequency and number of topic on one machine, we&#x27;ve designed load formule here:</p><h3 id="5549ff40-816c-4f57-a25c-61bf85f71367" class=""><strong>Dispatch formula</strong></h3><p id="faccc024-a967-477c-a6d1-34e5cc0abcbe" class=""><span style="border-bottom:0.05em solid">Version 1:</span></p><p id="8137e9c3-f579-4c2e-9074-da2d3d278b1e" class="">Each Topic’s Load = Metric_number/600 * Frequency for 22.5K points in the future</p><p id="a930f355-b362-428d-baf4-2e61db19d737" class="">(frequency can be defined like 1/message_inteval)</p><p id="64dfcf67-ecd4-440c-91c6-5ceb87359a9e" class="">One CPU4 compute optimised EC2 max load = 6 * 1000/600 * 1/3 * 6/4=5</p><p id="b4b1f1e7-1b29-4b20-bc65-5d0050a4fbfe" class="">One CPU4 compute optimised EC2 current load = sum(topic_load) * num_topic/num_core</p><p id="1f8f22af-19a0-4733-998b-e40e95cf0945" class="">simulation: </p><p id="0e346265-0876-4989-b97f-8cab0cc39e01" class="">for 4 topics(50,100,150,200,250,300) on CPU4 compute,total 24 topic, total load is 7/3*24/num_core &gt; 5 which corresponds to our observation through pressure test where the detection arrive at 24 s for number of big topic</p><p id="ab749f24-ed8a-4c73-b837-b01f1cb05e2b" class="">extension: for CPU8 compute optimised EC2 max load = 10</p><p id="376dcce4-3886-4380-9e9c-0c78b7b5f435" class="">
+</p><p id="70528b90-6f5a-4866-a185-30de8ab64fef" class="">other idea: </p><ol type="1" id="d33efeb7-537b-4647-9f53-564f1946dba9" class="numbered-list" start="1"><li>system can give alerting based on feedback when detection time &gt; 10s, then the  topic dispatcher will give the new topic to other idle node</li></ol><ol type="1" id="1687fb79-dac0-4031-b18c-9cfaba6e356e" class="numbered-list" start="2"><li> design a shuffle system to move topic&#x27;s disk model to another node if current node is busy</li></ol><p id="72037762-69ab-4ec9-8836-e69bb3fc05c8" class="">
+</p><p id="ae6bdf0d-3af4-4474-8351-e0b907bcd800" class="">
+</p><p id="8b6f4116-ed8e-4999-a9ef-77d2f7efce39" class="">
+</p><p id="8adf54a3-5d77-42be-b021-e447ec157a2d" class="">Dispatch solution choice</p><ol type="1" id="c8dda3e4-be98-4781-ab37-6140a2b3b623" class="numbered-list" start="1"><li>in house solution</li></ol><ol type="1" id="b477ea7f-19b7-4feb-92e1-148146b1499b" class="numbered-list" start="2"><li>fargate (didn&#x27;t find how to configure an auto group for it)</li></ol><ol type="1" id="2da666a6-dbcc-4b32-a988-51a0fe161a3d" class="numbered-list" start="3"><li>use aws auto group<ol type="a" id="91a6f076-d226-464f-84ed-1a01f0a6e10e" class="numbered-list" start="1"><li>use customized cpu utilisation as target</li></ol><ol type="a" id="72199589-dc7e-4bb0-9817-124553afb372" class="numbered-list" start="2"><li>disadvantage: <ol type="i" id="bbbe7c74-cf51-4d9a-9885-b6bbc20dad85" class="numbered-list" start="1"><li>example case: when we have 10 new topic and pass them to slave node, in the beginning the cpu utilisation is quite few because the models need to process 1 points, so according to the auto group&#x27;s rule, all the 10 new topic can be in the slave node, but as the points accumulate to 22.5k window size, the 10 topic&#x27;s load crush the node</li></ol></li></ol><p id="45e4ba53-fcb2-444c-abde-75905fe3c884" class="">
+</p></li></ol><h2 id="4c5196a5-790f-4f61-983e-1a394b8b7173" class=""><strong>Skyline algo time complexity</strong></h2><div id="07e67f51-5100-44e6-a93b-0965404ea51a" class="collection-content"><h4 class="collection-title">Skyline algo time complexity</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Algoritm</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M1.91602 4.83789C2.44238 4.83789 2.87305 4.40723 2.87305 3.87402C2.87305 3.34766 2.44238 2.91699 1.91602 2.91699C1.38281 2.91699 0.952148 3.34766 0.952148 3.87402C0.952148 4.40723 1.38281 4.83789 1.91602 4.83789ZM5.1084 4.52344H14.3984C14.7607 4.52344 15.0479 4.23633 15.0479 3.87402C15.0479 3.51172 14.7607 3.22461 14.3984 3.22461H5.1084C4.74609 3.22461 4.45898 3.51172 4.45898 3.87402C4.45898 4.23633 4.74609 4.52344 5.1084 4.52344ZM1.91602 9.03516C2.44238 9.03516 2.87305 8.60449 2.87305 8.07129C2.87305 7.54492 2.44238 7.11426 1.91602 7.11426C1.38281 7.11426 0.952148 7.54492 0.952148 8.07129C0.952148 8.60449 1.38281 9.03516 1.91602 9.03516ZM5.1084 8.7207H14.3984C14.7607 8.7207 15.0479 8.43359 15.0479 8.07129C15.0479 7.70898 14.7607 7.42188 14.3984 7.42188H5.1084C4.74609 7.42188 4.45898 7.70898 4.45898 8.07129C4.45898 8.43359 4.74609 8.7207 5.1084 8.7207ZM1.91602 13.2324C2.44238 13.2324 2.87305 12.8018 2.87305 12.2686C2.87305 11.7422 2.44238 11.3115 1.91602 11.3115C1.38281 11.3115 0.952148 11.7422 0.952148 12.2686C0.952148 12.8018 1.38281 13.2324 1.91602 13.2324ZM5.1084 12.918H14.3984C14.7607 12.918 15.0479 12.6309 15.0479 12.2686C15.0479 11.9062 14.7607 11.6191 14.3984 11.6191H5.1084C4.74609 11.6191 4.45898 11.9062 4.45898 12.2686C4.45898 12.6309 4.74609 12.918 5.1084 12.918Z"></path></svg></span>Complexity</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Time per detection (s.)</th></tr></thead><tbody><tr id="6de26a20-9d8d-467b-8663-c75f2a92d7c7"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20algo%20time%20complexity%2007e67f51510044e6a93b0965404ea51a/median_absolute_deviation%206de26a209d8d467b8663c75f2a92d7c7.html">median_absolute_deviation</a></td><td class="cell-x`sN"><span class="selected-value select-value-color-blue">linear</span></td><td class="cell-FV:n">1.66</td></tr><tr id="a3c97d9e-3a25-4276-8074-68d069dc208a"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20algo%20time%20complexity%2007e67f51510044e6a93b0965404ea51a/first_hour_average%20a3c97d9e3a254276807468d069dc208a.html">first_hour_average</a></td><td class="cell-x`sN"><span class="selected-value select-value-color-green">constant</span></td><td class="cell-FV:n"></td></tr><tr id="9ed7f874-9f48-4fb4-bf70-e1ec1725ecfd"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20algo%20time%20complexity%2007e67f51510044e6a93b0965404ea51a/stddev_from_average%209ed7f8749f484fb4bf70e1ec1725ecfd.html">stddev_from_average</a></td><td class="cell-x`sN"><span class="selected-value select-value-color-green">constant</span></td><td class="cell-FV:n">0.0019</td></tr><tr id="2b60d71b-08ee-4354-9e46-e5f991958768"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20algo%20time%20complexity%2007e67f51510044e6a93b0965404ea51a/stddev_from_moving_average%202b60d71b08ee43549e46e5f991958768.html">stddev_from_moving_average</a></td><td class="cell-x`sN"><span class="selected-value select-value-color-green">constant</span></td><td class="cell-FV:n"></td></tr><tr id="f44f96a3-2f6b-48b4-bb99-f50a0695d741"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20algo%20time%20complexity%2007e67f51510044e6a93b0965404ea51a/mean_subtraction_cumulation%20f44f96a32f6b48b4bb99f50a0695d741.html">mean_subtraction_cumulation</a></td><td class="cell-x`sN"><span class="selected-value select-value-color-green">constant</span></td><td class="cell-FV:n">0.33</td></tr><tr id="132f39c3-b4c6-4d7f-8ba4-a7b02e2a80a2"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20algo%20time%20complexity%2007e67f51510044e6a93b0965404ea51a/least_squares%20132f39c3b4c64d7f8ba4a7b02e2a80a2.html">least_squares</a></td><td class="cell-x`sN"><span class="selected-value select-value-color-blue">linear</span></td><td class="cell-FV:n">0.734</td></tr><tr id="2dea8054-268f-4199-9f71-e7b051bb1ab0"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20algo%20time%20complexity%2007e67f51510044e6a93b0965404ea51a/histogram_bins%202dea8054268f41999f71e7b051bb1ab0.html">histogram_bins</a></td><td class="cell-x`sN"><span class="selected-value select-value-color-blue">linear</span></td><td class="cell-FV:n">0.473</td></tr><tr id="98334a1f-fdae-4dee-a3fc-6d70f8fcbb23"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20algo%20time%20complexity%2007e67f51510044e6a93b0965404ea51a/Untitled%2098334a1ffdae4deea3fc6d70f8fcbb23.html">Untitled</a></td><td class="cell-x`sN"></td><td class="cell-FV:n"></td></tr><tr id="94908f1c-1f17-4a9c-ac35-a449793eb2b5"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Skyline%20algo%20time%20complexity%2007e67f51510044e6a93b0965404ea51a/Time%20per%20detection%2094908f1c1f174a9cac35a449793eb2b5.html">Time per detection</a></td><td class="cell-x`sN"></td><td class="cell-FV:n"></td></tr></tbody></table><br/><br/></div><p id="557dc148-6812-4648-baad-9027960bc8be" class="">
+</p><h1 id="094f826f-3467-4758-925d-53c8cdda5681" class="">Gus </h1><div id="a6283395-7e06-4e41-8fab-e62a18306a61" class="collection-content"><h4 class="collection-title">Gus model performance</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Data</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Memory</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>CPU</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Train time (for 10 iterations)</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Load stored model</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Prediction time</th></tr></thead><tbody><tr id="e2bda7b7-4c98-4058-89b6-6d25b91c8e92"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Gus%20model%20performance%20a62833957e064e418fabe62a18306a61/4310%20data%20points%20and%201000%20metrics%20(corresponds%20to%20%20e2bda7b74c98405889b66d25b91c8e92.html">4310 data points and 1000 metrics
+(corresponds to 12h of observation)</a></td><td class="cell-MyMw">256M</td><td class="cell-_`cD">4 core 50% occupied each</td><td class="cell-&lt;|;Y">1 min 8.163 s.</td><td class="cell-f\vG">0 min 0.007 s.</td><td class="cell-^EcB">0 min 0.329 s.</td></tr><tr id="d33c4f0f-9d8f-4519-893d-40b045b7cc49"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Gus%20model%20performance%20a62833957e064e418fabe62a18306a61/8620%20data%20points%20and%201000%20metrics%20(corresponds%20to%20%20d33c4f0f9d8f4519893d40b045b7cc49.html">8620 data points and 1000 metrics
+(corresponds to 24h of observation)</a></td><td class="cell-MyMw">311M</td><td class="cell-_`cD">4 core 50% occupied each</td><td class="cell-&lt;|;Y">2 min 4.141 s.</td><td class="cell-f\vG">0 min 0.015 s.</td><td class="cell-^EcB">0 min 0.319 s</td></tr><tr id="67fcae1c-6656-46d4-9775-5872ec7641a9"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Gus%20model%20performance%20a62833957e064e418fabe62a18306a61/25860%20data%20points%20and%201000%20metrics%20(corresponds%20to%2067fcae1c665646d497755872ec7641a9.html">25860 data points and 1000 metrics
+(corresponds to 3 days of observation)</a></td><td class="cell-MyMw">441M</td><td class="cell-_`cD">4 core 55% occupied each</td><td class="cell-&lt;|;Y">6 min 14.728 s</td><td class="cell-f\vG">0 min 0.007 s.</td><td class="cell-^EcB">0 min 0.337 s.</td></tr><tr id="9dba0e88-94ff-473d-8990-56f1a4c30a87"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Gus%20model%20performance%20a62833957e064e418fabe62a18306a61/43100%20data%20points%20and%201000%20metrics%20(corresponds%20to%209dba0e8894ff473d899056f1a4c30a87.html">43100 data points and 1000 metrics
+(corresponds to 5 days of observation)</a></td><td class="cell-MyMw">554M</td><td class="cell-_`cD">4 core 55% occupied each</td><td class="cell-&lt;|;Y">10 min 34.043 s.</td><td class="cell-f\vG">0 min 0.005 s.</td><td class="cell-^EcB">0 min 0.332 s.</td></tr><tr id="62826070-0c89-4136-9a44-df4b9b6fd5da"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Gus%20model%20performance%20a62833957e064e418fabe62a18306a61/60340%20data%20points%20and%201000%20metrics%20(corresponds%20to%20628260700c8941369a44df4b9b6fd5da.html">60340 data points and 1000 metrics
+(corresponds to 1 week of observation)</a></td><td class="cell-MyMw">693M</td><td class="cell-_`cD">4 core 50% occupied each</td><td class="cell-&lt;|;Y"><mark class="highlight-red">Process killed</mark></td><td class="cell-f\vG"><mark class="highlight-red">Process killed</mark></td><td class="cell-^EcB"><mark class="highlight-red">Process killed</mark></td></tr><tr id="29f14050-f355-48fc-81ce-f207d6033f53"><td class="cell-title"><a href="Performance%205b719683d1bb4117bdfa8e573db1d265/Gus%20model%20performance%20a62833957e064e418fabe62a18306a61/Untitled%2029f14050f35548fc81cef207d6033f53.html">Untitled</a></td><td class="cell-MyMw"></td><td class="cell-_`cD"></td><td class="cell-&lt;|;Y"></td><td class="cell-f\vG"></td><td class="cell-^EcB"></td></tr></tbody></table><br/><br/></div><p id="73d92aba-f14c-4fb8-b7d1-c75a0e7a80ad" class="">
+</p></div></article></body></html>

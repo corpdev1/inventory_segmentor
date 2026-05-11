@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Coiflet 5: coefficient threshold = 0.1</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d1d834a1-3846-4824-9b42-5ffc76a778a8" class="page sans"><header><h1 class="page-title">Coiflet 5: coefficient threshold = 0.1</h1><p class="page-description"></p></header><div class="page-body"><figure id="ae80222e-2e27-42e6-a788-587167764a36" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-consul_consul-server-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-consul_consul-server-stashed_ori_denoise_0.1.png"/></a></figure><figure id="e0043617-1d4b-4159-b716-3b89c62cff1f" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-data-api_data-api-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-data-api_data-api-stashed_ori_denoise_0.1.png"/></a></figure><figure id="acdad750-f16e-419f-b4da-ca3e7a2b3aac" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-gateway_caddy_server-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-gateway_caddy_server-stashed_ori_denoise_0.1.png"/></a></figure><figure id="542c533c-e3c4-4ae1-b2c1-c035e6c7e17c" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-javaappsmith_appsmith-internal-server-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-javaappsmith_appsmith-internal-server-stashed_ori_denoise_0.1.png"/></a></figure><figure id="3be3d67b-422c-4c76-8e1e-fb7ef12fe2f6" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-keto_keto-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-keto_keto-stashed_ori_denoise_0.1.png"/></a></figure><figure id="ec467034-c01a-46ae-8928-140f53018408" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-koios_koios-api-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-koios_koios-api-stashed_ori_denoise_0.1.png"/></a></figure><figure id="75b63584-48c7-4fc8-abcd-a8f78fada2d4" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-stashed_ori_denoise_0.1.png"/></a></figure><figure id="adac5db1-103e-460f-a7f4-35c165d52076" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-mysql_router-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-mysql_router-stashed_ori_denoise_0.1.png"/></a></figure><figure id="948ed0b2-70c3-4ce2-ac14-9fec1aa69785" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nginxappsmith_appsmith-nginx-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nginxappsmith_appsmith-nginx-stashed_ori_denoise_0.1.png"/></a></figure><figure id="0eccc8fa-d38c-4a1c-838c-883d484f0785" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nginxweblate_weblate-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nginxweblate_weblate-stashed_ori_denoise_0.1.png"/></a></figure><figure id="0e18f710-9f7f-4099-9c6f-51681f0b2be9" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-api-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-api-stashed_ori_denoise_0.1.png"/></a></figure><figure id="9cafee14-bbe4-4d46-9f17-121c0b36d682" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_ori_denoise_0.1.png"/></a></figure><figure id="3b6d8dc2-3119-4802-91fa-3f10ae478d0d" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodecollector-api_collector-api-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodecollector-api_collector-api-stashed_ori_denoise_0.1.png"/></a></figure><figure id="cb8c8729-7d36-4613-8ff9-207180871d48" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodehyperion_server-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodehyperion_server-stashed_ori_denoise_0.1.png"/></a></figure><figure id="e6ba352c-197a-4775-8d01-5394aeaa0c47" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodenotifications_notifications-service-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodenotifications_notifications-service-stashed_ori_denoise_0.1.png"/></a></figure><figure id="d73bc6c6-1a2c-47bb-bb8c-530d1e30923d" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeportal_portal-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeportal_portal-stashed_ori_denoise_0.1.png"/></a></figure><figure id="9ed107d4-d346-4cd8-a526-f56ee9e8faf0" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-noderealtime-status_realtime-worker-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-noderealtime-status_realtime-worker-stashed_ori_denoise_0.1.png"/></a></figure><figure id="40e8e530-162c-4de5-b12c-3a2016de5644" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservation_reservation-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservation_reservation-stashed_ori_denoise_0.1.png"/></a></figure><figure id="e8cc8847-0b5f-449b-8c49-b39864fdf6ed" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservations-service_reservations-service-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservations-service_reservations-service-stashed_ori_denoise_0.1.png"/></a></figure><figure id="46338935-3755-4a56-9dcb-a46c6384a50c" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodescrapers_scrapers-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodescrapers_scrapers-stashed_ori_denoise_0.1.png"/></a></figure><figure id="d0413c6f-e51e-491f-b28c-75e4e774f2a7" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodesensinglabs-mqtt_sensinglabs-mqtt-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodesensinglabs-mqtt_sensinglabs-mqtt-stashed_ori_denoise_0.1.png"/></a></figure><figure id="5f4a728a-2c0a-4ff4-9a35-8a8618e7ffc1" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodesensor-service_sensor-service-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodesensor-service_sensor-service-stashed_ori_denoise_0.1.png"/></a></figure><figure id="b1bb25d2-be12-4ecc-aa43-f293361d3a72" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodestats-service_stats-service-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodestats-service_stats-service-stashed_ori_denoise_0.1.png"/></a></figure><figure id="cabc4e57-28a9-4675-983b-97847df65fcb" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodewebapi_webapi-server-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodewebapi_webapi-server-stashed_ori_denoise_0.1.png"/></a></figure><figure id="baba2add-ffff-4ed7-aa6b-fbe8597c30aa" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodezoho_zoho-service-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodezoho_zoho-service-stashed_ori_denoise_0.1.png"/></a></figure><figure id="20e86ee4-a98e-4b92-a7c7-8f682635f338" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-packetaipacketai_packetai-agent-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-packetaipacketai_packetai-agent-stashed_ori_denoise_0.1.png"/></a></figure><figure id="f70e9ccf-90e6-4448-8f74-d47ce1ddb8d9" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-portainer_agent-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-portainer_agent-stashed_ori_denoise_0.1.png"/></a></figure><figure id="16b25d15-ca53-4649-961e-8cdf4de2861e" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-portainer_portainer-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-portainer_portainer-stashed_ori_denoise_0.1.png"/></a></figure><figure id="e6c573a0-8a51-4135-a3de-d25e54d19e9f" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-post-processing_post-processing-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-post-processing_post-processing-stashed_ori_denoise_0.1.png"/></a></figure><figure id="0f52fcc4-0b2d-4d0a-9c88-31247d7f68f8" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonalerts_alerts-engine-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonalerts_alerts-engine-stashed_ori_denoise_0.1.png"/></a></figure><figure id="82139ed2-4195-4f56-a449-43c9cc1126b9" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-master-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-master-stashed_ori_denoise_0.1.png"/></a></figure><figure id="71715229-445a-456e-8c02-4718ad449318" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-node-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-node-stashed_ori_denoise_0.1.png"/></a></figure><figure id="45f8a83c-24ad-4e65-8fae-a3da0401e928" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythoncloudflare_doa-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythoncloudflare_doa-stashed_ori_denoise_0.1.png"/></a></figure><figure id="ede1057d-7e17-4d1c-8591-50ad850d4161" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythondynamic-flow_scheduler-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythondynamic-flow_scheduler-stashed_ori_denoise_0.1.png"/></a></figure><figure id="3af62f68-e622-4122-ae52-1688d255f80c" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonhyperion_client-plages-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonhyperion_client-plages-stashed_ori_denoise_0.1.png"/></a></figure><figure id="5765dcee-df6d-4ce4-954f-14977739f013" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-tasks-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-tasks-stashed_ori_denoise_0.1.png"/></a></figure><figure id="9d752c8a-d7b0-4a69-a96e-8ebf1eb3b776" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-worker-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-worker-stashed_ori_denoise_0.1.png"/></a></figure><figure id="89e134ed-a849-4d5e-9510-2048490c2f4c" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-tasks-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-tasks-stashed_ori_denoise_0.1.png"/></a></figure><figure id="5c0d1481-7804-48ba-91d9-90ed75dfb2ca" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-rabbitmqqueue_rabbitmq-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-rabbitmqqueue_rabbitmq-stashed_ori_denoise_0.1.png"/></a></figure><figure id="4b33d9ba-7831-4cda-a39e-56a9cef9b610" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-redisappsmith_redis-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-redisappsmith_redis-stashed_ori_denoise_0.1.png"/></a></figure><figure id="6871e6e6-4d85-4306-b6fc-7f69a0f5ab40" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-redisgaia_redis-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-redisgaia_redis-stashed_ori_denoise_0.1.png"/></a></figure><figure id="a0f506dd-2d7a-497c-932a-eea9a12f38e2" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-redissite-service_redis-cache-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-redissite-service_redis-cache-stashed_ori_denoise_0.1.png"/></a></figure><figure id="e39a4825-7d6b-471e-ae51-454b7299a2fc" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-redisweblate_cache-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-redisweblate_cache-stashed_ori_denoise_0.1.png"/></a></figure><figure id="d72a48ff-8385-47c2-9453-82e76ddf1b4a" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-rubylogs_fluentd-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-docker-log-rubylogs_fluentd-stashed_ori_denoise_0.1.png"/></a></figure><figure id="e37bda20-ebe3-4658-8e3e-a84842c5bcc8" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-linux60b8d8abaeb6f802698917b1-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-linux60b8d8abaeb6f802698917b1-stashed_ori_denoise_0.1.png"/></a></figure><figure id="4882409d-9d74-44fc-95c3-911ffdb5f97d" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-packetai1f0470fa7ea18846-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-packetai1f0470fa7ea18846-stashed_ori_denoise_0.1.png"/></a></figure><figure id="e20b0b14-8d7d-40a2-ac31-c6154f92e004" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec22ada00c500125f430f-log-linux60fec22ada00c500125f430f-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec22ada00c500125f430f-log-linux60fec22ada00c500125f430f-stashed_ori_denoise_0.1.png"/></a></figure><figure id="5fdbbfa7-6271-4fad-ba14-1ceb84564b4f" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec22ada00c500125f4310-log-linux60fec22ada00c500125f4310-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec22ada00c500125f4310-log-linux60fec22ada00c500125f4310-stashed_ori_denoise_0.1.png"/></a></figure><figure id="f9af4813-a60c-4743-b61c-cd4ca2068e7b" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec22cda00c500125f4311-log-linux60fec22cda00c500125f4311-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec22cda00c500125f4311-log-linux60fec22cda00c500125f4311-stashed_ori_denoise_0.1.png"/></a></figure><figure id="faf51ed4-9f03-4134-8bd0-01745c492076" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec22dda00c500125f4312-log-linux60fec22dda00c500125f4312-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec22dda00c500125f4312-log-linux60fec22dda00c500125f4312-stashed_ori_denoise_0.1.png"/></a></figure><figure id="7ac2e77f-f4fc-4c07-94fc-5c565ba864ee" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec22dda00c500125f4313-log-linux60fec22dda00c500125f4313-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec22dda00c500125f4313-log-linux60fec22dda00c500125f4313-stashed_ori_denoise_0.1.png"/></a></figure><figure id="02ccba8a-7187-420b-8e12-e2272c7828cb" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec228da00c500125f430d-log-linux60fec228da00c500125f430d-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec228da00c500125f430d-log-linux60fec228da00c500125f430d-stashed_ori_denoise_0.1.png"/></a></figure><figure id="dd0e126b-df28-43c6-aa35-7f01fdc1f1de" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec229da00c500125f430e-log-linux60fec229da00c500125f430e-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec229da00c500125f430e-log-linux60fec229da00c500125f430e-stashed_ori_denoise_0.1.png"/></a></figure><figure id="730a62a9-da1c-4361-9f64-49493371bf96" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec238da00c500125f4314-log-linux60fec238da00c500125f4314-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux60fec238da00c500125f4314-log-linux60fec238da00c500125f4314-stashed_ori_denoise_0.1.png"/></a></figure><figure id="89751bc6-4d49-4a32-b8ec-0c40a2f8b575" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-linux604b83a14c58ea0011d6220f-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-linux604b83a14c58ea0011d6220f-stashed_ori_denoise_0.1.png"/></a></figure><figure id="fc528f58-e2a3-428a-911f-29d24ab660ca" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-mysql6d7613c72a46df40-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-mysql6d7613c72a46df40-stashed_ori_denoise_0.1.png"/></a></figure><figure id="cf990a1a-6033-4842-8519-93b4d54cafb4" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-packetaie6471dd6a1a09b54-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-packetaie6471dd6a1a09b54-stashed_ori_denoise_0.1.png"/></a></figure><figure id="cef31de8-3580-44c9-b2b0-9b28f9050892" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-linux604b83aa4c58ea0011d62211-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-linux604b83aa4c58ea0011d62211-stashed_ori_denoise_0.1.png"/></a></figure><figure id="f4c43a3e-5d38-4de9-8916-b5993f97931d" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-mysqlc65d1f2cd07cc218-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-mysqlc65d1f2cd07cc218-stashed_ori_denoise_0.1.png"/></a></figure><figure id="866130a2-84b5-44c1-ab70-7399156e5647" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-packetaibcbf6881c8b51cc6-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-packetaibcbf6881c8b51cc6-stashed_ori_denoise_0.1.png"/></a></figure><figure id="a63e8340-5d0c-40f5-9879-e833f01cce52" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-linux608ac1c48e4afc0040b43d19-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-linux608ac1c48e4afc0040b43d19-stashed_ori_denoise_0.1.png"/></a></figure><figure id="bb62cea7-5026-4317-8a7a-c639fcdcfc51" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-mysql357e569af1d96542-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-mysql357e569af1d96542-stashed_ori_denoise_0.1.png"/></a></figure><figure id="1317b7a2-8d1a-4465-a56a-68fef7ebc0dd" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-packetaiab4704e4d9d6263b-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-packetaiab4704e4d9d6263b-stashed_ori_denoise_0.1.png"/></a></figure><figure id="b8241beb-c282-43d8-a485-a43c55d662c6" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-apache65f6ec80b7aa2937-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-apache65f6ec80b7aa2937-stashed_ori_denoise_0.1.png"/></a></figure><figure id="89c59c17-a7e9-4d1a-87bd-fe8fc334cbb1" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-linux609bde4db677860011c6e30b-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-linux609bde4db677860011c6e30b-stashed_ori_denoise_0.1.png"/></a></figure><figure id="4c58181b-dc4d-445b-9bd7-2c0beca30b00" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-packetaif7c8ca92a057eb2b-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-packetaif7c8ca92a057eb2b-stashed_ori_denoise_0.1.png"/></a></figure><figure id="9c5f5db9-1c8e-45ef-a4eb-8111a1be1aee" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdec6b677860011c6e30c-log-linux609bdec6b677860011c6e30c-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdec6b677860011c6e30c-log-linux609bdec6b677860011c6e30c-stashed_ori_denoise_0.1.png"/></a></figure><figure id="280a922c-6cec-4b7c-92b8-37ef810b3e46" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdec6b677860011c6e30c-log-packetai413744d48e902e0a-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdec6b677860011c6e30c-log-packetai413744d48e902e0a-stashed_ori_denoise_0.1.png"/></a></figure><figure id="be848cdc-3dd9-494b-a9ba-6ddf6be5e3e5" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdef1b677860011c6e30d-log-linux609bdef1b677860011c6e30d-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdef1b677860011c6e30d-log-linux609bdef1b677860011c6e30d-stashed_ori_denoise_0.1.png"/></a></figure><figure id="ce7f6061-3ef9-47b8-8c02-46ca0da54532" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdef1b677860011c6e30d-log-packetai8040f082d17d954a-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdef1b677860011c6e30d-log-packetai8040f082d17d954a-stashed_ori_denoise_0.1.png"/></a></figure><figure id="9093169e-7498-4626-a90d-f83c152369a1" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-apache834fd0b59d9ddf17-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-apache834fd0b59d9ddf17-stashed_ori_denoise_0.1.png"/></a></figure><figure id="14337924-15a2-4a31-a586-9ef9909c53b2" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-linux609bdf19b677860011c6e30e-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-linux609bdf19b677860011c6e30e-stashed_ori_denoise_0.1.png"/></a></figure><figure id="9532a608-9190-4efa-a8bb-4ba02859fffc" class="image"><a href="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-packetai7fe5cf5bc665897f-stashed_ori_denoise_0.1.png"><img style="width:700px" src="Coiflet%205%20coefficient%20threshold%20=%200%201%20d1d834a1384648249b425ffc76a778a8/lfanalyzer_6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-packetai7fe5cf5bc665897f-stashed_ori_denoise_0.1.png"/></a></figure><p id="3dbff135-2481-4267-bc5a-959df7a9a464" class="">
+</p></div></article></body></html>

@@ -78,17 +78,34 @@ def infer_source_system(path: str) -> str | None:
     return None
 
 
-def iter_files(root: str, exclude_dirs: Iterable[str] = (".venv", "__pycache__")) -> Iterable[Path]:
+def iter_files(
+    root: str,
+    *,
+    exclude_dirs: Iterable[str] = (".venv", "__pycache__"),
+    include_hidden: bool = False,
+) -> Iterable[Path]:
+    """Yield files under root.
+
+    Defaults are conservative (skip dot-dirs/files + node_modules) to avoid
+    accidental massive scans during development. For strict runs, set
+    include_hidden=True and exclude_dirs=().
+    """
     root_path = Path(root).expanduser().resolve()
     for dirpath, dirnames, filenames in os.walk(root_path):
         # prune excluded directories
-        dirnames[:] = [
-            d
-            for d in dirnames
-            if d not in exclude_dirs and not d.startswith(".") and d != "node_modules"
-        ]
+        if include_hidden:
+            dirnames[:] = [d for d in dirnames if d not in exclude_dirs]
+        else:
+            dirnames[:] = [
+                d
+                for d in dirnames
+                if d not in exclude_dirs and not d.startswith(".") and d != "node_modules"
+            ]
+        # Ensure deterministic traversal order for stable artifact_id assignment.
+        dirnames.sort()
+        filenames.sort()
         for fn in filenames:
-            if fn.startswith("."):
+            if (not include_hidden) and fn.startswith("."):
                 continue
             p = Path(dirpath) / fn
             if p.is_file():
@@ -99,11 +116,15 @@ def scan_dump_folder(
     dump_path: str,
     *,
     max_files: int | None = None,
+    exclude_dirs: Iterable[str] = (".venv", "__pycache__"),
+    include_hidden: bool = False,
 ) -> list[Artifact]:
     """Scan a dump folder and return Artifact rows (stable ordering)."""
     artifacts: list[Artifact] = []
     i = 0
-    for p in iter_files(dump_path):
+    for p in iter_files(
+        dump_path, exclude_dirs=exclude_dirs, include_hidden=include_hidden
+    ):
         stat = p.stat()
         i += 1
         artifacts.append(

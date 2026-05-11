@@ -1,0 +1,691 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Security to do</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="54ecd699-f479-42c9-a4d4-e6cd15a9d186" class="page sans"><header><h1 class="page-title">Security to do</h1><p class="page-description"></p></header><div class="page-body"><p id="d878f986-cd5e-4399-8a9c-cef04d0590c5" class="">
+</p><ul id="16f0dffa-a6ab-4439-a917-623be14fedad" class="bulleted-list"><li style="list-style-type:disc"><strong>Architecture: </strong><ul id="a3f581dc-c7d2-453a-8607-7efd517c5116" class="bulleted-list"><li style="list-style-type:circle">Make a high level architecture diagram of how data transits from john (agent) to ingest to Kafka Becky, Minima, ML and is stored with security built around it</li></ul><ul id="2989fe53-3590-4036-881d-0d4f86994c71" class="bulleted-list"><li style="list-style-type:circle">Integrate the security aspects to make it sound bullet proof &quot;Kafka is Encrypted with X509 certificates. All data exchange even for the front is SSL Only bla bla&quot; </li></ul><p id="705b37d3-66aa-4ba9-9056-0e18eef4d9b8" class="">
+</p></li></ul><ul id="5f823e75-ffe9-4da4-bd4f-52a69855809d" class="bulleted-list"><li style="list-style-type:disc"><strong>Data Collected by the Agent: </strong><ul id="b8da613d-9dae-4e93-a767-854e08cb3c53" class="bulleted-list"><li style="list-style-type:circle">Make a list of all metrics/logs collected by John - copy metricbeat/filebeat info </li></ul><ul id="4e888da0-b9fc-4758-bb27-7a19921484a1" class="bulleted-list"><li style="list-style-type:circle">List of all AWS metrics etc etc </li></ul><ul id="633c71e0-416b-4fb9-9e38-af5ba19c2239" class="bulleted-list"><li style="list-style-type:circle">Exhaustive list of everything that would be collected across logs, metrics, traces. </li></ul><ul id="5d85511c-915f-4048-9c3b-17fb9d438330" class="bulleted-list"><li style="list-style-type:circle">We can copy from Elastic - this would be sent to the client once they are in advanced talks for the PoC. </li></ul><p id="e7a1588a-7fdd-420b-86b1-adaf0b20c41c" class="">
+</p></li></ul><ul id="f3c97562-8d42-4b81-ab3c-9ac379157fa4" class="bulleted-list"><li style="list-style-type:disc"><strong>Agent:</strong> <ul id="e7c5d016-54bf-48ec-8e03-2abddc20cc5e" class="bulleted-list"><li style="list-style-type:circle"><strong>Libraries: - Not needed, just have it for our reference for 1-1 discussions. </strong><ul id="f7aeb034-9088-4caa-99b0-f3d15cf5abf8" class="bulleted-list"><li style="list-style-type:square">Can we make a list of all libraries that our agent calls ? What is the count ? The aim here is to check everything is clean, have proper arguments on why we need these - example bucket it into 30 go libraries , 30 filebeat and metric beat libs etc etc </li></ul><ul id="623bad3c-64e0-42c9-826c-f7c5e7315579" class="bulleted-list"><li style="list-style-type:square">There was one named hashicorp/hcl/something which he said we use why do you need it and it was suspicious. </li></ul><ul id="0d13d9ad-b4c5-4f66-bcbc-56a050205745" class="bulleted-list"><li style="list-style-type:square">Do we need all of them or is there scope of improvement and cleaning up ? </li></ul><p id="4b585829-7cc7-400a-ab68-bf03ddd425be" class="">
+</p></li></ul><ul id="42bf112c-93cb-4023-b125-ba8840297931" class="bulleted-list"><li style="list-style-type:circle"><strong>Logs Filtering </strong><ul id="8a35df20-2083-4d3f-9da7-7bb37e1cb26f" class="bulleted-list"><li style="list-style-type:square">Is it possible to have the agent filter API Keys, usernames, passwords, credit card info ? </li></ul><ul id="e1da3305-285d-4938-824d-d30e227bd314" class="bulleted-list"><li style="list-style-type:square">Or filtering always will happen with Open Distro </li></ul><ul id="5e6d3169-37dc-4cc0-9de4-fb37dd2f20a3" class="bulleted-list"><li style="list-style-type:square"><a href="https://docs.datadoghq.com/security/agent/">https://docs.datadoghq.com/security/agent/</a></li></ul><p id="683f46b8-6169-4472-ac02-ba4258f2fe22" class="">
+</p></li></ul><ul id="1bb9ebd7-8647-4529-9fde-bbbb6c928946" class="bulleted-list"><li style="list-style-type:circle"><strong>Sudo Access: Not needed, just have it for our reference for 1-1 discussions. </strong><ul id="d4355642-b5ab-4c0e-9470-7d358d80c558" class="bulleted-list"><li style="list-style-type:square">Write down why PacketAI needs sudo access. Justify stating reasons access to low level processes, kernel level info which helps in predicting incidents bla bla bla </li></ul><ul id="4ffa84b7-7d7b-4a02-bb41-2ce680e27701" class="bulleted-list"><li style="list-style-type:square">Can we do something similar: <a href="https://www.dynatrace.com/news/blog/non-privileged-mode-for-oneagent-on-linux-best-in-class-security-that-doesnt-compromise-functionality/">https://www.dynatrace.com/news/blog/non-privileged-mode-for-oneagent-on-linux-best-in-class-security-that-doesnt-compromise-functionality/</a></li></ul><p id="8daacf5c-0b58-409b-85bf-f9ef679ab7a8" class="">
+</p></li></ul><ul id="f535b43d-5041-4127-b55b-5b68c63bbcbe" class="bulleted-list"><li style="list-style-type:circle"><strong>Not open source: Case by Case basis. </strong><ul id="a591569a-5e37-480e-96f8-4822c55bf860" class="bulleted-list"><li style="list-style-type:square">One part of our agent is not open source - develop an argument on 80% open source and how someone credible has audited our code. </li></ul><ul id="15a39f8d-bdb4-4e71-912f-7f12b59a44f5" class="bulleted-list"><li style="list-style-type:square">Or something else. </li></ul><p id="dfb1997e-fbb3-479a-860d-6539861bff9b" class="">
+</p></li></ul><ul id="6d15f2ce-d2f5-4704-b51c-7b83ee0bac92" class="bulleted-list"><li style="list-style-type:circle"><strong>Profiling: </strong><ul id="8ad0ee59-a538-442c-9682-717502207683" class="bulleted-list"><li style="list-style-type:square">Agent overhead and CPU consumption. Already done  </li></ul><p id="1054179d-5a0a-43f0-8039-385d867e907c" class="">
+</p></li></ul></li></ul><ul id="43a770f6-c13f-4a17-8893-2ee5277cf3b9" class="bulleted-list"><li style="list-style-type:disc"><strong>Audit and Certifications: (seems complicated) </strong><ul id="2457f5d3-782b-48b3-8421-c70b78aadbb3" class="bulleted-list"><li style="list-style-type:circle">Check what all can we do and focus on minimal needed </li></ul><ul id="7dbe1227-6489-4627-ad60-91b1939e4e10" class="bulleted-list"><li style="list-style-type:circle">Audit - Any quick wins ? </li></ul><ul id="f718cc4c-5204-450e-81cb-a21157a5f84f" class="bulleted-list"><li style="list-style-type:circle">Certifications <ul id="45232cb9-6192-409f-b59f-efbe377c2875" class="bulleted-list"><li style="list-style-type:square"><a href="https://linfordco.com/blog/how-long-does-a-soc-examination-take/">https://linfordco.com/blog/how-long-does-a-soc-examination-tak</a>e<ul id="edc84d7e-712e-40d8-9f7e-ee25bf319113" class="bulleted-list"><li style="list-style-type:disc">It all seems complicated and resource heavy</li></ul></li></ul><ul id="f5808afa-95bc-496e-b24c-277f0948254c" class="bulleted-list"><li style="list-style-type:square"><a href="https://www.bdc.ca/fr/articles-outils/operations/iso-autres-certifications/pages/processus-certification-iso.aspx">https://www.bdc.ca/fr/articles-outils/operations/iso-autres-certifications/pages/processus-certification-iso.aspx</a><ul id="d8777e01-0e9c-4ee3-b94b-51602265d62f" class="bulleted-list"><li style="list-style-type:disc">Seems to complicated. </li></ul></li></ul></li></ul><p id="4eb94942-8d81-4608-bea5-945d733cbb24" class="">
+</p></li></ul><ul id="21fd6b94-2c78-4cd1-88d5-deb5c727a46b" class="bulleted-list"><li style="list-style-type:disc"><strong>Comms: </strong><ul id="c25fbdbb-7682-497f-808d-f4e7001a581d" class="bulleted-list"><li style="list-style-type:circle">Once the above is done get a webpage on our site similar to this: <ul id="e4a2411d-cf55-453c-8512-a03b9886b690" class="bulleted-list"><li style="list-style-type:square"><a href="https://www.thundra.io/security">https://www.thundra.io/security</a></li></ul></li></ul><ul id="c8a9dfca-233d-449e-927f-82825385f502" class="bulleted-list"><li style="list-style-type:circle">Do a blog post on security of Packet- highest standards bla bla </li></ul><p id="927bf16f-dcb0-48cb-88a8-7ae299268af5" class="">
+</p><p id="128dfa55-dc80-496d-a0f7-9446286cfaa3" class="">
+</p><div id="08e80492-c000-4a91-a697-63561c853d41" class="collection-content"><h4 class="collection-title">List of Issues</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Owner</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Status</th></tr></thead><tbody><tr id="4df2355f-4ae0-4ad8-975b-1ee12381b9d5"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/Architecture%20Diagram%204df2355f4ae04ad8975b1ee12381b9d5.html">Architecture Diagram </a></td><td class="cell-_Tg?">Hardik/Hadi</td><td class="cell-]jS=">IMP &amp; Easy - Done</td></tr><tr id="ca7ab240-11b7-4b94-986a-db44905387dd"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/List%20of%20all%20data%20points%20we%20collect%20and%20will%20collec%20ca7ab24011b74b94986adb44905387dd.html">List of all data points we collect and will collect in the future for all tech (logs, metrics, traces) </a></td><td class="cell-_Tg?">Hardik/Marie/Marin</td><td class="cell-]jS=">IMP &amp; Easy - On-going check with Marin for languages (Java, Ruby etc)</td></tr><tr id="f228c53d-ba2d-431e-bab5-3e7ca3bc2322"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/Check%20the%20libraries%20dependencies%20called%20-%20how%20many%20f228c53dba2d431ebab53e7ca3bc2322.html">Check the libraries/dependencies called - how many ? Clean up possible ? Brainstorm</a></td><td class="cell-_Tg?">Hadi/Tech Team</td><td class="cell-]jS=">IMP - Wednesday Meeting </td></tr><tr id="68912f11-5a4b-4155-bbab-364d326ccddb"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/Filter%20data%20with%20Agent%2068912f115a4b4155bbab364d326ccddb.html">Filter data with Agent </a></td><td class="cell-_Tg?">Hadi/Tech Team</td><td class="cell-]jS=">IMP - <a href="https://www.elastic.co/guide/en/beats/filebeat/current/filtering-and-enhancing-data.html">Wednesday Meeting (looks possible)</a></td></tr><tr id="1df046e4-3413-48f9-a7a7-4b7d81c52a8d"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/Sudo%20access%20-%20Can%20we%20do%20otherwise%201df046e4341348f9a7a74b7d81c52a8d.html">Sudo access - Can we do otherwise ? </a></td><td class="cell-_Tg?">Hadi/Tech Team</td><td class="cell-]jS="><a href="https://www.dynatrace.com/news/blog/non-privileged-mode-for-oneagent-on-linux-best-in-class-security-that-doesnt-compromise-functionality/">Wednesday Meeting. </a></td></tr><tr id="31c53a20-4b45-434e-90a9-ffb6d61612c3"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/Not%20open%20source%20arguments%20-%20brainstorm%2031c53a204b45434e90a9ffb6d61612c3.html">Not open source arguments - brainstorm </a></td><td class="cell-_Tg?">All</td><td class="cell-]jS=">IMP and Easy - Inspire from Dynatrace, Instana etc </td></tr><tr id="a34b36ec-7b1e-4a5f-a22c-d942cf5dd7bd"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/Certifs%20(quick%20wins%20if%20any)%20a34b36ec7b1e4a5fa22cd942cf5dd7bd.html">Certifs (quick wins if any)</a></td><td class="cell-_Tg?">Hardik </td><td class="cell-]jS=">Call with Capgem on 15th Sep</td></tr><tr id="141b4c17-4da1-47cf-ae01-87b85c82abfc"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/Comms%20141b4c174da147cfae0187b85c82abfc.html">Comms</a></td><td class="cell-_Tg?">Hardik/Marie</td><td class="cell-]jS=">IMP &amp; Easy. On -going - waiting for wed meeting</td></tr><tr id="5fa1520f-8709-47f1-8b3d-9bb75c58a07d"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/Integration%20with%20third%20party%20aggregators%20like%20Flue%205fa1520f870947f18b3d9bb75c58a07d.html">Integration with third party aggregators like FluentD (if applicable)</a></td><td class="cell-_Tg?">Hadi/Tech Team</td><td class="cell-]jS=">Explore</td></tr><tr id="945ab5d2-c61b-46b6-a4f7-8f926956057a"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/On-Prem%20AMI%20image%20deployment%20945ab5d2c61b46b6a4f78f926956057a.html">On-Prem/AMI image deployment </a></td><td class="cell-_Tg?">Hadi/Tech Team</td><td class="cell-]jS=">Tough - Looks like a long shot </td></tr><tr id="72f9b7de-5c05-480e-8ece-08cc99875706"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/Encrypt%20at%20Rest%20All%20of%20the%20collected%20user%20data%20and%2072f9b7de5c05480e8ece08cc99875706.html">Encrypt at Rest
+All of the collected user data and monitoring data is stored as encrypted with AWS KMS system by encryption keys. Also all of the snapshots and backups are encrypted as well at the place where they resides.</a></td><td class="cell-_Tg?"></td><td class="cell-]jS="></td></tr><tr id="573e7e27-29e2-495f-9854-bb4008352060"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/Agent%20Security%20need%20to%20write%20573e7e2729e2495f9854bb4008352060.html">Agent Security need to write </a></td><td class="cell-_Tg?"></td><td class="cell-]jS="></td></tr><tr id="4277f7f8-25a2-4251-928c-c38ab24f7760"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/Marin%20Becky%20issue%20-%20can%20receive%20infra%20keys%20and%20any%204277f7f825a24251928cc38ab24f7760.html">Marin Becky issue - can receive infra keys and anyone can use it to access to data </a></td><td class="cell-_Tg?">Hadi/Tech Team</td><td class="cell-]jS=">Close the open API endpoints or use crypted API keys instead of the infrastructureId </td></tr><tr id="dc9a6e62-94c4-43aa-aaec-2b588675a71e"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/Map%20out%20the%20infra%20and%20list%20end%20points%20dc9a6e6294c443aaaaec2b588675a71e.html">Map out the infra and list end points</a></td><td class="cell-_Tg?"></td><td class="cell-]jS="></td></tr><tr id="f4e37b09-b87b-4a49-ac08-be3ec3094eba"><td class="cell-title"><a href="Security%20to%20do%2054ecd699f47942c9a4d4e6cd15a9d186/List%20of%20Issues%2008e80492c0004a91a69763561c853d41/Untitled%20f4e37b09b87b4a49ac08be3ec3094eba.html">Untitled</a></td><td class="cell-_Tg?"></td><td class="cell-]jS="></td></tr></tbody></table><br/><br/></div><p id="cc674d7f-7c5d-41cc-94d5-b90c81aee924" class="">
+</p><p id="9fd789f6-9f51-4118-b081-606ebb162ee1" class="">
+</p><p id="8b10a29e-abee-4804-aa79-d7312d2239af" class="">
+</p></li></ul></div></article></body></html>

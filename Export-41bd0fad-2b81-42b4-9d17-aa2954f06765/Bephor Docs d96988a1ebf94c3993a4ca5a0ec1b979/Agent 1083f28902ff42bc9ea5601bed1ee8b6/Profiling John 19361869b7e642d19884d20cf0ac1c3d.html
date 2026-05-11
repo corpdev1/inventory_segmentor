@@ -1,0 +1,715 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Profiling John</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="19361869-b7e6-42d1-9884-d20cf0ac1c3d" class="page sans"><header><h1 class="page-title">Profiling John</h1><p class="page-description"></p></header><div class="page-body"><figure id="b2d1385a-5651-4eca-85e8-45b3a6f88f75"><div class="source"><a href="Profiling%20John%2019361869b7e642d19884d20cf0ac1c3d/john_pprof.pdf">john_pprof.pdf</a></div></figure><figure id="cea7a641-4771-4204-ae39-60b110375d6f"><div class="source"><a href="Profiling%20John%2019361869b7e642d19884d20cf0ac1c3d/fb_pprof.pdf">fb_pprof.pdf</a></div></figure><figure id="bf2e54b9-3225-4dd3-95a8-6b446f4d0934"><div class="source"><a href="Profiling%20John%2019361869b7e642d19884d20cf0ac1c3d/mb_pprof.pdf">mb_pprof.pdf</a></div></figure><p id="014f5495-0dfd-4513-86af-ea0ec2a90cc5" class="">
+</p><p id="30bfcb65-2caf-4fc4-8942-f91b0318a71e" class=""><strong>Summary: </strong></p><p id="cf31ee02-37a4-491e-afc8-8574367c8331" class="">Without network, John consumes 1,04% of CPU time  </p><p id="cbd30162-33ea-4088-837f-40c8bccdd1d4" class="block-color-gray_background"><span class="user">@Valentin Manes</span> wrote:</p><p id="27a55ce3-8d01-48f3-aa0e-e232865ad82c" class="block-color-gray_background"><del>Profiling of John and both beats:</del></p><ul id="b1ff3d2f-1405-42f2-b094-db6970e33124" class="block-color-gray_background bulleted-list"><li style="list-style-type:disc"><del>John uses 4.2% of a CPU.</del></li></ul><ul id="e36cdaa1-1707-4613-8f84-94fcb0ab6132" class="block-color-gray_background bulleted-list"><li style="list-style-type:disc"><del>Metricbeat uses 0.6%.</del></li></ul><ul id="c5c20b25-1a6c-4436-af95-e820afeb8bdc" class="block-color-gray_background bulleted-list"><li style="list-style-type:disc"><del>Filebeat uses under 0.1%.</del></li></ul><p id="33f1adb9-1f71-43dd-8e0f-228b49776fb5" class="block-color-gray_background"><del>This is with default metricbeat and filebeat. It may go up once more module are enabled. 80% John runtime of seems to be checking network connections. I think this can be lowered significantly.</del></p><p id="691a6469-e6d7-4926-b51b-76bcdc9746f1" class="">
+</p><p id="5304cdd5-ccdd-4485-8c7a-e7694593fcd7" class="">Updated agent profiling:</p><ul id="aef83190-ddb1-4619-9a73-1cfe28069ff0" class="bulleted-list"><li style="list-style-type:disc">John uses 1.3% of a CPU.</li></ul><ul id="24e6bd69-76b6-4d80-aea8-53fdbca2b8c2" class="bulleted-list"><li style="list-style-type:disc">Filebeat uses 1.4% of a CPU (variable under different conditions, see table).</li></ul><ul id="57a58704-f7b7-43e1-a817-6fe7f986da8b" class="bulleted-list"><li style="list-style-type:disc">Metricbeat uses 1.8% of a CPU (under stress).</li></ul><ul id="b5e16d01-6825-44aa-a9bd-66fe8e8d8e57" class="bulleted-list"><li style="list-style-type:disc">Total: 4.5% CPU time.</li></ul><figure id="ddc04846-de1f-474e-b7c6-9be41d49367d"><div class="source"><a href="Profiling%20John%2019361869b7e642d19884d20cf0ac1c3d/john_all.pdf">john_all.pdf</a></div></figure><figure id="b25e7f8e-8a22-4dd2-a622-fe16a5f58218"><div class="source"><a href="Profiling%20John%2019361869b7e642d19884d20cf0ac1c3d/mb_stress.pdf">mb_stress.pdf</a></div></figure><figure id="9d1a537b-3661-47dc-8620-319603451a66"><div class="source"><a href="Profiling%20John%2019361869b7e642d19884d20cf0ac1c3d/fb_1h_hdfs.pdf">fb_1h_hdfs.pdf</a></div></figure><p id="8998566e-80ca-4d0a-aca6-f137bc0daa03" class="">
+</p><p id="22d7bfd6-d242-4b99-bdc1-0f56625d4f65" class=""><strong>Next:  </strong><span class="user">@Valentin Manes</span> </p><p id="ce5c9f5e-0873-4d31-bb7c-07226b4ba489" class="">Stress test: given 4% of CPU time, what is the max number of processes (X) and the max volume of data (Y) john can discover/collect? (network not included)</p><p id="d15a39b0-1ac7-41f1-ab61-4811d4abf849" class="">
+</p><p id="c4901ff5-9fe5-45b2-ad9e-989ab9213fe0" class="">
+</p><p id="d1c2c95d-dce4-47ed-93c0-81dab74e09f5" class="">
+</p><p id="c92df7e8-f5d7-452f-ae0f-97a96e681ac7" class="">Article on filebeat profiling: <a href="https://www.elastic.co/fr/blog/how-to-tune-elastic-beats-performance-a-practical-example-with-batch-size-worker-count-and-more">https://www.elastic.co/fr/blog/how-to-tune-elastic-beats-performance-a-practical-example-with-batch-size-worker-count-and-more</a></p><p id="adeef78f-5597-446e-941a-f1d877f12d15" class="">
+</p><p id="2d0e053e-6812-493d-b5e7-1b3a9aa0d895" class="">Once in prod&#x27;, with the whole ELK stack, it&#x27;ll possible to get live profiling data: <a href="https://www.elastic.co/guide/en/beats/metricbeat/current/monitoring.html">https://www.elastic.co/guide/en/beats/metricbeat/current/monitoring.html</a></p><p id="bfc5c9b4-1caa-4f1d-9d96-eeaad33ce1dd" class="">
+</p><hr id="b12efe5e-fd8e-42a6-a935-8a607fbd9d47"/><hr id="0178588a-5424-40ee-b784-ba977261945f"/><hr id="22972b52-e2ef-4242-957a-157cd25fd328"/><h2 id="d97d461a-d0d4-47fa-b5ce-82dc7d131a9f" class="">Beats profiling</h2><h3 id="4daec817-f43b-4bfe-8e58-224bf9b62b12" class="">Goal</h3><p id="a5e60dd6-7b2d-4311-84af-218de081b340" class="">PacketAI agent, John, relies on Elasticsearch Beats for its log and metric data collection. Below, we want to measure Filebeat and Metricbeat ressource usage given different conditions and data out-throughput.</p><h3 id="03031381-33a3-446d-b780-0a32dae22588" class="">Experiment Setup</h3><p id="d7fc61f8-029d-45b2-8989-4d46dfadcace" class="">Profiling was done on a MacBook Pro, with a 2.3 GHz 8-Core Intel Core i9 processor, and 16 GB 2400 MHz DDR4. All experiments were performed inside a docker container with debian running. Beats CPU profile is obtained using the <code>--cpuprofile</code> command line option. Beats were outputting to a Kafka pipe, with SSL encryption activated.</p><h3 id="ea887ec3-ef25-4790-91f7-9af780f9086f" class="">Profiling Filebeat</h3><p id="d9f26d90-22c9-41ff-a651-d955335d7702" class="">The profiling of Filebeat was based on the <code>HDFS_halfmil.log</code> data which have 713K lines of log, making for 95MB. Filebeat was launched with just this file to output. Its CPU consumption and throughput was obtained under different conditions:</p><ol type="1" id="9d194d6e-e0ee-44fe-89ce-ef5b3cfbde11" class="numbered-list" start="1"><li>File is directly given as is. Filebeat outputs it as fast as it can.</li></ol><ol type="1" id="aa3e2be5-3e1f-4934-8a45-181fbea85878" class="numbered-list" start="2"><li>The logs are streamed even T interval of time to simulate a more realistic situation.</li></ol><p id="7086a20a-95f2-4332-aedf-da3ff65711f2" class="">See table below for results:</p><figure id="11c022b9-845e-4f5a-9818-5ac4201302b6" class="link-to-page"><a href="Profiling%20John%2019361869b7e642d19884d20cf0ac1c3d/Filebeat%20Profiling%20Table%2011c022b9845e4f5a98185ac4201302b6.html">Filebeat Profiling Table</a></figure><p id="06509694-4657-43f5-b485-fd830d137b22" class="">
+</p><h3 id="c3ff0380-990d-4f88-a07f-df8e0310b724" class="">First p<strong>rofiling of MetricBeat</strong></h3><p id="0ea05457-a370-4622-ae73-6c801662d8c4" class="">Conditions: took a docker with the whole ELK stack (Logstash, Elastic and Kibana) installed. Enabled all metricbeat modules. In total, in the output, there are 86 metrics. However, most of them return &quot;not detected&quot; errors. From the ELK stack, there are 12 metrics. In addition, there was a 8 <code>system</code> metrics which are enabled by default. Making for a total of 20 metrics tracked.</p><p id="13b3825e-d84a-4f2b-b6b3-60fe36abf1eb" class="">CPU usage is 1.83%. 10,3 event/s. Metricbeat run for 29 minutes and produced 26MB data. So, 15600 byte/s.</p><p id="524c4510-853a-412c-a4ef-8e10829c6ded" class="">
+</p><h3 id="105206ad-fcc5-4c0a-a4e0-c697f080f8d9" class="">Stress Testing Metricbeat</h3><p id="2c96f348-311e-4479-b55b-dc1ee0d16b93" class="">Setup: AWS: t2.xlarge. Intel(R) Xeon(R) CPU E5-2686 v4 @ 2.30GHz, 4 cores, 16GB RAM.</p><p id="1c8a8ad9-d25b-44ab-b0ef-f425e35eb5d8" class="">All metrics from the docker, elasticsearch, logstash and system metric enabled (29 metrics in total: </p><pre id="33d36aca-0fdb-4891-b6d7-a7f677b8b355" class="code"><code>docker.container
+docker.cpu
+docker.diskio
+docker.image
+docker.info
+docker.memory
+docker.network
+elasticsearch.ccr
+elasticsearch.cluster.stats
+elasticsearch.index
+elasticsearch.index.recovery
+elasticsearch.index.summary
+elasticsearch.node
+elasticsearch.node.stats
+elasticsearch.shard
+logstash.node
+logstash.node.stats
+system.core
+system.cpu
+system.diskio
+system.fsstat
+system.load
+system.memory
+system.network
+system.process
+system.process.summary
+system.socket
+system.socket.summary
+system.uptime</code></pre><p id="274da834-9186-4b76-b05d-07d0344a835c" class="">Metricbeat configuration file can be found in the <a href="https://gitlab.packetai.co/elk/metricbeat-test">https://gitlab.packetai.co/elk/metricbeat-test</a>, in the <code>feat-275/mb-stress</code> branch. Metricbeat version is 7.2.0.</p><p id="b10e3939-d100-42e9-a374-4f6cbaaa247b" class="">All experiments were performed by running metricbeat during 30 minutes. The changing point is the time period at which the metrics are measured.</p><div id="eeeef0eb-78e4-4c67-aa2a-86865eb9e5b4" class="collection-content"><h4 class="collection-title">Metricbeat throughput</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Period</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>CPU usage (%)</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Message / second</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Data / second (Kb/s)</th></tr></thead><tbody><tr id="0cc2c23a-c133-461d-8c28-b0feee6e1b95"><td class="cell-title"><a href="Profiling%20John%2019361869b7e642d19884d20cf0ac1c3d/Metricbeat%20throughput%20eeeef0eb78e44c67aa2a86865eb9e5b4/10s%200cc2c23ac133461d8c28b0feee6e1b95.html">10s</a></td><td class="cell-d?1+">0.69%</td><td class="cell-x?jG">5.8</td><td class="cell-!TPD">3.43</td></tr><tr id="2834b24e-364e-4245-bf16-18be12b7bd5f"><td class="cell-title"><a href="Profiling%20John%2019361869b7e642d19884d20cf0ac1c3d/Metricbeat%20throughput%20eeeef0eb78e44c67aa2a86865eb9e5b4/1s%202834b24e364e4245bf1618be12b7bd5f.html">1s</a></td><td class="cell-d?1+">4.89%</td><td class="cell-x?jG">45</td><td class="cell-!TPD">24.7</td></tr><tr id="ff6e82f9-715c-4689-b6cd-fdcee42ada36"><td class="cell-title"><a href="Profiling%20John%2019361869b7e642d19884d20cf0ac1c3d/Metricbeat%20throughput%20eeeef0eb78e44c67aa2a86865eb9e5b4/100ms%20ff6e82f9715c4689b6cdfdcee42ada36.html">100ms</a></td><td class="cell-d?1+">45.31%</td><td class="cell-x?jG">441</td><td class="cell-!TPD">236.8</td></tr></tbody></table><br/><br/></div><p id="ba7e91cc-0332-4f86-a455-c5b618c5e1f1" class="">Note: During the experiment, there was many errors: <code>Dropping event: unsupported float value: NaN</code>. I think the &quot;1s&quot; data isn&#x27;t 10 times as high as the &quot;10s&quot; data: Many events were dropped.</p><p id="10b2acf9-d8ab-4b4e-b0f0-c220c080c4e7" class="">
+</p></div></article></body></html>

@@ -1,0 +1,776 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>AWS integrations - ECS</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="c3e76529-1cbc-4b49-a3e6-2261a25c3ba3" class="page sans"><header><h1 class="page-title">AWS integrations - ECS</h1><p class="page-description"></p></header><div class="page-body"><nav id="dd987f8a-b907-46db-bac7-f4e3db618c0f" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3c3f65d4-3650-42d5-bd20-7d43625f6b83">1. What is ECS? </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0441804e-14c7-4fb3-8269-3e038a4e0a8d">2. <strong>ECS Monitoring: </strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1ae25ba0-fd33-4c1c-adbb-9c0482e0a237">3. Summary of state of the art </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b28c667b-d568-43b0-a356-ebc7019d198d">4. Monitoring ECS with PacketAI</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3c1ed8fd-8785-4fca-815e-53dfa59fdb39">Action plan:</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a4c556b9-44d2-4ead-b681-7cf4eeb8fe3a">Metrics we can collect using ECS/ContainerInsights from cloudwatch using a lambda function</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3412db0c-a9b4-4ff0-abdf-6698ce017e9e">Container metrics:</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e75c7369-38e8-4670-babc-46b2ce1a72c8">Task Metrics:
+</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4ecea1d9-83ee-46ca-a012-3ef5fcf23d41">Cluster metrics:</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#26d563de-ef5c-499f-952b-05dceaeef93b">Service metrics:
+</a></div></nav><h3 id="3c3f65d4-3650-42d5-bd20-7d43625f6b83" class="">1. What is ECS? </h3><p id="9dfec734-a6ad-489d-8bba-6749b41fd619" class="">ECS is AWS&#x27;s container orchestration service. It is defined through the following concepts: </p><ul id="d7a7a820-518d-4953-9bce-b0bc135aa157" class="bulleted-list"><li style="list-style-type:disc"><strong>Task</strong>: a collection of one or more docker containers with the same business goal, eg: app with two micorservices</li></ul><ul id="80e6511f-2575-4fd7-8ac6-580357df179f" class="bulleted-list"><li style="list-style-type:disc"><strong>ECS container instance: &quot;</strong>an Amazon EC2 instance that is running the Amazon <strong>ECS container agent </strong>and has been registered into an Amazon ECS cluster&quot;. Container Instance can run many Tasks, from the same or different Services.</li></ul><ul id="b0e87aa3-8c09-4e1a-a533-5a873798f306" class="bulleted-list"><li style="list-style-type:disc">The <strong>ECS container agent </strong> takes care of the communication between ECS and the instance, providing the status of running containers and managing running new ones.</li></ul><ul id="727dcb1c-c8c6-48c5-978b-fa6170d649d0" class="bulleted-list"><li style="list-style-type:disc"><strong>Service</strong>: a collection of one or more instances of the task, can be across multiple ECS container instances. Each service is assigned a single task definition, and you can specify the number of tasks a service will deploy from that definition and attempt to keep running</li></ul><p id="be75b9cb-935d-4f05-b0e9-6f3bff7c017e" class=""><strong>ECS Cluster:  &quot;</strong>An Amazon ECS cluster is a logical grouping of tasks or services. If you are running tasks or services that use the EC2 launch type, a cluster is also a grouping of container instances. If you are using capacity providers, a cluster is also a logical grouping of capacity providers&quot;. </p><ul id="1b2f186d-440e-41a9-9baa-ca333b9eda8b" class="bulleted-list"><li style="list-style-type:disc">Amazon ECS handles the logic of scheduling, maintaining, and handling scaling requests to container instances. It also takes away the work of finding the optimal placement of each Task based on CPU and memory needs</li></ul><figure id="614e648f-7756-4cc5-ba90-ef68e0083e19" class="image"><a href="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_17.05.34.png"><img style="width:2110px" src="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_17.05.34.png"/></a></figure><ul id="44ade8a2-1397-4815-8b3d-c22d787b5aed" class="bulleted-list"><li style="list-style-type:disc">A Cluster can run many Services. If you have multiple applications as part of your product, you may wish to put several of them on one Cluster. This makes more efficient use of the resources available and minimizes setup time.</li></ul><figure id="d2231917-b2a9-4699-955b-c36eee072e4e" class="image"><a href="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_17.16.50.png"><img style="width:2220px" src="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_17.16.50.png"/></a></figure><ul id="35a67a7c-2afe-4419-8b29-f31810a4130c" class="bulleted-list"><li style="list-style-type:disc">You can deploy containers by using one of two launch types: Amazon EC2 or Fargate. The EC2 launch type hosts ECS containers on EC2 instances. With Fargate, ECS abstracts away the VMs, letting you focus only on ECS services, tasks, and task definitions</li></ul><p id="82f01fba-d947-4271-9a09-bf4969fe09fd" class="">
+</p><h3 id="0441804e-14c7-4fb3-8269-3e038a4e0a8d" class="">2. <strong>ECS Monitoring: </strong></h3><p id="edc4e321-a7f0-4316-accf-c3fc6344d037" class=""><strong>2.1. </strong><strong><span style="border-bottom:0.05em solid">Datadog</span></strong><div class="indented"><p id="57daf4e0-1c9d-47ce-bdf4-badffaaca3aa" class=""><strong>2.1.A. what to monitor? </strong></p></div></p><p id="84d4d88f-fd96-4f4d-a28d-ab03129c95ba" class="">Two metric categories to watch: </p><ol type="1" id="6c9532a1-b1cc-41ae-a04b-24f1db32d0c0" class="numbered-list" start="1"><li><strong>resource metrics, </strong>related to infra resources: CPU, memory, I/O, network</li></ol><ol type="1" id="284321b6-30d4-4090-8317-1d320fbd9acd" class="numbered-list" start="2"><li><strong>status metrics,</strong> related to app-level (ECS) status: mainly about task counts in different status</li></ol><ul id="e4b53e2e-3dd4-4e8f-af07-9b747ede9e9e" class="bulleted-list"><li style="list-style-type:disc"><strong>CPU  </strong></li></ul><figure id="d054ae39-8ff5-487e-82cd-7d204838568d" class="image"><a href="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_18.50.54.png"><img style="width:2154px" src="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_18.50.54.png"/></a></figure><ul id="6790f779-64b2-4d75-9026-706bbe9c851e" class="bulleted-list"><li style="list-style-type:disc"><strong>Memory </strong></li></ul><figure id="9dc5986c-8edb-4fef-8343-3a393783c70b" class="image"><a href="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_18.55.25.png"><img style="width:2156px" src="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_18.55.25.png"/></a></figure><ul id="4a2ee7e6-710b-4698-b212-cd797c04e314" class="bulleted-list"><li style="list-style-type:disc"><strong>I/O</strong></li></ul><figure id="a6ed370d-39fc-4433-a4d1-3448033ff779" class="image"><a href="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_18.55.51.png"><img style="width:2132px" src="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_18.55.51.png"/></a></figure><ul id="2731c350-ad3b-4ff3-8148-0966e2e480b8" class="bulleted-list"><li style="list-style-type:disc"><strong>Network</strong></li></ul><figure id="fe43e888-995d-409a-8bc4-ba01f32675ff" class="image"><a href="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_18.57.49.png"><img style="width:2124px" src="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_18.57.49.png"/></a></figure><ul id="17998fd4-cad5-4651-b80f-693a4bbea244" class="bulleted-list"><li style="list-style-type:disc"><strong>Status metrics</strong></li></ul><figure id="dfb6d0aa-9e28-4832-9451-451946e439b6" class="image"><a href="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_18.58.19.png"><img style="width:2144px" src="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-05_at_18.58.19.png"/></a></figure><p id="6273d33c-0109-490a-8eaa-0a5f6405441d" class="">
+</p><p id="82673f39-29c2-4891-b79e-c38e05c24dd8" class="">    <strong>2.1.B. Previous methods (as mentioned by DD): </strong></p><ul id="872af9e8-78c8-4e71-a542-c75deb3ec9bf" class="bulleted-list"><li style="list-style-type:disc">Cloudwatch </li></ul><ul id="28674a0b-6dea-444b-b11d-b5081e5490bb" class="bulleted-list"><li style="list-style-type:disc">AWS CLI </li></ul><ul id="f55b8830-be4b-4da0-9bb9-994a5d0400f9" class="bulleted-list"><li style="list-style-type:disc">3rd parties: mentioned no one explicitly </li></ul><ul id="9c191e58-acb7-453a-8b37-ddbe37ba33cc" class="bulleted-list"><li style="list-style-type:disc">Tools for docker monitoring </li></ul><p id="31519cb2-2e90-4e10-b1bf-3aaa31dbf4ca" class=""><div class="indented"><p id="310125c3-e455-4cbf-a1f2-fccca820ce4f" class=""><strong>2.1.C. The Datadog way: </strong></p></div></p><p id="0c9d19fe-d2cf-4fcc-bec9-e496407663ba" class="">&quot;you’ll want to monitor your ECS infrastructure to make sure containers are launched, provisioned, and terminated as expected. You’ll also want to monitor the overall health and performance of your ECS containers and virtual machines&quot;</p><p id="62cf2352-165d-4fe7-9a29-c8fd3ec03930" class="">As it does for all AWS integrations, Datadog collects resource metrics from <strong>Cloudwatch</strong> and status metrics using <strong>ECS API</strong> and <strong>agent </strong>(CloudWatch does not surface metrics for the status of services, tasks, or containers). </p><p id="52f3d1b6-2ec2-43bb-a1f0-92f73b0ccd84" class=""><strong>step1</strong>: activate ECS in the AWS integration module</p><p id="3208345f-51bb-4fa7-829e-520f32573ac3" class=""><strong>step2</strong>: install DD agent on ECS contianer instances: <div class="indented"><ul id="98ee7af7-30e5-4394-bc48-78a4b8c8b54e" class="bulleted-list"><li style="list-style-type:disc">when fargate is used </li></ul><ul id="cdf27d60-0682-44f4-9a15-064e32796cb6" class="bulleted-list"><li style="list-style-type:disc">when EC2 is used </li></ul></div></p><p id="159b556d-c62e-4c79-8a57-2a0f4c94ba1b" class="">Once ECS integration is activated, a default dashboard is shown on UI</p><p id="e83d30ae-63dc-4db7-a753-c4925e3e995a" class="">Datadog agent has Autodiscovery feature for containers </p><p id="0a96a47f-08f3-449f-bfd5-53feeafe54d1" class="">With APM, you can instrument containerised apps and see service map on UI<div class="indented"><p id="75f9ef7b-0981-4a77-9385-be83895a61c8" class="">
+</p><p id="18729988-8fb0-477a-a530-2ec6708462ac" class=""><strong>Log collection: </strong></p></div></p><p id="3a6021e4-7152-4268-993e-4ac11006f2ce" class="">Two ways of collecting logs: </p><ol type="1" id="ac37cb17-e213-4560-be55-db471cc7749d" class="numbered-list" start="1"><li>Datadog Agent sends logs directly from ECS containers running in an EC2-based cluster, bypassing CloudWatch Logs (and the additional billing the service entails), while also giving you <span style="border-bottom:0.05em solid">more configuration options and access to logs from the ECS Container Agent</span>. <p id="5034e090-9847-4d11-83a8-0d415b0d1d15" class="">details on how to do it: <a href="https://www.datadoghq.com/blog/monitoring-ecs-with-datadog/#sending-ecs-logs-from-your-ec2-instances">https://www.datadoghq.com/blog/monitoring-ecs-with-datadog/#sending-ecs-logs-from-your-ec2-instances</a></p></li></ol><ol type="1" id="1a73153f-abf0-465a-a3f4-423458c6dd15" class="numbered-list" start="2"><li>The second method works with either launch type, and uses a Lambda function to forward container logs from CloudWatch Logs to Datadog. In Fargate, since you’re restricted to CloudWatch Logs, using this method is the only available option.<p id="b62d8ed0-b1c6-4bf2-8908-4d0a23dd78bc" class="">details on how to do it: <a href="https://www.datadoghq.com/blog/monitoring-ecs-with-datadog/#using-aws-lambda-to-collect-ecs-logs-from-cloudwatch">https://www.datadoghq.com/blog/monitoring-ecs-with-datadog/#using-aws-lambda-to-collect-ecs-logs-from-cloudwatch</a></p></li></ol><p id="a5c42d01-0911-4fa2-925a-d083d99ffe99" class="">
+</p><p id="490b6648-b466-4fdc-905b-6c64f32639b8" class=""><span style="border-bottom:0.05em solid"><strong>2.2. ELK</strong></span></p><p id="a7ee6904-b128-402a-909e-5b8a21409ae2" class="">Current AWS module of metricbeat does not contain an ECS metricset. </p><p id="c3774795-dbff-4843-9dfc-f64e1d86e246" class=""><a href="https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-module-aws.html">https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-module-aws.html</a></p><figure id="e7126f43-9d3c-4d04-b445-0d054fac38d1" class="image"><a href="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-06_at_11.50.34.png"><img style="width:336px" src="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Screenshot_2021-01-06_at_11.50.34.png"/></a></figure><p id="c44a639f-ab2d-4136-9c2f-0b838f7d2e46" class="">
+</p><p id="81cb82fd-ccb0-43b2-a461-7ae52d874722" class=""><strong>ELK does not get any cluster metrics from Cloudwatch nor from ECS API </strong></p><p id="6d852cb7-b681-4c05-98e5-467a78589e36" class="">It is however possible to monitor ECS EC2 instances by installing metricbeat on all of them (src: <a href="https://www.elastic.co/blog/how-to-monitor-amazon-ecs-with-elastic-observability">https://www.elastic.co/blog/how-to-monitor-amazon-ecs-with-elastic-observability</a>)</p><p id="8a4bbcfa-a847-49c5-800f-bd7cb8e8639c" class="">it is also possible to monitor faregate deployment by using a dockerised metricbeat and defining a task (src: <a href="https://www.elastic.co/blog/how-to-monitor-amazon-ecs-with-elastic-observability">https://www.elastic.co/blog/how-to-monitor-amazon-ecs-with-elastic-observability</a>)</p><p id="a6a189ac-cd1c-45e9-a983-66020168bf62" class="">
+</p><p id="733ac418-9c81-493f-8f5a-8154c49d6c9f" class="">For logs, according to this <a href="https://logz.io/blog/amazon-ec2-container-system-ecs-log-analysis-part-2/">https://logz.io/blog/amazon-ec2-container-system-ecs-log-analysis-part-2/</a>.   Logzio provides a dockerized image of their log shippers to be run in the ECS cluster as a new task. Once the task is running, logs are shipped automatically. </p><p id="c6bdf668-543a-4845-a7e4-5eff05107641" class="">
+</p><p id="50647812-d1dc-47b0-9d4c-3cb993d8ef37" class="">
+</p><p id="b2f24b06-017d-4703-8fe2-4dac7006b81a" class=""><strong><span style="border-bottom:0.05em solid">2.3. Dynatrace</span></strong></p><ul id="caf1c994-3122-47ca-9947-6fd423648031" class="bulleted-list"><li style="list-style-type:disc">Main doc : <a href="https://www.dynatrace.com/support/help/technology-support/cloud-platforms/amazon-web-services/supporting-services/elastic-container-service/">https://www.dynatrace.com/support/help/technology-support/cloud-platforms/amazon-web-services/supporting-services/elastic-container-service/</a>
+Dynatrace gets API metrics - but they look like metrics DD gets from cloudwatch.</li></ul><ul id="acee7833-29ec-4b16-bd11-4803c3009172" class="bulleted-list"><li style="list-style-type:disc">On one page:  <p id="ffd3dd2b-50c7-498a-b37a-b4ee82b46f5a" class="">&quot;<strong>Benefits of OneAgent auto-injection</strong></p><p id="5cb950b3-a835-43b3-8b2b-429b7a4d268a" class="">This is where Dynatrace changes the cloud and container monitoring game for you. <a href="https://www.dynatrace.com/technologies/docker-monitoring/">Monitoring Docker environments with Dynatrace</a> doesn’t require that you touch your Docker images or run extra containers. You only need to install OneAgent on your EC2 instances to monitor all created containers automatically. In this way, all new containers created on EC2 instances via ECS scaling are automatically monitored by Dynatrace.&quot;</p></li></ul><ul id="0557ae64-0a55-4a4e-8950-9986ed51df0f" class="bulleted-list"><li style="list-style-type:disc">On another page: Deploy OneAgent as a daemon service<p id="92f30b8c-c7e3-4b4b-8f05-14ae5ad1624c" class=""><a href="https://www.dynatrace.com/support/help/technology-support/cloud-platforms/amazon-web-services/integrations/deploy-oneagent-on-ecs/">https://www.dynatrace.com/support/help/technology-support/cloud-platforms/amazon-web-services/integrations/deploy-oneagent-on-ecs/</a></p></li></ul><ul id="b9557f73-3966-4a2b-9c37-4fec0a329622" class="bulleted-list"><li style="list-style-type:disc">There is no mention of how to do ECS logs </li></ul><p id="cc653d01-cf1c-4044-b0ee-b806c2debee7" class="">
+</p><h3 id="1ae25ba0-fd33-4c1c-adbb-9c0482e0a237" class="">3. Summary of state of the art </h3><p id="4fbda243-f496-4bcc-b3dd-130e7a781eda" class=""><strong>Metrics</strong>: three ways:</p><ul id="5e930a9a-4344-4053-98d3-794101222340" class="bulleted-list"><li style="list-style-type:disc">AWS API based approach for ECS metrics - Datadog</li></ul><ul id="6be997e2-7914-40b2-a43d-bdb5a78ae51e" class="bulleted-list"><li style="list-style-type:disc">Cloudwatch, incurring charges - Datadog</li></ul><ul id="2e0c0ac6-ff35-498f-aebf-e16869d1f5d5" class="bulleted-list"><li style="list-style-type:disc">containerised agent for containers metrics through a task definition - Datadog, Dynatrace </li></ul><ul id="08051e61-ee24-4739-a40e-6b9fe80f1743" class="bulleted-list"><li style="list-style-type:disc">autodiscovery - Datadog, Dynatrace </li></ul><p id="a9a45fdf-6158-4117-a2f8-34268fdc379f" class=""><strong>Logs</strong>: one way </p><ul id="0818791e-1a65-44cb-90b6-923d4295e2d0" class="bulleted-list"><li style="list-style-type:disc">containerised agent for containers logs through task definition - Datadog, logzio </li></ul><p id="9a7dc641-0326-4b8c-a49d-d5d69edb11af" class="">
+</p><ul id="5340a7ae-8d28-4c48-9aa0-ffa1b3cd5eb1" class="block-color-brown_background bulleted-list"><li style="list-style-type:disc">ELK cloud does not do cluster metrics, neither from API nor from Cloudwatch - but metricbeat ECS module is quite good</li></ul><ul id="a07eda6c-ff46-4855-9c1e-2fd135e40b8b" class="block-color-brown_background bulleted-list"><li style="list-style-type:disc">Dynatrace does not get logs - it gets 6 cluster metrics from cloudwatch API (yes, not ECS API)</li></ul><ul id="b5394da4-8e05-42ed-ab6d-3b4404f7af6f" class="block-color-brown_background bulleted-list"><li style="list-style-type:disc">The most complete tool is DD, details in the notion doc
+</li></ul><h3 id="b28c667b-d568-43b0-a356-ebc7019d198d" class="">4. Monitoring ECS with PacketAI</h3><h3 id="3c1ed8fd-8785-4fca-815e-53dfa59fdb39" class="">Action plan:</h3><p id="53b5bd9e-236c-4f49-b690-6fe4ef4ae984" class=""><strong>Must to have</strong></p><p id="275068e2-6b06-408f-a95a-a778907c8b53" class=""><strong>      dockerised agent </strong></p><ul id="492d342a-3091-4a99-a950-3d5b73f34e71" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">Dockerized agent to be installed as daemon set in a ECS cluster (5d)      - in testing </li></ul><ul id="779eafc9-d289-4994-8ef5-1fe8b3c0f139" class="bulleted-list"><li style="list-style-type:disc">Write ECS task definition documentation for docker agent and service deployment (1d)</li></ul><p id="f779cb1b-158a-40f3-9a6a-e244bd56143c" class="">
+</p><p id="2fe28e2d-2563-46d4-b58c-eeecce85e1b8" class=""><strong>    cloudwtach stuff</strong></p><ul id="adbecd84-e650-4150-8a2d-d6b298541060" class="bulleted-list"><li style="list-style-type:disc">Write/Update lambda function to get ECS cluster metrics <del>and logs </del>from cloudwatch and send them to ingestservice (raw data) (5d)   <ul id="fd4b61cb-a13c-4188-9b56-bfd96bcd44bd" class="bulleted-list"><li style="list-style-type:circle">metrics to get from cloudwatch (from tables above), these metrics are available pby default in cloudwatch (<a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cloudwatch-metrics.html">https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cloudwatch-metrics.html</a>)<ul id="38fbdd82-6c7d-45b2-8d19-34c5b08a5430" class="bulleted-list"><li style="list-style-type:square">CPU reservation </li></ul><ul id="ff376662-cbce-4eba-b221-c54b47f97ea0" class="bulleted-list"><li style="list-style-type:square">CPU utilisation </li></ul><ul id="4c93fc91-4db9-489c-a2e9-256326dbcac2" class="bulleted-list"><li style="list-style-type:square">Memory reservation </li></ul><ul id="349c7018-faa5-49b7-8e6c-35d908bc46c5" class="bulleted-list"><li style="list-style-type:square">Memory utilisation </li></ul><ul id="31f6b1ad-1bdb-46b7-a2b1-4ae4d82976c2" class="bulleted-list"><li style="list-style-type:square">Volumereadbytes</li></ul><ul id="4fb467a9-1052-470a-8258-e3871043d0ee" class="bulleted-list"><li style="list-style-type:square">Volumewritebytes</li></ul><ul id="c5754ebf-0672-4983-82a3-043fb2415aff" class="bulleted-list"><li style="list-style-type:square">Network-in</li></ul><ul id="78cf5434-8952-49f2-9249-c6c3506ec82e" class="bulleted-list"><li style="list-style-type:square">Network-out  </li></ul></li></ul></li></ul><ul id="8a6fa867-66d6-4460-88a6-20063c3c0397" class="bulleted-list"><li style="list-style-type:disc">Write documentation how to install lambda function (1d)</li></ul><ul id="bd3ddfe8-771a-44e9-abcd-5486ce1f5c3b" class="bulleted-list"><li style="list-style-type:disc">Actually it is possible to format data in a metricbeat-like format and send it through the usual pipeline -<mark class="highlight-red_background"> just like data from metricbeat    </mark></li></ul><p id="90f8c2b5-3f3b-4021-b847-9fae29448254" class="">
+</p><ul id="2603b472-8296-4538-bd74-38b06e8fee73" class="block-color-gray_background bulleted-list"><li style="list-style-type:disc">Make sure we collect topology data - could the dockerised agent collect host data? host level topology? </li></ul><ul id="4093443e-8157-4e4c-a709-715fbdaf7a92" class="block-color-gray_background bulleted-list"><li style="list-style-type:disc">Request API for <a href="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3.html">5 metrics </a></li></ul><ul id="e3f64f77-47e5-4e19-a3e1-aae83398c2fc" class="block-color-gray_background bulleted-list"><li style="list-style-type:disc">Metrics from Cloudwatch and from the ECS API will be sent to a normal pipeline through kafka and will be attached to a cluster component (host level)<p id="470dbecf-9ddd-44c3-96c7-4e87769efafe" class="">lambda function by <span class="user">@Rama Rao Ganji</span> </p><figure id="d98fb920-d20c-4d63-a92c-635b43b7f5b9" class="image"><a href="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Untitled.png"><img style="width:1344px" src="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Untitled.png"/></a></figure><p id="5e6e1176-4eff-4109-a331-0b7e55b4e8e2" class="">
+</p></li></ul><ul id="1d7f944b-1e52-4c4e-ac8f-347579cb9cce" class="bulleted-list"><li style="list-style-type:disc">Create dashboard to display ecs cluster metrics given spec defined for data. (5d)<ul id="1729320e-559f-427b-8a82-98355abdd3dd" class="bulleted-list"><li style="list-style-type:circle">the dashboard will contain 8+5 simple charts </li></ul><p id="f7e20555-b2f8-4664-87c0-d167299a80b3" class="">
+</p></li></ul><figure id="cbe4a44c-7468-494a-b13f-41fc42d7f86c" class="image"><a href="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Untitled.jpg"><img style="width:466px" src="AWS%20integrations%20-%20ECS%20c3e765291cbc4b49a3e62261a25c3ba3/Untitled.jpg"/></a></figure><p id="6dffce51-a307-482f-94ee-0a2269e45918" class="">
+</p><p id="784a8f6e-f111-4789-8147-972081d4ee58" class=""><strong>Nice to have:</strong></p><ul id="833ed891-dff4-4ad1-b39d-85ef75c654ff" class="bulleted-list"><li style="list-style-type:disc">Deployment script using Cloud Formation stack or Cloud development kit (TBD)</li></ul><ul id="8f49793f-9cc1-4c88-9dbb-835061105a17" class="bulleted-list"><li style="list-style-type:disc">Documentation for client to explain packetai stack  for ecs and install it by itself (TBD)</li></ul><p id="42e9f610-1e72-4f75-adfd-c92f397a0500" class="">
+</p><p id="b2230c0f-2d46-4705-b4be-9631c0826ba8" class="">
+</p><p id="4e8a6bb3-edab-49c4-b10a-b000c1e0daae" class="block-color-brown_background"><strong>Summary of plan:</strong></p><ul id="b6db32a2-148f-47b1-858f-b96da1243012" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">dockerize agent </li></ul><ul id="2d9f9791-c0bd-4645-972e-152824ad65fd" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">deploy dockerized agent into ecs cluster through task definition </li></ul><ul id="16a85447-b217-41d9-bdf8-306a7fcacf31" class="block-color-brown_background bulleted-list"><li style="list-style-type:disc">get ECS cluster metrics from API/cloudwatch  </li></ul><ul id="6ba1aae4-6a68-4fdf-9969-6b0678af96c9" class="block-color-brown_background bulleted-list"><li style="list-style-type:disc">build dashboard for ECS cluster </li></ul><ul id="8edac03c-a02d-4511-b2e9-88074bf6a654" class="block-color-gray_background bulleted-list"><li style="list-style-type:disc">documentation &amp; instructions on minima </li></ul><p id="6c87e37d-b370-451c-b248-7bd1da07abdc" class="">
+</p><h2 id="a4c556b9-44d2-4ead-b681-7cf4eeb8fe3a" class="">Metrics we can collect using ECS/ContainerInsights from cloudwatch using a lambda function</h2><p id="bbe9e6ec-b37b-4664-8edc-4d0c11f6f4ef" class="">
+</p><p id="27db8186-06cd-4383-8e22-254c7b6e238c" class="">top level fields:
+</p><pre id="2f8685ca-f4c0-4a70-97b8-35477cae7c35" class="code"><code>    log_group: /aws/ecs/containerinsights/testAgent/performance
+    log_stream: AgentTelemetry-191e6329c3ce4347aa81f74da30b7d90 (container+task)
+		log_stream: ClusterTelemetry-testAgent (only for cluster)
+		log_stream: ServiceTelemetry-mongodbservice (only for service)
+    message_type: DATA_MESSAGE
+    owner: &#x27;767498580550&#x27;
+    timestamp: 1617144180000
+</code></pre><h2 id="3412db0c-a9b4-4ff0-abdf-6698ce017e9e" class="">Container metrics:</h2><pre id="52cd1b79-00a8-47f2-9eb7-b85c33945966" class="code"><code>- id: &#x27;36063520307466741767062810565617941084167567272307720195&#x27;
+      message: !!python/object:schemas.Message
+        cluster_name: testAgent
+        container_instance_id: 191e6329c3ce4347aa81f74da30b7d90
+        container_name: agentd
+        cpu_reserved: 0.0
+        cpu_utilized: 2.3087345638275147
+        ec2_instance_id: i-03d3b50a1d039d663
+        memory_reserved: 256.0
+        memory_utilized: 196.0
+        network_rx_bytes: 743
+        network_rx_dropped: 0
+        network_rx_errors: 0
+        network_rx_packets: 19910944
+        network_tx_bytes: 382
+        network_tx_dropped: 0
+        network_tx_errors: 0
+        network_tx_packets: 11283621
+        service_name: agentdService
+        storage_read_bytes: 721993728
+        storage_write_bytes: 147456
+        task_definition_family: agentdTask
+        task_definition_revision: &#x27;3&#x27;
+        task_id: 93190021af0e4bcfbf7de6a4cf4a41f1
+        timestamp: 1617144180000
+        type: Container
+</code></pre><h2 id="e75c7369-38e8-4670-babc-46b2ce1a72c8" class="">Task Metrics:
+</h2><pre id="d1388dc6-1d39-4e83-b89c-716dc53598ab" class="code"><code>- id: &#x27;36063520307466741767062810565617941084167567272307720192&#x27;
+      message: !!python/object:schemas.Message
+        cluster_name: testAgent
+        container_instance_id: 191e6329c3ce4347aa81f74da30b7d90
+        ec2_instance_id: i-03d3b50a1d039d663
+        memory_reserved: 256.0
+        memory_utilized: 196.0
+        network_rx_bytes: 743
+        network_rx_dropped: 0
+        network_rx_errors: 0
+        network_rx_packets: 19910944
+        network_tx_bytes: 382
+        network_tx_dropped: 0
+        network_tx_errors: 0
+        network_tx_packets: 11283621
+        service_name: agentdService
+        storage_read_bytes: 721993728
+        storage_write_bytes: 147456
+        task_definition_family: agentdTask
+        task_definition_revision: &#x27;3&#x27;
+        task_id: 93190021af0e4bcfbf7de6a4cf4a41f1
+        timestamp: 1617144180000
+        type: Task</code></pre><p id="4423f2bb-d700-4abc-8e1a-9efa859f6c91" class="">
+</p><h2 id="4ecea1d9-83ee-46ca-a012-3ef5fcf23d41" class="">Cluster metrics:</h2><pre id="a168909e-1b78-4962-8a26-ff761749d565" class="code"><code>- id: &#x27;36063520307466741767062810536373793223302665690489028608&#x27;
+      message: !!python/object:schemas.Message
+        cluster_name: testAgent
+        container_instance_count: 3
+        service_count: 2
+        task_count: 6
+        timestamp: 1617144180000
+        type: Cluster</code></pre><p id="18de251f-2747-491c-89f4-e5098f2b403d" class="">
+</p><h2 id="26d563de-ef5c-499f-952b-05dceaeef93b" class="">Service metrics:
+</h2><pre id="735e5166-7288-4af7-838f-d2b1e244b9c7" class="code"><code>- id: &#x27;36063520307466741767062810536262655955808808915061112832&#x27;
+      message: !!python/object:schemas.Message
+        cluster_name: testAgent
+        deployment_count: 1
+        desired_task_count: 3
+        pending_task_count: 0
+        running_task_count: 3
+        service_name: agentdService
+        task_set_count: 0
+        timestamp: 1617144180000
+        type: Service</code></pre><p id="8956ab30-1b16-461d-ba51-8e5ae6cea8f3" class=""><strong>References</strong>:</p><ul id="2c8a3973-9640-4bf4-8131-053d0e7435ea" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.freecodecamp.org/news/amazon-ecs-terms-and-architecture-807d8c4960fd/">https://www.freecodecamp.org/news/amazon-ecs-terms-and-architecture-807d8c4960fd/</a></li></ul><ul id="bae79425-3d5d-45e5-b198-920e13108cb7" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.datadoghq.com/blog/amazon-ecs-metrics/">https://www.datadoghq.com/blog/amazon-ecs-metrics/</a>   (3 parts series)</li></ul><ul id="73acba47-bf6c-4c64-b83a-9aa0f5248ff9" class="bulleted-list"><li style="list-style-type:disc"><a href="https://logz.io/blog/amazon-ec2-container-system-ecs-log-analysis-part-2/">https://logz.io/blog/amazon-ec2-container-system-ecs-log-analysis-part-2/</a> </li></ul></div></article></body></html>

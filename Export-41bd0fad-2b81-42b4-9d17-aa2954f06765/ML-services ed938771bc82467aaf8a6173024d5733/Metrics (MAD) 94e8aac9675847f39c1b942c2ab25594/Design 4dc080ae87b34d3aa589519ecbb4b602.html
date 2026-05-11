@@ -1,0 +1,680 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Design</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4dc080ae-87b3-4d3a-a589-519ecbb4b602" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📄</span></div><h1 class="page-title">Design</h1><p class="page-description"></p></header><div class="page-body"><nav id="16a64646-a289-40ba-89d6-380ce0782ceb" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#219d517b-c71f-4105-83a1-7ff273068cce">Activation</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1f44cbfa-e01a-4bfb-988e-b8fb578366c9">Detection process</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8d562dc5-747a-45d6-bd03-91d677f7ff13">Deactivation</a></div></nav><p id="763b1b4d-82d3-4c1a-855b-b50371d93932" class=""><span class="user">@Valentin Lapparov</span> wrote</p><figure id="495914bb-5397-4e3b-a3fa-7df8df563dd8" class="image"><a href="Design%204dc080ae87b34d3aa589519ecbb4b602/MAD_design_30_05_2022.drawio.png"><img style="width:1528px" src="Design%204dc080ae87b34d3aa589519ecbb4b602/MAD_design_30_05_2022.drawio.png"/></a></figure><p id="d739ea20-e7cf-4c0b-b8e0-46343608125c" class="">
+</p><nav id="9bcdba16-0ec0-4d62-ae20-e704114470ed" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#219d517b-c71f-4105-83a1-7ff273068cce">Activation</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1f44cbfa-e01a-4bfb-988e-b8fb578366c9">Detection process</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8d562dc5-747a-45d6-bd03-91d677f7ff13">Deactivation</a></div></nav><h1 id="219d517b-c71f-4105-83a1-7ff273068cce" class="">Activation</h1><ol type="1" id="64cf13d4-1914-4205-9381-40c1700e6333" class="numbered-list" start="1"><li>The <code>activator</code> service discovers component/topic to monitor and sends an activation message to Kafka topic <code>metric-activator</code> containing metadata specified <a href="../ML%20required%20input%20and%20output%20format%206c4bcddab6824b32baa1bea3300c18e7.html">here</a></li></ol><ol type="1" id="e710a2e6-60e9-4e1e-a70b-808d1c887d8b" class="numbered-list" start="2"><li>MAD argo sensor (argo events) reads from topic <code>metric-activator</code> and launches a MAD statefulset (one statefulset per data source)</li></ol><ol type="1" id="8c25f16d-3441-4628-accf-11adc537877f" class="numbered-list" start="3"><li>Detection starts within each pod</li></ol><h1 id="1f44cbfa-e01a-4bfb-988e-b8fb578366c9" class="">Detection process</h1><figure id="bba0c593-4d0a-404f-84cb-329ca9c2aad7" class="image"><a href="Design%204dc080ae87b34d3aa589519ecbb4b602/MAD_Sequence_Test.drawio.png"><img style="width:912px" src="Design%204dc080ae87b34d3aa589519ecbb4b602/MAD_Sequence_Test.drawio.png"/></a></figure><figure id="63b4f00b-d3ab-4d83-9ef3-dda6c5b98f87" class="link-to-page"><a href="Design%204dc080ae87b34d3aa589519ecbb4b602/Detection%20output%20sequence%2063b4f00bd3ab4d839ef3dda6c5b98f87.html">Detection output sequence</a></figure><p id="e65672bf-2ed6-4c36-91e2-45c95c15afd0" class="">
+</p><p id="0f131d5b-3379-4128-847b-1a33af016138" class="">For all terms please refer to the <a href="../ML%20documentation%20reference%20book%206fc13503c1e2494bb12fdae7c4c77faf.html">ML reference book</a> </p><p id="331f7125-6944-4452-b924-0eb539e85b6a" class="">The following sequence of events is happening inside each MAD pod</p><ol type="1" id="3d5810f5-a0c9-4e00-b5d2-c397728f3ddd" class="numbered-list" start="1"><li>Initiate KafkaIO to listen from the Kafka topic from a specific data source (Kafka topic pattern: <code><strong>{infra}-{agent}-metric-{component}-stashed</strong></code>)</li></ol><ol type="1" id="80e264d7-43fe-4de1-928b-8a6729db0e62" class="numbered-list" start="2"><li>MAD detector is loaded<ol type="a" id="7c2a8e5c-050d-4930-b3dc-a739454f20d8" class="numbered-list" start="1"><li>We first try to <a href="https://github.com/PacketAI/code/blob/1f5184f88ebea71ce319794c1e035da69bb933bf/ml/mad/pipelines/detection.py#L32">load the detector</a> stored on s3 (path pattern: <strong><code>{S3 bucket name}/detector_state/{topic name}/stored_state.pickle</code></strong>): we restore the detector state and update class attributes (using <code>__setstate__</code> and <code>update_attribute</code>)</li></ol><ol type="a" id="858ab15d-302f-41b0-9a42-298304ca99e1" class="numbered-list" start="2"><li>We initiate a new detector in case no detector state is stored on s3</li></ol></li></ol><ol type="1" id="3a71ef1f-cafd-4c77-b294-e29393dadb04" class="numbered-list" start="3"><li>Store current MAD deployment information in MongoDB <code>ml.mad_deployments</code> collection. <a href="../ML%20required%20input%20and%20output%20format%206c4bcddab6824b32baa1bea3300c18e7.html">Data format</a></li></ol><ol type="1" id="09eab0df-0038-45fa-80c1-47964fdc5fa3" class="numbered-list" start="4"><li>We initiate the <a href="../ML%20documentation%20reference%20book%206fc13503c1e2494bb12fdae7c4c77faf/ML%20Documentation%2010fbae3c8d38444484411a88852f784e/Metric%20data%20aggregation%20d4a02f9169f94895bb525995d445a374.html">metric aggregator</a></li></ol><ol type="1" id="42175455-e8d2-48fc-b268-78deb7f62ca4" class="numbered-list" start="5"><li>For each message in Kafka stashed topic:<ol type="a" id="3c8858a3-6388-4a39-b61f-11fd48b490f6" class="numbered-list" start="1"><li>Evaluate stashed message against the validation schema</li></ol><ol type="a" id="c279cabf-b06d-46ca-85c1-8b0d96218d73" class="numbered-list" start="2"><li>Skip “old data points”: we keep track of the latest processed message timestamp and skip the message if the current message timestamp is less than the last processed</li></ol><ol type="a" id="043c834f-7df3-4687-9e78-3e42aadf9178" class="numbered-list" start="3"><li>In the case of “first point after start”- adjust the time between anomaly (used in SIRE-R - the noise-reduction technique)</li></ol><ol type="a" id="a3e3840c-b34c-454a-b381-832850341a3e" class="numbered-list" start="4"><li>Aggregate metrics using the metric aggregator</li></ol><ol type="a" id="e6f442c8-0d33-4267-8929-9e485831bd14" class="numbered-list" start="5"><li>Detect anomalies:<ol type="i" id="c810b36b-218f-4013-be43-53d82bc8d266" class="numbered-list" start="1"><li>Compose the model input by iterating through the list of expected metric names<ol type="1" id="70b7a09c-d1c0-45f2-973b-d80d69355d62" class="numbered-list" start="1"><li>Case: the list of expected metrics is empty (new deployment or restart)<ol type="a" id="d88215f1-8880-46a8-9fe6-df07ef757d0a" class="numbered-list" start="1"><li>Compose the list of metrics to expect</li></ol><ol type="a" id="2a767821-4d6d-40a2-9ab9-ca65f9a144c5" class="numbered-list" start="2"><li>Compose the optimal weights</li></ol><ol type="a" id="b028cd92-2bde-44d8-9793-f58317782385" class="numbered-list" start="3"><li>Initiate metric transformer: we might apply a <code>diff</code> operator to the metric time series  </li></ol><ol type="a" id="4e4d856f-1393-4554-84e4-7147ac277e87" class="numbered-list" start="4"><li>Initiate detector’s models: Skyline and Walter </li></ol><ol type="a" id="024a6d06-8d77-42f2-98f8-7881713926ef" class="numbered-list" start="5"><li>Update metric values</li></ol><ol type="a" id="c31be4a1-7502-49bd-816b-1735741306c5" class="numbered-list" start="6"><li>Transform metrics using the metric transformer</li></ol></li></ol><ol type="1" id="9325f371-3a48-445f-bfdf-46d131de0c4c" class="numbered-list" start="2"><li>Case: the list of expected metrics is not empty<ol type="a" id="d5f2c246-ba88-48e6-8b4b-d829fb105656" class="numbered-list" start="1"><li>Check the list of incoming metric names is as expected: we use the absorbing strategy while handling the unexpected metrics, i.e. we append new observed metrics to the existing list of expected metrics. In case of missing metrics, we remove them after <code>self.missing_metric_wait_time</code> seconds of no-showing up</li></ol><ol type="a" id="e465f8f0-4c32-431f-abed-b9c477d82c13" class="numbered-list" start="2"><li>Update metric values</li></ol></li></ol></li></ol><ol type="i" id="9292dcbb-6530-4235-9f88-157312108206" class="numbered-list" start="2"><li>Check if we need to restore Skyline stream array</li></ol><ol type="i" id="5bf96161-bc1f-4e02-9961-a5fe4296abca" class="numbered-list" start="3"><li>Check missing metrics and handle them in case if present</li></ol><ol type="i" id="5d916d50-7932-4712-bd69-1256d28a6887" class="numbered-list" start="4"><li>Check metric delay</li></ol><ol type="i" id="799f082d-0277-4ccf-b257-11f47e828cd6" class="numbered-list" start="5"><li>Calculate anomaly scores: we apply an ensemble of detection algorithms. Each of the algorithms expects an <strong>n x k</strong> input array (where <strong>n</strong>- is the number of observed points limited to the <code>self.max_possible_data_points</code> data points and <strong>k</strong>- is the number of unique metrics). We are using Skyline and Walter models in production. See details about the models <a href="MAD%20Models%20d609771e44174d6cb551e7c860834e73.html">here</a>. </li></ol><ol type="i" id="cb3f650d-0508-4653-a3ec-cb3b21c1274c" class="numbered-list" start="6"><li>Adjust the weighted anomaly score in case we skip some detector
+outputs while calculating it</li></ol><ol type="i" id="9e111284-3bb8-449a-b36d-d801f528dba4" class="numbered-list" start="7"><li>Add missing metrics in the discount index dictionary used for adaptation</li></ol><ol type="i" id="4f56718b-9108-478d-b9c8-c1d9f700cc13" class="numbered-list" start="8"><li>In case of a detected anomaly:<ol type="1" id="0838ea0c-d876-4760-bd40-1a8bd7ed4d98" class="numbered-list" start="1"><li>Calculate mean deviation, anomaly duration, and time-between anomalies (used for the adaptation to the new behavior)</li></ol><ol type="1" id="05f70aab-5548-4d03-885c-e51229bb4d3b" class="numbered-list" start="2"><li>Update metric age</li></ol><ol type="1" id="552a2d11-aa4b-40c1-add9-833253200b38" class="numbered-list" start="3"><li>Replace the last value in the metric data cache by discounted one</li></ol></li></ol><ol type="i" id="41ee805a-828a-4176-ad77-a976774895b0" class="numbered-list" start="9"><li>Calculate the absolute delta</li></ol><ol type="i" id="b3de5da4-4688-47e3-8b87-7db9873512b1" class="numbered-list" start="10"><li>Send DBSCAN data to <code>ml.dbscan</code> MongoDB collection (used for noise-reduction later on). Data <a href="../ML%20required%20input%20and%20output%20format%206c4bcddab6824b32baa1bea3300c18e7.html">format</a></li></ol><ol type="i" id="636e4aa2-edad-4b9b-99f7-f36710cca7ad" class="numbered-list" start="11"><li>Calculate SIRE-p significance score</li></ol><ol type="i" id="5d7c2834-cdc2-4051-9831-ffd134ba5782" class="numbered-list" start="12"><li>Calculate DBSCAN significance score</li></ol><ol type="i" id="40af0398-32fd-4c7d-ba91-201474726e9a" class="numbered-list" start="13"><li>Get warmup status per metric: for each metric verify if we have collected enough data to start sending detection results (warmup period is finished). The <code>warmup_period</code> detector class attribute is the time (in seconds) of warmup. Usually set to 30000</li></ol><ol type="i" id="4af17053-3ce4-4933-b9f4-1f6221a5d05a" class="numbered-list" start="14"><li>Compose final prediction based on SIRE-p, DBSCAN significance scores and metric warmup status. Currently, the point is abnormal if the anomaly is significant according to <code>sire-p</code> and <code>dbscan</code> and the warmup period is over. </li></ol><ol type="i" id="b86bc18f-99b5-4447-be62-ee64f8d051e9" class="numbered-list" start="15"><li>Compose output document with detection results and other metadata. </li></ol><ol type="i" id="ee530ff5-b59a-441a-96eb-f1c80e620c84" class="numbered-list" start="16"><li>If the warmup period is over and SIRE-R is enabled → send SIRE data to elasticsearch index</li></ol><ol type="i" id="bae13f84-1cd4-43e4-894e-aa78d493c64d" class="numbered-list" start="17"><li>Update model’s and data cache</li></ol></li></ol><ol type="a" id="fd76ccb2-9d10-4e20-baf8-d1c5ac8b4176" class="numbered-list" start="6"><li>Treat the output:<ol type="i" id="1f9612d8-f215-494d-8d45-16495ae2c72c" class="numbered-list" start="1"><li>Compose the MAD output message following <a href="../ML%20required%20input%20and%20output%20format%206c4bcddab6824b32baa1bea3300c18e7.html">this</a> structure</li></ol><ol type="i" id="ae92ba5d-1baf-49ef-9e23-bb98e720baa0" class="numbered-list" start="2"><li>Send all results to <code>mlmetric</code> Kafka topic (<code>{infra}-{agent}-mlmetric-{component}</code>)</li></ol><ol type="i" id="f02a4f10-5201-43b2-a1b1-b8eead334831" class="numbered-list" start="3"><li>Send messages containing anomalies to <code>mlanomalies</code> Kafka topic (<code>{infra}-mlanomalies</code>)</li></ol><ol type="i" id="84b0b794-8af8-403a-84a6-9c71bc56ea2e" class="numbered-list" start="4"><li>Save MAD output to S3 and locally (if set to <code>True</code>)</li></ol></li></ol><ol type="a" id="7ad38866-02e3-4407-9728-bc70ea9ee93f" class="numbered-list" start="7"><li>Commit Kafka offset</li></ol><ol type="a" id="70df5fb8-e384-4b74-8d1c-f2c718ae9890" class="numbered-list" start="8"><li>Save detector state to S3</li></ol></li></ol><p id="5cd06b9b-4260-46c9-9b2e-721ba1969799" class="">
+</p><figure id="93aa81ab-5248-4a9d-9f6f-8d54be42245a" class="link-to-page"><a href="Design%204dc080ae87b34d3aa589519ecbb4b602/Pipeline%20(general%20description)%5BOUTDATED%20master-sla%2093aa81ab52484a9d9f6f8d54be42245a.html">Pipeline (general description)[OUTDATED master-slave architecture]</a></figure><h1 id="8d562dc5-747a-45d6-bd03-91d677f7ff13" class="">Deactivation</h1><ol type="1" id="96a38503-6032-4c0d-9f10-7e144b2acd50" class="numbered-list" start="1"><li>The <code>activator</code> service discovers component/topic is inactive and sends a deactivation message to Kafka topic <code>metric-activator</code> containing metadata specified <a href="../ML%20required%20input%20and%20output%20format%206c4bcddab6824b32baa1bea3300c18e7.html">here</a></li></ol><ol type="1" id="7efb7a2c-3c67-4faa-a1ca-3ef1c9ba13b5" class="numbered-list" start="2"><li>MAD argo sensor (argo events) reads from topic <code>metric-activator</code> and deletes the corresponding MAD statefulset.</li></ol></div></article></body></html>

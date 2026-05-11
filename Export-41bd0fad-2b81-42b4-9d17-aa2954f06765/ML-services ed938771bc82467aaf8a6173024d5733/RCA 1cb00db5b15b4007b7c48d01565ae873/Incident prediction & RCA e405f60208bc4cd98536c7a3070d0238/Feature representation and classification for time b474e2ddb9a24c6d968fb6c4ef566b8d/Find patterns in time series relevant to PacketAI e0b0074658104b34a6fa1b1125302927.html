@@ -1,0 +1,690 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Find patterns in time series relevant to PacketAI</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e0b00746-5810-4b34-a6fa-1b1125302927" class="page sans"><header><h1 class="page-title">Find patterns in time series relevant to PacketAI</h1><p class="page-description"></p></header><div class="page-body"><p id="edf8f3a2-eb0a-4061-8b04-9428cedf7b87" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><p id="f666e145-f6dd-4ff3-8413-913c5209a46f" class="">Here is the summary:</p><ul id="04c2f4d9-db3c-435c-a441-5068df494223" class="bulleted-list"><li style="list-style-type:disc">More than 90% of the anomalies are in the form of up and down level shifts or up and down spikes.</li></ul><ul id="efd20295-112f-45fe-a9b5-023bd81d2a0c" class="bulleted-list"><li style="list-style-type:disc">The exceptional anomalies are:<ul id="42d85f80-5849-443a-9d60-5b8913ff77c1" class="bulleted-list"><li style="list-style-type:circle">Sparse spikes (Mainly, disk I/O. Maybe, CPU, also. Usually, CPU metric is made of spikes and plateaus).</li></ul><ul id="037c6f1d-fd8f-4d5d-bc39-396b7dbd2d79" class="bulleted-list"><li style="list-style-type:circle">Small changes in a periodic signal (observed in four RabbitMQ metrics).</li></ul></li></ul><p id="a1984d07-4156-443f-9aa2-359c65dbb00d" class="">A sparse time series has spikes once in a while. Sparse anomalies are also spikes, whose peak value is different from other normal spikes in the time series.</p><p id="80469891-ee85-48f7-85be-43490ef6eb52" class="">Among the metrics that have level shift or spike, the shape of the normal behavior can have either low or high level of noise. It will be a good idea to assess the effect of this noise on MAD performance.</p><p id="66e722e8-e593-4d7a-8c75-8101396ab55f" class="">
+</p><p id="7455c0e8-98db-4bc4-aacc-d93b6eaebaaa" class="">The plots of various time series are available in the following zip files:</p><figure id="12863a96-c6dd-426c-8fc4-82c6a13e5cba" class="link-to-page"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/NAB%20data%2012863a96c6dd426c8fc482c6a13e5cba.html">NAB data</a></figure><figure id="8560137b-15a9-4b50-be88-d38b520bfd8e" class="link-to-page"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/MySQL%20(FluxInfer%20experiment)%208560137b15a94b50be88d38b520bfd8e.html">MySQL (FluxInfer experiment)</a></figure><figure id="5424e4c3-04d2-46e7-90ed-cf80f7f4e53c" class="link-to-page"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/MySQL%20ISQUAD%20One%205424e4c304d246e790edcf80f7f4e53c.html">MySQL ISQUAD One</a></figure><figure id="9770e667-03ea-4af8-82f8-4ce56c3913ce" class="link-to-page"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce.html">MySQL Hari local</a></figure><figure id="55445728-6011-409e-8369-32740bf20a13" class="link-to-page"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/Rabbitmq%20RCA%20test1%20dataset%20one%20554457286011409e836932740bf20a13.html">Rabbitmq RCA test1 dataset one</a></figure><figure id="a9e9a1e0-a489-4b45-8337-8fbb92ef5c06" class="link-to-page"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/System%20metrics%20Hari%20local%20a9e9a1e0a4894b4583378fbb92ef5c06.html">System metrics Hari local</a></figure><p id="6007d2ea-74ea-4018-8199-de3bc38a72ea" class="">
+</p><figure id="3fc4dfea-9d74-435e-aa38-9e7c6807c3a1" class="link-to-page"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/More%20notes%20about%20metrics%20across%20components%203fc4dfea9d74435eaa389e7c6807c3a1.html">More notes about metrics across components</a></figure><h3 id="e35c21c3-6d42-46a6-8de3-031c2961237a" class="">NAB</h3><p id="386eb75f-c70c-4b57-86fc-5fee7a8b4b08" class="">Taking a look at NAB gave more understanding about the behavior of various time series.</p><p id="6abe0674-2ddb-4ab7-a650-2090ddf02616" class="">In NAB, generally, &quot;CPU utilization&quot; time series consist of white noise (probably, multimodal in some cases) with limited range of values and occasional (sparse) spikes. Here is a typical example:</p><figure id="adab8872-0414-45d7-a40e-f73948978827" class="image"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/cpu_utilization_24ae8d.png"><img style="width:1848px" src="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/cpu_utilization_24ae8d.png"/></a></figure><p id="aa0346c0-e011-4972-b4af-f92327e264b0" class="">825cc2, ac20cd, cc0c53, e47b3b, probably 53ea38 seem to have only lower range white noise for normal behavior. The sparse spikes are all anomalies.</p><p id="428974c4-f043-4232-b8f1-47b5994866a0" class="">ec2_cpu_utilization_24ae8d: both sparse spike anomalies.
+ec2_cpu_utilization_53ea38: both are shifts in the low values.
+ec2_cpu_utilization_5f5533: one sparse anomaly. one shift in the low values.
+ec2_cpu_utilization_77c1ca: Why only one point marked as sparse anomaly?
+ec2_cpu_utilization_825cc2: First is a sparse anomaly. Is second a sparse anomaly or a shift in low values?
+ec2_cpu_utilization_ac20cd: The marked anomaly is a shift in low values. There is one more such anomaly that is not marked.
+ec2_cpu_utilization_fe7f93: The second anomaly is a sparse anomaly. The first looks like a shift in the low values. Why is the third an anomaly?
+rds_cpu_utilization_cc0c53: The first anomaly is a spike (a sparse anomaly), which leads to a level shift. The second anomaly is a sparse anomaly.
+rds_cpu_utilization_e47b3b: The first anomaly is a sparse spike anomaly, which leads to a level shift. The second anomaly is a level shift in the low values.</p><p id="8d981c49-aeb5-49d7-90c8-32c56d81ffc8" class="">Metricbeat metric for CPU is called system#cpu#total#pct.</p><p id="7deec9cf-5a73-40aa-bed0-b808abdd8263" class="">FluxInfer dataset CPU metric is appearing more like &quot;irregular sampling&quot; than &quot;sparse&quot;. Could be because of artificially created anomalous level shifts happening one after the other, with limited normal behavior between them. The level shifts are similar to the NAB CPU data.</p><figure id="c26968b5-2abd-4125-a5fd-0a99b926759e" class="image"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/no_subjectsystem.cpusystemcputcpu7csystem"><img style="width:640px" src="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/no_subjectsystem.cpusystemcputcpu7csystem"/></a></figure><p id="56fb395b-d0f1-4032-9ad2-f88b5cc45536" class="">
+iSQUAD (dataset one) CPU metric is appearing to be made of limited range white noise, with both &quot;sparse&quot; spikes and regular spikes. There are level shifts similar to NAB dataset.</p><figure id="f426f3bf-8eef-4613-a5dd-e534d1c675ec" class="image"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/no_subjectsystem%201.cpusystemcputcpu7csystem"><img style="width:640px" src="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/no_subjectsystem%201.cpusystemcputcpu7csystem"/></a></figure><p id="9c21dbda-ef31-42be-933d-8568904efc71" class="">Both the &quot;disk write bytes&quot; time series of NAB are made of sparse spikes and close to zero values otherwise.</p><p id="1c1dc1b6-61bd-4f6a-832a-d527f2bf488c" class="">ec2_disk_write_bytes_1ef3de: The anomaly is a sparse spike.
+ec2_disk_write_bytes_c0d644: Both the anomalies are sparse spikes.</p><p id="15071afe-2ba2-4e44-b2c2-aa2c2801fc46" class="">Metricbeat metrics for disk are called system#diskio#iostat#write#per_sec#bytes and system#diskio#iostat#read#per_sec#bytes.</p><p id="819f24af-c4e9-46aa-83ab-6319c2898d44" class="">iSQUAD (dataset one) disk data</p><p id="c213280f-2c30-4ba6-8d83-a5d9ca594c39" class="">There are 8 metrics (loop0 to loop5, xvda, xvda1) for both write and read.</p><p id="8406eff4-8497-4eed-a69d-ff761dfe4053" class="">For write: loop0 to loop5 are zero throughout. xvda and xvda1 show sparse behavior initially but become multimodal (especially, two modes) later. Need to follow up with Karim and Dengke.</p><figure id="e8812e70-df58-40ee-9eb7-2aa6f48596e0" class="image"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/xvda1system.diskiosystemdiskioiostatwritepediskio7csystem"><img style="width:640px" src="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/xvda1system.diskiosystemdiskioiostatwritepediskio7csystem"/></a></figure><p id="882386d0-8952-449f-9fa5-7d0027869ebc" class="">
+For read: loop2 to loop4 show spikes at around the same time as xvda and xvda1. xvda and xvda1 show sparse behavior initially but much later become multimodal (especially, two modes) later. The peak values during the sparse region are much lower. Need to follow up with Karim and Dengke.</p><figure id="255169df-c9b6-42ba-b93c-4bb2e5354e68" class="image"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/xvdasystem.diskiosystemdiskioiostatreadpediskio7csystem"><img style="width:640px" src="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/xvdasystem.diskiosystemdiskioiostatreadpediskio7csystem"/></a></figure><p id="f3c70fad-93f6-4495-912f-ad11265f9e1d" class="">Now, we will see that an accurate identification of level shift and spike can help with many (probably, 90%) of the metrics.</p><p id="2a806194-00cd-4b00-bda0-6ba7950cfec2" class="">In all of the following examples, the anomaly is a change in the level. In the case of the MySQL metrics questions (discrete variable with a lot of possible values so can be considered as continuous) and connections (discrete variable with a limited number of possible values. Default maximum: 150), the change is a reduction in the number of questions and number of connections, when the anomaly happens. In the case of the RabbitMQ metric, the change is an increase in the level.</p><p id="c014e1d0-542a-4e83-807a-d4aaa529c732" class="">We could consider the MySQL cases to be very noisy signals compared to the RabbitMQ signal. Please, see the above sets of metrics to notice these cases happening across many metrics. Thus we have a problem where we need to detect level shifts (and spikes) in a manner that is robust to noise.</p><figure id="b4526617-cc13-442c-827e-7867e5a9cce5" class="image"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/no_subjectmysql.statusmysqlstatusstatus7cmysql"><img style="width:640px" src="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/no_subjectmysql.statusmysqlstatusstatus7cmysql"/></a></figure><figure id="09801ae9-af5d-448a-bd6b-f1199e1b4697" class="image"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/no_subjectmysql.statusmysqlstatuscstatus7cmysql"><img style="width:640px" src="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/no_subjectmysql.statusmysqlstatuscstatus7cmysql"/></a></figure><figure id="7330f17e-0cf9-4753-9483-2fccee16238f" class="image"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/no_subjectrabbitmq.noderabbitmqnnode7crabbitmq"><img style="width:640px" src="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/no_subjectrabbitmq.noderabbitmqnnode7crabbitmq"/></a></figure><p id="ee4ff87c-4554-4066-9189-c61b199dc75a" class="">Here is the metric with the periodic behavior from RabbitMQ. During the anomaly, there is a flattening of the metric&#x27;s value:</p><figure id="2cf88fc5-de9a-4291-905e-e2c724244194" class="image"><a href="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/no_subjectrabbitmq.connectionrabbitmqconnectionoctconnection7crabbitmq"><img style="width:640px" src="Find%20patterns%20in%20time%20series%20relevant%20to%20PacketAI%20e0b0074658104b34a6fa1b1125302927/no_subjectrabbitmq.connectionrabbitmqconnectionoctconnection7crabbitmq"/></a></figure><p id="e146cb65-18f5-46d1-b2bd-4fc87f5aa890" class="">
+</p></div></article></body></html>

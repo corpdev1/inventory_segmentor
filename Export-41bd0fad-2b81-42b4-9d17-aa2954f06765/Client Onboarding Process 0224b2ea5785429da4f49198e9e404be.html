@@ -1,0 +1,682 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Client Onboarding Process</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0224b2ea-5785-429d-a4f4-9198e9e404be" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">👟</span></div><h1 class="page-title">Client Onboarding Process</h1><p class="page-description"></p></header><div class="page-body"><nav id="01660850-c777-49b6-b3f3-c025cacf7567" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#53585b7a-fcb3-4c99-901b-72ffbfc420e6">Motivations</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1ed8b2d2-baf0-462e-950b-c30cb7046200">POC SOPs (Standard Operating Procedures)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#68bf44d2-86ab-45a5-a82b-94ad8295e06a">Case 1 : MELK POC</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8d2530ee-8132-4745-8b00-d6acecf9c82f">Case 2 : ML POC</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3f7ecfbf-ca76-4744-9194-a0438723923f">POC Typical timeline</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#801e4c08-49a6-4f21-b898-60f38b8e2373">Success Metrics</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5d18064b-9b7c-4f48-9c72-367cbb0574ae">Risks</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7fee7fc7-3470-4f53-905c-38e557a74544">Deployment Checklist</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#981bf20c-8b20-4fee-a5be-0eef6e24f788">Product operational instructions</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d5a3964a-350b-4f09-8d50-bd34be8cd2c6">Customer mini-squad</a></div></nav><h1 id="53585b7a-fcb3-4c99-901b-72ffbfc420e6" class="">Motivations</h1><p id="a3cba365-cc23-4a69-800e-b70f1a447d70" class="">One might ask : <em>“Why do I need a client onboarding process?”.</em> </p><p id="e60e32e0-3f89-47ac-8b85-9a43999dddcb" class="">The answer would be : <em>“To have a data-driven, disciplined and scalable approach to delight our customers”. </em></p><p id="13b64445-526e-4c3f-aaa6-04c917f934ad" class="">
+</p><p id="9dbf357b-af92-4d60-b1c6-1098b54c331a" class="">
+</p><p id="641a0a5c-6e0c-48cf-b395-a81b55d4cfcb" class=""><strong>Who</strong></p><ul id="70ef74ce-9f60-4551-b05b-7b5b9c424305" class="bulleted-list"><li style="list-style-type:disc">Customer success manager or project manager</li></ul><p id="7103eef5-8bc5-4e99-ade8-08efaef473a4" class=""><strong>What</strong></p><ul id="c96f1307-dd4b-4d2e-a5d7-23e39f63a322" class="bulleted-list"><li style="list-style-type:disc">Defines process and steps to maximize <strong>joint success </strong>of client and PacketAI</li></ul><p id="f0df4b4e-2193-4c29-95cb-97121a3e1069" class=""><strong>When</strong></p><ul id="0d88cbd3-ce18-4882-b1e2-cdc001522696" class="bulleted-list"><li style="list-style-type:disc">After a client has agreed to a POC/POV or fulfilled initial payment</li></ul><p id="c6090d2c-104c-4ece-82e0-04d57b469fc1" class=""><strong>Why</strong></p><ul id="e0f78ef6-412f-48ce-b2bc-79d95bace8e9" class="bulleted-list"><li style="list-style-type:disc">To centralize all pieces of informations related to a client’s first weeks with PacketAI</li></ul><p id="d8b2c7a4-e527-4cd2-95c6-574313238fe6" class="">
+</p><h1 id="1ed8b2d2-baf0-462e-950b-c30cb7046200" class="">POC SOPs (Standard Operating Procedures)</h1><h2 id="68bf44d2-86ab-45a5-a82b-94ad8295e06a" class="">Case 1 : MELK POC</h2><figure id="8e0f3e58-680e-47a5-accd-151231e82fd6" class="image"><a href="Client%20Onboarding%20Process%200224b2ea5785429da4f49198e9e404be/MELK_POC_Client_Onboarding_Flowchart_.png"><img style="width:960px" src="Client%20Onboarding%20Process%200224b2ea5785429da4f49198e9e404be/MELK_POC_Client_Onboarding_Flowchart_.png"/></a></figure><h2 id="8d2530ee-8132-4745-8b00-d6acecf9c82f" class="">Case 2 : ML POC</h2><figure id="453b823b-3fc7-49b7-9c02-66327469193b" class="image"><a href="Client%20Onboarding%20Process%200224b2ea5785429da4f49198e9e404be/ML_POC_Client_Onboarding_Flowchart.png"><img style="width:960px" src="Client%20Onboarding%20Process%200224b2ea5785429da4f49198e9e404be/ML_POC_Client_Onboarding_Flowchart.png"/></a></figure><h1 id="3f7ecfbf-ca76-4744-9194-a0438723923f" class="">POC Typical timeline</h1><p id="784f66f3-3753-43cf-9bfa-ba8462eecf21" class="">The following </p><table id="2439cfe4-8572-4992-90a7-ab48d1be7254" class="simple-table"><thead class="simple-table-header"><tr id="75961fd1-e332-4abe-9007-09b4f64b8be0"><th id="h=Hd" class="simple-table-header-color simple-table-header" style="width:232.66666666666666px">Step</th><th id="LG^`" class="simple-table-header-color simple-table-header" style="width:232.66666666666666px">Start date</th><th id="DCHB" class="simple-table-header-color simple-table-header" style="width:232.66666666666666px">Goal</th></tr></thead><tbody><tr id="6df029aa-34c3-4991-8706-66d1d59cadc2"><td id="h=Hd" class="" style="width:232.66666666666666px">Client discovery call</td><td id="LG^`" class="" style="width:232.66666666666666px">-</td><td id="DCHB" class="" style="width:232.66666666666666px">Identify client stack, mon tools, constraints, success metrics</td></tr><tr id="e3b9eda0-1a65-4d04-87ea-31e1e39c6493"><td id="h=Hd" class="" style="width:232.66666666666666px">Client POC proposal</td><td id="LG^`" class="" style="width:232.66666666666666px"></td><td id="DCHB" class="" style="width:232.66666666666666px">Define POC start date (D) </td></tr><tr id="722183ae-0c35-4a2f-b7a6-7c76a0e4a1da"><td id="h=Hd" class="" style="width:232.66666666666666px">Project kickoff</td><td id="LG^`" class="" style="width:232.66666666666666px">D-7</td><td id="DCHB" class="" style="width:232.66666666666666px">Present POC to tech team and gather feedback. Can lead to additional questions not covered during client discovery call</td></tr><tr id="ddc11443-4042-41b2-ad5c-400c4d8d190b"><td id="h=Hd" class="" style="width:232.66666666666666px">Welcome message</td><td id="LG^`" class="" style="width:232.66666666666666px">D-1</td><td id="DCHB" class="" style="width:232.66666666666666px">Create slack channel and welcome client</td></tr><tr id="b9529915-44f8-4261-b0e8-2ad47432e4e7"><td id="h=Hd" class="" style="width:232.66666666666666px">Cluster deployment</td><td id="LG^`" class="" style="width:232.66666666666666px">D-1</td><td id="DCHB" class="" style="width:232.66666666666666px">Prepare client cluster</td></tr><tr id="db9e3589-02f6-4e55-8c2d-dee21d7ad94f"><td id="h=Hd" class="block-color-red_background" style="width:232.66666666666666px">POC Phase 1</td><td id="LG^`" class="block-color-red_background" style="width:232.66666666666666px">D</td><td id="DCHB" class="block-color-red_background" style="width:232.66666666666666px"></td></tr><tr id="2e59031b-6176-4ded-953a-b3eba67802f5"><td id="h=Hd" class="" style="width:232.66666666666666px">Agent deployment</td><td id="LG^`" class="" style="width:232.66666666666666px">D</td><td id="DCHB" class="" style="width:232.66666666666666px">Deploy agent at client side, ensure everything works fine</td></tr><tr id="08eaeeaf-0075-47a0-a5e6-066a0d8eaf57"><td id="h=Hd" class="" style="width:232.66666666666666px">MELK ready</td><td id="LG^`" class="" style="width:232.66666666666666px">D</td><td id="DCHB" class="" style="width:232.66666666666666px"></td></tr><tr id="f724b859-2af3-447a-b9ed-3ed2e861a176"><td id="h=Hd" class="" style="width:232.66666666666666px">Groks ready standard techs</td><td id="LG^`" class="" style="width:232.66666666666666px">D+1</td><td id="DCHB" class="" style="width:232.66666666666666px"></td></tr><tr id="3a957131-9638-4392-b79e-ff82c9aa10d8"><td id="h=Hd" class="" style="width:232.66666666666666px">Groks ready for custom apps</td><td id="LG^`" class="" style="width:232.66666666666666px">D+7</td><td id="DCHB" class="" style="width:232.66666666666666px"></td></tr><tr id="78522c2c-d561-439b-b3cb-a72ce7ec0ceb"><td id="h=Hd" class="" style="width:232.66666666666666px">MAD training</td><td id="LG^`" class="" style="width:232.66666666666666px">D+1 → D+4</td><td id="DCHB" class="" style="width:232.66666666666666px">3-day training for MAD</td></tr></tbody></table><p id="540f8cd1-c0b3-4b95-b475-38b02434a06f" class="">
+</p><p id="68dad671-6c49-4af1-990f-42ba6e58967d" class="">
+</p><h1 id="801e4c08-49a6-4f21-b898-60f38b8e2373" class="">Success Metrics</h1><p id="23cf5890-5bb4-47da-b673-75aab6e585a3" class="">How do we measure success for the client and for packetAI?</p><ul id="550fd2f1-575e-4b67-a565-cb65042aa6b9" class="bulleted-list"><li style="list-style-type:disc">Perceived value</li></ul><h1 id="5d18064b-9b7c-4f48-9c72-367cbb0574ae" class="">Risks</h1><ul id="aaffcca2-1e19-4b51-bf2f-e0ba44808b13" class="bulleted-list"><li style="list-style-type:disc">What are the main risks during client onboarding? <ul id="7332134f-1d5c-4685-a7db-ddd64f6c002e" class="bulleted-list"><li style="list-style-type:circle"></li></ul></li></ul><ul id="bdb668de-bada-41d9-9b31-f149922a68ba" class="bulleted-list"><li style="list-style-type:disc">What are the impact?</li></ul><ul id="ee525ed5-96a6-4f58-8b7e-6997a794ebab" class="bulleted-list"><li style="list-style-type:disc">How to mitigate them?</li></ul><h1 id="7fee7fc7-3470-4f53-905c-38e557a74544" class="">Deployment Checklist</h1><ul id="000df6e9-32b2-4728-95e4-a064e4994dab" class="bulleted-list"><li style="list-style-type:disc">If client uses a Kubernetes version is older than the oldest version supported by PAI, we ask client to <strong>upgrade to a later version</strong> of his choice, but that is supported by PAI <em>(eg: if the oldest version we support is 18, we ask a client running version 17 to upgrade at least to 18)</em>.</li></ul><ul id="15fdc4f6-645d-4c3a-a790-60142f4adf20" class="bulleted-list"><li style="list-style-type:disc">If client uses a Kubernetes version is more recent than the latest version supported by PAI, we should know it <strong>at least 7 business days</strong> before deployment, so we can arrange to internal testing. Else deployment date must be postponed <em>(eg: if the latest version we support is 21, we ask a client running version 22 to let us know 7 days in advance to let us test).</em></li></ul><h1 id="981bf20c-8b20-4fee-a5be-0eef6e24f788" class="">Product operational instructions</h1><ul id="2241422b-eff1-4b4c-8989-dd768c805461" class="bulleted-list"><li style="list-style-type:disc">Groks : instructions are <a href="https://www.notion.so/01572a4978794f6eb862a03b31668422?pvs=21">here</a></li></ul><ul id="72afed08-5867-45b0-b9f0-d0bf4e7c2b7c" class="bulleted-list"><li style="list-style-type:disc">How much time/data do we need for ML features ? </li></ul><ul id="6ede0350-95e6-41aa-8604-6e67b647e639" class="bulleted-list"><li style="list-style-type:disc">In which order to be ship ML features to a client ? (MAD → LAD, etc;)</li></ul><ul id="5d94f6ae-d6d3-48f9-9404-226fb9bef14b" class="bulleted-list"><li style="list-style-type:disc">What is the global product sheet manual ? <ul id="7cf5742b-685a-40bc-b8dd-34547d5d6291" class="bulleted-list"><li style="list-style-type:circle">Idea : KB</li></ul></li></ul><h1 id="d5a3964a-350b-4f09-8d50-bd34be8cd2c6" class="">Customer mini-squad</h1><ul id="ee6e42ec-ffcf-481e-a7f2-586c264aad54" class="bulleted-list"><li style="list-style-type:disc">Owner / Customer Success Manager : main point of contact → does L1 support, attends client calls, contributes to roadmap from client feedbacks, etc....</li></ul><ul id="e8e8c38f-1300-416a-9663-881ea66b5c0b" class="bulleted-list"><li style="list-style-type:disc">Devops / engineering : does L2 support, can be mobilized by L1 on fixing stuff</li></ul><p id="155a78f1-b34e-4b06-89db-4618949c17b1" class="">
+</p></div></article></body></html>

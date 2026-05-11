@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Plots</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="41285356-a1bb-45d5-89ba-00887ca8749e" class="page sans"><header><h1 class="page-title">Plots</h1><p class="page-description"></p></header><div class="page-body"><p id="c41b6836-b534-4c65-b0aa-29ff97cb47d0" class="">Check the page with text summary for the parameter values of the setting that led to these results.</p><p id="276a6fd9-879b-43dc-959b-809d92cd86a6" class="">For each time-series, the setting that gave least ratio of number of anomalies to number of points analysed is chosen for making the plots.</p><p id="a4de9b20-0ad7-4f30-8581-e1d4f5bb3acd" class="">
+</p><figure id="6d03b4df-f556-488f-9959-b4d4122f8111" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-datadog-agent-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-datadog-agent-service-develop-stashed_spot_anom.png"/></a></figure><figure id="51409768-a9ea-4b6a-b8f9-874b1ce0a066" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-datadog-agent-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-datadog-agent-service-master-stashed_spot_anom.png"/></a></figure><figure id="b9b1ea32-715c-45c9-811d-86e11c19ca0f" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-dead-letter-celery-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-dead-letter-celery-develop-stashed_spot_anom.png"/></a></figure><figure id="8ca8f49c-379d-4ffc-bbc0-b2293a54fa85" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-dead-letter-celery-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-dead-letter-celery-master-stashed_spot_anom.png"/></a></figure><figure id="5ed6c457-ab5e-4a03-b8b9-b9f287b580fb" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-dead-letter-cron-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-dead-letter-cron-develop-stashed_spot_anom.png"/></a></figure><figure id="2eacd05e-757d-4feb-b3ab-3ec084fd19cd" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-dead-letter-cron-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-dead-letter-cron-master-stashed_spot_anom.png"/></a></figure><figure id="f35ba86e-aadd-46f2-883b-05314282cddf" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-donation-celery-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-donation-celery-develop-stashed_spot_anom.png"/></a></figure><figure id="94b2c08e-8d89-4d63-97c7-9f61a1498bdf" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-donation-celery-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-donation-celery-master-stashed_spot_anom.png"/></a></figure><figure id="92af78a0-9e46-4fab-bd5a-51e6d8b56382" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-donation-cron-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-donation-cron-develop-stashed_spot_anom.png"/></a></figure><figure id="635ac5f9-777a-40d5-903a-c3bfc8d6cb17" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-donation-cron-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-donation-cron-master-stashed_spot_anom.png"/></a></figure><figure id="54c3ad32-4272-487d-8acc-ef3520979b55" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-dotnet-template-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-dotnet-template-service-develop-stashed_spot_anom.png"/></a></figure><figure id="99a5cd5b-9e32-456e-968b-a9a04cd52fe3" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-dotnet-template-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-dotnet-template-service-master-stashed_spot_anom.png"/></a></figure><figure id="ff1db470-5b54-4dbe-b99d-f69679b2eb27" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-external-is-celery-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-external-is-celery-develop-stashed_spot_anom.png"/></a></figure><figure id="c1ba6320-28ef-41cd-ad2d-c4b3fe948027" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-external-is-celery-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-external-is-celery-master-stashed_spot_anom.png"/></a></figure><figure id="f0745968-abb5-43fe-a3c9-b1664377a661" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-external-is-cron-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-external-is-cron-develop-stashed_spot_anom.png"/></a></figure><figure id="2e57f4bb-7f81-4c19-8a80-bc563bf3a2bf" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-external-is-cron-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-external-is-cron-master-stashed_spot_anom.png"/></a></figure><figure id="7c2f3806-4aa5-4011-b688-84be0d6ee070" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-javakeycloak-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-javakeycloak-service-master-stashed_spot_anom.png"/></a></figure><figure id="4119d609-83b9-4215-b429-ff006bc01ca7" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nginxapi-gateway-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nginxapi-gateway-service-develop-stashed_spot_anom.png"/></a></figure><figure id="ce930aff-9dfc-467a-b72e-484dacca7490" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nginxapi-gateway-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nginxapi-gateway-service-master-stashed_spot_anom.png"/></a></figure><figure id="f0417c98-a14a-4c9b-b9f1-e8fca2fd621e" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nginxzero-gachis-api-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nginxzero-gachis-api-develop-stashed_spot_anom.png"/></a></figure><figure id="16329917-933f-4696-9001-c684a8da2f55" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nginxzero-gachis-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nginxzero-gachis-service-develop-stashed_spot_anom.png"/></a></figure><figure id="710f026d-424e-4c95-8279-22cc248b6fbc" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nginxzero-gachis-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nginxzero-gachis-service-master-stashed_spot_anom.png"/></a></figure><figure id="6f2281b5-694b-432d-9784-df7524cba924" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nodeheadless-browser-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nodeheadless-browser-service-develop-stashed_spot_anom.png"/></a></figure><figure id="65c52af6-561b-48e1-9b07-b883b6f7514d" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nodeheadless-browser-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-nodeheadless-browser-service-master-stashed_spot_anom.png"/></a></figure><figure id="552f061a-7be8-468e-9ddf-e93c6b8001b7" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-packetaipacket-ai-agent-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-packetaipacket-ai-agent-service-develop-stashed_spot_anom.png"/></a></figure><figure id="b5eb653d-bc86-4ae6-ac02-920a8531a29f" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-packetaipacket-ai-agent-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-packetaipacket-ai-agent-service-master-stashed_spot_anom.png"/></a></figure><figure id="6d4d1716-45ab-46de-8fc2-6b9069a2fd43" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonauth-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonauth-service-develop-stashed_spot_anom.png"/></a></figure><figure id="f59b96a3-abbe-4b9c-a1ad-e5f82a92f5b8" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonauth-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonauth-service-master-stashed_spot_anom.png"/></a></figure><figure id="eba63bc3-7b33-4dc8-9ea7-c6e7f4955cab" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonb2b-dashboard-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonb2b-dashboard-service-develop-stashed_spot_anom.png"/></a></figure><figure id="2982eacf-9fc6-4e68-a613-aae4d80b7b18" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondead-letter-rabbit-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondead-letter-rabbit-master-stashed_spot_anom.png"/></a></figure><figure id="567470ec-1765-442d-9256-5138398c41e5" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondead-letter-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondead-letter-service-develop-stashed_spot_anom.png"/></a></figure><figure id="e7d7e4dd-4550-4bc4-8a29-0b6050d4cca7" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondead-letter-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondead-letter-service-master-stashed_spot_anom.png"/></a></figure><figure id="96ff61b7-6afa-4527-a60a-7a949394655f" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondonation-rabbit-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondonation-rabbit-develop-stashed_spot_anom.png"/></a></figure><figure id="ea5ab413-6ac1-45d5-a4d8-6b6678118ea7" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondonation-rabbit-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondonation-rabbit-master-stashed_spot_anom.png"/></a></figure><figure id="f03a2278-1585-494d-b883-4264fdc892dc" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondonation-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondonation-service-develop-stashed_spot_anom.png"/></a></figure><figure id="24c6586b-7608-472c-bbd8-ee913b7f10dc" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondonation-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythondonation-service-master-stashed_spot_anom.png"/></a></figure><figure id="c2c7ed58-68cb-4d25-af38-da5d49bea1b6" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonemail-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonemail-service-develop-stashed_spot_anom.png"/></a></figure><figure id="07259213-04a9-4106-a90e-76c8dd36bf86" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonemail-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonemail-service-master-stashed_spot_anom.png"/></a></figure><figure id="d3d6e870-767a-4af5-a6f7-03f589bdeae3" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-rabbit-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-rabbit-develop-stashed_spot_anom.png"/></a></figure><figure id="d3b18897-ccfb-48d0-be90-19d3e117ecac" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-rabbit-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-rabbit-master-stashed_spot_anom.png"/></a></figure><figure id="39f5913e-c0bc-43de-934c-aeccf5b45b1a" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-service-develop-stashed_spot_anom.png"/></a></figure><figure id="db6d8626-7f46-4fb2-9d60-1a2e6c8467e6" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-service-master-stashed_spot_anom.png"/></a></figure><figure id="58b7eea1-2466-4a82-8baa-f26243041ec0" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-rabbit-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-rabbit-develop-stashed_spot_anom.png"/></a></figure><figure id="698c077c-19a0-4969-99b5-671bd67fbe9e" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-rabbit-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-rabbit-master-stashed_spot_anom.png"/></a></figure><figure id="06063032-aafb-4206-b7cb-1531006fad88" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-service-develop-stashed_spot_anom.png"/></a></figure><figure id="cf8d5ac8-ded5-40b7-8a24-75c77a593e3f" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-service-master-stashed_spot_anom.png"/></a></figure><figure id="7ca0ca50-4c7d-4a9e-9581-67fde6ff6c24" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonpipedrive-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonpipedrive-service-develop-stashed_spot_anom.png"/></a></figure><figure id="05d1e79f-2dfa-4e0f-b3e6-8eef43fb8b07" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonpipedrive-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonpipedrive-service-master-stashed_spot_anom.png"/></a></figure><figure id="07c6d410-64d3-44c6-9f25-95f4a5308957" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonsales-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonsales-service-develop-stashed_spot_anom.png"/></a></figure><figure id="5d160fce-33cb-4491-9bc6-1a6f783503e3" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonsales-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonsales-service-master-stashed_spot_anom.png"/></a></figure><figure id="5ab5e769-e019-4484-9527-5f966e8395a0" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonsdet-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonsdet-service-master-stashed_spot_anom.png"/></a></figure><figure id="54723b9c-1166-4a07-85cc-18ecdd54b345" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonstock-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonstock-service-develop-stashed_spot_anom.png"/></a></figure><figure id="e64fa048-9647-4c53-906e-bcd37fbe00b3" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonstock-service-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonstock-service-master-stashed_spot_anom.png"/></a></figure><figure id="6c6fa61f-98cd-494f-bfde-93d0cc9e98b3" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonzero-gachis-rabbit-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonzero-gachis-rabbit-develop-stashed_spot_anom.png"/></a></figure><figure id="f922f5e8-1dd1-4b91-9ec2-9a6051837e42" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonzero-gachis-rabbit-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-pythonzero-gachis-rabbit-master-stashed_spot_anom.png"/></a></figure><figure id="bc764602-1d4d-4d75-908a-d10b24644981" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-sdet-celery-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-sdet-celery-develop-stashed_spot_anom.png"/></a></figure><figure id="eb178721-7230-4661-a79b-5e547dbcd67f" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-sdet-celery-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-sdet-celery-master-stashed_spot_anom.png"/></a></figure><figure id="064c166b-82af-4685-a819-9a98e2b87234" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-sdet-cron-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-sdet-cron-develop-stashed_spot_anom.png"/></a></figure><figure id="39c75bba-701e-4a97-9d41-2ce677844950" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-sdet-cron-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-sdet-cron-master-stashed_spot_anom.png"/></a></figure><figure id="9a25eb2f-f89e-4ca6-8f26-89bb8fb82eb7" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-sync-service-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-sync-service-develop-stashed_spot_anom.png"/></a></figure><figure id="d75353f0-2ff7-4997-a1a0-809780b0f332" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-traefiktraefik-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-traefiktraefik-develop-stashed_spot_anom.png"/></a></figure><figure id="c24798c6-bb5b-493a-874e-a12a96dcff82" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-traefiktraefik-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-traefiktraefik-master-stashed_spot_anom.png"/></a></figure><figure id="4ace6c5d-dcc9-450c-a4d0-e74620d7a19d" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-zero-gachis-api-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-zero-gachis-api-develop-stashed_spot_anom.png"/></a></figure><figure id="599be0e5-1850-42b6-99cd-1307cefe069b" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-zero-gachis-celery-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-zero-gachis-celery-develop-stashed_spot_anom.png"/></a></figure><figure id="7c04bc84-ed6e-4134-92d1-8f310b954048" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-zero-gachis-celery-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-zero-gachis-celery-master-stashed_spot_anom.png"/></a></figure><figure id="66f78f16-3453-4cda-8bc0-5665dfea6fdd" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-zero-gachis-cron-develop-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-zero-gachis-cron-develop-stashed_spot_anom.png"/></a></figure><figure id="d7d446d9-65a9-4a82-845d-008031818ec1" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-zero-gachis-cron-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ddc7da72033d00111f4be1-docker-log-zero-gachis-cron-master-stashed_spot_anom.png"/></a></figure><figure id="60f7f3f4-d84b-4e86-be75-cd36cdf36ef9" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effa84a06f32001133675a-log-linux60effa84a06f32001133675a-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effa84a06f32001133675a-log-linux60effa84a06f32001133675a-stashed_spot_anom.png"/></a></figure><figure id="43d64241-4573-4873-9dcd-e15d9e3b35dd" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effa84a06f32001133675a-log-packetaib090e5849913000e-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effa84a06f32001133675a-log-packetaib090e5849913000e-stashed_spot_anom.png"/></a></figure><figure id="327eb14e-bcc0-499d-8e21-740544df22a9" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effadaa06f32001133675c-log-linux60effadaa06f32001133675c-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effadaa06f32001133675c-log-linux60effadaa06f32001133675c-stashed_spot_anom.png"/></a></figure><figure id="50d17360-2f25-4ae2-8261-c90dfdf30bc5" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effadaa06f32001133675c-log-packetai8143abc5b8149d09-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effadaa06f32001133675c-log-packetai8143abc5b8149d09-stashed_spot_anom.png"/></a></figure><figure id="ebc644dc-5a8e-47bc-a1e5-6a5da1f46ce6" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effafba06f32001133675d-log-linux60effafba06f32001133675d-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effafba06f32001133675d-log-linux60effafba06f32001133675d-stashed_spot_anom.png"/></a></figure><figure id="aa2839ee-2016-4270-b706-ec36fc961d77" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effafba06f32001133675d-log-packetaid45c4d52e0eced48-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effafba06f32001133675d-log-packetaid45c4d52e0eced48-stashed_spot_anom.png"/></a></figure><figure id="d4d92cd5-c43e-46de-b6ec-12f35d5aa7fb" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-linux60effb4aa06f320011336762-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-linux60effb4aa06f320011336762-stashed_spot_anom.png"/></a></figure><figure id="9796fb77-3fca-498d-94f0-6472fbec4ea3" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-packetai1e1ced0f189e2626-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-packetai1e1ced0f189e2626-stashed_spot_anom.png"/></a></figure><figure id="01005bc7-1198-4983-a9d5-b68818e1150e" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-rabbitmqeb234c270bf3d9cd-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-rabbitmqeb234c270bf3d9cd-stashed_spot_anom.png"/></a></figure><figure id="5abebd0f-f3ed-4fb4-890b-5dde2b5429fd" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-redisd8c18514db6a755b-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-redisd8c18514db6a755b-stashed_spot_anom.png"/></a></figure><figure id="6a009c6a-8736-4f77-9a54-f6e1ab8eec35" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb11a06f32001133675e-log-apache18870476d1dd1663-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb11a06f32001133675e-log-apache18870476d1dd1663-stashed_spot_anom.png"/></a></figure><figure id="2abba2e7-4897-472f-ab3f-9f0a20cf1acf" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb11a06f32001133675e-log-linux60effb11a06f32001133675e-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb11a06f32001133675e-log-linux60effb11a06f32001133675e-stashed_spot_anom.png"/></a></figure><figure id="80cd1393-077c-47d9-990d-7bb4dbdf89a1" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb11a06f32001133675e-log-packetaifa38aa8ce0b94f43-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb11a06f32001133675e-log-packetaifa38aa8ce0b94f43-stashed_spot_anom.png"/></a></figure><figure id="e3ca5198-8e42-4576-8a54-1c83454cfb21" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb26a06f320011336760-log-linux60effb26a06f320011336760-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb26a06f320011336760-log-linux60effb26a06f320011336760-stashed_spot_anom.png"/></a></figure><figure id="a1274573-c46c-4750-a5aa-ea7e3f3b05c2" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb26a06f320011336760-log-packetaid43c54a48a1009eb-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb26a06f320011336760-log-packetaid43c54a48a1009eb-stashed_spot_anom.png"/></a></figure><figure id="bbfc83f1-f61d-44da-aaa5-ae85cd774310" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb30a06f320011336761-log-linux60effb30a06f320011336761-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb30a06f320011336761-log-linux60effb30a06f320011336761-stashed_spot_anom.png"/></a></figure><figure id="6f2778cc-1c45-4f37-ae30-e06208153f2f" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb30a06f320011336761-log-packetaie55e008e14de3a44-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_60ed840f588aa700127280d6-linux60effb30a06f320011336761-log-packetaie55e008e14de3a44-stashed_spot_anom.png"/></a></figure><figure id="af05e8ea-4544-47f6-87c9-5b9dc97833d1" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-apachedocumentation_bookstack-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-apachedocumentation_bookstack-stashed_spot_anom.png"/></a></figure><figure id="3b245a16-940f-4d5f-a93a-4fe440bbd697" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-consul_consul-server-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-consul_consul-server-stashed_spot_anom.png"/></a></figure><figure id="ea23eff5-f48c-41b4-a072-fd7b0d9890e9" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-data-api_data-api-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-data-api_data-api-stashed_spot_anom.png"/></a></figure><figure id="5cc5b575-484e-4b46-ad63-034cb08bd903" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-gateway_caddy_server-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-gateway_caddy_server-stashed_spot_anom.png"/></a></figure><figure id="bbc31f57-4fab-4961-88c3-0a17ed88d179" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-javaappsmith_appsmith-internal-server-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-javaappsmith_appsmith-internal-server-stashed_spot_anom.png"/></a></figure><figure id="dd096ee2-c2cf-4a46-a1ec-2f6ccbe06892" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-keto_keto-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-keto_keto-stashed_spot_anom.png"/></a></figure><figure id="84fb1e6d-fee8-4a37-9fa5-a585b3c557a9" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-koios_koios-api-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-koios_koios-api-stashed_spot_anom.png"/></a></figure><figure id="e2387a45-d1d4-49fd-8b82-4c8fd0445679" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-stashed_spot_anom.png"/></a></figure><figure id="a4c87b4e-6951-46a7-b95f-4fafe621389a" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-mysql_router-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-mysql_router-stashed_spot_anom.png"/></a></figure><figure id="e960c56b-17d5-4fd9-80c5-f218585f74f9" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nginxappsmith_appsmith-nginx-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nginxappsmith_appsmith-nginx-stashed_spot_anom.png"/></a></figure><figure id="2ae78b9f-5154-4c28-a659-2c635dc2f969" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nginxweblate_weblate-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nginxweblate_weblate-stashed_spot_anom.png"/></a></figure><figure id="e8205208-637c-4262-9047-b6c9c7ec20c5" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodeapp_app-api-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodeapp_app-api-stashed_spot_anom.png"/></a></figure><figure id="fafd50a9-7981-4080-a39b-ea60777a9422" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_spot_anom.png"/></a></figure><figure id="3d458605-45aa-4331-8dd0-d1ef5a5a3e33" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodecollector-api_collector-api-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodecollector-api_collector-api-stashed_spot_anom.png"/></a></figure><figure id="31b2dd19-1326-4ca7-a16d-d72ec4d309b8" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodehyperion_server-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodehyperion_server-stashed_spot_anom.png"/></a></figure><figure id="6c1f10a1-1c00-4ad5-ad8b-4b40b383ec36" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodenotifications_notifications-service-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodenotifications_notifications-service-stashed_spot_anom.png"/></a></figure><figure id="5fc72714-c871-4bb9-836b-16b242e4ed15" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodeportal_portal-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodeportal_portal-stashed_spot_anom.png"/></a></figure><figure id="eb19ff1c-3afb-42b2-9988-e88635fa35fb" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-noderealtime-status_realtime-worker-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-noderealtime-status_realtime-worker-stashed_spot_anom.png"/></a></figure><figure id="8dc75453-c1a7-4068-be9b-0f3575f43495" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodereports-service_reports-service-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodereports-service_reports-service-stashed_spot_anom.png"/></a></figure><figure id="d0db8c69-4282-4041-8a57-2a85efb01667" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodereservation_reservation-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodereservation_reservation-stashed_spot_anom.png"/></a></figure><figure id="c3f6e29b-095e-4f51-9218-016c136860b9" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodereservations-service_reservations-service-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodereservations-service_reservations-service-stashed_spot_anom.png"/></a></figure><figure id="d4658120-783d-4096-8631-c63afb710b8b" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodescrapers_scrapers-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodescrapers_scrapers-stashed_spot_anom.png"/></a></figure><figure id="9d8afeb9-b955-49e4-a88e-eb4bb93489ff" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodesensinglabs-mqtt_sensinglabs-mqtt-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodesensinglabs-mqtt_sensinglabs-mqtt-stashed_spot_anom.png"/></a></figure><figure id="69390312-a871-4d56-9b7a-08a6b04ea0df" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodesensor-service_sensor-service-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodesensor-service_sensor-service-stashed_spot_anom.png"/></a></figure><figure id="6475a037-0495-46f6-96e4-053cfa9553d5" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodestats-service_stats-service-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodestats-service_stats-service-stashed_spot_anom.png"/></a></figure><figure id="dba1a1d0-2933-4bc6-8580-f1d2bc122800" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodewebapi_webapi-server-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodewebapi_webapi-server-stashed_spot_anom.png"/></a></figure><figure id="fd9e3ba8-f572-4197-8561-6112976c6f66" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodezoho_zoho-service-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-nodezoho_zoho-service-stashed_spot_anom.png"/></a></figure><figure id="7d0fae4d-1bd6-40bb-94c8-82670aeb6535" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-packetaipacketai_packetai-agent-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-packetaipacketai_packetai-agent-stashed_spot_anom.png"/></a></figure><figure id="97daded3-f0b5-451b-bd16-af1b4ff942d3" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-portainer_agent-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-portainer_agent-stashed_spot_anom.png"/></a></figure><figure id="a4184ce3-e4eb-4712-b048-bd9d18ccc602" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-portainer_portainer-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-portainer_portainer-stashed_spot_anom.png"/></a></figure><figure id="fea83281-1421-4c86-93bd-ab2f072405ab" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-post-processing_post-processing-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-post-processing_post-processing-stashed_spot_anom.png"/></a></figure><figure id="5a621d42-9543-4910-b153-9849c645d64f" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonalerts_alerts-engine-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonalerts_alerts-engine-stashed_spot_anom.png"/></a></figure><figure id="52bef454-6a31-4ccc-9e61-c82c2a501ef9" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-master-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-master-stashed_spot_anom.png"/></a></figure><figure id="f873a433-b16d-4a83-ae11-ff1ce283ead4" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythoncloudflare_doa-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythoncloudflare_doa-stashed_spot_anom.png"/></a></figure><figure id="b618e4da-63e2-4fd8-b10d-6c3eb2bc9406" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythondynamic-flow_scheduler-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythondynamic-flow_scheduler-stashed_spot_anom.png"/></a></figure><figure id="180bfa26-815d-4553-9d3d-8008b958bbeb" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonhyperion_client-plages-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonhyperion_client-plages-stashed_spot_anom.png"/></a></figure><figure id="cffc66cc-5f94-4559-95bc-cef79c734df5" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-tasks-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-tasks-stashed_spot_anom.png"/></a></figure><figure id="db9665b1-36b7-4912-ad13-a313daf56532" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-worker-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-worker-stashed_spot_anom.png"/></a></figure><figure id="1e7b35a3-36e1-4697-804f-7486fbf88ca1" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-tasks-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-tasks-stashed_spot_anom.png"/></a></figure><figure id="10930567-0e2e-4fae-aa33-fb19c91d5b8e" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-worker-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-worker-stashed_spot_anom.png"/></a></figure><figure id="048b0b12-380e-4643-8c9b-07592c40a998" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-rabbitmqqueue_rabbitmq-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-rabbitmqqueue_rabbitmq-stashed_spot_anom.png"/></a></figure><figure id="38d54ee8-8a9b-4c1f-9e7a-ad4dba419c81" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-redisappsmith_redis-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-redisappsmith_redis-stashed_spot_anom.png"/></a></figure><figure id="1ef93f9f-723e-4b7e-8c75-b991c1f9f319" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-redisgaia_redis-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-redisgaia_redis-stashed_spot_anom.png"/></a></figure><figure id="c90ada87-7e25-4e34-8134-7cb3a3cc2790" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-redissite-service_redis-cache-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-redissite-service_redis-cache-stashed_spot_anom.png"/></a></figure><figure id="53480843-b0ee-44a1-b3a9-55f7f291b3d1" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-redisweblate_cache-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-redisweblate_cache-stashed_spot_anom.png"/></a></figure><figure id="45d07d86-ee60-4ee1-926d-3de6071a3436" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-rubylogs_fluentd-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-docker-log-rubylogs_fluentd-stashed_spot_anom.png"/></a></figure><figure id="f1416616-65ed-4efa-b265-5cec06569895" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-linux60b8d8abaeb6f802698917b1-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-linux60b8d8abaeb6f802698917b1-stashed_spot_anom.png"/></a></figure><figure id="74b83a4f-be74-4c01-827b-823daa07bf7a" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-packetai1f0470fa7ea18846-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-packetai1f0470fa7ea18846-stashed_spot_anom.png"/></a></figure><figure id="84a999d0-14d6-4699-b80e-1452f80f6b60" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec22ada00c500125f430f-log-linux60fec22ada00c500125f430f-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec22ada00c500125f430f-log-linux60fec22ada00c500125f430f-stashed_spot_anom.png"/></a></figure><figure id="edcf5178-a9d7-4296-b945-523629d35c8c" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec22ada00c500125f4310-log-linux60fec22ada00c500125f4310-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec22ada00c500125f4310-log-linux60fec22ada00c500125f4310-stashed_spot_anom.png"/></a></figure><figure id="845764fa-ff40-4b83-b336-71db35cbe0f8" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec22cda00c500125f4311-log-linux60fec22cda00c500125f4311-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec22cda00c500125f4311-log-linux60fec22cda00c500125f4311-stashed_spot_anom.png"/></a></figure><figure id="735a6c48-2924-412c-ae84-5d1b755be08a" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec22dda00c500125f4312-log-linux60fec22dda00c500125f4312-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec22dda00c500125f4312-log-linux60fec22dda00c500125f4312-stashed_spot_anom.png"/></a></figure><figure id="89143070-b4b1-4504-abe6-1e380f0ecf06" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec22dda00c500125f4313-log-linux60fec22dda00c500125f4313-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec22dda00c500125f4313-log-linux60fec22dda00c500125f4313-stashed_spot_anom.png"/></a></figure><figure id="2c62e4f4-6b18-4462-901a-51f35af54270" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec228da00c500125f430d-log-linux60fec228da00c500125f430d-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec228da00c500125f430d-log-linux60fec228da00c500125f430d-stashed_spot_anom.png"/></a></figure><figure id="e88ce243-5fd6-4211-8c18-a419f1fb98c4" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec229da00c500125f430e-log-linux60fec229da00c500125f430e-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec229da00c500125f430e-log-linux60fec229da00c500125f430e-stashed_spot_anom.png"/></a></figure><figure id="58c6a691-7346-4cc2-9c67-e881725d5114" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec238da00c500125f4314-log-linux60fec238da00c500125f4314-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux60fec238da00c500125f4314-log-linux60fec238da00c500125f4314-stashed_spot_anom.png"/></a></figure><figure id="eeb37509-e61f-416b-a77c-72eda8e14a65" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-linux604b83a14c58ea0011d6220f-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-linux604b83a14c58ea0011d6220f-stashed_spot_anom.png"/></a></figure><figure id="9d472329-9588-4030-a0ee-6ac2467bdd2c" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-mysql6d7613c72a46df40-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-mysql6d7613c72a46df40-stashed_spot_anom.png"/></a></figure><figure id="1ca16d84-b3aa-4700-b14d-57b9cd14d396" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-packetaie6471dd6a1a09b54-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-packetaie6471dd6a1a09b54-stashed_spot_anom.png"/></a></figure><figure id="3c38a200-9e4f-450a-858c-9e8f0181c600" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-linux604b83aa4c58ea0011d62211-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-linux604b83aa4c58ea0011d62211-stashed_spot_anom.png"/></a></figure><figure id="7e9c3af1-7951-443f-8957-d69b5e3483cf" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-mysqlc65d1f2cd07cc218-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-mysqlc65d1f2cd07cc218-stashed_spot_anom.png"/></a></figure><figure id="2fc816c5-b32c-4597-a780-190478e8dc0d" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-packetaibcbf6881c8b51cc6-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-packetaibcbf6881c8b51cc6-stashed_spot_anom.png"/></a></figure><figure id="ca5c43a3-4f0b-4ccf-b028-2b63f0242063" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-linux608ac1c48e4afc0040b43d19-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-linux608ac1c48e4afc0040b43d19-stashed_spot_anom.png"/></a></figure><figure id="91651592-4570-4ab2-be3a-8713869683a8" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-mysql357e569af1d96542-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-mysql357e569af1d96542-stashed_spot_anom.png"/></a></figure><figure id="f0b7e62c-c237-428a-97a1-3f9f0218c4cf" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-packetaiab4704e4d9d6263b-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-packetaiab4704e4d9d6263b-stashed_spot_anom.png"/></a></figure><figure id="3d2703dd-bc21-48c9-9fd1-23393a074489" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-apache65f6ec80b7aa2937-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-apache65f6ec80b7aa2937-stashed_spot_anom.png"/></a></figure><figure id="bacec65f-c1e3-4edf-b42e-8c56ec39adf9" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-linux609bde4db677860011c6e30b-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-linux609bde4db677860011c6e30b-stashed_spot_anom.png"/></a></figure><figure id="66e0ba45-6296-4a58-9879-a884daaf9112" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-packetaif7c8ca92a057eb2b-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-packetaif7c8ca92a057eb2b-stashed_spot_anom.png"/></a></figure><figure id="cd114eea-c373-47c9-969e-a0e37b453cf3" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bdec6b677860011c6e30c-log-linux609bdec6b677860011c6e30c-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bdec6b677860011c6e30c-log-linux609bdec6b677860011c6e30c-stashed_spot_anom.png"/></a></figure><figure id="69a78583-edee-4101-b553-c754337ce13c" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bdec6b677860011c6e30c-log-packetai413744d48e902e0a-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bdec6b677860011c6e30c-log-packetai413744d48e902e0a-stashed_spot_anom.png"/></a></figure><figure id="86f8e06b-6e8b-40ee-b5a6-2f45f39b48b3" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bdef1b677860011c6e30d-log-linux609bdef1b677860011c6e30d-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bdef1b677860011c6e30d-log-linux609bdef1b677860011c6e30d-stashed_spot_anom.png"/></a></figure><figure id="2acc90e8-4ca1-4ee3-b74c-996a5bbb92cb" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-apache834fd0b59d9ddf17-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-apache834fd0b59d9ddf17-stashed_spot_anom.png"/></a></figure><figure id="7a447f27-bb58-44bc-b32e-b6494cf0877b" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-linux609bdf19b677860011c6e30e-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-linux609bdf19b677860011c6e30e-stashed_spot_anom.png"/></a></figure><figure id="ceded38b-be46-46dd-b270-bd9e298289a0" class="image"><a href="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-packetai7fe5cf5bc665897f-stashed_spot_anom.png"><img style="width:700px" src="Plots%2041285356a1bb45d589ba00887ca8749e/bestperf_6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-packetai7fe5cf5bc665897f-stashed_spot_anom.png"/></a></figure></div></article></body></html>

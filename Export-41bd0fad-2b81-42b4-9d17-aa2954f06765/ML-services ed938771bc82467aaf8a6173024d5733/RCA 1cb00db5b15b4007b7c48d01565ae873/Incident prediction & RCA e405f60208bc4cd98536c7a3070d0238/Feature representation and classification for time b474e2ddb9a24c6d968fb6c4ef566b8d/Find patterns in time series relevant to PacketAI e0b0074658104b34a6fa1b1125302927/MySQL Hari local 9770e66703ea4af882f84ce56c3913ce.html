@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>MySQL Hari local</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9770e667-03ea-4af8-82f8-4ce56c3913ce" class="page sans"><header><h1 class="page-title">MySQL Hari local</h1><p class="page-description"></p></header><div class="page-body"><figure id="b74ba12a-789f-4cfd-81a3-b9534f02a68b" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusabortstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusabortstatus7cmysql"/></a></figure><figure id="bafdf0a7-1c1b-4d1b-978b-d2d9d17fa5db" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusabortestatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusabortestatus7cmysql"/></a></figure><figure id="6e560c93-e08c-4d95-80b0-1d8e2629a7ef" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusbinlogcachstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusbinlogcachstatus7cmysql"/></a></figure><figure id="0ad41cb5-9bf7-48d9-9ea8-a51a3e769acf" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusbinlogstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusbinlogstatus7cmysql"/></a></figure><figure id="723fe0fc-d519-49c4-b260-467e91084bd9" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusbytestatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusbytestatus7cmysql"/></a></figure><figure id="be95a327-491e-424c-9da7-432a4f777d83" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusstatus7cmysql"/></a></figure><figure id="11175897-4165-4ba2-aae7-962fae362d12" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatuscachstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatuscachstatus7cmysql"/></a></figure><figure id="e3efff90-973e-4fa7-885a-53e03ddaa7f2" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatuscachestatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatuscachestatus7cmysql"/></a></figure><figure id="e31273a6-a5b7-4eb1-8b66-3aae881e8d29" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatuscachstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatuscachstatus7cmysql"/></a></figure><figure id="06c42869-ae59-4b20-a574-bbf0abd9824b" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatuscachetableopen_status7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatuscachetableopen_status7cmysql"/></a></figure><figure id="579597df-7548-4af8-a6d0-96087ce8d953" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatuscachetableopen_castatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatuscachetableopen_castatus7cmysql"/></a></figure><figure id="83381363-efc7-4071-a17a-f20bfa0840ac" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatuscachetableopen_cachestatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatuscachetableopen_cachestatus7cmysql"/></a></figure><figure id="fc2ec1b7-1015-4083-8624-a4d20035bd44" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusconnectionerrstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusconnectionerrstatus7cmysql"/></a></figure><figure id="1d3b1026-eb6b-4c9d-88cc-3817c30a8457" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusconnectionerrorstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusconnectionerrorstatus7cmysql"/></a></figure><figure id="453fb83f-7e5d-43ac-b63d-ae6d52b47c74" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusconnectionstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusconnectionstatus7cmysql"/></a></figure><figure id="abcdd855-6dd3-4022-b08a-7478aec8be53" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusconnectionerrorspestatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusconnectionerrorspestatus7cmysql"/></a></figure><figure id="b9b2073c-5b4d-46db-8581-6004fe40b340" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusconnectionerrstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusconnectionerrstatus7cmysql"/></a></figure><figure id="cd515fcc-8352-4223-8401-e75229478ff4" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusconnectionerrostatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusconnectionerrostatus7cmysql"/></a></figure><figure id="cb126313-f1d5-4864-a616-af65ff1d5d6c" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatuscstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatuscstatus7cmysql"/></a></figure><figure id="19222317-0ded-4daf-ac30-dd0df76d25d2" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusdelastatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusdelastatus7cmysql"/></a></figure><figure id="1e0b9f1f-e95b-4c90-9bab-84c24544de59" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusdelayedinsestatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusdelayedinsestatus7cmysql"/></a></figure><figure id="ce6402b6-739f-4739-8a05-6cbabeadf4d4" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusdelastatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusdelastatus7cmysql"/></a></figure><figure id="260b7122-a2f3-4e53-8e77-22e84387a812" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusflusstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusflusstatus7cmysql"/></a></figure><figure id="515b5336-26aa-42f6-9c12-959831426f66" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatushandlerstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatushandlerstatus7cmysql"/></a></figure><figure id="48629f96-ec4c-46c7-a72d-b42dc37f6e1f" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatushandlestatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatushandlestatus7cmysql"/></a></figure><figure id="55429e29-6bb8-4740-98da-0405c2fd71e4" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatushandlerstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatushandlerstatus7cmysql"/></a></figure><figure id="c954fe0a-c376-457e-bbeb-9943b9550ace" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%202.statusmysqlstatushandlerstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%202.statusmysqlstatushandlerstatus7cmysql"/></a></figure><figure id="b0c82a5a-8940-4f28-9b49-65179109c84b" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%203.statusmysqlstatushandlerstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%203.statusmysqlstatushandlerstatus7cmysql"/></a></figure><figure id="cabb4a75-cad1-44cc-b2f7-f08cb11d0a7a" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatushandlestatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatushandlestatus7cmysql"/></a></figure><figure id="fcb7f000-3222-437c-8d55-2c0012d26b6f" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatushandlerreastatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatushandlerreastatus7cmysql"/></a></figure><figure id="615cd270-b8ce-426f-8cc8-a2be708bcdb7" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatushandstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatushandstatus7cmysql"/></a></figure><figure id="1eefec89-3c48-406e-909f-32fa184af09d" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatushanstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatushanstatus7cmysql"/></a></figure><figure id="545c7118-c43f-4ceb-9d64-9253c06317b9" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbbuffer_poolstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbbuffer_poolstatus7cmysql"/></a></figure><figure id="3e91f59d-f758-4839-a9ca-73f90cc5c99f" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbbuffer_poolbstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbbuffer_poolbstatus7cmysql"/></a></figure><figure id="c060129a-dc20-4e29-9a1a-f580bf4bf1aa" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusinnodbbuffer_poolstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusinnodbbuffer_poolstatus7cmysql"/></a></figure><figure id="4aa535a4-5232-40c0-be29-e4145323e4c9" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbbuffer_poolpstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbbuffer_poolpstatus7cmysql"/></a></figure><figure id="47272f9d-c447-4e04-9d41-8e1335fa17e4" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%202.statusmysqlstatusinnodbbuffer_poolstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%202.statusmysqlstatusinnodbbuffer_poolstatus7cmysql"/></a></figure><figure id="6d0d02a5-faab-4536-90cf-9cf0a934187c" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusinnodbbuffer_poolpstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusinnodbbuffer_poolpstatus7cmysql"/></a></figure><figure id="918e1e34-6f78-40c0-b2c4-dc751203a478" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%203.statusmysqlstatusinnodbbuffer_poolstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%203.statusmysqlstatusinnodbbuffer_poolstatus7cmysql"/></a></figure><figure id="8c3a3d02-345b-4af5-b6e0-d3c50f88bf1e" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbbuffer_poolpoolstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbbuffer_poolpoolstatus7cmysql"/></a></figure><figure id="b933d9d9-782d-43fe-bfe3-eb2fb117ccb7" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbbuffer_poolreadahestatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbbuffer_poolreadahestatus7cmysql"/></a></figure><figure id="5cf8da63-802e-4de4-99e8-cb697f2a1764" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbbuffer_poolwritstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbbuffer_poolwritstatus7cmysql"/></a></figure><figure id="6fc5af35-d26f-4c39-930a-eab477c5d6a5" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbrostatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbrostatus7cmysql"/></a></figure><figure id="bf55a2ba-8830-431b-8c8c-7f92ffb0e51c" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbrowstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbrowstatus7cmysql"/></a></figure><figure id="d849b977-fd0e-4691-a38c-e73e637f0f3a" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusinnodbstatus7cmysql"/></a></figure><figure id="0eb18f83-ce28-419b-9bf6-36b83b145907" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusinnodbrostatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusinnodbrostatus7cmysql"/></a></figure><figure id="56ff45c9-b8d3-4425-80ca-999f885b8968" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusmax_used_cstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusmax_used_cstatus7cmysql"/></a></figure><figure id="2ac1abda-e981-4daf-9a3d-f822a670db13" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusopestatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusopestatus7cmysql"/></a></figure><figure id="ab60a1d1-0625-49ef-9b65-c98efb3f085d" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusstatus7cmysql"/></a></figure><figure id="4dc24ffa-d412-4ec4-8cb8-8cc1d0c051e3" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusopstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusopstatus7cmysql"/></a></figure><figure id="c2c13960-e600-4224-bec6-d6891a5dc26d" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusostatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusostatus7cmysql"/></a></figure><figure id="cc25ecd0-5c78-4ec0-8a15-25f3bdfe5de9" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatstatus7cmysql"/></a></figure><figure id="3acaa799-ee46-4f44-810d-321306d69a6e" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%202.statusmysqlstatusstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%202.statusmysqlstatusstatus7cmysql"/></a></figure><figure id="fa3a8f31-5673-4b3d-b1c7-7d9289590dd3" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusthrestatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusthrestatus7cmysql"/></a></figure><figure id="d3ddd91a-c4e6-4085-9ba2-457617338ceb" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusthreadsstatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusthreadsstatus7cmysql"/></a></figure><figure id="9ecb3d2a-e7df-4c1d-9f81-414528ada5a0" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusthreastatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql.statusmysqlstatusthreastatus7cmysql"/></a></figure><figure id="d60ec78b-c25c-4aa8-9575-1f2c1899e856" class="image"><a href="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusthreastatus7cmysql"><img style="width:640px" src="MySQL%20Hari%20local%209770e66703ea4af882f84ce56c3913ce/no_subjectmysql%201.statusmysqlstatusthreastatus7cmysql"/></a></figure><p id="4e0f1b6d-5daa-4898-9ce4-e020f6a1ee5e" class="">
+</p></div></article></body></html>

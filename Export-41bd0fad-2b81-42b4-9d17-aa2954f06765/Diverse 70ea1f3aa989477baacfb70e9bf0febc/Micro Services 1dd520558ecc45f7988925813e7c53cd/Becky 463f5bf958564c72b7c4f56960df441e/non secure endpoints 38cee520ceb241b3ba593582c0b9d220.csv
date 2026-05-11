@@ -1,0 +1,15 @@
+﻿Method,Route,Location,UsedBy,Comments
+,,,,
+POST,/infrastructure/{infraID}/agent/,agent,installer,"""/register"" routes replace this one with a token authentication → OK, to delete later"
+GET,/infrastructure/{infraID}/agent/,agent,microservices,returns the list of agents on the given infrastructure +
+GET,/infrastructure/{infraID}/agent/{agentID}/brokers,agent,"agent, microservices","return list of brokers for an agent —> Need to update the agent before "
+GET,/infrastructure/{infraID}/agent/{agentID}/health,agent,,"return status of an agent "
+POST,/infrastructure/{infraID}/integration/{agentID}/errors,integration,microservices,post a list of integration errors +
+GET,/brokers,brokers,microservices,get list of brokers +
+,*,issue,,
+GET,/infrastructure,infrastructure,microservices,gets list of running infras +
+GET,/infrastructure/{infraID}/activatedITComponent,infrastructure,Dengke,"+ "
+,*,customDataSourceUpload,minima,*unused so we can comment it out
+GET,/infrastructure/{infraID}/activatedITComponents,activatedITComponent,Dengke,+
+GET,/infrastructure/{infraID}/activatedITComponents/{agent}/{agentID},activatedITComponent,Dengke,+
+,,,,

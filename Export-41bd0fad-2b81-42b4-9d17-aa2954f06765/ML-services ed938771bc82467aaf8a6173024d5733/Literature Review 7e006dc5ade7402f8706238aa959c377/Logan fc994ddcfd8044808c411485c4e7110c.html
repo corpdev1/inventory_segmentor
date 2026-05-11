@@ -1,0 +1,689 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Logan</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="fc994ddc-fd80-4480-8c41-1485c4e7110c" class="page sans"><header><h1 class="page-title">Logan</h1><p class="page-description"></p></header><div class="page-body"><figure id="36e99c40-faa2-4b41-bb9b-8335d0c4f0ed"><div class="source"><a href="Logan%20fc994ddcfd8044808c411485c4e7110c/agrawal2019.pdf">agrawal2019.pdf</a></div></figure><p id="fdb0e52a-9d65-4965-8bf0-83c693579b93" class="">
+</p><p id="be15a87c-3a4e-431a-9707-dde36850d40b" class="block-color-orange_background">Summary:</p><p id="0ee3c478-a5a5-4701-8a77-448804814056" class="block-color-orange_background">The idea of Logan is to fix Drain issues:</p><ul id="96a5c99e-27fd-4f52-80f6-2ab3ad3ef63c" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">Ability to match templates with different lengths. This avoids drain&#x27;s &quot;quick decision&quot;</li></ul><ul id="5bd9549f-363a-499e-91a2-09634a66edc3" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">Improve Drain&#x27;s implementation: storing templates in cache and parallel processing </li></ul><p id="4cb70c95-73be-4d21-952e-4b05aef8a0bb" class="">
+</p><h3 id="23c307f0-669f-4637-a921-5b8e66f36209" class="">Template Extraction Overview</h3><p id="1e6c9ae1-0d9b-41d3-8aa9-bd61b3d7b46d" class="">High level steps: </p><ol type="1" id="c3d2380c-3f19-4f4c-b1a5-e9f4ac842216" class="numbered-list" start="1"><li>preprocess to extract obvious variables </li></ol><ol type="1" id="41d5c065-68ff-428e-bf0d-0f00de441db9" class="numbered-list" start="2"><li>compare to existing templates  </li></ol><ol type="1" id="01a76096-b66b-4a08-8c54-072393a742ac" class="numbered-list" start="3"><li>if no match, add line as a new template <code><strong>in cache</strong></code></li></ol><p id="be2388f3-38c5-4361-b9e3-8a9b7821e051" class="">
+</p><p id="7982fa7c-c4d4-4aab-b239-c162e2e32575" class="">Detailed steps: </p><figure id="58634de8-2bb4-4ded-a231-cb304b140ed1" class="image"><a href="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-24_at_14.25.56.png"><img style="width:2798px" src="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-24_at_14.25.56.png"/></a></figure><h3 id="1941009e-2f22-4952-a990-0813554540ab" class="">1. Pre-processing</h3><p id="8885cfd4-f723-479c-94a7-7394782623c6" class="">4 substeps: <div class="indented"><p id="27cae75f-aa59-4abc-b634-da6997129a3e" class="">a.  Tokenization </p><p id="a9c1f4b0-04bc-4e38-9c1d-1728ff7fe689" class="">b.  We analyze these tokens to identify URLs
+and file paths using regular expressions.</p><p id="f889128c-113c-4716-a047-addf28b3febd" class="">c. process composed tokens: split each token on every non-alphanumeric character and replace all the decimal and hexadecimal numbers from the resulting tokens. This enables us to handle dates (“31/01/1997”), IP addresses (“127.0.0.1”) and other similar tokens without using specific regular expressions</p><p id="4c1c16b1-b9ac-48dc-93f8-15e190b2a643" class="">d. discard weird tokens:  We further replace all the tokens that contain at least one numeric character and less than three alphabetical characters. This preserves tokens like “HTTP505” while discarding tokens like “M20”. We observe that most meaningful tokens are shorter than 50 characters, hence, we remove all tokens longer than 50 characters.</p><p id="a3cc02a4-4c06-44f7-925b-84d9ddcdae17" class="">
+</p></div></p><h3 id="7b12e674-ec8f-4cff-a0e0-f4776694f621" class="">2. Pre-filtering of templates</h3><p id="8597fdd3-0aa7-446e-8316-96cc7da2be4e" class="">we only compare templates t and s if: </p><figure id="654099aa-92c3-482d-9cbe-37abbfa66939" class="image"><a href="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-24_at_14.42.03.png"><img style="width:240px" src="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-24_at_14.42.03.png"/></a></figure><p id="1c096c27-20e5-4b17-8132-7e8510d72347" class="">with m(t) is the matching tolerance.</p><p id="ec40d2f0-f6ec-4def-a996-95943afb33dc" class="">
+</p><h3 id="a54681cc-d256-4ece-b166-6a4b55edfcfe" class="">3. LCS for Sequence Matching and template updating </h3><p id="736410b3-a851-4fbc-926c-1f00c25719c1" class="">
+</p><figure id="c00b27e8-b7a5-42b6-8158-d753fda3675a" class="image"><a href="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-24_at_18.16.31.png"><img style="width:384px" src="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-24_at_18.16.31.png"/></a></figure><p id="5c95cbfb-0679-4f86-a0a1-385bc065b2b5" class="">
+</p><p id="20ee2d28-99e5-4d0a-951f-ef076fe07dd2" class="">As can be seen, Logan does not decide quickly to update existing templates. Drain would have merged t1 and t2 together:  App * main INFO SparkContext: * JAR * at * with timestamp * </p><p id="5b0f801b-740e-4a02-9a4f-b1ffbef8afaa" class="">Another example where Drain would fail is:</p><figure id="d66822cb-8103-43ec-b0ac-a63279d9a1d6" class="image"><a href="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-24_at_18.20.04.png"><img style="width:528px" src="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-24_at_18.20.04.png"/></a></figure><p id="e4a53f80-e029-40b2-8fce-d358e6c18735" class="">
+</p><p id="86492cc9-f3a9-4aa8-ae3e-4732e75bb4eb" class="">Since exact matching leads to loss of informative tokens.</p><p id="a989c36b-60ff-4fd9-bac4-1cfac586be51" class="">So, how does Logan updates templates? </p><p id="7483489a-ed9c-44fe-a245-194a43e88e24" class="">Logan builds-in a tolerance for un-exact matching following these rules: </p><figure id="7ebe4b16-8235-4e61-80cd-c1513f419f06" class="image"><a href="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-24_at_20.17.53.png"><img style="width:384px" src="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-24_at_20.17.53.png"/></a></figure><h3 id="29dcb977-3c7f-490f-b9fe-cf5ea158f9dd" class="">4. Configuring Matching Tolerance</h3><figure id="08d7df6a-abba-4b95-9ab6-4561d472ee85" class="image"><a href="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-24_at_20.22.36.png"><img style="width:384px" src="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-24_at_20.22.36.png"/></a></figure><h3 id="537b33f8-87af-4d2d-b7cb-14f68a78c802" class="">5. Periodic Hard Merge </h3><p id="3a698094-5789-423f-941f-30af620d8513" class="">Different shards may generate duplicate templates after LCS, so logan periodically removes duplicates.</p><h3 id="88b6e5ac-3609-4a62-a6e2-43dc55ad081b" class="">6. Soft Merge </h3><p id="9e7e7e57-5682-4ede-a347-64903ef9c69e" class="">Some shards may miss some variables, so Logan does a cross-shard LCS within the list of templates to merge the similar templates</p><p id="9f4618e2-b5e2-4e81-ae4b-ab70a686b404" class="">
+</p><h3 id="dcf986bd-f787-463e-92a5-488c26e04ac4" class="">APPLICATION IN SOFTWARE DEBUGGING</h3><p id="6b813d13-cf7b-45a6-b14c-7f0fa2a39141" class="">They also included a basic anomaly detection that looks like an outlier detection process</p><p id="173e8404-088a-4ace-add4-1297d290b73c" class="">A. Overview</p><figure id="39c496cb-d25b-49d8-a27a-5e0304e8002f" class="image"><a href="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-25_at_12.15.55.png"><img style="width:528px" src="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-25_at_12.15.55.png"/></a></figure><p id="ac2ee01f-f6b4-49ab-a2cc-9da88ea0afb0" class="">B. Matching</p><p id="a967157d-a8dd-4ae0-b180-5001dffd0ff4" class="">Mostly statistical operations to pick a precise list of &quot;normal&quot; templates:</p><ul id="94c6f755-eda1-4363-b9a2-5b40625728b8" class="bulleted-list"><li style="list-style-type:disc">top 20 percent of templates will match 98% of log lines</li></ul><ul id="97d68327-2388-41fa-8b13-9fa80123eb11" class="bulleted-list"><li style="list-style-type:disc">less frequent templates but present in 80% jobs are also kept </li></ul><ul id="2caee4d7-eac3-47cd-8fa7-238d1e23f3f5" class="bulleted-list"><li style="list-style-type:disc">using more lenient filtering constraints (this part is not very clear)<figure id="88ece3bb-b09b-472a-8a5f-597ba9c89881" class="image"><a href="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-25_at_12.39.16.png"><img style="width:480px" src="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-25_at_12.39.16.png"/></a></figure></li></ul><p id="a2f1cf68-9e72-4928-86eb-32ef3c57b536" class="">
+</p><p id="3a8f4a6a-1eee-4758-8481-9f3508436020" class="">    </p><p id="31b7b4a6-7497-4e61-a180-4fcf2f3198c2" class="">C. Frequency Filter and Feedback Loop</p><ul id="940fea16-876b-4526-8840-5285a14eaf4e" class="bulleted-list"><li style="list-style-type:disc">After training Logan on normal templates, it will output outliers. </li></ul><ul id="1570ce0c-d086-418a-a536-1d0a1c969d8c" class="bulleted-list"><li style="list-style-type:disc">if the outlier occurs more than &quot;threshold&quot; times, then remove it from output </li></ul><ul id="99d0ca48-7048-40f8-8273-c488d4d469ba" class="bulleted-list"><li style="list-style-type:disc">threshold is fixed empirically </li></ul><p id="46e8b555-a65e-42eb-afd8-92c23055f174" class="">
+</p><h3 id="2b6c86ee-822e-477c-a376-4d0730caf052" class="">EVALUATION</h3><p id="8fd4f37f-d625-4947-b842-b650afad33d6" class=""> Proposed a new evaluation metric, that excludes the need to build regex for each log (!!!)</p><figure id="6b04f635-7979-402d-a140-651e1c3cda35" class="image"><a href="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-25_at_13.40.20.png"><img style="width:432px" src="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-25_at_13.40.20.png"/></a></figure><figure id="94ab7a28-5172-4d7b-b1b1-c5c1d9f80015" class="image"><a href="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-25_at_13.41.40.png"><img style="width:2180px" src="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-25_at_13.41.40.png"/></a></figure><figure id="ce567b2b-bd79-49c2-bec7-4f0aa7d1ae12" class="image"><a href="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-25_at_13.41.55.png"><img style="width:2234px" src="Logan%20fc994ddcfd8044808c411485c4e7110c/Screenshot_2020-05-25_at_13.41.55.png"/></a></figure><p id="a14c6b39-f105-425b-8444-7783126801b9" class="">
+</p></div></article></body></html>

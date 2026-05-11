@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>More notes about Matrix Profile</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f03744a1-2eee-454a-8f0a-d794df76f14f" class="page sans"><header><h1 class="page-title">More notes about Matrix Profile</h1><p class="page-description"></p></header><div class="page-body"><p id="936d5532-5e5a-4b28-b71a-d5f65f8d8a8e" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><p id="3a7ebc54-a4c5-4d0b-b0fa-51d70058c479" class="">Based on experiments on LogFrequency data, some more literature regarding Matrix Profile were studied. Here are some notes based on those studies.</p><p id="37a53486-cfcc-485a-a5f9-2dfecbf777cc" class="">
+</p><p id="0cfaa92c-b833-4724-be2c-a7b98c80a152" class="">The matrix profile consists of z-normalized Euclidean distance (and the index) to the nearest subsequence for a given subsequence, for all such subsequences. The pairs of the subsequences could be from the same or different time-series. The subsequences are determined by a subsequence length.</p><p id="c954d16d-c475-4306-9a25-c3309440305f" class="">
+</p><p id="22fe10b1-7519-4d16-808c-97a9a589975d" class="">An important aspect for why Matrix Profile is gaining a lot of attention is the improvement of computational complexity from <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>m</mi><mi mathvariant="normal">.</mi><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(m.n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mord">.</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> to <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span>, where <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span></span><span>﻿</span></span> is the length of the subsequences and <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span></span><span>﻿</span></span> is the length of the time-series. For e.g., <a href="https://stumpy.readthedocs.io/en/latest/Tutorial_The_Matrix_Profile.html">this article</a> highlights this point. There has been a lot of work to gain further performance via parallelization and also, application specific performance optimization.</p><p id="eb8a54c5-c826-4dd7-b312-09aefc86966a" class="">
+</p><p id="e11f1e21-9c7c-4c78-9f24-75f899d42bb2" class="">Computing z-normalized Euclidean distance between pairs of subsequences is a fundamental aspect of the Matrix Profile. The speed-ups are based on this aspect.</p><p id="764018e4-c3ab-4bc4-ada4-65fab5938433" class="">
+</p><h3 id="3b2f6b49-9091-47a6-b156-cf225a948525" class="">Matrix profile goes MAD: variable-length motif and discord discovery in data series, Linardi et al DMKD 2020</h3><ul id="2a1f02de-c9f6-4cd9-b3df-19ed57b3ff19" class="bulleted-list"><li style="list-style-type:disc">Algorithms to efficiently compute matrix profile in order to identify motifs and discords in a range of sub-sequence lengths.</li></ul><ul id="436e3889-3a1a-4999-a90c-6c8c7c4da691" class="bulleted-list"><li style="list-style-type:disc">Length based normalization in order to reliably compare and rank motifs/discords of different lengths.</li></ul><ul id="daa6d855-22a3-46fb-9cda-121ec2d6bb64" class="bulleted-list"><li style="list-style-type:disc">Good intuition: Definition of top-k <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mtext>m</mtext><mtext>th</mtext></msup></mrow><annotation encoding="application/x-tex">\text{m}^{\text{th}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord text"><span class="mord">m</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">th</span></span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> discord (Figure 2, Definitions 8 and 9).</li></ul><ul id="4e138fff-17c7-46b6-95b0-7cb025fd96f2" class="bulleted-list"><li style="list-style-type:disc">Exclusion zone to suppress false positives: I have misunderstood this concept. This exclusion zone is related to avoiding trivial matches while computing the Matrix Profile and it is already implemented by STUMPY.</li></ul><ul id="2b134b34-51d5-40a3-a144-2f1dce97f873" class="bulleted-list"><li style="list-style-type:disc">The algorithms in this paper build upon an earlier algorithm called VALMOD. The following repositories implement VALMOD but it is not clear whether they have only implemented the motif part or the discord part also:<p id="c4827987-7c69-4e4b-ab5d-32e1f5f49189" class=""><a href="https://helios2.mi.parisdescartes.fr/~mlinardi/VALMOD.html">https://helios2.mi.parisdescartes.fr/~mlinardi/VALMOD.html</a> <a href="https://rdrr.io/github/franzbischoff/tsmp/man/valmod.html">https://rdrr.io/github/franzbischoff/tsmp/man/valmod.html</a></p></li></ul><p id="4b501bda-aea0-4c01-b4b3-d4dc1f5d5c59" class="">      The algorithms are not yet available in STUMPY as mentioned <a href="https://github.com/TDAmeritrade/stumpy/issues/184#issuecomment-920411967">here</a>.</p><p id="1a169abd-d50b-49ad-a894-0f30136d0a1a" class="">
+</p><h3 id="6285a709-1e32-4364-9325-56c7bd2b275d" class="">MERLIN: Parameter-Free Discovery of Arbitrary Length Anomalies in Massive Time Series Archives, Nakamura et al ICDM 2020</h3><ul id="cfdc078b-4fb1-436e-a18d-0ca005ae5482" class="bulleted-list"><li style="list-style-type:disc">Among anomaly detection techniques, discord detection has shown good results. However, it is limited by the correct choice of window length.</li></ul><ul id="3463bd16-23e9-47f0-a5f7-5d23bc7ababa" class="bulleted-list"><li style="list-style-type:disc">Points out curse of dimensionality when sub-sequence length becomes bigger. <a href="https://blogs.oracle.com/ai-and-datascience/post/sax-and-matrix-profile-techniques-for-root-cause-analysis">Oracle IoT</a> <a href="https://www.linkedin.com/pulse/part-i-introduction-time-series-approximation-sax-supreet-oberoi">articles</a> also discuss this point (SAX for longer time-series and MP for shorter ones).</li></ul><ul id="90a892e4-7cb4-409c-97bf-d909225b1f9f" class="bulleted-list"><li style="list-style-type:disc">Mentions about z-normalization blowing up noise in small windows. Same point mentioned by &quot;<a href="../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20matrix%20profile%20tests%205b340fc7641745ba9894598feae65ed5.html">Eliminating Noise in the Matrix Profile</a>&quot;.</li></ul><ul id="29564f2e-f627-40ce-9f7e-5c79b5882e04" class="bulleted-list"><li style="list-style-type:disc">According to them subsequence length of 3 is pathologically short for almost any domains.<ul id="5af1bd90-8c3a-4328-a9d5-69fcdcc6be44" class="bulleted-list"><li style="list-style-type:circle">According to MPdist paper, it makes sense to normalize time series till a minimum size of 3 and not lower.</li></ul></li></ul><ul id="081823fd-2e18-4f30-b724-ab5ef3ddef4b" class="bulleted-list"><li style="list-style-type:disc">Extends an <a href="https://www.cs.ucr.edu/~eamonn/DiskawareDiscords.pdf">earlier paper</a> which presented a two stage approach to find discords based on a threshold parameter (minimum distance between subsequences). Note: The description of the two stages is better in the earlier paper.<ul id="e7b35a37-3ef8-48ff-945e-631693eff1be" class="bulleted-list"><li style="list-style-type:circle">The first stage identifies a bigger set of potential discords by comparing each subsequence with a growing set of discords (the set is initialized with the first subsequence). The second stage compares all the subsequences with this set of candidates and prunes false positives.</li></ul></li></ul><ul id="51caa630-ff76-4b8e-9e04-f019aa06d57c" class="bulleted-list"><li style="list-style-type:disc">This paper presents an efficient way to search for the correct threshold parameter (by starting with a high value and slowly reducing it till it is enough).</li></ul><ul id="d525c4a6-685b-4cdb-91d6-f681865c0d73" class="bulleted-list"><li style="list-style-type:disc">Matlab code: <a href="https://sites.google.com/view/merlin-find-anomalies/">https://sites.google.com/view/merlin-find-anomalies/</a></li></ul><ul id="54bb053d-112a-4a9f-b128-164262e54c52" class="bulleted-list"><li style="list-style-type:disc">Lists many anomaly detection references:
+Detecting Spacecraft Anomalies Using LSTMs and Nonparametric Dynamic Thresholding, KDD 2018. 242 citations. <a href="https://github.com/khundman/telemanom">https://github.com/khundman/telemanom</a></li></ul><p id="757dac7b-1113-4508-a763-87ed9b3cfee2" class="">
+</p><h3 id="3d0e8136-e3ef-4017-aabc-806f8ea602dd" class="">The Swiss army knife of time series data mining: ten useful things you can do with the matrix profile and ten lines of code, Zhu et al DMKD 2020</h3><ul id="cfe2c5ef-8dd8-4e7b-933c-c75a8d1fa9bf" class="bulleted-list"><li style="list-style-type:disc">Paper proposes the use of Matrix Profile as a standard block of reasonable complexity that can be used by practitioners in various applications. Just like how sorting algorithms are used in various applications.</li></ul><ul id="3e44f5be-7720-41d6-a80f-21c22121993b" class="bulleted-list"><li style="list-style-type:disc">The ideas presented are instructive. However, they generally assume that the window size is known and also, other parameters of the application are known. The examples show that the matrix profile is useful but the information provided by matrix profile needs to be further analysed in a suitable manner, according to the application.</li></ul><ul id="34a50bba-42db-41fc-a25b-7683ecd7cf0e" class="bulleted-list"><li style="list-style-type:disc">e.g. applications: Discovering motifs under uniform scaling (i.e., linear stretching or contraction) (assumes the scaling factor is known and window size), shapelet discovery (assumes shapelet length is known), time-series similarity using motifs (electricity meter readings) (assumes motif length is known), time-series clustering using minimum matrix pofile distance between pairs of time-series (assumes window size), segmenting repetive parts of a time-series by making use of the fact that matrix profile for the subsequences in the repetitive regimes will be low (assumes window size), discovering subsequences that flipped versions (either in time or in amplitude) of each other (assumes window size). </li></ul><p id="3e604de1-b65b-4272-a82d-1aa1e459e9f7" class="">
+</p><h3 id="9a86d70d-7802-4dc1-a582-776e3773c9c6" class="">MPdist: A Novel Time Series Distance Measure to Allow Data Mining in More Challenging Scenarios, Gharghabi et al ICDM 2018</h3><ul id="3a34459f-3345-48ed-8597-481d6572714f" class="bulleted-list"><li style="list-style-type:disc">Longer time-series provide greater challenges to distance measures. (Also, mentioned by the swiss army knife paper.)</li></ul><ul id="f143a261-216e-484f-bdd5-c780c62b22d2" class="bulleted-list"><li style="list-style-type:disc">MPdist is claimed to be robust to spikes, dropouts, wandering baseline and missing values, and other issues. Not a metric but according to the paper it is an advantage.</li></ul><ul id="4dd46caf-491f-487a-93ec-8355434a426a" class="bulleted-list"><li style="list-style-type:disc">MPdist is based on the idea that two time-series are similar if they have many similar subsequences. The locations of the subsequences don&#x27;t matter thus providing robustness to phase change and also, capture higher semantic behavior. </li></ul><ul id="5b7e702b-da6b-491a-aa36-3c2bf62f7c4b" class="bulleted-list"><li style="list-style-type:disc">MPdist between two time-series A and B: Compute MP of A w.r.t. B and B w.r.t. A. Consider the <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mtext>th</mtext></msup></mrow><annotation encoding="application/x-tex">k^{\text{th}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">th</span></span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> smallest matrix profile distance as MPdist. Where <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span></span><span>﻿</span></span> is <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">5\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">5%</span></span></span></span></span><span>﻿</span></span> of the sum of the lengths of the two time-series. This is more robust than looking at the maximum (vulnerable to spikes etc) or minimum (there will be similar subsequences between many pairs of long enough time-series) value. The <a href="https://sites.google.com/site/mpdistinfo/">extended paper</a> discusses further about this choice.<ul id="983a6ff8-76c8-49c5-b4a1-d1a7ce1545ae" class="bulleted-list"><li style="list-style-type:circle">We could take inspiration from this step and set a high threshold (since, we are looking for discord) and consider only cases larger than this threshold.</li></ul></li></ul><ul id="f2d7d622-3c82-4fd4-be66-617176899392" class="bulleted-list"><li style="list-style-type:disc">Even though the two time-series need not be of same length, the discussions seem to be based on same or comparable length time-series.</li></ul><p id="97c9db4a-3b0a-4a62-96a8-3bae84b39045" class="">
+</p></div></article></body></html>

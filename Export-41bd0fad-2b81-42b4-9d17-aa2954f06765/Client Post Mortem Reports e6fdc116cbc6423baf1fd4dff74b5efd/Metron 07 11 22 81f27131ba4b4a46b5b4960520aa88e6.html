@@ -1,0 +1,680 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Metron 07.11.22</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="81f27131-ba4b-4a46-b5b4-960520aa88e6" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🥏</span></div><h1 class="page-title">Metron 07.11.22</h1><p class="page-description"></p></header><div class="page-body"><h1 id="fe9d369e-f8f5-42ef-bb9c-55261b9e7815" class="">Postmortem summary</h1><table id="ade37034-d134-4fd2-aff2-bc628b14f922" class="simple-table"><tbody><tr id="cb2266d9-3cdd-4c44-9ab8-a2a2a7d3464b"><th id="w&gt;fZ" class="simple-table-header-color simple-table-header">Postmortem owner</th><td id="rQlx" class="" style="width:459.5625px"><span class="user">@Sebastien Gilles</span> </td></tr><tr id="d6b1de07-f8f8-415c-a190-f17a953d4b99"><th id="w&gt;fZ" class="simple-table-header-color simple-table-header">Incident</th><td id="rQlx" class="" style="width:459.5625px">Logs and patterns were unavailable for 2+ hours</td></tr><tr id="799d0e8e-1b04-4d02-b9fb-78f71e92550d"><th id="w&gt;fZ" class="simple-table-header-color simple-table-header">Priority</th><td id="rQlx" class="" style="width:459.5625px">P0</td></tr><tr id="678abc75-f448-4eb0-9682-118ed71a2c62"><th id="w&gt;fZ" class="simple-table-header-color simple-table-header">Affected services</th><td id="rQlx" class="" style="width:459.5625px">Vector ingester</td></tr></tbody></table><h1 id="25e8daf2-a0e6-45dc-b257-d8f52da33c81" class="">Postmortem report</h1><h2 id="ceac7f5f-8cbe-4cb4-b7f3-581e22b8b526" class="">Leadup</h2><p id="0b0753e8-8aab-441a-a8df-43883605dd3b" class=""><em>Sequence of events that led to the incident</em></p><ul id="167fec4b-242b-4b4f-8bde-b692fa7d9507" class="bulleted-list"><li style="list-style-type:disc">On Saturday 05.11.22 at 20:10 (T0), we received a critical alert on Slack channel <strong>#k8s-monitoring-critical metron, </strong>about a wrong number of DGraph replicas<figure id="ec56474e-625e-4f22-8c25-7d4022acb554" class="image"><a href="Metron%2007%2011%2022%2081f27131ba4b4a46b5b4960520aa88e6/Capture_decran_2022-11-09_a_17.58.43.png"><img style="width:1342px" src="Metron%2007%2011%2022%2081f27131ba4b4a46b5b4960520aa88e6/Capture_decran_2022-11-09_a_17.58.43.png"/></a></figure><ul id="d9f196dc-758b-4874-9420-4b99a2f94a7d" class="bulleted-list"><li style="list-style-type:circle">We received <strong>6 similar alerts</strong> within the next hour at 20:17, 20:22, 20:57 (2 alerts) and 21:02 (2 alerts)</li></ul></li></ul><ul id="0e73024c-175b-4fad-854a-05d009964685" class="bulleted-list"><li style="list-style-type:disc">In parallel we observe an unusual behaviour on <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>template consuming behaviour, </strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>starting 05.11.22 at 20:10. As can be seen, the throughout of consumed messages starting fluctuating until Monday 07.11.22 at 09:50 were it skyrocketed before resuming to normal at 15:30.<ul id="76b2964a-ce1a-46a4-98db-dc516fb65c30" class="bulleted-list"><li style="list-style-type:circle">At 09:50 traffic skyrockets and resumes back to normal</li></ul><figure id="1b6d63bd-75b4-43d9-82b0-908bf0413af6" class="image"><a href="Metron%2007%2011%2022%2081f27131ba4b4a46b5b4960520aa88e6/Capture_decran_2022-11-09_a_18.05.48.png"><img style="width:336px" src="Metron%2007%2011%2022%2081f27131ba4b4a46b5b4960520aa88e6/Capture_decran_2022-11-09_a_18.05.48.png"/></a></figure></li></ul><ul id="39115866-83cb-4caf-844b-1b788505bdf4" class="bulleted-list"><li style="list-style-type:disc">Finally, a node restarted at 05.11.22 at 20:10. This node hosts a DGraph replica and the vector ingestor. <figure id="851f0aa4-a681-445d-a7d2-a12555033bf4" class="image"><a href="Metron%2007%2011%2022%2081f27131ba4b4a46b5b4960520aa88e6/Capture_decran_2022-11-10_a_14.49.58.png"><img style="width:2802px" src="Metron%2007%2011%2022%2081f27131ba4b4a46b5b4960520aa88e6/Capture_decran_2022-11-10_a_14.49.58.png"/></a></figure></li></ul><hr id="3731f60e-f209-4bcd-a388-f8fb7cd3ee31"/><h2 id="e2e651f8-29f1-442f-bd7f-a4026c5d4430" class="">Fault</h2><p id="cab6267d-98ad-4e67-9dc2-f1792089ff78" class=""><em>Describe how the change that was implemented didn&#x27;t work as expected.If available, include relevant data visualizations.</em></p><ul id="7b023211-3bb8-4c85-bcac-67ec63a04d51" class="bulleted-list"><li style="list-style-type:disc">As alerts were sent outside of working hours, we failed to react appropriately</li></ul><hr id="eae4ef1a-9461-4fa5-983e-1276b6288f1f"/><h2 id="ed6b4a1c-1718-4989-95a3-245712c4f2e3" class="">Impact</h2><p id="d0632cc1-d109-4224-b495-7d4c17f1aed8" class=""><em>Describe how internal and external users were impacted during the incident. Include how many support cases were raised.</em></p><ul id="cd64f99c-9316-4033-bb6a-3863a19242f1" class="bulleted-list"><li style="list-style-type:disc">Metron had no UI menu (due to DGraph) nor more access to logs and patterns (due to ingester) from Sat 5.11 08:30 to Mon 7.11 10:30. </li></ul><ul id="b2bf0f96-54e1-4b6f-89e4-a3850863e87c" class="bulleted-list"><li style="list-style-type:disc">Metron log patterns had a lag from 10:30 until 15:00</li></ul><ul id="882729b2-77ea-41e2-ae3c-248aecca384f" class="bulleted-list"><li style="list-style-type:disc">Potential loss of data occurred</li></ul><hr id="1663f0e4-d96f-4598-a12f-e0ba71030de6"/><h2 id="66e6db09-574d-4ec7-a2dd-15dbbc5767fb" class="">Detection</h2><p id="175c0400-8d8c-4805-a4ec-abdf1c2f2fd2" class=""><em>Report when the team detected the incident and how they knew it was happening. Describe how the team could&#x27;ve improved time to detection.</em></p><ul id="086e929b-6e63-46f5-9b11-bd60afc1c6c9" class="bulleted-list"><li style="list-style-type:disc">Gilles from Metron warned us at 07.11.22 08:30 that logs and patterns were no longer displayed<ul id="0b51eaea-9a98-4a5d-955f-87de9aef1c56" class="bulleted-list"><li style="list-style-type:circle">We should have monitored and detected this issue first</li></ul></li></ul><hr id="b165b941-21a3-4e80-8c00-361273b89832"/><h2 id="e5c3fa90-30d0-493a-bce3-d3db41e15d59" class="">Response</h2><p id="37f27c96-6eb8-4938-92ad-1fcc7073a73e" class=""><em>Report who responded to the incident and describe what they did at what times.
+Include any delays or obstacles to responding.</em></p><ul id="871410e5-42cf-4d29-9f0a-a4370001b460" class="bulleted-list"><li style="list-style-type:disc"><span class="user">@Hardik Thakkar</span> noticed Gilles’s comment on Slack during daily standup</li></ul><ul id="56a943f4-9dc9-49cb-bdad-4d4aaaa82648" class="bulleted-list"><li style="list-style-type:disc"><span class="user">@Rama Rao Ganji</span> scaled up vector ingestor (by seeing many OOM-killed) from 1 to 2, restarted the deployment</li></ul><ul id="abfaea56-b453-40a7-8775-ad5845ca659a" class="bulleted-list"><li style="list-style-type:disc"><span class="user">@Yuchao QIAN</span> restarted Dgraph at around 07.11.22 09:45 after seeing critical alerts identifying an issue with Draph</li></ul><hr id="0db4ba70-ca2c-403e-afa1-7c1d1a25dea6"/><h2 id="3a0d1294-fe2a-447e-abbd-373f2649d012" class="">Recovery</h2><p id="e498aaef-3153-4858-8dac-0e614f6fcd45" class=""><em>Report how the user impact was mitigated and when the incident was deemed resolved. Describe how the team could&#x27;ve improved time to mitigation.</em></p><ul id="40d4ea14-0293-4630-a91a-29fb12633def" class="bulleted-list"><li style="list-style-type:disc">Metron quickly recovered logs and log patterns, despite a lag in template indexing due to absorbing massive data load that was gone at around 15:00</li></ul><hr id="3b88ef95-fab7-45a7-b6b3-19e1c835b727"/><h2 id="6c5b6239-b391-4c54-8f68-1feac0423703" class="">5-whys root cause identification</h2><p id="ba770fb1-d197-47ac-b779-231902fefce8" class=""><em>Run a 5-whys analysis to understand the true causes of the incident.</em></p><ul id="437c6b1d-c695-4ae2-8426-29bbafdc6def" class="bulleted-list"><li style="list-style-type:disc"><strong>Why did Metron’s vector agent on all clusters (fr03, etc.) started withholding data sent to PAI vector ingester API starting on T0 (T0=saturday 05.11.21 at 20:10)?</strong> The sequence of events is as follows, with a crash loop in steps 3-9:<ol type="1" id="5df044b1-79d2-4631-b024-130d938d789d" class="numbered-list" start="1"><li>cluster node crashes.</li></ol><ol type="1" id="624c2dd7-e257-4b23-a5bb-6e3a8b1e0175" class="numbered-list" start="2"><li>ingester gets killed (as well as one DGraph replica).</li></ol><ol type="1" id="0691844c-db47-426b-a6dd-5ce263b370c4" class="numbered-list" start="3"><li>ingester API (HTTP sink) goes offline.</li></ol><ol type="1" id="66fdb934-fe4f-4124-9fdb-2bb2e773e4e5" class="numbered-list" start="4"><li>Metron’s vector agent detects that HTTP sink is down and holds back/bufferizes data.  </li></ol><ol type="1" id="46f00587-20d2-4d56-8fa4-ad583daf65db" class="numbered-list" start="5"><li>cluster node reboots (first time only) / ingester API restarts</li></ol><ol type="1" id="17e6b2af-eb69-47a7-ab06-3cfb062d4ee7" class="numbered-list" start="6"><li>ingester API is back online</li></ol><ol type="1" id="8b5561f3-9a56-4884-afd6-8e9364533ce3" class="numbered-list" start="7"><li>Metron’s vector agent detects that HTTP sink is up and releases all held back data.</li></ol><ol type="1" id="1f2ffb46-67ec-41c5-b214-15c29115ece6" class="numbered-list" start="8"><li>ingester receives a “tsunami” of data and get OOM-killed by k8s.</li></ol><ol type="1" id="eb3dfdc2-9b17-42b4-9b42-f9b09665e089" class="numbered-list" start="9"><li>back to step 3 </li></ol></li></ul><ul id="d7797ccb-e475-427f-8d36-eb8d3c4fad84" class="bulleted-list"><li style="list-style-type:disc"><strong>Why did vector ingestor API started “choking” at T0?</strong> Because of a cluster node restart</li></ul><ul id="8f79ab51-3e46-4df9-bd52-a3c05bdf3322" class="bulleted-list"><li style="list-style-type:disc"><strong>Why did we not receive alerts on ingestor issues at T0?</strong> Because we have not set up alerts on the ingester</li></ul><ul id="63337f48-31ea-403e-a81d-dbe69eed1241" class="bulleted-list"><li style="list-style-type:disc"><strong>Why did node restart?</strong> We do not have the answer yet - need to drill down</li></ul><p id="a308a731-98d8-4006-a3fa-12a6e2d771fa" class="">
+</p><hr id="61f1828d-d161-4f82-b5e0-8b983f962003"/><h2 id="a624ce89-0f60-4b9c-a4e0-2004acc3d0cd" class="">Related incidents</h2><p id="dc9ea6ee-b514-47e2-b013-521a12180311" class=""><em>Check if any past incidents could&#x27;ve had the same root cause. Note what mitigation was attempted in those incidents and ask why this incident occurred again.</em></p><ul id="5e1202f1-83eb-4fd1-b62d-c516f10114f9" class="bulleted-list"><li style="list-style-type:disc">N/A</li></ul><p id="16ff9dfd-41fd-406b-b6ae-ba286c0405ce" class="">
+</p><hr id="869683da-2712-49a6-95c0-951f9523ba29"/><h2 id="00bc79aa-0ca7-48d8-aa0d-5ab0a1f551e6" class="">Lessons learned</h2><p id="0722da29-746e-4edd-a4ef-820a9991b0a9" class=""><em>Describe what you learned, what went well, and how you can improve.</em></p><ul id="15c60721-afa7-476b-af77-a779921cd776" class="bulleted-list"><li style="list-style-type:disc">We need to clarify oncall outside working hours → pagerduty SMS for critical prod issues + remove non-production alerts from <strong>#k8s-critical-monitoring</strong></li></ul><ul id="e99cd2cd-849c-4837-9901-5ebaff68d198" class="bulleted-list"><li style="list-style-type:disc">We need to monitor vector ingestor - <a href="https://packetai.atlassian.net/browse/BEP-4032?jql=issueKey%20in%20(BEP-4031%2CBEP-4032)#:~:text=%C3%80%20FAIRE-,BEP%2D4032,-Monitor%20vector%20ingester">Ticket</a> planned for SP81</li></ul><ul id="37eb2859-1541-41fc-aca5-762deae74f52" class="bulleted-list"><li style="list-style-type:disc">We need HPA on ingestor with 1+ replica (investigate increasing memory) - <a href="https://packetai.atlassian.net/browse/BEP-4032?jql=issueKey%20in%20(BEP-4031%2CBEP-4032)#:~:text=TERMIN%C3%89(E)-,BEP%2D4031,-HPA%20for%20vector">Ticket</a> planned for SP81</li></ul><p id="84f3763c-76c8-4b9c-8d97-176c56d80fd9" class="">
+</p></div></article></body></html>

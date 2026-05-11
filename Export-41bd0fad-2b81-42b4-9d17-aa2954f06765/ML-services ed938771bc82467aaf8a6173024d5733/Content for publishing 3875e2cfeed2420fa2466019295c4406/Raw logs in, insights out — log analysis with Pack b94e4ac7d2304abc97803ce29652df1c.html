@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Raw logs in, insights out — log analysis with PacketAI (Part 1) - published   </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="b94e4ac7-d230-4abc-9780-3ce29652df1c" class="page sans"><header><h1 class="page-title">Raw logs in, insights out — log analysis with PacketAI (Part 1) - published   </h1><p class="page-description"></p></header><div class="page-body"><nav id="d6fc4747-c0ee-434c-871c-32391264873f" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3aa161ab-548d-42cc-80e8-f88b2fbc26d7">TL;DR</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0e4417e8-0763-4415-8369-c76905292e88">Introduction</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3c65b2ec-57e8-4c3e-8546-05015d6ee886">The importance of logs in system observability</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a4c561bd-608c-43bb-9372-52a326239419">Human analysis of logs is unfeasible at scale</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bce6e1fb-f86e-435c-8c0d-b6e44b8c1a24">The maintainability issue</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#236bb6aa-fff6-4e42-98ac-cae450bb76bc">The portability issue</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c4557237-ffd2-4825-b39e-e5fc5663d026">The exhaustivity issue</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#570e754b-5b88-49e4-a730-2ab92c76afa3">(Auto)Analysing logs with PacketAI</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ca75672b-cab7-4402-9efb-217ac0c4b434">1. outlier log anomaly</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d2624818-a4a7-456b-a458-84c61c68c017">2. log pattern anomaly</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5416540e-921a-4996-8b2a-320386337adf">3. log sequence anomaly</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b4cf91f4-4fae-4786-9fd7-414af9cc59bb">4. log frequency anomaly</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#17ab62c4-53e5-4b11-a8d2-3059c9bd2935">5. negative log detection</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e4f59335-3384-42a6-8885-3dc5138d1ea6">Conclusion</a></div></nav><h2 id="3aa161ab-548d-42cc-80e8-f88b2fbc26d7" class="">TL;DR</h2><p id="fb3f7d12-ae21-4655-989d-e2115c4815d0" class="">…</p><h2 id="0e4417e8-0763-4415-8369-c76905292e88" class="">Introduction</h2><p id="adbf5b24-5c14-4863-9927-baae02d1c2c4" class="">Today’s monitoring practices put too much burden on SREs and developers, the rarest resource in any software organisation. These teams spend countless hours staring at “single pane of glasses”, making sure the “system behaves normally” by looking at metrics and logs and chasing abnormalities. These abnormalities are mostly captured by setting manual rules and thresholds. PacketAI introduces a new observability paradigm, relying on ML algorithms to autonomously establish a baseline for system behaviour and indicate when anomalies happen.</p><h2 id="3c65b2ec-57e8-4c3e-8546-05015d6ee886" class="">The importance of logs in system observability</h2><p id="9236f044-4b64-4892-8c1d-2c4e77ae90b6" class="">Any given component of an infrastructure generate two types of data: metrics and logs. Metrics mainly describe the outer characteristics of a component and the environmental conditions in which it runs. For example, response time of an app component, throughput of a database component, queue size of streaming engine and cpu usage of python data app. These metrics give the observer “black box” information about the component, which is enough to do quick, somewhat superficial troubleshooting.</p><p id="7cf3fc93-e34b-46ed-aa94-62606ebc8a22" class="">However, in order to do more in depth troubleshooting, and understand the exact root cause, logs are necessary since they describe the inner workings of the component (same as traces, which can be categorised as logs or/and metrics sometimes).</p><p id="7ee6651e-29c8-4dd1-afad-08cdcabfbf56" class="">The problem is that at scale, the sheer amount of log data makes unfeasible to be use for real time troubleshooting of incident, and when actually used in troubleshooting, it generally leads to very long MTTRs (Mean Time To Resolve). For this reason, logs are usually looked at well after-the-fact for postmortem investigations.</p><h2 id="a4c561bd-608c-43bb-9372-52a326239419" class="">Human analysis of logs is unfeasible at scale</h2><p id="06f3c2bb-e27f-4d96-85d6-e430fb091b96" class="">Many years ago, when applications used to be small monolithic chunks of code lines generating a few tens of log data, manual analysis of logs was more than enough to understand the inner workings of the system. Today however, with TBs of logs per day generated by hundreds or thousands of ephemeral containers, it is absolutely impossible to rely on human investigators to troubleshoot the system in real time, or acceptable time frames.</p><p id="e0abd454-b70a-49aa-94c1-2066c0b2c127" class="">Traditionally, engineers use static rules to generate alerts from logs, mostly by employing regex and simple count rules. For example, a common alerting rule is to count the number of occurrences of a specific category of logs such as Error and Warning logs. You can do this by either extracting the severity field when present in logs or searching the words “error” and “warning” in the content of log lines. This approach could work at small scales but is unfeasible at larger scales for the following reasons:</p><h3 id="bce6e1fb-f86e-435c-8c0d-b6e44b8c1a24" class="">The maintainability issue</h3><p id="03214f8b-148a-4a15-b985-907de78f2dcc" class="">Systems change and evolve, and their logs change accordingly, which means rules need to be maintained continuously. At scale, this can be time consuming and prone to human errors.</p><h3 id="236bb6aa-fff6-4e42-98ac-cae450bb76bc" class="">The portability issue</h3><p id="c6c13b21-41ac-45a6-a160-bfa19f8adfbe" class="">Systems are not equal, so rules that work on component A would not necessarily work on component B, hence engineers need to build custom rules for different components and systems. For example, some databases use the work “issue” and others use “problem” in their logs.</p><h3 id="c4557237-ffd2-4825-b39e-e5fc5663d026" class="">The exhaustivity issue</h3><p id="e5b1ee89-34b6-4634-8238-582c440c63b6" class="">It is very hard to build a database of all interesting regex and maintain it. For example, what is the exhaustive list of interesting “key words” to look for? like: error, warning, fatal, problem, not connected, impossible to connect … This issue is even larger when dealing with custom application logs, where developers do not necessary follow logging best practices and are free to use any wording of their choice.</p><p id="f0c1ed6e-67e3-4240-998d-f17d38cb67bf" class="">Note that these limitations can be amplified when combining alerting on logs and metrics. For example, alert when count of log lines containing the word “error” is more than 500 in 5min. In this case, limitations of static thresholding on metrics are combined with limitations of rule-based log alerts, which generally results in a flood of false positive alerts, all while being late to spot the real problems.</p><h2 id="570e754b-5b88-49e4-a730-2ab92c76afa3" class="">(Auto)Analysing logs with PacketAI</h2><p id="34f70749-b047-4533-8cb5-0d58620d5835" class="">As explained above, because of their large volumes, logs are (generally) only used for postmortem analysis and auditing. Which is a shame because of the richness of information they contain. Thus the ultimate goal of an autonomous log analyser is to extract insights from logs in real time and provide it to engineers during incident troubleshooting. What’s even better, provide insights about hidden events that might generate impactful incidents in the future.</p><p id="61f512e6-ad60-4ea3-ab08-b806589d47f2" class="">This is exactly what PacketAI has built, an AIOps platform that extracts insights from metrics and logs, and present them to the user in real time. In the following, we will present how PacketAI log engine works, and detail some log-related use cases where PacketAI outperforms classic log analysis tools:</p><p id="c237c914-c665-46c9-82a5-b1daae534c60" class="">At the heart of PacketAI logs engine, we find LAD (Log Anomaly Detection engine), which as its name suggests, detects anomalies in log data. But before going deep into LAD, let’s lay down some terminology:</p><p id="778e026c-d50b-4700-af6c-ee75153dd8d0" class=""><strong>Log line: </strong>just a log line</p><p id="f96e3410-2c55-4838-81d6-4aa662b81e2a" class=""><strong>Anomaly: </strong>We use the term anomaly (sometimes dubbed as outlier) in its most intuitive definition:</p><p id="b04d1840-59f1-4c72-ad36-4e54e339bb94" class="">“An outlier is an observation which deviates so much from the other observations as to arouse suspicions that it was generated by a different mechanism.” <a href="http://213.230.96.51:8090/files/ebooks/Matematika/Aggarwal%20C.C.%20Outlier%20analysis%20%282ed.,%20Springer,%202017%29%28ISBN%209783319475776%29%28O%29%28481s%29%20MVsa%20.pdf">source</a></p><p id="f2f55670-3a66-48bb-8e51-fc445c19c9f6" class="">In our case, the different mechanism could be a bug, a config change, a human error, a hardware defect …etc</p><p id="5bcfc5bb-e579-4902-9f92-9c1f7b731543" class=""><strong>Log header and log content: </strong>A raw line usually contains a header (timestamp, severity ..) and a content, which is the core message of the log line. <strong> </strong></p><p id="8efe3c49-a80d-44fa-93dd-d362a61ed0d8" class=""><strong>Log template</strong><strong>: </strong>A raw log content contains a constant part and a variable part, the variable part could be numerical values, IP addresses, port numbers, URLs .. etc. The constant part is tokens that describe a system operation template (i.e., log event). For example, here is the set of all possible log templates generated by a Rabbitmq component (where variable parts are either masked or replaced by *):</p><p id="5cb80b76-65f3-4b8e-873d-1a6af4f99bc0" class=""><code>E1: accepting AMQP connection &lt; PID &gt; ( IPPORT - &gt; IPPORT )</code></p><p id="ba23de15-3a2f-4475-8336-46041826f881" class=""><code>E2: closing AMQP connection &lt; PID &gt; ( IPPORT - &gt; IPPORT )</code></p><p id="01c71450-5ac9-4121-86c1-2fb1eef87b0e" class=""><code>E3: connection &lt; PID &gt; ( IPPORT - &gt; IPPORT ) : user &lt;*&gt; &#x27; authenticated and granted access to vhost &#x27;PATH &#x27;</code></p><p id="4e2616f8-868e-468a-a3f4-8d79d87d261d" class=""><code>E4: client unexpectedly closed TCP connection</code></p><p id="19f75d27-99df-45fb-bb61-bfcd28f56c68" class=""><code>E5: closing AMQP connection &lt; PID &gt; ( IPPORT - &gt; IPPORT , vhost : &#x27;PATH &#x27; , user : &lt;*&gt; &#x27; )</code></p><p id="0a7755ca-eda3-44ec-9d08-84823e695b79" class=""><code>E6: missed heartbeats from client , timeout : 60s</code></p><p id="01ceb74f-325c-4f91-9a92-5261eecc650a" class=""><code>E7: Supervisor { &lt; PID &gt; , rabbit_channel_sup_sup } had child channel_sup started with rabbit_channel_sup : start_link ( ) at undefined exit with reason &lt;*&gt; in context shutdown_error</code></p><p id="578b92f8-4fae-495b-9308-2a35ea12a41b" class="">Btw, you can transform millions of log lines into templates in one click on PacketAI (beta release soon), but the details of how we achieve this will make up for another post:</p><figure id="924d4d64-afb3-4563-ab6a-6b311adc37d8" class="image"><a href="https://cdn-images-1.medium.com/max/2400/1*cnfxy3mWRF35PIMDTNOC1w.png"><img src="https://cdn-images-1.medium.com/max/2400/1*cnfxy3mWRF35PIMDTNOC1w.png"/></a></figure><p id="12a088d1-3168-4811-b8d2-48ac40d047f8" class="">
+</p><p id="290b69c5-abe4-4b76-944f-88ed7a6305e0" class="">LAD is capable of detection 5 types of anomalies:</p><figure id="edd6850a-1ac7-4a9d-946e-109cc3fb5196" class="image"><a href="https://cdn-images-1.medium.com/max/2400/1*bvRXFMIuCfSgShfjFkPhVQ.jpeg"><img src="https://cdn-images-1.medium.com/max/2400/1*bvRXFMIuCfSgShfjFkPhVQ.jpeg"/></a></figure><p id="b9ec385d-6e5b-42f0-8daf-b9b2c648e4f9" class="">PacketAI LAD functional workflow</p><h3 id="ca75672b-cab7-4402-9efb-217ac0c4b434" class="">1. outlier log anomaly</h3><p id="e1f265cd-3793-439b-ba60-95fd1778d22f" class="">Outlier log lines are simply ones that do not resemble the rest of log lines. The execution of any software component generates a finite “normal” set of log templates over time, which corresponds to the “normal” execution paths. Branching to an “abnormal” execution path generates one or more outlier log lines that can be captured as outlier, hence abnormal log templates.</p><p id="7680a16d-af72-4b2f-b5d4-9de0353e036d" class="">For example, suppose this is the normal execution sequence of the same Rabbitmq component mentioned above:</p><p id="8b222062-0a0e-4b04-82d4-c7507d8c283a" class=""><code>E5, E1, E5, E1, E3, E7, E4, E2, E1, E1, E3, E1, E3, E1, E1, E2, E6, E6, E6, E2</code></p><p id="c8e03c47-c4ad-493b-a462-8a70a4230837" class="">Now, suppose that for some reason, after E2 the following log line is generated:</p><p id="1cbe5338-53eb-4f1c-ae72-ccdf6f02a83d" class=""><code>cannot execute command, aborting task 15009</code></p><p id="1379d218-601e-4f79-a29b-39caf32e321c" class="">with the following template:</p><p id="42640c65-4d71-49e7-a35d-dacb8fa4fa23" class=""><code>E8: cannot execute command, aborting task &lt;*&gt;</code></p><p id="a49b2d0d-474b-4e81-9880-df59fd146fef" class="">This log line is an outlier because its template does not belong to the normal template set, that corresponds to the normal behaviour of the Rabbitmq component. However, this template is added to the existing ones and would be considered normal as long as it keeps recurring.</p><h3 id="d2624818-a4a7-456b-a458-84c61c68c017" class="">2. log pattern anomaly</h3><p id="4d522d8c-05a4-4adf-8d32-dfee1ba8a5c0" class="">A normal execution of a software component, or a set of software components, generates a normal log set pattern. A log set pattern is a set of log templates that repeats over time. Take the example of running the same Rabbitmq component mentioned above. One line corresponds to one cycle (one minute for example):</p><p id="cafd5e4e-b6c1-442b-b8a4-f95ac76d000c" class=""><code>E5, E1, E5, E1, E3, E7, E4, E2, E1, E1, E3, E1, E3, E1, E1, E2, E6, E6, E6, E2,</code></p><p id="d62973b3-0cb5-4d3d-a9c0-c9a59656db28" class=""><code>E5, E1, E5, E1, E3, E7, E4, E2, E1, E1, E3, E1, E3, E1, E1, E2, E6, E6, E6, E2, </code></p><p id="c0899705-0ae4-46e7-8f8b-82889f09f763" class=""><code>E5, E1, E5, E1, E3, E7, E4, E2, E1, E1, E3, E1, E3, E1, E1, E2, E6, E6, E6, E2</code></p><p id="b3ab7e75-dabb-438d-a89f-864dd3b47126" class="">Suppose for some reason, the next minute exhibits the following pattern instead:</p><p id="12557345-49e3-4165-9085-6ec869ae6e8a" class=""><code>E5, E6, E5, E1, E6, E1, E1, E2, E7, E6, E7, E1, E3, E1, E6, E2, E6, E6, E6, E2</code></p><p id="db7ee090-576a-47ad-b1cc-c4ae974c8a58" class="">this set of templates is abnormal and would be detected as a log set pattern anomaly, or simply, log pattern anomaly. Note that only the set of templates is considered and the order in which the templates occur is not consider here.</p><h3 id="5416540e-921a-4996-8b2a-320386337adf" class="">3. log sequence anomaly</h3><p id="c8495f5d-61b2-44bd-8955-1dbbb402ef16" class="">The difference to log pattern anomaly is that log sequence anomaly considers log order. Consider the following normal log sequences reflecting a normal execution of the same Rabbitmq component:</p><p id="4bfdb8f2-90c5-42d8-acb2-5faaacf78d78" class=""><code>E5, E1, E5, E1, E3, E7, E4, E2, E1, E1, E3, E1, E3, E1, E1, E2, E6, E6, E6, E2, E5, E1, E5, E1, E3, E7, E4, E2, E1, E1, E3, E1, E3, E1, E1, E2, E6, E6, E6, E2, E5, E1, E5, E1, E3, E7, E4, E2, E1, E1, E3, E1, E3, E1, E1, E2, E6, E6, E6, E2</code></p><p id="e7a55d64-f8b6-4280-803b-e4b577a5bfb1" class="">Then, for some reason, the following sequences shows up in the logs:</p><p id="93dedb10-c7f8-43e0-aa68-34436059e75a" class=""><code>E5, E2, E5, E6, E6, E6, E4, E2, E1, E1, E3, E1, E3, E1, E1, E2, E1, E3, E7, E1</code></p><p id="e7000be4-4dcc-480c-9633-c630d42dab3c" class="">The templates of this sequence are exactly the same as normal sequences, and the frequency of each template is exactly the same as in normal sequences. However, the order in which templates (hence log lines) occur is abnormal. This would be detected as a log sequence anomaly.</p><h3 id="b4cf91f4-4fae-4786-9fd7-414af9cc59bb" class="">4. log frequency anomaly</h3><p id="c8c4da05-ae01-421a-9afe-70cee46a1e16" class="">A log frequency anomaly is simply when the number of logs per unit of time is abnormal (too high, too low, follows a different time series pattern …). This kind of anomalies belong to time series anomaly detection.</p><p id="fafd14b7-a0ec-4c97-8d12-993380cd55da" class="">Consider the following chart: normal number of log lines generated per minute from a linux host:</p><figure id="2f23d82a-cf44-4031-b7d7-7df091ecb0ed" class="image"><a href="https://cdn-images-1.medium.com/max/1600/1*EwHxnRnKQQ323MJVXaoBDg.png"><img src="https://cdn-images-1.medium.com/max/1600/1*EwHxnRnKQQ323MJVXaoBDg.png"/></a></figure><p id="085b852e-1cab-4b0a-9540-57ef220f81da" class="">Normal frequency of logs</p><p id="bc363475-641a-44c6-a707-e59d96822aaf" class="">then a log frequency anomaly happens here:</p><figure id="a979ba0c-184a-4033-859a-503567885bb7" class="image"><a href="https://cdn-images-1.medium.com/max/1600/1*jBelFekwP4RHbtUH-4UJHg.png"><img src="https://cdn-images-1.medium.com/max/1600/1*jBelFekwP4RHbtUH-4UJHg.png"/></a></figure><p id="a8f5c716-70c6-479c-aa92-b78126f3acdc" class="">Log frequency anomaly</p><p id="9baac032-2554-4bcd-adc2-22be60dee7a2" class="">As you can see, the abnormal point corresponds to a much higher number of logs than usual, leading to an anomaly alert.</p><h3 id="17ab62c4-53e5-4b11-a8d2-3059c9bd2935" class="">5. negative log detection</h3><p id="5b485fd7-033f-426b-a9f1-17b3eb807115" class="">Negative logs are log lines that contain negative sentiment. Example:</p><p id="593e652a-69f4-4d15-b811-501d72791970" class=""><code>client unexpectedly closed TCP connection</code></p><p id="36869c2b-dab2-4576-8c0e-763b2d381805" class="">and</p><p id="00ed7c4b-9d6c-4bc7-a8e1-0960742afe3a" class=""><code>missed heartbeats from client , timeout : 60s</code></p><p id="0d4afba6-c75b-4fa8-8f46-24364ed24ff6" class="">Traditional methods to detect such log lines include manual keyword search, rule-based alerting using regex etc. As mentioned above, this is not feasible at scale as the list of negative keywords can be huge and varies from component to component. Using advanced ML techniques, PacketAI is agnostic to keywords and automatically spot negative sentiment in logs.</p><h2 id="e4f59335-3384-42a6-8885-3dc5138d1ea6" class="">Conclusion</h2><p id="d6de512b-f7e5-4c5a-8da4-b6a3c841b20c" class="">In this post we explained why logs are primordial for observability, how teams traditionally analyse logs,  and how PacketAI&#x27;s approach to log analysis could help teams accelerate troubleshooting and MTTR. We detailed terminology around log templates and presented the different anomaly types that PacketAI can detect in logs.  In future posts, we will dig deeper into each anomaly type and present PacketAI features around them.</p></div></article></body></html>

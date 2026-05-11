@@ -1,0 +1,826 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Influx query for log frequency </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="985fcaa9-2fa9-4d95-9aee-3d0941143cbb" class="page sans"><header><h1 class="page-title">Influx query for log frequency </h1><p class="page-description"></p></header><div class="page-body"><nav id="dbea3727-851d-4e34-8720-8d75c0784bca" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ae5c309f-82c2-451a-8c09-81dab5019403">Data format</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#76545a24-81de-460c-b0a2-864384aae85a">Query to get log counts per minute (for a given component)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#06548227-1b45-4ca0-8914-0354d821e52d">Query to calculate average of log counts per time range</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#edec3537-bd04-425d-b651-cc4b4ccf8af3">Query to calculate the std of log counts per time range</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6d73c25e-0cdd-4496-903e-f10971dfb77c">An example of empty values creation and mean calculation</a></div></nav><h2 id="ae5c309f-82c2-451a-8c09-81dab5019403" class="">Data format</h2><p id="6f07fce8-1a64-4aa5-841d-642496377ec1" class="">Data is supposed to have the following fields:</p><pre id="cff8041e-0302-4018-a0d3-7acbdf81b39a" class="code"><code>[
+        &quot;table&quot;,
+        &quot;_measurement&quot;,
+        &quot;_field&quot;,
+        &quot;_value&quot;,
+        &quot;_start&quot;,
+        &quot;_stop&quot;,
+        &quot;_time&quot;,
+        &quot;component&quot;,
+        &quot;loglevel&quot;,
+        &quot;partition&quot;,
+    ]</code></pre><p id="cd0cc88a-a71c-442f-a3bc-d260ca56fbd0" class="">
+</p><figure id="a75a816b-7dc5-4399-943c-f68b27c5c462" class="image"><a href="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-09_at_17.33.53.png"><img style="width:1778px" src="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-09_at_17.33.53.png"/></a></figure><h3 id="76545a24-81de-460c-b0a2-864384aae85a" class="">Query to get log counts per minute (for a given component)</h3><pre id="57ee0e47-9cca-4a3d-b8ab-9bfcec36d7cc" class="code"><code>from(bucket: &quot;valentin&quot;)
+  |&gt; range(start: 2022-09-08T15:31:00.000Z, stop: 2022-09-08T15:33:00.000Z)
+  |&gt; filter(fn: (r) =&gt; r._measurement == &quot;log counts&quot; and r._field == &quot;count&quot; and r.component == &quot;component_0&quot;)
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; aggregateWindow(every: 1m, fn: sum, createEmpty: true)</code></pre><figure id="8c976ccb-c4fa-4486-b1b8-5f8b68943949" class="image"><a href="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-09_at_17.36.05.png"><img style="width:1778px" src="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-09_at_17.36.05.png"/></a></figure><h3 id="06548227-1b45-4ca0-8914-0354d821e52d" class="">Query to calculate average of log counts per time range</h3><pre id="b09c301b-491b-46ff-9430-85d5a4e3c06c" class="code"><code>from(bucket: &quot;valentin&quot;)
+  |&gt; range(start: 2022-09-08T15:31:00.000Z, stop: 2022-09-08T15:33:00.000Z)
+  |&gt; filter(fn: (r) =&gt; r._measurement == &quot;log counts&quot; and r._field == &quot;count&quot; and r.component == &quot;component_0&quot;)
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; aggregateWindow(every: 1m, fn: sum, createEmpty: true)
+  |&gt; group(columns: [&quot;loglevel&quot;])
+  |&gt; mean()</code></pre><figure id="a505022b-891d-48d7-9c8a-b0625b93c182" class="image"><a href="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-09_at_17.37.28.png"><img style="width:1773px" src="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-09_at_17.37.28.png"/></a></figure><h3 id="edec3537-bd04-425d-b651-cc4b4ccf8af3" class="">Query to calculate the std of log counts per time range</h3><pre id="46f5a801-c903-4437-bd44-884bfe0067f5" class="code"><code>from(bucket: &quot;valentin&quot;)
+  |&gt; range(start: 2022-09-08T15:31:00.000Z, stop: 2022-09-08T15:33:00.000Z)
+  |&gt; filter(fn: (r) =&gt; r._measurement == &quot;log counts&quot; and r._field == &quot;count&quot; and r.component == &quot;component_0&quot;)
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; aggregateWindow(every: 1m, fn: sum, createEmpty: true)
+  |&gt; group(columns: [&quot;loglevel&quot;])
+  |&gt; stddev()</code></pre><figure id="70491392-b49c-45cd-ae7b-4f487b00de87" class="image"><a href="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-09_at_17.38.21.png"><img style="width:1784px" src="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-09_at_17.38.21.png"/></a></figure><p id="677465bd-1d6b-45d2-b618-cb6243fdc497" class="">
+</p><h3 id="6d73c25e-0cdd-4496-903e-f10971dfb77c" class="">An example of empty values creation and mean calculation</h3><ul id="57ff606f-65d8-44b9-84de-4b0895c8bb97" class="bulleted-list"><li style="list-style-type:disc">Raw data (we query data from <code>13:50</code> till <code>13:54</code> but the first available timestamp is <code><strong>2022-09-08T13:53:31.460Z</strong></code>):</li></ul><pre id="95a3d8c6-2d2e-41e4-93ce-026e38e80ca9" class="code"><code>from(bucket: &quot;valentin&quot;)
+  |&gt; range(start: 2022-09-08T13:50:00.000Z, stop: 2022-09-08T13:54:00.000Z)
+  |&gt; filter(fn: (r) =&gt; r._measurement == &quot;log counts&quot; and r._field == &quot;count&quot; and r.component == &quot;component_0&quot; and r.partition == &quot;0&quot; and r.loglevel == &quot;error&quot;)</code></pre><figure id="8bb6b545-d8b4-49a1-93a5-f0127d385ff5" class="image"><a href="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-12_at_11.20.41.png"><img style="width:1780px" src="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-12_at_11.20.41.png"/></a></figure><ul id="bbda3a90-3833-48a0-b594-d5e121375b07" class="bulleted-list"><li style="list-style-type:disc">1 min aggregation with empty values creation (data started at <code>13:53</code> and empty values are created for timestamp from <code>13:50</code> till <code>13:52</code>)</li></ul><pre id="42db12cb-7e9d-4e59-96d0-ab40712c7ec9" class="code"><code>from(bucket: &quot;valentin&quot;)
+  |&gt; range(start: 2022-09-08T13:50:00.000Z, stop: 2022-09-08T13:54:00.000Z)
+  |&gt; filter(fn: (r) =&gt; r._measurement == &quot;log counts&quot; and r._field == &quot;count&quot; and r.component == &quot;component_0&quot; and r.partition == &quot;0&quot; and r.loglevel == &quot;error&quot;)
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; aggregateWindow(every: 1m, fn: sum, createEmpty: true)</code></pre><figure id="778551c9-b729-464b-84d4-5dd81e7d2095" class="image"><a href="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-12_at_11.21.34.png"><img style="width:1781px" src="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-12_at_11.21.34.png"/></a></figure><ul id="60606bd7-6305-45e1-9bbc-3a3609b71bbe" class="bulleted-list"><li style="list-style-type:disc">Average without <code>fill</code> function (it omits the missing values):</li></ul><pre id="a3c91f27-1f24-4274-a06e-385e7b42b36a" class="code"><code>from(bucket: &quot;valentin&quot;)
+  |&gt; range(start: 2022-09-08T13:50:00.000Z, stop: 2022-09-08T13:54:00.000Z)
+  |&gt; filter(fn: (r) =&gt; r._measurement == &quot;log counts&quot; and r._field == &quot;count&quot; and r.component == &quot;component_0&quot; and r.partition == &quot;0&quot; and r.loglevel == &quot;error&quot;)
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; aggregateWindow(every: 1m, fn: sum, createEmpty: true)
+  |&gt; group(columns: [&quot;loglevel&quot;])
+  |&gt; mean()</code></pre><figure id="09dad1e7-e44c-43bb-af65-7c091a699979" class="image"><a href="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-12_at_11.22.30.png"><img style="width:1780px" src="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-12_at_11.22.30.png"/></a></figure><ul id="20077192-455f-4965-971b-5b6bf66c9142" class="bulleted-list"><li style="list-style-type:disc">Average with <code>fill</code> function (now it calculates average with 0s for the missing points):</li></ul><pre id="2f7125ae-867f-45fc-9979-48580026e2e9" class="code"><code>from(bucket: &quot;valentin&quot;)
+  |&gt; range(start: 2022-09-08T13:50:00.000Z, stop: 2022-09-08T13:54:00.000Z)
+  |&gt; filter(fn: (r) =&gt; r._measurement == &quot;log counts&quot; and r._field == &quot;count&quot; and r.component == &quot;component_0&quot; and r.partition == &quot;0&quot; and r.loglevel == &quot;error&quot;)
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; aggregateWindow(every: 1m, fn: sum, createEmpty: true)
+  |&gt; group(columns: [&quot;loglevel&quot;])
+  |&gt; fill(value: 0)
+  |&gt; mean()</code></pre><figure id="2c97cacc-53c2-40bf-82ab-514f9089f8fa" class="image"><a href="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-12_at_11.23.06.png"><img style="width:1777px" src="Influx%20query%20for%20log%20frequency%20985fcaa92fa94d959aee3d0941143cbb/Screenshot_2022-09-12_at_11.23.06.png"/></a></figure><p id="61451391-ef04-44d9-a0ac-09492b4215fe" class="">
+</p><p id="b5c55e79-8989-4866-bbc3-2910cba25a8c" class="">
+</p><p id="c7e6988b-4f1f-441f-8fda-b5ceb99d9684" class="">Draft</p><pre id="0b018800-9541-4b75-84f1-e53710450186" class="code"><code>data = from(bucket: &quot;valentin&quot;)
+  |&gt; range(start: 2022-09-08T13:50:00.000Z, stop: 2022-09-08T13:58:00.000Z)
+  |&gt; filter(fn: (r) =&gt; r._measurement == &quot;log counts&quot; and r._field == &quot;count&quot;)
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; aggregateWindow(every: 1m, fn: sum, createEmpty: true)
+  |&gt; fill(value: 0)
+
+mean = data
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; mean()
+
+stddev = data
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; stddev()
+
+min = data
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; min()
+
+max = data
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; max()
+
+// here we assume we want 5 bins
+bin_structure = join(
+    tables: {min: min, max: max},
+    on: [&quot;loglevel&quot;, &quot;component&quot;],
+) 
+  |&gt; keep(columns: [&quot;_value_max&quot;, &quot;_value_min&quot;, &quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; map(fn: (r) =&gt; ({ r with bin_width: (float(v: r._value_max) - float(v: r._value_min)) / 5.0 }))
+
+histogram = data
+  |&gt; filter(fn: (r) =&gt; r.component == &quot;component_0&quot; and r.loglevel == &quot;error&quot;)
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; toFloat()
+  |&gt; histogram(bins: linearBins(start: 0.0, width: 10.2, count: 6, infinity: false))
+//   |&gt; difference()
+  |&gt; keep(columns: [&quot;le&quot;,&quot;_value&quot;])
+
+//   avg tail
+avg_tail = data 
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; movingAverage(n: 3)
+
+// *** median_absolute_deviation *** (TBD)
+
+median = data
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+  |&gt; median()
+
+demedianed = join(
+    tables: {median: median, data: data},
+    on: [&quot;loglevel&quot;, &quot;component&quot;],
+) 
+  |&gt; map(fn: (r) =&gt; ({ r with demedianed: if r._value_data &gt; r._value_median then float(v: r._value_data) - float(v: r._value_median) else float(v: r._value_median) - float(v: r._value_data)}))
+//   |&gt; keep(columns: [&quot;loglevel&quot;, &quot;component&quot;, &quot;demedianed&quot;])
+  |&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+//   |&gt; median()
+
+//   *** first_hour_average ***
+// slice and calculate avg and stddev
+
+// *** stddev_from_average ***
+// Directly use mean and stddev with average tail
+
+// *** stddev_from_moving_average ***
+// Use the following formula to calculate moving average:
+// Note that previous_mean is calculated over a period not including the last point
+// moving_mean = self.alpha * x + (1.0 - self.alpha) * previous_mean if previous_mean else x
+
+// Use the following formula to calculate moving stddev:
+// Note that previous_sq_mean is calculated over a period not including the last point
+// moving_stddev = sq_mean - moving_mean ** 2
+// sq_mean = self.alpha * (x ** 2) + (1.0 - self.alpha) * previous_sq_mean if previous_sq_mean else x ** 2
+
+previous_sq_mean = data
+|&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+|&gt; map(fn: (r) =&gt; ({r with squared_value: r._value * r._value}))
+|&gt; group(columns: [&quot;loglevel&quot;, &quot;component&quot;])
+|&gt; reduce(
+        fn: (r, accumulator) =&gt;
+            ({
+                count: accumulator.count + 1,
+                total: accumulator.total + r.squared_value,
+                avg: float(v: accumulator.total + r.squared_value) / float(v: accumulator.count + 1),
+            }),
+        identity: {count: 0, total: 0, avg: 0.0},
+    )
+|&gt; keep(columns: [&quot;avg&quot;, &quot;loglevel&quot;, &quot;component&quot;])
+
+// *** mean_subtraction_cumulation ***
+// Directly use mean and stddev with the last value
+
+
+
+
+
+bin_structure |&gt; yield()
+// data
+//   |&gt; filter(fn: (r) =&gt; r.component == &quot;component_0&quot; and r.loglevel == &quot;error&quot;) 
+//   |&gt; yield()</code></pre></div></article></body></html>

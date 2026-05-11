@@ -19,7 +19,7 @@ from pathlib import Path
 from checkpoint import append_checkpoint, checkpoint_path_for_output, load_checkpoint
 from excel_io import load_inventory, write_company_inventory_workbook, write_segmented_workbook
 from extractors.core import extract_snippet
-from ingest import scan_dump_folder
+from ingest import infer_source_system, iter_files
 from inventory_writer import summarize_inventory_from_evidence
 from pii import detect_pii
 from artifact_summary import summarize_artifact
@@ -160,6 +160,7 @@ def build_inventory_from_dump(
     model: str = DEFAULT_MODEL,
     batch_size: int = DEFAULT_BATCH_SIZE,
     max_files: int | None = None,
+    strict_scan: bool = False,
 ) -> str:
     """Build the 7-row company inventory (desired format) from a dump folder.
 
@@ -177,48 +178,91 @@ def build_inventory_from_dump(
     if not os.environ.get("ANTHROPIC_API_KEY"):
         raise RuntimeError("ANTHROPIC_API_KEY is not set in the server's environment.")
 
-    artifacts = scan_dump_folder(str(dump_root), max_files=max_files)
-
     ckpt_path = checkpoint_path_for_output(str(out_path))
     existing = load_checkpoint(ckpt_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Build LLM items + evidence frame.
-    items = []
-    evidence_rows = []
-    for a in artifacts:
-        snippet = extract_snippet(a.path)
-        rel_path = str(Path(a.path).resolve().relative_to(dump_root)).replace("\\", "/")
-        desc = f"{a.filename} ({a.extension or 'noext'}, {a.size_bytes} bytes)"
+    # Stream files and classify in batches so we checkpoint early and can resume.
+    evidence_rows: list[dict] = []
+    pending: list[dict] = []
+    processed = 0
+    classified = 0
+
+    exclude_dirs = () if strict_scan else (".venv", "__pycache__")
+    include_hidden = bool(strict_scan)
+
+    def flush_batch() -> None:
+        nonlocal classified, pending, existing
+        if not pending:
+            return
+        batch = pending
+        pending = []
+        batch_out = classify_items(batch, model=model, batch_size=len(batch))
+
+        # Defensive: tolerate occasional malformed rows so large runs don't crash.
+        cleaned: list[dict] = []
+        for c in (batch_out or []):
+            if not isinstance(c, dict):
+                continue
+            rid = c.get("row_id")
+            try:
+                rid_i = int(rid)
+            except Exception:
+                continue
+            c["row_id"] = rid_i
+            cleaned.append(c)
+
+        append_checkpoint(ckpt_path, cleaned)
+        for c in cleaned:
+            try:
+                existing[int(c.get("row_id"))] = c
+            except Exception:
+                continue
+        classified += len(cleaned)
+        print(
+            f"[batch] classified={classified} checkpoint={ckpt_path.name}",
+            flush=True,
+        )
+
+    for p in iter_files(
+        str(dump_root),
+        exclude_dirs=exclude_dirs,
+        include_hidden=include_hidden,
+    ):
+        processed += 1
+        if max_files is not None and processed > max_files:
+            break
+
+        stat = p.stat()
+        rel_path = str(p.resolve().relative_to(dump_root)).replace("\\", "/")
+        filename = p.name
+        extension = p.suffix.lower().lstrip(".")
+        source_guess = infer_source_system(str(p))
+
+        snippet = extract_snippet(str(p))
+        desc = f"{filename} ({extension or 'noext'}, {int(stat.st_size)} bytes)"
         if snippet:
             desc = desc + "\n" + snippet
+
         pii = detect_pii(snippet)
         content_summary = summarize_artifact(
-            filename=a.filename,
+            filename=filename,
             rel_path=rel_path,
-            extension=a.extension,
+            extension=extension,
             snippet=snippet,
         )
-        item = {
-            "row_id": a.artifact_id,
-            "description": desc,
-            "source": a.source_guess,
-            "filename": a.filename,
-            "extension": a.extension,
-            "path_hint": rel_path,
-            "snippet": (snippet or ""),
-        }
-        # We'll skip LLM calls for items already in checkpoint.
-        if a.artifact_id not in existing:
-            items.append(item)
+
+        artifact_id = processed  # deterministic due to sorted walk above
+
         evidence_rows.append(
             {
-                "artifact_id": a.artifact_id,
+                "artifact_id": artifact_id,
                 "path": rel_path,
-                "filename": a.filename,
-                "extension": a.extension,
-                "size_bytes": a.size_bytes,
-                "modified_time_unix": a.modified_time_unix,
-                "source_guess": a.source_guess,
+                "filename": filename,
+                "extension": extension,
+                "size_bytes": int(stat.st_size),
+                "modified_time_unix": float(stat.st_mtime),
+                "source_guess": source_guess,
                 "snippet": (snippet or "")[:800],
                 "content_summary": content_summary,
                 "pii_flag": "Yes" if pii.has_pii else "No",
@@ -226,37 +270,28 @@ def build_inventory_from_dump(
             }
         )
 
-    # Classify only missing items. Persist per-batch so a crash can resume.
-    if items:
-        # classify_items batches internally; we intercept by classifying in chunks so we
-        # can checkpoint after each chunk.
-        newly_classified: list[dict] = []
-        for i in range(0, len(items), batch_size):
-            batch = items[i : i + batch_size]
-            batch_out = classify_items(batch, model=model, batch_size=len(batch))
+        if artifact_id not in existing:
+            pending.append(
+                {
+                    "row_id": artifact_id,
+                    "description": desc,
+                    "source": source_guess,
+                    "filename": filename,
+                    "extension": extension,
+                    "path_hint": rel_path,
+                    "snippet": (snippet or ""),
+                }
+            )
+            if len(pending) >= batch_size:
+                flush_batch()
 
-            # Defensive: tolerate occasional malformed rows so large runs don't crash.
-            cleaned: list[dict] = []
-            for c in (batch_out or []):
-                if not isinstance(c, dict):
-                    continue
-                rid = c.get("row_id")
-                try:
-                    rid_i = int(rid)
-                except Exception:
-                    continue
-                c["row_id"] = rid_i
-                cleaned.append(c)
+        if processed % 500 == 0:
+            print(
+                f"[progress] processed={processed} pending={len(pending)} classified={classified}",
+                flush=True,
+            )
 
-            append_checkpoint(ckpt_path, cleaned)
-            newly_classified.extend(cleaned)
-
-        for c in newly_classified:
-            try:
-                existing[int(c.get("row_id"))] = c
-            except Exception:
-                continue
-
+    flush_batch()
     by_id = existing
 
     import pandas as pd
@@ -277,7 +312,6 @@ def build_inventory_from_dump(
 
     inventory_df = summarize_inventory_from_evidence(evidence_df, model=model)
 
-    out_path.parent.mkdir(parents=True, exist_ok=True)
     write_company_inventory_workbook(
         inventory_df=inventory_df,
         evidence_df=evidence_df,
@@ -286,7 +320,7 @@ def build_inventory_from_dump(
 
     lines = [
         f"Wrote company inventory to {out_path}",
-        f"Artifacts scanned: {len(artifacts)}",
+        f"Artifacts scanned: {processed}",
         "Sheets: Inventory, Overview, Sample Files, Evidence, + bucket tabs",
         f"Checkpoint: {ckpt_path}",
     ]

@@ -1,0 +1,814 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>EC2 MAD instance</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="219cffee-50a0-4719-a62e-291df1ed571d" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">💻</span></div><h1 class="page-title">EC2 MAD instance</h1><p class="page-description"></p></header><div class="page-body"><p id="d69ef5e9-77be-45a8-ac3d-f1d617d51ad2" class=""><span class="user">@Valentin Lapparov</span> wrote</p><nav id="258063a9-96e3-4116-ac09-1c27b836f84d" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d38f632f-03ff-459a-a91d-852eafdd1b93">L<strong>aunch MAD detection on the ec2 instance</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b69dbebb-5f1e-4072-9cbe-d3e1d1e99e75">Setting up</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f5f892b9-4211-414b-90e6-66ea59f62efd"><strong>Connect to current ec2 instance: </strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ca84b56e-fa1c-432e-bdc4-4cf4b888421f"><strong>Copy file from local to the ec2 instance:</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#3dddd384-5090-4bad-a157-983a07e606ec"><strong>Copy file from the ec2 instance to local: </strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5b626a4c-c57d-40a7-92e7-ac66194454dc"><strong>Reset local git changes</strong>: </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#44f1614d-4ae3-4911-bf3b-22ad9c7e271c"><strong>Download </strong><code><strong>MAD</strong></code><strong> project from GitLab:</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#90251932-dc44-4642-a9c4-dff7bab8bf6f">Setting up fresh-new ec2 instance<strong>:</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d575c2e1-d647-48bc-81e9-289b523b1d49"><strong>Install venv and all requirements</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#585fd534-8643-4c79-bcbd-322d55ed4002"><strong>Copy Kafka certificates to you project:</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b0797587-39fe-4b07-a394-92a1c54e6a0e"><strong>Check stats of your instance</strong>:</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#73cfd5da-7a90-4f9a-954d-153c777bf929"><strong>Launch your script on the ec2 instance forever using tmux</strong>:</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ac1584bc-9aff-467d-b3ff-6b47fcf5bbae">Slave worker launch command:</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d8339ddc-dac0-4dfa-82e0-196496c9952b"><strong>Master orchester launch command</strong> :</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#bc097e61-69f9-4dba-b6ca-a5518cd440a1">In case of <strong>Gunicorn Connection in Use: (&#x27;0.0.0.0&#x27;, 8000) </strong>problem use</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b7f23329-11f9-4062-9102-f6e7482bc2d5">Kubernetes cluster</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#133bc9bb-3482-409e-bf33-ca3143f3dac6">Install and Set Up kubectl on Linux</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5b69915c-461d-4d67-bc3d-f60c991e0265">Create cluster</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b98ccb4d-8efe-48de-8bde-f317242d82a3">Create Kafka</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2ba312c8-f933-40fa-9604-90be40f7f48b">Create Argo</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7e0ffd4d-2a14-4c23-b037-44def58e7e92">Create Argo Events</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#761a8e4b-de2b-44f8-9528-8c01cab9dc64">Deploy the EventBus</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ba63ccc7-21e2-4711-9621-b532eb28c760">Install skaffold</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e849d004-a09a-47b6-b8ac-8de0bb11f280">To run only MAD we have to</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b541b593-a3e0-4ca3-8067-935c0a174a32">Install Kustomize</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#540d94bb-b540-4534-ae14-35a4148c34a1">Run skaffold command</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6efd32e5-cfec-42d9-861b-6801037ebe0b">Create metic-activator</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6a0c0062-5c90-4565-8490-1e8fa15954c9">Check</a></div></nav><p id="0883c490-3ab4-4c69-aa9a-e29484935ba0" class="">
+</p><p id="9c270d31-9aea-49fe-afe2-83a5069af948" class="">
+</p><h1 id="d38f632f-03ff-459a-a91d-852eafdd1b93" class="">L<strong>aunch MAD detection on the ec2 instance</strong></h1><p id="54c1bde4-c16c-40c0-8371-2be4c93e4c38" class="">Before launching MAD make sure you have cloned <a href="https://gitlab.packetai.co/microservices/varloader"><strong>varloader</strong></a> project for certificates and kafka brokers setup.</p><p id="6edd4c78-f2b9-469d-adfb-93a3915af93e" class="">While being in the metrics folder use one of these commands to declare Environment Variables:</p><ul id="9eef7281-967e-44a5-8fdf-b72a71870e2a" class="bulleted-list"><li style="list-style-type:disc">dev: <code>source ../varloader/mad/dev.sh</code></li></ul><ul id="00bc6eee-af04-4d42-8ddd-a99a4258c5d2" class="bulleted-list"><li style="list-style-type:disc">staging: <code>source ../varloader/mad/staging.sh</code></li></ul><ul id="d27823df-efb4-4ea0-9668-0d92160a0513" class="bulleted-list"><li style="list-style-type:disc">prod: <code>source ../varloader/mad/prod.sh</code></li></ul><ol type="1" id="49dd9eee-e596-4940-baca-164cafff75be" class="numbered-list" start="1"><li>Start <code>MAD_dev_master</code> and <code>MAD_dev_slave</code> ec2 instances</li></ol><ol type="1" id="d15d3cd4-f3a1-48b4-a62a-3ba28eed6bbc" class="numbered-list" start="2"><li>Connect to the instances</li></ol><ol type="1" id="d1a5969e-4bc6-4a19-99d2-b8e38d2b6754" class="numbered-list" start="3"><li><code>cd metrics/</code> (in both <code>MAD_dev_master</code> and <code>MAD_dev_slave</code> ec2 instances)</li></ol><ol type="1" id="700acc89-18bf-4df0-993d-e36adb68af93" class="numbered-list" start="4"><li>Remove <code>results/</code> folder (if exists): <code>rm -r results/</code> (in both <code>MAD_dev_master</code> and <code>MAD_dev_slave</code> ec2 instances)</li></ol><ol type="1" id="0ea3356d-559b-49d8-8b29-1c967acdfdc4" class="numbered-list" start="5"><li>Configure <a href="http://conf.py">conf.py</a> of the Master node: <code>vim src/conf.py</code><ul id="52cd56c3-2844-4edb-a591-5d202c47b951" class="bulleted-list"><li style="list-style-type:disc">Make sure you have worker&#x27;s endpoints set up:<ol type="1" id="8f764281-1102-4c12-8a73-6d524de54e10" class="numbered-list" start="1"><li>In the Master node <a href="http://conf.py">conf.py</a> file check if you have indicated the <a href="http://localhost">localhost</a> and slave&#x27;s ip address in the WORKER_ENDPOINT variable. It should be looking like below: <code>WORKER_ENDPOINT = [&quot;</code><code><a href="http://localhost:8000/">http://localhost:8000</a></code><code>&quot;, &quot;</code><code><a href="http://ip-172-31-11-38:8000/">http://ip-172-31-11-38:8000</a></code><code>&quot;]</code>.   (just to make sure,  because slave has a fixed IP)</li></ol></li></ul><ul id="47ff3a2e-6410-425a-8ed4-2f8f57c8100f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">If you do an </mark><mark class="highlight-teal"><strong>end-to-end</strong></mark><mark class="highlight-teal">:</mark><ol type="1" id="b0c3f366-a14a-438f-890a-8bbbea242cce" class="numbered-list" start="1"><li>Set <code>&quot;detection_mode&quot;: &quot;e2e&quot;</code> in the <code>kafka_settings</code> dictionary</li></ol><ol type="1" id="852cf021-a108-48cb-96e8-1731a0b5694e" class="numbered-list" start="2"><li>Specify the list of infraIDs you want to test for in the <code>kafka_settings</code> dictionary: <code>&quot;test_infra_id&quot;: [&quot;5fad3548aadf2819b28da70c&quot;],</code></li></ol></li></ul><ul id="c37ef283-07ed-4f86-9890-17f12eb9bcd8" class="bulleted-list"><li style="list-style-type:disc">If you want to <strong>run detection for one specific topic</strong>:<ol type="1" id="09f7e6a9-ddec-4da0-b42a-4a76da449606" class="numbered-list" start="1"><li>Set <code>&quot;detection_mode&quot;: &quot;test&quot;</code> in the <code>kafka_settings</code> dictionary</li></ol><ol type="1" id="2b16e7bd-2492-43df-ad2e-d99b3a213798" class="numbered-list" start="2"><li>Specify the topic name, agentID, infraID and the componentID you want to test for in the <code>kafka_settings</code> dictionary: </li></ol><pre id="e0c50a16-182e-411a-84f8-8a5facfc37df" class="code"><code>&quot;test_topic&quot;: &quot;5f7734a499aa8455e3b1f56a-5f77359999aa8455e3b1f56d-metric&quot;
+&quot;-5a039db06d0c8d01-stashed&quot;,
+&quot;test_infra_id&quot;: &quot;5f7734a499aa8455e3b1f56a&quot;,
+&quot;test_agent_id&quot;: &quot;5f77359999aa8455e3b1f56d&quot;,
+&quot;test_component_id&quot;: &quot;5a039db06d0c8d01&quot;,</code></pre><p id="d321b660-27a8-47ed-82fc-0a90e1b96ffb" class="">
+</p></li></ul><ul id="dbd969b5-94de-4b43-a9af-c64847e19d4a" class="bulleted-list"><li style="list-style-type:disc">If you want to <strong>launch detection for all topics</strong> contained in the <code>metric_activator</code> Kafka topic (be careful since one node can only process a limited amount of topics. For more details refer to this <a href="Performance%205b719683d1bb4117bdfa8e573db1d265.html">page</a>):<ol type="1" id="4f21f0ef-b53a-4763-b29f-29bf0730221e" class="numbered-list" start="1"><li>Set <code>&quot;detection_mode&quot;: &quot;real&quot;</code> in the <code>kafka_settings</code> dictionary</li></ol></li></ul><p id="f5d75716-5e7a-4163-b2d9-d9dd880bf2de" class="">
+</p></li></ol><ol type="1" id="a7e3bdfb-1895-411a-9a41-4fbfe6715355" class="numbered-list" start="6"><li>Enter tmux. Activate the virtual environement (in both <code>MAD_dev_master</code> and <code>MAD_dev_slave</code> ec2 instances): <code>source venv/bin/activate</code></li></ol><ol type="1" id="2b058442-54e6-44d5-841b-1f6e5437fe09" class="numbered-list" start="7"><li>Run gevent (in both <code>MAD_dev_master</code> and <code>MAD_dev_slave</code> ec2 instances): <code>venv/bin/gunicorn pipelines.api:api -b 0.0.0.0:8000 --worker-class gevent --timeout 120 --workers=8</code></li></ol><ol type="1" id="094d47aa-c5f7-435d-9bcb-1b3532050cbe" class="numbered-list" start="8"><li>Exit tmux from master crtl + b ⇒ d</li></ol><ol type="1" id="70b2a2c1-887b-4889-ab41-bfbda4122438" class="numbered-list" start="9"><li>Run tmux again on <strong>master</strong>: <code>source venv/bin/activate</code></li></ol><ol type="1" id="b4457896-bd22-44d7-ab62-062aeabb728c" class="numbered-list" start="10"><li>(Optional) To check the tmux instances use: <code>tmux ls</code> and to switch between the tmux instances use <code>tmux attach -t 0 </code>(or 1, or 2 etc)</li></ol><ol type="1" id="55b84933-9215-4893-89cd-13ed756bc572" class="numbered-list" start="11"><li>Run detection<p id="7f0e3956-e0db-40e7-9414-24007c434bd3" class="">From the master node launch the appropriate command:</p><ul id="bc21ebdb-58b8-4afd-875d-8c615881bfd6" class="bulleted-list"><li style="list-style-type:disc"><strong>End-to-end</strong>:<ul id="d80db0ad-4864-4150-8255-c73124da9523" class="bulleted-list"><li style="list-style-type:circle">Run from master node: <code>python pipelines/activate_detection.py</code></li></ul></li></ul><ul id="8220ea57-e271-4a09-b734-6ff2c157db1c" class="bulleted-list"><li style="list-style-type:disc"><strong>Detection for one specific topic</strong>:<ul id="af2cc5a3-3815-4af3-a84c-dd7194c661ee" class="bulleted-list"><li style="list-style-type:circle">Run from master node: <code>python pipelines/detection.py</code></li></ul></li></ul><ul id="2c698c87-d985-4467-a1d1-2c0f96286cd7" class="bulleted-list"><li style="list-style-type:disc"><strong>Detection for all topics</strong>:<ul id="f017fb09-9361-4b5d-9830-10bc7e412b70" class="bulleted-list"><li style="list-style-type:circle">Run from master node: <code>python pipelines/activate_detection.py</code></li></ul></li></ul></li></ol><h2 id="b69dbebb-5f1e-4072-9cbe-d3e1d1e99e75" class="">Setting up</h2><p id="20b24b0e-75a8-4c32-9539-1adc1010d997" class="">
+</p><h3 id="f5f892b9-4211-414b-90e6-66ea59f62efd" class=""><strong>Connect to current ec2 instance: </strong></h3><ol type="1" id="03708cdb-8157-49b0-8667-76224f352eb1" class="numbered-list" start="1"><li>Sign in to AWS in your browser. Go to EC2 instances and check whether the instance that you want to connect to is running.</li></ol><ol type="1" id="741b5403-7ace-427d-bbda-aac5fa1d495c" class="numbered-list" start="2"><li>Go to the folder with AWS SSH key.</li></ol><ol type="1" id="2e5bfa99-42d1-4c6f-9b55-464a7a091bf7" class="numbered-list" start="3"><li>Copy connect command from the browser for chosen EC2 instance. Example:</li></ol><p id="e2b50a43-f1e7-404f-a291-a5ba7ca76889" class=""><code>ssh -i &quot;aws_id_instance.pem&quot; ubuntu@ec2-35-180-29-236.eu-west-3.compute.amazonaws.com</code></p><p id="ce9380d8-e217-439e-b03e-0cb516193327" class="">Remember to change user from root to ubuntu.</p><h3 id="ca84b56e-fa1c-432e-bdc4-4cf4b888421f" class=""><strong>Copy file from local to the ec2 instance:</strong></h3><p id="7dd0f4b7-c98e-4015-930c-444ac9be862f" class=""><strong> </strong><code>scp -i &quot;aws_id_instance.pem&quot; -r path/to/file ubuntu@ec2-35-180-29-236.eu-west-3.compute.amazonaws.com:/home/ubuntu</code></p><p id="0260380e-13bb-4825-aff7-ed348a0b2dae" class="">
+</p><h3 id="3dddd384-5090-4bad-a157-983a07e606ec" class=""><strong>Copy file from the ec2 instance to local: </strong></h3><p id="13ea8e6a-a2a7-40bb-b9e8-a601f494ca59" class=""><code>scp -i &quot;aws_id_instance.pem&quot; -r ubuntu@ec2-35-180-29-236.eu-west-3.compute.amazonaws.com:/home/ubuntu/path/to/file destination/path/</code></p><h3 id="5b626a4c-c57d-40a7-92e7-ac66194454dc" class=""><strong>Reset local git changes</strong>: </h3><p id="0131ca86-9596-46c1-bc58-4a463aade4ff" class=""><code>git reset --hard</code></p><p id="67ab56c5-e5a1-4fcb-a163-b405b1b5fe55" class="">
+</p><h3 id="44f1614d-4ae3-4911-bf3b-22ad9c7e271c" class=""><strong>Download </strong><code><strong>MAD</strong></code><strong> project from GitLab:</strong></h3><ol type="1" id="26ea7eae-04f2-4adc-985a-558b1a9c4b44" class="numbered-list" start="1"><li>SSH key</li></ol><ol type="1" id="9ca7efd0-59b5-4853-9848-189119a13cfa" class="numbered-list" start="2"><li>Download <code>master</code> of your project: <code>git clone https://gitlab.packetai.co/ex-machina/metrics.git</code></li></ol><ol type="1" id="fde3331c-5535-42c6-9cde-3596defa3307" class="numbered-list" start="3"><li>Fetch all your branches if you need to run it </li></ol><p id="8a857b4a-5c31-4e80-9be9-d311fbbee80b" class="">
+</p><h3 id="90251932-dc44-4642-a9c4-dff7bab8bf6f" class="">Setting up fresh-new ec2 instance<strong>:</strong></h3><ul id="d1937119-df04-478b-84cf-f8699744df9b" class="bulleted-list"><li style="list-style-type:disc">use <code>chmod 755 aws_paris_instance.pem</code> or <code>chmod 400 aws_paris_instance.pem</code> for the SSH key</li></ul><ol type="1" id="4a5cb9a6-b7f2-4fe9-b701-560f3245105a" class="numbered-list" start="1"><li>Run the following command: <code>sudo apt-get install python3 python-dev python3-dev \
+     build-essential libssl-dev libffi-dev \
+     libxml2-dev libxslt1-dev zlib1g-dev</code><code> </code></li></ol><ol type="1" id="28674ae4-a022-42c4-8d74-280a2116f4fa" class="numbered-list" start="2"><li>Install <code>python-pip</code>: </li></ol><p id="7e39acad-dff5-4079-b41b-ffd4b79ac621" class=""><code>sudo apt-get install software-properties-common</code></p><p id="88a9692e-d804-4034-af3a-4f9783585b0c" class=""><code>sudo apt-add-repository universe</code></p><p id="860e2004-3539-4fad-8ba2-1c8d7fbf9908" class=""><code>sudo apt-get update</code></p><p id="c8c95410-e342-4c2d-9f14-6e9fcc9d8c40" class=""><code>sudo apt-get install python-pip</code></p><p id="e984dbd3-d0d0-4483-8c8f-34677cbaa036" class="">
+</p><h3 id="d575c2e1-d647-48bc-81e9-289b523b1d49" class=""><strong>Install venv and all requirements</strong></h3><ol type="1" id="45fc52dd-87ff-4e07-8bb9-4d80307caa5c" class="numbered-list" start="1"><li><code>sudo apt-get install python3-venv</code> # install venv </li></ol><ol type="1" id="62ec3dc9-c1db-4129-8f9b-c625e8fc969f" class="numbered-list" start="2"><li><code>python3</code><code> -m venv venv</code>  # create a new virtual environment</li></ol><ol type="1" id="974e4d22-b95e-4480-a84b-a263712dd24d" class="numbered-list" start="3"><li><code>source venv/bin/activate</code>  # activate the virtual environment</li></ol><ol type="1" id="c6096cfa-648c-4081-b91b-90db1f626c0b" class="numbered-list" start="4"><li><code>python -m pip install --upgrade pip</code>  # upgrade pip</li></ol><p id="deb3e5af-14f7-4d1a-afec-a1be9b3d7b2c" class="">Next, use these commands to install snappy. If not, you may have problems while installing <em><strong>snappy.</strong></em></p><ul id="9aec3477-d742-4e96-b774-611946c52163" class="bulleted-list"><li style="list-style-type:disc"><code>sudo apt-get install libsnappy-dev</code></li></ul><ul id="400258b2-acab-43c5-9434-19d80b72be8e" class="bulleted-list"><li style="list-style-type:disc"><code>sudo apt-get install python3 python-dev python3-dev \
+     build-essential libssl-dev libffi-dev \
+     libxml2-dev libxslt1-dev zlib1g-dev </code></li></ul><p id="7584ece6-c8cc-418c-a3ca-8a7b0157c67a" class="">From the MAD project folder:</p><ul id="8e811e89-2f9e-4c49-8026-ffaf44178c92" class="bulleted-list"><li style="list-style-type:disc"><code>pip install -r </code><code>requirements.txt</code></li></ul><h3 id="585fd534-8643-4c79-bcbd-322d55ed4002" class=""><strong>Copy Kafka certificates to you project:</strong></h3><p id="63dd9318-265b-498d-be99-5c1798663c9e" class=""><code>scp -i &quot;ssh_key.pem&quot; -r /path/to/file/on/local ubuntu@DNS:/home/ubuntu</code></p><h3 id="b0797587-39fe-4b07-a394-92a1c54e6a0e" class=""><strong>Check stats of your instance</strong>:</h3><p id="0af735d5-4c3b-4df1-816e-09278448c5ee" class=""><code>df -h</code></p><h3 id="73cfd5da-7a90-4f9a-954d-153c777bf929" class=""><strong>Launch your script on the ec2 instance forever using tmux</strong>:</h3><ul id="bf2362bc-f03c-4f77-ab0d-2f074fea04bb" class="bulleted-list"><li style="list-style-type:disc">Connect to the ec2 instance and write the following commands:</li></ul><pre id="3013ebcc-698f-4bf3-93b3-bc8946442927" class="code"><code>$ sudo apt-get update; sudo apt-get install -y tmux
+$ tmux
+# Start your process
+...
+# Exit tmux: CTRL+b, then d
+# Later, if you want to come back, connect to your EC2 instance and then:
+$ tmux attach</code></pre><p id="383012ac-dc87-49fe-8686-28a6f84221e2" class=""><strong>Kill tmux session:</strong></p><pre id="d1b540c8-3333-4414-bfad-b6a2366ddb74" class="code"><code>$ tmux ls
+$ tmux kill-session -t id_of_your_session</code></pre><h3 id="ac1584bc-9aff-467d-b3ff-6b47fcf5bbae" class="">Slave worker launch command:</h3><p id="fe746cc4-95b8-40cc-ae3f-e02109ef5d69" class=""><code>pip install gevent</code> </p><p id="be6351f7-4578-4fa2-8ec1-5eb441f059b4" class=""><strong><code>~/metrics$</code></strong><code> venv/bin/gunicorn pipelines.api:api -b 0.0.0.0:8000 --worker-class gevent</code></p><p id="d053aba8-afcd-402f-b0e9-7cf3660343c6" class="">(maybe also can add <code>--timeout 120 and --workers=multiprocessing.cpu_count() * 2 + 1 --threads=threadnb</code>)</p><p id="0c81d91f-2ff2-450e-8043-89cf5a7f4dc5" class="">Final command to launch: </p><p id="5ef1622e-a508-4253-9768-f37d045b3ebd" class=""><code><strong>~/metrics$</strong></code><code> venv/bin/gunicorn pipelines.api:api -b 0.0.0.0:8000 --worker-class gevent --timeout 120 --workers=multiprocessing.cpu_count() - 1 --threads=threadnb</code></p><p id="f368eaa1-dcd5-4e77-b70e-c227dc1b2bd7" class="">different server for gunicorn:</p><p id="c54d125d-888d-4172-80ac-e6cef2abd3c3" class=""><a href="https://medium.com/@genchilu/brief-introduction-about-the-types-of-worker-in-gunicorn-and-respective-suitable-scenario-67b0c0e7bd62">https://medium.com/@genchilu/brief-introduction-about-the-types-of-worker-in-gunicorn-and-respective-suitable-scenario-67b0c0e7bd62</a>)</p><p id="399f5bed-87ce-4637-9b32-4e8324895064" class="">
+</p><h3 id="d8339ddc-dac0-4dfa-82e0-196496c9952b" class=""><strong>Master orchester launch command</strong> :</h3><p id="6034d5d3-da9d-4d0a-bb4e-9b096ed37a44" class=""><strong><code>~/metrics$</code></strong><code> python3 pipelines/activate_detection.py</code></p><p id="d6e59ba4-a373-4c48-8f92-f603802ae971" class="">
+</p><h3 id="bc097e61-69f9-4dba-b6ca-a5518cd440a1" class="">In case of <strong>Gunicorn Connection in Use: (&#x27;0.0.0.0&#x27;, 8000) </strong>problem use</h3><p id="0736f5ab-bc69-41b6-a645-b2d6449c0f9b" class=""> <code>sudo fuser -k 8000/tcp</code></p><h1 id="b7f23329-11f9-4062-9102-f6e7482bc2d5" class="">Kubernetes cluster</h1><h2 id="133bc9bb-3482-409e-bf33-ca3143f3dac6" class="">Install and Set Up kubectl on Linux</h2><p id="628efd3c-0e7d-499d-b6f8-8e511bc2305c" class="">
+</p><ol type="1" id="9cf031c3-0fc3-4c87-a056-8a1735fcaca7" class="numbered-list" start="1"><li>Download the latest release with the command:<pre id="543b2a36-b3c0-4b20-ab77-97c2a89da119" class="code"><code>curl -LO &quot;https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl&quot;
+</code></pre><p id="08a24379-935a-4fc1-9e56-f105ea6b7ed4" class="">To download a specific version, replace the <code>$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)</code> portion of the command with the specific version.</p><p id="dd75bd9d-91fe-41da-9808-4857bb533462" class="">For example, to download version v1.19.0 on Linux, type:</p><pre id="d23cf852-1014-422c-b1b6-2bf317667689" class="code"><code>curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl
+</code></pre></li></ol><ol type="1" id="41601678-7a9f-4631-aa77-fa8632b17f64" class="numbered-list" start="2"><li>Make the kubectl binary executable.<pre id="2837aee8-96c1-4888-aaf0-86afbddb4a54" class="code"><code>chmod +x ./kubectl
+</code></pre></li></ol><ol type="1" id="a386f180-15de-488a-80ac-5db428433beb" class="numbered-list" start="3"><li>Move the binary in to your PATH.<pre id="a12965de-0961-4d69-a45c-b885abecf4f0" class="code"><code>sudo mv ./kubectl /usr/local/bin/kubectl
+</code></pre></li></ol><ol type="1" id="ae2b9549-6948-42b1-a7b1-a281da5d8823" class="numbered-list" start="4"><li>Test to ensure the version you installed is up-to-date:<pre id="a662ca69-0f16-4975-ade7-88a42c7a6ae7" class="code"><code>kubectl version --client
+</code></pre></li></ol><p id="7264d614-cca6-467c-9b31-d8b088fd3e43" class="">
+</p><h2 id="5b69915c-461d-4d67-bc3d-f60c991e0265" class="">Create cluster</h2><ol type="1" id="e4d0c188-0fa3-4a93-a022-ea8e2f39141d" class="numbered-list" start="1"><li>Install docker and k3d:<p id="d40bf34c-d6b8-4947-a41d-081ea7170e3b" class=""><code>curl -s </code><code><a href="https://raw.githubusercontent.com/rancher/k3d/main/install.sh">https://raw.githubusercontent.com/rancher/k3d/main/install.sh</a></code><code> | bash</code></p></li></ol><ol type="1" id="ae38551c-b17e-491d-8ac1-bb7719fbe2a7" class="numbered-list" start="2"><li>Run local registry:<p id="138df751-738c-458f-a6c2-ef73ba6551ab" class=""><code>sudo docker run -d --rm -p 5000:5000 --name registry registry:2</code></p></li></ol><ol type="1" id="c9af3514-e5e1-4aa9-b686-a7ab0e4b12bd" class="numbered-list" start="3"><li>Add registry.local to hosts:<p id="94bfac1b-2054-4844-a8b2-38a276bfb4d9" class=""><code>echo &#x27;127.0.0.1 registry.local&#x27; | sudo tee -a /etc/hosts</code></p></li></ol><ol type="1" id="d34b1ce8-91c4-467f-a767-3e7074323b2d" class="numbered-list" start="4"><li>Create cluster:<p id="472ea5c7-52f4-4134-9c62-6f8adfdcbbed" class=""><code>sudo ./k3d.sh</code></p><p id="045dd9d2-70bc-4dcc-a002-81ba1de0d653" class="">
+</p><p id="e7a788fe-3437-4c41-b8be-f5cf1f1805fc" class="">
+</p></li></ol><h2 id="b98ccb4d-8efe-48de-8bde-f317242d82a3" class="">Create Kafka</h2><p id="fa019ae3-ef61-4abf-a7a7-8492ffd4341e" class="">From ./k8s run the following command:</p><p id="18bd5ec6-8987-419a-94de-0fb11474fcdc" class=""><code>kubectl apply -k base/kubernetes-kafka/</code></p><h2 id="2ba312c8-f933-40fa-9604-90be40f7f48b" class="">Create Argo</h2><p id="da8e04c9-e5a0-4317-87a1-47a642e6483c" class="">From ./k8s run the following command:</p><p id="82de4903-3bf6-402b-bcad-b6edbad9ba62" class=""><code>kubectl apply -k base/argo</code></p><h2 id="7e0ffd4d-2a14-4c23-b037-44def58e7e92" class="">Create Argo Events</h2><p id="0d89d03e-9c2e-4ea9-aaab-a69b3522ce78" class="">From ./k8s run the following command:</p><p id="9ce8b2cb-7b6a-4ada-8a68-f8f0c06acf96" class=""><code>kubectl apply -k base/argo-events/</code></p><h2 id="761a8e4b-de2b-44f8-9528-8c01cab9dc64" class="">Deploy the EventBus</h2><p id="82bc4b47-73d7-4993-a101-908cffa83ada" class="">From ./k8s run the following command:</p><p id="9585f715-e5b3-43e9-ba4c-3d9c3e529725" class=""><code>kubectl apply -n argo-events -f </code><code><a href="https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml">https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml</a></code></p><h2 id="ba63ccc7-21e2-4711-9621-b532eb28c760" class="">Install skaffold</h2><p id="0d0a5dd9-ba6e-4e66-a298-172ae147059f" class="">Install go</p><p id="181ed0ad-e832-4ade-bc8b-6e5cad30432d" class="">From route folder (outside <strong>k8s</strong> and <strong>code</strong>) run the following:</p><p id="fd7686fd-2fbc-43cb-88df-e2603a674cb6" class="">
+</p><pre id="6e49ce8a-300d-46be-a963-60433b557db5" class="code"><code>git clone https://github.com/ysz/skaffold.git
+cd skaffold 
+make
+./out/skaffold version
+</code></pre><h3 id="e849d004-a09a-47b6-b8ac-8de0bb11f280" class="">To run only MAD we have to</h3><ol type="1" id="c9a1714e-3a3f-4bf5-97b7-8609a3721f21" class="numbered-list" start="1"><li>Comment all <code>torch</code> mentions in the MAD code (imports and code lines which use these package)</li></ol><ol type="1" id="cf8d9fca-ba26-4032-8b27-27626e141a0d" class="numbered-list" start="2"><li>In the <code>code/k8s/kubernetes-kafka/kafka/10broker-config.yml</code> file we should change the following line <code>auto.create.topics.enable=true</code></li></ol><ol type="1" id="8b4352bd-932e-416c-afbd-8f0a5083e963" class="numbered-list" start="3"><li>Change <code>code/skaffold.yaml</code> file being as follows:</li></ol><pre id="196c62b6-68e9-45f9-929a-c32bf5f2915a" class="code"><code>apiVersion: skaffold/v2beta1
+kind: Config
+build:
+  artifacts:
+#    - image: aggregatorservice
+#      context: .
+#      docker:
+#        dockerfile: aggregatorservice_Dockerfile
+#    - image: api
+#      context: .
+#      docker:
+#        dockerfile: api_Dockerfile
+#    - image: topologyservice
+#      context: .
+#      docker:
+#        dockerfile: topologyservice_Dockerfile
+#    - image: ingestservice
+#      context: .
+#      docker:
+#        dockerfile: ingestservice_Dockerfile
+#    - image: networkservice
+#      context: .
+#      docker:
+#        dockerfile: networkservice_Dockerfile
+#    - image: processservice
+#      context: .
+#      docker:
+#        dockerfile: processservice_Dockerfile
+#    - image: technoservice
+#      context: .
+#      docker:
+#        dockerfile: technoservice_Dockerfile
+#    - image: activator
+#      context: .
+#      docker:
+#        dockerfile: activator_Dockerfile
+#    - image: accounts
+#      context: .
+#      docker:
+#        dockerfile: accounts_Dockerfile
+#    - image: frontend
+#      context: .
+#      docker:
+#        dockerfile: frontend_Dockerfile
+    - image: mad_worker
+      context: .
+      docker:
+        dockerfile: mad_Dockerfile
+#    - image: lad_worker
+#      context: .
+#      docker:
+#        dockerfile: lad_Dockerfile
+profiles:
+  - name: dev
+    deploy:
+      kustomize:
+        paths: [&quot;k8s/base&quot;]
+      kubeContext: k3d-k3s-default
+</code></pre><p id="7ac62d4b-389d-488b-8772-bb6b33a6d73e" class="">4. <code>code/k8s/base/kustomization.yaml</code> file should look like this:</p><p id="11201af4-1d6a-47fe-bdf4-8a840a36ec8a" class="">
+</p><pre id="169a3bde-788e-4319-ade1-36d22d24f2bc" class="code"><code>generatorOptions:
+  disableNameSuffixHash: true
+#configMapGenerator:
+#  - name: api-config
+#    literals:
+#      - PORT=8080
+#      - HOST=0.0.0.0
+#      - ACCOUNTS_URL=https://accounts.packetai.co
+#      - AWS_BUCKET_NAME=custom-data-source-uploads
+#      - ELASTICSEARCH_URL=https://kb.packetai.co:9200
+#      - ACCOUNTS_REDIRECT_URI=https://api.packetai.co/auth/packetai/callback
+#      - ACCOUNTS_SCOPE=openid profile email address phone
+#      - ACCOUNTS_RESPONSE_TYPE=code
+#secretGenerator:
+#  - name: kafka-secret
+#    files:
+#      - consumer.server.cer.pem
+#      - consumer.client.key.pem
+#      - consumer.client.cer.pem
+resources:
+#  - api-deployment.yaml
+#  - api-svc.yaml
+#  - aggregatorservice-deployment.yaml
+#  - topologyservice-deployment.yaml
+#  - activator-deployment.yaml
+#  - networkservice-deployment.yaml
+#  - processservice-deployment.yaml
+#  - technoservice-deployment.yaml
+#  - kafka-configmap.yaml
+#  - accounts-deployment.yaml
+#  - ingestservice-deployment.yaml
+  - event_source-deployment.yaml
+  - sensor-deployment.yaml
+#  - lad-event_source-deployment.yaml
+#  - lad-sensor-deployment.yaml
+</code></pre><h2 id="b541b593-a3e0-4ca3-8067-935c0a174a32" class="">Install Kustomize</h2><p id="ca04a3d2-53de-4364-b067-18b5ee4514e9" class="">
+</p><pre id="f04aca69-78e0-49ed-b7ef-61c2fe96a574" class="code"><code>curl -s &quot;https://raw.githubusercontent.com/\
+kubernetes-sigs/kustomize/master/hack/install_kustomize.sh&quot;  | bash</code></pre><h2 id="540d94bb-b540-4534-ae14-35a4148c34a1" class="">Run skaffold command</h2><p id="803c056c-5f5c-4574-81f1-9df942a80bd8" class="">From <code>/code</code> folder run:</p><p id="86526ed2-c272-48c5-aa0d-14a459348c24" class=""><code>../skaffold/out/skaffold --profile=dev dev --default-repo registry.local:5000</code></p><p id="7c74a596-e9ec-4567-b204-c7887aaf7664" class="">
+</p><h2 id="6efd32e5-cfec-42d9-861b-6801037ebe0b" class="">Create metic-activator</h2><p id="eb097128-1b01-462d-9452-472354b812e9" class="">From folder run:</p><p id="e96a429a-7040-4236-97c6-5a61bcee0268" class=""><code>python kafka_test.py --create-topic metric-activator</code></p><p id="bff8977e-212d-434b-86aa-c5edfd1edbcd" class="">Create topic test and put it to metric-activator as message:</p><p id="4253fc6a-5543-427e-9a76-b09a127517c7" class=""><code>python kafka_test.py --create-topic test --put-to-activator True</code></p><p id="82eb094e-e338-45bb-89b6-0ba79b35d087" class="">Once a message is published, an argo workflow will be triggered. Run argo list to find the workflow.</p><h2 id="6a0c0062-5c90-4565-8490-1e8fa15954c9" class="">Check</h2><p id="0ba341b2-660b-4f07-b049-2a7584675fec" class=""><code>sudo kubectl get pod -n argo-events</code></p><p id="6ee68247-7282-4a2e-8b43-5efb331a797c" class="">
+</p></div></article></body></html>

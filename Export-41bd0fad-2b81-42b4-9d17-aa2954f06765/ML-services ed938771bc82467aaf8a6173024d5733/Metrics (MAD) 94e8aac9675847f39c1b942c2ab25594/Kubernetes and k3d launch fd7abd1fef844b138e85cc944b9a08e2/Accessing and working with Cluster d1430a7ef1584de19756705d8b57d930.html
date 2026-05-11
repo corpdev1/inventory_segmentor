@@ -1,0 +1,682 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Accessing  and working with Cluster</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d1430a7e-f158-4de1-9756-705d8b57d930" class="page sans"><header><h1 class="page-title">Accessing  and working with Cluster</h1><p class="page-description"></p></header><div class="page-body"><nav id="e1303aa0-ebe3-4650-b371-508f52efc463" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0db20cb0-abc0-4b59-8b2e-8f2f688b35e6">Check pods</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c1c415fa-4550-4135-af08-9147f7cc1c1c">Connect to pod(go inside of pod container, inside there is disk log)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4a13d31f-cb21-494b-9483-3cd28a0db85c">Connect to Affluences Cluster</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#692a715d-64ab-4246-8527-3b0c099258b5">Connect to GetMyUni cluster</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2534164a-eaeb-4158-a0c4-901f7ebe033e">Exit pod entered with <code>exec</code></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#efde0478-2e22-44bb-98b7-1f27f827a41f">Search logs between two strings <code>aaa</code> and <code>bbb</code></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d49431fa-ee0f-42dd-8699-382a6b3ce3de">Cut first <code>N</code> characters of the string</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d90954a3-db20-43e5-bcf0-31db377b0e5c">Download file from the pod</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#47b811ac-d34e-4676-aabf-43e7b67f5cbc">Describe pod </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4c4fc6bb-9331-488a-914b-ae0738db4b8a">Update one pod with its image (image contains new code)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6f6685a0-515c-414f-a09f-8c94adfd8c22">Check stdout logs of one pod</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#87bec31e-1b00-4453-ab0d-7ddaf29b7e7a">Delete one deployment (ex: delete one modelserver for lad)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#193e1a01-5530-4cb7-8925-f0903c2ac864">Connection to kube mongo from local</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d044b545-87d9-46ce-ac62-390d7d408a31">Connect to the stage cluster</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0bdc2e04-ab0a-4d5a-a60d-32599d3a5119">Connect to elasticsearch on cluster?</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#05b697ff-0ec0-476b-851f-c6073752c72c">Connect to mongo on cluster?</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2f5a104d-7262-4e2d-9a42-be8aa53869eb">See Kafka topic results which is running on the cluster?</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#139307e0-a485-4461-a2df-463213797c28">Push data to Kafka which is running on the cluster?</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4ab6b208-47cb-4489-b967-92fa7ccb8d89">How to change environ variables which are used in a project?</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#15c19177-9438-4a7f-a643-e38f6776de97">Start staging cluster</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e1af0935-39e8-4f55-9b37-bda20beda874">Restart a pod</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4815980a-6bc5-4823-87b3-320ed532d320">Update docker image tag for MAD</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a4214956-4183-4514-a755-23cd297aae90">Connect to staging mongo with MongoDB Compass</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8b1adecd-b420-4df4-ac1a-24b865e1f4f9">Delete all MAD pods</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b3f93194-9d18-4259-9ca5-dbf80717efcd">Reveal all ML secrets</a></div></nav><h3 id="0db20cb0-abc0-4b59-8b2e-8f2f688b35e6" class="">Check pods</h3><p id="cbf8c65c-1fb0-4773-a7bd-3d50a0bdfe77" class=""><code>kubectl get pods -n argo-events</code></p><h3 id="c1c415fa-4550-4135-af08-9147f7cc1c1c" class="">Connect to pod(go inside of pod container, inside there is disk log)</h3><p id="bae86281-7e5b-4a2b-99df-f15db266d8e7" class=""><code>kubectl exec -it $podname -n argo-events -- /bin/bash</code></p><h3 id="4a13d31f-cb21-494b-9483-3cd28a0db85c" class="">Connect to Affluences Cluster</h3><p id="87d9ced4-334f-47e5-97dd-742d159cb13e" class=""><code>aws --region eu-west-3 eks update-kubeconfig --name affluences-packetai-co --role-arn arn:aws:iam::767498580550:role/eks-admin</code></p><h3 id="692a715d-64ab-4246-8527-3b0c099258b5" class="">Connect to GetMyUni cluster</h3><p id="0934450d-f3f3-4662-8034-a2bc603a3bff" class=""><code>aws --region eu-west-3 eks update-kubeconfig --name getmyuni-packetai-co --role-arn arn:aws:iam::767498580550:role/eks-admin</code></p><h3 id="2534164a-eaeb-4158-a0c4-901f7ebe033e" class="">Exit pod entered with <code>exec</code></h3><p id="fed442ec-528d-46c1-aa78-cf386aea9be2" class=""><code>Ctrl + D</code></p><h3 id="efde0478-2e22-44bb-98b7-1f27f827a41f" class="">Search logs between two strings <code>aaa</code> and <code>bbb</code></h3><p id="2568097c-ad0f-45d6-9bbc-554796739809" class=""><code>sed -n &#x27;/aaa/,/bbb/p&#x27; file</code></p><h3 id="d49431fa-ee0f-42dd-8699-382a6b3ce3de" class="">Cut first <code>N</code> characters of the string</h3><p id="380e36df-effa-4426-a5f3-5af40b200f9f" class=""><code>cut -c 1-N</code></p><h3 id="d90954a3-db20-43e5-bcf0-31db377b0e5c" class="">Download file from the pod</h3><p id="7604e436-5cbb-4933-8982-a816cf7a35d6" class=""><code>kubectl exec -n argo-events $podname -- cat $path_to_a_text_file_on_the_pod &gt; $local_path</code></p><h3 id="47b811ac-d34e-4676-aabf-43e7b67f5cbc" class="">Describe pod </h3><p id="5bd1c073-bcc2-487d-87c3-6d942661d552" class=""><code>kubectl describe pod $pod -n argo-events</code></p><p id="34737737-0136-45a7-b2b5-13c74ecce584" class="">
+</p><h3 id="4c4fc6bb-9331-488a-914b-ae0738db4b8a" class="">Update one pod with its image (image contains new code)</h3><p id="542c9c7d-e3fc-4dbb-a3bb-f69da29f0b97" class="">(delete one pod, kube will generate a new one using image)</p><p id="5bf66009-b6dd-4940-95f1-90a9f07c5134" class=""><code>namespace=argo-events</code></p><p id="47bf19f7-152d-45e0-90c7-621b1d0e3150" class=""><code>kubectl delete pod $podname -n $namespace</code></p><p id="47bbbf20-4136-4d3d-bac5-1069c06a7063" class="">
+</p><h3 id="6f6685a0-515c-414f-a09f-8c94adfd8c22" class="">Check stdout logs of one pod</h3><p id="e10ae425-0a18-4ae6-9a83-4237c27f9861" class=""><code>kubectl logs $podname -n $namespace</code></p><p id="a1a664a7-ef31-4448-b311-5cf55f174547" class="">
+</p><h3 id="87bec31e-1b00-4453-ab0d-7ddaf29b7e7a" class="">Delete one deployment (ex: delete one modelserver for lad)</h3><p id="5634518a-60ee-46ca-bceb-4bae249c44d1" class=""><code>kubectl delete deployment $deployment_name -n argo-events</code></p><p id="4f432ba9-a61e-4501-9a72-15bc30d83804" class="">ex:</p><p id="84c1305a-5653-4995-b77d-c0d078fe4b5e" class=""><code>kubectl delete deployment lad-model-10-20210331000131 -n argo-events</code></p><p id="249cb519-0d1c-4c4a-8cb1-a486a04108b7" class="">
+</p><h3 id="193e1a01-5530-4cb7-8925-f0903c2ac864" class="">Connection to kube mongo from local</h3><p id="e5a533ad-ace2-48b2-8ef3-14b89b894e88" class=""><code>kubectl port-forward mongo-mongodb-replicaset-0 27017:27017 -n mongo</code></p><h3 id="d044b545-87d9-46ce-ac62-390d7d408a31" class="">Connect to the stage cluster</h3><p id="f92ba2f1-a058-4327-9a28-2e27a5211e63" class=""><code>aws --region eu-west-3 eks update-kubeconfig --name stage-packetai-co --role-arn arn:aws:iam::767498580550:role/eks-admin</code></p><h3 id="0bdc2e04-ab0a-4d5a-a60d-32599d3a5119" class="">Connect to elasticsearch on cluster?</h3><p id="6d8a8c0c-68a8-47dd-bfbe-9b43460b14e0" class=""><code>kubectl port-forward $podName localPort:kubePort(9200) -n nameSpace</code></p><ul id="ce0311f0-700c-4c91-a56c-68c5e24e2ebf" class="bulleted-list"><li style="list-style-type:disc">To get pod in the namespace:<ul id="05d193f0-1366-40a1-979b-d099089aa4e5" class="bulleted-list"><li style="list-style-type:circle"><code>kubectl get pods -n od-system</code></li></ul></li></ul><ul id="b2fb93b5-f8a8-4285-9785-e3560d5640f4" class="bulleted-list"><li style="list-style-type:disc">Get the first one with <code>client</code> in the name</li></ul><h3 id="05b697ff-0ec0-476b-851f-c6073752c72c" class="">Connect to mongo on cluster?</h3><p id="00d6fa57-684f-4e38-ae6b-61d1315f3f0e" class=""><code>kubectl port-forward $podName localPort(27018):kubePort(27017) -n nameSpace</code></p><ul id="978a10f7-fda7-41d8-bce8-7c5465e5f66b" class="bulleted-list"><li style="list-style-type:disc">To get pod in the namespace:<ul id="721d9966-4e18-4408-aa64-ed2f2e4936bb" class="bulleted-list"><li style="list-style-type:circle"><code>kubectl get pods -n mongo</code></li></ul></li></ul><h3 id="2f5a104d-7262-4e2d-9a42-be8aa53869eb" class="">See Kafka topic results which is running on the cluster?</h3><p id="15e9ca97-4b6e-485b-91cd-12adec630152" class=""><code>Same as before</code></p><h3 id="139307e0-a485-4461-a2df-463213797c28" class="">Push data to Kafka which is running on the cluster?</h3><p id="4a96a1ed-4c5c-41b4-bd47-ff8d367928af" class=""><code>Same as before</code></p><h3 id="4ab6b208-47cb-4489-b967-92fa7ccb8d89" class="">How to change environ variables which are used in a project?</h3><ol type="1" id="d1b40a96-c3a9-48f8-9e73-1123a8570b9d" class="numbered-list" start="1"><li>Make changes in flux</li></ol><ol type="1" id="715e6e59-ea03-4c6d-8e2d-be04015f05b7" class="numbered-list" start="2"><li>Delete deployment: <code>kubectl delete -f filepath</code></li></ol><ol type="1" id="6f25c62e-91d1-47f7-8dad-eb5f8e5a6fc4" class="numbered-list" start="3"><li>Deploy new changes: <code>kubectl apply -f filepath</code></li></ol><h3 id="15c19177-9438-4a7f-a643-e38f6776de97" class="">Start staging cluster</h3><ol type="1" id="40fd72f0-0307-430a-8263-d328c4946c0a" class="numbered-list" start="1"><li>Go to <a href="https://eu-west-3.console.aws.amazon.com/ec2autoscaling/home?region=eu-west-3#/details/eksctl-stage-packetai-co-nodegroup-packetai-service-nodes-NodeGroup-O0VM0DCPAMH0?view=details">https://eu-west-3.console.aws.amazon.com/ec2autoscaling/home?region=eu-west-3#/details/eksctl-stage-packetai-co-nodegroup-packetai-service-nodes-NodeGroup-O0VM0DCPAMH0?view=details</a></li></ol><ol type="1" id="a77bf437-e3d5-4928-bd46-cff0ab188206" class="numbered-list" start="2"><li>Edit desired capacity to 5</li></ol><h3 id="e1af0935-39e8-4f55-9b37-bda20beda874" class="">Restart a pod</h3><p id="2d984fc5-f0a4-4f5b-aaf9-f61f7dac9a0a" class="">We can just delete it</p><p id="540d00f8-41a6-4dfb-9833-774acfe71896" class=""><code>kubectl delete pod $pod -n $ns</code></p><h3 id="4815980a-6bc5-4823-87b3-320ed532d320" class="">Update docker image tag for MAD</h3><p id="38b4094e-ee84-40c2-8bda-0a6acd76aede" class=""><code>kubectl edit sts $pod -n argo-events</code></p><h3 id="a4214956-4183-4514-a755-23cd297aae90" class="">Connect to staging mongo with MongoDB Compass</h3><ol type="1" id="1e81ebd0-b841-4910-874c-a0c914cf2a9a" class="numbered-list" start="1"><li><code>kubectl port-forward mongo-mongodb-replicaset-1 27018:27017 -n mongo</code></li></ol><ol type="1" id="9b3e6bcc-92f5-4dc2-9522-30064ae7e7b0" class="numbered-list" start="2"><li>Compass connection string: <code>mongodb://root:example@localhost:27018</code></li></ol><h3 id="8b1adecd-b420-4df4-ac1a-24b865e1f4f9" class="">Delete all MAD pods</h3><pre id="bb4e8aca-fe0e-4d5f-b2ca-cb9f2b01f5f1" class="code code-wrap"><code>names=$(kubectl get pods -n argo-events|grep 6040|cut -d&#x27; &#x27; -f1)
+for i in $names;do kubectl delete pod $i --grace-period 0 --force -n argo-events; done</code></pre><h3 id="b3f93194-9d18-4259-9ca5-dbf80717efcd" class="">Reveal all ML secrets</h3><pre id="e4cc1312-5e16-42a4-bb6f-9a495a14e7da" class="code"><code>kubectl get secret ml -n argo-events -o go-template=&#x27;{{range $k,$v := .data}}{{&quot;### &quot;}}{{$k}}{{&quot;\n&quot;}}{{$v|base64decode}}{{&quot;\n\n&quot;}}{{end}}</code></pre><p id="083f8444-ea6c-4cea-92f0-a898de82a8b1" class="">
+</p></div></article></body></html>

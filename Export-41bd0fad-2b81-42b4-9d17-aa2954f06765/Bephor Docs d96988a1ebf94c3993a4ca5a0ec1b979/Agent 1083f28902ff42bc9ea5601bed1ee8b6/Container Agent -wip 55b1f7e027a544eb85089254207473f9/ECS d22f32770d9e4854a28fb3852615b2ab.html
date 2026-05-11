@@ -1,0 +1,906 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>ECS </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d22f3277-0d9e-4854-a28f-b3852615b2ab" class="page sans"><header><h1 class="page-title">ECS </h1><p class="page-description"></p></header><div class="page-body"><p id="3ed940e5-4a3b-4a0d-b7d1-cf51f4a80b78" class="">
+</p><p id="6e172717-942f-4123-9bdf-4adca0d3f932" class="">install agent on ECS node (EC2 instance) </p><p id="430af151-1248-4dfa-b260-c038d96ef33c" class="">agent will discover docker service </p><ul id="569cc462-ef39-42ff-abbc-3bd784fac8f9" class="bulleted-list"><li style="list-style-type:disc"></li></ul><p id="6dfc2ce1-5d74-4784-bac9-9dedd1d2effe" class="">agent will discover containers and their labels </p><p id="1568f845-af45-4880-89dc-d4f24f32c294" class="">process service groups containers of same label into one component </p><h2 id="1c77cff3-651f-4c64-8b45-e0dd1f291547" class="">Implementation (22/03/2021)</h2><h3 id="a34ed370-f2bc-4943-8f2a-6b9b870eafc8" class="">dockerized agent</h3><p id="be42a1ed-20ac-4e54-b78b-73ae233da80d" class="">Metricbeat mounted volumes from host:</p><ul id="d9700be1-7f3c-4f79-b455-01870d442448" class="bulleted-list"><li style="list-style-type:disc">/proc</li></ul><ul id="b1e19111-fd2e-4fe0-9c6d-6abe6372f6ec" class="bulleted-list"><li style="list-style-type:disc">/sys/fs/cgroup</li></ul><p id="65a550fa-2b4a-4757-88d2-81bba154d3d4" class="">These 2 volumes will be used to gather system informations</p><ul id="d5a5d561-9bb2-4c96-b165-38e1d16ba887" class="bulleted-list"><li style="list-style-type:disc">/var/run/docker.sock</li></ul><p id="25c4efed-ccb2-4009-8d83-f805d1294a95" class="">These volume is to be able to communicate with dockerd daemon, to gather informations about containers</p><p id="9ef82ade-14b7-486d-b661-633c87db5268" class="">Filebeat mounted volumes from host:</p><ul id="b551561a-6587-4c35-9e3b-edc4dc5343d4" class="bulleted-list"><li style="list-style-type:disc">/var/run/docker.sock</li></ul><ul id="31da4362-abca-480f-b349-e37f9ac745ec" class="bulleted-list"><li style="list-style-type:disc">/var/lib/docker/containers</li></ul><p id="b0e33532-f3cc-4202-82cb-352bd0339413" class="">The volume will be used to gather logs from containers if they are using stdout as output</p><h3 id="c32db663-00f2-4bd5-9267-fcc3656dcc77" class="">Ecs native support (1 step)</h3><p id="6f45ddcd-57aa-4c03-87b2-1fb3efd27dd8" class="">The goal is to gather metrics and logs of containers and host running in a ECS cluster.</p><p id="1e43ec1c-2060-40fd-9593-e9c732c55845" class="">In order to be able to install the dockerized agent on each host of an ECS cluster, we need to provide:</p><ul id="dffe44a2-6ac4-48d8-ab74-201f238f4d86" class="bulleted-list"><li style="list-style-type:disc">The ecs task definition of the agent. Basically how to create the container and which volumes are mounted.</li></ul><ul id="34256ea1-bc40-4882-ae0b-cba729b0def7" class="bulleted-list"><li style="list-style-type:disc">The service definition about how to run the task. The main idea is to run the task defininition of the agent in <em>Daemon set</em> mode.</li></ul><h3 id="a44fee99-2e1e-45b7-8a58-9e960b7a8e6d" class="">Data dog task definition:</h3><pre id="87c6c8e1-7f7e-4763-b54e-b45fe37654d2" class="code"><code>{
+  &quot;containerDefinitions&quot;: [
+    {
+      &quot;name&quot;: &quot;datadog-agent&quot;,
+      &quot;image&quot;: &quot;datadog/agent:latest&quot;,
+      &quot;cpu&quot;: 100,
+      &quot;memory&quot;: 512,
+      &quot;essential&quot;: true,
+      &quot;mountPoints&quot;: [
+        {
+          &quot;containerPath&quot;: &quot;/var/run/docker.sock&quot;,
+          &quot;sourceVolume&quot;: &quot;docker_sock&quot;,
+          &quot;readOnly&quot;: null
+        },
+        {
+          &quot;containerPath&quot;: &quot;/host/sys/fs/cgroup&quot;,
+          &quot;sourceVolume&quot;: &quot;cgroup&quot;,
+          &quot;readOnly&quot;: null
+        },
+        {
+          &quot;containerPath&quot;: &quot;/host/proc&quot;,
+          &quot;sourceVolume&quot;: &quot;proc&quot;,
+          &quot;readOnly&quot;: null
+        }
+      ],
+      &quot;environment&quot;: [
+        {
+          &quot;name&quot;: &quot;DD_API_KEY&quot;,
+          &quot;value&quot;: &quot;&lt;YOUR_DATADOG_API_KEY&gt;&quot;
+        },
+        {
+          &quot;name&quot;: &quot;DD_SITE&quot;,
+          &quot;value&quot;: &quot;datadoghq.com&quot;
+        }
+      ]
+    }
+  ],
+  &quot;volumes&quot;: [
+    {
+      &quot;host&quot;: {
+        &quot;sourcePath&quot;: &quot;/var/run/docker.sock&quot;
+      },
+      &quot;name&quot;: &quot;docker_sock&quot;
+    },
+    {
+      &quot;host&quot;: {
+        &quot;sourcePath&quot;: &quot;/proc/&quot;
+      },
+      &quot;name&quot;: &quot;proc&quot;
+    },
+    {
+      &quot;host&quot;: {
+        &quot;sourcePath&quot;: &quot;/cgroup/&quot;
+      },
+      &quot;name&quot;: &quot;cgroup&quot;
+    }
+  ],
+  &quot;family&quot;: &quot;datadog-agent-task&quot;
+}</code></pre><p id="f8dc2581-df69-4de5-a7d0-9e1415975b5c" class="">
+</p><p id="43506c43-e2da-4ad6-932b-7a4762bba09f" class="">
+</p><h1 id="a1a82249-a746-44d5-b2a8-acb61b5b260c" class="">Agentd documentation</h1><h2 id="b9356966-ea34-404f-a522-7c4450b7d692" class="">1. How to build image</h2><p id="33a7d5e7-930a-43dc-92ce-8389b9bc5cf2" class="">Here the files need to build the agent:
+- Dockerfile:</p><pre id="f3e17d4a-6c74-48aa-bffe-c44185368a05" class="code"><code>FROM golang:1.16 as builder
+WORKDIR /builder/
+ADD . /builder/
+ARG CERTPATH
+ENV CERTPATH=${CERTPATH}
+ENV METRICBEAT=metricbeat-7.10.1-linux-x86_64
+ENV FILEBEAT=filebeat-7.10.1-linux-x86_64
+
+# COPY KAFKA CERTIFICATES
+RUN mkdir -p /etc/packetai/assets/certs/
+RUN cp ${CERTPATH}/* /etc/packetai/assets/certs/
+
+RUN curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/${METRICBEAT}.tar.gz
+RUN tar xzf ${METRICBEAT}.tar.gz -C /etc/packetai
+RUN mv /etc/packetai/${METRICBEAT} /etc/packetai/metricbeat
+RUN rm ${METRICBEAT}.tar.gz
+RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/${FILEBEAT}.tar.gz
+RUN tar xzf ${FILEBEAT}.tar.gz -C /etc/packetai
+RUN mv /etc/packetai/${FILEBEAT} /etc/packetai/filebeat
+RUN rm ${FILEBEAT}.tar.gz
+
+RUN CGO_ENABLED=0 GOOS=linux go build -mod vendor -tags agentd -o packetai-server ./cmd/agent
+
+FROM debian:stretch
+WORKDIR /root
+ARG APIDEVURL
+ARG PAI_API_KEY
+ENV APIDEVURL ${APIDEVURL}
+ENV PAI_API_KEY ${PAI_API_KEY}
+ENV HOST_PROC /hostfs/proc
+ENV HOST_SYS /hostfs/sys
+ENV DOCKER_API_VERSION 1.40
+COPY --from=builder /builder/packetai-server /root/packetai-server
+COPY --from=builder /etc/packetai /etc/packetai
+COPY --from=builder /builder/cmd/agent/entrypoint.sh /root/entrypoint.sh
+
+
+RUN apt-get update &amp;&amp; apt-get install -y curl jq vim psmisc
+ENTRYPOINT [&quot;./entrypoint.sh&quot;]</code></pre><p id="25a282c1-26a4-4b3d-a8f9-9a1f61d6fb60" class=""><strong>Important</strong> : We can see in the dockerfile that the agent is built with the tag <code>agentd</code>. This tag must alway be present when building the dockerized agent.</p><p id="b5fa689c-cc9d-4a4d-b057-7cfccd9c8927" class=""><strong>Important</strong>: We define 2 env variables which are very important for <code>gopsutil`</code></p><ul id="ea936540-5ebf-4a74-9205-7dd61aaa2fa1" class="bulleted-list"><li style="list-style-type:disc">HOST_PROC=/hostfs/proc</li></ul><ul id="2b47d635-74be-4420-8404-bba5090dda21" class="bulleted-list"><li style="list-style-type:disc">HOST_SYS=/hostfs/sys</li></ul><p id="809b2763-8834-4a90-82ce-f6b5f64ada9a" class="">This 2 env variables have a root directory at /hostfs . This is where we need to mount volumes for proc/system informations</p><p id="b9aa169d-00b8-4b05-b3e6-966da985a510" class="">entrypoint.sh:</p><pre id="cba8c686-fa0f-45d1-a83c-ddd2555152e4" class="code"><code>#!/bin/bash
+set -o errexit
+set -o nounset
+set -o xtrace
+
+# COPY APIDEVURL
+if [ ! -f &quot;/etc/packetai/apiurl&quot; ]; then
+    echo -n ${APIDEVURL} &gt; /etc/packetai/apiurl
+fi
+# COPY INFRA
+if [ ! -f &quot;/etc/packetai/infra&quot; ]; then
+    echo -n ${PAI_API_KEY} &gt; /etc/packetai/infra
+fi
+
+INFRA=$(cat /etc/packetai/infra)
+if [ ! -f &quot;/etc/packetai/identifier&quot; ]; then
+    IDENTIFIER=$(curl -X POST &quot;$APIDEVURL/infrastructure/$INFRA/agent&quot; | jq .agentId)
+    IDENTIFIER=${IDENTIFIER%\&quot;}
+    IDENTIFIER=${IDENTIFIER#\&quot;}
+    echo -n &quot;$IDENTIFIER&quot; &gt; /etc/packetai/identifier
+fi
+export PATH=$PATH:/etc/packetai/filebeat:/etc/packetai/metricbeat
+./packetai-server</code></pre><p id="e87417f7-6699-4cc7-a474-c3f02324519a" class="">The command to run the build of the image:
+</p><pre id="cb15c202-d3d0-4346-b32c-7a8d6cb9d62d" class="code"><code>docker build \
+    -t agentd:latest \
+    -f ./cmd/agent/Dockerfile_agentd \
+    --build-arg CERTPATH=&lt;pathToCertificates&gt; \
+    --build-arg APIDEVURL=&lt;apiDevURL&gt; \
+    --build-arg PAI_API_KEY=&lt;PAI_API_KEY&gt; .</code></pre><p id="8b8dbaea-f63c-4254-82cc-b36992808471" class="">We use build arguments to build an image dedicated for a client:</p><ul id="22a0e6a5-a2f0-4586-a36b-f5d41b95fcea" class="bulleted-list"><li style="list-style-type:disc"><code>CERTPATH</code>: is the path containing the 3 ssl certificates, The certificates will be used by the agent, filebeat and metricbeat configurations:<ul id="eeb88ad8-9e44-4666-b47f-88070e2055a1" class="bulleted-list"><li style="list-style-type:circle">producer.client.cer.pem</li></ul><ul id="2b5e651a-c355-4051-95a2-dacd92910ef8" class="bulleted-list"><li style="list-style-type:circle">producer.client.key.pem</li></ul><ul id="b52badeb-e280-4c0d-bf7d-e031431f21f9" class="bulleted-list"><li style="list-style-type:circle">producer.server.cer.pem</li></ul></li></ul><ul id="70a28b99-7d1d-4f9c-9ca3-879da558e3f0" class="bulleted-list"><li style="list-style-type:disc"><code>APIDEVURL</code>: is the becky end point that the agent queries to get the list of kafka brokers.</li></ul><ul id="ba5badb8-a002-444e-b599-2542e216ab90" class="bulleted-list"><li style="list-style-type:disc"><code>PAI_API_KEY</code>: is equivalent to the infraID of the client.</li></ul><h2 id="ba4b63f8-a4b2-4405-993f-28e2c6df582f" class="">2. How to run image</h2><pre id="12fe2276-69c2-4067-8b2f-40df45b62941" class="code"><code>docker run \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v /proc:/hostfs/proc:ro \
+    -v /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro \
+    -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
+    -v /var/log:/hostfs/var/log:ro \
+    --name packetai agentd:latest</code></pre><h2 id="9b6c109e-3902-4398-a445-b44d3f9506b5" class="">3. Create an ECR repo</h2><p id="6f80d600-e6e3-4aa6-a7fb-51bd4b226977" class="">We need to create an ECR repo in order to push the image and give access to this image for clients:
+example for the link where to do this: <a href="https://eu-west-3.console.aws.amazon.com/ecr/create-repository?region=eu-west-3">https://eu-west-3.console.aws.amazon.com/ecr/create-repository?region=eu-west-3</a></p><h2 id="0f00ea4f-866b-4f08-aa3b-d9ed8f3dd1e4" class="">4. How to login to ECR repo</h2><p id="70f1c183-a042-4dfa-91dd-54b3ba6cca1f" class="">We need to login to the ECR service in order to be able to push the image:
+</p><pre id="1b78b3d6-da85-4b66-8a96-cdd06b83072e" class="code"><code>aws ecr get-login-password | docker login --username AWS --password-stdin 767498580550.dkr.ecr.eu-west-3.amazonaws.com</code></pre><h2 id="b3d562ea-06e1-42d6-b36e-35031337c490" class="">6. How to push image</h2><p id="9290a9f1-17d5-4b5b-ad7d-3b820f5ff86c" class="">To push the image we need to execute 2 commands: The first one to tag the image with the proper ecr repo.
+</p><pre id="da2a7138-386c-4d8a-b17d-005c9e6c8f93" class="code"><code>docker tag agentd:latest 767498580550.dkr.ecr.eu-west-3.amazonaws.com/&lt;repoName&gt;:latest</code></pre><pre id="e834ffb1-ee9d-41ab-b918-321d0a0f0e35" class="code"><code>docker push 767498580550.dkr.ecr.eu-west-3.amazonaws.com/&lt;repoName&gt;:latest</code></pre><h2 id="2019799d-e56d-4b0f-95af-032465da207b" class="">7. How to create task definition</h2><h3 id="7be1df7e-db8c-4984-ad1d-73eb010d1214" class="">7.1 using aws console
+</h3><p id="41c3b3ff-d206-480b-a753-36825f024d57" class=""><a href="https://eu-west-3.console.aws.amazon.com/ecs/home?region=eu-west-3#/taskDefinitions/create">https://eu-west-3.console.aws.amazon.com/ecs/home?region=eu-west-3#/taskDefinitions/create</a></p><ol type="1" id="e43e394f-8a80-45ed-ab26-e497a77112fb" class="numbered-list" start="1"><li>On aws ecs panel, select task definition then create. </li></ol><ol type="1" id="1ecab1bf-1383-4e84-86fe-40bb2bfa58ec" class="numbered-list" start="2"><li>Select EC2 then next step</li></ol><ol type="1" id="c44b06e1-64e1-41ec-a5a9-5408d542be24" class="numbered-list" start="3"><li>Setup a name for the task</li></ol><ol type="1" id="0de3fdb5-aca5-4c16-a3e0-71c70959e9ba" class="numbered-list" start="4"><li>Select a role to use in order to execture ecs tasks</li></ol><ol type="1" id="c9584232-cf3b-4063-a6c5-4fde9acc0ed4" class="numbered-list" start="5"><li>Add a container definition</li></ol><ol type="1" id="4cfc94e2-6e36-459a-827d-8aceb2473631" class="numbered-list" start="6"><li>Select a contaier name</li></ol><ol type="1" id="d7c857f4-7987-493f-b966-db9adb846461" class="numbered-list" start="7"><li>Select the image on ECR repo</li></ol><ol type="1" id="567345b0-27b1-47cd-a3e8-1f1be94759c1" class="numbered-list" start="8"><li>Add the following volumes in order to achieve the following result</li></ol><figure id="7b81cbe0-9ecf-4350-8d51-de831b8d87a9" class="image"><a href="ECS%20d22f32770d9e4854a28fb3852615b2ab/Capture_dcran_de_2021-04-12_16-24-39.png"><img style="width:773px" src="ECS%20d22f32770d9e4854a28fb3852615b2ab/Capture_dcran_de_2021-04-12_16-24-39.png"/></a></figure><figure id="66d48d6b-2f9c-4679-82a4-ecf73573e406" class="image"><a href="ECS%20d22f32770d9e4854a28fb3852615b2ab/Capture_dcran_de_2021-04-12_16-24-21.png"><img style="width:1600px" src="ECS%20d22f32770d9e4854a28fb3852615b2ab/Capture_dcran_de_2021-04-12_16-24-21.png"/></a></figure><p id="c7dc295b-c849-42af-b772-d7ddc8fa1cd6" class="">9. Choose a memory limit according to your container consumption
+10. Then add</p><p id="2b6c5673-a703-4aa9-866e-5c2aee739d84" class="">11. Validate the task definition.</p><h3 id="08d9769d-ad70-42f8-b365-65f680b1b0b8" class="">7.2 using aws cli</h3><h3 id="27ae7756-c090-4cda-9ff3-4826282e9ceb" class="">7.3 How to get task definition</h3><p id="a4793f14-382f-423b-9a1e-5aa0033423e3" class="">Using this command with aws cli, allows to get the taskdefinition.</p><pre id="5e107a86-e2f1-4b20-9e22-95a991d4bc14" class="code"><code>aws ecs describe-task-definition --task-definition &lt;taskName&gt;:&lt;taskRevision&gt;</code></pre><p id="37151995-d82c-48c4-9242-c90c09ff1ce0" class="">Example for the agent:
+</p><pre id="42979ad4-a777-4f63-bca8-c5c4890c3609" class="code"><code>{
+    &quot;taskDefinition&quot;: {
+        &quot;taskDefinitionArn&quot;: &quot;arn:aws:ecs:eu-west-3:767498580550:task-definition/agentdTask:7&quot;,
+        &quot;containerDefinitions&quot;: [
+            {
+                &quot;name&quot;: &quot;agentd&quot;,
+                &quot;image&quot;: &quot;767498580550.dkr.ecr.eu-west-3.amazonaws.com/agentd:latest&quot;,
+                &quot;cpu&quot;: 0,
+                &quot;memory&quot;: 256,
+                &quot;portMappings&quot;: [],
+                &quot;essential&quot;: true,
+                &quot;environment&quot;: [],
+                &quot;mountPoints&quot;: [
+                    {
+                        &quot;sourceVolume&quot;: &quot;cgroup&quot;,
+                        &quot;containerPath&quot;: &quot;/hostfs/sys/fs/cgroup&quot;
+                    },
+                    {
+                        &quot;sourceVolume&quot;: &quot;proc&quot;,
+                        &quot;containerPath&quot;: &quot;/hostfs/proc&quot;
+                    },
+                    {
+                        &quot;sourceVolume&quot;: &quot;dockerlogs&quot;,
+                        &quot;containerPath&quot;: &quot;/var/lib/docker/containers&quot;
+                    },
+                    {
+                        &quot;sourceVolume&quot;: &quot;dockersocket&quot;,
+                        &quot;containerPath&quot;: &quot;/var/run/docker.sock&quot;
+                    },
+                    {
+                        &quot;sourceVolume&quot;: &quot;logs&quot;,
+                        &quot;containerPath&quot;: &quot;/hostfs/var/log&quot;
+                    }
+                ],
+                &quot;volumesFrom&quot;: []
+            }
+        ],
+        &quot;family&quot;: &quot;agentdTask&quot;,
+        &quot;executionRoleArn&quot;: &quot;arn:aws:iam::767498580550:role/ecsTaskExecutionRole&quot;,
+        &quot;revision&quot;: 7,
+        &quot;volumes&quot;: [
+            {
+                &quot;name&quot;: &quot;proc&quot;,
+                &quot;host&quot;: {
+                    &quot;sourcePath&quot;: &quot;/proc&quot;
+                }
+            },
+            {
+                &quot;name&quot;: &quot;dockersocket&quot;,
+                &quot;host&quot;: {
+                    &quot;sourcePath&quot;: &quot;/var/run/docker.sock&quot;
+                }
+            },
+            {
+                &quot;name&quot;: &quot;dockerlogs&quot;,
+                &quot;host&quot;: {
+                    &quot;sourcePath&quot;: &quot;/var/lib/docker/containers&quot;
+                }
+            },
+            {
+                &quot;name&quot;: &quot;cgroup&quot;,
+                &quot;host&quot;: {
+                    &quot;sourcePath&quot;: &quot;/sys/fs/cgroup&quot;
+                }
+            },
+            {
+                &quot;name&quot;: &quot;logs&quot;,
+                &quot;host&quot;: {
+                    &quot;sourcePath&quot;: &quot;/var/log&quot;
+                }
+            }
+        ],
+        &quot;status&quot;: &quot;ACTIVE&quot;,
+        &quot;requiresAttributes&quot;: [
+            {
+                &quot;name&quot;: &quot;com.amazonaws.ecs.capability.ecr-auth&quot;
+            },
+            {
+                &quot;name&quot;: &quot;ecs.capability.execution-role-ecr-pull&quot;
+            }
+        ],
+        &quot;placementConstraints&quot;: [],
+        &quot;compatibilities&quot;: [
+            &quot;EC2&quot;
+        ],
+        &quot;requiresCompatibilities&quot;: [
+            &quot;EC2&quot;
+        ]
+    }
+}</code></pre><h2 id="b1c8b497-1e0b-431d-9b35-9f60f45af981" class="">8. How to create a service with the task definition</h2><h3 id="607f2eee-faa1-4d98-8ece-7283264e89c0" class="">8.1 using aws console</h3><p id="c54aa39e-b51b-4aa5-9d69-e8830c2bd2e7" class="">On the task definition page, you can select a taskdefinition, then click Action and create a service.</p><ol type="1" id="befc1a99-3268-4fbc-adbb-493ebd690a61" class="numbered-list" start="1"><li>Select EC2 launch type</li></ol><ol type="1" id="43030201-9e27-4335-92cb-0daa240dd9a2" class="numbered-list" start="2"><li>Select a revision number of the task definition</li></ol><ol type="1" id="7c88be96-c912-4c9b-bce5-4f7591f9e914" class="numbered-list" start="3"><li>Select the cluster where the service will be deployed</li></ol><ol type="1" id="d52e9834-36ac-4f5d-90aa-d9de5b75b1d2" class="numbered-list" start="4"><li>Choose a name for the service</li></ol><ol type="1" id="5c26863a-ace2-4ea5-b3b8-fe8651e21e91" class="numbered-list" start="5"><li>Select Type of service DEAMON </li></ol><ol type="1" id="204dc9a7-d62b-4b5a-bf7f-6fd872fa3258" class="numbered-list" start="6"><li>Click Next Step until the service is configured</li></ol><h2 id="3172ba34-0d16-492a-b7bb-58dd856044f0" class="">9 Some important notes</h2><h3 id="8f373e1a-fa16-407f-b868-134569a807d3" class="">9.1 Default path for host</h3><p id="a717821d-2983-4556-b571-5d8e197299e9" class="">As we are mounting volumes from the host system, we want to separate host path inside docker from the host running the container. By default we choose to use the root mounting point to <code>/hostf/</code></p><h3 id="4969fc8b-0b7a-4eed-9d63-e5e72d16a299" class="">9.2 Docker version limitation</h3><p id="86d7e0e3-9163-4285-895f-9b7b2aa07f03" class="">For certain AMI aws linux images, the docker daemon have an upper limit for docker api version. For now we setup the docker version by using the env variable inside the container:
+<code>DOCKER_API_VERSION = 1.40</code> This value can be adapted regarding which AMI use the client.</p><h3 id="bfce9f80-cbf0-4548-96a0-2adf7dcf1db9" class="">9.3 Run metricbeat with extra parameter</h3><p id="70c5219f-2c1f-4612-8573-8d36eee3e40f" class="">As we have mounted host system to the mounting point <code>/hostfs</code> we need to configure filebeat</p><p id="0ddfd570-d7fa-493d-89d2-4b98bdc50275" class="">to be able to fetch informations about process from this mounting point. For this reason we need to add an argument when we start metricbeat:</p><pre id="b9442745-7900-4150-be32-c415a71cc0be" class="code"><code>metricbeat -c john_mb.yml --path.home /etc/packetai/metricbeat -e -system.hostfs=/hostfs</code></pre><h3 id="1d173ca8-2c6d-439a-b6ab-df44bb2d17ac" class="">9.4 Logical component inside ECS</h3><p id="911cf035-1bb7-43f9-be35-ba80fa07a4e0" class="">To build logical components across instances for ecs, we use docker labels. For now we choose the following key: <code>com.amazonaws.ecs.task-definition-family</code> </p><h3 id="df591488-8b8e-4b2c-8e44-03f5fcbb5501" class="">9.5 Syslogs</h3><p id="752ab5c3-221e-4a2a-b6f5-f8e79844bdfd" class="">Be default we set the following path to fetch host syslogs <code>/hostfs/var/log/syslog*</code></p><p id="d4b7f5ad-457b-41d5-9a04-57891ca6660a" class="">Depending of the AMI linux running the agent, these files can not exist. The client needs to configure on minima integration page which files should be monitored if needed.</p></div></article></body></html>

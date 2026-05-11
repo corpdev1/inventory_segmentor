@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Matrix Profile</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7416bdb9-5d09-4ef1-902e-7f9009371ebc" class="page sans"><header><h1 class="page-title">Matrix Profile</h1><p class="page-description"></p></header><div class="page-body"><nav id="efe46dfc-b6ad-40ad-a813-0b669ab7ccd4" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f9264e06-4128-43f9-b2c2-54f1c35aea43">Intro</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a4885db7-09fc-436b-ba20-cf429fd9df97">How to “read” a Matrix Profile (AD-wise)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ce2bdbc4-69f5-40eb-8afe-9bae84d0382a">Advantages of using the Matrix Profile</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e68e3854-c8c1-4595-b472-13368a72e72a"><strong>Different Window Sizes</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b1484b7e-bf16-4643-bafe-884abccb3dbe">MP could be <strong>domain-aware</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#35ba831b-b594-4e84-b63c-efb921d2b467">Computational time</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7a47fcd8-bf04-4f12-a2fe-80e80001ad7a">Examples</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7718058b-cf5a-4c4b-b4c0-15e131ccff44">MySQL</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#23693dd3-078e-4db8-95a1-a483570bda79"><strong>Log frequency</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dc54d49b-eab8-402e-958b-355f4eaf18e5">MAD + MP pipeline for anomaly detection</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#62337c52-e8e0-4200-a8c8-23ca6da21032">Annotation vector</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1e58c660-9d96-42a2-bdef-63cd7613e5b3">Results for some of the Affluences components</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0de27ce6-520d-43d2-8ffe-3b3659494964">Multidimensional MP</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a35f927e-6432-4a70-9723-7e0740843fca">Resources</a></div></nav><figure id="0915eb39-5626-4a54-bb3f-563035fe5af6"><div class="source"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Matrix_Profile_experiments.ipynb">Matrix Profile experiments.ipynb</a></div></figure><h3 id="f9264e06-4128-43f9-b2c2-54f1c35aea43" class="">Intro</h3><p id="a39e4ed2-deb8-45a3-823b-f840362e2100" class="">In a single sentence, a matrix profile is essentially a vector that stores the <a href="https://www.youtube.com/watch?v=LnQneYvg84M&amp;t=374s&amp;ab_channel=KDD2017video">z-normalized Euclidean distance</a> between any subsequence within a time series and its nearest neighbor.</p><h3 id="a4885db7-09fc-436b-ba20-cf429fd9df97" class="">How to “read” a Matrix Profile (AD-wise)</h3><p id="e760265b-9cca-42e4-af15-d5c728083c35" class=""><strong>Low values</strong>: <strong>&quot;No Anomaly&quot; ; </strong>you know that the subsequence in the original time series must have (at least one) relatively similar subsequence elsewhere in the data (such regions are “motifs” or reoccurring patterns) </p><p id="476395fe-b4b0-46ad-92c5-a68a9fab4b4e" class=""><strong>High values</strong>: <strong>&quot;Is Anomaly&quot; ; </strong>you know that the subsequence in the original time series must be unique in its shape (such areas are “discords” or anomalies) </p><h3 id="ce2bdbc4-69f5-40eb-8afe-9bae84d0382a" class="">Advantages of using the Matrix Profile</h3><p id="52b6fc45-9195-4065-9a50-e90640e87a37" class="">The advantages of using the Matrix Profile (over hashing, indexing, brute forcing a dimensionality reduced representation etc.) for most time series data mining tasks include:</p><ol type="1" id="548c9d65-4a1a-4730-b584-f07d53b82c5b" class="numbered-list" start="1"><li> It is <strong>exact</strong>: For motif discovery, discord discovery, time series joins etc., the Matrix Profile based methods provide no false positives or false dismissals.</li></ol><ol type="1" id="4d895715-121e-4e2b-b6b8-14ae849e766c" class="numbered-list" start="2"><li>It is <strong>simple</strong> and <strong>parameter-free</strong>: In contrast, the more general spatial access method algorithms typically require building and tuning spatial access methods and/or hash function.</li></ol><ol type="1" id="c49f0233-55cb-49ef-9258-a282695f0738" class="numbered-list" start="3"><li>It is <strong>space efficient</strong>: Matrix Profile construction algorithms requires an inconsequential space overhead, just linear in the time series length with a small constant factor, allowing massive datasets to be processed in main memory.</li></ol><ol type="1" id="9f0df83c-e8c5-40f2-84aa-f4c58a8ba220" class="numbered-list" start="4"><li>It allows <strong>anytime algorithms</strong>: While our exact algorithms are extremely scalable, for extremely large datasets we can compute the Matrix Profile in an anytime fashion, allowing ultra-fast approximate solutions.</li></ol><ol type="1" id="2491a2a6-46c1-4749-bc60-c49153b819d4" class="numbered-list" start="5"><li>It is <strong>incrementally maintainable</strong>: Having computed the Matrix Profile for a dataset, we can incrementally update it very efficiently. In many domains this means we can effectively maintain exact joins/motifs/discords on streaming data forever.</li></ol><ol type="1" id="8cadb1f2-000d-471f-a588-eb0d94aadda6" class="numbered-list" start="6"><li>It <strong>does not require the user to set similarity/distance threshold</strong>s: For time series joins, the Matrix Profile provides <em>full</em> joins, eliminating the need to specify a similarity threshold, which is an unintuitive task for time series.</li></ol><ol type="1" id="3ecbf003-f1e9-44eb-97b2-8283ceb16ab6" class="numbered-list" start="7"><li>It can <strong>leverage hardware</strong>: Matrix Profile construction is embarrassingly parallelizable, both on multicore processors and in distributed systems.</li></ol><ol type="1" id="21545eb9-6182-4c32-b432-c29ca0905360" class="numbered-list" start="8"><li>It has<strong> time complexity that is constant in subsequence length</strong>: This is a very unusual and desirable property; all known time series join/motif/discord algorithms scale poorly as the subsequence length grows. In contrast, we have shown time series joins/motifs with subsequences lengths up to 100,000, at least two orders of magnitude longer than any other work we are aware of.</li></ol><ol type="1" id="5e23858b-9741-4a0d-b5e5-aa737922e0dc" class="numbered-list" start="9"><li>It can be constructed in <strong>deterministic time</strong>: All join/motif/discord algorithms we are aware of can radically different times to finish on two (even slightly) different datasets. In contrast, given only the length of the time series, we can precisely predict in advance how long it will take to compute the Matrix Profile</li></ol><ol type="1" id="9bad783d-bbab-442f-a26e-4eef4b3c8914" class="numbered-list" start="10"><li>It can handle <strong>missing data</strong>: Even in the presence of missing data, we can provide answers which are guaranteed to have no false negatives.</li></ol><h3 id="e68e3854-c8c1-4595-b472-13368a72e72a" class=""><strong>Different Window Sizes</strong></h3><p id="671660d5-cc24-46cf-98df-68fbaef6a564" class="">Defining the window size, <code>m</code>, usually requires some level of domain knowledge. However, stump is quite robust to changes in this parameter. </p><h3 id="b1484b7e-bf16-4643-bafe-884abccb3dbe" class="">MP could be <strong>domain-aware</strong></h3><p id="51d940c2-3131-476f-833c-463e9f79bd85" class="">It could be domain-aware with a help of annotation vectors.</p><p id="aa4d2729-d215-44f5-b29d-30079c15d679" class="">The annotation vector (AV) is a time series consisting of real valued numbers between [0, 1]. A <strong>lower value</strong> indicates the subsequence starting at that index is <strong>less desirable</strong>, and therefore should be <strong>biased against</strong>. Conversely, <strong>higher values</strong> mean the corresponding subsequences should be <strong>favored</strong> for the potential motif pool.</p><figure id="2efb2aa1-d6ca-41f1-9afc-42d0ed8f98f1" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-13_at_11.19.22.png"><img style="width:384px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-13_at_11.19.22.png"/></a></figure><p id="3235c368-7efd-4180-bacb-a189fcdb49ce" class="">The annotation vector framework combines the matrix profile (MP) with the annotation vector (AV) to produce a new “adjusted” matrix profile. We refer to this as the “Corrected” MP (CMP), as it correctly incorporates the contextual bias for the problem:</p><p id="ffeb780e-2480-4877-85a3-4f0274cb5b2a" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>M</mi><msub><mi>P</mi><mi>i</mi></msub><mo>=</mo><mi>M</mi><msub><mi>P</mi><mi>i</mi></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>A</mi><msub><mi>V</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mo>∗</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false">(</mo><mi>M</mi><mi>P</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">CMP_{i} = MP_{i} + (1 - AV_{i})*max(MP)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">CM</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">ma</span><span class="mord mathnormal">x</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">MP</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p><p id="7cdb1e4c-e29e-442c-831d-59ad1f16ccaa" class=""><strong>How do we create such an AV for our domain of interest? </strong></p><p id="2a36dae8-3e8d-4698-aa35-680d5a3730de" class=""><strong>Key Claim</strong>: For most problems, a domain expert can design an appropriate AV with 5 minutes of introspection, and implement it in 2 or 3 lines of code or an excel script. In case of anomaly detection a user feedback could be used for this purpose.</p><h2 id="35ba831b-b594-4e84-b63c-efb921d2b467" class="">Computational time</h2><p id="e3af3fa2-5608-443d-96ac-88928dc80f2e" class="">Following table shows the computational time needed for MP calculation in seconds for different sequence (rows) and sliding window (columns) lengths.</p><div id="519f24cd-ceec-4c51-a4d1-56a3fd732ec4" class="collection-content"><h4 class="collection-title">Computational time (in seconds) for different sequence lengths and sliding windows </h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>data length</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>10 minutes</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>30 minutes</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>60 minutes</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>6 hours</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>12 hours</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>1 day</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>2 days</th></tr></thead><tbody><tr id="008dc51b-c089-4888-8301-909c9618fd01"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Computational%20time%20(in%20seconds)%20for%20different%20sequ%20519f24cdceec4c51a4d156a3fd732ec4/2880%20points%20(2%20days)%20008dc51bc08948888301909c9618fd01.html">2880 points (2 days)</a></td><td class="cell-~HK~">0.015583038330078125</td><td class="cell-Bn=D">0.009724140167236328</td><td class="cell-;`kv">0.014322996139526367</td><td class="cell-hwq:">0.010808944702148438</td><td class="cell-xco&gt;">0.011513948440551758</td><td class="cell-IhNS">0.010040760040283203</td><td class="cell-O&lt;EP">0.006105184555053711</td></tr><tr id="1fa89d84-79b0-49a2-8af5-391de4e3cae1"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Computational%20time%20(in%20seconds)%20for%20different%20sequ%20519f24cdceec4c51a4d156a3fd732ec4/8640%20points%20(6%20days)%201fa89d8479b049a28af5391de4e3cae1.html">8640 points (6 days)</a></td><td class="cell-~HK~">0.07302021980285645</td><td class="cell-Bn=D">0.05179309844970703</td><td class="cell-;`kv">0.08159208297729492</td><td class="cell-hwq:">0.06480288505554199</td><td class="cell-xco&gt;">0.08544492721557617</td><td class="cell-IhNS">0.06804394721984863</td><td class="cell-O&lt;EP">0.0743410587310791</td></tr><tr id="a35a4d26-0803-4418-b583-5f967129a8d9"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Computational%20time%20(in%20seconds)%20for%20different%20sequ%20519f24cdceec4c51a4d156a3fd732ec4/14400%20points%20(10%20days)%20a35a4d2608034418b5835f967129a8d9.html">14400 points (10 days)</a></td><td class="cell-~HK~">0.1272740364074707</td><td class="cell-Bn=D">0.13931989669799805</td><td class="cell-;`kv">0.17598676681518555</td><td class="cell-hwq:">0.16023492813110352</td><td class="cell-xco&gt;">0.1807243824005127</td><td class="cell-IhNS">0.18391990661621094</td><td class="cell-O&lt;EP">0.21225714683532715</td></tr><tr id="14919267-868f-4410-96b3-e0d20bf2af31"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Computational%20time%20(in%20seconds)%20for%20different%20sequ%20519f24cdceec4c51a4d156a3fd732ec4/20160%20points%20(14%20days)%2014919267868f441096b3e0d20bf2af31.html">20160 points (14 days)</a></td><td class="cell-~HK~">0.2559080123901367</td><td class="cell-Bn=D">0.2727501392364502</td><td class="cell-;`kv">0.3225438594818115</td><td class="cell-hwq:">0.3130970001220703</td><td class="cell-xco&gt;">0.35141777992248535</td><td class="cell-IhNS">0.3572847843170166</td><td class="cell-O&lt;EP">0.43311023712158203</td></tr><tr id="f44de743-8a60-4bf8-82f4-03754f8e15f3"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Computational%20time%20(in%20seconds)%20for%20different%20sequ%20519f24cdceec4c51a4d156a3fd732ec4/25920%20points%20(18%20days)%20f44de7438a604bf882f403754f8e15f3.html">25920 points (18 days)</a></td><td class="cell-~HK~">0.42034006118774414</td><td class="cell-Bn=D">0.44405508041381836</td><td class="cell-;`kv">0.5097830295562744</td><td class="cell-hwq:">0.49253296852111816</td><td class="cell-xco&gt;">0.569058895111084</td><td class="cell-IhNS">0.594282865524292</td><td class="cell-O&lt;EP">0.7143750190734863</td></tr><tr id="2a31f255-5f13-4f1f-9f48-60b567d89f42"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Computational%20time%20(in%20seconds)%20for%20different%20sequ%20519f24cdceec4c51a4d156a3fd732ec4/31680%20points%20(22%20days)%202a31f2555f134f1f9f4860b567d89f42.html">31680 points (22 days)</a></td><td class="cell-~HK~">0.6274280548095703</td><td class="cell-Bn=D">0.7090318202972412</td><td class="cell-;`kv">0.7349472045898438</td><td class="cell-hwq:">0.7415139675140381</td><td class="cell-xco&gt;">0.8116397857666016</td><td class="cell-IhNS">0.9058361053466797</td><td class="cell-O&lt;EP">1.0718181133270264</td></tr><tr id="14a30009-fd85-4ee6-bfa5-3d315cb360fb"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Computational%20time%20(in%20seconds)%20for%20different%20sequ%20519f24cdceec4c51a4d156a3fd732ec4/37440%20points%20(26%20days)%2014a30009fd854ee6bfa53d315cb360fb.html">37440 points (26 days)</a></td><td class="cell-~HK~">0.8931710720062256</td><td class="cell-Bn=D">1.0381758213043213</td><td class="cell-;`kv">1.0641541481018066</td><td class="cell-hwq:">1.056335210800171</td><td class="cell-xco&gt;">1.1119942665100098</td><td class="cell-IhNS">1.3814120292663574</td><td class="cell-O&lt;EP">1.5242249965667725</td></tr><tr id="0647fae4-c451-43a9-82ba-4e1c3841d7b1"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Computational%20time%20(in%20seconds)%20for%20different%20sequ%20519f24cdceec4c51a4d156a3fd732ec4/43200%20points%20(30%20days)%200647fae4c45143a982ba4e1c3841d7b1.html">43200 points (30 days)</a></td><td class="cell-~HK~">1.2069799900054932</td><td class="cell-Bn=D">1.4217967987060547</td><td class="cell-;`kv">1.396376132965088</td><td class="cell-hwq:">1.4818663597106934</td><td class="cell-xco&gt;">1.5376091003417969</td><td class="cell-IhNS">1.992877721786499</td><td class="cell-O&lt;EP">2.1769402027130127</td></tr></tbody></table><br/><br/></div><p id="9c26395a-a2b1-42db-a347-43912902528a" class="">The following table demonstrates how many metrics we can calculate the MP for within 1 minute time span.</p><div id="276ae8b8-b1e0-48fd-bc97-aa6fa9072f42" class="collection-content"><h4 class="collection-title">The max number of processed metrics within 1 minute</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>num_point</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>10 minutes</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>30 minutes</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>60 minutes</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>360 minutes</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>720 minutes</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>1440 minutes</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>2880 minutes</th></tr></thead><tbody><tr id="2aa74b5b-9f8e-47f6-a6e6-3edd828ad62b"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/The%20max%20number%20of%20processed%20metrics%20within%201%20minut%20276ae8b8b1e048fdbc97aa6fa9072f42/2880%20points%20(2%20days)%202aa74b5b9f8e47f6a6e63edd828ad62b.html">2880 points (2 days)</a></td><td class="cell-Wx;l">3850</td><td class="cell-?qha">6170</td><td class="cell-icHP">4189</td><td class="cell-JN?d">5550</td><td class="cell-A]XQ">5211</td><td class="cell-fN;k">5975</td><td class="cell-pd^^">9827</td></tr><tr id="35c925f7-d671-45fd-9b06-9258f0a74094"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/The%20max%20number%20of%20processed%20metrics%20within%201%20minut%20276ae8b8b1e048fdbc97aa6fa9072f42/8640%20points%20(6%20days)%2035c925f7d67145fd9b069258f0a74094.html">8640 points (6 days)</a></td><td class="cell-Wx;l">821</td><td class="cell-?qha">1158</td><td class="cell-icHP">735</td><td class="cell-JN?d">925</td><td class="cell-A]XQ">702</td><td class="cell-fN;k">881</td><td class="cell-pd^^">807</td></tr><tr id="55fb458d-ac99-4c3d-ad09-5d71af35f57e"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/The%20max%20number%20of%20processed%20metrics%20within%201%20minut%20276ae8b8b1e048fdbc97aa6fa9072f42/14400%20points%20(10%20days)%2055fb458dac994c3dad095d71af35f57e.html">14400 points (10 days)</a></td><td class="cell-Wx;l">471</td><td class="cell-?qha">430</td><td class="cell-icHP">340</td><td class="cell-JN?d">374</td><td class="cell-A]XQ">331</td><td class="cell-fN;k">326</td><td class="cell-pd^^">282</td></tr><tr id="0cac8a04-672c-4a5a-be16-b11d9a1d138a"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/The%20max%20number%20of%20processed%20metrics%20within%201%20minut%20276ae8b8b1e048fdbc97aa6fa9072f42/20160%20points%20(14%20days)%200cac8a04672c4a5abe16b11d9a1d138a.html">20160 points (14 days)</a></td><td class="cell-Wx;l">234</td><td class="cell-?qha">219</td><td class="cell-icHP">186</td><td class="cell-JN?d">191</td><td class="cell-A]XQ">170</td><td class="cell-fN;k">167</td><td class="cell-pd^^">138</td></tr><tr id="c4f0358a-a218-43be-a984-a37cfb4eee3a"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/The%20max%20number%20of%20processed%20metrics%20within%201%20minut%20276ae8b8b1e048fdbc97aa6fa9072f42/25920%20points%20(18%20days)%20c4f0358aa21843bea984a37cfb4eee3a.html">25920 points (18 days)</a></td><td class="cell-Wx;l">142</td><td class="cell-?qha">135</td><td class="cell-icHP">117</td><td class="cell-JN?d">121</td><td class="cell-A]XQ">105</td><td class="cell-fN;k">100</td><td class="cell-pd^^">83</td></tr><tr id="7e8746d8-2bb2-4f34-a076-557388421a69"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/The%20max%20number%20of%20processed%20metrics%20within%201%20minut%20276ae8b8b1e048fdbc97aa6fa9072f42/31680%20points%20(22%20days)%207e8746d82bb24f34a076557388421a69.html">31680 points (22 days)</a></td><td class="cell-Wx;l">95</td><td class="cell-?qha">84</td><td class="cell-icHP">81</td><td class="cell-JN?d">80</td><td class="cell-A]XQ">73</td><td class="cell-fN;k">66</td><td class="cell-pd^^">55</td></tr><tr id="72ae8a41-1439-43f5-b6b3-322b9b50d3d6"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/The%20max%20number%20of%20processed%20metrics%20within%201%20minut%20276ae8b8b1e048fdbc97aa6fa9072f42/37440%20points%20(26%20days)%2072ae8a41143943f5b6b3322b9b50d3d6.html">37440 points (26 days)</a></td><td class="cell-Wx;l">67</td><td class="cell-?qha">57</td><td class="cell-icHP">56</td><td class="cell-JN?d">56</td><td class="cell-A]XQ">53</td><td class="cell-fN;k">43</td><td class="cell-pd^^">39</td></tr><tr id="368907a7-8a9e-4c05-aac2-47e2baa89871"><td class="cell-title"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/The%20max%20number%20of%20processed%20metrics%20within%201%20minut%20276ae8b8b1e048fdbc97aa6fa9072f42/43200%20points%20(30%20days)%20368907a78a9e4c05aac247e2baa89871.html">43200 points (30 days)</a></td><td class="cell-Wx;l">49</td><td class="cell-?qha">42</td><td class="cell-icHP">42</td><td class="cell-JN?d">40</td><td class="cell-A]XQ">39</td><td class="cell-fN;k">30</td><td class="cell-pd^^">27</td></tr></tbody></table><br/><br/></div><h2 id="7a47fcd8-bf04-4f12-a2fe-80e80001ad7a" class="">Examples</h2><p id="4efbdde1-3193-42cb-ae1f-b07213617648" class="">In this section we will provide with some examples of MP usage while working with the most problematic data shapes for MAD (where MAD usually fails to correctly identify an anomaly). We were using STUMPY <a href="https://stumpy.readthedocs.io/en/latest/Tutorial_Matrix_Profiles_For_Streaming_Data.html">implementation for streaming univariate data</a>.  </p><h3 id="7718058b-cf5a-4c4b-b4c0-15e131ccff44" class="">MySQL</h3><p id="6e44df9c-eb16-45dc-9063-018f4d97f63b" class=""><code>mysql#performance#events_statements#count#star</code></p><p id="640154a9-3492-436e-a874-f1b19df060c0" class="">Given the set of MAD detectors, it is extremely hard to identify a legit anomaly in sparse data. As we can see from the example below, every peak gets a relatively high anomaly score while the general behavior seem to be periodic and hence should be &quot;learnt&quot; by AD model.</p><p id="3e060bce-c855-45a7-8b1e-f30de1859215" class=""><strong>Note</strong>: the <span style="border-bottom:0.05em solid"><strong>absence of a peak </strong></span>around <code>2021-07-05</code> is due to missing data between <code>2021-07-04 23:08:40</code> and <code>2021-07-05 02:27:50</code>. </p><figure id="029bb705-2f7e-4262-a2a1-29d00fcc7a6d" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-09_at_12.00.22.png"><img style="width:1802px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-09_at_12.00.22.png"/></a></figure><p id="fa42202a-97ca-48c3-8190-2acb6f57709d" class="">As we can see from the evolution of MP score, it adapts after observing more data and assigns with lower score consecutive periodic peaks.</p><figure id="f5373a9d-dd75-4fa2-be81-a3ddcf155b39"><div class="source"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/mysql_1.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8281d1c0-c356-492e-ab5d-c05e52e1b0e5/mysql_1.mp4</a></div></figure><figure id="b81e4e60-46ac-4a1b-95ae-1c2085742400" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_12.16.41.png"><img style="width:1828px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_12.16.41.png"/></a></figure><figure id="a6c93d03-772b-44a4-a536-4a454f8058f0" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_12.33.42.png"><img style="width:1822px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_12.33.42.png"/></a></figure><figure id="9815b7b6-d3a4-41c4-ad50-ed5784d32405" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_12.35.55.png"><img style="width:1826px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_12.35.55.png"/></a></figure><figure id="77b64235-ee18-4485-9666-8d1fdcf3b450" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_13.50.29.png"><img style="width:1832px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_13.50.29.png"/></a></figure><figure id="5e29fabb-34e5-4eae-bd16-e3e2f6f8f98e" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-16_at_15.01.40.png"><img style="width:1830px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-16_at_15.01.40.png"/></a></figure><p id="90f54f7e-6157-4ee5-a6d4-3edb85a484b7" class="">
+<code>mysql#performance#events_statements#max#timer#wait</code></p><p id="247cd720-5468-4245-8825-91999c80f9f8" class="">Let us now see how the MP score evolves in case of periodic peaks of different magnitude.</p><figure id="06532364-e119-48e7-a347-b7a12083e353" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-09_at_12.06.30.png"><img style="width:1780px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-09_at_12.06.30.png"/></a></figure><p id="226af3f2-a2f6-44ae-bbb1-5c573357c284" class="">We can see how MP score changes in this case: </p><p id="b698e6bd-77f1-4120-b4cb-4a65a1c4b243" class="">
+</p><figure id="de6a81c0-1cee-4bcb-a297-fff1d04859bd"><div class="source"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/mysql_2.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2d7cb5dc-1217-4b88-a913-b37a3c235d5c/mysql_2.mp4</a></div></figure><figure id="0e02b538-ec0b-45ac-866b-afc6ac8056d2" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_13.52.09.png"><img style="width:1812px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_13.52.09.png"/></a></figure><figure id="5c9f8a5d-e03b-425f-9d05-8159fc605295" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_13.54.30.png"><img style="width:1794px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_13.54.30.png"/></a></figure><figure id="e097dfe8-ad37-475d-b9d5-cf675ce030ac" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_13.56.39.png"><img style="width:1778px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_13.56.39.png"/></a></figure><figure id="58f75977-db52-4aab-8abc-e8cd1571502f" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_13.59.01.png"><img style="width:1782px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_13.59.01.png"/></a></figure><figure id="abdbdf33-30aa-4e89-93d6-d5d0833aa072" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.02.10.png"><img style="width:1788px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.02.10.png"/></a></figure><p id="c0779b78-8621-4079-be9a-03ed0486f888" class=""><code>mysql#performance#table_io_waits#count#fetch</code></p><p id="9408038e-e719-401e-9a76-9727ab69a035" class="">The following example shows that MP can detect anomalies based not only on unexpected data fluctuations but also in case when an expected behavior is not observed. </p><figure id="6f46d0ae-0a78-4474-a61b-9927e0554a0f" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-09_at_12.09.47.png"><img style="width:1840px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-09_at_12.09.47.png"/></a></figure><p id="b20c6b9c-c899-4c40-99c6-d4aafdf95a36" class="">Also it is important to note that the choice of length of the subsequence is important. Here we use 10 minute sliding window and no anomaly detected during the abnormal phase.</p><figure id="55fda66a-fd4c-4763-90fa-3a9059f2138c"><div class="source"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/mysql_3.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3fbf745b-c25f-46d3-b5fc-5d3815a41ff3/mysql_3.mp4</a></div></figure><p id="3960896b-7b76-4b6a-a973-4661a711be68" class="">However if we choose a 1 day sliding window we effectively detect anomaly.</p><figure id="f1b9a1af-d578-4250-99d0-6f31d99e8bdc"><div class="source"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/mysql_3_2.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ae69c4ac-7a32-4472-8f1c-2661f77b0dc7/mysql_3_2.mp4</a></div></figure><figure id="5f387f13-e926-4848-9dce-9bc28c1af8b1" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.03.43.png"><img style="width:1810px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.03.43.png"/></a></figure><figure id="5cc0d51d-7f74-4294-889c-544fde1ca8bd" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.08.23.png"><img style="width:1848px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.08.23.png"/></a></figure><figure id="97bd6737-51de-428c-8469-525ada797a5f" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.13.05.png"><img style="width:1852px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.13.05.png"/></a></figure><figure id="94697dfe-c0b1-407f-be3e-6493d9857bfb" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.17.31.png"><img style="width:1856px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.17.31.png"/></a></figure><figure id="ad4159eb-8438-4014-a952-0eae068aa153" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.37.17.png"><img style="width:1848px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.37.17.png"/></a></figure><figure id="0d76e7b1-4c01-4f23-8272-66e7a7023a4b" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.33.26.png"><img style="width:1856px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_14.33.26.png"/></a></figure><p id="9d68daac-34d9-45a1-92ad-f50c84d0b0f0" class=""><code>mysql#status#handler#read#first</code></p><p id="879d5c04-4e13-4b85-9abd-9460abb87a04" class="">An example of data with daily seasonal behavior as well as significant peaks that happen on the same time every day</p><figure id="6ceaee11-6d95-4d89-b455-f072d4569cf4" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-09_at_12.15.16.png"><img style="width:1770px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-09_at_12.15.16.png"/></a></figure><p id="4dc98c13-abb0-4e0d-8a53-72093a4345f0" class="">10 minute sliding window doesn&#x27;t show important insights. </p><figure id="97b22b47-0f45-4226-85ee-48763d831ee8"><div class="source"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/mysql_4.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/695aa7d0-6fa5-49b9-9ab0-36ce9157e41d/mysql_4.mp4</a></div></figure><p id="0d89b5b8-b54a-47ae-a8d3-58a9ffbdfa1b" class="">However if we choose the siding window being 2 days we detect abnormal behavior around the second weekend (when the behavior changes). The effect of weekends could be taken into account with the help of the annotation vector.</p><figure id="69c697c7-f801-463b-9ae0-4144ef7e1279"><div class="source"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/mysql_4_2.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5f9df1c8-332e-42c3-afca-7e97f515bced/mysql_4_2.mp4</a></div></figure><p id="c1994e8b-498f-4d59-ac2a-531b80b96159" class=""><strong>Different Window Sizes</strong></p><p id="05664477-a5ed-43d0-937c-b9cea39dbc54" class="">As we had mentioned above, stump should be robust to the choice of the window size parameter, m. Below, we demonstrate how manipulating the window size can have little impact on your resulting matrix profile by running stump with varying windows sizes.</p><figure id="c90ff116-5553-4398-b7fc-9582224e83eb" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_12.09.22.png"><img style="width:1842px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_12.09.22.png"/></a></figure><p id="343bcb34-0805-4132-88aa-997a10b5f5f4" class="">
+</p><p id="9678101c-b0d6-4e7d-a593-b0c17c4136d0" class=""><strong>Anomaly detection</strong></p><ul id="a55c5d75-563b-4be7-a5a3-fd762e73ac03" class="bulleted-list"><li style="list-style-type:disc">10 minute sliding window, top 3 discords<figure id="6550a562-c9bb-43d0-8f3a-ad4865ee9055" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_11.56.16.png"><img style="width:1802px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_11.56.16.png"/></a></figure></li></ul><ul id="56f261ad-8921-4b19-bb88-d565254a6e8a" class="bulleted-list"><li style="list-style-type:disc">12 hours sliding window, top 3 discords</li></ul><p id="54bd7cb9-7556-406e-985a-04ec5f45980c" class="">
+</p><figure id="7f406c9d-1387-46de-9cf8-22830fa12c43" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_12.14.37.png"><img style="width:1786px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_12.14.37.png"/></a></figure><ul id="7b8035ce-222d-4b7b-a69e-4467cf1fe816" class="bulleted-list"><li style="list-style-type:disc">1 day sliding window, top 3 discords</li></ul><figure id="2175b36b-3b6e-47c4-a564-21e7b9d958df" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-16_at_12.33.06.png"><img style="width:1806px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-16_at_12.33.06.png"/></a></figure><ul id="b146bb71-82e7-4479-9f46-de2707b87894" class="bulleted-list"><li style="list-style-type:disc">2 days sliding window, top 3 discords</li></ul><figure id="ff13710b-b220-4d37-8b31-07e7b85d90aa" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_12.03.01.png"><img style="width:1820px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_12.03.01.png"/></a></figure><h3 id="23693dd3-078e-4db8-95a1-a483570bda79" class=""><strong>Log frequency</strong></h3><p id="51f8d55f-b8be-4549-931b-b8b7e7c50d5f" class="">Another example provided by <span class="user">@Marwen Sallem</span> </p><p id="9b1065b1-48f1-4e33-8818-e6453b869c68" class="">We are dealing with data which represent the log count (per minute). As we can see the data shape is something deterministic and MAD + SIRE pipeline fails to adjust the score in this case. </p><figure id="34680da8-40e7-46f3-9ac6-4b6b019d7357" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-09_at_09.58.55.png"><img style="width:1780px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-09_at_09.58.55.png"/></a></figure><p id="9eb2545a-3b1f-442d-a849-e70d9284ddfb" class="">As we can see MP effectively treats this type of data and adapts for seasonal behavior</p><figure id="6f79aba2-422c-42a8-92f2-378ed4f0e746"><div class="source"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/logfreq.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bcf2ab4d-568f-43b5-aaf4-8b894f26d3f1/logfreq.mp4</a></div></figure><figure id="7e077716-2e33-4309-9105-dc0e067b7c3b" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_16.13.06.png"><img style="width:1826px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_16.13.06.png"/></a></figure><figure id="59d2bd1e-a7aa-4107-b083-76db58b5d27e" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_16.17.23.png"><img style="width:1764px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_16.17.23.png"/></a></figure><figure id="31744c00-ac4e-443e-8288-4fb1344a5c66" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_16.20.28.png"><img style="width:1774px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_16.20.28.png"/></a></figure><figure id="3929f9e5-dcdd-44b7-9c41-d4a14cf684f6" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_16.26.55.png"><img style="width:1788px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_16.26.55.png"/></a></figure><figure id="2d38f4c8-4289-4e43-802d-efaa7eda1d5b" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_16.32.18.png"><img style="width:1774px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_16.32.18.png"/></a></figure><p id="83840495-0320-4642-b467-1a97f7aee0b7" class=""><code>docker#memory#usage#pct</code></p><figure id="d8d9d42b-7ac9-460f-8ff3-7f21bc6caffd" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_17.29.36.png"><img style="width:1772px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_17.29.36.png"/></a></figure><figure id="edb7b3ee-47ee-46c7-b32f-3bc8137c5325" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_17.29.49.png"><img style="width:1838px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_17.29.49.png"/></a></figure><figure id="c6fc4828-9595-45be-83c3-ef2611323ab7" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_17.29.07.png"><img style="width:1836px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_17.29.07.png"/></a></figure><figure id="723c5f5b-a280-439d-b9d1-95e930d96a07" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_17.29.15.png"><img style="width:1822px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_17.29.15.png"/></a></figure><figure id="2f29d38e-51e4-4489-a76e-10e9bd724f7a" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_17.30.07.png"><img style="width:1802px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-15_at_17.30.07.png"/></a></figure><h3 id="dc54d49b-eab8-402e-958b-355f4eaf18e5" class="">MAD + MP pipeline for anomaly detection</h3><p id="a1a4d150-36bb-4576-9cf6-a80f142f2add" class="">In order to see the effect of the MP application we will be deriving the MP anomaly score (normalized MP score) and calculate an updated MAD score according to the following formula:</p><p id="49eec8db-1500-431d-a35f-7906bf80c9b8" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Updated Score</mtext><mo>=</mo><mi>α</mi><mo>∗</mo><mi>M</mi><msub><mi>P</mi><mrow><mi>s</mi><mi>c</mi><mi>o</mi><mi>r</mi><mi>e</mi></mrow></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false">)</mo><mo>∗</mo><mi>M</mi><mi>A</mi><msub><mi>D</mi><mrow><mi>s</mi><mi>c</mi><mi>o</mi><mi>r</mi><mi>e</mi></mrow></msub><mo separator="true">,</mo><mi>α</mi><mo>∈</mo><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">\text{Updated Score} = \alpha * MP_{score} + (1-\alpha)*MAD_{score}, \alpha \in [0,1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Updated Score</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">score</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal">A</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">score</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></span><span>﻿</span></span></p><p id="8ede1693-d7f9-457c-9da3-23eeab8e5983" class="">In the formula above <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span><span>﻿</span></span> could be seen as <strong>MP weight</strong> and <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">1-\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span></span><span>﻿</span></span> as <strong>MAD weight</strong></p><p id="2306d959-cee4-45c6-b550-b33f6d1c08c8" class="">For all experiments below the length of 1 day for MP subsequence (<code>m</code> parameter) was chosen.</p><p id="b941b9c2-c9bb-4105-b05f-be373ff05f6e" class=""><code>mysql#performance#events_statements#count#st</code><code>ar</code></p><figure id="220ea647-33a3-4906-965f-0f0276dde736" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled.png"><img style="width:900px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled.png"/></a></figure><p id="fc99dcdf-0c47-4418-9985-e0fbb1eb6755" class=""><code>mysql#performance#table_io_waits#count#fetch</code></p><figure id="d1b16dd3-ca8b-419b-ae30-c75a1b4d19dc" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%201.png"><img style="width:918px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%201.png"/></a></figure><p id="600cdd36-e386-4142-b46c-29288d767d2f" class=""><code>mysql#performance#events_statements#max#timer#wait</code></p><figure id="b0c2b64a-1dea-427d-90ba-cf1ca4e1031e" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%202.png"><img style="width:880px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%202.png"/></a></figure><p id="f1904f1a-22dd-4e32-a481-ac3a411c754f" class=""><code>mysql#status#handler#read#first</code></p><figure id="255260f2-c640-4090-ae53-1fbed858dc77" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%203.png"><img style="width:891px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%203.png"/></a></figure><p id="34f91b5f-94bb-49da-9a66-6eed8e343bbf" class=""><code>Log frequency</code></p><p id="f5a61ae9-3c04-4b99-b862-546f86187bea" class="">As we have mentioned above, the choice of the sliding window (parameter <code>m</code>) matters. The following example of anomaly detection for log counts demonstrates it. As we have seen from <a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc.html">MP profiles</a> for different lengths of sliding window the best choice was for <code>w = 10 minutes</code> while <code>w = 1 day</code> was not very promising. </p><p id="a1f583bf-c93e-4448-a821-72704ba4b9d5" class=""><code>m = 10 minutes</code></p><figure id="ae6a8b15-c600-415a-b62b-e19544ce362d" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%204.png"><img style="width:878px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%204.png"/></a></figure><p id="02d2c9ee-1a3d-4a54-90dc-c8c1c08c0a66" class=""><code>m = 1 day</code></p><figure id="bb0f25ee-5eb2-41ea-9afe-8be6273351f6" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%205.png"><img style="width:878px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%205.png"/></a></figure><p id="e5e0f747-7865-42ed-b76a-1c83abde6b1e" class=""><code>docker#memory#usage#pct</code></p><p id="f3f250cc-ceaf-46f4-8e95-76196ce2d704" class="">The following example is based on the feedback provided by Affluences <a href="../../../Clients%201fc25476d6ee4971b4a538feee1197bf/Affluences%2081f718ecb20148f6bedde5ca26bd26b9/ML%2025a00e93ff034280a911dcf817c99fb7/Daily%20reports%2061c328fb864e432d91fc52ebf31986e5.html">here</a>.  During the day of June 22nd they noticed some unexpected behavior which was detected by MAD. However MP filters out this anomaly. One of the possible explanations could be the fact that this metric doesn&#x27;t seem to show any regular patterns hence MP is not that efficient.</p><figure id="03f8727e-52f3-4f66-8fd8-1f8537486361" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%206.png"><img style="width:896px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%206.png"/></a></figure><h3 id="62337c52-e8e0-4200-a8c8-23ca6da21032" class="">Annotation vector</h3><p id="71d17caf-968d-418e-b726-66d9d4a7cc25" class="">Let&#x27;s consider the following timeseries. The user decides to switch off the database every weekend which results in the following:</p><figure id="c80e2ac0-ebf2-4b00-9835-3c628f492e40" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-16_at_15.30.16.png"><img style="width:1750px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-16_at_15.30.16.png"/></a></figure><p id="5101939b-fad1-446d-8392-17e4e5ee94d4" class="">Knowing the time periods when no activity is expected could be taken into account by MP. Here is the evolution of corrected MP compared to the initial MP calculated without an annotation vector:
+</p><figure id="39f31b60-93ef-48ad-a86b-8294c3bf416f" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%207.png"><img style="width:900px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Untitled%207.png"/></a></figure><p id="81772620-9f9d-48f9-a4f4-58ca1c1c9284" class="">We can see that periods of inactivity got high MP score hence they considered as abnormal regions. However, corrected MP score is relatively small during such periods and it gives us the possibility to avoid false positives. </p><h3 id="1e58c660-9d96-42a2-bdef-63cd7613e5b3" class="">Results for some of the Affluences components</h3><figure id="5d6f446b-9944-4203-8472-559b70f154ef" class="link-to-page"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6%205d6f446b994442038472559b70f154ef.html">6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-mysql6d7613c72a46df40</a></figure><figure id="1cce5b51-6f3e-44b2-899f-f1d9236afad9" class="link-to-page"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/6040a96cdcc614001153fc55-docker-pythonkoios_koios-%201cce5b516f3e44b2899ff1d9236afad9.html">6040a96cdcc614001153fc55-docker-pythonkoios_koios-worker</a></figure><figure id="7f69adec-eff6-4a0e-9362-fd96fded2a49" class="link-to-page"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/6040a96cdcc614001153fc55-docker-rubylogs_fluentd%207f69adeceff64a0e9362fd96fded2a49.html">6040a96cdcc614001153fc55-docker-rubylogs_fluentd</a></figure><p id="496c7833-4788-4d4c-977d-6dfcf2a1ddce" class=""><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc.html">Table of contents</a></p><h3 id="0de27ce6-520d-43d2-8ffe-3b3659494964" class="">Multidimensional MP</h3><p id="dd66955f-08c1-42c1-bf5a-413ed9db0099" class="">Based on the following STUMPY <a href="https://stumpy.readthedocs.io/en/latest/Tutorial_Multidimensional_Motif_Discovery.html">tutorial</a> which utilizes the main takeaways from the Matrix Profile VI <a href="https://www.cs.ucr.edu/~eamonn/Motif_Discovery_ICDM.pdf">research paper</a>.</p><p id="8a09a38e-8304-4cbb-aa41-3e9fd15fbc26" class=""><span style="border-bottom:0.05em solid">Multi-dimensional matrix profiles are not 1-dimensional matrix profiles stacked one on top of each other!</span></p><p id="d31f42ef-7787-4f9a-8f15-cc50912f4396" class="">In the following example we have a “multi-dimensional time series”, 𝑇=[𝑇1,𝑇2,𝑇3,𝑇4], which has 𝑑=4 dimensions and length 𝑛=30000 (i.e., 3 weeks of data). Then, 𝑇 simply has shape 𝑑×𝑛 (or 4×30000). If we choose a window size, 𝑚=30, then we can define the 𝑖𝑡ℎ “multi-dimensional subsequence” as a continuous subset of the values from 𝑇 of length 𝑚 starting from position 𝑖 that has an overall shape of 𝑑×𝑚 (or 4×30). You can think of each multi-dimensional subsequence as a rectangular slice of 𝑇 and 𝑇 can only have exactly 𝑙=𝑛−𝑚+1 multi-dimensional subsequences. In our example, 𝑇 has exactly 𝑙 = 30000 - 30 + 1 = 29971 multi-dimensional subsequences (i.e., we can incrementally slide a 4×30-shaped rectangle across the length of 𝑇 only 29971 times before we reach the end of 𝑇) and, for the 𝑖𝑡ℎ multi-dimensional subsequence, we can iterate over each of its dimensions independently and compute an aggregated “multi-dimensional distance profile” (i.e., 30 1-dimensional distance profiles stacked one on top of each other). Essentially, the 𝑖𝑡ℎ multi-dimensional distance profile has shape 𝑑×𝑙 (or 4×29971) and gives you the pairwise distances between the 𝑖𝑡ℎ multi-dimensional subsequence and all other possible multi-dimensional subsequences within 𝑇.</p><p id="59233fea-03ea-4b0e-bbcf-531ad36f13be" class="">
+</p><figure id="69c86ba6-92a6-4152-9ffa-d744dd37ab3d" class="image"><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-19_at_19.51.09.png"><img style="width:1860px" src="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc/Screenshot_2021-07-19_at_19.51.09.png"/></a></figure><p id="bb97ed10-a5c1-429b-b1b3-b1e56ac92f1d" class=""><strong>What exactly does each dimension of the multi-dimensional matrix profile tell us?</strong> </p><p id="43eb72e6-e898-42b9-b97b-f5be67519c96" class="">Essentially, the 𝑘𝑡ℎ dimension (or row) of the multi-dimensional matrix profile stores the distance between each subsequence and its nearest neighbor (the distance is computed using a 𝑘-dimensional distance function). We should point out that, for the 𝑘𝑡ℎ dimension of the multi-dimensional matrix profile, only a subset of time series dimensions (i.e., 𝑘 out of 𝑑 dimensions) are selected and this subset of chosen dimensions can change as you vary either the 𝑖𝑡ℎ multi-dimensional subsequence and/or 𝑘.</p><h2 id="a35f927e-6432-4a70-9723-7e0740843fca" class="">Resources</h2><ul id="5b2a226f-002f-401d-b33e-fb77dec3cd6f" class="bulleted-list"><li style="list-style-type:disc"><a href="http://bigdataieee.org/BigData2017/files/Tutorial4.pdf">The First Matrix Profile Tutorial</a></li></ul><ul id="24efc4e7-70e3-4d4a-8363-1a614ca8d455" class="bulleted-list"><li style="list-style-type:disc"><a href="https://stumpy.readthedocs.io/en/latest/index.html">STUMPY</a>: powerful and scalable library that efficiently computes something called the matrix profile, which can be used for a variety of time series data mining tasks. <a href="https://github.com/TDAmeritrade/stumpy">GitHub repo</a></li></ul><ul id="804609b3-76d3-42ca-8325-231f554991e8" class="bulleted-list"><li style="list-style-type:disc">The UCR Matrix Profile <a href="https://www.cs.ucr.edu/~eamonn/MatrixProfile.html">Page</a></li></ul><ul id="76fb9c7a-14de-4bad-aca0-fddaa4b0449b" class="bulleted-list"><li style="list-style-type:disc">MatrixProfile <a href="https://matrixprofile.docs.matrixprofile.org/index.html">Documentation</a>: a Python 3 library, brought by the Matrix Profile Foundation, for mining time series data. <a href="https://github.com/matrix-profile-foundation/matrixprofile">GitHub repo</a></li></ul><ul id="f6039a9a-6d72-4a94-ba36-e2067901b7d0" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/shapelets/khiva">Khiva</a> library of efficient algorithms to analyze time series with both GPU and CPU support.</li></ul><p id="80c60e65-7713-4d94-9dae-5a4544098468" class="">
+</p><p id="7a7edde5-0372-41d3-8acb-5f657770088c" class=""><a href="Matrix%20Profile%207416bdb95d094ef1902e7f9009371ebc.html">Table of contents</a></p><p id="b6a5fa24-cc62-4823-b79b-7889cae7f255" class="">
+</p></div></article></body></html>

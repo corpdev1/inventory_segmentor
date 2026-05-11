@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>PacketAI Prod monitoring</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="bc419ff4-267d-4d0c-8f86-83bd75f11e33" class="page sans"><header><h1 class="page-title">PacketAI Prod monitoring</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-last_edited_by"><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedBy"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 10.4229C6.05176 10.4229 4.54785 11.1133 3.83008 11.9131C2.90039 10.9082 2.33301 9.55469 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 9.55469 13.1064 10.9082 12.1699 11.9131C11.4521 11.1133 9.94824 10.4229 8 10.4229ZM8 9.30176C9.32617 9.30859 10.3516 8.18066 10.3516 6.71094C10.3516 5.33008 9.31934 4.18164 8 4.18164C6.6875 4.18164 5.6416 5.33008 5.64844 6.71094C5.65527 8.18066 6.68066 9.28809 8 9.30176Z"></path></svg></span>Last Edited By</th><td><span class="user"><span class="icon text-icon user-icon"><span class="user-icon-inner">R</span></span>Rama Rao Ganji</span></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Last Edited Time</th><td><time>@February 3, 2021 6:43 PM</time></td></tr></tbody></table></header><div class="page-body"><h3 id="91fcdc89-80da-4f13-8206-e8ca93e2bad0" class="">Inactivated agents:</h3><p id="a314088c-c49c-473a-8288-82b1d07874e0" class="">600afedc635f8e001206cada</p><p id="5f567356-c51c-40b2-9d22-825300ae8386" class="">600afac7635f8e001206cad0</p><p id="afffbb37-a185-49fc-be7c-888e640f348b" class="">
+</p><h3 id="b90cf5f8-07a3-471f-9d4d-2d4d6308ac2b" class="">Monitoring Kafka:</h3><p id="7aad8bf3-048a-4518-9c7b-3208630838b7" class=""><mark class="highlight-gray_background">HostID: 600b022a635f8e001206caec</mark></p><ul id="e4c13d9a-a81e-46de-a128-fabcbbb22944" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">ZooKeeper is detected correctly.</mark></li></ul><ul id="4a93fff9-d6af-4e2b-b79e-5af6afd82aca" class="bulleted-list"><li style="list-style-type:disc">Components:<ul id="13b5a5f3-c5d2-4857-816b-d7ca30dbd5be" class="bulleted-list"><li style="list-style-type:circle">600b022a635f8e001206caec (Host )<ul id="2ffb58f4-74bf-4831-a8e2-ec6c9b61e634" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-red">Logs not working (no logs are coming, the host machine is amazon linux, We need to check whether or not because of this ?)</mark></li></ul><ul id="1eaed678-f09f-451e-82ab-0001d4240af4" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="3618f411-73b2-4efb-8a20-15785bca4bd2" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="a1be57ad-4ab0-4ee0-b9e3-8ee1908f22d6" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul><ul id="2785dfe1-57ad-473f-8127-d7191bbb0927" class="bulleted-list"><li style="list-style-type:circle">Docker2b02d931b2c3b01e (Docker daemon )<ul id="147324ab-d1df-4a8a-bb82-f5ff19f8defa" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">Logs working (no logs for docker daemon)</mark></li></ul><ul id="5c863cd9-5f7a-4050-a6bd-5d7128a066d6" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="21f4664a-984d-4478-9eae-67a830712972" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="a274aa9d-b864-49a9-874e-cf76a51b4080" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul><ul id="dec17555-e709-4d78-8775-5da85f4d76aa" class="bulleted-list"><li style="list-style-type:circle"></li></ul><ul id="15f9fcd3-d7cb-417e-86dc-45367bbc9316" class="bulleted-list"><li style="list-style-type:circle">Kafka (kafka1e83ac8a3db0ea3d, kafka5c313cc28789a788, kafka9d622745fccdedc8)<ul id="88aed013-bee9-4dec-837b-5c164b196de3" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Logs working</mark></li></ul><ul id="7da79943-97c0-48ec-aeba-fbe80d3ee71b" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-red">Metrics not working (Metric beat couldn&#x27;t connect to kafka, metricbeat need certificates to connect kafka)</mark></li></ul><ul id="97080154-9f62-4596-a9e8-c3d0b0dec185" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Logs working</mark></li></ul><ul id="08187b9a-070e-4e99-94ee-99420dcaa8e3" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">ML Metrics working</mark></li></ul></li></ul><p id="075c0b55-5cf9-4085-a117-02529515af0d" class="">
+</p><ul id="479aae26-bcee-4b01-95ac-6515a41d4078" class="bulleted-list"><li style="list-style-type:circle">ZooKeeper (zookeeper54ef791e9eee3d76, zookeeper54ef791e9eee3d76, zookeeperba9fb9a5dd23a1e2)<ul id="386fc0ef-d45c-44ed-ac39-4d193e2aeacb" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Logs working (no logs for docker daemon)</mark></li></ul><ul id="eec00d07-cdae-49f1-83b9-e92f7f2d7283" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="d808730b-9e91-4890-adfd-5ba289515b5d" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Logs working</mark></li></ul><ul id="58f4d338-5474-4466-843c-01ac9f0b3e9e" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul></li></ul><h3 id="6e8b7a21-86fb-42e9-8718-8b7f45508d05" class="">Monitoring MS service:</h3><p id="daca6bf6-6104-4e46-b575-f85884e4c4ac" class=""><mark class="highlight-gray_background">HostID: 60113986c9430d00119a1808</mark></p><ul id="118513e7-0872-4950-afbf-cfac2e3c34f1" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal"> Two applications are detected (ingest and aws service)</mark></li></ul><ul id="1a7b7a55-5b44-4fac-8e46-d76b8956ff39" class="bulleted-list"><li style="list-style-type:disc">other containers are not detected<ul id="65673caa-8626-44e1-b0ea-1b9ed4a34d96" class="bulleted-list"><li style="list-style-type:circle">this is expected behaviour, other ms doesn&#x27;t listen on any port</li></ul></li></ul><ul id="8bee2406-672d-4b3b-97ad-63bab8a650fa" class="bulleted-list"><li style="list-style-type:disc">Components:<ul id="0789bad2-87e9-4d53-933e-d30ca34f6397" class="bulleted-list"><li style="list-style-type:circle">60113986c9430d00119a1808 (Host )<ul id="3695b91d-bee4-48ff-a8f2-998501d10302" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Logs working </mark></li></ul><ul id="e92d8cc2-ff32-4a16-a7ea-4b68e74ca85a" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="5bec2a13-9510-4d69-b445-c1182ea6462b" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Logs working</mark></li></ul><ul id="d03bfc7f-7662-43b1-a17c-e6fe0275b676" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul><ul id="1204979b-6d42-4d22-90ad-b21533417e37" class="bulleted-list"><li style="list-style-type:circle">Dockere1917132b9a52963 ( Docker )<ul id="600833f4-b11b-4b16-8b77-853b272ed0d2" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">Logs working (no logs for docker daemon)</mark></li></ul><ul id="c618119b-fb1d-4c90-92b0-16ee44457944" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="6d7e6bf9-f25b-455b-b730-7e4196f1a033" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="b0c6425e-94fb-4e8b-9cc2-6e80399a2074" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul><ul id="9934bcb0-1453-415c-90ad-2e78327aebf2" class="bulleted-list"><li style="list-style-type:circle">applicationd51cefc841aa29c0 (Application 1 )<ul id="23fd64a5-cbc0-4776-b869-09438394d7e8" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">Logs working (no logs for docker daemon)</mark></li></ul><ul id="f134db44-4579-4c07-9d9e-86d679921a78" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="764613da-2934-4202-be93-adb354de9921" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="cb8a7456-bf8d-42e5-b0b0-53b966c2e683" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul><ul id="63fc0429-ab44-45cb-9850-c48cdc655b2d" class="bulleted-list"><li style="list-style-type:circle">applicationf5dc0f886089f56a (Application 2 )<ul id="2744ff5c-71e4-4122-b042-e05ee8db2626" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">Logs working (no logs for docker daemon)</mark></li></ul><ul id="215df01b-e240-45ad-9012-df64d9986f41" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="849b39ff-2ae9-4266-a960-513188308e1a" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="419b9949-ef09-4818-8dce-cdbcda46d439" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul></li></ul><h3 id="353c2eea-8a7a-42c9-babe-d7d3e2172fe9" class="">Monitoring OpenDistro service:</h3><p id="a820037f-edee-4b68-8c01-10a7953ba4b6" class=""><mark class="highlight-gray_background">HostID: 6011442cc9430d00119a180a</mark></p><ul id="a35f8ca7-9298-499e-9b6d-40b7116a1d65" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Apache application is detected </mark></li></ul><ul id="5276b729-7cfa-451a-b243-2e505bb4f15e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">Nodejs application inside container is detected. This is Kibana application but we detect it as normal nodejs applications (correctly detected)</mark></li></ul><ul id="b50c6aea-cc8a-46ba-bffb-a06842e3fb45" class="bulleted-list"><li style="list-style-type:disc">OpenDistro is detected as java application inside container</li></ul><ul id="85a63f1a-75f4-4826-a4ad-ceb44e48c5ac" class="bulleted-list"><li style="list-style-type:disc">Logstash is detected as java application inside container</li></ul><ul id="191dfd1a-f013-4d76-bbc5-e92a11ec7d54" class="bulleted-list"><li style="list-style-type:disc">Components:<ul id="e442e19f-5937-4612-bf91-027d06c1e976" class="bulleted-list"><li style="list-style-type:circle">6011442cc9430d00119a180a (Host )<ul id="54cd6488-e78f-4f2b-84d2-fc3e078c1a6a" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Logs working </mark></li></ul><ul id="5edec6e7-a5ae-4bd7-a4d1-2b71239da6c6" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="08655b25-8a04-4aea-9119-afe6679956aa" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Logs working</mark></li></ul><ul id="695b21df-d85a-4e4b-a159-86be37087729" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul><ul id="25f5dd03-4d56-4c15-93bb-973cbb16430c" class="bulleted-list"><li style="list-style-type:square"></li></ul></li></ul><ul id="26ed10dd-5f1f-48bc-bf59-641611d52662" class="bulleted-list"><li style="list-style-type:circle">dockerc4fc88307d45f537 ( Docker )<ul id="0098f100-8d16-4021-8890-28f80234123b" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">Logs working (no logs for docker daemon)</mark></li></ul><ul id="a0f37592-2085-43a1-a6ed-4d6c36315e65" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="fffa0b3b-c763-44f7-928d-223c8a65934c" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="bb0b1059-bac1-4ca2-85f3-b30956a4241b" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul><ul id="16288a96-d1a5-4502-af80-35ae19171151" class="bulleted-list"><li style="list-style-type:square"></li></ul></li></ul><ul id="906cfce9-258f-41a1-a22c-7b69b70f656b" class="bulleted-list"><li style="list-style-type:circle">apache75b18c2981c5e0d1 ( Apache )<ul id="4c2fd25a-3438-44db-801f-397cc0187943" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Logs working</mark></li></ul><ul id="b91a9537-9694-453f-a7b4-7b870598c3d7" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="517a0430-17fb-4924-af55-ae93ed0eb5e8" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Logs working</mark></li></ul><ul id="1949d81f-9923-432d-8e9b-6c53139c2d91" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul><p id="315ba8f5-5c5e-411b-9a7e-56a9f345c79d" class="">
+</p></li></ul><ul id="596f18f6-60f2-4347-a588-c8f3d2dc0ff6" class="bulleted-list"><li style="list-style-type:circle">nodeb31687c8fa7f7383 ( Kibana )<ul id="0697c5d4-7c1c-4a38-b3d7-4826bedf0390" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Logs working</mark></li></ul><ul id="d0d69a37-6f89-4f88-aa5d-743d0ad7703a" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="9d9a0c00-9ab5-4d75-a471-e8f0f068c35c" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-red">ML Logs not working</mark></li></ul><ul id="145bbd0f-197f-4d0c-8af6-b2ef84455d75" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul><ul id="36641e1e-42d4-4e8e-8cf5-8745662a72b9" class="bulleted-list"><li style="list-style-type:circle">Java3f88d179b6ac5ca2 ( java )<ul id="898d8d66-59a5-4994-9591-7401745e9c77" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">Logs working (no logs )</mark></li></ul><ul id="ceb24dfb-4a0f-48e6-8ac4-6a1249f6ab14" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="88a8060f-cbd8-457f-a1f2-1842b5e0219b" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="02864d93-af97-46c7-82c3-698c518f2674" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul><ul id="263a0495-0124-4a5e-a2ed-28741e45d9a3" class="bulleted-list"><li style="list-style-type:circle">Javaa41043f7057ffdb2 ( java )<ul id="e858eda9-721a-46b5-bcd1-06881c7ea935" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Logs working</mark></li></ul><ul id="24c47e88-18a4-4c22-a7e9-9f0a8f992938" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="ba96ccaf-2604-4772-b2ad-8b878a34aa42" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-red">ML Logs working</mark></li></ul><ul id="7c22b110-1a80-45d4-b80f-e77dd35fa7de" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul><ul id="d49bb6a0-37ea-4c35-b2c6-4ddaeacdde03" class="bulleted-list"><li style="list-style-type:circle">Java3f88d179b6ac5ca2 ( java )<ul id="a98e276e-5db4-4da6-bd2a-412f648dd4df" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">Logs working (no logs )</mark></li></ul><ul id="c01ea1e1-7eb3-4a7d-8419-18e4fb94ab9b" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="7bcaec26-5a2f-4130-9734-f55f2d2b25ac" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="263e926d-8d5d-4ed8-81eb-415e43650427" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul><ul id="1c855e84-555a-4ebf-833b-33faaa3f594d" class="bulleted-list"><li style="list-style-type:circle">javacc7b220deba0221f ( java )<ul id="ccedc995-5d8a-4d3f-b463-743c357f343f" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Logs working</mark></li></ul><ul id="3f1f05d1-dcc3-4c1f-975e-4dbf191264a3" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="c09cb088-36f3-45b7-97df-72d852dfc4eb" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="761ad07f-b183-4564-a3ba-ba1c6176b98a" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul><ul id="7ee6332a-9266-48ba-98d6-8dd7148376ab" class="bulleted-list"><li style="list-style-type:circle">javaf73a17f2ae1639d8 ( java )<ul id="02434ada-0f02-4f47-a264-bb3ce16869aa" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Logs working</mark></li></ul><ul id="e943882d-9e6f-4707-8fbe-27085a037055" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="4ce8c5a7-d9c7-4018-905d-532814ff3663" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="fcd9ed47-01ea-4cf4-9640-1bb21365b84e" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul></li></ul><h3 id="0e4e0c2c-653a-41d2-822c-221eef58d8a5" class="">Monitoring Logstash service:</h3><p id="4a2f2863-10dd-449b-bd87-9fa69db17031" class=""><mark class="highlight-gray_background">HostID: 6011461cc9430d00119a180c</mark></p><ul id="c257b1d8-bc0e-498d-8fa5-a453733ebad4" class="bulleted-list"><li style="list-style-type:disc">Logstash is detected as java application inside container</li></ul><ul id="b33a7448-8d38-4d8b-810a-884db22d642e" class="bulleted-list"><li style="list-style-type:disc">Components:<ul id="88e7927c-c7ce-4628-920c-b9059ad5a205" class="bulleted-list"><li style="list-style-type:circle">6011461cc9430d00119a180c (Host )<ul id="a0a36bfb-e9be-4d37-9847-4479d26f982b" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Logs working </mark></li></ul><ul id="e8f4d5ef-112b-4140-83af-c82e7bcdd6aa" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="1cb79073-1025-4a68-87b1-d3c2138ac7fd" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Logs working</mark></li></ul><ul id="e12a3a47-7cb2-4073-80e7-ea443b6c943b" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul></li></ul><p id="08fff7e0-e7ef-40fb-8261-295b766738dd" class=""><div class="indented"><ul id="dbebc9f4-b985-4211-bc35-b8f2b94413d3" class="bulleted-list"><li style="list-style-type:disc">java4d7c476be035c1f1 ( java )<ul id="e0eb02ea-e8c2-442b-8576-da3fdfec9958" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow">Logs working (no logs )</mark></li></ul><ul id="61f09435-c048-4647-b8e2-b9402eaa3632" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="be25a1b3-4f57-4f2f-ab54-f8551d165e9b" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="29033b05-f6e3-40da-a782-991eb8ebbae1" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul><p id="e57b026a-2936-4266-85ba-01a2de5ef68e" class="">
+</p><ul id="a028407f-e807-4a37-a856-27d295ad6261" class="bulleted-list"><li style="list-style-type:disc">java8d53a5ab1fec42a4 ( java )<ul id="51e881b9-e0fd-4fc7-8fab-a6bbd339aa34" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow">Logs working (no logs )</mark></li></ul><ul id="29a64706-33e5-4162-97d6-3e895261d9d4" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="abd90c56-468b-410a-885a-c765ddd03e7c" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="ea4e0a79-9cba-4a0d-8acf-f712bf009508" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">ML Metrics working</mark></li></ul><p id="f5f21524-b2e0-46df-8374-2da0a8c21979" class="">
+</p></li></ul><ul id="3c119101-c397-4a75-872c-737be349082d" class="bulleted-list"><li style="list-style-type:disc">javabd89af9cafc8e500 ( java )<ul id="037f1b00-8125-4807-9a82-f40b4a4a137f" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow">Logs working (no logs )</mark></li></ul><ul id="709d31a5-ca00-41fb-8ddd-4bec981f2149" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="279c2cbf-a0db-4bc3-945c-9720ec598661" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="c37ef1be-5351-4bcb-8ad0-6a35f9eee867" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">ML Metrics working</mark></li></ul><p id="1fd86cc9-51eb-46d4-83a0-e3fce7f06622" class="">
+</p></li></ul><ul id="5497366c-4ded-4b65-ac8b-c87110f2f93f" class="bulleted-list"><li style="list-style-type:disc">javac5b781ebe0888e94 ( java )<ul id="6e3a21c1-4c86-4b1e-9ae1-fd4486352956" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow">Logs working (no logs )</mark></li></ul><ul id="41529cb0-bcd8-409c-94f7-fc995ec1097e" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="7aa6a650-021a-4b09-bf5e-0f167fcc5e94" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="959cd631-0754-4fa5-93b3-dfbebf129a59" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">ML Metrics working</mark></li></ul><p id="d24c929a-6c19-4cdd-bb41-bbe47b819ecd" class="">
+</p></li></ul><ul id="9e8fcb95-a497-4d78-8a81-f3346d62c2fa" class="bulleted-list"><li style="list-style-type:disc">javae566140227caf2d8 ( java )<ul id="ef3b7c4b-3a3e-4464-9030-04626920c0d8" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow">Logs working (no logs )</mark></li></ul><ul id="c1b1f06d-aa03-43cf-89fd-25cd0f5fa40e" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="1fc26787-8b50-4ace-b2ef-e93175f7c3ce" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="0470cfa3-cc91-4def-a8dd-a6a0b549000d" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">ML Metrics working</mark></li></ul><p id="977eec93-2e3a-4d72-a3f3-d9ee647e0266" class="">
+</p></li></ul><ul id="a3192ea9-b1d6-4379-a398-eff51a5895c5" class="bulleted-list"><li style="list-style-type:disc">javaef064d50b114c22c ( java )<ul id="cc55a850-1094-40bf-b48c-134a9434d088" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow">Logs working (no logs )</mark></li></ul><ul id="c368c4da-e9dc-45c6-bd00-0a12e90fbc51" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">Metrics working</mark></li></ul><ul id="d34c9659-8b91-4e2e-a99d-dba356f4d44f" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow">ML Logs working</mark></li></ul><ul id="6961b346-51b9-4f92-9de1-7f6039998b49" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">ML Metrics working</mark></li></ul></li></ul></div></p></div></article></body></html>

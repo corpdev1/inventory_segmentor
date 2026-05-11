@@ -1,0 +1,679 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>same model correlation</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="18b193ab-728f-439a-8e0c-c9f5188f4b23" class="page sans"><header><h1 class="page-title">same model correlation</h1><p class="page-description"></p></header><div class="page-body"><p id="f0e9df99-4c55-4ea1-9235-2800c787b319" class="">
+</p><p id="257cc7df-0b6c-4542-96ec-04eb4797b0d3" class="">
+</p><figure id="8519d947-a60d-4184-9f55-237446faaff5" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercputotalpct50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercputotalpct50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="efada037-c923-4d01-9d23-12961e77cf8b" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercputotalpct50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercputotalpct50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="81c40055-ff35-4405-a58b-b7e9f2ad8312" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="1769c3af-f13a-4a13-bf2b-90c961f2c16d" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="cbb4308e-7862-4b2d-ba2b-efaf6e0e2e07" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercpuuserpct50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercpuuserpct50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="05af8fd1-224e-43e1-88f0-f42d80619ea8" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercpuuserpct50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercpuuserpct50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="d58d4230-7d9e-45c0-9ef7-349ab88adb36" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="a9a11c21-2edf-41f3-b853-6d0f20350389" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="7d1179f4-fe4b-4ded-aa5d-b17960498dd2" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.cpudockercputotalpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.cpudockercputotalpct.png"/></a></figure><figure id="b9ccda0d-9d82-4a80-8ae2-db8de3677885" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="dc3bb3a6-dfd9-404a-9c2a-26d72b5f5da6" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.cpudockercpuuserpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.cpudockercpuuserpct.png"/></a></figure><figure id="63905620-c67d-4a15-a171-d12ffa9c423c" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="10c22dc5-9443-4d28-a8e0-89cfdd27605a" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryrsspctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryrsspctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="37f7a43c-40ac-43e1-9ff5-067fcd17ea4e" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryrsspctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryrsspctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="b9bb9eb2-d531-4bf2-b7b5-1e48dc0e8680" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.cpudockercputotalpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.cpudockercputotalpct.png"/></a></figure><figure id="1e7ce493-4854-49f4-ba45-a9789e739427" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.cpudockercpuuserpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.cpudockercpuuserpct.png"/></a></figure><figure id="41d3ad0f-d95b-4eac-ac46-1a09298a1e32" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="147d0707-b79e-4d51-8a28-053c60b07271" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="b70bcd0a-9c43-478e-bf16-49584d294fc5" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryusagepctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryusagepctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="3bc81c0d-aeed-49a3-b8da-4ed90980a1c6" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryusagepctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.memorydockermemoryusagepctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="dfe6d7e8-5109-462d-9829-e209c332b08c" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.networkdockernetworkoutbytesjava959f068bcb7c9b4dno_subjectdocker.networkdockernetworkoutpackets.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.networkdockernetworkoutbytesjava959f068bcb7c9b4dno_subjectdocker.networkdockernetworkoutpackets.png"/></a></figure><figure id="b6aa8266-c5cb-4dbd-a7c0-f8e25dd57277" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.networkdockernetworkoutpacketsjava959f068bcb7c9b4dno_subjectdocker.networkdockernetworkoutpackets.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/50a7377a9593789cno_subjectdocker.networkdockernetworkoutpacketsjava959f068bcb7c9b4dno_subjectdocker.networkdockernetworkoutpackets.png"/></a></figure><p id="53fb9a37-2efd-451d-9349-779c5496c7df" class="">
+</p><figure id="6b99e24c-a55e-4316-a652-cc2fdac0202b" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="48932686-d2c9-4e32-8431-0edea8d720f6" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.cpudockercpuuserpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.cpudockercpuuserpct.png"/></a></figure><figure id="200e52da-ee91-429d-a682-03449e9b5e88" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspctjava959f068bcb7c9b4dno_subjectdocker.cpudockercputotalpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspctjava959f068bcb7c9b4dno_subjectdocker.cpudockercputotalpct.png"/></a></figure><figure id="059f5b47-baa5-4a00-91c5-f086893adc64" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="e4998c83-80d5-4118-bf71-3da7b305c669" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="b60426a7-67f6-4f5b-a0ee-67f181108d92" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="5e6717ae-1dac-49f3-8e7d-c11113ccad41" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="5015321d-8422-410e-a55f-e02a9c95319c" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.cpudockercpuuserpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.cpudockercpuuserpct.png"/></a></figure><figure id="00cda7a9-2128-4853-aaa9-09523bfb5759" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercputotalpctjava07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercputotalpctjava07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="0f067eac-f58a-42ac-8599-bf381f44850b" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="6cff411b-efcf-4b31-bbf4-36e7e6906544" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct50a7377a9593789cno_subjectdocker.cpudockercpuuserpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct50a7377a9593789cno_subjectdocker.cpudockercpuuserpct.png"/></a></figure><figure id="3a697683-1771-4572-a76e-5eaaac5a91c4" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspctjava959f068bcb7c9b4dno_subjectdocker.cpudockercpuuserpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspctjava959f068bcb7c9b4dno_subjectdocker.cpudockercpuuserpct.png"/></a></figure><figure id="cea9fe11-66d3-4e0a-8aa7-ae93c35bcaa9" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepctjava959f068bcb7c9b4dno_subjectdocker.cpudockercputotalpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepctjava959f068bcb7c9b4dno_subjectdocker.cpudockercputotalpct.png"/></a></figure><figure id="375f95d5-d71e-407e-83f0-2130c466e2af" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="4c958796-5d4d-4f60-af38-55bea04226f2" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="1622b586-ad2e-4d35-b5b9-82c7e9227960" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct50a7377a9593789cno_subjectdocker.cpudockercputotalpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct50a7377a9593789cno_subjectdocker.cpudockercputotalpct.png"/></a></figure><figure id="d1287614-fde1-401f-b30f-2d2c087e45cf" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct50a7377a9593789cno_subjectdocker.cpudockercputotalpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct50a7377a9593789cno_subjectdocker.cpudockercputotalpct.png"/></a></figure><figure id="d2bfd824-1e9d-4c99-9884-c5d5843e85dc" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.cpudockercputotalpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.cpudockercputotalpct.png"/></a></figure><figure id="6dd3cf17-601a-402c-a939-cc051920b542" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.cpudockercpuuserpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.cpudockercpuuserpct.png"/></a></figure><figure id="f414cb9f-c4ca-4553-9e00-686d1c217837" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="c061de2d-0b9c-44b2-85b6-07f92689fc9e" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/docker7ad1bae953a95cdfno_subjectdocker.networkdockernetworkoutpacketsnode3334b5931064b3b0no_subjectdocker.networkdockernetworkoutpackets.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/docker7ad1bae953a95cdfno_subjectdocker.networkdockernetworkoutpacketsnode3334b5931064b3b0no_subjectdocker.networkdockernetworkoutpackets.png"/></a></figure><figure id="ce3a56a7-d283-4121-a750-9a1235537c37" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/docker7ad1bae953a95cdfno_subjectdocker.cpudockercpukernelpct9a010e5673d34016no_subjectdocker.cpudockercpukernelpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/docker7ad1bae953a95cdfno_subjectdocker.cpudockercpukernelpct9a010e5673d34016no_subjectdocker.cpudockercpukernelpct.png"/></a></figure><figure id="5799f755-acfd-41cd-88a9-02e1658d7e23" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="4cc16521-fc03-4b9e-9b8c-bf58ecee67cd" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="a47fe477-a9e8-4fdd-9d3d-ea80164c6c33" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.cpudockercpuuserpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.cpudockercpuuserpct.png"/></a></figure><figure id="f90c2760-acea-4ca8-a07c-bdcc554aff37" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.cpudockercputotalpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.cpudockercputotalpct.png"/></a></figure><figure id="b04233e1-cf67-4ac8-a279-e86749279222" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/docker7ad1bae953a95cdfno_subjectdocker.networkdockernetworkoutbytes9a010e5673d34016no_subjectdocker.networkdockernetworkoutpackets.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/docker7ad1bae953a95cdfno_subjectdocker.networkdockernetworkoutbytes9a010e5673d34016no_subjectdocker.networkdockernetworkoutpackets.png"/></a></figure><figure id="fa8405a0-3b9c-45e7-ad81-00d57b53a973" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct50a7377a9593789cno_subjectdocker.cpudockercpuuserpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct50a7377a9593789cno_subjectdocker.cpudockercpuuserpct.png"/></a></figure><figure id="a3ba2831-7a18-45e7-b3ab-e1feb2e7dbd7" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="a0bed7f8-8de0-4ed0-8909-f52d67cd39ee" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.cpudockercpuuserpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.cpudockercpuuserpct.png"/></a></figure><figure id="b6b761e6-b746-4394-8cbe-fd170f6e6e20" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercpuuserpctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="d647b90b-d0f4-43a1-8ebd-1cda395b7e90" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.cpudockercputotalpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercputotalpctjava959f068bcb7c9b4dno_subjectdocker.cpudockercputotalpct.png"/></a></figure><figure id="eaefb5a3-b872-4d78-a1e2-017fc933b041" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.cpudockercpuuserpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.cpudockercpuuserpct.png"/></a></figure><figure id="c1335b12-065f-4c01-808e-d45d7f175264" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct50a7377a9593789cno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="33b783dc-0896-45f5-8533-61d7b542de9f" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct50a7377a9593789cno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="95da6293-4940-43d1-b34d-80062f88a82c" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="6a71c442-2be4-4bef-9469-7a94ec286bd8" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercpuuserpctjava07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercpuuserpctjava07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="1741ef89-5c0c-40e1-a484-75e4ea68109c" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.cpudockercputotalpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct9a010e5673d34016no_subjectdocker.cpudockercputotalpct.png"/></a></figure><figure id="24d2598e-1b44-4225-843d-23a256472481" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercputotalpctjava07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercputotalpctjava07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="41770160-e668-4b4a-8bce-d0866f719e1f" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepctjava959f068bcb7c9b4dno_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="e3cb89e3-505f-4cf1-ba50-36104949e7c6" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.cpudockercputotalpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.cpudockercputotalpct.png"/></a></figure><figure id="f51b10fe-a90f-430b-8259-0c4e513bc8fe" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepctjava959f068bcb7c9b4dno_subjectdocker.cpudockercpuuserpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.memorydockermemoryusagepctjava959f068bcb7c9b4dno_subjectdocker.cpudockercpuuserpct.png"/></a></figure><figure id="75db6830-e269-4704-9740-1f16434c6ccd" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.cpudockercputotalpct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.cpudockercputotalpct.png"/></a></figure><figure id="52ef0654-5aff-40c1-aed2-ae3127269bfb" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercpuuserpctjava07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java07dffa688b72e58ano_subjectdocker.cpudockercpuuserpctjava07dffa688b72e58ano_subjectdocker.memorydockermemoryrsspct.png"/></a></figure><figure id="fc6d9e6e-4cfb-4043-9239-b0011f09d997" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java2116da9d2cfda7b5no_subjectdocker.networkdockernetworkoutbytes50a7377a9593789cno_subjectdocker.networkdockernetworkoutbytes.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java2116da9d2cfda7b5no_subjectdocker.networkdockernetworkoutbytes50a7377a9593789cno_subjectdocker.networkdockernetworkoutbytes.png"/></a></figure><figure id="20e4d1dc-f246-47ef-b9aa-02f21ff3581d" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.memorydockermemoryusagepct.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java959f068bcb7c9b4dno_subjectdocker.memorydockermemoryusagepct9a010e5673d34016no_subjectdocker.memorydockermemoryusagepct.png"/></a></figure><figure id="72e87462-3e16-4f30-a6b0-9cdba603c1fe" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java2116da9d2cfda7b5no_subjectdocker.networkdockernetworkoutbytes50a7377a9593789cno_subjectdocker.networkdockernetworkoutpackets.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java2116da9d2cfda7b5no_subjectdocker.networkdockernetworkoutbytes50a7377a9593789cno_subjectdocker.networkdockernetworkoutpackets.png"/></a></figure><figure id="bb744502-adc9-4715-abf3-fc69310ff81f" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java2116da9d2cfda7b5no_subjectdocker.networkdockernetworkoutbytesjava959f068bcb7c9b4dno_subjectdocker.networkdockernetworkoutpackets.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java2116da9d2cfda7b5no_subjectdocker.networkdockernetworkoutbytesjava959f068bcb7c9b4dno_subjectdocker.networkdockernetworkoutpackets.png"/></a></figure><figure id="af5b30f2-cae6-41ae-9fd4-8ce148b6a284" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java2116da9d2cfda7b5no_subjectdocker.networkdockernetworkoutpackets50a7377a9593789cno_subjectdocker.networkdockernetworkoutbytes.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java2116da9d2cfda7b5no_subjectdocker.networkdockernetworkoutpackets50a7377a9593789cno_subjectdocker.networkdockernetworkoutbytes.png"/></a></figure><figure id="d7f0ffe8-f2a6-4388-8ae7-7a4844b5043e" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java2116da9d2cfda7b5no_subjectdocker.networkdockernetworkoutpackets50a7377a9593789cno_subjectdocker.networkdockernetworkoutpackets.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java2116da9d2cfda7b5no_subjectdocker.networkdockernetworkoutpackets50a7377a9593789cno_subjectdocker.networkdockernetworkoutpackets.png"/></a></figure><figure id="6c8bda6a-9dec-4197-b5a0-58badb8d68ea" class="image"><a href="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java2116da9d2cfda7b5no_subjectdocker.networkdockernetworkoutpacketsjava959f068bcb7c9b4dno_subjectdocker.networkdockernetworkoutpackets.png"><img style="width:640px" src="same%20model%20correlation%2018b193ab728f439a8e0cc9f5188f4b23/java2116da9d2cfda7b5no_subjectdocker.networkdockernetworkoutpacketsjava959f068bcb7c9b4dno_subjectdocker.networkdockernetworkoutpackets.png"/></a></figure></div></article></body></html>

@@ -1,0 +1,686 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Experiment with NER-pytorch</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="6301973b-4709-4316-b406-d9fb19c6cf46" class="page sans"><header><h1 class="page-title">Experiment with NER-pytorch</h1><p class="page-description"></p></header><div class="page-body"><p id="4c565d2b-a3b0-4a23-8fe8-e142cbe1389b" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><p id="b6175675-e721-42aa-90c3-73dd91a965cc" class="">Code repository: <a href="https://github.com/ZhixiuYe/NER-pytorch">https://github.com/ZhixiuYe/NER-pytorch</a></p><p id="0d7e3f33-a8d7-499d-830f-8d3ff5029b0c" class="">In order to get the code working, the following have to be addressed:</p><ul id="8aa0ba41-e672-4252-b2ec-2e5adea6ce1f" class="bulleted-list"><li style="list-style-type:disc">Adjust for newer version of Python: Change <code>cPickle</code> to <code>pickle</code>.</li></ul><ul id="4fbbf658-327e-48af-b6ac-8303b84ed0cc" class="bulleted-list"><li style="list-style-type:disc">Adjust for newer version of Pytorch: Don&#x27;t index with <code>[0]</code> on zero dimensional tensors. As noted <a href="https://stackoverflow.com/questions/56483122/indexerror-invalid-index-of-a-0-dim-tensor-use-tensor-item-to-convert-a-0-di">here</a>.</li></ul><ul id="67c5f74c-a345-4078-bd63-bfbab5ecc348" class="bulleted-list"><li style="list-style-type:disc">Run <code>Visdom</code> in the background, by running <code>python -m visdom.server</code> in a separate shell session.</li></ul><p id="8872d6cd-ede6-430a-8ab8-88abd4fdf523" class="">Use the following <a href="http://train.py"><code>train.py</code></a> with the first two changes:</p><figure id="7362b11e-daf4-4fd6-9608-c653848a7a26"><div class="source"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/train.py">train.py</a></div></figure><p id="58f93215-c4a1-4d59-954f-239aca1f1b91" class="">
+</p><p id="c3c264e7-9e8b-46fe-955e-d519650fa36d" class="">The command line arguments to be passed are:</p><p id="bfa1feca-bdb7-457c-bdb7-657eb89b566a" class=""><code>-train dataset/train_iob2.txt --dev dataset/dev_iob2.txt --test dataset/test_iob2.txt --test_train dataset/train_iob2.txt --tag_scheme iob --zeros 0 --pre_emb embedding/glove.6B.100d.txt --use_gpu 0</code></p><p id="acb76716-589b-415a-968e-d248bd293696" class="">
+</p><p id="e1d29635-aa03-424d-9138-e210348514f9" class="">The input files are as follows. They are prepared using RabbitMQ logs of Affluences. 40000 samples have been divided as 80% training, 10% development, 10% testing. This package doesn&#x27;t accept IOBES format, only IOB. Internally it converts all inputs to IOB2 format.</p><figure id="7211901f-120b-4ecb-bc9b-f2cae7cda87e"><div class="source"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/train_iob2.txt">train_iob2.txt</a></div></figure><figure id="c66890b8-5d4d-46ce-9352-4eed6eab59a5"><div class="source"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/dev_iob2.txt">dev_iob2.txt</a></div></figure><figure id="edc24b18-83f8-411c-994e-40fe100eb2df"><div class="source"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/test_iob2.txt">test_iob2.txt</a></div></figure><figure id="4da816b1-a9ae-4bdf-a8da-77620d7015d0"><div class="source"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/test_iob2_noisy.txt">test_iob2_noisy.txt</a></div></figure><figure id="e12fa947-b1f4-4a0e-9cff-c6d3745c3a1c"><div class="source"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/test_iob2_shuffle.txt">test_iob2_shuffle.txt</a></div></figure><p id="208691dd-a872-454a-adf0-79d6571d1da2" class="">
+</p><figure id="5bb2acd3-e426-4ebb-b7e3-c8582d237bf3"><div class="source"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/train_iobes.txt">train_iobes.txt</a></div></figure><figure id="46b770d0-d66c-43b6-8c22-66d09105e8b1"><div class="source"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/dev_iobes.txt">dev_iobes.txt</a></div></figure><figure id="0236afca-4afc-47a1-892e-567d98bd3712"><div class="source"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/test_iobes_noisy.txt">test_iobes_noisy.txt</a></div></figure><figure id="577608b6-b286-4b4e-9452-c7aa2dcc950c"><div class="source"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/test_iobes_shuffle.txt">test_iobes_shuffle.txt</a></div></figure><p id="b2259f96-e804-4804-ab12-24ec5b56485a" class="">
+</p><p id="4198b2d9-d77e-4ed8-a573-db239a51e03b" class="">The following script was used to create the above files from stashed logs (downloaded from S3):</p><figure id="c771b66a-cbdc-4bed-b096-df858a272d38"><div class="source"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/prepare_conll_format.py">prepare_conll_format.py</a></div></figure><p id="6bdab380-8493-4502-a300-852e0415d5b5" class="">
+</p><p id="d101d7c9-b456-4b0f-bc22-e24813813abb" class="">The GloVe pre-embedding files were downloaded from <a href="https://nlp.stanford.edu/projects/glove/">here</a>. 100d vectors were chosen based on the suggestion given <a href="https://github.com/jiesutd/NCRFpp/blob/master/readme/hyperparameter_tuning.md">here</a>.</p><p id="b7a75e3b-ef25-4238-a634-c315d8fa777e" class="">
+</p><p id="c2fecde0-19fe-4b2c-91b7-dd80572aba02" class="">Here are the results for a training run, which ran SGD for around 7280 training samples (i.e., 7280 samples from the first epoch). Note: It took around 12 hours for this (training error was also computed at regular points in time, which is very time consuming). We see that the algorithm reaches 100% Precision and 100% Recall for dev and test sets after SGD with the first 480 training samples itself.</p><figure id="7704b347-9875-446b-8a5c-74c0cc3ff689" class="link-to-page"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/Output%20for%207280%20samples%20of%20first%20epoch%207704b3479875446b8a5c74c0cc3ff689.html">Output for 7280 samples of first epoch</a></figure><p id="4de1896d-0999-41ed-9cdf-d44a8c47a744" class="">Note: There was noise in the tags for some cases when the test above was done.</p><p id="89202186-7a68-4c19-a5cd-e0dc6b36a875" class="">
+</p><p id="1b5f6c60-25fd-4a38-a66b-df5355b36877" class="">In order to test the effectiveness of NER to deal with the presence of noise in the characters of the tokens, the following test was done. In the test data-set, the numbers were replaced by alphabets. This is an extreme level of noise in the date-time entity. Otherwise, the positions of the tokens were not changed. We see that the performance on the test set reaches a very good level, after some time, even in this case.</p><figure id="190619fa-924e-46e2-ba1e-d22182519b01"><div class="source"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/test_iob2_noisy%201.txt">test_iob2_noisy.txt</a></div></figure><figure id="d932a0ae-413e-4f20-96f3-21c2d60323c2" class="link-to-page"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/Test%20-%20noisy%20date-time%20entity%20d932a0ae413e4f2096f321c2d60323c2.html">Test - noisy date-time entity</a></figure><p id="2b0b8a86-6876-4d77-b31f-54e940215936" class="">
+</p><p id="69bfbd40-ea76-4c21-8308-a725f24dc687" class="">In order to check how sensitive NER is to the positions of the tokens, the following test was done. In the test set, the positions of the tokens were shuffled. Note: the date-time entity consists of two tokens and they were moved together. The content of the tokens were not modified. We see that the performance on the test set is much poorer compared to the above cases. The performance is slowly improving with more iterations of SGD.</p><figure id="ae9eda74-9da3-4ea4-94b7-5b02bd28e6f6"><div class="source"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/test_iob2_shuffle%201.txt">test_iob2_shuffle.txt</a></div></figure><figure id="e6be3e0c-a40d-4334-ac94-83a789d7b181" class="link-to-page"><a href="Experiment%20with%20NER-pytorch%206301973b47094316b406d9fb19c6cf46/Test%20-%20Shuffle%20all%20tokens%20e6be3e0ca40d4334ac9483a789d7b181.html">Test - Shuffle all tokens</a></figure><p id="80956caa-9291-47e1-8d3f-091bef7c5639" class="">
+</p><p id="fab73e0f-d6d4-4ab4-b6e7-70c262b00fb6" class="">From the above tests we can see that the algorithm is very much sensitive to the position of the entity with respect to the other entities. Thus, even if the content of the entity is noisy, it could still be recognized. However, we see much poorer performance when the positions of the tokens are shuffled.</p><p id="7f7ae7f7-ea05-4bb4-9413-c2ed91d39a59" class="">
+</p><p id="76397ebd-d282-4027-a8f2-046a979c891d" class="">Possible next steps:</p><ul id="220b51c6-e279-4c59-b431-5b6664ea1750" class="bulleted-list"><li style="list-style-type:disc">Train on google colab (training locally is very time consuming) for a longer stretch (at least one epoch). Check whether the performance improves on the test set with position shuffling with more training.<ul id="6d0caeaa-5772-409b-8b24-11821ffb9581" class="bulleted-list"><li style="list-style-type:circle">The package NCRFpp is much faster than NER-pytorch for local execution itself. We now have results after running the system over several epochs.</li></ul></li></ul><ul id="a26a7df4-e1bc-4af9-9cea-ce0da954df34" class="bulleted-list"><li style="list-style-type:disc">Don&#x27;t entirely shuffle the tokens of the raw log. Keep the content part together and move only date-time, loglevel and PID.</li></ul></div></article></body></html>

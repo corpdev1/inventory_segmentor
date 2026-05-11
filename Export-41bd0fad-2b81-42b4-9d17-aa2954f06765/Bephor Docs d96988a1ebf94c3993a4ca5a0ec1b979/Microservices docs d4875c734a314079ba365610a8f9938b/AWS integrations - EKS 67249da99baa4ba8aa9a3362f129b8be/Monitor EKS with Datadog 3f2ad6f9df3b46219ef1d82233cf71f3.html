@@ -1,0 +1,680 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Monitor EKS with Datadog</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3f2ad6f9-df3b-4621-9ef1-d82233cf71f3" class="page sans"><header><h1 class="page-title">Monitor EKS with Datadog</h1><p class="page-description"></p></header><div class="page-body"><h2 id="9cb9f06a-9f78-4574-bff8-5a67527e4c84" class="">Introduction </h2><ul id="2b610014-5195-4da4-83a3-41903e5f4c83" class="bulleted-list"><li style="list-style-type:disc">You need to deploy the Datadog Cluster Agent and node-based Datadog Agents across your EKS cluster. </li></ul><ul id="cb3963b7-7347-496b-99ca-db366ab5703d" class="bulleted-list"><li style="list-style-type:disc">The Cluster Agent communicates with the Kubernetes API servers to collect cluster-level information, while the node-based Agents report data from each node’s kubelet.</li></ul><figure id="1ba98a27-38ba-40e0-89b2-987213cdafc8" class="image"><a href="Monitor%20EKS%20with%20Datadog%203f2ad6f9df3b46219ef1d82233cf71f3/Untitled.png"><img style="width:1200px" src="Monitor%20EKS%20with%20Datadog%203f2ad6f9df3b46219ef1d82233cf71f3/Untitled.png"/></a></figure><p id="b15584f6-c78e-4855-ae87-3e2b8fb8e0c6" class=""><strong>Important note</strong></p><p id="e322b28e-05d6-4aad-97c2-a69a36121729" class="">While it is possible to deploy the Datadog Agent <a href="https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/">without the Cluster Agent</a>, using the Cluster Agent is recommended as it offers several benefits, particularly for large-scale EKS clusters:</p><ul id="925ec71b-f5e0-4d49-aef4-e0e00e6a361e" class="bulleted-list"><li style="list-style-type:disc">It reduces overall load on the Kubernetes API by using a single Cluster Agent as a proxy for querying cluster-level metrics.</li></ul><ul id="cdc79ee5-b4d0-44e2-8b2b-4403b1b25f7e" class="bulleted-list"><li style="list-style-type:disc">It provides additional security because only one Agent needs the permissions required to access the API server.</li></ul><ul id="69d683d2-e025-4b75-8840-95e3a8e0710c" class="bulleted-list"><li style="list-style-type:disc">It lets you automatically scale your pods using any metric that is collected by Datadog.</li></ul><p id="71e9e0e1-2ac8-48c1-9664-51b9f6340899" class="">
+</p><h2 id="df5a8cdb-c82f-4b12-acb6-e89db102932d" class="">Deploying the Datadog Cluster Agent</h2><h3 id="a1095716-45f8-4aeb-bc54-51850e42f85c" class="">Several steps:</h3><ul id="49c90997-a36e-4225-bec3-81e2cc6fe25e" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.datadoghq.com/blog/eks-monitoring-datadog/#configure-rbac-permissions-for-the-cluster-agent-and-node-based-agents">Configure RBAC permissions</a> for the Cluster Agent and node-based Agents</li></ul><ul id="cd087ce2-92a9-4dec-b494-177f8a2a99c7" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.datadoghq.com/blog/eks-monitoring-datadog/#secure-communication-between-node-based-agents-and-the-cluster-agent">Secure communication</a> between node-based Agents and the Cluster Agent</li></ul><ul id="6b0ee1d1-5912-42dd-b6ae-d469f60246e0" class="bulleted-list"><li style="list-style-type:disc">Create and deploy the Cluster Agent manifest</li></ul><ul id="de28753b-9b19-4d81-9f41-f475267f36f9" class="bulleted-list"><li style="list-style-type:disc">Deploy the node-based Agent DaemonSet</li></ul><p id="86724b7a-1a44-4713-a42b-0d271cabe4a1" class="">once everything is done, You can use the following kubectl command to verify that your Cluster Agent and node-based Agent pods are running (the -o wide flag includes more details in the output):</p><figure id="71f2c9a9-73ef-45ae-9747-7cc032210bc8" class="image"><a href="Monitor%20EKS%20with%20Datadog%203f2ad6f9df3b46219ef1d82233cf71f3/Screenshot_2021-08-30_at_10.57.32.png"><img style="width:1700px" src="Monitor%20EKS%20with%20Datadog%203f2ad6f9df3b46219ef1d82233cf71f3/Screenshot_2021-08-30_at_10.57.32.png"/></a></figure><p id="71d794eb-299e-4a60-a513-5cc247a37d69" class="">You should see that each node in your cluster is running a datadog-agent replica, and that one node is also running a datadog-cluster-agent pod.</p><h3 id="c0d0bbb2-d760-4436-88ca-6a0014daf41f" class=""><strong>Default dashboard</strong></h3><figure id="9748e93e-b4b0-44b2-b039-9c65b5e63d0d" class="image"><a href="Monitor%20EKS%20with%20Datadog%203f2ad6f9df3b46219ef1d82233cf71f3/Untitled%201.png"><img style="width:2280px" src="Monitor%20EKS%20with%20Datadog%203f2ad6f9df3b46219ef1d82233cf71f3/Untitled%201.png"/></a></figure><p id="bd11ddff-242c-4236-9097-b40cd15db7e5" class="">
+</p><h2 id="5a3be8e6-dc1a-41b6-9096-82cf4932990a" class="">Autoscale your EKS cluster with Datadog metrics</h2><ul id="ab3ee8bb-55de-4d49-b0d1-b828f2100362" class="bulleted-list"><li style="list-style-type:disc">Out of the box, Kubernetes’s Horizontal Pod Autoscaler (HPA) can autoscale a controller’s replica count based on a targeted level of CPU utilization averaged across that controller’s pods. (Note that this cannot apply to a DaemonSet, as a DaemonSet automatically launches a pod on each available node.) </li></ul><ul id="e155142f-725a-4ec0-b969-7c6dab6c847a" class="bulleted-list"><li style="list-style-type:disc">As of version 1.10, Kubernetes also supports autoscaling based on custom metrics so long as you have configured an External Metrics Provider resource that can communicate with the Kubernetes API server. The Datadog Cluster Agent can act as an External Metrics Provider.</li></ul><h2 id="e5d4bb30-3956-44d1-bd01-70f605bc77bf" class="">Enable Datadog’s AWS integrations</h2><ul id="f993a125-4b22-4c76-8564-adc2fde5c94d" class="bulleted-list"><li style="list-style-type:disc">Get access to CloudWatch</li></ul><ul id="da653405-5758-471a-963f-11918406efe3" class="bulleted-list"><li style="list-style-type:disc">Configure Datadog’s AWS integration</li></ul><h2 id="ba569127-054a-462e-ab0c-bf850af03877" class="">Visualise </h2><h3 id="5f3b328e-fde5-487e-8751-6bd7fbda0da9" class=""><strong>Containers map </strong></h3><figure id="3f60d6b1-be78-45dc-bb71-aea594de5123" class="image"><a href="Monitor%20EKS%20with%20Datadog%203f2ad6f9df3b46219ef1d82233cf71f3/Untitled%202.png"><img style="width:2280px" src="Monitor%20EKS%20with%20Datadog%203f2ad6f9df3b46219ef1d82233cf71f3/Untitled%202.png"/></a></figure><h3 id="9e8188de-a5f5-4e5a-942e-c94ec9817d9f" class=""><a href="https://www.datadoghq.com/blog/introducing-live-container-monitoring/"><strong>live container view </strong></a><mark class="highlight-yellow_background"><strong>(exists in ODFE? )</strong></mark></h3><figure id="141562e7-06ef-4ebb-b600-9ef660db9be2" class="image"><a href="Monitor%20EKS%20with%20Datadog%203f2ad6f9df3b46219ef1d82233cf71f3/Untitled%203.png"><img style="width:2280px" src="Monitor%20EKS%20with%20Datadog%203f2ad6f9df3b46219ef1d82233cf71f3/Untitled%203.png"/></a></figure><h3 id="69d6ec50-95ad-46b0-b27a-d5e6b107f226" class=""><strong>Filtering by tags</strong></h3><figure id="b068bbdc-e616-4de4-84d5-fa5c7ad50f0b" class="image"><a href="Monitor%20EKS%20with%20Datadog%203f2ad6f9df3b46219ef1d82233cf71f3/Untitled%204.png"><img style="width:2280px" src="Monitor%20EKS%20with%20Datadog%203f2ad6f9df3b46219ef1d82233cf71f3/Untitled%204.png"/></a></figure><p id="d76a0fb5-9fa0-4d95-a658-ba84f3e3607c" class="">
+</p><h2 id="cd7f7c56-404c-4513-a1db-5b4e03d97962" class="">Autodiscover your EKS cluster</h2><p id="e61159ab-2fb1-42db-86f9-210c5cdfb20e" class="">Autodiscovery is active by default. <mark class="highlight-yellow_background">When you deploy a service (e.g., Redis) to your cluster, you can include pod annotations that will provide the information Autodiscovery needs to detect and monitor that service on any containers that are launched with a specific name</mark>. </p><h2 id="b07de8bf-1fa6-4fc3-9455-b20643e5939f" class="">Processes and logs and traces and custom metrics</h2><p id="119c49ac-de53-4376-a7ae-6a149944d864" class="">These features are not configured by default, but you can easily enable them by adding a few more configurations to your Datadog Agent manifest (not the Cluster Agent manifest if you are using the Cluster Agent). They include:</p><ul id="719954c9-ea8f-45b9-b219-9eab65e443b6" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.datadoghq.com/blog/eks-monitoring-datadog/#monitor-your-processes-in-real-time">Process data</a></li></ul><ul id="b02877cb-db2c-4171-a15c-d2c61f42ffa9" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.datadoghq.com/blog/eks-monitoring-datadog/#collect-and-analyze-eks-logs">Logs</a></li></ul><ul id="5f1a6a0a-fbfa-4b0d-814b-7ea65865425a" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.datadoghq.com/blog/eks-monitoring-datadog/#track-application-performance">Traces</a></li></ul><ul id="8ca25ac8-61f4-417c-bcb4-e8a07c245c7f" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.datadoghq.com/blog/eks-monitoring-datadog/#report-custom-metrics">Custom metrics</a></li></ul><p id="de0a1f18-6ddc-4a21-b1ec-8f45aeb23d31" class="">
+</p></div></article></body></html>

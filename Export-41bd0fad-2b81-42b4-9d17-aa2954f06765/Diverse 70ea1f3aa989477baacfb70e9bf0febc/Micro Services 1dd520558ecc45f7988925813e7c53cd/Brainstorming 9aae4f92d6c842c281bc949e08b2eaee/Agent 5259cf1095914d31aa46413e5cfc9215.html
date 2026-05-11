@@ -1,0 +1,1107 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Agent</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5259cf10-9591-4d31-aa46-413e5cfc9215" class="page sans"><header><h1 class="page-title">Agent</h1><p class="page-description"></p></header><div class="page-body"><h2 id="0989cfef-60e2-4297-aa95-c043588a4e3f" class="">Problems</h2><ul id="ab9d750a-9c8f-4929-9c13-a7493d3a7f1d" class="bulleted-list"><li style="list-style-type:disc">Too difficult to manage the beats configuration (yaml) at Agent<ul id="1bb784ef-a83e-40c0-b48a-798feb42dcee" class="bulleted-list"><li style="list-style-type:circle">too big yaml configuration.</li></ul></li></ul><ul id="e1b12617-4c1c-4d25-87fe-d7b78f7457f8" class="bulleted-list"><li style="list-style-type:disc">Debugging is too difficult<ul id="eaa72781-cc2b-4fa8-970a-f58b0007c37f" class="bulleted-list"><li style="list-style-type:circle">Is the generated beats configuration correct ?</li></ul></li></ul><ul id="6cff9bf5-8a83-498e-9e45-53011874fc9a" class="bulleted-list"><li style="list-style-type:disc">Health check</li></ul><ul id="785cb793-cfaa-4880-bca5-04cb99b24ceb" class="bulleted-list"><li style="list-style-type:disc">Restart of the agent</li></ul><ul id="840a8ac7-7a5b-4a57-a0b1-6fe94ebdb845" class="bulleted-list"><li style="list-style-type:disc">Data separation at the agent</li></ul><ul id="fe8307f7-b887-40a2-a0d3-1d3bd4e8f9fe" class="bulleted-list"><li style="list-style-type:disc">collect agent/beats configurations</li></ul><ul id="dd8d0f0f-10f5-465a-b776-a34ba3cebc10" class="bulleted-list"><li style="list-style-type:disc">Agent crashed report</li></ul><ul id="9645f6b6-af43-427c-b9b6-3815f35ffb63" class="bulleted-list"><li style="list-style-type:disc">Beats logs are not being sent yet to us.<ul id="ec7ced73-7ee3-4272-b988-62d1dfa2a1b6" class="bulleted-list"><li style="list-style-type:circle">we have only our agent logs available at /etc/packetai/log/agent.log</li></ul><ul id="56ea55bb-cbf9-45ce-ac1f-33e72058f186" class="bulleted-list"><li style="list-style-type:circle">no mechanism to recover from agent crashing</li></ul></li></ul><ul id="899bdbd7-1e2b-4d06-98eb-75a386ffe5b3" class="bulleted-list"><li style="list-style-type:disc">Agent configurations is too big</li></ul><ul id="ea9625ce-b617-4837-893d-107ae2a38912" class="bulleted-list"><li style="list-style-type:disc">Agent source code is too big to manage beats config</li></ul><ul id="ac5f25ce-bffe-4ff3-aae4-b5442f856e49" class="bulleted-list"><li style="list-style-type:disc">It&#x27;s not possible to multiple process of same name.<ul id="c86d0efb-f3ac-487e-b890-121760ebc074" class="bulleted-list"><li style="list-style-type:circle">ex: multiple python process, multiple php process</li></ul><ul id="2cda0194-2da3-42e9-a6e6-e1c8def94755" class="bulleted-list"><li style="list-style-type:circle">for each process they should inject some environment variables, something similar to <a href="https://www.dynatrace.com/news/blog/a-practical-guide-to-monitoring-python-applications-with-dynatrace/">Dynatrace</a></li></ul><ul id="bf63f694-3eec-49db-9c92-3e36da468c84" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-orange">It&#x27;s low priority</mark></li></ul><pre id="67217043-4728-459c-9c86-d78ddea3e432" class="code"><code>- module: system
+  metricsets: [&quot;process&quot;]
+  processes: [&#x27;python&#x27;]
+  process.cgroups.enabled: false
+  processors:
+  - add_fields:
+      fields:
+        componentID: packetai123456789
+      target: fields</code></pre></li></ul><ul id="168edb5e-dbc8-4036-a200-5463fffa2b6a" class="bulleted-list"><li style="list-style-type:disc">How to simplify Agent integrations ?</li></ul><ul id="b383c9a5-21c3-4184-a690-a996c79f03f4" class="bulleted-list"><li style="list-style-type:disc">Integration message results in restart of all the beats on all hosts.<ul id="87754f15-fc95-4bf3-996e-bfe0684caa30" class="bulleted-list"><li style="list-style-type:circle">How to minimise the Restart of beats ?</li></ul></li></ul><ul id="89fe2c2e-8d5a-4509-a4c8-3601e6511aad" class="bulleted-list"><li style="list-style-type:disc">How to solve module.event on agent ?</li></ul><ul id="8133f1da-c260-4ea6-9cd4-d44563f235dc" class="bulleted-list"><li style="list-style-type:disc">Routing Kafka topics</li></ul><ul id="8a055ea2-476d-4b73-8698-bbfb58cbd575" class="bulleted-list"><li style="list-style-type:disc">Global Configuration of beats?</li></ul><ul id="352e817e-62ee-48b0-86b1-65edecb9e336" class="bulleted-list"><li style="list-style-type:disc"></li></ul><h2 id="a3c32fbb-2e65-43d4-84fc-32717bdf05a1" class="">Solutions:</h2><p id="5ba18af9-ab4b-4126-8893-6a612c454fa2" class="">
+</p><ul id="35f09562-7802-46ca-baed-5ce664012fc1" class="bulleted-list"><li style="list-style-type:disc">Too difficult to manage the beats configuration (yaml) at Agent<ul id="52408631-287e-49f0-9afc-9bf1f359d9ad" class="bulleted-list"><li style="list-style-type:circle">We have other configurations for non logical components. Generally they are located at /etc/packetai/filebeat/modules.d/*.yml or /etc/packetai/metricbeat/modules.d/*.yml</li></ul><ul id="a165fe75-ee83-4f44-a276-f2fa4384239b" class="bulleted-list"><li style="list-style-type:circle">Monitor all docker containers by default.</li></ul><ul id="05ee25ed-fa71-419f-9bd3-d89bbac109ad" class="bulleted-list"><li style="list-style-type:circle"> Write all the data to one topic<ul id="c88f542c-16b6-4f19-85fc-020f82f43a22" class="bulleted-list"><li style="list-style-type:square">Data separation can be done at Backend side</li></ul></li></ul><ul id="dc626adf-70fb-474c-9bc5-75055b679a18" class="bulleted-list"><li style="list-style-type:circle">If we do data separation at Agent, we must use either Labels (for Logical components) for Docker based, we could also use component ID (we must add this componentId for each module we enable).</li></ul><ul id="c3c3975a-12a3-49f2-beb9-b0df1af23262" class="bulleted-list"><li style="list-style-type:circle"> What should we do about languages ?<ul id="a7605784-cd58-43e4-aff3-2a8a04a46e55" class="bulleted-list"><li style="list-style-type:square">find a way to monitor a process.</li></ul></li></ul></li></ul><ul id="77b6f01a-eabc-4819-a65c-a1f63d7de31b" class="bulleted-list"><li style="list-style-type:disc"></li></ul><p id="c56d1e1d-e7be-47b7-90f6-1c4f4a5968e1" class="">
+</p><h2 id="f886c6ba-8e4b-418b-a522-adc81d94483d" class="">Languages monitoring</h2><pre id="950e8436-69ab-4921-b430-be75199ece4f" class="code"><code>ubuntu@ip-172-31-5-35:~$ cat /etc/packetai/metricbeat/modules.d/packetai-server.yml 
+- processes:
+  - packetai-server
+  module: system
+  period: 10s
+  enabled: true
+  processors:
+  - add_fields:
+      fields:
+        componentID: packetai123456
+      target: fields</code></pre><h2 id="05ef6685-669f-4c2c-a832-8d1de3375fc9" class="">Configuration:</h2><ul id="56717ea3-71ba-4978-96aa-16a2ade59f60" class="bulleted-list"><li style="list-style-type:disc">metricbeat configuration</li></ul><pre id="29c21a90-c7d3-4c00-833d-209cdee6a0af" class="code"><code>beatconfig:
+  name: metricbeat
+  beatpath: metricbeat
+  envdir: /etc/packetai/metricbeat
+  brokers:
+  - broker3-affluences.packetai.co:19092
+  - broker3-affluences.packetai.co:29092
+  - broker3-affluences.packetai.co:39092
+  clientid: packet-agent-linux608ac3038e4afc0040b43f6e
+  infraid: 6040a96cdcc614001153fc55
+  agentid: linux608ac3038e4afc0040b43f6e
+modulesToEnable: []
+modulesToDisable: []
+modules: []
+mainconf:
+  metricbeat.autodiscover:
+    providers:
+    - type: docker
+      labels.dedot: true
+      templates:
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: gaia_worker
+        config:
+        - hosts:
+          - ${data.host}:${data.port}
+          module: apache
+          metricsets:
+          - status
+          period: 10s
+          enabled: true
+          processors:
+          - add_fields:
+              fields:
+                componentID: apachegaia_worker
+              target: fields
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: gaia_redis
+        config:
+        - hosts:
+          - ${data.host}:${data.port}
+          module: redis
+          metricsets:
+          - info
+          - keyspace
+          period: 10s
+          enabled: true
+          processors:
+          - add_fields:
+              fields:
+                componentID: redisgaia_redis
+              target: fields
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: site-service_redis-cache
+        config:
+        - hosts:
+          - ${data.host}:${data.port}
+          module: redis
+          metricsets:
+          - info
+          - keyspace
+          period: 10s
+          enabled: true
+          processors:
+          - add_fields:
+              fields:
+                componentID: redissite-service_redis-cache
+              target: fields
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: appsmith_redis
+        config:
+        - hosts:
+          - ${data.host}:${data.port}
+          module: redis
+          metricsets:
+          - info
+          - keyspace
+          period: 10s
+          enabled: true
+          processors:
+          - add_fields:
+              fields:
+                componentID: redisappsmith_redis
+              target: fields
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: documentation_bookstack
+        config:
+        - hosts:
+          - ${data.host}:${data.port}
+          module: apache
+          metricsets:
+          - status
+          period: 10s
+          enabled: true
+          processors:
+          - add_fields:
+              fields:
+                componentID: apachedocumentation_bookstack
+              target: fields
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: queue_rabbitmq
+        config:
+        - hosts:
+          - localhost:15672
+          username: monitoring_packetai
+          password: dVYyXFDUveJ9tIYFl6eJ7yxn5OQZASuc
+          module: rabbitmq
+          metricsets:
+          - connection
+          - exchange
+          - node
+          - queue
+          period: 10s
+          enabled: true
+          processors:
+          - add_fields:
+              fields:
+                componentID: rabbitmqqueue_rabbitmq
+              target: fields
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: appsmith_appsmith-nginx
+        config:
+        - hosts:
+          - ${data.host}:${data.port}
+          server_status_path: nginx_status
+          module: nginx
+          metricsets:
+          - stubstatus
+          period: 10s
+          enabled: true
+          processors:
+          - add_fields:
+              fields:
+                componentID: nginxappsmith_appsmith-nginx
+              target: fields
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: backup_dockup-master
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: dynamic-flow_scheduler
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: koios_koios-tasks
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: reports-service_reports-service
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: sensinglabs-mqtt_sensinglabs-mqtt
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: webapi_webapi-server
+      - condition:
+          contains:
+            docker.container.labels:
+              com.docker.swarm.service.name: zoho_zoho-service
+  metricbeat.config:
+    modules:
+      path: ${path.config}/modules.d/*.yml
+      reload:
+        enabled: false
+  output.kafka:
+    hosts:
+    - broker3-affluences.packetai.co:19092
+    - broker3-affluences.packetai.co:29092
+    - broker3-affluences.packetai.co:39092
+    compression: snappy
+    enabled: true
+    key: 6040a96cdcc614001153fc55
+    ssl:
+      certificate: /etc/packetai/assets/certs/producer.client.cer.pem
+      key: /etc/packetai/assets/certs/producer.client.key.pem
+      certificate_authorities:
+      - /etc/packetai/assets/certs/producer.server.cer.pem
+      enabled: true
+    topics:
+    - topic: 6040a96cdcc614001153fc55-docker-metric-noderealtime-status_realtime-worker-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: realtime-status_realtime-worker
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodereservations-service_reservations-service-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: reservations-service_reservations-service
+    - topic: 6040a96cdcc614001153fc55-docker-metric-pythonbackup_dockup-node-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: backup_dockup-node
+    - topic: 6040a96cdcc614001153fc55-docker-metric-pythonkoios_koios-worker-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: koios_koios-worker
+    - topic: 6040a96cdcc614001153fc55-docker-metric-rubylogs_fluentd-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: logs_fluentd
+    - topic: 6040a96cdcc614001153fc55-docker-metric-apachegaia_worker-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: gaia_worker
+    - topic: 6040a96cdcc614001153fc55-docker-metric-redisgaia_redis-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: gaia_redis
+    - topic: 6040a96cdcc614001153fc55-docker-metric-redissite-service_redis-cache-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: site-service_redis-cache
+    - topic: 6040a96cdcc614001153fc55-linux608ac3038e4afc0040b43f6e-metric-linux608ac3038e4afc0040b43f6e-raw
+      when:
+        and:
+        - equals:
+            event:
+              module: system
+        - equals:
+            fields.componentID: linux608ac3038e4afc0040b43f6e
+    - topic: 6040a96cdcc614001153fc55-linux608ac3038e4afc0040b43f6e-metric-dockerca3ec49ecf77bf3d-raw
+      when:
+        and:
+        - equals:
+            event:
+              module: docker
+        - equals:
+            fields.componentID: dockerca3ec49ecf77bf3d
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodeapp_app-api-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: app_app-api
+    - topic: 6040a96cdcc614001153fc55-docker-metric-koios_koios-api-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: koios_koios-api
+    - topic: 6040a96cdcc614001153fc55-docker-metric-monitoring_prometheus-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: monitoring_prometheus
+    - topic: 6040a96cdcc614001153fc55-docker-metric-pythonpost-processing_post-processing-tasks-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: post-processing_post-processing-tasks
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodescrapers_scrapers-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: scrapers_scrapers
+    - topic: 6040a96cdcc614001153fc55-docker-metric-redisappsmith_redis-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: appsmith_redis
+    - topic: 6040a96cdcc614001153fc55-docker-metric-apachedocumentation_bookstack-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: documentation_bookstack
+    - topic: 6040a96cdcc614001153fc55-docker-metric-rabbitmqqueue_rabbitmq-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: queue_rabbitmq
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodeapp_app-web-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: app_app-web
+    - topic: 6040a96cdcc614001153fc55-docker-metric-javaappsmith_appsmith-internal-server-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: appsmith_appsmith-internal-server
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodecollector-api_collector-api-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: collector-api_collector-api
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodedisplay_front-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: display_front
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodehyperion-server_hyperion-server-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: hyperion-server_hyperion-server
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodeportal_portal-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: portal_portal
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodereservation_reservation-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: reservation_reservation
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodesite-service_site-service-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: site-service_site-service
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nginxappsmith_appsmith-nginx-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: appsmith_appsmith-nginx
+    - topic: 6040a96cdcc614001153fc55-docker-metric-pythonbackup_dockup-master-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: backup_dockup-master
+    - topic: 6040a96cdcc614001153fc55-docker-metric-pythondynamic-flow_scheduler-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: dynamic-flow_scheduler
+    - topic: 6040a96cdcc614001153fc55-docker-metric-pythonkoios_koios-tasks-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: koios_koios-tasks
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodereports-service_reports-service-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: reports-service_reports-service
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodesensinglabs-mqtt_sensinglabs-mqtt-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: sensinglabs-mqtt_sensinglabs-mqtt
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodewebapi_webapi-server-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: webapi_webapi-server
+    - topic: 6040a96cdcc614001153fc55-docker-metric-nodezoho_zoho-service-raw
+      when:
+        contains:
+          docker.container.labels:
+            com_docker_swarm_service_name: zoho_zoho-service
+    topic: 6040a96cdcc614001153fc55-linux608ac3038e4afc0040b43f6e-metric-default-raw
+  processors:
+  - add_host_metadata: null
+  - add_cloud_metadata: null
+  - add_docker_metadata: null
+  - add_kubernetes_metadata: null
+  - add_fields:
+      fields:
+        agentID: linux608ac3038e4afc0040b43f6e
+      target: fields
+  - drop_fields:
+      fields:
+      - agent.hostname
+      - agent.id
+      - agent.name
+      - agent.type
+      - agent.version
+      - agent.ephemeral_id
+      - cloud.availability_zone
+      - cloud.instance.id
+      - cloud.instance.name
+      - cloud.machine.type
+      - cloud.provider
+      - host.architecture
+      - host.containerized
+      - host.id
+      - host.ip
+      - host.mac
+      - host.os
+      - ecs.version
+      ignore_missing: true
+  - add_fields:
+      fields:
+        packetai-server: packetai8a1e0fb5c1647ec2
+      target: components
+  setup:
+    template:
+      settings:
+        index:
+          number_of_shards: 1</code></pre></div></article></body></html>

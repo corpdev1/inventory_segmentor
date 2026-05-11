@@ -1,0 +1,676 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>LogFrequency: Skyline + Walter + DBSCAN (1)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0880ad5d-9532-4d58-8a52-6d3f2c5a4c8c" class="page sans"><header><h1 class="page-title">LogFrequency: Skyline + Walter + DBSCAN (1)</h1><p class="page-description"></p></header><div class="page-body"><figure id="8f002889-6100-4ec9-8f25-68b5b4de0a3f"><div class="source"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/benchmark.py">benchmark.py</a></div></figure><nav id="16092419-9db9-4649-abab-e55793ca1a9d" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#165da0f3-23db-48ef-8e1d-74932fdc7dd1">Intro</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8348d809-9e6a-481a-aa0a-53699257277e">Results</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bfa882c5-422a-4182-aff1-6c118668428b">60ddc7da72033d00111f4be1-docker-log-pythonzero-gachis-rabbit-master-stashed</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4de5138d-0a92-4d3e-9d73-00e55664e5a6">60ddc7da72033d00111f4be1-docker-log-zero-gachis-celery-master-stashed</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c9c3f888-7284-4ac0-96b6-d6d044361bfc">60ddc7da72033d00111f4be1-docker-log-pythonemail-service-master-stashed</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#199bc26e-94ee-43cd-9bcd-ebe4bd73bb70">6040a96cdcc614001153fc55-docker-log-post-processing_post-processing-stashed</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1f463ba8-a7cd-45f4-8752-1e55ea3d17d6">6040a96cdcc614001153fc55-docker-log-nginxweblate_weblate-stashed</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#05b9772d-eebf-44ff-a187-58af9fc7ba6e">6040a96cdcc614001153fc55-docker-log-apachedocumentation_bookstack-stashed</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#155a1be7-70cb-4adc-90d5-8af907295493">6040a96cdcc614001153fc55-docker-log-nginxappsmith_appsmith-nginx-stashed</a></div></nav><h2 id="165da0f3-23db-48ef-8e1d-74932fdc7dd1" class="">Intro</h2><p id="e8d07a3a-79e8-4951-aca2-5050f9ea4c77" class="">During this experiment we were clustering anomalies based on the average anomaly score (an average is taken over all algorithms inside of Skyline + Walter). </p><ul id="a1899416-2a32-45c4-ad20-1b5a1da79cf8" class="bulleted-list"><li style="list-style-type:disc">For each anomaly the following features were used during the clustering:</li></ul><p id="cf58c10f-f152-4ce2-87aa-4b5ee6c760ca" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><mi>s</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><mfrac><mrow><mi>h</mi><mi>o</mi><mi>u</mi><mi>r</mi></mrow><mn>24</mn></mfrac><mo>∗</mo><mn>2</mn><mi>π</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>c</mi><mi>o</mi><mi>s</mi><mo stretchy="false">(</mo><mfrac><mrow><mi>h</mi><mi>o</mi><mi>u</mi><mi>r</mi></mrow><mn>24</mn></mfrac><mo>∗</mo><mn>2</mn><mi>π</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>s</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><mfrac><mrow><mi>m</mi><mi>i</mi><mi>n</mi><mi>u</mi><mi>t</mi><mi>e</mi></mrow><mn>60</mn></mfrac><mo>∗</mo><mn>2</mn><mi>π</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>c</mi><mi>o</mi><mi>s</mi><mo stretchy="false">(</mo><mfrac><mrow><mi>m</mi><mi>i</mi><mi>n</mi><mi>u</mi><mi>t</mi><mi>e</mi></mrow><mn>60</mn></mfrac><mo>∗</mo><mn>2</mn><mi>π</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{sin(\frac{hour}{24} * 2 \pi), cos(\frac{hour}{24} * 2 \pi),sin(\frac{minute}{60} * 2 \pi), cos(\frac{minute}{60} * 2 \pi), value\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mopen">{</span><span class="mord mathnormal">s</span><span class="mord mathnormal">in</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">24</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">cos</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">24</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.200664em;vertical-align:-0.345em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">in</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.855664em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">60</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.200664em;vertical-align:-0.345em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">cos</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.855664em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">60</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">u</span><span class="mord mathnormal">e</span><span class="mclose">}</span></span></span></span></span><span>﻿</span></span></p><ul id="c498212f-521a-4e65-81a2-63bca2c67602" class="bulleted-list"><li style="list-style-type:disc">We normalize the data (<em>MinMax scaler</em>) before performing the clustering</li></ul><ul id="929baf75-d9af-4952-b906-3ae8f2b72744" class="bulleted-list"><li style="list-style-type:disc">DBSCAN parameters: <em>eps=0.5, min_samples=10</em></li></ul><h2 id="8348d809-9e6a-481a-aa0a-53699257277e" class="">Results</h2><p id="69d59879-eb40-4d49-aac3-f400b82f1c7d" class="">The following examples contain (for each topic):</p><ul id="80f9c8a8-4431-42de-bfd8-d560a93e773c" class="bulleted-list"><li style="list-style-type:disc">Initial <mark class="highlight-blue">metric values</mark> (in blue) and anomalies based on <mark class="highlight-red">average anomaly score</mark> (in red). An average is taken over all algorithms inside of Skyline + Walter</li></ul><ul id="a5b4e253-91c5-4688-adf1-46506611cde2" class="bulleted-list"><li style="list-style-type:disc">Clusters based on <a href="https://en.wikipedia.org/wiki/DBSCAN">DBSCAN</a> algorithm</li></ul><ul id="0a401da7-2b05-410b-b935-e03ee463ee80" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red">Outliers</mark> (in red) and <mark class="highlight-teal">adjusted anomalies</mark> (in green) based on DBSCAN clusters</li></ul><h3 id="bfa882c5-422a-4182-aff1-6c118668428b" class="">60ddc7da72033d00111f4be1-docker-log-pythonzero-gachis-rabbit-master-stashed</h3><figure id="4dd5c63b-0018-4b1d-aed7-75e53fe405c7" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(27).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(27).png"/></a></figure><figure id="3a6cf8c2-84d7-4479-abcf-bdf60bee15e4" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(29).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(29).png"/></a></figure><figure id="95ae43e5-2723-40d2-99e8-4cfa47af5838" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(28).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(28).png"/></a></figure><h3 id="4de5138d-0a92-4d3e-9d73-00e55664e5a6" class="">60ddc7da72033d00111f4be1-docker-log-zero-gachis-celery-master-stashed</h3><figure id="de64584f-62a7-4747-b188-3505c717552a" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(30).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(30).png"/></a></figure><figure id="28a80052-dbc1-4d86-bf4f-e132e2014025" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(31).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(31).png"/></a></figure><figure id="6a7cbfc4-0eea-457f-82d1-d77227b9997f" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(32).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(32).png"/></a></figure><h3 id="c9c3f888-7284-4ac0-96b6-d6d044361bfc" class="">60ddc7da72033d00111f4be1-docker-log-pythonemail-service-master-stashed</h3><figure id="484f35cf-6424-4293-a453-71f6069568d1" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(33).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(33).png"/></a></figure><figure id="d17bac67-acdb-4440-a1d9-f6ebd643a490" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(35).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(35).png"/></a></figure><figure id="eca5a203-402e-40ae-aa88-feaa9c2878a1" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(34).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(34).png"/></a></figure><h3 id="199bc26e-94ee-43cd-9bcd-ebe4bd73bb70" class="">6040a96cdcc614001153fc55-docker-log-post-processing_post-processing-stashed</h3><figure id="e2f22ac8-b5e7-4afe-b969-f770159a13e3" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(36).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(36).png"/></a></figure><figure id="685cb147-9860-451e-8a3a-6c92787be3b9" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(37).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(37).png"/></a></figure><figure id="843a485f-05e2-4a21-8b26-cb7cc6d47e09" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(38).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(38).png"/></a></figure><h3 id="1f463ba8-a7cd-45f4-8752-1e55ea3d17d6" class="">6040a96cdcc614001153fc55-docker-log-nginxweblate_weblate-stashed</h3><figure id="35953220-7311-4329-9d0e-df5e222327b3" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(39).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(39).png"/></a></figure><figure id="7d1b2367-c38c-42d0-a8ad-4d80f82acc6b" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(41).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(41).png"/></a></figure><figure id="cf5405e7-b499-41c1-b74a-6b44f79e04f9" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(40).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(40).png"/></a></figure><h3 id="05b9772d-eebf-44ff-a187-58af9fc7ba6e" class="">6040a96cdcc614001153fc55-docker-log-apachedocumentation_bookstack-stashed</h3><figure id="9fe0e3df-4921-44fb-bb77-6107e448c5ec" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(45).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(45).png"/></a></figure><figure id="84cb36bf-a481-4ddc-8412-f3c1d78395ea" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(46).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(46).png"/></a></figure><figure id="8e273304-fa08-40cf-921a-7d5cd7633406" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(47).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(47).png"/></a></figure><h3 id="155a1be7-70cb-4adc-90d5-8af907295493" class="">6040a96cdcc614001153fc55-docker-log-nginxappsmith_appsmith-nginx-stashed</h3><figure id="ba570f4e-5517-4f56-a88d-403ab6a3d239" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(48).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(48).png"/></a></figure><figure id="c214336c-fd45-4270-a890-efdfc4896303" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(49).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(49).png"/></a></figure><figure id="bf47baae-5c39-4a9f-a7e6-e5010271d0aa" class="image"><a href="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(50).png"><img style="width:1600px" src="../../../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogFrequency%207bb8dc3e8f6949adb4d1880013d74b60/LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(50).png"/></a></figure></div></article></body></html>

@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Experiment with classification algorithms</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7aaa90b7-d9f4-4a85-83df-1455bdc37372" class="page sans"><header><h1 class="page-title">Experiment with classification algorithms</h1><p class="page-description"></p></header><div class="page-body"><p id="21a55c4d-2fdf-493b-9f13-72f77124ffa5" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><p id="96789e98-bc0e-4008-8ce4-9db7a5ed8368" class="">Jira tickets: BEP-798, BEP-851</p><nav id="92875ea9-dffd-44f6-9d9e-eee53a95ef8a" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#432e5e85-6cab-4031-8e71-f27740445506">Summary</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a329573d-7374-4d4e-97df-02b3cbe1f2b1">Experiment with standard dataset</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3b9232b6-ba48-4355-8041-1d5daa600f04">Experiment with synthetic data</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#17c43aee-a3d8-42ac-94e5-c4e927f64457">Observations with synthetic data</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#748b974d-e7fe-4bca-a412-40d4cf0a162b">Handling seasonal data and unseen classes, in general</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14ed9fcd-5914-4e44-a778-b2adfb85bc5d">Sparse and step shape classification</a></div></nav><h3 id="432e5e85-6cab-4031-8e71-f27740445506" class="">Summary</h3><ul id="839e1de1-d006-4930-8683-dcf8aafb6696" class="bulleted-list"><li style="list-style-type:disc">We are mainly interested in time-series that are seasonal, sparse, step, step with noise, only white noise. </li></ul><ul id="7e1a532b-65a7-4eb6-a74a-8852fa174730" class="bulleted-list"><li style="list-style-type:disc">Seasonal time-series belonging to different time periods, are seen as belonging to separate classes by a multi-class classifier. Also, a seasonal time-series could be sparse or step shaped or made of values that are periodic globally but are high frequency locally.</li></ul><ul id="1645e6d4-89b2-47ff-8f86-2810b62a6dea" class="bulleted-list"><li style="list-style-type:disc">Thus, an important concern is how to classify time series belonging to unseen classes. The time series classification task can be addressed by a system, which is made of separate and interacting approaches: one of the approaches will handle seasonality identification, others will handle sparse and step shaped time-series.</li></ul><ul id="441973a0-9865-4650-99c2-c0afbf817150" class="bulleted-list"><li style="list-style-type:disc">There is a very robust approach that can identify whether a time series belongs to the category of (sparse or step) or others. The approach could be further extended to differentiate between sparse (with concept shift) and step.</li></ul><h3 id="a329573d-7374-4d4e-97df-02b3cbe1f2b1" class="">Experiment with standard dataset</h3><p id="72186c82-534f-486e-b77d-07b8944808b6" class="">Summary:</p><p id="759339ca-49b4-425a-b795-a1da764ff9c7" class="">As a light weight and well performing univariate time series classification algorithm, Rocket is a good choice.</p><p id="79396cf6-3938-4a16-bd37-42c0a7abf9eb" class="">The following algorithms were tried:</p><ul id="4a836b64-52d9-4007-bbb5-49a5c2f42839" class="bulleted-list"><li style="list-style-type:disc">&quot;ROCKET: Exceptionally fast and accurate time series classification using random convolutional kernels&quot;, Dempster et al, 2019. <ul id="b0b293de-97bc-42e6-91be-a52241725c7e" class="bulleted-list"><li style="list-style-type:circle">Implementation from sktime was tried: <a href="https://www.sktime.org/en/latest/examples/rocket.html">https://www.sktime.org/en/latest/examples/rocket.html</a></li></ul><ul id="94cc697f-a03d-4d15-bea3-856e81795051" class="bulleted-list"><li style="list-style-type:circle">Authors also have their repo:<p id="a3ea9e80-51bd-47f2-9fc9-a3ac8ab541cf" class=""><a href="https://github.com/angus924/rocket">https://github.com/angus924/rocket</a></p></li></ul><p id="cd9ad002-326b-42f1-a4dc-eec2e1c9ee96" class="">
+</p></li></ul><ul id="938310db-9eb6-4235-b200-471a81370d6f" class="bulleted-list"><li style="list-style-type:disc">&quot;Classification of time series by shapelet transformation&quot;, Hills et al, Data Mining and Knowledge Discovery, 2014.<ul id="f46e1b20-415a-4355-b7de-c79d6af95c1c" class="bulleted-list"><li style="list-style-type:circle">Implementation from sktime was tried:<p id="648f228a-91be-4a91-af59-148c3a905d18" class=""><a href="https://www.sktime.org/en/latest/examples/shapelet_transform.html">https://www.sktime.org/en/latest/examples/shapelet_transform.html</a></p></li></ul></li></ul><ul id="a561eaa1-a788-4136-be74-0fbd5e34eb7c" class="bulleted-list"><li style="list-style-type:disc">&quot;Unsupervised scalable representation learning for multivariate time series&quot;, Franceschi et al, NeurIPS, 2019.<ul id="218ced84-c050-4d2b-88ee-dc00b364ff3c" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/White-Link/UnsupervisedScalableRepresentationLearningTimeSeries">https://github.com/White-Link/UnsupervisedScalableRepresentationLearningTimeSeries</a></li></ul></li></ul><p id="1b545281-6c77-4d15-9da4-f71f8e38671c" class="">
+</p><p id="ed3fda65-de9e-424c-86e5-d8db3e884c8f" class="">Univariate time series from University of California, Riverside repository was used for tests:</p><ul id="eb751d36-fe49-4713-8cd4-f225420f8693" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.cs.ucr.edu/~eamonn/time_series_data_2018/">https://www.cs.ucr.edu/~eamonn/time_series_data_2018/</a></li></ul><p id="3be797c7-a564-4ecf-b107-6a41886fed10" class="">
+</p><p id="f973daf0-c157-4a5b-8c89-5ce7e5b4ce39" class="">The following notebook shows results with Rocket and Shapelet transform:</p><figure id="e3edeb82-8755-474c-8569-7b6e622e6d3c"><div class="source"><a href="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/benchmark_ucr.ipynb">benchmark_ucr.ipynb</a></div></figure><ul id="42d7e222-bd94-4742-981c-d03d9b946c70" class="bulleted-list"><li style="list-style-type:disc">In this experiment, sktime&#x27;s Rocket throws error for unequally sized time series. However, the Rocket paper talks about dealing with unequal time series. The paper mentions about adding white noise padding and about extracting two global features (max and percentage of positive values) per convolution kernel. This error because of unequal lengths is not important for us. For our use cases, we can make sure that the time series are of same length.</li></ul><ul id="b6d1dafa-b0ac-45f9-97a5-d76c82bcbe1a" class="bulleted-list"><li style="list-style-type:disc">The Shapelet transform may fail to identify discriminative shapelets for some datasets. It can be used for classification only if Shapelets have been identified for a dataset. The paper needs to be understood more. Based on the seven cases</li></ul><p id="7fa7b8f5-6467-4426-b3ce-24e01e758ffa" class="">
+</p><ul id="cccb719f-8d3e-47eb-86ed-3a8eedb2a0d3" class="bulleted-list"><li style="list-style-type:disc">&quot;Unsupervised scalable representation learning for multivariate time series&quot; was tested by running <code>python3 </code><code><a href="http://ucr.py/">ucr.py</a></code><code> --dataset Mallat --path path/to/Mallat/folder/ --save_path /path/to/save/models --hyper default_hyperparameters.json</code> as mentioned in the github page.<ul id="36ce6c5e-06e5-4e28-aeec-5b993ca34aae" class="bulleted-list"><li style="list-style-type:circle">The optimization ran for 4 hours on a local laptop and an error was encountered due to a line of code that refers to a deprecated feature from scikit-optimize.</li></ul><ul id="5cd7e77a-0aae-4a73-91d4-f5f24a99b116" class="bulleted-list"><li style="list-style-type:circle">This approach is interesting because it is unsupervised, it is scalable, it computes a representation for all time series (regardless of length) in the form of vectors of same length (the approach is inspired by word2vec) and it can address multivariate time series, also. They have shown results comparing to Shapelets.</li></ul><ul id="e1d77edf-e4b1-4452-9991-1f3c13704e2a" class="bulleted-list"><li style="list-style-type:circle">We can revisit this paper later.</li></ul></li></ul><p id="7c9f2c20-480c-4564-898d-4feef48760b1" class="">
+</p><h3 id="3b9232b6-ba48-4355-8041-1d5daa600f04" class="">Experiment with synthetic data</h3><figure id="c4f6e429-e513-4787-92b1-f8ce1669db48"><div class="source"><a href="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/three_classes.py">three_classes.py</a></div></figure><p id="4f737bbb-866a-4d0e-8c5e-768bd78426bd" class="">Synthetic samples of the following types were created and Rocket was trained on them:</p><ul id="00cff01e-a3dc-423f-85bd-7647909b965d" class="bulleted-list"><li style="list-style-type:disc">Sparse: low magnitude white noise, with occasional spikes.</li></ul><ul id="47e28091-59d8-4b70-8df6-548d15bfc9e1" class="bulleted-list"><li style="list-style-type:disc">Seasonal: differing amplitudes, phase and time period.</li></ul><ul id="3605f050-8d08-4c1a-87a5-714e36d65207" class="bulleted-list"><li style="list-style-type:disc">Step: Flat regions with occasional jump between flat regions.</li></ul><p id="c31a31f4-0b06-4b43-a9dd-4f908820165f" class="">100 samples of each type are generated and the train/test split is roughly 50-50. All the time series in a given class are given the same label.</p><p id="8d949bbf-5fa3-422b-a888-8739dac351f8" class="">Here is one set of time series:</p><p id="ac69a553-9c99-4ee2-8190-78e6348a963f" class="">All sparse time series</p><figure id="ab08d3d5-0121-4187-930d-924f103276b7" class="image"><a href="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/Figure_1.png"><img style="width:640px" src="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/Figure_1.png"/></a></figure><p id="2a3caac7-8767-4aef-aa3d-123db9c665a6" class="">A few of the sparse time series</p><figure id="619444fc-3803-487f-a8e8-ee853aaceb90" class="image"><a href="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/sparse_smaller_set.png"><img style="width:1848px" src="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/sparse_smaller_set.png"/></a></figure><p id="0b50a5b8-7dc5-4b0c-b6e5-0cd3081a26b5" class="">All seasonal time series</p><figure id="1d8da21f-dfbe-49c8-8d9d-f048b2a0425c" class="image"><a href="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/Figure_2.png"><img style="width:1848px" src="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/Figure_2.png"/></a></figure><p id="45b09c12-24c4-4780-a41e-060a42ef299b" class="">A few of the seasonal time series</p><figure id="b5c01ae4-70d2-4f02-9cf5-a652bd479018" class="image"><a href="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/seasonal_smaller_set.png"><img style="width:1848px" src="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/seasonal_smaller_set.png"/></a></figure><p id="e99154b9-ec8c-41e0-ae37-ce8a47eb0e42" class="">All step time series</p><figure id="4a38f22d-f3d7-4b79-be63-f0bfe806ad0f" class="image"><a href="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/Figure_3.png"><img style="width:1848px" src="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/Figure_3.png"/></a></figure><p id="af22e6e2-c685-4a12-9162-b7372dc18e63" class="">A few of the step time series</p><figure id="0858ea5f-bd43-4322-beb0-18b618640ee2" class="image"><a href="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/step_smaller_set.png"><img style="width:1848px" src="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/step_smaller_set.png"/></a></figure><h3 id="17c43aee-a3d8-42ac-94e5-c4e927f64457" class="">Observations with synthetic data</h3><ul id="4eb47327-024d-4a57-9aa9-0e66f1cd4aee" class="bulleted-list"><li style="list-style-type:disc">Multiclass classification using Rocket leads to almost 100% accuracy, when the set of seasonal time series are:<ul id="4ef80580-172f-4962-9380-52304279b4ef" class="bulleted-list"><li style="list-style-type:circle">All having the same time period.</li></ul><ul id="539d7eb4-0d5d-4c15-88df-7476fe305ad0" class="bulleted-list"><li style="list-style-type:circle">The training and test sets see samples from all possible time periods </li></ul></li></ul><ul id="df74fd4a-e76c-4a2c-b345-07cc9872cbf2" class="bulleted-list"><li style="list-style-type:disc">However, when the test set contains a time series with a period that is not seen during training, then that time series usually gets misclassified either as sparse or as step.</li></ul><ul id="f469f45b-afeb-4b79-8275-8330ca5f43cd" class="bulleted-list"><li style="list-style-type:disc">Thus, misclassification of unseen classes needs to be properly handled.</li></ul><h3 id="748b974d-e7fe-4bca-a412-40d4cf0a162b" class="">Handling seasonal data and unseen classes, in general</h3><p id="1c1e27ad-ad7d-4302-9932-98c03746bc8c" class="">One way to handle misclassification of unseen classes is to work with <strong>classifiers that output a confidence score for each class label</strong> and to train <strong>one-vs-all classifiers for each of the known classes</strong>. An unseen class will get a poor score from all these classifiers.</p><ul id="da18f05a-bb2e-4174-9455-cc21ea0780c1" class="bulleted-list"><li style="list-style-type:disc">Ridge classifier of scikit-learn handles multi-class classification based on one-vs-all classifiers and outputs confidence scores for each of the class. More investigation is needed to interpret these scores when input is an unseen class.</li></ul><h3 id="14ed9fcd-5914-4e44-a778-b2adfb85bc5d" class="">Sparse and step shape classification</h3><p id="01584bd3-5b8f-41d0-a899-96e3418e3d46" class="">Another way to handle misclassification of unseen time series, is to have <strong>a set of approaches, each of which is strong in identifying certain classes</strong>.</p><p id="2766db50-7d35-4c97-9c2c-ecb588a149a2" class="">
+</p><p id="d3daa2b7-9649-4d3d-b29d-1629fc368df1" class="">For sparse signals, observing the histogram is a strong way to judge whether a time series is made of sparse spikes or not. If we divide the values into histograms and observe a large fraction of the values in the histogram bins with lower value ranges, then almost surely the time series is sparse.</p><p id="30971da7-7073-44e4-b083-f3cf2c76aae3" class="">For step shaped time-series, the original time-series will not be sparse, while the first-order difference time-series will be sparse. This is true for step shaped time-series with noise also. This is a strong way to identify step shaped time-series.</p><p id="c16e09f2-87a8-4515-9186-7ecf4b0766cf" class="">Please, see the below scripts for results with synthetic data:</p><figure id="c9b44a3c-3695-4337-86d5-fcbaaa3af97e"><div class="source"><a href="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/test_sparse_classify.py">test_sparse_classify.py</a></div></figure><figure id="b05a9d5d-ccdd-4724-80b0-3b6d3ea22d3d"><div class="source"><a href="Experiment%20with%20classification%20algorithms%207aaa90b7d9f44a8583df1455bdc37372/test_step_classify.py">test_step_classify.py</a></div></figure><p id="549a80c5-a246-4e3f-b7f3-875ec96405ef" class="">
+</p><p id="7801071d-c6a4-4dff-ae0a-baad2b7980fe" class="">These approaches should <strong>work side by side</strong> with another approach that identifies whether a time-series is seasonal. A seasonal time-series could be sparse or step shaped or made of values that are periodic globally but are high frequency locally. Also, seasonality identification is linked with identifying the time period of the time-series. We have observed that time-series with time periods that are unseen during training can be misclassified. Thus, <strong>an approach for seasonality identification should work side by side with approaches for identifying sparse or step shaped. A time-series that is none of these (seasonal, sparse, step shaped), is almost surely white noise.</strong></p><p id="a5c41db1-1dd6-41eb-a854-acb376fb40d4" class="">
+</p><p id="b2e56a6e-7a83-45df-bc3b-db926150ddf4" class=""><strong>The problem with the above approach is that sparse time-series with a concept shift could be classified as step shaped time-series</strong>.</p><p id="4812db08-78a2-42bc-aea9-c0ec56f7aa66" class="">There are a few ways to deal with this:</p><ul id="f526ea9b-7574-4cc3-bb7b-bb17ba0a59af" class="bulleted-list"><li style="list-style-type:disc">Train a classifier (like Rocket) to discriminate between step shaped and sparse with concept shift.</li></ul><ul id="ff451b4a-7146-4a94-90d0-14806228a152" class="bulleted-list"><li style="list-style-type:disc">Look at the area under the curve representing the time-series. After normalizing the range of minimum to maximum values of a time-series between 0 to 1, we can see that a time-series that is sparse with concept shift will have lesser area under the curve, than a time-series that is made of only steps.<p id="cf845ad8-d491-492b-b1aa-55b77e4ef161" class="">In a sparse with concept shift time series, the presence of the spikes will limit the level of the concept shift. Thus, the area under the curve will be lesser.</p></li></ul><ul id="d06d68ef-4053-4722-89c7-8d1f22adda8e" class="bulleted-list"><li style="list-style-type:disc">Train a classifier which is based on features that capture local shapes better. Rocket, even though is based on kernels which act locally, the features for each kernel is based on global pooling (max and percentage of positive values).</li></ul></div></article></body></html>

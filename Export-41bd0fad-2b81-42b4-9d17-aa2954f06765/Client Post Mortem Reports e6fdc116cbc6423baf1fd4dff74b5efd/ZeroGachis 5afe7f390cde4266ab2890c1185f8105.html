@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>ZeroGachis </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5afe7f39-0cde-4266-ab28-90c1185f8105" class="page sans"><header><img class="page-cover-image" src="ZeroGachis%205afe7f390cde4266ab2890c1185f8105/Screenshot_2021-01-07_at_13.06.22.png" style="object-position:center 50%"/><h1 class="page-title">ZeroGachis </h1><p class="page-description"></p></header><div class="page-body"><p id="73bab02f-4c2a-4e7d-baad-493b5bc91d3e" class="">Call 7th Jan Notes: </p><p id="ff8372df-8c57-4853-a7d6-d41dc7af2a62" class=""><strong>Summary: </strong></p><ul id="386d3161-f34b-4e8b-bc1f-7e3016f7cc36" class="bulleted-list"><li style="list-style-type:disc">Overall went well </li></ul><ul id="504625bc-9b12-4058-b12e-72424e58930e" class="bulleted-list"><li style="list-style-type:disc">Agent installed with topo and managed ELK and back/front end worked well. ML to be tested. </li></ul><figure id="42d5ed53-e1e8-4f3c-a70f-d21f33b55ae3" class="image"><a href="ZeroGachis%205afe7f390cde4266ab2890c1185f8105/Untitled.png"><img style="width:2398px" src="ZeroGachis%205afe7f390cde4266ab2890c1185f8105/Untitled.png"/></a></figure><p id="623b300c-c103-4a2b-a518-a23fb4e57620" class="">
+</p><p id="b3301abd-9fa9-494f-a99e-8b7e2fbf563d" class=""><strong>Important Points: </strong></p><ul id="94ec514e-5951-4b91-8444-2b79c65d40f0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Check the internal error that packet agent generated ? - He said fortunately we did not install on prod. </span><div class="indented"></div></li></ul><figure id="48723c80-355e-411d-956a-7784cd967658" class="image"><a href="ZeroGachis%205afe7f390cde4266ab2890c1185f8105/Untitled%201.png"><img style="width:1878px" src="ZeroGachis%205afe7f390cde4266ab2890c1185f8105/Untitled%201.png"/></a></figure><ul id="0e2aacf1-2f9d-40b8-b0a8-1e64a8c7f97d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Doesn&#x27;t want to install Git on Production </span><div class="indented"></div></li></ul><ul id="6923e71e-cf66-449c-a805-a69af057a64d" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">ami-0a74b180a0c97ecd1 - image. He gave this as Abdel asked. </span><div class="indented"></div></li></ul><ul id="12c2b885-d58c-4daf-9b63-c3c89ffb34d3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Wants to use terraform, autoscaling groups - Abdel&#x27;s comment </span><div class="indented"></div></li></ul><ul id="27cbfbbf-5f43-47b2-820c-ded6d7613806" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Install on Rabbit which is not exposed to outside - through a gateway PacketAI server - on going (lower priority)   - privateLink </span><div class="indented"></div></li></ul><ul id="8a876bf3-1c34-417d-883f-f01b9aaec957" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked"><mark class="highlight-orange">Marin to add details on logs/ML logs/Metrics etc - detail here. </mark></span><div class="indented"></div></li></ul><ul id="1aa2d736-1c4d-46f8-b7bd-c0956ce8e321" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Doesn&#x27;t see names of Python services/container id (he cntrl f&#x27;ed but could not find some id) </span><div class="indented"></div></li></ul><ul id="482faf67-a8ea-4375-a792-8ff676d3b9c2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Aws was not tested </span><div class="indented"></div></li></ul><ul id="bf99e895-b755-46a4-bfe3-e62e38eda86b" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">we got less metric topics than expected </span><div class="indented"></div></li></ul><ul id="ab7b5d6c-5a3b-4924-b271-4342f4fa1b8a" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">we got less log topics than expected - log anomalies </span><div class="indented"></div></li></ul><ul id="406bd45a-49c7-4f5f-b04c-333669f46861" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">deactivate unsupported services - check the technos behind them </span><div class="indented"></div></li></ul><p id="5206a921-013e-4c8e-85a5-52b889866a60" class="">
+</p><ul id="9e70de8d-a7da-4b8b-b6a6-f78c5dd48891" class="to-do-list"><li><div class="checkbox checkbox-on"></div> <span class="to-do-children-checked">if PacketAI agent already installed, when updating we shouldn&#x27;t update agentid/identifier</span><div class="indented"></div></li></ul><p id="6696e5c5-8547-40d7-8d3f-653b12342cac" class="">
+</p><p id="31e4a798-0f95-4aac-8c10-4746fcf5ecb0" class=""><strong>Feature List: </strong></p><ul id="68f3a33a-707b-4e48-afe6-f8c531079cff" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Highlight USP&#x27;s of ELK - best features and explain it to him </span><div class="indented"><ul id="222c587c-56a3-438c-9858-7cd4b48dea1e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">How to search and filter using container names/id to see all logs together. Logs of multiple service in the same log dashboard</span><div class="indented"></div></li></ul><ul id="eeda4dc8-832d-43d1-8ffa-e1a4efe9c7b0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Alerting - he did not ask this time but guess that question would come up </span><div class="indented"></div></li></ul><p id="191ff839-5ef0-4880-94a5-3637742bdb41" class="">
+</p></div></li></ul><ul id="7fd22e0f-066a-45c3-a8cc-59033398ddd8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">How to label containers - he said that would be really helpful. Like Traefik tool - <mark class="highlight-orange">Abdel understood what he meant. </mark></span><div class="indented"></div></li></ul><ul id="09067d10-dd97-4a9c-baa0-6274c916d008" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Datadog feature  - Aggregate errors (5XX for example) for a route for example </span><div class="indented"><ul id="a394abd4-3017-441a-a498-6aa66ade642a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Using number of occurences so that we can filter using descending </span><div class="indented"></div></li></ul></div></li></ul><ul id="6a4f1eb3-74b1-4fc3-ab46-71839a6233fc" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Install agent on non-exposed instance </span><div class="indented"></div></li></ul><p id="5e94168b-32ae-446d-8e8b-6897d720015a" class="">
+</p><p id="ec1faea9-195b-4952-a906-57a6ea879bbb" class=""><strong>Next Steps: </strong></p><p id="06cac62e-86fc-4e0f-a1f4-f1e8a7232c04" class="">Organise a call for 21st Jan with <div class="indented"><ul id="f862497e-e480-4931-b968-3f66c649dc59" class="bulleted-list"><li style="list-style-type:disc">Things as discussed today - what issues we can cover by 21st. </li></ul><ul id="2ad253db-d6b3-4bf5-af6e-11f38f8c9dde" class="bulleted-list"><li style="list-style-type:disc">Send a report after 10 days i.e 20th Jan</li></ul><ul id="9f4b97bf-4917-4e5e-8333-be24f8d32c74" class="bulleted-list"><li style="list-style-type:disc">Monitor AWS as well on 21st Jan including ECS instances.  </li></ul><ul id="88f83e55-1912-4d22-9bac-e8290860f5b7" class="bulleted-list"><li style="list-style-type:disc">Francois to send a empty service template to show how they execute python apps - <span class="user">@florent marmol</span> can you please correct. </li></ul><ul id="6aca920b-d9bb-4e89-870b-2c6893cc4fdd" class="bulleted-list"><li style="list-style-type:disc">confirm containers being created and removed dynamically </li></ul><ul id="d0b06bdd-e7a1-4ca2-8b0e-db7999276d67" class="bulleted-list"><li style="list-style-type:disc">what&#x27;s the life time of containers generally? </li></ul><ul id="64ec16de-9af9-4c3a-ad21-f5e1476839dc" class="bulleted-list"><li style="list-style-type:disc">what&#x27;s most important to you to monitor in this environment, when an issue happens, how do you troubleshoot? </li></ul><ul id="effbd24b-f262-45f8-beab-ca09043f6ec7" class="bulleted-list"><li style="list-style-type:disc">when containers disappear and come back, the new ones are not activated, activation needs to be done by the user </li></ul><ul id="17d7b710-2aca-424a-a9e9-09bf72c34696" class="bulleted-list"><li style="list-style-type:disc">do you have stable containers? (for now it seems we have <del>7</del> 2 stables)</li></ul><ul id="a914f081-77b4-4486-b19c-3d614a1710a7" class="bulleted-list"><li style="list-style-type:disc">can we open ports to install the agent on Rabbitmq instance? </li></ul></div></p><p id="ad46583f-ae9f-4c41-b5eb-5cd14bc24a77" class="">
+</p><p id="387a3a11-d1ac-4f77-929c-0283a3c7eae8" class="">Meeting 08/01/2021</p><ul id="23b66693-4e11-4e12-b8a8-e42ab4a9e41b" class="bulleted-list"><li style="list-style-type:disc">Automatic activation of new containers </li></ul><ul id="1eb10a4a-970e-49b0-86e7-1a4d8e7d7a68" class="bulleted-list"><li style="list-style-type:disc">Abstraction of logical entities to group things </li></ul><p id="844e1750-08ec-4ca4-b849-32c4d5fd1165" class="">
+</p><p id="ff907c99-38f7-4fd4-b8b2-520879c71d99" class="">
+</p><p id="4a2eab07-748e-49a5-a4b8-ce760f42d249" class="">Notes 26th May: <a href="https://docs.google.com/spreadsheets/d/1zCj73_TTtF9jI3J4D9lqHji-MWgU2TPihPCPBOLyPdo/edit#gid=275450797">LINK</a></p><p id="8484ccdc-1ab5-440d-bdd7-bdd7aecf68e0" class="">
+</p></div></article></body></html>

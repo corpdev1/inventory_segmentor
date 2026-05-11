@@ -1,0 +1,686 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>AWS integrations - EKS</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="67249da9-9baa-4ba8-aa9a-3362f129b8be" class="page sans"><header><h1 class="page-title">AWS integrations - EKS</h1><p class="page-description"></p></header><div class="page-body"><nav id="500a0ded-d2c6-4dc7-86e5-c33f635d884a" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8bfe42a9-0af4-474c-a17e-ccb59ed3c285">What is Amazon EKS?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#94011485-c7be-44ae-8879-3acc91501c00">How EKS works</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#58b1251e-c36d-436d-905c-42506be846e3">Key metrics to monitor your EKS cluster</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#847c85c1-6bec-4346-9950-11e3c17e2b5c">Cluster state metrics</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#641efe37-2399-4602-b5f2-cc77e5cd2caf">Metrics to alert on:</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d1e3552a-db58-404c-b394-8e3f0a6cfeba">Metrics to watch: </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b69c79bf-981c-4978-86a2-48e86ca8d17d">Metrics to alert on: </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#eb5be9fb-cccb-4474-8fa7-18d336eb7db5">Metrics to watch:</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ec50ca35-46db-4ac7-9566-fca64b04a869">Monitoring applications and technologies inside kubernetes </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2e822725-76f2-47e3-949c-96c358f0e851">State of the art </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#95aa2b07-0fcb-43f1-a936-e0b863678fc8">The high cardinality problem </a></div></nav><h1 id="8bfe42a9-0af4-474c-a17e-ccb59ed3c285" class="">What is Amazon EKS?</h1><ul id="6b3ecb77-4f02-4b8e-8a33-4dcd9dcbb709" class="bulleted-list"><li style="list-style-type:disc">Amazon EKS (Elastic Container Service for Kubernetes) is a managed Kubernetes service that allows you to run Kubernetes on AWS <strong>without the hassle of managing the Kubernetes control plane.</strong></li></ul><ul id="c28142f1-d338-4877-a9d7-6db07326624a" class="bulleted-list"><li style="list-style-type:disc">EKS is certified Kubernetes conformant, meaning that any applications that run on native Kubernetes will run on EKS without modifications. And you can manage your cluster and the applications running on it with kubectl, the standard Kubernetes command line tool.</li></ul><p id="4df8c8ea-9b7c-4a51-9ee9-8917b79201ba" class="">
+</p><p id="d556a01d-8ffe-4e0c-a803-d04024601a97" class="">Note that we will focus on EC2-based EKS rather than <a href="https://docs.aws.amazon.com/eks/latest/userguide/fargate.html">EKS on AWS Fargate</a> in this guide. We will look at the following categories of metrics:</p><ul id="9db9d055-81f6-4d17-936e-e84d0478bbda" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.datadoghq.com/blog/eks-cluster-metrics/#cluster-state-metrics">Cluster state metrics</a></li></ul><ul id="a68fee63-d994-40f2-a841-713ae1c977f4" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.datadoghq.com/blog/eks-cluster-metrics/#resource-metrics">Container and node resource metrics</a></li></ul><ul id="38a186bd-1184-4d58-a394-bc363d1a4a7f" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.datadoghq.com/blog/eks-cluster-metrics/#aws-service-metrics">AWS service metrics</a></li></ul><h2 id="94011485-c7be-44ae-8879-3acc91501c00" class="">How EKS works</h2><p id="a7a7721e-d317-49aa-ac2d-ad26685274d0" class="">The primary distinction between an EKS cluster and a self-managed Kubernetes cluster is automation. Amazon automates the provisioning of your Kubernetes infrastructure, and it fully manages the control plane, as well as the networking between your control plane and worker nodes and between pods within each node.</p><figure id="987bf11d-dbfe-49fd-83cb-dd2178396735" class="image"><a href="AWS%20integrations%20-%20EKS%2067249da99baa4ba8aa9a3362f129b8be/Screenshot_2021-05-14_at_20.26.57.png"><img style="width:432px" src="AWS%20integrations%20-%20EKS%2067249da99baa4ba8aa9a3362f129b8be/Screenshot_2021-05-14_at_20.26.57.png"/></a></figure><h2 id="58b1251e-c36d-436d-905c-42506be846e3" class="">Key metrics to monitor your EKS cluster</h2><p id="bf3e9efa-1a40-4b1d-92a5-13f98474fd8d" class="">Understanding how your EKS cluster is performing means monitoring metrics and status checks from various layers. As mentioned in the introduction, these include:</p><ul id="75ccdaf3-8ba0-4bed-93dd-eab95448233a" class="bulleted-list"><li style="list-style-type:disc">the <a href="https://www.datadoghq.com/blog/eks-cluster-metrics/#cluster-state-metrics">state</a> of the various Kubernetes objects, such as pods and nodes and even your cluster’s control plane</li></ul><ul id="9c14618e-90aa-4feb-91d5-6f83f9872e5d" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.datadoghq.com/blog/eks-cluster-metrics/#resource-metrics">resource metrics</a>, including usage and capacity of containers, pods, and their underlying EC2 instances</li></ul><ul id="d3c76481-fa33-4f10-8fef-39e0074f0aeb" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.datadoghq.com/blog/eks-cluster-metrics/#aws-service-metrics">metrics for other AWS services</a> that support your EKS infrastructure and the applications running on it</li></ul><h3 id="847c85c1-6bec-4346-9950-11e3c17e2b5c" class="">Cluster state metrics</h3><p id="7144c058-5734-4288-a640-1174af0bb1d7" class="">Cluster state information is emitted by the Kubernetes API servers. They provide data about the count, health, and availability of various Kubernetes objects, such as pods.</p><figure id="0ba2653b-d10e-4e84-9bed-dfcdb2dd52e8" class="image"><a href="AWS%20integrations%20-%20EKS%2067249da99baa4ba8aa9a3362f129b8be/Screenshot_2021-05-18_at_14.53.05.png"><img style="width:1910px" src="AWS%20integrations%20-%20EKS%2067249da99baa4ba8aa9a3362f129b8be/Screenshot_2021-05-18_at_14.53.05.png"/></a></figure><p id="551fbcac-d6ce-449d-8d7c-8a80ac22bdcb" class="">While AWS manages the control plane components of your EKS cluster, it is still useful to track how those components are performing. Available metrics—like the number of requests to the API servers, or the latency of requests made by the control plane to AWS for infrastructure provisioning—can surface possible high-level problems with your cluster.</p><h3 id="641efe37-2399-4602-b5f2-cc77e5cd2caf" class="">Metrics to alert on:</h3><ul id="c23e2800-c1fc-405a-b143-9c6945a18121" class="bulleted-list"><li style="list-style-type:disc">node status </li></ul><ul id="5bd1e4fd-4b50-4f95-b81e-c796e0ae6ca5" class="bulleted-list"><li style="list-style-type:disc">Desired vs. current pods</li></ul><ul id="7a786a5e-393d-427f-9d2e-17094430fb0a" class="bulleted-list"><li style="list-style-type:disc">Pod capacity</li></ul><h3 id="d1e3552a-db58-404c-b394-8e3f0a6cfeba" class="">Metrics to watch: </h3><ul id="87673fd4-26dc-428d-b435-68629de52c44" class="bulleted-list"><li style="list-style-type:disc">Available and unavailable pods</li></ul><ul id="36f93c26-a89c-405c-9011-6e901f4cbadb" class="bulleted-list"><li style="list-style-type:disc">Control plane metrics<figure id="4293b9cb-56ef-4e94-8c65-6c3cc06246c9" class="image"><a href="AWS%20integrations%20-%20EKS%2067249da99baa4ba8aa9a3362f129b8be/Screenshot_2021-05-18_at_14.58.35.png"><img style="width:720px" src="AWS%20integrations%20-%20EKS%2067249da99baa4ba8aa9a3362f129b8be/Screenshot_2021-05-18_at_14.58.35.png"/></a></figure></li></ul><h3 id="b69c79bf-981c-4978-86a2-48e86ca8d17d" class="">Metrics to alert on: </h3><ul id="8290debd-19e9-4bd8-8628-ba168348f8f7" class="bulleted-list"><li style="list-style-type:disc">Memory limits per pod vs. memory utilization per pod</li></ul><ul id="cf4393df-d973-4e87-9a9f-157631a2365a" class="bulleted-list"><li style="list-style-type:disc">Memory utilization</li></ul><ul id="4e869da3-7f19-4f32-89db-ac1f198bb087" class="bulleted-list"><li style="list-style-type:disc">Memory requests per node vs. allocatable memory per node</li></ul><ul id="fd0d7701-df62-4a43-af36-cba9f8cf360d" class="bulleted-list"><li style="list-style-type:disc">Disk utilization<figure id="19a6ceb4-7ce5-4714-bc54-a6802a3a345a" class="image"><a href="AWS%20integrations%20-%20EKS%2067249da99baa4ba8aa9a3362f129b8be/Screenshot_2021-05-18_at_15.01.04.png"><img style="width:1728px" src="AWS%20integrations%20-%20EKS%2067249da99baa4ba8aa9a3362f129b8be/Screenshot_2021-05-18_at_15.01.04.png"/></a></figure></li></ul><h3 id="eb5be9fb-cccb-4474-8fa7-18d336eb7db5" class="">Metrics to watch:</h3><ul id="f75e311c-6e63-43ce-a478-4e5845d1f31f" class="bulleted-list"><li style="list-style-type:disc">CPU requests per node vs. allocatable CPU per node</li></ul><p id="dd4aca2d-192d-43ce-afd5-887fdda2ff6c" class="">
+</p><h3 id="ec50ca35-46db-4ac7-9566-fca64b04a869" class="">Monitoring applications and technologies inside kubernetes </h3><p id="2a80e029-70e6-432f-9670-6b23548e9820" class=""><strong>Specifications</strong></p><ul id="61ae23e7-9937-4ed8-96d1-27b8583adcf7" class="bulleted-list"><li style="list-style-type:disc">user should be able to monitor business services: booking, payment ... <ul id="d3494018-0749-4091-aaa7-8c7d85825097" class="bulleted-list"><li style="list-style-type:circle">grouping by deployments vs by logical entities ?</li></ul></li></ul><ul id="83cba1c4-b434-4e53-854c-5179d76c3849" class="bulleted-list"><li style="list-style-type:disc">each business service should have a dashboard that shows global charts and individual charts (similar to docker dashboard we have)</li></ul><ul id="83d0f2e0-e3eb-4433-bfd4-16e11e3881cd" class="bulleted-list"><li style="list-style-type:disc">user should be able to monitor cluster health (dashboard already available but could be extended to grafana equivalent)</li></ul><ul id="9d921faf-eacb-4e1e-a02b-e9c191170f8b" class="bulleted-list"><li style="list-style-type:disc">user should be able to monitor high level kube controller: deployments, daemonsets, statefulsets ...  </li></ul><ul id="feedb00a-45b4-48fc-a124-b2fd069e34d6" class="bulleted-list"><li style="list-style-type:disc">the tool needs to track pods (technos) in case of scale up, scale down </li></ul><p id="a83bc13b-5ddc-451d-ad61-8481c9c95ae1" class="">
+</p><p id="14f6cc92-e056-42be-9f11-5f5cf114f767" class=""><strong>Progress 03/10/2021: </strong></p><p id="6d4e4972-4064-4de3-9e06-9a7df39668d4" class="">For first iteration: </p><ul id="6d66ae47-81f8-4eaa-9e75-ad41f34c5b5b" class="bulleted-list"><li style="list-style-type:disc">we are lacking dashboards </li></ul><ul id="b3a6de6a-18bc-4a90-9df6-c9c9616a754e" class="bulleted-list"><li style="list-style-type:disc">we have topology but not plugged into other parts </li></ul><ul id="0aad3ed6-128c-456a-b557-89047cba2744" class="bulleted-list"><li style="list-style-type:disc">we need to figure out ES data architecture </li></ul><p id="c0e2f71c-1d34-4656-8a48-6c21ba29dcef" class="">
+</p><p id="62e24c4b-c93b-478d-99dd-f37191ead069" class=""><strong>Data pipelines  </strong></p><ul id="a88a7f39-3e1b-474c-8fda-dc63ae21b8fe" class="bulleted-list"><li style="list-style-type:disc">metrics and logs of integrations are being separated into different topics on kafka </li></ul><ul id="cf006a23-548b-4c39-9e05-7bfdec833143" class="bulleted-list"><li style="list-style-type:disc">one index per integration ? pros , cons ? </li></ul><p id="3ba74e90-fe68-4f8a-be1d-c179a443553e" class="">
+</p><p id="644f7485-7ab8-4dca-9b26-bc265928fca2" class=""><strong>Datadog </strong></p><p id="4633a4d6-6a94-47ed-ba24-0a8dfeb78cf8" class=""><a href="https://www.datadoghq.com/blog/monitoring-kubernetes-with-datadog/#autodiscovery">Autodiscovery</a></p><p id="67e5098e-40d1-4aa3-89ce-d9ae9f514f0b" class="">Thanks to the Datadog Agent’s Autodiscovery feature, you can continuously monitor your containerized applications without interruption even as they scale or shift across containers and hosts. Autodiscovery listens for container creation or deletion events and applies configuration templates accordingly to ensure that containerized applications are automatically monitored as they come online. </p><p id="f554816b-1f75-4c9d-b02b-241cab794a25" class="">video here <a href="https://imgix.datadoghq.com/img/blog/service_discovery.mp4">https://imgix.datadoghq.com/img/blog/service_discovery.mp4</a></p><p id="9c023a9f-ff4c-40cf-b3a1-51fd57dec7a1" class=""><span style="border-bottom:0.05em solid">When config is necessary</span></p><p id="ce301324-8964-4eaf-91d9-9e35bd554002" class="">For services that require user-provided configuration details (such as authentication credentials for a database), you can use Kubernetes pod annotations to specify which Datadog check to apply to that pod, as well as any details necessary to configure the monitoring check. For example, to configure the Datadog Agent to collect metrics from your MySQL database using an authorized <code>datadog</code> user, you would add the following pod annotations to your MySQL pod manifest:</p><pre id="4c811aee-6246-4cf2-8582-cc6d91c4e2d9" class="code code-wrap"><code>annotations:
+  ad.datadoghq.com/mysql.check_names: &#x27;[&quot;mysql&quot;]&#x27;
+  ad.datadoghq.com/mysql.init_configs: &#x27;[{}]&#x27;
+  ad.datadoghq.com/mysql.instances: &#x27;[{&quot;server&quot;: &quot;%%host%%&quot;, &quot;user&quot;: &quot;datadog&quot;,&quot;pass&quot;: &quot;&lt;UNIQUEPASSWORD&gt;&quot;}]&#x27;</code></pre><p id="e0013e47-bbfc-469f-883a-b65b3e251965" class="">
+</p><h1 id="2e822725-76f2-47e3-949c-96c358f0e851" class="">State of the art </h1><figure id="b1a829a8-88f1-4b90-bf20-4ac081ee978c" class="link-to-page"><a href="AWS%20integrations%20-%20EKS%2067249da99baa4ba8aa9a3362f129b8be/Comparison%20post%20by%20logzio%20b1a829a888f14b90bf204ac081ee978c.html">Comparison post by logzio </a></figure><figure id="03409541-fb5b-4dbb-8d26-bac4cd5ced3e" class="link-to-page"><a href="AWS%20integrations%20-%20EKS%2067249da99baa4ba8aa9a3362f129b8be/Monitor%20EKS%20with%20Elastic%2003409541fb5b4dbb8d26bac4cd5ced3e.html">Monitor EKS with Elastic </a></figure><figure id="3f2ad6f9-df3b-4621-9ef1-d82233cf71f3" class="link-to-page"><a href="AWS%20integrations%20-%20EKS%2067249da99baa4ba8aa9a3362f129b8be/Monitor%20EKS%20with%20Datadog%203f2ad6f9df3b46219ef1d82233cf71f3.html">Monitor EKS with Datadog</a></figure><figure id="1933b431-8a6e-4a31-912c-2b3b6e63060b" class="link-to-page"><a href="AWS%20integrations%20-%20EKS%2067249da99baa4ba8aa9a3362f129b8be/Monitor%20EKS%20with%20Dynatrace%201933b4318a6e4a31912c2b3b6e63060b.html">Monitor EKS with Dynatrace</a></figure><figure id="ed9979fd-b52c-45af-ae73-eee656caf02e" class="link-to-page"><a href="AWS%20integrations%20-%20EKS%2067249da99baa4ba8aa9a3362f129b8be/PacketAI%20design%20ed9979fdb52c45afae73eee656caf02e.html">PacketAI design </a></figure><h1 id="95aa2b07-0fcb-43f1-a936-e0b863678fc8" class="">The high cardinality problem </h1><ul id="cabd515e-0c02-4933-a918-dfdc4d202648" class="bulleted-list"><li style="list-style-type:disc">logzio: <a href="https://logz.io/blog/cardinality-challenge-in-monitoring/">https://logz.io/blog/cardinality-challenge-in-monitoring/</a></li></ul><ul id="89b9e8eb-7e03-4c8a-8ee7-daf60d47bb14" class="bulleted-list"><li style="list-style-type:disc">signalFX: <a href="https://www.splunk.com/en_us/blog/devops/high-cardinality-monitoring-is-a-must-have-for-microservices-and-containers.html">https://www.splunk.com/en_us/blog/devops/high-cardinality-monitoring-is-a-must-have-for-microservices-and-containers.html</a></li></ul><ul id="4d72ec0e-2096-450c-97c4-e71def31aec0" class="bulleted-list"><li style="list-style-type:disc">cardinality of 10.000s: <a href="https://smarketshq.com/monitoring-kubernetes-clusters-41a4b24c19e3">https://smarketshq.com/monitoring-kubernetes-clusters-41a4b24c19e3</a></li></ul><p id="8f48c30e-9a5b-4d11-abc1-768bc2964ae7" class="">
+</p></div></article></body></html>

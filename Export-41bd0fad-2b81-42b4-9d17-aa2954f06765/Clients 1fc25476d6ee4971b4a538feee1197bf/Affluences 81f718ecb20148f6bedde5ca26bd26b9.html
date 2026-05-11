@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Affluences </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="81f718ec-b201-48f6-bedd-e5ca26bd26b9" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/affluence.png"/></div><h1 class="page-title">Affluences </h1><p class="page-description"></p></header><div class="page-body"><p id="83d2e44e-25b7-455e-99c2-85da94ecfddb" class=""><a href="https://app-affluences.packetai.co/">https://app-affluences.packetai.co/</a></p><p id="025db4a4-0a26-49e7-a994-49c673151a3d" class="">
+</p><figure id="39638866-d87b-4bbb-a77d-8f7de4b17d7f" class="image"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/AFfluences.png"><img style="width:1920px" src="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/AFfluences.png"/></a></figure><p id="4fdfd0e7-4051-4812-adab-532f95c14c2b" class=""><strong>18 monitored components:</strong></p><ul id="93678fd6-2e7d-41ac-8096-9bcafa73a07e" class="bulleted-list"><li style="list-style-type:disc">5 (4 active) Linux hosts</li></ul><ul id="18be518c-377e-449d-8c3c-7279decc89fc" class="bulleted-list"><li style="list-style-type:disc">1 Apache</li></ul><ul id="b8cd4723-5285-499a-bd16-b80d8ce92234" class="bulleted-list"><li style="list-style-type:disc">1 Docker</li></ul><ul id="9944cb74-1dd0-49ca-a05c-00ce0635025d" class="bulleted-list"><li style="list-style-type:disc">7 (3 -5 active) Node</li></ul><ul id="b84e7a5d-1b34-405e-baa6-f0c798ebf2b2" class="bulleted-list"><li style="list-style-type:disc">1 Python</li></ul><ul id="a1d1dd2d-c929-495d-80ed-17c60056b088" class="bulleted-list"><li style="list-style-type:disc">1 RabbitMQ</li></ul><ul id="961e0d37-ea67-4b04-a7ae-3460db6ba6cc" class="bulleted-list"><li style="list-style-type:disc">1 Ruby</li></ul><ul id="2f9cb381-dd98-47c3-891a-7cf463b5f8b8" class="bulleted-list"><li style="list-style-type:disc">1 Application (Prometheus)</li></ul><p id="8d70b3ac-90c2-4474-a703-ec4d8acccdb2" class="">
+</p><figure id="60a1ee57-83f2-4c76-8ced-57b8ca65abb0" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Notes%20and%20details%2060a1ee5783f24c768ced57b8ca65abb0.html">Notes and details</a></figure><figure id="633bb207-78cc-4332-abc1-ac9a300f548f" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/First%20installation%20633bb20778cc4332abc1ac9a300f548f.html">First installation</a></figure><figure id="edbc4600-06ef-48f7-85df-3cceecd33bbb" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Update%2012%2003%202021%20edbc460006ef48f785df3cceecd33bbb.html">Update 12.03.2021:</a></figure><figure id="7121f836-8f3a-4d93-a906-577227f86894" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Tasks%2025th%20March%207121f8368f3a4d93a906577227f86894.html">Tasks 25th March </a></figure><figure id="0c2a2138-fc75-433c-b2b3-eeee6fb7d703" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Notes%20Hardik%2029th%20April%200c2a2138fc75433cb2b3eeee6fb7d703.html">Notes Hardik 29th April </a></figure><figure id="ab4caf39-6eba-4e23-bc2a-013af848a817" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Installation%20meeting%2012-05-2021%20ab4caf396eba4e23bc2a013af848a817.html">Installation meeting 12-05-2021</a></figure><figure id="2471fc37-51de-44fa-9396-889afceeac00" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/17%2005%202021%20What%20we%20need%20to%20convert%20Affluences%20MRR%20%202471fc3751de44fa9396889afceeac00.html">17/05/2021: What we need to convert Affluences. MRR 300-400$ (Trial started: 05/03/2021) </a></figure><figure id="85e1d71f-b4cd-4b66-8061-8dad874bd913" class="link-to-page"><a href="../Diverse%2070ea1f3aa989477baacfb70e9bf0febc/Internal%20Product%20Feedback%20&amp;%20Issues%20645f30682db146dca1f7901e9b257ed3/Notes%2003%2006%202021%2085e1d71fb4cd4b6680618dad874bd913.html">Notes 03/06/2021:</a></figure><figure id="86d91fae-cf78-4471-9895-0da6ee9759b4" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/17th%20june%2086d91faecf78447198950da6ee9759b4.html">17th june </a></figure><p id="363d7958-0ab5-4430-8bf6-0fc7ab932bf9" class="">
+</p><figure id="45b7bbb5-e2f3-467b-b03a-e6fd768c435b" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/RBAC%20&amp;%20thresholds%2045b7bbb5e2f3467bb03ae6fd768c435b.html">RBAC &amp; thresholds </a></figure><p id="d931550b-483a-4ec6-a46f-d313424d4173" class="">
+</p><figure id="a89240db-fabd-4364-910c-32d634e2c2c5" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/ML%20Plan%20a89240dbfabd4364910c32d634e2c2c5.html"><span class="icon">🚪</span>ML Plan</a></figure><figure id="25a00e93-ff03-4280-a911-dcf817c99fb7" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/ML%2025a00e93ff034280a911dcf817c99fb7.html">ML  </a></figure><figure id="927bfc77-2287-494a-ac04-2d0110b561bd" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Alerts%20927bfc772287494aac042d0110b561bd.html"><span class="icon">⚠️</span>Alerts</a></figure><figure id="3153034f-6573-4b92-86f0-c7088a7fbdcb" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Role%20based%20Access%203153034f65734b9286f0c7088a7fbdcb.html"><span class="icon">🔓</span>Role based Access</a></figure><figure id="fe0d0572-1923-4129-b2d9-15ec783f4e32" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Demo%20Affluences%201st%20July%202021%20fe0d057219234129b2d915ec783f4e32.html">Demo Affluences 1st July 2021</a></figure><figure id="135b252a-0c95-4106-9ab1-2dc4f905d16f" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Questions%20post%20meeting%20135b252a0c9541069ab12dc4f905d16f.html">Questions post meeting</a></figure><p id="6fd433d0-ad9b-47ae-b48d-390a90ee2731" class="">
+</p><figure id="11eee686-ff63-4793-8b3e-7d0e66b26401" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Business%20metrics%2011eee686ff6347938b3e7d0e66b26401.html">Business metrics</a></figure><figure id="9869aba9-4f0a-465d-9335-225ec03bf739" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Questions%209869aba94f0a465d9335225ec03bf739.html">Questions</a></figure><figure id="3a19b0ff-f66d-4ecc-a3fc-44c6392a9cc9" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/CheckList%203a19b0fff66d4ecca3fc44c6392a9cc9.html">CheckList </a></figure><p id="7d2ee534-0e4b-4e1a-8c22-120448bda961" class="">
+</p><figure id="9a9dfcbb-c607-4670-988f-36f7b35d1a3d" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Running%20PacketAI%20Agents%20inside%20container%209a9dfcbbc6074670988f36f7b35d1a3d.html">Running PacketAI Agents inside container</a></figure><figure id="5c18210a-bcbb-4eda-b37f-8d022eace11b" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Update%20on%20July%2027th%202021%205c18210abcbb4edab37f8d022eace11b.html">Update on July 27th 2021</a></figure><figure id="d69b9990-1c48-438d-a255-69a17484178f" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Version%201%20-%2015th%20September%20d69b99901c48438da25569a17484178f.html">Version 1 - 15th September</a></figure><figure id="ab966aaf-20e9-4c12-83df-5bd5c9a51754" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/API-Tokens%20ab966aaf20e94c1283df5bd5c9a51754.html">API-Tokens</a></figure><figure id="634bd46a-e56f-4627-aec1-48a328f42614" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Alerts%20Thresholds%20634bd46ae56f4627aec148a328f42614.html">Alerts/Thresholds</a></figure><figure id="452451ac-0c11-49b1-a69b-4e4529a2e7e3" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Meetings%20452451ac0c1149b1a69b4e4529a2e7e3.html">Meetings</a></figure><figure id="fb5927d3-2a96-450d-b12e-cfb053a1838d" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Feedback%20Call%2016th%20December%202021%20fb5927d32a96450db12ecfb053a1838d.html">Feedback Call 16th December 2021</a></figure><p id="cbae5044-0dd7-4b74-8e3c-103af0c3777a" class="">
+</p><figure id="9742f0cf-a953-48e7-8d82-21b0ca1a48b8" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Affluences%20monthly%20report%2023-11-2021%20WIP%209742f0cfa95348e78d8221b0ca1a48b8.html"><span class="icon">📊</span>Affluences monthly report 23-11-2021   WIP </a></figure><figure id="a0487be9-60a0-4069-9efa-c23da48dfd46" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Logfrequency%20deployments%20Affluences%20@January%2019,%202%20a0487be960a040699efac23da48dfd46.html">Logfrequency deployments Affluences @January 19, 2022</a></figure><figure id="63a46347-6aa1-45ff-9645-c85c1abf86ed" class="link-to-page"><a href="Affluences%2081f718ecb20148f6bedde5ca26bd26b9/Logfrequency%20anomalies%20from%20@January%2028,%202022%20till%2063a463476aa145ff9645c85c1abf86ed.html">Logfrequency anomalies from @January 28, 2022 till @January 30, 2022 </a></figure><p id="26ba5930-69af-4122-80aa-b11e364f070b" class="">
+</p></div></article></body></html>

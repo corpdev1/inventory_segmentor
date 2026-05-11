@@ -1,0 +1,14 @@
+﻿feature,MSK,kinesis,confluent cloud on aws(https://www.confluent.io/confluent-cloud),self build kafka cluster on aws
+authentification,buy private CA 400$/month,"Natively No, but can use IAM roles to control user's operation permission, maybe should setup api gateway like application load balancer with amazon cognito before kinesis",,
+encription,"yes, use amazon CMK","yes, use amazon CMK",,
+Retention time,configurable,max 7 days,,
+Integration with other aws service,"also have some like Kinesis Data Analytics, EMR etc","Better, like Firehouse, analytics, lambda function, Redshift, DynamoDB, Lambda, EMR etc",,
+performance,Can be > 1000events/s for each partition,Max 1000events/s per shard,,
+order garantee level,partition,shard,,
+scalability,"1.have api to increase broker number, but can’t decrease broker number,                                        2.broker instance type limited(t3 and m5), can't change broker instance type                                                                3.only increase the amount of storage, you can't decrease it.                                                                          4. so need cluster sizing exercise prior to resource provisioning",Can use cloudWatch and lambda function to call api to auto scale up and down shards,,
+price,"for 15 brokers of m5.12xlarge that handles 310 MB/sec:                                                                   Brokers charge: 31 days * 24 hours * 15 brokers * 5.04$ = 56,246$/month
+Storage charge (7d retention): 310MB/sec * 3600s * 24h * 7d / 1000 * 0.1$= ±18,200 $ / month
+Total price: ±75,000 $","For low volume workloads (up to 10 MB/sec), Kinesis is cheaper to set up and operate compared to the fixed cost of setting up and operating an MSK cluster to process the same volume.                     the cost scales directly with the number of shards used",,
+Maintenability,"setup easy, monitoring, Amazon takes care","setup easy, monitoring, Amazon takes care",,
+Reliability,"support mutliple Available zone, high available, failure recovery, Amazon takes care","support mutliple Available zone, high available, failure recovery, Amazon takes care",,
+message delivery,exactly-once delivery,at-least-once  delivery,,

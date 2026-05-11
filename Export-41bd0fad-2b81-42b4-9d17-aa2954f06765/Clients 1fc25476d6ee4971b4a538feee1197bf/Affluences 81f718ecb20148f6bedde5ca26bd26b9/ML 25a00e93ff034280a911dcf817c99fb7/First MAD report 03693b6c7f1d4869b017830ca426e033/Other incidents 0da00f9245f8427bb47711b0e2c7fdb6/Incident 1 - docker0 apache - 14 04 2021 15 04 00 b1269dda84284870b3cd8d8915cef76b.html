@@ -1,0 +1,682 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Incident 1  -  docker0.apache -  14/04/2021 15:04:00  </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="b1269dda-8428-4870-b3cd-8d8915cef76b" class="page sans"><header><h1 class="page-title">Incident 1  -  docker0.apache -  14/04/2021 15:04:00  </h1><p class="page-description"></p></header><div class="page-body"><nav id="b9a41dc6-cbb8-4721-8d79-4e039e67e5d6" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#47af9fe5-81b8-4625-8b17-9a36a659830f">Incident infos</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c8a29cf5-1164-4aa9-abce-d7593b15a4f1"><strong>Symptomatic abnormal KPIs  </strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4f2b700c-1308-4fb9-8350-09dfa37678e6">Mysql</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#cd5268aa-a61e-46ee-9e13-37d6ae64fb72">Host</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#708dc9ca-6f02-421f-aa2f-2526fee79de8"><strong>Root cause</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#927655b6-37c8-43d5-92aa-33118b30e71d"><strong>General comment</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#87d8cd80-a1e5-46bd-a000-eb1d7a5cbf80"><strong>Algos output </strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1b128148-3d9d-4196-b823-48fc9719889a"><strong>Manual validation</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2d70b897-2c95-45d6-807b-54f3aa7a7a64"><strong>Manual investigation</strong></a></div></nav><h2 id="47af9fe5-81b8-4625-8b17-9a36a659830f" class="">Incident infos</h2><p id="ebb5c2b9-adb8-4321-aac3-56ef53dcb23c" class=""><strong>Timestamp</strong>: 14/04/2021, 15:04:30</p><p id="dd0bc184-4d14-495f-a66f-e53abb499f7a" class=""><strong>Affected component:</strong> docker0.apache </p><ul id="f01bd1e0-ee82-4c10-a6b8-43558f9b4364" class="bulleted-list"><li style="list-style-type:disc">propagating incident (host - apache)</li></ul><ul id="943127a3-9346-4dc0-b932-8309e3636bc5" class="bulleted-list"><li style="list-style-type:disc">33 abnormal metrics on mysql </li></ul><ul id="53b63357-5b63-48d1-a08a-b0642a87c5bd" class="bulleted-list"><li style="list-style-type:disc">10 abnormal metrics on host </li></ul><h2 id="c8a29cf5-1164-4aa9-abce-d7593b15a4f1" class=""><strong>Symptomatic abnormal KPIs  </strong></h2><p id="76f79469-d50e-4705-8e3a-ce457886a582" class="">
+</p><h3 id="4f2b700c-1308-4fb9-8350-09dfa37678e6" class="">Mysql</h3><p id="6f765628-f652-4be0-8cb5-259a5952a8ad" class=""><mark class="highlight-red"><strong>logs</strong></mark></p><figure id="b50d1c6e-6f4e-488b-8fc8-ddb8a912dbe0" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.18.22.png"><img style="width:3078px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.18.22.png"/></a></figure><p id="11d0297b-f79d-4e0b-9b62-30f95a06416c" class="">It corresponds to a spike in slow queries as well, a specific module for slow queries is being deployed</p><p id="c666dbeb-aeac-4cd2-a519-5c9f3241b25e" class="">
+</p><figure id="3d889588-4195-4276-aeee-5e9ef0a3fa20" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-25_at_10.46.08.png"><img style="width:1724px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-25_at_10.46.08.png"/></a></figure><p id="240530c3-d340-4782-a8c0-7b3c5b354c5e" class=""><code><strong>mysql.status.questions</strong></code></p><figure id="aaefb4bb-fe79-46f0-b957-c009d9ee607f" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.19.14.png"><img style="width:3070px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.19.14.png"/></a></figure><p id="5382b341-13ed-432a-861c-aecbb993de9f" class=""><code><strong>mysql.status.aborted.connects</strong></code></p><figure id="4689fce7-e23e-44e9-a456-5449c4875668" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.21.58.png"><img style="width:3114px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.21.58.png"/></a></figure><p id="e082825a-1efb-4b1c-9df3-7060eb71f9a3" class=""><code><strong>mysql.status.connection.errors.accept </strong></code></p><p id="7bd2522d-494d-44eb-aed9-f24091126309" class="">Chart not present  , no anomalies? </p><p id="70cf5e04-8fa0-4356-ab1f-ec036d78b25a" class=""><code><strong>mysql.status.connection.errors.internal</strong></code></p><p id="04702383-b92a-4e40-b759-9fed35a6a10e" class="">Chart not present </p><p id="7237a38c-c82c-479e-805b-53e79d7b450a" class=""><code><strong>mysql.status.connection.errors.max</strong></code></p><p id="ffcf0b12-81cd-4e3c-bb53-2aeaa0c63db1" class="">Chart not present </p><p id="88b545b4-17a6-4929-acd0-3a181f623f08" class=""><code><strong>mysql.status.connection.errors.select</strong></code></p><p id="15776339-35e9-4968-8cc9-d9553b2a5879" class="">Chart not present </p><p id="84c0e632-78fa-48f0-a97d-f8aa4c9e0faf" class=""><code><strong>mysql.performance.events_statements.max.timer.wait</strong></code></p><figure id="5e0b93a8-b109-47f2-ab2a-4443fb468b09" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.26.09.png"><img style="width:3084px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.26.09.png"/></a></figure><p id="ba89ad01-4dd0-4924-99b0-cde87a4303f8" class=""><code><strong>mysql.performance.events_statements.quantile.95</strong></code></p><p id="ca37d0ad-9d26-4db2-b6ae-05ba933160ac" class="">Chart not present  , no anomalies? </p><p id="75ab587c-5b69-4cf0-8b76-d6c495429b61" class=""><code><strong>mysql.performance.events_statements.count.star</strong></code></p><p id="fdf92f30-28b7-4ab2-a14f-a36114cdf048" class="">Chart not present  , no anomalies? </p><p id="ffc742d2-9966-4d33-a1d9-86201376370b" class=""><code><strong>mysql.performance.events_statements.avg.timer.wait</strong></code></p><figure id="d01c3550-d29e-4e73-a69b-7004a2785a23" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.27.58.png"><img style="width:3086px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.27.58.png"/></a></figure><p id="0cbacbd1-aa63-4a56-9980-a8982b522d15" class=""><code><strong>mysql.status.threads.connected</strong></code></p><figure id="d2a3201e-db97-47a8-8858-fa52d0a6a775" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.28.38.png"><img style="width:3100px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.28.38.png"/></a></figure><p id="782311ef-a042-4eb3-a488-758a34c19027" class="">
+</p><h3 id="cd5268aa-a61e-46ee-9e13-37d6ae64fb72" class="">Host</h3><p id="1956495d-d6a0-4de7-ad75-4cfc528b19ac" class=""><mark class="highlight-red"><strong>logs</strong></mark></p><figure id="c8e5d292-b5b1-4f1f-9404-c5643f155bb3" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-25_at_09.22.13.png"><img style="width:3120px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-25_at_09.22.13.png"/></a></figure><p id="cbaf73b0-46e7-4611-b946-0992f2112eec" class=""> <div class="indented"><p id="0f4ddd43-63e9-4cc7-aacc-f862638710cd" class=""><strong>load</strong></p></div></p><p id="69cf9efe-dfee-459c-9b69-92d70ee19c5d" class=""><code><strong>system.load.norm.1</strong></code><strong> </strong>no anomalies</p><p id="14b1fb16-829f-4d47-8e90-8d49d151d145" class=""><code><strong>system.load.norm.5</strong></code><strong> </strong>no anomalies</p><p id="8f13e67c-0bff-418e-a95a-a0731f6409f4" class=""><code><strong>system.load.norm.15</strong></code><strong> </strong>no anomalies</p><p id="8877b087-5d55-456d-86f6-e7b2b3de0aaf" class=""><code><strong>system.cpu.user.pct</strong></code><strong> </strong>no anomalies<div class="indented"><p id="73ccd38e-0650-4e83-bce4-66bbc84578ea" class="">
+</p><p id="8ad29397-d098-4c33-8ae9-a19e3108d392" class=""><strong>Other</strong></p></div></p><p id="26873097-00e2-473f-b795-a9a22d87d74d" class=""><code><strong>system.cpu.system.pct</strong></code>no anomalies</p><p id="af80b889-aadf-42bb-af79-766f974c9ffd" class=""><code><strong>system.cpu.iowait.pct</strong></code>no anomalies</p><p id="bdf2c067-73fd-4f31-b525-cc27dafa2191" class=""><code><strong>system.cpu.irq.pct</strong></code>no anomalies</p><p id="1b934293-20c3-4ba5-a507-3224fce002e6" class=""><code><strong>system.cpu.steal.pct</strong></code>no anomalies</p><p id="e6944106-0c49-4758-920d-f6719b3921c5" class=""><code><strong>system.cpu.user.norm.pct</strong></code>no anomalies</p><p id="ab756b51-7f98-4981-bc3d-64735706a622" class=""><code><strong>system.cpu.system.norm.pct</strong></code>no anomalies</p><p id="b826a1ba-6170-4ce8-88d7-3befffd26e8d" class=""><code><strong>system.cpu.total.norm.pct</strong></code>no anomalies</p><p id="d3fa9e14-d77e-49b2-83e9-ae970f67e193" class=""><div class="indented"><p id="c3e5cda1-720b-478b-b510-0a78dff830e3" class=""> <strong>Disk</strong></p></div></p><p id="32dec477-7059-42e0-adc6-5e42b1a3f55f" class=""><code><strong>system.diskio.iostat.busy</strong></code><strong> </strong>no anomalies</p><p id="453d7e27-3c6e-4d59-a3c6-997a8c16f048" class=""><code><strong>system.filesystem.used.pct</strong></code><strong>  </strong>no anomalies</p><p id="2c286324-7e38-4e66-9004-b83e01fe451c" class=""><div class="indented"><p id="3cf9ce53-3169-4b94-92db-f12c969cf194" class=""><strong>Memory</strong></p></div></p><p id="c2cd2d33-406b-440f-8480-d4c80ec5bcbf" class=""><code><strong>system.memory.used.pct</strong></code>no anomalies</p><p id="07116f3d-1867-45b9-9f5b-be579025dbbb" class=""><code><strong>system.memory.actual.used.pct</strong></code></p><figure id="7d8422cc-15b4-4e2d-8a48-9d88a808db0c" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-25_at_09.25.08.png"><img style="width:3116px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-25_at_09.25.08.png"/></a></figure><figure id="97181e7b-6481-4829-9f22-b919fb744dc6" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-25_at_09.25.42.png"><img style="width:3124px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-25_at_09.25.42.png"/></a></figure><p id="1ff42299-06d8-4115-a775-2ec4f323073c" class=""><div class="indented"><p id="83e4e075-40ae-48b6-b373-6ab4f0c72290" class=""><strong>Memory.Swap</strong></p></div></p><p id="e01db5c0-9c70-4b5b-a457-62465e91cfed" class=""><code><strong>system.memory.swap.used.pct</strong></code>no anomalies<div class="indented"><p id="01044584-b620-4b8e-8e28-f52350b2ca3c" class=""><strong>Memory</strong>.<strong>pages</strong></p></div></p><p id="f69a3ed5-04b1-4c2c-995d-bd51e2710b8d" class=""><code><strong>system.memory.page_stats.direct_efficiency.pct</strong></code>no anomalies</p><p id="19f42beb-2eab-4a8e-8f33-38f49272c5b4" class=""><code><strong>system.memory.page_stats.kswapd_efficiency.pct</strong></code>no anomalies<div class="indented"><p id="72f1f2d0-1a42-45f7-8c42-36591fa83caf" class=""><strong>Memory.huge page</strong></p></div></p><p id="bc991fa3-72fc-44d6-ac78-b9863e216cda" class=""><code><strong>system.memory.hugepages.used.pct</strong></code>no anomalies<div class="indented"><p id="9d6197f4-c594-4bc5-a45c-26d2209d20b8" class="">
+</p><p id="c0bb87a9-b5a2-4a47-a812-a500e1c5c111" class=""><strong>Network</strong></p></div></p><p id="2dea0269-654d-4a11-ad81-3a550e5de01b" class=""><code><strong>system.network.in.errors</strong></code>no anomalies</p><p id="acf81995-efd8-4785-8a1a-2b19132b3273" class=""><code><strong>system.network.out.errors</strong></code>no anomalies</p><h2 id="708dc9ca-6f02-421f-aa2f-2526fee79de8" class=""><strong>Root cause</strong></h2><h3 id="927655b6-37c8-43d5-92aa-33118b30e71d" class=""><strong>General comment</strong></h3><p id="553f3004-b533-4ed8-99a5-c1e120e1aac3" class=""><strong> </strong>looking at the story of the incident as shown in the chart, we can see a huge spike in anomalies count starting at 15:55:50</p><ul id="4a6e12c9-1e25-496c-8e56-49377e11357b" class="bulleted-list"><li style="list-style-type:disc">propagating incident (host - mysql)</li></ul><ul id="a8ead6a5-753d-452e-9ab3-dd61feaeabe5" class="bulleted-list"><li style="list-style-type:disc">33 abnormal metrics on mysql </li></ul><ul id="6bbd06c3-c394-48df-85f7-e6065dd7daf9" class="bulleted-list"><li style="list-style-type:disc">10 abnormal metrics on host </li></ul><figure id="2c31ab4c-0066-4724-8de0-81eb4b5a0d39" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.35.59.png"><img style="width:576px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_20.35.59.png"/></a></figure><h3 id="87d8cd80-a1e5-46bd-a000-eb1d7a5cbf80" class=""><strong>Algos output </strong></h3><p id="870df382-aae9-434c-b95d-f2612765388b" class=""> <code><strong>mysql.performance.events_statements.max.timer.wait</strong></code></p><h3 id="1b128148-3d9d-4196-b823-48fc9719889a" class=""><strong>Manual validation</strong></h3><ul id="4e1de646-cfbc-4c3c-9540-4f5fb3164a44" class="bulleted-list"><li style="list-style-type:disc">wrong</li></ul><ul id="dba26670-65e1-49d4-958a-f1b7d33e31cd" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">makes sense, to verify. </li></ul><ul id="47ba1e5e-fcaa-45f5-82ef-a5a18bac3c6b" class="bulleted-list"><li style="list-style-type:disc">correct </li></ul><h3 id="2d70b897-2c95-45d6-807b-54f3aa7a7a64" class=""><strong>Manual investigation</strong></h3><p id="eff666e9-bcd2-47a5-be02-e57a160fb2bd" class=""><strong>Root cause:</strong> looking at all abnormal metrics around the incident timestamp, it looks punctual where all of them happened at 15:55:50, except the following behaviour of <code><strong>mysql.performance.events_statements.max.timer.wait</strong></code></p><ul id="3ac5bc9c-b90a-4cd6-8811-f18d1d11a971" class="bulleted-list"><li style="list-style-type:disc">up to 4pm: no anomalies at all </li></ul><figure id="bfb67ad6-b3be-470b-b0df-aa26e86f64ad" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.00.13.png"><img style="width:3178px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.00.13.png"/></a></figure><figure id="8b749637-e644-461e-953f-9e18030b2ffb" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.01.38.png"><img style="width:3120px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.01.38.png"/></a></figure><figure id="7fb1ee5d-d258-4714-bba0-e2fb5e2df1f9" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.02.08.png"><img style="width:3130px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.02.08.png"/></a></figure><figure id="34088e98-4d58-4d52-a294-b12abd7fed2f" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.02.21.png"><img style="width:3110px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.02.21.png"/></a></figure><figure id="13fbcda9-e893-4eab-a91c-d144a3d4730b" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.02.36.png"><img style="width:3126px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.02.36.png"/></a></figure><figure id="97480528-ccbc-40ce-9f2a-be99d94ef1dc" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.03.19.png"><img style="width:3126px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.03.19.png"/></a></figure><figure id="0df974e5-99fc-4d5e-bed0-d3bee3c05fd7" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.02.59.png"><img style="width:3138px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.02.59.png"/></a></figure><figure id="ffa121f0-672e-4cf9-9625-e12d3956235d" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.03.59.png"><img style="width:3132px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.03.59.png"/></a></figure><figure id="73ab939b-1b8b-405c-bd42-d68540311a75" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.04.33.png"><img style="width:3118px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.04.33.png"/></a></figure><figure id="febf5b85-c5a3-4077-a3c7-8ae5cf61973e" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.05.00.png"><img style="width:3126px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.05.00.png"/></a></figure><figure id="7110e773-d83c-4f54-801e-0679446a1e55" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.05.27.png"><img style="width:3114px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.05.27.png"/></a></figure><figure id="31eca623-4fcf-480c-a96d-8ffec835ed25" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.05.51.png"><img style="width:3116px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.05.51.png"/></a></figure><p id="6aba520c-68ec-434a-b6b0-367dbfd6c0da" class="">This continues until it stops suddenly at 20:02:50</p><figure id="fa04a845-6953-45a8-a822-446d33dd5422" class="image"><a href="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.06.35.png"><img style="width:3126px" src="Incident%201%20-%20docker0%20apache%20-%2014%2004%202021%2015%2004%2000%20b1269dda84284870b3cd8d8915cef76b/Screenshot_2021-03-22_at_21.06.35.png"/></a></figure><p id="2c36c0e4-cb5f-4df2-80e7-e761b41bc681" class=""><strong>Early indicators: </strong></p><p id="ab2359df-b69f-4d13-8efc-d84ec06f5e64" class=""><code><strong>mysql.performance.events_statements.max.timer.wait</strong></code><strong> </strong>could well be considered as an early indicator </p><p id="d0aad128-10de-4612-84da-ab07aad6b4ce" class=""><strong>General comment:  </strong>number of anomalies could constitute a useful metric in incident alerting </p><p id="cef747e0-b967-4110-ad9b-091eeeb3ac60" class="">
+</p></div></article></body></html>

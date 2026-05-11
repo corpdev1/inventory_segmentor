@@ -1,0 +1,693 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Prophet vs MAD comparison</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4e85a95f-5ae5-4163-ad58-4e3e41461a96" class="page sans"><header><h1 class="page-title">Prophet vs MAD comparison</h1><p class="page-description"></p></header><div class="page-body"><nav id="88c63d7f-155d-4ca0-8c55-cbe6aa8862b2" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#49b801b6-6d0c-4534-a143-271602a920d5">Time</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#daea6c30-dd9e-4f74-8ea1-4b51698ea39c">Univariate data</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#01d56e9e-3879-4c13-8728-164cdb8ab54d">Multivariate data (10 metrics)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f5b3532e-0eb3-413f-b1b8-be9991e07786">Precision</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2b61c173-b3d7-4b89-bfc8-a2c759c64d5b">Overall we have the following results</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c3558a2d-b130-460c-aef4-ac76748dc748">Compared with MAD</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ea24afbc-b18a-47b2-9da1-36dfca4caefc">Charts</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1a19fb5e-f392-4dc5-9d25-eba95dd092d9">Conclusion</a></div></nav><h1 id="49b801b6-6d0c-4534-a143-271602a920d5" class="">Time</h1><h2 id="daea6c30-dd9e-4f74-8ea1-4b51698ea39c" class="">Univariate data</h2><p id="00eeec61-85a3-4bc2-ad80-5385499a05e3" class=""><strong>Prophet takes 1.46 seconds</strong> in average to produce one prediction during first 7 minutes of observations whereas <strong>MAD takes in average 0.0096 seconds</strong> for the same period of time.</p><figure id="7a495ce4-9c99-42bd-8287-97f2f4af89f4" class="image"><a href="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Screenshot_2021-02-09_at_18.13.12.png"><img style="width:902px" src="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Screenshot_2021-02-09_at_18.13.12.png"/></a></figure><p id="d3dd1302-c2c5-44cf-bc6a-d5766ee0d015" class="">During <strong>first 3 hours</strong> of observations <strong>Prophet takes 1.43 seconds</strong> in average to produce one prediction whereas <strong>MAD takes in average 0.014 seconds</strong> for the same period of time.</p><h2 id="01d56e9e-3879-4c13-8728-164cdb8ab54d" class="">Multivariate data (10 metrics)</h2><p id="58d1f609-009d-4e9a-9381-51821c49bf3a" class="">Since Prophet is not designed for multivariate data the amount of time required to provide one prediction increases linearly with the number of metrics. It takes <strong>13.3 seconds</strong> in average to produce one prediction during first 7 minutes of observations for 10 metrics. </p><p id="561e03ad-0156-407e-ba52-073a866c5d13" class="">MAD is designed in the way to be able treating multivariate data and thanks to vector operations it takes <strong>0.0102 seconds</strong> in average to produce one prediction during first 7 minutes of observations (which is <strong>the same time as for the univariate data</strong>)</p><figure id="f82e3ef5-dc6e-4a63-89dd-cf50a1a3cbd7" class="image"><a href="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Screenshot_2021-02-09_at_17.29.09.png"><img style="width:902px" src="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Screenshot_2021-02-09_at_17.29.09.png"/></a></figure><h1 id="f5b3532e-0eb3-413f-b1b8-be9991e07786" class="">Precision</h1><p id="7b39d627-8c37-4fc7-ad56-deb2be493a01" class="">Here we plotted results of anomaly detection algorithms (MAD and Prophet). Markers correspond to anomalies detected by MAD (red stars) and Prophet (black dots).</p><figure id="d212cf1b-c7ed-4093-9509-6b5cb38bc8d3" class="image"><a href="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Screenshot_2021-02-09_at_18.12.04.png"><img style="width:992px" src="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Screenshot_2021-02-09_at_18.12.04.png"/></a></figure><p id="bbf80968-72e7-43e0-aaa4-35424e63c78f" class="">
+</p><p id="c824d131-68a4-4551-8c96-1aef4a5c234d" class="">We can see that Prophet successfully detects anomalies but produces more false positives while dealing with the same data. We do not tune any parameters of Prophet here.</p><p id="ea8773d6-e1a1-4195-8642-488993324022" class="">We also tried prophet on the labeled NAB dataset. It was tested on some subset of datasets presented in NAB repository. It showed quite low results due to significant amount of false positives.</p><h3 id="2b61c173-b3d7-4b89-bfc8-a2c759c64d5b" class="">Overall we have the following results</h3><p id="848acd9f-d891-4d4a-8c29-8c6af3de93c1" class="">
+</p><pre id="3ffabe4b-25e8-4bf7-90db-1138427112d3" class="code code-wrap"><code>Average accuracy: 0.89
+Average precision: 0.02
+Average recall_score: 0.94
+Average f1_score: 0.04</code></pre><h3 id="c3558a2d-b130-460c-aef4-ac76748dc748" class="">Compared with MAD</h3><p id="2197b71f-38e9-4499-8088-e9c18b7791dc" class="">
+</p><pre id="d78547de-d53c-49a1-a4b2-c5b35659c97f" class="code"><code>accuracy:	0.997
+precision:	0.174
+recall:	0.423
+f1 score	0.246</code></pre><p id="dc6e1aa9-2265-4c23-b4ee-10156ec9791c" class="">More details about MAD performance in terms of accuracy could be found <a href="../Accuracy%20bd0a6d8cacd04556ba425af4f49bc82c/Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba.html">here</a></p><h3 id="ea24afbc-b18a-47b2-9da1-36dfca4caefc" class="">Charts</h3><p id="dfab22fc-8ea2-4d4d-a318-89a39f2a2e62" class="">exchange-4_cpm_results</p><figure id="70a53f4e-d281-451b-bd18-db92d6c63a32" class="image"><a href="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled.png"><img style="width:1164px" src="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled.png"/></a></figure><p id="26c32458-6f1d-45d3-be79-b8f9ff8c9f65" class="">
+exchange-3_cpc_results</p><figure id="5c012a14-2b16-4a59-b5f3-886233fb4265" class="image"><a href="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%201.png"><img style="width:1167px" src="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%201.png"/></a></figure><p id="d5d5e22f-989f-445c-ae5b-e259c337930e" class="">
+exchange-2_cpm_results</p><figure id="f062d652-0c91-4b8c-85c8-45f58141ad7f" class="image"><a href="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%202.png"><img style="width:1167px" src="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%202.png"/></a></figure><p id="2e504ed5-a9fe-4fc7-8b99-7ac95d05d389" class="">
+iio_us-east-1_i-a2eb1cd9_NetworkIn</p><figure id="6f93d400-9519-4798-a130-5ce90725e440" class="image"><a href="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%203.png"><img style="width:1157px" src="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%203.png"/></a></figure><p id="d9747411-e21f-4868-9aa7-d09b0d82c35a" class="">
+exchange-4_cpc_results</p><figure id="9de324c5-2d4b-4f9b-a19e-e4a8b351640a" class="image"><a href="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%204.png"><img style="width:1173px" src="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%204.png"/></a></figure><p id="6e3a174f-b7c0-4124-8387-a57f4205e65f" class="">
+elb_request_count_8c0756</p><figure id="4515608d-c345-4dbb-a6a8-7bfc787fc9b4" class="image"><a href="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%205.png"><img style="width:1170px" src="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%205.png"/></a></figure><p id="72cb2ab0-2af6-41f5-bf26-faaea9cd03a4" class="">
+exchange-2_cpc_results</p><figure id="fb1e5665-b559-41a4-8ad5-52f3a25fa5bd" class="image"><a href="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%206.png"><img style="width:1173px" src="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%206.png"/></a></figure><p id="a1562355-88ee-4f57-9b3d-a5b4be0dcfd4" class="">
+ec2_cpu_utilization_fe7f93</p><p id="09ab20bb-ce69-4579-bde1-e2836b2e7fec" class="">
+</p><figure id="0e83eb97-2535-486f-8dd6-9cfd375ba609" class="image"><a href="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%207.png"><img style="width:1164px" src="Prophet%20vs%20MAD%20comparison%204e85a95f5ae54163ad584e3e41461a96/Untitled%207.png"/></a></figure><h1 id="1a19fb5e-f392-4dc5-9d25-eba95dd092d9" class="">Conclusion</h1><p id="97e7f2e7-a981-44f6-bfe2-5a26b7488378" class="">Prophet is a great tool while applied to the univariate data with strong seasonal patterns over reasonably high period of aggregation. It is not suited for anomaly detection in streaming multivariate data of high frequency (our case) and requires an accurate and verified hyper-parameter tuning. It could be, however, used to detect anomalies for selected (= bounded) set of metrics when we do not have tight time constraints (1 hour / day / week / ... aggregations).</p></div></article></body></html>

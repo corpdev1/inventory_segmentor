@@ -1,0 +1,701 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Experiment on the NAB dataset</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0e12411a-7238-4799-9623-7da505f05de2" class="page sans"><header><h1 class="page-title">Experiment on the NAB dataset</h1><p class="page-description"></p></header><div class="page-body"><p id="1808d952-6eaf-40dd-a4ef-ca5eecc7b83e" class=""><span class="user">@Valentin Lapparov</span> wrote</p><p id="b313b6ef-b6b1-4801-b406-4ff5658c2b5e" class="">We&#x27;ve evaluated MAD pipeline using the <a href="https://github.com/numenta/NAB">NAB dataset</a>. As for July 27 our pipeline consists of two detectors: <a href="../MAD%20Models%20d609771e44174d6cb551e7c860834e73/Walter%20ad4ff4ab0a3247779d12d7161cb583e2.html">Walter</a> and <a href="../MAD%20Models%20d609771e44174d6cb551e7c860834e73/Skyline%20a351fc8ce09c4babb1ef9c1983ba27bc.html">Skyline</a> </p><p id="b072c288-cd1f-48a6-9b78-127b4e5585e0" class="">We&#x27;ve been tracking 4 metrics: accuracy, f1 score, precision and recall. Our aim is to maximize the recall as we are tolerant to false positives at the anomaly detection stage.</p><h3 id="32df5771-91e8-4b97-9ca7-7f0c70486519" class="">Results (July 24, 2020)</h3><figure id="54cceb21-2406-4924-8030-59ddb67cf807" class="image"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Screenshot_2020-07-27_at_10.24.53.png"><img style="width:1990px" src="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Screenshot_2020-07-27_at_10.24.53.png"/></a></figure><p id="1c5f5fd0-4c27-4ba0-8ac5-0e31be1aef9b" class="">
+</p><pre id="4bd2750f-ba4c-4417-acff-88f80116b3a2" class="code"><code>Overall results (24 July, 2020)
+accuracy     0.995530
+f1           0.148747
+precision    0.098478
+recall       0.496377</code></pre><p id="f170495a-1930-4eeb-ba63-09101d58cc80" class="">
+</p><figure id="66c297f1-7e8c-4b44-8ae9-2a2587653879" class="image"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Screenshot_2020-07-27_at_10.25.03.png"><img style="width:1996px" src="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Screenshot_2020-07-27_at_10.25.03.png"/></a></figure><p id="aef3627a-cbf3-42e6-be29-9e70665bcfa0" class="">
+</p><pre id="8df0ae1c-d552-4044-abc5-14a79eac77ff" class="code"><code>Skyline results (24 July, 2020)
+accuracy     0.986839
+f1           0.165656
+precision    0.143648
+recall       0.358696</code></pre><p id="8fac8c0b-91b0-411b-afe7-8acb856cdd68" class="">
+</p><figure id="2ef2cb62-0b6a-4d9b-b943-482ca1251f19" class="image"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Screenshot_2020-07-27_at_10.58.29.png"><img style="width:1992px" src="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Screenshot_2020-07-27_at_10.58.29.png"/></a></figure><pre id="b3991eef-056b-4a7c-8027-2fc2517ff763" class="code"><code>Walter results (24 July, 2020)
+accuracy     0.946706
+f1           0.020427
+precision    0.010467
+recall       0.670290</code></pre><p id="b7916c61-6ffd-4538-ac07-baf3df0e609b" class="">
+</p><h2 id="23d8716c-096b-483d-b8a9-47c6127dc98b" class="">Hyper-parameter tuning</h2><div id="814ffd70-6d55-4c6c-acff-d42b1cd1dc91" class="collection-content"><h4 class="collection-title">Walter</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Name 1</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Base</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>-</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>2</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>3</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>4</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>5</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>6</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>7</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>7a</th></tr></thead><tbody><tr id="aa58e251-970a-474c-98f7-e06135bdccbf"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/accuracy%20aa58e251970a474c98f7e06135bdccbf.html">accuracy</a></td><td class="cell-4v1R">0.946706</td><td class="cell-rh&lt;F">0.963876</td><td class="cell-f^~~">0.963366</td><td class="cell-Uh+b">0.961872</td><td class="cell-E@-&#x27;">0.964823</td><td class="cell-@g?(">accuracy</td><td class="cell--}wC">0.963245</td><td class="cell-&gt;M]y">0.965177</td><td class="cell-vR9/">0.97414</td><td class="cell-z3,&quot;"><strong><mark class="highlight-teal">0.993932</mark></strong></td></tr><tr id="744ab25c-075b-4e59-a501-8fd16b53fd95"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/avg%20f1%20score%20744ab25c075b4e59a5018fd16b53fd95.html">avg f1 score</a></td><td class="cell-4v1R">0.020427</td><td class="cell-rh&lt;F">0.026801</td><td class="cell-f^~~">0.026163</td><td class="cell-Uh+b">0.026555</td><td class="cell-E@-&#x27;">0.028728</td><td class="cell-@g?(">avg f1 score</td><td class="cell--}wC">0.026803</td><td class="cell-&gt;M]y">0.029773</td><td class="cell-vR9/">0.030979</td><td class="cell-z3,&quot;"><strong><mark class="highlight-teal">0.073794</mark></strong></td></tr><tr id="aae5e94d-7745-450a-bdef-033a5139a7c6"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/precision%20aae5e94d7745450abdef033a5139a7c6.html">precision</a></td><td class="cell-4v1R">0.010467</td><td class="cell-rh&lt;F">0.013841</td><td class="cell-f^~~">0.013523</td><td class="cell-Uh+b">0.013705</td><td class="cell-E@-&#x27;">0.014846</td><td class="cell-@g?(">precision</td><td class="cell--}wC">0.013844</td><td class="cell-&gt;M]y">0.015419</td><td class="cell-vR9/">0.016184</td><td class="cell-z3,&quot;"><strong><mark class="highlight-teal">0.044369</mark></strong></td></tr><tr id="a1bb4542-bd7f-4e84-959d-588b48de657a"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/recall%20a1bb4542bd7f4e84959d588b48de657a.html">recall</a></td><td class="cell-4v1R"><strong><mark class="highlight-teal">0.67029</mark></strong></td><td class="cell-rh&lt;F">0.59058</td><td class="cell-f^~~">0.568841</td><td class="cell-Uh+b">0.619565</td><td class="cell-E@-&#x27;">0.605072</td><td class="cell-@g?(">recall</td><td class="cell--}wC">0.59058</td><td class="cell-&gt;M]y">0.605072</td><td class="cell-vR9/">0.48913</td><td class="cell-z3,&quot;">0.34058</td></tr><tr id="9883032b-d760-4fd5-85ae-bfa3085e3ec3"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/f1%20score%209883032bd7604fd585aebfa3085e3ec3.html">f1 score</a></td><td class="cell-4v1R">0.020612</td><td class="cell-rh&lt;F">0.020612</td><td class="cell-f^~~">0.02641</td><td class="cell-Uh+b">0.0268</td><td class="cell-E@-&#x27;">0.02898</td><td class="cell-@g?(">f1 score</td><td class="cell--}wC">0.027</td><td class="cell-&gt;M]y">0.03</td><td class="cell-vR9/">0.031</td><td class="cell-z3,&quot;"><mark class="highlight-teal"><strong>0.078</strong></mark></td></tr><tr id="4b31ce41-1cdb-4c1f-83d1-c6018099c2d8"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/Untitled%204b31ce411cdb4c1f83d1c6018099c2d8.html">Untitled</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F"></td><td class="cell-f^~~"></td><td class="cell-Uh+b"></td><td class="cell-E@-&#x27;"></td><td class="cell-@g?("></td><td class="cell--}wC"></td><td class="cell-&gt;M]y"></td><td class="cell-vR9/"></td><td class="cell-z3,&quot;"></td></tr><tr id="2ccf36e8-771c-4e2e-9f88-1490ee5478ca"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/weighted%20accuracy%202ccf36e8771c4e2e9f881490ee5478ca.html">weighted accuracy</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F">0.964434</td><td class="cell-f^~~">0.963245</td><td class="cell-Uh+b">0.962082</td><td class="cell-E@-&#x27;">0.965562</td><td class="cell-@g?(">weighted accuracy</td><td class="cell--}wC">0.963977</td><td class="cell-&gt;M]y">0.965651</td><td class="cell-vR9/">0.974915</td><td class="cell-z3,&quot;"><mark class="highlight-teal"><strong>0.975908</strong></mark></td></tr><tr id="5df26463-ac9e-45ac-ac23-472d7868f665"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/weighted%20avg%20f1%20score%205df26463ac9e45acac23472d7868f665.html">weighted avg f1 score</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F">0.033337</td><td class="cell-f^~~">0.032491</td><td class="cell-Uh+b">0.033855</td><td class="cell-E@-&#x27;">0.036009</td><td class="cell-@g?(">weighted f1 score</td><td class="cell--}wC">0.033376</td><td class="cell-&gt;M]y">0.037825</td><td class="cell-vR9/">0.039407</td><td class="cell-z3,&quot;">0.036623</td></tr><tr id="c2f18b41-3c1b-4f2e-b5ac-992909867254"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/weighted%20precision%20c2f18b413c1b4f2eb5ac992909867254.html">weighted precision</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F">0.017301</td><td class="cell-f^~~">0.016858</td><td class="cell-Uh+b">0.017546</td><td class="cell-E@-&#x27;">0.018698</td><td class="cell-@g?(">weighted precision</td><td class="cell--}wC">0.017321</td><td class="cell-&gt;M]y">0.019668</td><td class="cell-vR9/">0.02072</td><td class="cell-z3,&quot;">0.019395</td></tr><tr id="55866312-12d4-4500-b7d9-701e67884640"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/weighted%20recall%205586631212d44500b7d9701e67884640.html">weighted recall</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F">0.6</td><td class="cell-f^~~">0.6</td><td class="cell-Uh+b">0.644444</td><td class="cell-E@-&#x27;">0.622222</td><td class="cell-@g?(">weighted recall</td><td class="cell--}wC">0.6</td><td class="cell-&gt;M]y">0.644444</td><td class="cell-vR9/">0.511111</td><td class="cell-z3,&quot;">0.466667</td></tr><tr id="1f5db2f7-31bf-4938-a2d3-d954d13088e7"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/weighted%20f1%20score%201f5db2f731bf4938a2d3d954d13088e7.html">weighted f1 score</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F">0.0336</td><td class="cell-f^~~">0.03279</td><td class="cell-Uh+b">0.03416</td><td class="cell-E@-&#x27;">0.03612</td><td class="cell-@g?(">weighted f1 score</td><td class="cell--}wC">0.0336</td><td class="cell-&gt;M]y">0.0381</td><td class="cell-vR9/">0.0398</td><td class="cell-z3,&quot;">0.0372</td></tr><tr id="183e2689-adbd-4f42-8e37-42b656b66498"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/Untitled%20183e2689adbd4f428e3742b656b66498.html">Untitled</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F"></td><td class="cell-f^~~"></td><td class="cell-Uh+b"></td><td class="cell-E@-&#x27;"></td><td class="cell-@g?("></td><td class="cell--}wC"></td><td class="cell-&gt;M]y"></td><td class="cell-vR9/"></td><td class="cell-z3,&quot;"></td></tr><tr id="450be6ec-bce2-40ce-ae4b-42fd1892ba14"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/===%20Parameters%20===%20450be6ecbce240ceae4b42fd1892ba14.html">=== Parameters ===</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F"></td><td class="cell-f^~~"></td><td class="cell-Uh+b"></td><td class="cell-E@-&#x27;"></td><td class="cell-@g?(">=== Parameters ===</td><td class="cell--}wC"></td><td class="cell-&gt;M]y"></td><td class="cell-vR9/"></td><td class="cell-z3,&quot;"></td></tr><tr id="07fbd60b-0310-42ac-a11e-41b484cea5bd"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/walter_num_trees%2007fbd60b031042aca11e41b484cea5bd.html">walter_num_trees</a></td><td class="cell-4v1R">40</td><td class="cell-rh&lt;F">40</td><td class="cell-f^~~">40</td><td class="cell-Uh+b">40</td><td class="cell-E@-&#x27;">20</td><td class="cell-@g?(">walter_num_trees</td><td class="cell--}wC">100</td><td class="cell-&gt;M]y">10</td><td class="cell-vR9/">10</td><td class="cell-z3,&quot;">10</td></tr><tr id="dbedc928-8aa3-44db-adcd-64fade646ee7"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/walter_window%20dbedc9288aa344dbadcd64fade646ee7.html">walter_window</a></td><td class="cell-4v1R">10</td><td class="cell-rh&lt;F">10</td><td class="cell-f^~~">10</td><td class="cell-Uh+b">10</td><td class="cell-E@-&#x27;">10</td><td class="cell-@g?(">walter_window</td><td class="cell--}wC">10</td><td class="cell-&gt;M]y">10</td><td class="cell-vR9/">10</td><td class="cell-z3,&quot;">10</td></tr><tr id="9655e422-8983-4fb7-b1cc-6ca39eb7fa4a"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/walter_tree_size%209655e42289834fb7b1cc6ca39eb7fa4a.html">walter_tree_size</a></td><td class="cell-4v1R">256</td><td class="cell-rh&lt;F">256</td><td class="cell-f^~~">100</td><td class="cell-Uh+b">400</td><td class="cell-E@-&#x27;">256</td><td class="cell-@g?(">walter_tree_size</td><td class="cell--}wC">256</td><td class="cell-&gt;M]y">256</td><td class="cell-vR9/">256</td><td class="cell-z3,&quot;">256</td></tr><tr id="f5809190-cc10-4568-b80b-e32827312f39"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20814ffd706d554c6cacffd42b1cd1dc91/walter_threshold%20f5809190cc104568b80be32827312f39.html">walter_threshold</a></td><td class="cell-4v1R">3</td><td class="cell-rh&lt;F">4</td><td class="cell-f^~~">4</td><td class="cell-Uh+b">4</td><td class="cell-E@-&#x27;">4</td><td class="cell-@g?(">walter_threshold</td><td class="cell--}wC">4</td><td class="cell-&gt;M]y">4</td><td class="cell-vR9/">5</td><td class="cell-z3,&quot;">10</td></tr></tbody></table><br/><br/></div><div id="eb14e9ee-d726-4b3c-8970-190749540444" class="collection-content"><h4 class="collection-title">Walter + Additional Statistic (60% codisp, 40% add-l statistic)</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>10</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>11</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>12</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>13</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>14</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>15</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>16</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>17</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>18</th></tr></thead><tbody><tr id="56480dc3-841b-44a5-8738-9381a4aa1a80"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/accuracy%2056480dc3841b44a587389381a4aa1a80.html">accuracy</a></td><td class="cell-z3,&quot;">0.995213</td><td class="cell-25S&gt;">0.997212</td><td class="cell-zAhZ"><strong><mark class="highlight-teal">0.998486</mark></strong></td><td class="cell-{H;j">0.997039</td><td class="cell-to/r">0.997906</td><td class="cell-`r.T">0.997597</td><td class="cell-n&#x27;d~">0.997321</td><td class="cell-_W3S">0.966233</td><td class="cell-Ay+f">0.997144</td></tr><tr id="d85b6cab-626b-47ac-a63c-9edeb284dac5"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/avg%20f1%20score%20d85b6cab626b47aca63c9edeb284dac5.html">avg f1 score</a></td><td class="cell-z3,&quot;">0.119303</td><td class="cell-25S&gt;">0.186752</td><td class="cell-zAhZ">0.182816</td><td class="cell-{H;j">0.124829</td><td class="cell-to/r"><strong><mark class="highlight-teal">0.195903</mark></strong></td><td class="cell-`r.T">0.162327</td><td class="cell-n&#x27;d~">0.168643</td><td class="cell-_W3S">0.026277</td><td class="cell-Ay+f">0.174763</td></tr><tr id="1af61cc5-20ef-4ed8-a165-c6a3782cee7c"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/precision%201af61cc520ef4ed8a165c6a3782cee7c.html">precision</a></td><td class="cell-z3,&quot;">0.077289</td><td class="cell-25S&gt;">0.134432</td><td class="cell-zAhZ"><strong><mark class="highlight-teal">0.246377</mark></strong></td><td class="cell-{H;j">0.082238</td><td class="cell-to/r">0.204503</td><td class="cell-`r.T">0.169565</td><td class="cell-n&#x27;d~">0.153778</td><td class="cell-_W3S">0.013612</td><td class="cell-Ay+f">0.126496</td></tr><tr id="ddc64043-7499-425d-b957-e4bdd16acac0"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/recall%20ddc640437499425db957e4bdd16acac0.html">recall</a></td><td class="cell-z3,&quot;">0.409420</td><td class="cell-25S&gt;">0.423913</td><td class="cell-zAhZ">0.152174</td><td class="cell-{H;j">0.355072</td><td class="cell-to/r">0.242754</td><td class="cell-`r.T">0.199275</td><td class="cell-n&#x27;d~">0.242754</td><td class="cell-_W3S"><mark class="highlight-teal"><strong>0.547101</strong></mark></td><td class="cell-Ay+f">0.409420</td></tr><tr id="543ab14b-0cc0-4e7e-b9be-2bb605694677"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/f1%20score%20543ab14b0cc04e7eb9be2bb605694677.html">f1 score</a></td><td class="cell-z3,&quot;">0.13</td><td class="cell-25S&gt;">0.2041</td><td class="cell-zAhZ">0.1881</td><td class="cell-{H;j">0.13354</td><td class="cell-to/r"><mark class="highlight-teal"><strong>0.221992</strong></mark></td><td class="cell-`r.T">0.1832</td><td class="cell-n&#x27;d~">0.1882</td><td class="cell-_W3S">0.026</td><td class="cell-Ay+f">0.19327</td></tr><tr id="d5954cf0-916a-4f0a-9d47-63ce14fb34aa"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/Untitled%20d5954cf0916a4f0a9d4763ce14fb34aa.html">Untitled</a></td><td class="cell-z3,&quot;"></td><td class="cell-25S&gt;"></td><td class="cell-zAhZ"></td><td class="cell-{H;j"></td><td class="cell-to/r"></td><td class="cell-`r.T"></td><td class="cell-n&#x27;d~"></td><td class="cell-_W3S"></td><td class="cell-Ay+f"></td></tr><tr id="2558f277-e830-400c-b6f4-b6b256d29e5a"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/weighted%20accuracy%202558f277e830400cb6f4b6b256d29e5a.html">weighted accuracy</a></td><td class="cell-z3,&quot;">0.995000</td><td class="cell-25S&gt;">0.997149</td><td class="cell-zAhZ"><strong><mark class="highlight-teal">0.998486</mark></strong></td><td class="cell-{H;j">0.997072</td><td class="cell-to/r">0.997809</td><td class="cell-`r.T">0.997567</td><td class="cell-n&#x27;d~">0.997201</td><td class="cell-_W3S">0.966620</td><td class="cell-Ay+f">0.997034</td></tr><tr id="54787839-054d-4fc9-9dd5-813665aaf342"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/weighted%20avg%20f1%20score%2054787839054d4fc99dd5813665aaf342.html">weighted avg f1 score</a></td><td class="cell-z3,&quot;">0.144014</td><td class="cell-25S&gt;"><mark class="highlight-teal"><strong>0.226422</strong></mark></td><td class="cell-zAhZ">0.218942</td><td class="cell-{H;j">0.149570</td><td class="cell-to/r">0.226086</td><td class="cell-`r.T">0.200361</td><td class="cell-n&#x27;d~">0.202806</td><td class="cell-_W3S">0.033901</td><td class="cell-Ay+f">0.210424</td></tr><tr id="51a8e5cc-215a-47a5-8458-5c53c56f1710"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/weighted%20precision%2051a8e5cc215a47a584585c53c56f1710.html">weighted precision</a></td><td class="cell-z3,&quot;">0.094289</td><td class="cell-25S&gt;">0.169364</td><td class="cell-zAhZ"><strong><mark class="highlight-teal">0.303704</mark></strong></td><td class="cell-{H;j">0.101916</td><td class="cell-to/r">0.225873</td><td class="cell-`r.T">0.202963</td><td class="cell-n&#x27;d~">0.181429</td><td class="cell-_W3S">0.017652</td><td class="cell-Ay+f">0.157671</td></tr><tr id="c10c2066-7262-4787-a776-fe952e5b6337"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/weighted%20recall%20c10c206672624787a776fe952e5b6337.html">weighted recall</a></td><td class="cell-z3,&quot;">0.466667</td><td class="cell-25S&gt;">0.444444</td><td class="cell-zAhZ">0.177778</td><td class="cell-{H;j">0.355556</td><td class="cell-to/r">0.288889</td><td class="cell-`r.T">0.244444</td><td class="cell-n&#x27;d~">0.288889</td><td class="cell-_W3S"><strong><mark class="highlight-teal">0.577778</mark></strong></td><td class="cell-Ay+f">0.422222</td></tr><tr id="555791a1-dfad-495a-baab-2a934afa4d5d"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/f1%20score%20555791a1dfad495abaab2a934afa4d5d.html">f1 score</a></td><td class="cell-z3,&quot;">0.15688</td><td class="cell-25S&gt;">0.2452</td><td class="cell-zAhZ">0.224</td><td class="cell-{H;j">0.1584</td><td class="cell-to/r"><strong><mark class="highlight-teal">0.2535</mark></strong></td><td class="cell-`r.T">0.221</td><td class="cell-n&#x27;d~">0.2228</td><td class="cell-_W3S">0.034</td><td class="cell-Ay+f">0.229</td></tr><tr id="c08b0a70-83cd-4b22-a379-50174b6eba86"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/Untitled%20c08b0a7083cd4b22a37950174b6eba86.html">Untitled</a></td><td class="cell-z3,&quot;"></td><td class="cell-25S&gt;"></td><td class="cell-zAhZ"></td><td class="cell-{H;j"></td><td class="cell-to/r"></td><td class="cell-`r.T"></td><td class="cell-n&#x27;d~"></td><td class="cell-_W3S"></td><td class="cell-Ay+f"></td></tr><tr id="82f6772c-76f3-4ea7-bed0-567454501c67"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/===%20Parameters%20===%2082f6772c76f34ea7bed0567454501c67.html">=== Parameters ===</a></td><td class="cell-z3,&quot;"></td><td class="cell-25S&gt;"></td><td class="cell-zAhZ"></td><td class="cell-{H;j"></td><td class="cell-to/r"></td><td class="cell-`r.T"></td><td class="cell-n&#x27;d~"></td><td class="cell-_W3S"></td><td class="cell-Ay+f"></td></tr><tr id="02292c9d-e40d-4502-8774-7544f87417e2"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/walter_num_trees%2002292c9de40d450287747544f87417e2.html">walter_num_trees</a></td><td class="cell-z3,&quot;">10</td><td class="cell-25S&gt;">10</td><td class="cell-zAhZ">10</td><td class="cell-{H;j">10</td><td class="cell-to/r">10</td><td class="cell-`r.T">10</td><td class="cell-n&#x27;d~">10</td><td class="cell-_W3S">10</td><td class="cell-Ay+f">10</td></tr><tr id="46098462-7c22-4aa8-8b26-ccc9c256b1ab"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/walter_window%20460984627c224aa88b26ccc9c256b1ab.html">walter_window</a></td><td class="cell-z3,&quot;">10</td><td class="cell-25S&gt;">10</td><td class="cell-zAhZ">10</td><td class="cell-{H;j">10</td><td class="cell-to/r">10</td><td class="cell-`r.T">10</td><td class="cell-n&#x27;d~">10</td><td class="cell-_W3S">10</td><td class="cell-Ay+f">10</td></tr><tr id="0df9ca8a-146b-4886-856c-c87aed85a492"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/walter_tree_size%200df9ca8a146b4886856cc87aed85a492.html">walter_tree_size</a></td><td class="cell-z3,&quot;">256</td><td class="cell-25S&gt;">256</td><td class="cell-zAhZ">256</td><td class="cell-{H;j">256</td><td class="cell-to/r">256</td><td class="cell-`r.T">256</td><td class="cell-n&#x27;d~">256</td><td class="cell-_W3S">256</td><td class="cell-Ay+f">256</td></tr><tr id="2697dece-2063-4a7c-88f8-eeebe86c137f"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/walter_threshold%202697dece20634a7c88f8eeebe86c137f.html">walter_threshold</a></td><td class="cell-z3,&quot;">10</td><td class="cell-25S&gt;">10</td><td class="cell-zAhZ">10</td><td class="cell-{H;j">10</td><td class="cell-to/r">4</td><td class="cell-`r.T">3</td><td class="cell-n&#x27;d~">3</td><td class="cell-_W3S">3</td><td class="cell-Ay+f">4</td></tr><tr id="53a4d9cb-cc0a-408b-8a15-67b92f498aa9"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20+%20Additional%20Statistic%20(60%25%20codisp,%2040%25%20add%20eb14e9eed7264b3c8970190749540444/=Additional%20Statistic=%2053a4d9cbcc0a408b8a1567b92f498aa9.html">=Additional Statistic=</a></td><td class="cell-z3,&quot;">Moving Average</td><td class="cell-25S&gt;">Exponential Moving Average
+<strong>com=50</strong></td><td class="cell-zAhZ">Exponential Moving Average
+<strong>com=10</strong></td><td class="cell-{H;j">Exponential Moving Average
+<strong>com=100</strong></td><td class="cell-to/r">Exponential Moving Average
+<strong>com=10</strong></td><td class="cell-`r.T">Exponential Moving Average
+<strong>com=10</strong></td><td class="cell-n&#x27;d~">Exponential Moving Average
+<strong>com=10 (50% codisp and 50% ema)</strong></td><td class="cell-_W3S">Exponential Moving Average
+<strong>com=10 (70% codisp and 30% ema)</strong></td><td class="cell-Ay+f">Exponential Moving Average
+<strong>com=50</strong></td></tr></tbody></table><br/><br/></div><div id="17e41533-8d67-4d4f-9e04-690e3d70410c" class="collection-content"><h4 class="collection-title">Skyline</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>1</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>2</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>3</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>4</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>#5</th></tr></thead><tbody><tr id="81ed9b1b-cc5e-48d2-9303-a64923c05b02"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%2017e415338d674d4f9e04690e3d70410c/accuracy%2081ed9b1bcc5e48d29303a64923c05b02.html">accuracy</a></td><td class="cell-4v1R">0.986447</td><td class="cell-rh&lt;F"><mark class="highlight-teal"><strong>0.987226</strong></mark></td><td class="cell-f^~~">0.986839</td><td class="cell-Uh+b">0.986829</td><td class="cell-ypMa">0.997559</td></tr><tr id="5c0ee851-bc3a-48db-ac6d-e296f0753d4c"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%2017e415338d674d4f9e04690e3d70410c/avg%20f1%20score%205c0ee851bc3a48dbac6de296f0753d4c.html">avg f1 score</a></td><td class="cell-4v1R">0.143884</td><td class="cell-rh&lt;F">0.097347</td><td class="cell-f^~~">0.165656</td><td class="cell-Uh+b">0.165656</td><td class="cell-ypMa"><mark class="highlight-teal"><strong>0.251860</strong></mark></td></tr><tr id="abe4ec4c-76fd-40dc-858d-3f7c12470df3"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%2017e415338d674d4f9e04690e3d70410c/precision%20abe4ec4c76fd40dc858d3f7c12470df3.html">precision</a></td><td class="cell-4v1R">0.103712</td><td class="cell-rh&lt;F">0.084088</td><td class="cell-f^~~">0.143648</td><td class="cell-Uh+b">0.143648</td><td class="cell-ypMa"><mark class="highlight-teal"><strong>0.221539</strong></mark></td></tr><tr id="f3b503d9-a343-409f-b3b7-990f7b8197a8"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%2017e415338d674d4f9e04690e3d70410c/recall%20f3b503d9a343409fb3b7990f7b8197a8.html">recall</a></td><td class="cell-4v1R">0.394928</td><td class="cell-rh&lt;F">0.228261</td><td class="cell-f^~~">0.358696</td><td class="cell-Uh+b">0.358696</td><td class="cell-ypMa"><mark class="highlight-teal"><strong>0.428571</strong></mark></td></tr><tr id="5114118a-8ed0-47fb-9ca5-fcfd0050a5e1"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%2017e415338d674d4f9e04690e3d70410c/f1%20score%205114118a8ed047fb9ca5fcfd0050a5e1.html">f1 score</a></td><td class="cell-4v1R">0.16428</td><td class="cell-rh&lt;F">0.12290</td><td class="cell-f^~~">0.20514</td><td class="cell-Uh+b">0.20514</td><td class="cell-ypMa"><mark class="highlight-teal"><strong>0.317269</strong></mark></td></tr><tr id="ecd276d7-65e6-4614-b219-eb9619684e28"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%2017e415338d674d4f9e04690e3d70410c/Untitled%20ecd276d765e64614b219eb9619684e28.html">Untitled</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F"></td><td class="cell-f^~~"></td><td class="cell-Uh+b"></td><td class="cell-ypMa"></td></tr><tr id="a2d3f202-f076-4e66-ba75-a5eac168d10f"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%2017e415338d674d4f9e04690e3d70410c/===%20Parameters%20===%20a2d3f202f0764e66ba75a5eac168d10f.html">=== Parameters ===</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F"></td><td class="cell-f^~~"></td><td class="cell-Uh+b"></td><td class="cell-ypMa"></td></tr><tr id="ba33dc9f-08e7-4f6b-892b-dfebb0fb74c8"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%2017e415338d674d4f9e04690e3d70410c/Untitled%20ba33dc9f08e74f6b892bdfebb0fb74c8.html">Untitled</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F"></td><td class="cell-f^~~"></td><td class="cell-Uh+b"></td><td class="cell-ypMa"></td></tr><tr id="47c6e94d-f9cc-4222-934f-1fab749bbf55"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%2017e415338d674d4f9e04690e3d70410c/skyline_com%2047c6e94df9cc4222934f1fab749bbf55.html">skyline_com</a></td><td class="cell-4v1R">100</td><td class="cell-rh&lt;F">10</td><td class="cell-f^~~">50</td><td class="cell-Uh+b">50</td><td class="cell-ypMa">50</td></tr><tr id="b083fff7-98d3-4123-9b8d-ea0853aa0aca"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%2017e415338d674d4f9e04690e3d70410c/skyline_med_abs_dev_threshold%20b083fff798d341239b8dea0853aa0aca.html">skyline_med_abs_dev_threshold</a></td><td class="cell-4v1R">6</td><td class="cell-rh&lt;F">6</td><td class="cell-f^~~">6</td><td class="cell-Uh+b">3</td><td class="cell-ypMa">6</td></tr><tr id="670a8734-2ce1-48f2-acec-217d84baa863"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%2017e415338d674d4f9e04690e3d70410c/Untitled%20670a87342ce148f2acec217d84baa863.html">Untitled</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F"></td><td class="cell-f^~~"></td><td class="cell-Uh+b"></td><td class="cell-ypMa">Replace <strong>histogram_bin</strong> by <strong>hank</strong> detector and use optimized weights (the ones that maximize the f2 score)</td></tr><tr id="300df21e-29e9-452b-b9f8-e24f85389079"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%2017e415338d674d4f9e04690e3d70410c/Untitled%20300df21e29e9452bb9f8e24f85389079.html">Untitled</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F"></td><td class="cell-f^~~"></td><td class="cell-Uh+b"></td><td class="cell-ypMa"></td></tr></tbody></table><br/><br/></div><div id="cdf20352-9a71-4bfa-a97b-726044ac47ba" class="collection-content"><h4 class="collection-title">Overall</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>results4</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>results5</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>results6</th></tr></thead><tbody><tr id="5af85ea6-2445-4038-9f7f-d8690ca1333c"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/accuracy%205af85ea6244540389f7fd8690ca1333c.html">accuracy</a></td><td class="cell-4v1R">0.996851</td><td class="cell-rh&lt;F"><mark class="highlight-teal"><strong>0.998843</strong></mark></td><td class="cell-f^~~">0.997</td></tr><tr id="892f5fb5-70f1-4cfa-897a-8b4ecf6d9de5"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/avg%20f1%20score%20892f5fb570f14cfa897a8b4ecf6d9de5.html">avg f1 score</a></td><td class="cell-4v1R">0.1508</td><td class="cell-rh&lt;F">0.163</td><td class="cell-f^~~"><strong><mark class="highlight-teal">0.214</mark></strong></td></tr><tr id="c5ef76ea-df84-4d68-84f6-bf795f53828f"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/precision%20c5ef76eadf844d6884f6bf795f53828f.html">precision</a></td><td class="cell-4v1R">0.099</td><td class="cell-rh&lt;F">0.171</td><td class="cell-f^~~"><mark class="highlight-teal"><strong>0.174</strong></mark></td></tr><tr id="6b53fe76-2d79-423e-aa6f-c36323973a05"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/recall%206b53fe762d79423eaa6fc36323973a05.html">recall</a></td><td class="cell-4v1R">0.423</td><td class="cell-rh&lt;F">0.16</td><td class="cell-f^~~"><mark class="highlight-teal"><strong>0.423</strong></mark></td></tr><tr id="d88d5d73-c5f9-41ef-b09a-34ec2a9bb802"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/f1%20score%20d88d5d73c5f941efb09a34ec2a9bb802.html">f1 score</a></td><td class="cell-4v1R">0.16</td><td class="cell-rh&lt;F">0.165</td><td class="cell-f^~~"><mark class="highlight-teal"><strong>0.246</strong></mark></td></tr><tr id="cceb97c6-9dc9-4045-b52d-3af2402fd070"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/Untitled%20cceb97c69dc94045b52d3af2402fd070.html">Untitled</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F"></td><td class="cell-f^~~"></td></tr><tr id="e424c05e-ba54-4296-ab24-3326f4dbf1f7"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/weighted%20accuracy%20e424c05eba544296ab243326f4dbf1f7.html">weighted accuracy</a></td><td class="cell-4v1R">0.996</td><td class="cell-rh&lt;F">0.998</td><td class="cell-f^~~">0.997</td></tr><tr id="57b86254-96d3-46d6-8afe-ebbf47d802df"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/weighted%20avg%20f1%20score%2057b8625496d346d68afeebbf47d802df.html">weighted avg f1 score</a></td><td class="cell-4v1R">0.182</td><td class="cell-rh&lt;F">0.201</td><td class="cell-f^~~">0.246</td></tr><tr id="9fe492d3-191f-4ada-bc58-ded9cee2350a"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/weighted%20precision%209fe492d3191f4adabc58ded9cee2350a.html">weighted precision</a></td><td class="cell-4v1R">0.124</td><td class="cell-rh&lt;F">0.212</td><td class="cell-f^~~">0.203</td></tr><tr id="566c7fcc-a441-4606-bf7e-8041e6fca4c8"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/weighted%20recall%20566c7fcca4414606bf7e8041e6fca4c8.html">weighted recall</a></td><td class="cell-4v1R">0.444</td><td class="cell-rh&lt;F">0.2</td><td class="cell-f^~~">0.444</td></tr><tr id="90c1b599-1e6f-4fb2-b28f-cd6fcec01477"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/f1%20score%2090c1b5991e6f4fb2b28fcd6fcec01477.html">f1 score</a></td><td class="cell-4v1R">0.257</td><td class="cell-rh&lt;F">0.205</td><td class="cell-f^~~">0.315</td></tr><tr id="2157a8be-9c1e-427a-9067-f73cfe0ea444"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/===%20Parameters%20===%202157a8be9c1e427a9067f73cfe0ea444.html">=== Parameters ===</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F"></td><td class="cell-f^~~"></td></tr><tr id="bb09bfe2-54c3-4d53-bbe4-f9e8d4c43f05"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/Untitled%20bb09bfe254c34d53bbe4f9e8d4c43f05.html">Untitled</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F"></td><td class="cell-f^~~"></td></tr><tr id="3bfe273e-04bf-42f7-a714-e14885458b1c"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/skyline_com%203bfe273e04bf42f7a714e14885458b1c.html">skyline_com</a></td><td class="cell-4v1R">50</td><td class="cell-rh&lt;F">50</td><td class="cell-f^~~">50</td></tr><tr id="d689e018-98df-4a26-bc30-4299b0ca0965"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/skyline_med_abs_dev_threshold%20d689e01898df4a26bc304299b0ca0965.html">skyline_med_abs_dev_threshold</a></td><td class="cell-4v1R">6</td><td class="cell-rh&lt;F">6</td><td class="cell-f^~~">6</td></tr><tr id="ef27a71d-a2df-417c-a864-9ca636e5446c"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/walter_threshold%20ef27a71da2df417ca8649ca636e5446c.html">walter_threshold</a></td><td class="cell-4v1R">5</td><td class="cell-rh&lt;F">10</td><td class="cell-f^~~">4</td></tr><tr id="4ec7e67b-e5e7-4808-9181-9a7086e46661"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/walter_tree_size%204ec7e67be5e7480891819a7086e46661.html">walter_tree_size</a></td><td class="cell-4v1R">256</td><td class="cell-rh&lt;F">256</td><td class="cell-f^~~">256</td></tr><tr id="6dc759ce-aa93-4af5-8282-9f5a09d39c60"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/walter_num_trees%206dc759ceaa934af582829f5a09d39c60.html">walter_num_trees</a></td><td class="cell-4v1R">10</td><td class="cell-rh&lt;F">10</td><td class="cell-f^~~">10</td></tr><tr id="b1b55ad6-3630-45ee-b954-61f068aec72d"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/walter_com%20b1b55ad6363045eeb95461f068aec72d.html">walter_com</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F">10</td><td class="cell-f^~~">50</td></tr><tr id="88817e53-3ce8-4cc0-adcb-0a2a7c965fbe"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20cdf203529a714bfaa97b726044ac47ba/Untitled%2088817e533ce84cc0adcb0a2a7c965fbe.html">Untitled</a></td><td class="cell-4v1R"></td><td class="cell-rh&lt;F"></td><td class="cell-f^~~"></td></tr></tbody></table><br/><br/></div><h1 id="871c4d31-daab-439f-b5b3-f48b89fd6314" class="">NAB score</h1><div id="b185101d-a001-460f-8f33-758efafe36cc" class="collection-content"><h4 class="collection-title">Overall NAB score</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Configuration</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>&#x27;standard&#x27; profile</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>&#x27;reward_low_FP_rate&#x27; profile</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>&#x27;reward_low_FN_rate&#x27; profile</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Comment</th></tr></thead><tbody><tr id="3c015c53-c741-4950-8333-c587ee2f4a06"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20NAB%20score%20b185101da001460f8f33758efafe36cc/results%203c015c53c74149508333c587ee2f4a06.html">results</a></td><td class="cell-.k+s">43.28</td><td class="cell-!@Vv">39.27</td><td class="cell-![FY">57.3</td><td class="cell-`MtC"></td></tr><tr id="8031beba-0c1c-4a6d-be20-25ff01b553cc"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20NAB%20score%20b185101da001460f8f33758efafe36cc/results2%208031beba0c1c4a6dbe2025ff01b553cc.html">results2</a></td><td class="cell-.k+s">43.28</td><td class="cell-!@Vv">39.27</td><td class="cell-![FY">57.3</td><td class="cell-`MtC"></td></tr><tr id="2d818d23-8ba9-40d4-9531-bc4e0fc5a778"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20NAB%20score%20b185101da001460f8f33758efafe36cc/results3%202d818d238ba940d49531bc4e0fc5a778.html">results3</a></td><td class="cell-.k+s">48.18</td><td class="cell-!@Vv">44.13</td><td class="cell-![FY">61.43</td><td class="cell-`MtC"></td></tr><tr id="089cd80f-06ad-4d9f-80db-8ea30d550fc1"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20NAB%20score%20b185101da001460f8f33758efafe36cc/results4%20089cd80f06ad4d9f80db8ea30d550fc1.html">results4</a></td><td class="cell-.k+s">48</td><td class="cell-!@Vv">43.99</td><td class="cell-![FY">60.45</td><td class="cell-`MtC"></td></tr><tr id="fd81e396-c1a4-4285-a2ed-925c86359bb3"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20NAB%20score%20b185101da001460f8f33758efafe36cc/results5%20fd81e396c1a44285a2ed925c86359bb3.html">results5</a></td><td class="cell-.k+s">48.07</td><td class="cell-!@Vv">44.66</td><td class="cell-![FY">60.5</td><td class="cell-`MtC"></td></tr><tr id="4c9f9333-8522-4e61-8813-bc745fe2adbd"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20NAB%20score%20b185101da001460f8f33758efafe36cc/results6%204c9f933385224e618813bc745fe2adbd.html">results6</a></td><td class="cell-.k+s">47.62</td><td class="cell-!@Vv">45.3</td><td class="cell-![FY">61.73</td><td class="cell-`MtC"></td></tr><tr id="e5a35641-383b-4c45-883a-a41bb4cfd2dd"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20NAB%20score%20b185101da001460f8f33758efafe36cc/results7%20e5a35641383b4c45883aa41bb4cfd2dd.html">results7</a></td><td class="cell-.k+s">48.05</td><td class="cell-!@Vv">45.22</td><td class="cell-![FY">60.74</td><td class="cell-`MtC"></td></tr><tr id="29cd723a-9ff8-4c00-9c05-006c40a22006"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20NAB%20score%20b185101da001460f8f33758efafe36cc/results8%2029cd723a9ff84c009c05006c40a22006.html">results8</a></td><td class="cell-.k+s">47.73</td><td class="cell-!@Vv">46.65</td><td class="cell-![FY">59.05</td><td class="cell-`MtC">We use the optimal weights to maximize the f2-score (we exclude <strong>histogram_bins</strong> and add <strong>hank</strong>)</td></tr><tr id="6f33aac6-cb65-4903-a2c0-773a65746125"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20NAB%20score%20b185101da001460f8f33758efafe36cc/results9%206f33aac6cb654903a2c0773a65746125.html">results9</a></td><td class="cell-.k+s">46.45</td><td class="cell-!@Vv">41.51</td><td class="cell-![FY">59.13</td><td class="cell-`MtC">We use the optimal weights to maximize the f2-score (we exclude <strong>histogram_bins</strong> and <strong>hank</strong>)</td></tr><tr id="3282448f-683c-4ded-a093-4fdf48e6c0a0"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20NAB%20score%20b185101da001460f8f33758efafe36cc/results10%203282448f683c4deda0934fdf48e6c0a0.html">results10</a></td><td class="cell-.k+s"><mark class="highlight-teal"><strong>52.91</strong></mark></td><td class="cell-!@Vv"><mark class="highlight-teal"><strong>50.08</strong></mark></td><td class="cell-![FY"><mark class="highlight-teal"><strong>65.74</strong></mark></td><td class="cell-`MtC">We use the optimal weights to maximize the f2-score </td></tr><tr id="37b8ef2e-98f6-4d00-ab72-0fa350e940f5"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Overall%20NAB%20score%20b185101da001460f8f33758efafe36cc/Untitled%2037b8ef2e98f64d00ab720fa350e940f5.html">Untitled</a></td><td class="cell-.k+s"></td><td class="cell-!@Vv"></td><td class="cell-![FY"></td><td class="cell-`MtC"></td></tr></tbody></table><br/><br/></div><div id="7176d7bd-45c6-41c7-a419-9637356f6fd2" class="collection-content"><h4 class="collection-title">Walter NAB score</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Configuration</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>&#x27;standard&#x27; profile</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>&#x27;reward_low_FP_rate&#x27; profile</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>&#x27;reward_low_FN_rate&#x27; profile</th></tr></thead><tbody><tr id="fdad859a-05d1-4053-b6b2-23611a5eea8b"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter2%20fdad859a05d14053b6b223611a5eea8b.html">walter2</a></td><td class="cell-.k+s">31.03</td><td class="cell-!@Vv">31.03</td><td class="cell-![FY">41.38</td></tr><tr id="0dc8090e-e5bf-4fe6-9fa8-d28cd464f8ac"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter3%200dc8090ee5bf4fe69fa8d28cd464f8ac.html">walter3</a></td><td class="cell-.k+s">31.03</td><td class="cell-!@Vv">31.03</td><td class="cell-![FY">41.84</td></tr><tr id="a3bafc53-d512-4225-a721-5c8fdde2ae63"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter4%20a3bafc53d5124225a7215c8fdde2ae63.html">walter4</a></td><td class="cell-.k+s">31.03</td><td class="cell-!@Vv">31.03</td><td class="cell-![FY">41.38</td></tr><tr id="73c5ffd4-4eec-4f6f-a1d4-f028f92d6a78"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter5%2073c5ffd44eec4f6fa1d4f028f92d6a78.html">walter5</a></td><td class="cell-.k+s">31.03</td><td class="cell-!@Vv">31.03</td><td class="cell-![FY">41.38</td></tr><tr id="ae3e5d47-4834-4950-a1cb-9f465cdd1494"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter6%20ae3e5d4748344950a1cb9f465cdd1494.html">walter6</a></td><td class="cell-.k+s">31.03</td><td class="cell-!@Vv">31.03</td><td class="cell-![FY">41.38</td></tr><tr id="cdd18b33-3b99-4c49-b30c-f284af285bfd"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter7%20cdd18b333b994c49b30cf284af285bfd.html">walter7</a></td><td class="cell-.k+s">31.03</td><td class="cell-!@Vv">31.03</td><td class="cell-![FY">47.42</td></tr><tr id="bb4e9413-a9e8-484e-89bf-7d6011f5c1ec"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter7a%20bb4e9413a9e8484e89bf7d6011f5c1ec.html">walter7a</a></td><td class="cell-.k+s">31.03</td><td class="cell-!@Vv">31.03</td><td class="cell-![FY">47.33</td></tr><tr id="ab828c85-27dc-4a15-9067-6c80c9eb1d0a"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter8%20ab828c8527dc4a1590676c80c9eb1d0a.html">walter8</a></td><td class="cell-.k+s">31.03</td><td class="cell-!@Vv">31.03</td><td class="cell-![FY">48</td></tr><tr id="23615971-bc5a-4231-b5c7-7c3d3a194902"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter9%2023615971bc5a4231b5c77c3d3a194902.html">walter9</a></td><td class="cell-.k+s">43.95</td><td class="cell-!@Vv">40.66</td><td class="cell-![FY">55.74</td></tr><tr id="dfa93df8-1acf-4034-9ce3-24104bfe645e"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter10%20dfa93df81acf40349ce324104bfe645e.html">walter10</a></td><td class="cell-.k+s">46.07</td><td class="cell-!@Vv">40.1</td><td class="cell-![FY">59.41</td></tr><tr id="dcc11b4e-8b1d-452c-b98b-4e0fc916df79"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter11%20dcc11b4e8b1d452cb98b4e0fc916df79.html">walter11</a></td><td class="cell-.k+s"><mark class="highlight-teal"><strong>47.4</strong></mark></td><td class="cell-!@Vv"><mark class="highlight-teal"><strong>43.5</strong></mark></td><td class="cell-![FY">59.64</td></tr><tr id="7de56138-7ae1-4772-a9bd-161eb4904651"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter12%207de561387ae14772a9bd161eb4904651.html">walter12</a></td><td class="cell-.k+s">45.68</td><td class="cell-!@Vv">39.72</td><td class="cell-![FY"><mark class="highlight-teal"><strong>60.34</strong></mark></td></tr><tr id="8744157a-3e13-43f2-9db3-97e6d4922577"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter13%208744157a3e1343f29db397e6d4922577.html">walter13</a></td><td class="cell-.k+s">45.2</td><td class="cell-!@Vv">42.89</td><td class="cell-![FY">59.16</td></tr><tr id="33d1c0b9-3f95-48a3-bfbe-76c3e989cd07"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter14%2033d1c0b93f9548a3bfbe76c3e989cd07.html">walter14</a></td><td class="cell-.k+s">43.84</td><td class="cell-!@Vv">39.91</td><td class="cell-![FY">56.52</td></tr><tr id="2d0e6d24-ca15-48f8-a812-dac2ec60b109"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter15%202d0e6d24ca1548f8a812dac2ec60b109.html">walter15</a></td><td class="cell-.k+s">43.38</td><td class="cell-!@Vv">39.54</td><td class="cell-![FY">55.8</td></tr><tr id="d4ae26c1-9d82-4237-b4fd-5d02f32ae784"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter16%20d4ae26c19d824237b4fd5d02f32ae784.html">walter16</a></td><td class="cell-.k+s">44.1</td><td class="cell-!@Vv">39.38</td><td class="cell-![FY">57.18</td></tr><tr id="8f2b601a-3726-450d-b24d-57a106e19554"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter17%208f2b601a3726450db24d57a106e19554.html">walter17</a></td><td class="cell-.k+s">43.19</td><td class="cell-!@Vv">39.37</td><td class="cell-![FY">55.52</td></tr><tr id="1c2a9785-311a-4b9a-9239-21de76da5f2a"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/walter18%201c2a9785311a4b9a923921de76da5f2a.html">walter18</a></td><td class="cell-.k+s">46.88</td><td class="cell-!@Vv">43.22</td><td class="cell-![FY">59.35</td></tr><tr id="79089292-90d2-4f5d-8b06-0d297f36f0a2"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Walter%20NAB%20score%207176d7bd45c641c7a4199637356f6fd2/Untitled%207908929290d24f5d8b060d297f36f0a2.html">Untitled</a></td><td class="cell-.k+s"></td><td class="cell-!@Vv"></td><td class="cell-![FY"></td></tr></tbody></table><br/><br/></div><div id="44987023-15e1-4187-9acd-ce4e13679443" class="collection-content"><h4 class="collection-title">Skyline NAB score</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Configuration</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>&#x27;standard&#x27; profile</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>&#x27;reward_low_FP_rate&#x27; profile</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>&#x27;reward_low_FN_rate&#x27; profile</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Comment</th></tr></thead><tbody><tr id="cf9a481b-0931-43b9-9c5c-cdabe6c56c5d"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%20NAB%20score%204498702315e141879acdce4e13679443/skyline%20cf9a481b093143b99c5ccdabe6c56c5d.html">skyline</a></td><td class="cell-.k+s">38.68</td><td class="cell-!@Vv">36.64</td><td class="cell-![FY">49.92</td><td class="cell-F;Lb"></td></tr><tr id="2d9f1e8e-4ac3-44a3-bde8-ce44d7c4e26a"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%20NAB%20score%204498702315e141879acdce4e13679443/skyline2%202d9f1e8e4ac344a3bde8ce44d7c4e26a.html">skyline2</a></td><td class="cell-.k+s">33.35</td><td class="cell-!@Vv">33.26</td><td class="cell-![FY">45.62</td><td class="cell-F;Lb"></td></tr><tr id="c5f313a4-b34d-4527-9e9c-10ce20faa942"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%20NAB%20score%204498702315e141879acdce4e13679443/skyline3%20c5f313a4b34d45279e9c10ce20faa942.html">skyline3</a></td><td class="cell-.k+s">38.68</td><td class="cell-!@Vv">37.4</td><td class="cell-![FY">49.63</td><td class="cell-F;Lb"></td></tr><tr id="7d796f0b-e9ab-4c44-a75f-2790c5a48e9d"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%20NAB%20score%204498702315e141879acdce4e13679443/skyline4%207d796f0be9ab4c44a75f2790c5a48e9d.html">skyline4</a></td><td class="cell-.k+s">41.59</td><td class="cell-!@Vv">39.14</td><td class="cell-![FY">53.02</td><td class="cell-F;Lb">No <strong>histogram_bin</strong> detector</td></tr><tr id="da91d93b-a5f8-4bc8-a003-2ba3c6e7e67e"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%20NAB%20score%204498702315e141879acdce4e13679443/skyline5%20da91d93ba5f84bc8a0032ba3c6e7e67e.html">skyline5</a></td><td class="cell-.k+s">47.67</td><td class="cell-!@Vv">45.21</td><td class="cell-![FY">61.09</td><td class="cell-F;Lb">Replaced <strong>histogram_bin</strong> detector by <strong>Hank</strong> detector and used weighted Skyline. Weights are found as the best ones to optimize the f2 score. </td></tr><tr id="c25ff43c-9fe2-42c8-9687-e2709f7dec46"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%20NAB%20score%204498702315e141879acdce4e13679443/skyline6%20c25ff43c9fe242c89687e2709f7dec46.html">skyline6</a></td><td class="cell-.k+s"><mark class="highlight-teal"><strong>55.67</strong></mark></td><td class="cell-!@Vv"><mark class="highlight-teal"><strong>53.26</strong></mark></td><td class="cell-![FY"><mark class="highlight-teal"><strong>67.57</strong></mark></td><td class="cell-F;Lb">Weighted Skyline was used. Weights are found as the best ones to optimize the f2 score. </td></tr><tr id="96651795-ab5a-4cf8-956b-c56f081ecaf1"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Skyline%20NAB%20score%204498702315e141879acdce4e13679443/Untitled%2096651795ab5a4cf8956bc56f081ecaf1.html">Untitled</a></td><td class="cell-.k+s"></td><td class="cell-!@Vv"></td><td class="cell-![FY"></td><td class="cell-F;Lb"></td></tr></tbody></table><br/><br/></div><div id="11cff79d-f507-461a-977c-28ace44af221" class="collection-content"><h4 class="collection-title">Best Transformation NAB score</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Configuration</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>&#x27;standard&#x27; profile</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>&#x27;reward_low_FP_rate&#x27; profile</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>&#x27;reward_low_FN_rate&#x27; profile</th></tr></thead><tbody><tr id="ccccdadd-89a9-4b4c-ab25-d7aef15daf89"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Best%20Transformation%20NAB%20score%2011cff79df507461a977c28ace44af221/skyline%20ccccdadd89a94b4cab25d7aef15daf89.html">skyline</a></td><td class="cell-.k+s">38.21</td><td class="cell-!@Vv">35.85</td><td class="cell-![FY">52.77</td></tr><tr id="ee24ade0-37ec-4574-9259-d9bc1c6955a3"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Best%20Transformation%20NAB%20score%2011cff79df507461a977c28ace44af221/walter%20ee24ade037ec45749259d9bc1c6955a3.html">walter</a></td><td class="cell-.k+s">48.04</td><td class="cell-!@Vv">44.00</td><td class="cell-![FY">60.99</td></tr><tr id="d0a1bd51-b4c8-4d95-867c-c8e9755696b4"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Best%20Transformation%20NAB%20score%2011cff79df507461a977c28ace44af221/overall%20d0a1bd51b4c84d95867cc8e9755696b4.html">overall</a></td><td class="cell-.k+s">47.98</td><td class="cell-!@Vv">43.16</td><td class="cell-![FY">60.43</td></tr><tr id="669f0fa6-1571-411d-b646-e56daf3c5b9b"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Best%20Transformation%20NAB%20score%2011cff79df507461a977c28ace44af221/Best%20Pick%20669f0fa61571411db646e56daf3c5b9b.html">Best Pick</a></td><td class="cell-.k+s">45.99</td><td class="cell-!@Vv">42.25</td><td class="cell-![FY">57.96</td></tr><tr id="577b3f4b-9c5c-4d09-adfb-b5a8e7e43826"><td class="cell-title"><a href="Experiment%20on%20the%20NAB%20dataset%200e12411a7238479996237da505f05de2/Best%20Transformation%20NAB%20score%2011cff79df507461a977c28ace44af221/Untitled%20577b3f4b9c5c4d09adfbb5a8e7e43826.html">Untitled</a></td><td class="cell-.k+s"></td><td class="cell-!@Vv"></td><td class="cell-![FY"></td></tr></tbody></table><br/><br/></div><ul id="9347d80e-6ec3-4284-841b-75d4dea42234" class="bulleted-list"><li style="list-style-type:disc">For the &#x27;Best Pick&quot; option, we choose the best results according to this <a href="../Data%20preprocessing%20d5b967e7bc04460b8fd9fcaa5acd116c/The%20effect%20of%20preprocessing%20on%20MAD%20performance%20267aa40d588d40de83042d6334b9d53e/Rules%2093f87925b57542c0b18df7f8249fd73f.html">rules</a> </li></ul></div></article></body></html>

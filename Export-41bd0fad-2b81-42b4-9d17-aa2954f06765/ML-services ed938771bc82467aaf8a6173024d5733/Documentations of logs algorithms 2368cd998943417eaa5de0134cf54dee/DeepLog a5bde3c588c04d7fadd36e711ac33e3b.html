@@ -1,0 +1,747 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>DeepLog</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a5bde3c5-88c0-4d7f-add3-6e711ac33e3b" class="page sans"><header><img class="page-cover-image" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/13mar2018-deeplog-architecture%201.png" style="object-position:center 50%"/><h1 class="page-title">DeepLog</h1><p class="page-description"></p></header><div class="page-body"><p id="9d19d636-0a81-44a0-bb0b-2c3db2c3eb16" class=""><span class="user">@Isaac Cohen Sabban</span> wrote</p><nav id="ac0e5784-4661-4958-bdbc-7bb6e547d7c7" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ba3db1a7-7521-459d-8fd4-1b1e1d3d9c45">The model </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0cf9f31f-d4e0-4433-9f1e-19c3389f6bca">Output representation</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#76b1a2f2-4ae0-4d6e-9709-0ce908dac3fb">Classification</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#14f0f827-7388-498a-815f-5b6027a22cae">Evaluation</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#cc2cf22f-e476-498b-b83e-3b1efe01b46f">Preprocessing Step</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c5fc3f3a-9bac-446a-b4da-93f0640b272e">Templates to Sequence </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#73c0e8e2-f984-4c0f-8cae-e25b5835355b">Benchmark</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e49269e4-e6c4-42fe-b780-1fd32acd8f09">Template to Normalize  Sequence </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#30df1a26-bb6d-49fe-a8e4-f80fcf618cbe">Benchmark</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8cfa886d-fc7c-4894-bf0d-5690f02012d6"><mark class="highlight-teal">Template to One Hot </mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#6653ddc0-57ef-4ec9-afaa-91a8c903debf">Benchmark</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#85877d77-fcf2-4631-be6b-32e28bd85f8c"><mark class="highlight-teal">Template to Embedding</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#53cae981-1e1e-4fb8-a86d-50736ade316e">Benchmark</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6c5fa202-453c-4242-b276-77bed5ffa61f"><mark class="highlight-teal">Tricks : N-gram</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#86a3b617-4694-48c1-958d-2535264c1076">Benchmark</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3bb20e16-ead1-457c-92fd-e6d2a95aa0e9">Best model</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5a077166-2439-472d-b1fd-39c1acbc486c">Precision</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c6d617c7-e2a3-4b96-a6db-9aa60f6370ff">Recall</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f81465af-e99d-4371-b2c7-e8571a97b46e">F1 score</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c8ac990e-9050-4a3e-9e62-bff43a005a3c">Benchmark versus other models</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2225a559-16b7-488a-8b27-2209aa10f1b2">Changes compare to the paper</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f541ebf5-ebd3-428d-9cc1-22c5714d54ec"><mark class="highlight-teal"><strong>Under-sampling method</strong></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1cb27e1a-c890-4ff0-977b-78e1d26a4a76"><mark class="highlight-teal"><strong>Bayesian Search</strong></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d08fc37b-9e97-47cb-80ea-c62024becebc"><mark class="highlight-teal"><strong>Bidirectional LSTM</strong></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#127fd47f-40e0-40c5-82f5-853416c42462"><mark class="highlight-teal"><strong>Attention Layer</strong></mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b8609322-b75f-4078-896b-0d343265a5eb"><mark class="highlight-teal">Explainability</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1d7032c6-e915-48ad-803a-b704e9776eab">Source :</a></div></nav><p id="68addc09-9b4b-486b-86d2-272e535106f5" class="">
+</p><p id="f9e428c2-cba9-4442-8c2a-61d25eb94a05" class="">Green titles signal a change or an addition compare to the paper</p><h1 id="ba3db1a7-7521-459d-8fd4-1b1e1d3d9c45" class="">The model </h1><figure id="b080d288-2bae-430b-8c6b-d43c062dd13b"><div class="source"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/deeplog.pdf">deeplog.pdf</a></div></figure><p id="dea8111c-a868-448b-9d14-d4b6339be4a2" class="">DeepLog, a deep neural network model utilizing Long Short-Term Memory (LSTM), to model a system log as a natural language sequence. This allows DeepLog to automatically learn log patterns from normal execution, and detect anomalies when log patterns deviate from the model trained from log data under normal execution.</p><p id="24b4c074-f020-4906-8e56-61b9a7a6a818" class="">Inspired by the observation that entries in a system log are a sequence of events produced by the execution of structured source code (and hence can be viewed as a structured language), we design the DeepLog framework using a LSTM neural network for online anomaly detection over system logs. DeepLog uses not only log keys but also metric values in a log entry for anomaly detection, hence, it is able to capture different types of anomalies.</p><p id="ee4a5266-465e-4529-b330-27d570afc173" class="">
+</p><figure id="9b2098f3-9653-450c-9d86-dbc20ec4fe45" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/13mar2018-deeplog-log-key-anomaly-detection-model.png"><img style="width:432px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/13mar2018-deeplog-log-key-anomaly-detection-model.png"/></a></figure><p id="759121f7-0288-4870-801c-9f0a57cbb788" class="">The Spell log parser is used to obtain two structured datasets from the syslog (figure below): a sequence of log keys (message types) and a sequence of parameter value vectors. Spell is an online streaming parser that utilizes a longest common subsequence based approach. The time complexity to process each log entry e is close to linear (to the size of e). I’ve only taken a cursory look at the Spell paper and need to study it more carefully to understand how the parsing happens.</p><figure id="24aa66e5-d967-428f-a238-75c95a382ce6" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/13mar2018-deeplog-log-entries-keys-parameter-vector.png"><img style="width:528px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/13mar2018-deeplog-log-entries-keys-parameter-vector.png"/></a></figure><p id="ec6958de-08c7-4a44-9209-2e2e717e1dee" class="">
+</p><p id="119d3717-4a32-4772-a8a7-8280a41a232a" class="">Anomaly detection is performed at two levels:</p><ol type="1" id="79deee80-02c6-4361-8aff-82d698e626c1" class="numbered-list" start="1"><li>A log key anomaly detection LSTM model predicts the next log message type (log key). If it is wrong for any log entry, the operator is alerted that there is an anomaly in the execution flow.</li></ol><ol type="1" id="aa537672-35f6-4548-8859-613bae83b6b2" class="numbered-list" start="2"><li>If there is no anomaly in the execution flow, the parameter value and performance anomaly detection model is invoked. If the predicted parameter vector for that particular log key is very different from the actual parameter vector, the operator is alerted. The second model performs regression, in high-dimension space of the parameter feature vector. Therefore, the mean-squared error (MSE) is used as the loss function when training this model and when deciding to alert the operator.</li></ol><p id="2419361f-07d2-4e51-9e6b-f073dd3564e9" class="">The exact architecture of DeepLog is shown below:</p><p id="5e00933a-acee-4ed9-9b93-0a0004ad4457" class="">
+</p><figure id="68e5812c-394d-41b9-a94c-f662ee853cd5" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/13mar2018-deeplog-architecture.png"><img style="width:1092px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/13mar2018-deeplog-architecture.png"/></a></figure><p id="c78cfbd7-04a7-44ff-98a5-6cde581d3a36" class="">The paper also focusses on “Workflow Construction from Multi-Task Execution” (Section 4) for aiding in anomaly diagnosis. They propose two ways of going about this: using the execution path anomaly LSTM model and density-based clustering. When leveraging the LSTM model, they describe how shared segments, concurrency, new tasks, if-then branches and loops can be identified from the LSTM output probabilities.</p><figure id="d348ebd0-5e0f-4167-9252-d8c4065872b6" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/13mar2018-deeplog-workflow-construction-using-lstm.png"><img style="width:768px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/13mar2018-deeplog-workflow-construction-using-lstm.png"/></a></figure><p id="e1c1174e-db6b-4b73-935d-896f64a45f06" class="">The figure below shows how the workflow can be used for anomaly diagnosis.</p><figure id="8cc18650-4921-4ba4-bc24-a01684f10342" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/13mar2018-deeplog-anomaly-diagnosis-workflow.png"><img style="width:432px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/13mar2018-deeplog-anomaly-diagnosis-workflow.png"/></a></figure><p id="4331e578-8308-4749-ab8c-ecd86e023ea2" class="">Here are the default values for hyperparameters from the paper (configurations that the system doesn’t learn from data):</p><ul id="ee2e351a-1a10-4ab2-b598-c9093ed48a92" class="bulleted-list"><li style="list-style-type:disc">cutoff in the prediction output to be considered normal, <em>g</em> = 9. <em>g</em> can be adjusted to achieve higher true positive rate or lower false positive rate.</li></ul><ul id="ef7aee23-4c86-43c2-9781-c856681f7a56" class="bulleted-list"><li style="list-style-type:disc">window size used for training and prediction, <em>h</em> = 10.</li></ul><ul id="013e6163-baca-4262-a4c4-35a5f41a3e48" class="bulleted-list"><li style="list-style-type:disc">number of layers in the LSTM network, <em>L</em> = 2.</li></ul><ul id="b625baba-317c-4f10-ab12-317c0403d43c" class="bulleted-list"><li style="list-style-type:disc">number of memory units in one LSTM block, <em>alpha</em> = 64.</li></ul><p id="19b29656-3a5d-4cbb-a3e8-c050b40ba89e" class="">The model use for the benchmark </p><p id="56945bd8-0ecc-4797-a049-ca7da7d3129e" class="">
+</p><pre id="9f4fe331-cdde-494d-b723-15f6d43fab1f" class="code"><code>Model: &quot;functional_31&quot;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_9 (InputLayer)         [(None, 10, 1)]           0         
+_________________________________________________________________
+lstm_15 (LSTM)               (None, 10, 64)            16896     
+_________________________________________________________________
+lstm_16 (LSTM)               (None, 64)                33024     
+_________________________________________________________________
+dense_7 (Dense)              (None, 21)                1365      
+=================================================================
+Total params: 51,285
+Trainable params: 51,285
+Non-trainable params: 0
+_________________________________________________________________</code></pre><p id="914768ff-97da-4335-9715-5bf8dff053c9" class="">
+</p><ul id="d49974c1-2957-4c0b-8449-4a569932439d" class="bulleted-list"><li style="list-style-type:disc">we test different values of g</li></ul><ul id="f5d3aee3-97a3-42b1-b2ae-a7429efda187" class="bulleted-list"><li style="list-style-type:disc">window size used for training and prediction, <em>h</em> = 10.</li></ul><ul id="e916da4a-0fa9-4aca-9c28-34382b3595b0" class="bulleted-list"><li style="list-style-type:disc">number of layers in the LSTM network, <em>L</em> = 2.</li></ul><ul id="a14ef14c-b640-4773-9abf-eb7d4a856319" class="bulleted-list"><li style="list-style-type:disc">number of memory units in one LSTM block, <em>alpha</em> = 64.</li></ul><h1 id="0cf9f31f-d4e0-4433-9f1e-19c3389f6bca" class="">Output representation</h1><h2 id="76b1a2f2-4ae0-4d6e-9709-0ce908dac3fb" class="">Classification</h2><p id="a8bb86b0-0394-4da0-b731-ae5c1e9b8142" class="">
+</p><p id="81729afe-c157-42a9-a854-ea1214ac9ef5" class="">The model&#x27;s output is the next template. </p><p id="bf6434ba-3dc5-4bd0-a413-a5c137b82260" class="">The template is then encoded into a token (see <a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b.html">the next session</a>)  and then we use the one hot encoding.</p><p id="26d4b674-0541-43e1-addd-92344fdf73fa" class="">y=&#x27;46003790&#x27; ⇒ y=12 </p><p id="1029a440-0987-4b87-b702-a604ed192f4a" class="">
+</p><figure id="abd6d627-07f1-4be7-90f6-aa59093c9ae6" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.1600em" columnalign="center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi><mi mathvariant="normal">⋮</mi><mpadded height="+0em" voffset="0em"><mspace mathbackground="black" width="0em" height="1.5em"></mspace></mpadded></mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi><mi mathvariant="normal">⋮</mi><mpadded height="+0em" voffset="0em"><mspace mathbackground="black" width="0em" height="1.5em"></mspace></mpadded></mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">y=  \begin{bmatrix}           0 \\
+           0 \\
+           \vdots \\
+           1\\ \vdots \\ 0 \\
+           0 \\
+         \end{bmatrix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:9.719999999999999em;vertical-align:-4.609999999999999em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:5.05007em;"><span style="top:-4.11105em;"><span class="pstrut" style="height:8.0161em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-5.25805em;"><span class="pstrut" style="height:8.0161em;"></span><span style="height:6.0161em;width:0.667em;"><svg width='0.667em' height='6.0161em' style='width:0.667em' viewBox='0 0 667 6016' preserveAspectRatio='xMinYMin'><path d='M319 0 H403 V6016 H319z M319 0 H403 V6016 H319z'/></svg></span></span><span style="top:-11.91117em;"><span class="pstrut" style="height:8.0161em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:4.55007em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:5.109999999999999em;"><span style="top:-7.9575000000000005em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-6.757499999999999em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-4.8975em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord"><span class="mord">⋮</span><span class="mord rule" style="border-right-width:0em;border-top-width:1.5em;bottom:0em;"></span></span></span></span><span style="top:-3.6975000000000002em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-1.8375000000000001em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord"><span class="mord">⋮</span><span class="mord rule" style="border-right-width:0em;border-top-width:1.5em;bottom:0em;"></span></span></span></span><span style="top:-0.6375em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:0.5624999999999993em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:4.609999999999999em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:5.05007em;"><span style="top:-4.11105em;"><span class="pstrut" style="height:8.0161em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-5.25805em;"><span class="pstrut" style="height:8.0161em;"></span><span style="height:6.0161em;width:0.667em;"><svg width='0.667em' height='6.0161em' style='width:0.667em' viewBox='0 0 667 6016' preserveAspectRatio='xMinYMin'><path d='M263 0 H347 V6016 H263z M263 0 H347 V6016 H263z'/></svg></span></span><span style="top:-11.91117em;"><span class="pstrut" style="height:8.0161em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:4.55007em;"><span></span></span></span></span></span></span></span></span></span></span></span></div></figure><p id="86ed2f39-3e92-44a8-aec2-1f4bad162cfc" class="">
+</p><p id="68d0b817-250e-46bb-b726-34c691f69960" class="">In this case we use categorical cross entropy as loss.</p><h2 id="14f0f827-7388-498a-815f-5b6027a22cae" class="">Evaluation</h2><p id="559c0797-97fa-4c4f-97b3-cd1c7e6b8cba" class="">The output of the model is a probability vector </p><figure id="7060e917-bcdb-4c44-9ad0-ab2b6fb6a2b6" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>y</mi><mo>^</mo></mover><mo>=</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.1600em" columnalign="center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.001</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi><mi mathvariant="normal">⋮</mi><mpadded height="+0em" voffset="0em"><mspace mathbackground="black" width="0em" height="1.5em"></mspace></mpadded></mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.4</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi><mi mathvariant="normal">⋮</mi><mpadded height="+0em" voffset="0em"><mspace mathbackground="black" width="0em" height="1.5em"></mspace></mpadded></mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.11</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0.02</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mtext> </mtext><mi>a</mi><mi>n</mi><mi>d</mi><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>n</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mtext> </mtext><mi>o</mi><mi>f</mi><mtext> </mtext><mi>c</mi><mi>l</mi><mi>a</mi><mi>s</mi><mi>s</mi><mi>e</mi><mi>s</mi></mrow></munderover><msub><mi>y</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\hat{y}=  \begin{bmatrix}           0.001 \\
+           0.1 \\
+           \vdots \\
+           0.4\\ \vdots \\ 0.11 \\
+           0.02 \\
+         \end{bmatrix} \ and \sum_{i=0}^{number\ of\ classes}y_i=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:9.719999999999999em;vertical-align:-4.609999999999999em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:5.05007em;"><span style="top:-4.11105em;"><span class="pstrut" style="height:8.0161em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-5.25805em;"><span class="pstrut" style="height:8.0161em;"></span><span style="height:6.0161em;width:0.667em;"><svg width='0.667em' height='6.0161em' style='width:0.667em' viewBox='0 0 667 6016' preserveAspectRatio='xMinYMin'><path d='M319 0 H403 V6016 H319z M319 0 H403 V6016 H319z'/></svg></span></span><span style="top:-11.91117em;"><span class="pstrut" style="height:8.0161em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:4.55007em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:5.109999999999999em;"><span style="top:-7.9575000000000005em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord">0.001</span></span></span><span style="top:-6.757499999999999em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord">0.1</span></span></span><span style="top:-4.8975em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord"><span class="mord">⋮</span><span class="mord rule" style="border-right-width:0em;border-top-width:1.5em;bottom:0em;"></span></span></span></span><span style="top:-3.6975000000000002em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord">0.4</span></span></span><span style="top:-1.8375000000000001em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord"><span class="mord">⋮</span><span class="mord rule" style="border-right-width:0em;border-top-width:1.5em;bottom:0em;"></span></span></span></span><span style="top:-0.6375em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord">0.11</span></span></span><span style="top:0.5624999999999993em;"><span class="pstrut" style="height:3.6875em;"></span><span class="mord"><span class="mord">0.02</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:4.609999999999999em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:5.05007em;"><span style="top:-4.11105em;"><span class="pstrut" style="height:8.0161em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-5.25805em;"><span class="pstrut" style="height:8.0161em;"></span><span style="height:6.0161em;width:0.667em;"><svg width='0.667em' height='6.0161em' style='width:0.667em' viewBox='0 0 667 6016' preserveAspectRatio='xMinYMin'><path d='M263 0 H347 V6016 H263z M263 0 H347 V6016 H263z'/></svg></span></span><span style="top:-11.91117em;"><span class="pstrut" style="height:8.0161em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:4.55007em;"><span></span></span></span></span></span></span></span><span class="mspace"> </span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">an</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8832210000000003em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.347113em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">mb</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">er</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">sses</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span></div></figure><p id="783233a0-2a55-48ee-a4d8-84cbe6901b1c" class="">We take the g best probability from the prediction </p><figure id="380bbda7-1d6e-425b-a127-99b9f9c65ee7" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>g</mi></msub><mo>=</mo><mo stretchy="false">[</mo><mn>7</mn><mo separator="true">,</mo><mn>12</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mo>⋯</mo><mtext> </mtext><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">\hat{y}_g=  [7,12,1,\cdots,3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">7</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">12</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">]</span></span></span></span></span></div></figure><p id="07b41e22-c18e-45c1-b6e3-8285b973e6d3" class="">if the next template is in the g best probability, that&#x27;s mean it&#x27;s not anomaly, else it&#x27;s an anomaly.</p><h1 id="cc2cf22f-e476-498b-b83e-3b1efe01b46f" class="">Preprocessing Step</h1><p id="2753fd95-9b32-4d76-bebb-72d95fce88b4" class="">
+</p><p id="46010539-2038-4957-bda8-e49755a5c2e0" class="">This section talk about the different preprocessing after <a href="../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/Log%20Templates%20391ad18ec67c43e884f52ddee6ddb59b/Template%20Extraction%20Performance%20Tests%2027118d14bfe944019e20d74452f774a5.html">Drain Extractor</a>.</p><p id="94b885f9-852f-4eed-9b5d-833cbba2941d" class="">After Drain, our dataset looks like this : </p><figure id="7df8388b-f79a-417d-82a4-b46ce860551c" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Screenshot_2020-08-25_at_10.15.17.png"><img style="width:576px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Screenshot_2020-08-25_at_10.15.17.png"/></a></figure><p id="19b166c5-828c-47c9-a3e1-de918a965661" class="">We need to find a way to send the different template (&#x27;46003790&#x27;, &#x27;d38aa58d&#x27;, &#x27;a333d363&#x27;, &#x27;4dec0816&#x27;, &#x27;d63ef163&#x27;,&#x27;dba996ef&#x27;, &#x27;#Pad&#x27;, &#x27;32777b38&#x27;, &#x27;5d5de21c&#x27;, &#x27;8f2bc724&#x27;, &#x27;728076ac&#x27;... )to our LSTM</p><h2 id="c5fc3f3a-9bac-446a-b4da-93f0640b272e" class="">Templates to Sequence </h2><p id="b01ca9b3-f948-4620-9001-b3605ae5eb2b" class="">
+</p><p id="02cd3a35-399e-49e5-82bf-4f24c5025535" class="">Transforms each Template in texts to a sequence of integers.</p><p id="28fef090-8e23-44da-9c57-ab5fc1b4329b" class="">Only top <code><strong>num_words-1</strong></code> most frequent words will be taken into account. Only words known by the tokenizer will be taken into account.</p><p id="9e0993bf-d737-43a0-b7ca-e7fe7eb8eaeb" class="">
+</p><p id="3dd5f131-3bd0-4970-9f60-7dfdbc8cb43c" class="">Our dataset looks like this</p><pre id="6973349a-35fa-447d-bf12-aa7365f6437a" class="code"><code>array([[10,  7,  7, ...,  3,  1,  3],
+       [ 7,  7,  7, ...,  1,  3,  1],
+       [ 7,  7,  2, ...,  3,  1,  3],
+       ...,
+       [ 6,  5,  5, ...,  4,  4,  8],
+       [ 5,  5,  6, ...,  4,  8,  8],
+       [ 5,  6,  5, ...,  8,  8,  8]], dtype=int32)</code></pre><h3 id="73c0e8e2-f984-4c0f-8cae-e25b5835355b" class="">Benchmark</h3><p id="038fc9bd-5ac0-4c9c-a068-f83fdf68a8c7" class="">
+</p><div id="62ad5ab8-64ec-47af-b15f-d96c7401486a" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>g</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Precision</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Recall</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesFormula"><path d="M5.04688 14.3604H11.2744C11.7324 14.3604 12.0537 14.0801 12.0537 13.6494C12.0537 13.2119 11.7324 12.9248 11.2744 12.9248H5.81934V12.8564L9.30566 8.82324C9.54492 8.57031 9.6748 8.29688 9.6748 8.0166C9.6748 7.73633 9.54492 7.45605 9.29883 7.20996L5.81934 3.2793V3.21094H11.2812C11.7393 3.21094 12.0537 2.92383 12.0537 2.48633C12.0537 2.05566 11.7393 1.77539 11.2812 1.77539H5.05371C4.34277 1.77539 3.95312 2.26758 3.95312 2.81445C3.95312 3.12207 4.07617 3.44336 4.33594 3.69629L8.15039 7.96875V8.05078L4.3291 12.4395C4.06934 12.6924 3.94629 13.0137 3.94629 13.3213C3.94629 13.8682 4.33594 14.3604 5.04688 14.3604Z"></path></svg></span>F1 score</th></tr></thead><tbody><tr id="48530ac9-107a-450b-938e-f61c4b180dd9"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%2062ad5ab864ec47afb15fd96c7401486a/3%2048530ac9107a450b938ef61c4b180dd9.html">3</a></td><td class="cell-kI;T">9.593</td><td class="cell-KLN:">100</td><td class="cell-igOl">17.506592574343</td></tr><tr id="e14c1121-1f87-402d-849a-4deeb87f2714"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%2062ad5ab864ec47afb15fd96c7401486a/4%20e14c11211f87402d849a4deeb87f2714.html">4</a></td><td class="cell-kI;T">15.057</td><td class="cell-KLN:">100</td><td class="cell-igOl">26.173114195573</td></tr><tr id="c7f87fe9-7642-4eef-8051-8745454a6267"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%2062ad5ab864ec47afb15fd96c7401486a/5%20c7f87fe976424eef80518745454a6267.html">5</a></td><td class="cell-kI;T">30.573</td><td class="cell-KLN:">99.976</td><td class="cell-igOl">46.826344866678</td></tr><tr id="7023e91b-bb59-4ebc-b5fb-79b4fc5ce54f"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%2062ad5ab864ec47afb15fd96c7401486a/6%207023e91bbb594ebcb5fb79b4fc5ce54f.html">6</a></td><td class="cell-kI;T">83.116</td><td class="cell-KLN:">99.952</td><td class="cell-igOl">90.759831669107</td></tr><tr id="ba00a1dd-30fb-48bc-aa85-baa55d113367"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%2062ad5ab864ec47afb15fd96c7401486a/7%20ba00a1dd30fb48bcaa85baa55d113367.html">7</a></td><td class="cell-kI;T">91.691</td><td class="cell-KLN:">98.457</td><td class="cell-igOl">94.953623356543</td></tr><tr id="2dbf13ed-4399-48c7-88be-2cee08c8ceec"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%2062ad5ab864ec47afb15fd96c7401486a/8%202dbf13ed439948c788be2cee08c8ceec.html">8</a></td><td class="cell-kI;T">88.515</td><td class="cell-KLN:">59.658</td><td class="cell-igOl">71.276519608836</td></tr><tr id="5eb41158-ed4d-4332-84f5-400f8238da5a"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%2062ad5ab864ec47afb15fd96c7401486a/9%205eb41158ed4d433284f5400f8238da5a.html">9</a></td><td class="cell-kI;T">90.155</td><td class="cell-KLN:">58.958</td><td class="cell-igOl">71.293025960178</td></tr><tr id="94142f4f-a71c-4eef-b7eb-cc66f9017949"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%2062ad5ab864ec47afb15fd96c7401486a/10%2094142f4fa71c4eefb7ebcc66f9017949.html">10</a></td><td class="cell-kI;T">91.296</td><td class="cell-KLN:">58.428</td><td class="cell-igOl">71.254343832652</td></tr><tr id="dbe1240d-6277-4e29-9422-4fce920b3976"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%2062ad5ab864ec47afb15fd96c7401486a/Untitled%20dbe1240d62774e2994224fce920b3976.html">Untitled</a></td><td class="cell-kI;T"></td><td class="cell-KLN:"></td><td class="cell-igOl"></td></tr></tbody></table><br/><br/></div><figure id="27790326-3db1-4872-bb3c-cdfe3e7b31a5" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/foo.png"><img style="width:432px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/foo.png"/></a></figure><h2 id="e49269e4-e6c4-42fe-b780-1fd32acd8f09" class="">Template to Normalize  Sequence </h2><p id="c737c3a8-1485-464c-b989-b2acb8e541cc" class="">Once we transforme our Template into sequence, we divide our new data by the number of template.</p><p id="c4221f97-f62e-4691-a442-7ae885d4932e" class="">Here we divide by 21.</p><p id="85036156-9c77-456a-9c86-1ae253863a50" class="">Our dataset looks like this</p><p id="a72a31ec-435c-4471-a0b5-7f9117703016" class="">
+</p><pre id="3b29d006-29fc-443d-b78d-25b398aad981" class="code"><code>array([[0.47619048, 0.33333333, 0.33333333, ..., 0.14285714, 0.04761905,
+        0.14285714],
+       [0.33333333, 0.33333333, 0.33333333, ..., 0.04761905, 0.14285714,
+        0.04761905],
+       [0.33333333, 0.33333333, 0.0952381 , ..., 0.14285714, 0.04761905,
+        0.14285714],
+       ...,
+       [0.28571429, 0.23809524, 0.23809524, ..., 0.19047619, 0.19047619,
+        0.38095238],
+       [0.23809524, 0.23809524, 0.28571429, ..., 0.19047619, 0.38095238,
+        0.38095238],
+       [0.23809524, 0.28571429, 0.23809524, ..., 0.38095238, 0.38095238,
+        0.38095238]])</code></pre><p id="dee2adaf-7b82-4a92-8d54-57ec9867fbad" class="">
+</p><h3 id="30df1a26-bb6d-49fe-a8e4-f80fcf618cbe" class="">Benchmark</h3><div id="f7f831ae-259a-4159-aaa7-6a7cafc42cc5" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>g</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Precision</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Recall</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesFormula"><path d="M5.04688 14.3604H11.2744C11.7324 14.3604 12.0537 14.0801 12.0537 13.6494C12.0537 13.2119 11.7324 12.9248 11.2744 12.9248H5.81934V12.8564L9.30566 8.82324C9.54492 8.57031 9.6748 8.29688 9.6748 8.0166C9.6748 7.73633 9.54492 7.45605 9.29883 7.20996L5.81934 3.2793V3.21094H11.2812C11.7393 3.21094 12.0537 2.92383 12.0537 2.48633C12.0537 2.05566 11.7393 1.77539 11.2812 1.77539H5.05371C4.34277 1.77539 3.95312 2.26758 3.95312 2.81445C3.95312 3.12207 4.07617 3.44336 4.33594 3.69629L8.15039 7.96875V8.05078L4.3291 12.4395C4.06934 12.6924 3.94629 13.0137 3.94629 13.3213C3.94629 13.8682 4.33594 14.3604 5.04688 14.3604Z"></path></svg></span>F1 score</th></tr></thead><tbody><tr id="1cbaad81-bc68-42d3-ae59-a712d1826a7a"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%20f7f831ae259a4159aaa76a7cafc42cc5/3%201cbaad81bc6842d3ae59a712d1826a7a.html">3</a></td><td class="cell-kI;T">6.288</td><td class="cell-KLN:">63.058</td><td class="cell-igOl">11.435661869466</td></tr><tr id="e6f4b05f-b7f9-4bd9-a082-bb3f517e9269"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%20f7f831ae259a4159aaa76a7cafc42cc5/4%20e6f4b05fb7f94bd9a082bb3f517e9269.html">4</a></td><td class="cell-kI;T">11.607</td><td class="cell-KLN:">63.058</td><td class="cell-igOl">19.605282421483</td></tr><tr id="6698ded8-69f8-4d7f-ac96-81929adf8d2b"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%20f7f831ae259a4159aaa76a7cafc42cc5/5%206698ded869f84d7fac9681929adf8d2b.html">5</a></td><td class="cell-kI;T">25.188</td><td class="cell-KLN:">62.937</td><td class="cell-igOl">35.977467370213</td></tr><tr id="d6a7158e-fa7d-4b11-9a7f-d0c95bbba0a9"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%20f7f831ae259a4159aaa76a7cafc42cc5/6%20d6a7158efa7d4b119a7fd0c95bbba0a9.html">6</a></td><td class="cell-kI;T">77.126</td><td class="cell-KLN:">62.768</td><td class="cell-igOl">69.210184396758</td></tr><tr id="be102fe8-c3b6-4be3-a5a0-303764bee16f"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%20f7f831ae259a4159aaa76a7cafc42cc5/7%20be102fe8c3b64be3a5a0303764bee16f.html">7</a></td><td class="cell-kI;T">86.405</td><td class="cell-KLN:">59.923</td><td class="cell-igOl">70.76768376524</td></tr><tr id="f875865b-4d42-4075-9d38-6e0ba1e83e05"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%20f7f831ae259a4159aaa76a7cafc42cc5/8%20f875865b4d4240759d386e0ba1e83e05.html">8</a></td><td class="cell-kI;T">89.236</td><td class="cell-KLN:">57.777</td><td class="cell-igOl">70.1405776632</td></tr><tr id="8a87ff62-46b9-4996-8b18-cd36c238c931"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%20f7f831ae259a4159aaa76a7cafc42cc5/9%208a87ff6246b949968b18cd36c238c931.html">9</a></td><td class="cell-kI;T">91.287</td><td class="cell-KLN:">55.582</td><td class="cell-igOl">69.094417937073</td></tr><tr id="81006957-1bba-4309-9bc9-937129b5138a"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%20f7f831ae259a4159aaa76a7cafc42cc5/10%20810069571bba43099bc9937129b5138a.html">10</a></td><td class="cell-kI;T">93.368</td><td class="cell-KLN:">51.941</td><td class="cell-igOl">66.749166094323</td></tr><tr id="3474cfdd-b383-4751-b927-48da4252c4f0"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20Database%20f7f831ae259a4159aaa76a7cafc42cc5/Untitled%203474cfddb3834751b92748da4252c4f0.html">Untitled</a></td><td class="cell-kI;T"></td><td class="cell-KLN:"></td><td class="cell-igOl"></td></tr></tbody></table><br/><br/></div><figure id="a9b3cda5-e59d-4530-b3a9-f764b2d88016" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Unknown.png"><img style="width:372px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Unknown.png"/></a></figure><div id="483e9bd6-015b-4961-8b7b-b3052928b895" class="column-list"><div id="a12b3a1a-6313-495a-b06b-9a8460f96e08" style="width:50%" class="column"><h2 id="8cfa886d-fc7c-4894-bf0d-5690f02012d6" class=""><mark class="highlight-teal">Template to One Hot </mark></h2><p id="d9303bd5-d1d1-43d6-88d2-824da647f2cd" class="">
+</p></div><div id="460333aa-eb94-4c14-a955-d36110bc1c69" style="width:50%" class="column"><p id="cdea04a5-ac5d-4834-8f7e-80e76be29da7" class="">
+</p></div></div><p id="95432ede-6d25-4679-8acd-f21df3110aa1" class="">Encode categorical features as a one-hot numeric array.</p><p id="45ba4f05-7098-4d12-a508-e3b748d39964" class="">The input to this transformer should be an array-like of integers or strings, denoting the values taken on by categorical (discrete) features. The features are encoded using a one-hot (aka ‘one-of-K’ or ‘dummy’) encoding scheme. This creates a binary column for each category and returns a sparse matrix or dense array</p><h3 id="6653ddc0-57ef-4ec9-afaa-91a8c903debf" class="">Benchmark</h3><div id="f13a4b39-ef4c-4c90-949a-d16501c4a740" class="collection-content"><h4 class="collection-title">Untitled</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>g</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Precision</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Recall</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesFormula"><path d="M5.04688 14.3604H11.2744C11.7324 14.3604 12.0537 14.0801 12.0537 13.6494C12.0537 13.2119 11.7324 12.9248 11.2744 12.9248H5.81934V12.8564L9.30566 8.82324C9.54492 8.57031 9.6748 8.29688 9.6748 8.0166C9.6748 7.73633 9.54492 7.45605 9.29883 7.20996L5.81934 3.2793V3.21094H11.2812C11.7393 3.21094 12.0537 2.92383 12.0537 2.48633C12.0537 2.05566 11.7393 1.77539 11.2812 1.77539H5.05371C4.34277 1.77539 3.95312 2.26758 3.95312 2.81445C3.95312 3.12207 4.07617 3.44336 4.33594 3.69629L8.15039 7.96875V8.05078L4.3291 12.4395C4.06934 12.6924 3.94629 13.0137 3.94629 13.3213C3.94629 13.8682 4.33594 14.3604 5.04688 14.3604Z"></path></svg></span>F1 score</th></tr></thead><tbody><tr id="5217b482-1317-4fd8-93c3-d93598f9c3c1"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20f13a4b39ef4c4c90949ad16501c4a740/3%205217b48213174fd893c3d93598f9c3c1.html">3</a></td><td class="cell-kI;T">10.907</td><td class="cell-KLN:">99.759</td><td class="cell-igOl">19.664059656986</td></tr><tr id="4cc99c8f-e58e-4751-b382-1d770c8c350b"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20f13a4b39ef4c4c90949ad16501c4a740/4%204cc99c8fe58e4751b3821d770c8c350b.html">4</a></td><td class="cell-kI;T">17.657</td><td class="cell-KLN:">99.494</td><td class="cell-igOl">29.991473534157</td></tr><tr id="ceb7103e-3dfb-4083-9a3c-bbf49e9dd878"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20f13a4b39ef4c4c90949ad16501c4a740/5%20ceb7103e3dfb40839a3cbbf49e9dd878.html">5</a></td><td class="cell-kI;T">35.824</td><td class="cell-KLN:">99.301</td><td class="cell-igOl">52.652862519889</td></tr><tr id="dfec04fa-eba9-4cbf-af58-876bf1c2cf92"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20f13a4b39ef4c4c90949ad16501c4a740/6%20dfec04faeba94cbfaf58876bf1c2cf92.html">6</a></td><td class="cell-kI;T">86.842</td><td class="cell-KLN:">98.191</td><td class="cell-igOl">92.168454513519</td></tr><tr id="c87f7429-c345-4c33-b20b-05de14754bcc"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20f13a4b39ef4c4c90949ad16501c4a740/7%20c87f7429c3454c33b20b05de14754bcc.html">7</a></td><td class="cell-kI;T">93.712</td><td class="cell-KLN:">96.311</td><td class="cell-igOl">94.993726359441</td></tr><tr id="bae920c1-480d-4253-8918-1dee08234223"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20f13a4b39ef4c4c90949ad16501c4a740/8%20bae920c1480d425389181dee08234223.html">8</a></td><td class="cell-kI;T">95.465</td><td class="cell-KLN:">92.886</td><td class="cell-igOl">94.157843494327</td></tr><tr id="40acd2de-7abd-4cc1-b48f-91f606eca73e"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20f13a4b39ef4c4c90949ad16501c4a740/9%2040acd2de7abd4cc1b48f91f606eca73e.html">9</a></td><td class="cell-kI;T">96.694</td><td class="cell-KLN:">78.298</td><td class="cell-igOl">86.529062037122</td></tr><tr id="fa7ecda7-8e7b-4150-b5d9-4eb0f22b70a3"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20f13a4b39ef4c4c90949ad16501c4a740/10%20fa7ecda78e7b4150b5d94eb0f22b70a3.html">10</a></td><td class="cell-kI;T">97.685</td><td class="cell-KLN:">65.131</td><td class="cell-igOl">78.153519740075</td></tr><tr id="e0b7d2e1-5add-4df9-b64a-c3b900f312d3"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20f13a4b39ef4c4c90949ad16501c4a740/Untitled%20e0b7d2e15add4df9b64ac3b900f312d3.html">Untitled</a></td><td class="cell-kI;T"></td><td class="cell-KLN:"></td><td class="cell-igOl"></td></tr></tbody></table><br/><br/></div><figure id="4e2ca6a5-8599-4cfb-960d-3851454d6411"><div class="source"><a href="https://www.notion.soundefined"></a></div></figure><h2 id="85877d77-fcf2-4631-be6b-32e28bd85f8c" class=""><mark class="highlight-teal">Template to Embedding</mark></h2><p id="3e612861-72e6-4e7b-bff2-da8e969642fb" class="">
+</p><p id="fdb30fc0-a877-4dbe-b3f1-4220602041d1" class="">An embedding matrix is a linear mapping from the original space (one-of-k) to a real-valued space where entities can have meaningful relationships.</p><p id="5ab16427-ff14-45ba-9325-e7e60817a075" class="">Advantages :<div class="indented"><ul id="ed40e674-8e96-4e31-ab7c-79849f286bd7" class="bulleted-list"><li style="list-style-type:disc">Dimensional Reduction</li></ul><ul id="9a43ecfc-df47-4a4c-b716-29911ef2d172" class="bulleted-list"><li style="list-style-type:disc">Takes into account the context</li></ul></div></p><h3 id="53cae981-1e1e-4fb8-a86d-50736ade316e" class="">Benchmark</h3><p id="57b26175-e5a1-4128-843a-f300dcb2315e" class="">Embedding dim = 100</p><div id="9c4e9d39-b4a6-439c-a53d-f5970000371c" class="collection-content"><h4 class="collection-title">Fasttext</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>g</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Precision</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Recall</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesFormula"><path d="M5.04688 14.3604H11.2744C11.7324 14.3604 12.0537 14.0801 12.0537 13.6494C12.0537 13.2119 11.7324 12.9248 11.2744 12.9248H5.81934V12.8564L9.30566 8.82324C9.54492 8.57031 9.6748 8.29688 9.6748 8.0166C9.6748 7.73633 9.54492 7.45605 9.29883 7.20996L5.81934 3.2793V3.21094H11.2812C11.7393 3.21094 12.0537 2.92383 12.0537 2.48633C12.0537 2.05566 11.7393 1.77539 11.2812 1.77539H5.05371C4.34277 1.77539 3.95312 2.26758 3.95312 2.81445C3.95312 3.12207 4.07617 3.44336 4.33594 3.69629L8.15039 7.96875V8.05078L4.3291 12.4395C4.06934 12.6924 3.94629 13.0137 3.94629 13.3213C3.94629 13.8682 4.33594 14.3604 5.04688 14.3604Z"></path></svg></span>F1 score</th></tr></thead><tbody><tr id="f2394434-5638-4d7a-b79b-ccd799008cec"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Fasttext%209c4e9d39b4a6439ca53df5970000371c/3%20f239443456384d7ab79bccd799008cec.html">3</a></td><td class="cell-kI;T">11.06</td><td class="cell-KLN:">100</td><td class="cell-igOl">19.917161894471</td></tr><tr id="d9f093bc-c060-492c-b837-a73a130a5b59"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Fasttext%209c4e9d39b4a6439ca53df5970000371c/4%20d9f093bcc060492cb837a73a130a5b59.html">4</a></td><td class="cell-kI;T">18.087</td><td class="cell-KLN:">98.529</td><td class="cell-igOl">30.563456523976</td></tr><tr id="83f9e1c3-f407-4d95-bba8-c4ef2b6b21cd"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Fasttext%209c4e9d39b4a6439ca53df5970000371c/5%2083f9e1c3f4074d95bba8c4ef2b6b21cd.html">5</a></td><td class="cell-kI;T">36.492</td><td class="cell-KLN:">98.143</td><td class="cell-igOl">53.202129550266</td></tr><tr id="29d6db02-02a6-48b7-949f-02c6ac6a0717"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Fasttext%209c4e9d39b4a6439ca53df5970000371c/6%2029d6db0202a648b7949f02c6ac6a0717.html">6</a></td><td class="cell-kI;T">89.198</td><td class="cell-KLN:">97.372</td><td class="cell-igOl">93.105940462025</td></tr><tr id="4192f3b2-7e87-4e22-b061-94c28241e0c1"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Fasttext%209c4e9d39b4a6439ca53df5970000371c/7%204192f3b27e874e22b06194c28241e0c1.html">7</a></td><td class="cell-kI;T">96.203</td><td class="cell-KLN:">95.925</td><td class="cell-igOl">96.063798873668</td></tr><tr id="621b2018-446d-458b-840b-ed4c7d641cf1"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Fasttext%209c4e9d39b4a6439ca53df5970000371c/8%20621b2018446d458b840bed4c7d641cf1.html">8</a></td><td class="cell-kI;T">97.501</td><td class="cell-KLN:">93.152</td><td class="cell-igOl">95.276897316066</td></tr><tr id="5384749f-3781-49c4-a0f7-c5d925f99d23"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Fasttext%209c4e9d39b4a6439ca53df5970000371c/9%205384749f378149c4a0f7c5d925f99d23.html">9</a></td><td class="cell-kI;T">98.211</td><td class="cell-KLN:">86.062</td><td class="cell-igOl">91.736012134171</td></tr><tr id="f9b19e55-4d0b-43ca-b506-61dc481e43db"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Fasttext%209c4e9d39b4a6439ca53df5970000371c/10%20f9b19e554d0b43cab50661dc481e43db.html">10</a></td><td class="cell-kI;T">98.214</td><td class="cell-KLN:">83.53</td><td class="cell-igOl">90.278803371776</td></tr><tr id="0714ee86-a41e-4565-930d-21d577c41315"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Fasttext%209c4e9d39b4a6439ca53df5970000371c/Untitled%200714ee86a41e4565930d21d577c41315.html">Untitled</a></td><td class="cell-kI;T"></td><td class="cell-KLN:"></td><td class="cell-igOl"></td></tr></tbody></table><br/><br/></div><figure id="fff5c825-1c53-4ed7-a06a-4f20ac34872c" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Unknown%201.png"><img style="width:378px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Unknown%201.png"/></a></figure><h2 id="6c5fa202-453c-4242-b276-77bed5ffa61f" class=""><mark class="highlight-teal">Tricks : N-gram</mark></h2><p id="acf1b752-37bf-4ba9-9271-30899ddd7017" class="">N-gram is a contiguous sequence of n items from a given sample of text or speech.</p><p id="54aea61b-b021-4d55-94a5-5979ab7ca769" class="">N-gram of size 1 is referred to as a &quot;unigram&quot;; size 2 is a &quot;bigram&quot; ; size 3 is a &quot;trigram&quot;</p><figure id="d2c05d89-c407-4fd6-91d8-50a99287b950" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/f98290ce-a9e9-48c6-8330-4e9a5fe55331.png"><img style="width:480px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/f98290ce-a9e9-48c6-8330-4e9a5fe55331.png"/></a></figure><h3 id="86a3b617-4694-48c1-958d-2535264c1076" class="">Benchmark</h3><p id="961e37e7-c495-4c9b-9f13-79c9d4b83b99" class="">
+</p><div id="193131d3-7c24-4b6a-af1d-ae8b4d182845" class="collection-content"><h4 class="collection-title">Untitled</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>g</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Precision</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Recall</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesFormula"><path d="M5.04688 14.3604H11.2744C11.7324 14.3604 12.0537 14.0801 12.0537 13.6494C12.0537 13.2119 11.7324 12.9248 11.2744 12.9248H5.81934V12.8564L9.30566 8.82324C9.54492 8.57031 9.6748 8.29688 9.6748 8.0166C9.6748 7.73633 9.54492 7.45605 9.29883 7.20996L5.81934 3.2793V3.21094H11.2812C11.7393 3.21094 12.0537 2.92383 12.0537 2.48633C12.0537 2.05566 11.7393 1.77539 11.2812 1.77539H5.05371C4.34277 1.77539 3.95312 2.26758 3.95312 2.81445C3.95312 3.12207 4.07617 3.44336 4.33594 3.69629L8.15039 7.96875V8.05078L4.3291 12.4395C4.06934 12.6924 3.94629 13.0137 3.94629 13.3213C3.94629 13.8682 4.33594 14.3604 5.04688 14.3604Z"></path></svg></span>F1 score</th></tr></thead><tbody><tr id="75338045-00cb-474a-88bf-b7d095b645b1"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20193131d37c244b6aaf1dae8b4d182845/2%207533804500cb474a88bfb7d095b645b1.html">2</a></td><td class="cell-kI;T">6.755</td><td class="cell-KLN:">65.215</td><td class="cell-igOl">12.241970960122</td></tr><tr id="c1dff2e2-a874-4b7d-a11a-420999898f8a"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20193131d37c244b6aaf1dae8b4d182845/3%20c1dff2e2a8744b7da11a420999898f8a.html">3</a></td><td class="cell-kI;T">12.4</td><td class="cell-KLN:">64.507</td><td class="cell-igOl">20.801404293497</td></tr><tr id="22e843b0-1ac1-4788-a136-cc43b724912f"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20193131d37c244b6aaf1dae8b4d182845/4%2022e843b01ac14788a136cc43b724912f.html">4</a></td><td class="cell-kI;T">32.897</td><td class="cell-KLN:">61.182</td><td class="cell-igOl">42.787535029071</td></tr><tr id="7161ef70-7133-4f18-b2f7-5b77e2dff62e"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20193131d37c244b6aaf1dae8b4d182845/5%207161ef7071334f18b2f75b77e2dff62e.html">5</a></td><td class="cell-kI;T">91.127</td><td class="cell-KLN:">59.597</td><td class="cell-igOl">72.064114792601</td></tr><tr id="bf811262-5e5c-4cb0-8375-f0f881b81d0e"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20193131d37c244b6aaf1dae8b4d182845/6%20bf8112625e5c4cb08375f0f881b81d0e.html">6</a></td><td class="cell-kI;T">92.483</td><td class="cell-KLN:">56.996</td><td class="cell-igOl">70.527111741449</td></tr><tr id="779d9dbd-c583-4778-95f6-6b3f3548c215"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20193131d37c244b6aaf1dae8b4d182845/7%20779d9dbdc583477895f66b3f3548c215.html">7</a></td><td class="cell-kI;T">92.651</td><td class="cell-KLN:">54.718</td><td class="cell-igOl">68.802494663057</td></tr><tr id="e5c09ddf-4db9-42a5-bcea-d318ebf5720e"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20193131d37c244b6aaf1dae8b4d182845/8%20e5c09ddf4db942a5bcead318ebf5720e.html">8</a></td><td class="cell-kI;T">93.685</td><td class="cell-KLN:">52.517</td><td class="cell-igOl">67.304895213472</td></tr><tr id="704d6a09-3bea-4129-bb4b-92aed52558c6"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20193131d37c244b6aaf1dae8b4d182845/9%20704d6a093bea4129bb4b92aed52558c6.html">9</a></td><td class="cell-kI;T">94.093</td><td class="cell-KLN:">51.485</td><td class="cell-igOl">66.55371148113</td></tr><tr id="e70d5775-950f-4614-b30b-60350074b825"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled%20193131d37c244b6aaf1dae8b4d182845/Untitled%20e70d5775950f4614b30b60350074b825.html">Untitled</a></td><td class="cell-kI;T"></td><td class="cell-KLN:"></td><td class="cell-igOl"></td></tr></tbody></table><br/><br/></div><figure id="84a0a8ac-2d11-4e6f-9140-873a257d4828" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Unknown%202.png"><img style="width:372px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Unknown%202.png"/></a></figure><h1 id="3bb20e16-ead1-457c-92fd-e6d2a95aa0e9" class="">Best model</h1><h2 id="5a077166-2439-472d-b1fd-39c1acbc486c" class="">Precision</h2><p id="0ebab0c3-bc20-4b33-ae1f-dd0de57d9efc" class="">Embedding Fasttext with g=10 : 98.214%</p><h2 id="c6d617c7-e2a3-4b96-a6db-9aa60f6370ff" class="">Recall</h2><p id="0f603b08-e2e7-4f91-baa0-903976e71e9e" class=""> Sequence with g=2,3 and Fasttext with g=2 : 100%</p><p id="14dc68e5-10d6-499a-8110-6fb37eed521a" class="">
+</p><h2 id="f81465af-e99d-4371-b2c7-e8571a97b46e" class="">F1 score</h2><p id="e5c43794-a679-460d-bc45-8411013bacef" class="">Fasttext with g=7 : 96,06%</p><p id="cc1b3c2d-efa6-4785-a5c8-a6be30284772" class="">
+</p><h1 id="c8ac990e-9050-4a3e-9e62-bff43a005a3c" class="">Benchmark versus other models</h1><p id="0fbda8a5-4dfd-4d7f-8687-e8407b49da4d" class="">
+</p><p id="8b171301-1618-4f7b-b92d-7bd120e4e1df" class="">
+</p><div id="650aaefa-29d7-410c-bfb1-6b93e60c3788" class="collection-content"><h4 class="collection-title">Benchmark</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Model</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Precision</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Recall</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesFormula"><path d="M5.04688 14.3604H11.2744C11.7324 14.3604 12.0537 14.0801 12.0537 13.6494C12.0537 13.2119 11.7324 12.9248 11.2744 12.9248H5.81934V12.8564L9.30566 8.82324C9.54492 8.57031 9.6748 8.29688 9.6748 8.0166C9.6748 7.73633 9.54492 7.45605 9.29883 7.20996L5.81934 3.2793V3.21094H11.2812C11.7393 3.21094 12.0537 2.92383 12.0537 2.48633C12.0537 2.05566 11.7393 1.77539 11.2812 1.77539H5.05371C4.34277 1.77539 3.95312 2.26758 3.95312 2.81445C3.95312 3.12207 4.07617 3.44336 4.33594 3.69629L8.15039 7.96875V8.05078L4.3291 12.4395C4.06934 12.6924 3.94629 13.0137 3.94629 13.3213C3.94629 13.8682 4.33594 14.3604 5.04688 14.3604Z"></path></svg></span>F1 score</th></tr></thead><tbody><tr id="d05368b8-78fc-4d24-887a-242d35a62b6d"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Benchmark%20650aaefa29d7410cbfb16b93e60c3788/Untitled%20d05368b878fc4d24887a242d35a62b6d.html">Untitled</a></td><td class="cell-kI;T"></td><td class="cell-KLN:"></td><td class="cell-igOl"></td></tr><tr id="4260db5f-069f-4b5b-81cd-c5bc47f38f89"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Benchmark%20650aaefa29d7410cbfb16b93e60c3788/max_dist=0%204,%20anomaly_threshold=0%202%204260db5f069f4b5b81cdc5bc47f38f89.html">max_dist=0.4, anomaly_threshold=0.2</a></td><td class="cell-kI;T">99.8</td><td class="cell-KLN:">60.8</td><td class="cell-igOl">75.564632627646</td></tr><tr id="1d542d19-cc4d-430b-b523-06fad1fe0f3c"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Benchmark%20650aaefa29d7410cbfb16b93e60c3788/DeepLog%20Fasttext%20with%20g=7%201d542d19cc4d430bb52306fad1fe0f3c.html">DeepLog Fasttext with g=7</a></td><td class="cell-kI;T">96.203</td><td class="cell-KLN:">95.925</td><td class="cell-igOl">96.063798873668</td></tr><tr id="0fd21d30-bbb3-430b-8bc7-356128ee5509"><td class="cell-title"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Benchmark%20650aaefa29d7410cbfb16b93e60c3788/Untitled%200fd21d30bbb3430b8bc7356128ee5509.html">Untitled</a></td><td class="cell-kI;T"></td><td class="cell-KLN:"></td><td class="cell-igOl"></td></tr></tbody></table><br/><br/></div><h1 id="2225a559-16b7-488a-8b27-2209aa10f1b2" class="">Changes compare to the paper</h1><p id="c90df7dd-1627-4165-a7e9-2dec6c65e39a" class="">
+</p><figure id="b4a58eb4-abd2-40e9-84d9-4fa69411cd4b" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Capture_decran_2022-03-02_a_14.44.56.png"><img style="width:961px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Capture_decran_2022-03-02_a_14.44.56.png"/></a></figure><p id="1b2b3a47-6da8-4123-ba90-828d606f108f" class="">
+</p><h2 id="f541ebf5-ebd3-428d-9cc1-22c5714d54ec" class=""><mark class="highlight-teal"><strong>Under-sampling method</strong></mark></h2><p id="7c96b6d0-33f4-4b31-84c8-a0b745236452" class=""><strong>Goal</strong>: Remove sequence with high frequencies.</p><p id="f409a8cf-b932-4151-8061-cef6509a2aff" class="">Undersampling consists in sampling from the majority class in order to keep only a part of these points. Some Templates have a higher representation in our data. This high frequency could biais the model and avoid the model to learn template with low frequencies</p><p id="860821ef-bf0d-4052-be9b-111a155c6334" class="">
+</p><h2 id="1cb27e1a-c890-4ff0-977b-78e1d26a4a76" class=""><mark class="highlight-teal"><strong>Bayesian Search</strong></mark></h2><p id="99c01de6-db95-499f-b5ea-5274781203cb" class=""><strong>Goal</strong>: Automatization on one of the most important step for DL.</p><p id="35ca0a53-388c-47fe-8986-7787c5c43e11" class="">Metric to pick best model is : number of anomalies, the less the better</p><p id="85a66d3f-b617-4590-9ddf-9db4ee238443" class="">List of Hyper parameters that we want to fine tune</p><ul id="ec6eb2d1-74b5-46b2-9d03-efc9e0e09583" class="bulleted-list"><li style="list-style-type:disc">Embedding: yes or no</li></ul><ul id="cb85bfe7-9aa6-42b8-a818-0e7f39443adf" class="bulleted-list"><li style="list-style-type:disc">Embedding dimension</li></ul><ul id="19935407-4657-4a33-8922-6f4d624cba55" class="bulleted-list"><li style="list-style-type:disc">Bi lstm :  yes or no</li></ul><ul id="f1134533-9a9d-4626-b283-757eb2d4e412" class="bulleted-list"><li style="list-style-type:disc">Attention:  yes or no</li></ul><ul id="9c7e0c2b-828b-4f83-affd-4eaae7cf45f8" class="bulleted-list"><li style="list-style-type:disc">Window size used for training and prediction</li></ul><ul id="2704a71f-69ca-4052-ae53-78c57ee60541" class="bulleted-list"><li style="list-style-type:disc">Number of layers in the LSTM network</li></ul><ul id="5825d9ea-75a7-47ba-b439-75dd20a7e55b" class="bulleted-list"><li style="list-style-type:disc">Number of memory units in one LSTM block</li></ul><ul id="e653d047-55c7-43d5-976b-6811883b4eb8" class="bulleted-list"><li style="list-style-type:disc">Dropout</li></ul><ul id="37a0e397-9e8b-449f-ba35-a258e771be48" class="bulleted-list"><li style="list-style-type:disc">Batch size</li></ul><ul id="efb06809-145b-44f2-9c1f-2791b6edb8c5" class="bulleted-list"><li style="list-style-type:disc">Number of epoch</li></ul><p id="991e9365-8fb5-4abe-9756-c081842fb40f" class="">Bayesian Optimization provides a principled technique based on Bayes Theorem to direct a search of a global optimization problem that is efficient and effective. It works by building a probabilistic model of the objective function, called the surrogate function, that is then searched efficiently with an acquisition function before candidate samples are chosen for evaluation on the real objective function.</p><p id="31acc36d-e8e7-4c19-b414-a45c41f9eb66" class="">Bayesian Optimization is often used in applied machine learning to tune the hyperparameters of a given well-performing model on a validation dataset.</p><h2 id="d08fc37b-9e97-47cb-80ea-c62024becebc" class=""><mark class="highlight-teal"><strong>Bidirectional LSTM</strong></mark></h2><p id="33962846-e160-482b-bf93-454fbb566126" class=""><strong>Goal</strong>: Catch a better context for our prediction.</p><p id="4b4c77c3-c3d3-4ebe-9424-0f83427e2f41" class="">In bidirectional LSTM, instead of training a single model, we introduce two. The first model learns the sequence of the input provided, and the second model learns the reverse of that sequence.</p><p id="78499b43-c7cd-4370-9105-603d80ad88ab" class="">Since we do have two models trained, we need to build a mechanism to combine both. It is usually referred to as the Merge step.</p><figure id="36cbd25f-56e4-4fc0-aac7-c7f7cd36bd1e" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Diapositive9.png"><img style="width:720px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Diapositive9.png"/></a></figure><h2 id="127fd47f-40e0-40c5-82f5-853416c42462" class=""><mark class="highlight-teal"><strong>Attention Layer</strong></mark></h2><p id="25ac6f39-478e-4333-8d65-863f93bec861" class=""><strong>Goal</strong>: Remove noisable Template.</p><p id="19d9e859-482b-4df8-97bf-b1b9f162fb0d" class="">Attention is simply a vector, often the outputs of dense layer using softmax function. Self-attention, also known as intra-attention, is an attention mechanism relating different positions of a single sequence in order to compute a representation of the same sequence. It has been shown to be very useful in machine reading, abstractive summarization, or image description generation. The <a href="https://arxiv.org/pdf/1601.06733.pdf">long short-term memory network</a> paper used self-attention to do machine reading. In the example below, the self-attention mechanism enables us to learn the correlation between the current words and the previous part of the sentence .In our case, the Attention Layer could reduce the weight of useless logs</p><p id="35c8f841-6a25-4732-8063-e9cc3478e10c" class="">
+</p><h2 id="b8609322-b75f-4078-896b-0d343265a5eb" class=""><mark class="highlight-teal">Explainability</mark></h2><figure id="875db89f-3e19-423d-ad02-563c683b9a74" class="image"><a href="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled_presentation.png"><img style="width:960px" src="DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b/Untitled_presentation.png"/></a></figure><p id="30eb0ca7-19f3-4cb4-b007-f428b0d77c6e" class="">
+</p><h2 id="1d7032c6-e915-48ad-803a-b704e9776eab" class="">Source :</h2><ul id="5d68edf1-b000-4e44-baad-bc0eca1ae649" class="bulleted-list"><li style="list-style-type:disc"><a href="../Tests%20&amp;%20Benchmarks%20ff0d50e91ad6494ca016517d38da6f7a/LogCluster%20performance%20test%20d77a3157f2424257b5426a831e5bffef.html">LogCluster performance</a></li></ul></div></article></body></html>

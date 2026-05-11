@@ -1,0 +1,679 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Kubernetes docs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="525d4bb7-b06e-46d7-94be-e14e9452900d" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/kube.png"/></div><h1 class="page-title">Kubernetes docs</h1><p class="page-description"></p></header><div class="page-body"><p id="16f86cee-7e63-4dbc-85d1-ac13ebaee657" class="">
+</p><figure id="a7172fc8-207d-44dc-9ccd-6960ef98fde5" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Mongodb%20a7172fc8207d44dc9ccd6960ef98fde5.html">Mongodb</a></figure><figure id="9e03102c-2a97-46bb-b082-3e9b24d326aa" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/kubeflow%209e03102c2a9746bbb0823e9b24d326aa.html"><span class="icon">🧮</span>kubeflow</a></figure><figure id="449a5bee-1583-4419-965f-64cf6726878b" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/argo%20workflow%20449a5bee15834419965f64cf6726878b.html">argo workflow</a></figure><figure id="2a89aa62-eb0d-41a9-9065-792fb9bbb2ca"><a href="https://kubernetes.io/docs/reference/kubectl/cheatsheet/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">kubectl Cheat Sheet</div><div class="bookmark-description">This page contains a list of commonly used kubectl commands and flags. Kubectl autocomplete BASH source &gt; ~/.bashrc # add autocomplete permanently to your bash shell. You can also use a shorthand alias for kubectl that also works with completion: alias k=kubectl complete -F __start_kubectl k ZSH source &gt; ~/.</div></div><div class="bookmark-href"><img src="https://kubernetes.io/images/favicon.png" class="icon bookmark-icon"/>https://kubernetes.io/docs/reference/kubectl/cheatsheet/</div></div><img src="https://kubernetes.io/images/kubernetes-horizontal-color.png" class="bookmark-image"/></a></figure><p id="ae18d4c8-c349-4996-a59f-b1a727942848" class="">
+</p><figure id="5aa253d8-8564-46d3-a6da-25bbec63c328" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/K3s%20cluster%20creation%205aa253d8856446d3a6da25bbec63c328.html"><span class="icon">🏸</span>K3s cluster creation</a></figure><p id="7ceb0e6b-7880-46b0-80de-5f95d0f0c7a2" class="">
+</p><figure id="56e39150-5770-4698-86da-34be7012220a" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Sprint%20plannings%2056e391505770469886da34be7012220a.html">Sprint plannings </a></figure><figure id="0c21129a-7f92-4f4a-8674-7d4dcc6aace6" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/deploy%20Bephor%20on%20eks%20cluster%200c21129a7f924f4a86747d4dcc6aace6.html">deploy Bephor on eks cluster</a></figure><figure id="aefbfaa7-db57-44af-a03c-259947cd33e9" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Demo%20ml%20on%20eks%20aefbfaa7db5744afa03c259947cd33e9.html"><span class="icon">🤠</span>Demo: ml on eks</a></figure><figure id="5889ea2d-db97-48b6-b287-27255d7609b2" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Kafka%205889ea2ddb9748b6b28727255d7609b2.html"><span class="icon">🚛</span>Kafka</a></figure><figure id="22e26cb1-fd80-46ff-8b7a-9d6c181107e0" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Secrets%2022e26cb1fd8046ff8b7a9d6c181107e0.html"><span class="icon">🔒</span>Secrets</a></figure><figure id="083cc951-2b55-4069-94fe-43a67110d983" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Keda%20083cc9512b55406994fe43a67110d983.html"><span class="icon">🔮</span>Keda</a></figure><figure id="b3e4f74e-407b-430e-8595-5612a8ba9000" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/K8s%20Improvements%20b3e4f74e407b430e85955612a8ba9000.html">K8s Improvements</a></figure><figure id="8364557f-a160-41fe-ab7c-c95437212970" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/K8s%20cluster%20deployment%20using%20Jenkins%208364557fa16041feab7cc95437212970.html">K8s cluster deployment using Jenkins</a></figure><figure id="0c137e7b-9d1e-4815-8148-e8bf19000c3b" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Load%20templates%20pipelines%20to%20open%20distro%200c137e7b9d1e48158148e8bf19000c3b.html">Load templates/pipelines to open distro</a></figure><figure id="7418110f-4803-43b6-817a-3101718602ba" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Cluster%20scaling%20up%20down%20+%20cost%20estimation%207418110f480343b6817a3101718602ba.html">Cluster scaling up/down + cost estimation </a></figure><figure id="568979c0-a148-4d57-8080-477faee34750" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Kube%20cost%20estimator%20568979c0a1484d578080477faee34750.html">Kube cost estimator</a></figure><figure id="9ace0e00-90cb-47b9-abe7-e854272d9091" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/K8S%20Adjust%20resources%20for%20deployments%20statefulsets%209ace0e0090cb47b9abe7e854272d9091.html">K8S Adjust resources for deployments/statefulsets</a></figure><figure id="59331da0-e425-4948-9299-9b740755c78e" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/K8S%20Grafana%20prometheus%20install%2059331da0e425494892999b740755c78e.html">K8S Grafana prometheus install</a></figure><figure id="5cda33f7-5096-44eb-8bce-61576280ca81" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/OpenDistro%20resource%20allocation%205cda33f7509644eb8bce61576280ca81.html">OpenDistro resource allocation</a></figure><figure id="4575bc7d-19a3-4285-88a4-c73ed60ab441" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Kubernetes%20cluster%20deployment%20steps%204575bc7d19a3428588a4c73ed60ab441.html">Kubernetes cluster deployment steps</a></figure><figure id="934912c5-88d8-41b4-96e3-1b4942f7c206" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Cluster%20cleanup%20data%20after%20testing%20934912c588d841b496e31b4942f7c206.html">Cluster cleanup data after testing</a></figure><figure id="963a1102-5d3d-446d-b432-4a70c006ef54" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/argo%20events%20963a11025d3d446db4324a70c006ef54.html">argo events</a></figure><figure id="cd5b4ed8-055a-4f30-ac1e-aaa19af573e7" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Start-Staging%20K8s%20cluster%20cd5b4ed8055a4f30ac1eaaa19af573e7.html">Start-Staging K8s cluster</a></figure><figure id="0dd11781-e3ff-4493-b9bb-6bf06e911ce6" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Install%20SSM%20on%20EKS%20nodes%200dd11781e3ff4493b9bb6bf06e911ce6.html">Install SSM on EKS nodes</a></figure><figure id="aa887662-e22c-4173-9819-b43f2311e6c6" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Questions%20to%20experts%20in%20K8s%20on%20June-2021%20aa887662e22c41739819b43f2311e6c6.html">Questions to experts in K8s on June-2021</a></figure><figure id="801ecddf-b6b9-4e5d-b68c-16e0647589cb" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/All%20Clusters%20801ecddfb6b94e5db68c16e0647589cb.html">All Clusters</a></figure><figure id="b867a7bc-a1ba-426e-80ab-b7deba5d1d74" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/GKE%20b867a7bca1ba426e80abb7deba5d1d74.html">GKE</a></figure><figure id="08280541-2d5a-49ff-b373-acea4ef17859" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Monitoring%20082805412d5a49ffb373acea4ef17859.html">Monitoring </a></figure><figure id="01f4ac63-2a9d-4900-b7ce-0fd596efa3bf" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/mermlade%2001f4ac632a9d4900b7ce0fd596efa3bf.html">mermlade</a></figure><figure id="dcf3de18-e351-407e-bd88-adad307f3b8b" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Statefulsets%20support%20dcf3de18e351407ebd88adad307f3b8b.html">Statefulsets support</a></figure><figure id="92950078-f55c-4675-be13-7456c3e1cd4c" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/kube%20cluster%20mongo%20UI%20access%2092950078f55c4675be137456c3e1cd4c.html">kube cluster mongo UI access</a></figure><figure id="8cdda075-6d35-451b-ba96-9bd4b414f68a" class="link-to-page"><a href="Kubernetes%20docs%20525d4bb7b06e46d794bee14e9452900d/Treemap%20improvements%208cdda0756d35451bba969bd4b414f68a.html">Treemap improvements</a></figure></div></article></body></html>

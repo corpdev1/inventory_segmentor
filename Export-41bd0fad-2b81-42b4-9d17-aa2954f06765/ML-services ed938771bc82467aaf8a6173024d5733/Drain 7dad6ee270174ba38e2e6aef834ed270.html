@@ -1,0 +1,720 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Drain</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7dad6ee2-7017-4ba3-8e2e-6aef834ed270" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🗜️</span></div><h1 class="page-title">Drain</h1><p class="page-description"></p></header><div class="page-body"><p id="e1964be6-fd79-4705-859c-3fe0b0d12243" class="">
+</p><p id="8f3f0ff5-f9e5-4909-bf2a-d83eae812f3c" class="">
+</p><p id="3dc9e299-afaf-48e3-b078-86f46d54b13d" class="">paper: <a href="http://jmzhu.logpai.com/pub/pjhe_icws2017.pdf">http://jmzhu.logpai.com/pub/pjhe_icws2017.pdf</a></p><p id="67385843-e4cd-4bbd-a789-bc0be7f7b7f2" class="">code: <a href="https://github.com/logpai/logparser/tree/master/logparser/Drain">https://github.com/logpai/logparser/tree/master/logparser/Drain</a></p><p id="18187d56-02f5-4e90-aa5b-80c4bf9af947" class="">
+</p><p id="62b0e4cd-0a54-49a3-abbe-92bee5f1b7e3" class="">Written by <span class="user">@Khmayes Abouda</span></p><h2 id="5e369279-6853-4cdf-bb58-2ee866b5276b" class="">Intro:</h2><p id="8740148f-ee83-454a-ba11-2006149a336f" class="">Template extraction algo.</p><p id="53298a46-238e-4022-af09-16afd5cae9d2" class="">
+</p><figure id="b617a9b9-1fe5-4b5b-9166-60e2192d2a33" class="image"><a href="Drain%207dad6ee270174ba38e2e6aef834ed270/template_extraction_overview.png"><img style="width:480px" src="Drain%207dad6ee270174ba38e2e6aef834ed270/template_extraction_overview.png"/></a></figure><p id="655c58fc-9756-4fbe-8bff-dec01071867a" class="">
+</p><p id="44eb2a57-4d82-45d9-973d-7c21cc1d2c9c" class="">Template (aka log event) = constant part of a log message.</p><h2 id="82431571-955f-4689-8a7f-1aaa3f90198e" class="">Task:</h2><p id="dc64f31d-23ec-4764-b6cb-a09c554b6d87" class="">Given a list of logs, output their corresponding templates/events. </p><h2 id="08dda8a6-34bb-4277-8e6f-03e3d16ab5e1" class="">Main idea (based on empirical yet debatable assumptions):</h2><p id="ac5ce8b9-d3dd-47a6-b1fe-5036f1576522" class=""><strong><span style="border-bottom:0.05em solid">Assumptions:</span></strong></p><ul id="784ddf5d-4f43-4731-9845-2b4b70fb35c5" class="bulleted-list"><li style="list-style-type:disc">All logs of the same template must have the same (token*) length.</li></ul><ul id="db24eac5-6b10-4902-ab52-ec094b358b7a" class="bulleted-list"><li style="list-style-type:disc">All logs of the same template must start with the same token.</li></ul><p id="8b30b909-5c34-4b2a-a06f-ef2811094dbe" class="">
+</p><p id="4119a335-c9e1-45a3-966c-818516566c4f" class="">Based on that, the idea behind Drain is to group logs of the same length AND that start with the same token.</p><p id="77d8e3c5-32f6-4e93-b853-158a58726228" class="">
+</p><h2 id="69ee9589-fee9-474f-b6ea-a9da5ee92a9f" class="">How?</h2><p id="e06ccd15-38c7-4da3-bfb7-a621288fd0ba" class="">The main idea is to organize log messages in a tree structure.  According to some rules that will be detailed later, logs are divided into <em><strong>log groups</strong></em> while traversing the leaf nodes. Therefore, one leaf node represents one <em>log group </em>(and also one log event). Internal nodes represent decision rules to follow in the search process.</p><p id="f65dbc11-08cb-4a45-8029-e979dee9284b" class="">
+</p><figure id="acaccf8a-6ff1-4b2a-9ba8-3a67bbcb1c25" class="image"><a href="Drain%207dad6ee270174ba38e2e6aef834ed270/drain_tree.png"><img style="width:480px" src="Drain%207dad6ee270174ba38e2e6aef834ed270/drain_tree.png"/></a><figcaption>Structure of Drain tree (depth = 3) </figcaption></figure><p id="500a5aab-4b42-48f3-9b49-55911e2d5540" class="">
+</p><p id="7cd3b4f5-3ec8-41cf-922b-43a38d5f750b" class=""> After encountering a list of <em>log groups</em> (via traversing internal nodes), a template is assigned to a new log message by choosing the most suitable log group.</p><p id="f61ff045-21b8-416c-9d98-666f300d5dfd" class="">
+</p><p id="6e96fc19-b164-49ff-936b-26cb3a50fda8" class="">The figure above is a good illustration of the newly introduced terms in the previous paragraph.</p><p id="31f47068-a663-49ac-88e2-922e95858505" class="">
+</p><p id="43437d0e-1020-4338-8493-ba76856e4b36" class="">In the following sections, for simplicity reasons we confuse these terms (log group = log event = template).</p><h2 id="062b6828-9fb6-487d-a059-766969ac22b1" class="">Algo steps:</h2><h3 id="11321d30-ec4c-49a3-a538-7c9b8a3180e5" class="">1- Preprocessing step:</h3><p id="584f8d25-5262-4419-8cf6-c05cdf3d2290" class="">Before looking at the tree, Drain simplifies raw logs by eliminating unnecessary tokens. This is done by user predefined regular expressions. Eg: IP addresses, file paths, etc ...</p><h3 id="3442df91-9804-49a1-8555-a39fdefdb771" class="">2- Tree search:</h3><p id="58b7e042-5624-4e62-96ca-1a885aa9b82e" class=""><span style="border-bottom:0.05em solid">Notations:</span> we define an n-th layer node as a node whose depth is n</p><p id="b593e51f-a9ef-41fa-9425-3fd150094b89" class="">This step contains two substeps:</p><ol type="1" id="0c6eee96-c11e-46d3-aa39-2076568efc4f" class="numbered-list" start="1"><li><strong>Search by log message length (</strong><mark class="highlight-teal_background"><strong>built on the assumption that all logs of the same template must have the same (token*) length</strong></mark><strong>): </strong>1-st layer nodes divide logs based on their lengths. Eg: for &quot;Receive from node 4&quot;, we go from the root to the internal node &quot;Length 4&quot;.</li></ol><ol type="1" id="7aa7519f-3a9b-4363-addc-1852bb89fa1c" class="numbered-list" start="2"><li><strong>Search by preceding tokens (</strong><mark class="highlight-teal_background"><strong>built on the assumption that all logs of the same template must start with the same token</strong></mark><strong>): </strong>n-th layer nodes with n &gt; 1 divide logs of different tokens in the beginning positions of the log message (2nd layer → first token, 3rd layer → second token, and so on ...). Eg: for &quot;Receive from node 4&quot;, we go from &quot;Length 4&quot; to &quot;Receiving&quot;, then from &quot;Receiving&quot; to &quot;From&quot;. <p id="997d4f18-9474-4cf9-9d0b-5d8dc18893b3" class="">*As a detail, the number of layers that encode the first tokens in the log message is <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>d</mi><mi>e</mi><mi>p</mi><mi>t</mi><mi>h</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(depth-2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">pt</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span>. Therefore, we traverse <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>d</mi><mi>e</mi><mi>p</mi><mi>t</mi><mi>h</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(depth-2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">pt</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> the internal node in this step.</p><p id="f163546e-fb95-4783-8548-769967a472b0" class="">
+</p></li></ol><p id="79e78a88-961b-4802-ab5f-4c73c47566c0" class=""><strong>Note:  </strong>For logs starting with an alphanumerical/digits a <em>special internal node (wildcard &lt;*&gt;)</em> is defined to avoid branch explosion. Eg: &quot;120 bytes received&quot; will fall under that internal node.</p><h3 id="2e899caa-dc95-48b9-ac9e-28227edc393c" class="">3- Matching/Choosing the most suitable log group</h3><p id="8aa499c1-0081-42bf-a5bf-0ff109f06ec2" class="">For a new log message, among all the log groups/events encountered, we select the best matching candidate, ie. the log event that minimizes this expression:</p><figure id="8d4e7e18-5673-4026-bd48-38226eaf0359" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>s</mi><mi>i</mi><mi>m</mi><mi>S</mi><mi>e</mi><mi>q</mi><mo>=</mo><mfrac><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mi>e</mi><mi>q</mi><mi>u</mi><mrow><mo fence="true">(</mo><mi>s</mi><mi>e</mi><msub><mi>q</mi><mn>1</mn></msub><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>s</mi><mi>e</mi><msub><mi>q</mi><mn>2</mn></msub><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo fence="true">)</mo></mrow></mrow><mi>n</mi></mfrac></mrow><annotation encoding="application/x-tex">simS e q=\frac{\sum_{i=1}^{n} e q u\left(s e q_{1}(i), s e q_{2}(i)\right)}{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">im</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.180002em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.494002em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">n</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.6897100000000003em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.804292em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mord mathnormal">u</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord mathnormal">se</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">se</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div></figure><p id="14501eda-8894-4240-8216-153e3f9d2d2a" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>e</mi><msub><mi>q</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">seq_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">se</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> represents the log message, <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>e</mi><msub><mi>q</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">seq_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">se</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> represents the log event, <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>e</mi><mi>q</mi><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">seq(i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">se</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> is the <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>−</mo><mi>t</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">i-th</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span></span></span></span></span><span>﻿</span></span> token of the sequence.</p><p id="b9095926-501e-43c8-84e3-6c4451f74876" class="">And, for tokens <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>t</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">t_1,t_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>:</p><figure id="8e1aa4b1-160e-4f7d-a50d-31ef07ad5a6f" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>e</mi><mi>q</mi><mi>u</mi><mrow><mo fence="true">(</mo><msub><mi>t</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>t</mi><mn>2</mn></msub><mo fence="true">)</mo></mrow><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.1600em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext> if </mtext><msub><mi>t</mi><mn>1</mn></msub><mo>=</mo><msub><mi>t</mi><mn>2</mn></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext> otherwise </mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">e q u\left(t_{1}, t_{2}\right)=\left\{\begin{array}{ll}1 &amp; \text { if } t_{1}=t_{2} \\0 &amp; \text { otherwise }\end{array}\right.</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mord mathnormal">u</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">{</span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord"> if </span></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord"> otherwise </span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div></figure><p id="37d48cf1-43a3-4264-839c-dd405a3aa0b5" class="">Once we have the template with the highest <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>i</mi><mi>m</mi><mi>S</mi><mi>e</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">simSeq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">im</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span></span></span></span></span><span>﻿</span></span>, we validate the candidate if <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>i</mi><mi>m</mi><mi>S</mi><mi>e</mi><mi>q</mi><mo>≥</mo><mi>s</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">simSeq \geq st</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">im</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span></span></span></span></span><span>﻿</span></span> with <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">st</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span></span></span></span></span><span>﻿</span></span> is a predefined <em>similarity threshold</em>.</p><p id="6c080631-982a-4180-a471-fc84c1441246" class="">
+</p><h2 id="abb025ca-7509-4290-b5c2-9c2fa5a742da" class="">4-Update tree (only if no match has been found):</h2><p id="b44923f4-d467-474c-ab6c-da74f643c321" class="">In this case, a new log group is created, with the log message as log event. If it does not already exist, a 1-st layer node of its length is created, a 2-nd layer node of its first token and a wildcard * node in the 3-rd layer.</p><p id="2c88ab63-0cc7-4e14-a512-384ef018ac73" class="">
+</p><figure id="b1cc90a0-1cef-44c8-a5af-67c8a69062d8" class="image"><a href="Drain%207dad6ee270174ba38e2e6aef834ed270/drain_tree_update.png"><img style="width:528px" src="Drain%207dad6ee270174ba38e2e6aef834ed270/drain_tree_update.png"/></a><figcaption>Example : Updating the tree with new log &quot;Receive 120 bytes&quot;</figcaption></figure><p id="55ac8b71-7890-4ad8-8384-5c5d68f8b029" class="">
+</p><p id="c20b5ffa-7f37-4d7c-af67-d1d3a7079d9a" class="">
+</p><h3 id="83421dbe-952d-4fb8-8508-82dfc5a76b8b" class="">Model parameters:</h3><ul id="d1f65dbd-2207-4948-9d99-fedd5b7f3da0" class="bulleted-list"><li style="list-style-type:disc"><em><strong>maxChild:</strong></em> max number of children per node → Avoid branch exploding</li></ul><ul id="12fd5dd2-4831-4ddf-96ea-d3d81fa72284" class="bulleted-list"><li style="list-style-type:disc"><em><strong>depth:</strong></em> Tree depth</li></ul><ul id="7ba528d7-1d84-4518-ac43-21c40ba2bfc9" class="bulleted-list"><li style="list-style-type:disc"><strong><em>similarity_threshold</em></strong>: parameter to validate candidate template.</li></ul><p id="f776674a-4b30-4ebb-a59b-62aa6ad8c7e3" class="">
+</p><h2 id="f0f3f480-0a69-437e-8819-0cc06b26549b" class="">Summary of Drain&#x27;s high-level steps:</h2><p id="19abbb93-0d78-4d38-8d9f-0cf24a0aed8f" class="">
+</p><figure id="8dc49d85-4cf6-45c2-bd2a-ed6abdc92ab2" class="image"><a href="Drain%207dad6ee270174ba38e2e6aef834ed270/drain_ov.png"><img style="width:624px" src="Drain%207dad6ee270174ba38e2e6aef834ed270/drain_ov.png"/></a></figure><p id="882ad766-dbb5-4fb9-aa6c-517d68f4ce25" class="">
+</p><h1 id="72cb68f2-07ad-43a5-a88d-8995507275b9" class="">Conclusion, Pros/Cons</h1><p id="b9fc9883-dc14-4975-b681-1cdcc95525dc" class=""><span style="border-bottom:0.05em solid"><strong>Pros: </strong></span><mark class="highlight-teal_background"><strong>Compution speed</strong></mark></p><p id="d39a95bb-6825-4006-8351-de1b2cb43524" class="">Organizing logs in a tree structure means a fast search, ie, instead of comparing a new log to all discovered templates one by one, the tree fastens and guides the search by the rules defined in its internal nodes.</p><p id="4e60d788-1378-49db-8740-2adad997cb0f" class="">
+</p><p id="e563486d-20f4-4fdd-abf1-19baafe54676" class=""><span style="border-bottom:0.05em solid"><strong>Cons:</strong></span></p><ul id="15932d6f-094d-4291-9f76-301db56d58dc" class="bulleted-list"><li style="list-style-type:disc">Strong assumptions → Weak generalization power → Potential bad performance on some types of logs/templates.</li></ul><p id="62c73125-09cc-4d66-92d9-b34d45756908" class="">
+</p><ul id="c03c35d8-7ce9-4fd0-b30f-ae5084b472a1" class="bulleted-list"><li style="list-style-type:disc">Other potential problems<ul id="315594ca-d078-4ae8-bb29-680eec612d06" class="bulleted-list"><li style="list-style-type:circle">All the logs start with a different token (→ 2nd assumption is not satisfied)</li></ul><ul id="052f04fc-402a-4e12-af55-f075e934db38" class="bulleted-list"><li style="list-style-type:circle">Logs that have no whitespace (→ Viewed by drain as a single token)
+</li></ul></li></ul><pre id="c90b286b-bece-4cf3-99b0-831c8cdad91d" class="code"><code>f6c76fb8,setTodayTotalDetailSteps=1514038440000##7017##548365##8661##13216##27179417,1
+5ed39ecc,setTodayTotalDetailSteps=1514038440000##7018##548365##8661##13311##27179732,1
+c7cd2259,setTodayTotalDetailSteps=1514038440000##7019##548365##8661##13406##27180468,1
+ee50d75f,setTodayTotalDetailSteps=1514038440000##7020##548365##8661##13501##27180976,1
+79972429,setTodayTotalDetailSteps=1514038440000##7021##548365##8661##13596##27181971,1
+0dd728a7,setTodayTotalDetailSteps=1514038440000##7022##548365##8661##13691##27182468,1
+c2864c0d,setTodayTotalDetailSteps=1514038440000##7023##548365##8661##13786##27182973,1
+c3fa669a,setTodayTotalDetailSteps=1514038440000##7024##548365##8661##13881##27183469,1
+2e8c2dfa,setTodayTotalDetailSteps=1514038440000##7025##548365##8661##13976##27183974,1
+530ac75a,setTodayTotalDetailSteps=1514038440000##7026##548365##8661##14071##27184972,1
+feee0827,setTodayTotalDetailSteps=1514038440000##7027##548365##8661##14166##27185467,1
+6621ffba,setTodayTotalDetailSteps=1514038440000##7028##548365##8661##14261##27185977,1
+55e1e479,setTodayTotalDetailSteps=1514038440000##7029##548365##8661##14356##27186469,1</code></pre><p id="1223a54e-9a8e-4b6b-ab3f-4b0a53da3d0a" class="">
+</p><p id="c7d236bd-2147-4af1-ae23-77491a5ece71" class="">
+</p><p id="0a1690af-e819-4ee8-bb19-5044e6efc2b7" class="">
+</p><p id="352df943-a38b-4bc8-be6a-0a5b5e4f10ce" class="">
+</p><p id="8883ccda-72e8-4088-96d8-2896c5ebc13c" class="">
+</p><p id="c97d39a9-9575-4612-ad8a-992e22fd69f0" class="">Potential drain service architecture</p><figure id="34880d12-5b02-4cb1-97b3-4a575b2d051f" class="link-to-page"><a href="Drain%207dad6ee270174ba38e2e6aef834ed270/Drains%20stateless%20architecture%20(1)%2034880d125b024cb197b34a575b2d051f.html">Drains stateless architecture (1)</a></figure><figure id="e71512f0-3050-44cd-b2b7-51d94c9848a0" class="link-to-page"><a href="Drain%207dad6ee270174ba38e2e6aef834ed270/A%20posterior%20async%20system%20to%20reconstruct%20drain%20tree%20e71512f0305044cdb2b751d94c9848a0.html">A posterior async system to reconstruct drain tree from tree changes (1)</a></figure><p id="0eb70deb-bf75-47f1-8a85-2095107cc9b5" class="">
+</p><p id="8b2391cc-d3a3-4e99-a088-ec1f361626de" class="">
+</p><p id="081f17ec-2338-472c-a822-0a8f1900db2e" class="">Benchmark</p><figure id="6b34dd43-921e-40c7-a907-62efc31da4a4" class="link-to-page"><a href="Drain%207dad6ee270174ba38e2e6aef834ed270/drain%20template%20extraction%20performance%20benchmark%20(1%206b34dd43921e40c7a90762efc31da4a4.html">drain template extraction performance benchmark (1)</a></figure><p id="381bbe8e-649e-4d33-9490-3db41d6cf80b" class="">
+</p><p id="bd3b2bfb-42a2-4852-b631-e0334e6a0893" class="">Parallezation</p><figure id="0c9198cf-d5ea-4498-98a6-6c7c904918eb" class="link-to-page"><a href="Drain%207dad6ee270174ba38e2e6aef834ed270/Parallezation%20(1)%200c9198cfd5ea449898a66c7c904918eb.html">Parallezation (1)</a></figure><p id="7d0c4f40-cce2-4f36-b2c5-9ffbd4c66839" class="">
+</p><p id="f811e016-bb77-4a66-aae0-063e64a3ff14" class="">
+</p></div></article></body></html>

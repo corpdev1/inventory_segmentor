@@ -1,0 +1,17 @@
+﻿Importance,Topic,Potential/Identified Risks,Mitigation Plan,Advantages,Owner,Target Date
+Must have,Thresholding: [blackbox-exporter] tls certificate expiring in less than 30 days (warning),Can do now,None as of now,,,"April 1, 2022"
+Must have,Thresholding: [mysqld-exporter] mysql node flagged as IN RECOVERY during the last 30s (alert),Can do now,None as of now,,,"April 1, 2022"
+Must have,"Throttling alerts ","If we set it for 24h - how do the aggregated alerts work i.e threshold being surpassed on different component ? ","Can't do exactly as prom but present it with advantages - Rama to note a couple of pros ",We can have a history of all the alerts. We could easily lookup to see when the alert was triggered,"@Rama Rao Ganji ","July 2, 2021"
+Must have,Generic alerts,,None as of now,,"@Marin Radman ","July 2, 2021"
+Must have,Thresholding: [node-exporter] hdd full in less than 6 hours (linear projection) (warning),,None as of now,,"Waseem and @Marin Radman ","July 2, 2021"
+Must have,Thresholding: Alerts: [rabbitmq] connections> 1000 for 60s (warning),needs to verify with Waseem,None as of now,,"Waseem and @Marin Radman ","July 2, 2021"
+Must have,Business Metrics: Collect prometheus Metrics,"Currently we are not running our agent in docker, so not sure if we could reach the docker network from host network. It's also not possible to collect blackbox-exporter metrics with prometheus metrics",We need to run our agent as docker inside swarm cluster,,"@Rama Rao Ganji and @florent marmol ","July 9, 2021"
+Must have,Business Metrics: Create equivalent dashboards for all metrics,It may be not possible to find the equivalent dashboards to grafana dashboards. We need to ask Affluences about their existing grafana dashboards,Should we provide prometheus as a service using cortex or thanos ? If that's the case what should we do with the Machine Learning ? How do we map components with logs and metrics.,,"Waseem and @Hardik Thakkar ","August 2, 2021"
+"Must Have ",Log Alerts,"Count of level = error > 500 in the past 5 minutes for all apps. Will this be multiple alerts or can be grouped to one ? ","What is the Datadog query ?
+WE should show him the equivalent query in Elasticsearch.",,,
+Must have,Business Metrics: Integrate dashboards into Minima/PacketAI,How to map these dashboards to each component ? Is it possible to reuse these dashboards ?,No Plan,,"@Marin Radman ","August 4, 2021"
+Must Have,"Send ML alerts (which algos on which components?) ","Define what would be in the alert - content, tags (info, warning, error) - how do we decide on the tag, hyperlink and the corresponding flow for the user. The alert needs to be sent to gchat ",,,"@Marin Radman ","July 13, 2021"
+"Must Have ","Test all alerts for 1-2 weeks and check content for both TM and ML alerts ",Be sure it works well on our slack. Then activate on gchat,,,,
+Other,Agent: merge non-root installation of agent to dev environment on gitlab repo,How to update the existing installations ?,None,,"@Rama Rao Ganji ","January 1, 2022"
+,,,,,,
+,,,,,,

@@ -1,0 +1,692 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>NLQ to SQL benchmark </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="6511110e-42c5-40c0-b8bb-e7bce479f105" class="page sans"><header><h1 class="page-title">NLQ to SQL benchmark </h1><p class="page-description"></p></header><div class="page-body"><h1 id="3e3a67bb-1be0-4075-843c-0056a14e7543" class="">Benchmark on PacketAI dogfooding logs:</h1><p id="a40807b3-9e05-4131-bb55-bee38ce84660" class="">### Postgres SQL tables, with their properties:</p><p id="97ba1e3a-24f7-4792-aeaf-924f8bba4140" class="">#</p><p id="9ca73016-27c2-492a-9c31-68af33aa413b" class=""># paiaffluences_logs(timestamp, version, _id, _index, _score, _type, componentID, container_id, container_image_name, container_runtime, fields_agentID, fields_clusterName, infraID, filebeat_topic, hostname, input_type, kubernetes_container_name, kubernetes_namespace, kubernetes_node_hostname, kubernetes_node_name, kubernetes_pod_ip, kubernetes_pod_name, kubernetes_statefulset_name, log_file_path, log_offset, logID, logseverity, message, stream)</p><p id="12bf38a3-8ff8-4bd7-a5c2-b900b3f953d9" class="">#</p><h2 id="791b763f-4b24-4b16-8322-b52335e69d24" class="">Questions with direct answers:</h2><ul id="4c732804-4770-4649-867c-af6435811f27" class="bulleted-list"><li style="list-style-type:disc">list all log lines from component COMPONENT_ID that contains an error</li></ul><pre id="f2f1f4ba-df44-4b0c-8b14-391706196a42" class="code code-wrap"><code>SELECT * FROM paiaffluences_logs WHERE componentID = &#x27;COMPONENT_ID&#x27; AND logseverity = &#x27;ERROR&#x27;</code></pre><ul id="d10584b9-74df-4603-9dbf-6801cdb3e363" class="bulleted-list"><li style="list-style-type:disc">list messages that contain connection errors from COMPONENT_X to HOSTNAME_X</li></ul><pre id="f149c1cd-1dbb-4078-8b1d-37fddbde1143" class="code"><code>SELECT * FROM paiaffluences_logs WHERE message LIKE &#x27;%connection error%&#x27; AND message LIKE &#x27;%COMPONENT_X%&#x27; AND message LIKE &#x27;%HOSTNAME_X%&#x27;</code></pre><ul id="87e5cc14-3839-4b6a-86c8-60f555308d9e" class="bulleted-list"><li style="list-style-type:disc">where is the first connection error from COMPONENT_X to HOSTNAME_X?</li></ul><pre id="aa6da087-7d2c-456e-8e19-493b191178af" class="code"><code>select * from paiaffluences_logs where message like &#x27;%connection error%&#x27; and message like &#x27;%COMPONENT_X%&#x27; and message like &#x27;%HOSTNAME_X%&#x27; order by timestamp asc limit 1</code></pre><ul id="af8ad64f-919b-42d8-a45a-ce5a6d6a6ff8" class="bulleted-list"><li style="list-style-type:disc">list logs with mention of rabbitmq</li></ul><pre id="51fb043e-f951-4f74-bcfb-4dd75009e087" class="code code-wrap"><code>SELECT * FROM paiaffluences_logs WHERE message LIKE &#x27;%rabbitmq%&#x27;</code></pre><ul id="20342fe0-2426-4a80-9dbe-659d068ea614" class="bulleted-list"><li style="list-style-type:disc">number of errors with higher score than 30 involving filebeat_topic X:</li></ul><pre id="d9b0a8be-4802-45da-8a91-91581356e7ff" class="code"><code>SELECT count(*) FROM paiaffluences_logs WHERE _score &gt; 30 AND filebeat_topic = &#x27;X’</code></pre><ul id="d3dceea3-15dd-4645-a04e-a864ba7bb603" class="bulleted-list"><li style="list-style-type:disc">query to list logs from COMPONENT_ID that talk about time-out connections</li></ul><pre id="0e5f1d1c-cef1-46a2-a970-ae98bf28b0f4" class="code"><code>SELECT * FROM paiaffluences_logs WHERE componentID = &#x27;COMPONENT_ID&#x27; AND message LIKE &#x27;%timeout%’</code></pre><ul id="b28570ed-0529-4c07-a080-c5bd847d376f" class="bulleted-list"><li style="list-style-type:disc">query to list COMPONENT_ID logs that talk about time-out connections</li></ul><pre id="6dc2b851-0c62-4817-a039-76e2fd61c29a" class="code"><code>SELECT * FROM paiaffluences_logs WHERE message LIKE &#x27;%timeout%&#x27; AND componentID = &#x27;COMPONENT_ID’</code></pre><ul id="3f92f3b9-9152-4a1d-a604-04550273ddd8" class="bulleted-list"><li style="list-style-type:disc">query to list logs with single occurence</li></ul><pre id="960705a4-4d61-4d3d-8f4a-dd4789b6dcf2" class="code code-wrap"><code>SELECT * FROM paiaffluences_logs WHERE message = &#x27;&lt;message&gt;&#x27; GROUP BY message HAVING COUNT(*) = 1</code></pre><ul id="c0dbe6e3-520d-42de-ac5d-bc59bf77a1f3" class="bulleted-list"><li style="list-style-type:disc">query to list logs with exactly 10 occurences:</li></ul><pre id="988047d9-2daa-421c-b76a-6f1d0f110bd1" class="code code-wrap"><code>SELECT * FROM paiaffluences_logs WHERE message LIKE &#x27;%10%&#x27;</code></pre><ul id="ecace3ac-8fc1-46bf-89cb-58f3b73e0f31" class="bulleted-list"><li style="list-style-type:disc">query to list logs fom COMPONENT_ID_X with less occurences than 20</li></ul><pre id="9cbba37f-aef9-4ced-8d43-1ef3aaf88368" class="code"><code>SELECT * FROM paiaffluences_logs WHERE componentID = &#x27;COMPONENT_ID_X&#x27; GROUP BY message HAVING COUNT(*) &lt; 20</code></pre><ul id="10e82954-42c3-4067-8529-6dbdc08576ed" class="bulleted-list"><li style="list-style-type:disc">most occuring ip address in timeout logs:</li></ul><pre id="928f7775-cef1-472b-8328-e3c3df0cacf3" class="code"><code>select count(*) as count, fields_agentID from paiaffluences_logs where message like &#x27;%timeout%&#x27; group by fields_agentID order by count desc limit 10</code></pre><ul id="51f69581-55a4-408a-a5c1-1c6f58d86f6f" class="bulleted-list"><li style="list-style-type:disc">most occuring ip address in error logs:</li></ul><pre id="2e1160f3-e1d5-401a-9dc0-8b86950679a6" class="code"><code>select fields_agentID, count() from paiaffluences_logs where logseverity = &#x27;ERROR&#x27; group by fields_agentID order by count() desc limit 10</code></pre><ul id="a983417b-3abf-4c3e-bc96-8cac987ac3ce" class="bulleted-list"><li style="list-style-type:disc">most occuring hostname in error logs:</li></ul><pre id="5158740d-2b4d-4f4e-8353-a79f822c5b82" class="code"><code>select hostname, count() from paiaffluences_logs where logseverity = &#x27;ERROR&#x27; group by hostname order by count() desc limit 10</code></pre><ul id="e250ecda-8f6b-4564-8c3b-107500aa8609" class="bulleted-list"><li style="list-style-type:disc">most occuring pod in error logs:</li></ul><pre id="17274672-d21d-428d-bbd2-e82012c3e4ea" class="code"><code>select kubernetes_pod_name, count() from paiaffluences_logs where logseverity = &#x27;ERROR&#x27; group by kubernetes_pod_name order by count() desc limit 10</code></pre><ul id="5922a13d-7069-4cfe-8ba7-35f81aa12c44" class="bulleted-list"><li style="list-style-type:disc">query to list most stable pods: </li></ul><pre id="f1ff64cf-103c-4205-beaa-90fa33f9a0b3" class="code"><code>SELECT kubernetes_pod_name, count(*) as cnt FROM paiaffluences_logs WHERE logseverity = &#x27;INFO&#x27; GROUP BY kubernetes_pod_name ORDER BY cnt DESC LIMIT 10</code></pre><ul id="8520b97f-3c02-415b-aa5e-f321191a7fa8" class="bulleted-list"><li style="list-style-type:disc">container that occurs most in warning logs</li></ul><pre id="ca52826d-5d18-4522-8883-a226caed6507" class="code"><code>SELECT container_id, count(*) as count FROM paiaffluences_logs WHERE logseverity = &#x27;warning&#x27; GROUP BY container_id ORDER BY count DESC LIMIT 1</code></pre><ul id="a9f490e8-0654-4da7-94a8-22d07aa2bcb9" class="bulleted-list"><li style="list-style-type:disc">most problematic containers:</li></ul><pre id="d9a24ebf-321d-4f47-ba2c-6ecd250f907c" class="code"><code>select container_id, count() from paiaffluences_logs where logseverity = &#x27;ERROR&#x27; group by container_id order by count() desc limit 10</code></pre><ul id="d2651665-798a-49dc-b056-d54131a560f5" class="bulleted-list"><li style="list-style-type:disc">query to list most problematic hosts:</li></ul><pre id="9fc757e5-e4ed-4220-a221-689bfb91ac3c" class="code code-wrap"><code>SELECT hostname, count(*) as count FROM paiaffluences_logs WHERE logseverity = &#x27;ERROR&#x27; GROUP BY hostname ORDER BY count DESC</code></pre><ul id="901f9050-10fd-4ea5-a4a0-4505fad9b5ec" class="bulleted-list"><li style="list-style-type:disc">how many restarts of pod POD_X?</li></ul><pre id="7e4f1455-6fbd-4119-a98a-1bf6071c49e0" class="code"><code>SELECT count(*) FROM paiaffluences_logs WHERE kubernetes_pod_name = &#x27;POD_X&#x27; AND message LIKE &#x27;%Restarting container%&#x27;</code></pre><ul id="0743e821-b8d6-4bea-9cbe-7a7d62cbeacd" class="bulleted-list"><li style="list-style-type:disc">pod with most restarts:</li></ul><pre id="f9b39748-0f0d-421f-8391-c0182fe6ee1f" class="code code-wrap"><code>select kubernetes_pod_name, count(*) as restarts from paiaffluences_logs where message like &#x27;%Restarting container%&#x27; group by kubernetes_pod_name order by restarts desc limit 1</code></pre><ul id="37608b6f-e8e5-4ae0-80a8-8de01adbb3da" class="bulleted-list"><li style="list-style-type:disc">hostname with most pods</li></ul><pre id="e5e48ee9-1bb6-4063-a3ea-d99ec1329539" class="code"><code>SELECT hostname, count(*) as count FROM paiaffluences_logs GROUP BY hostname ORDER BY count DESC LIMIT 1</code></pre><ul id="7765cf69-0e61-461d-a3a3-7210747b628f" class="bulleted-list"><li style="list-style-type:disc">hostname that contains most restarting pods:</li></ul><pre id="e2601cd5-e5d5-418b-a4a1-3c6d43060314" class="code code-wrap"><code>select hostname, count(*) from paiaffluences_logs where message like &#x27;%restarting%&#x27; group by hostname order by count(*) desc limit 10</code></pre><ul id="5e9da961-2ded-4fe1-866c-e9a302219beb" class="bulleted-list"><li style="list-style-type:disc">host with most problematic pods:</li></ul><pre id="b55d5e33-e75e-40fb-a118-6e64f9ae32dc" class="code"><code>select hostname, count(*) as cnt from paiaffluences_logs where logseverity = &#x27;ERROR&#x27; group by hostname order by cnt desc limit 10</code></pre><ul id="3c66df4d-ecf7-4439-b44d-dd5752294bbd" class="bulleted-list"><li style="list-style-type:disc">host with most problematic pods yesterday:</li></ul><pre id="08343a6f-c978-495e-b197-f52eed2045eb" class="code code-wrap"><code>SELECT hostname, count(*) as count FROM paiaffluences_logs WHERE logseverity = &#x27;ERROR&#x27; AND timestamp &gt; now() - interval &#x27;1 day&#x27; GROUP BY hostname ORDER BY count DESC LIMIT 1</code></pre><ul id="e5cb4f80-133c-44c0-bcf1-bccb130715d0" class="bulleted-list"><li style="list-style-type:disc">what period of time with most restarts of pods?</li></ul><pre id="8cdc2dd0-def5-412e-b60d-7210c9055f62" class="code"><code>SELECT count(*) as count, kubernetes_pod_name, kubernetes_namespace, kubernetes_container_name, kubernetes_node_name, kubernetes_pod_ip, kubernetes_statefulset_name, log_file_path, log_offset, logID, logseverity, message, stream, timestamp, version, _id, _index, _score, _type, componentID, container_id, container_image_name, container_runtime, fields_agentID, fields_clusterName, infraID, filebeat_topic, hostname, input_type
+FROM paiaffluences_logs
+WHERE message LIKE &#x27;%Restarting container%&#x27;
+GROUP BY kubernetes_pod_name, kubernetes_namespace, kubernetes_container_name, kubernetes_node_name, kubernetes_pod_ip, kubernetes_statefulset_name, log_file_path, log_offset, logID, logseverity, message, stream, timestamp, version, _id, _index, _score, _type, componentID, container_id, container_image_name, container_runtime, fields_agentID, fields_clusterName, infraID, filebeat_topic, hostname, input_type
+ORDER BY count DESC
+LIMIT 10</code></pre><ul id="7c039a4c-4a70-4581-be26-676140c5947b" class="bulleted-list"><li style="list-style-type:disc">when was the time of most pod restarts?</li></ul><pre id="61315360-4b55-4643-b78a-d45570d7783a" class="code"><code>select count(*) as count, date_trunc(&#x27;hour&#x27;, timestamp) as hour from paiaffluences_logs where message like &#x27;%Restarting container%&#x27; group by hour order by hour</code></pre><ul id="51ffb902-a7d7-4627-b1c0-a4f5aede7330" class="bulleted-list"><li style="list-style-type:disc">what is time with most restarts of pods of hostnmae HOST?</li></ul><pre id="a67b7f3c-3bb0-4776-8418-8185d1f0dd5c" class="code"><code>SELECT hostname, count(*) as count FROM paiaffluences_logs WHERE message LIKE &#x27;%restart%&#x27; GROUP BY hostname ORDER BY count DESC</code></pre><p id="ce9caa0f-fa2e-4d3c-ba72-451d81d00e1d" class="">
+</p><h2 id="4e6c21c7-af87-48de-965f-8cb4956caf17" class="">Questions with no direct answers:</h2><ul id="23521a41-fd41-47d4-9270-28eab29ca099" class="bulleted-list"><li style="list-style-type:disc">is kafka online?<p id="72b00363-dcab-4ec8-a7da-c340e0954e12" class=""><strong>Step1</strong>: transform to SQL query:</p><p id="cdc9f17c-5ab1-4e84-b53a-a214dd7ecd56" class="">few shots like: </p><p id="4ca64931-c11f-4a76-a9bd-31ead3cd34c3" class="">is rabbitmq online?</p><p id="d129de30-6ad5-41e0-99a5-37c36d53c753" class="">select * from index-62a9ed185b54ce0013c37d66-paiaffluences-log-kubernetes-default where componentID LIKE &#x27;%rabbitmq%&#x27; or message like &#x27;%rabbitmq%&#x27;;</p><p id="3e74e622-19c4-44d2-af2d-e21a8d497fdf" class="">is mongodb online?</p><p id="f0341fd1-c42e-41f1-8e5b-513e47e51f90" class="">select * from index-62a9ed185b54ce0013c37d66-paiaffluences-log-kubernetes-default where componentID LIKE &#x27;%rabbitmq%&#x27; or message like &#x27;%rabbitmq%&#x27;;</p><p id="0d92db37-e621-4951-bee5-fd1d2fd4ae5f" class="">This query return RESULT_1</p><p id="21b85f74-7713-4aa8-8969-36800347041b" class=""><strong>Step2: </strong>run semantic query on RESULT_1</p><figure id="10538c7f-3c58-4471-bd5e-c8e0622720f5" class="image"><a href="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-05_at_11.55.47.png"><img style="width:2816px" src="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-05_at_11.55.47.png"/></a></figure></li></ul><ul id="a79fb6e1-e773-4ecb-99b5-5bc4c4cea4ba" class="bulleted-list"><li style="list-style-type:disc">QUERY = which kafka data nodes are offline?</li></ul><p id="1b0fbc89-e9d8-41be-b74f-b96c6f83c469" class="">→ RESULT_1 = SQL search for ‘kafka’ OR ‘kafka node’ OR ‘kafka data node’ AND ‘offline’ </p><p id="1182a2ff-9904-4d2c-9a13-2d3cfc157efa" class="">→ RESULT_F = run QUERY on RESULT_1</p><figure id="0487237f-1d73-48eb-9284-42e40d8748e5" class="image"><a href="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_17.41.45.png"><img style="width:1573px" src="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_17.41.45.png"/></a></figure><p id="baf93d28-4dee-4e16-9e5b-521c0b4bbdd8" class="">
+</p><ul id="58851185-63fc-4166-b7cf-bace56ba2ee4" class="bulleted-list"><li style="list-style-type:disc">QUERY = is kafka data node X in recovery mode?</li></ul><p id="26408967-4979-4ef3-800e-2eff935606cb" class="">→ RESULT_1 = SQL_search (‘kafka’ OR ‘kafka node’ OR ‘kafka data node’ AND ‘recovery’ AND X)  </p><p id="218572a8-e8fa-477c-81f5-4500dc9916fb" class="">→ RESULT_F = run QUERY on RESULT_1</p><figure id="70a45895-da01-4861-92ed-240f6b2d08b0" class="image"><a href="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_18.05.45.png"><img style="width:1593px" src="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_18.05.45.png"/></a></figure><p id="8cb19f15-3ca2-46db-9e06-a156bb03710b" class="">
+</p><ul id="8003062b-5a29-415a-a6a9-cca96719e41a" class="bulleted-list"><li style="list-style-type:disc">QUERY = for how long X has been in recovery mode? </li></ul><p id="7e4c2b31-8d8b-4833-8823-684ef48f7bea" class="">→ RESULT_1 = SQL_search (‘recovery’ AND X)</p><p id="e6fb002c-8361-481d-82be-ab08c2acc38a" class="">→ RESULT_F = run QUERY on RESULT_1</p><figure id="59535938-da9e-488d-ae25-3420c971019b" class="image"><a href="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Untitled.png"><img style="width:1574px" src="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Untitled.png"/></a></figure><ul id="38b68499-8fb3-465c-b6f4-dd7478f9c17f" class="bulleted-list"><li style="list-style-type:disc">is logstash ingesting data now?</li></ul><p id="e49c4fee-590e-4fb8-a7d2-e96da0f21349" class="">→  RESULT_1 = SQL_search (’logstash’ OR ‘ingesting data’ OR ‘ingesting’, WHERE TIMESTAMP &lt; NOW-5min)</p><p id="be8b191f-9282-48cc-b72a-670ba1b223e4" class="">→  RESULT_F = run QUERY on RESULT_1</p><p id="47ae9ed9-0904-4ea3-9a3a-209a3049c6e9" class="">or</p><p id="36405fa4-6c32-40c1-a250-686be7dc9dfd" class="">→  RESULT_1 = SQL_search (’logstash’ OR ‘ingesting data’ OR ‘ingesting’)</p><p id="c6f4f643-5a8a-4b2a-a9c1-a02507a486fb" class="">→  RESULT_F = run QUERY on RESULT_1</p><figure id="a607574a-559c-43a5-911c-be43b97299b9" class="image"><a href="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_18.11.20.png"><img style="width:1570px" src="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_18.11.20.png"/></a></figure><p id="a6af32d1-82f6-4ed0-a845-acb26da6ecc9" class="">
+</p><ul id="a2478535-03ca-41ab-a9ff-3a60b5ff4633" class="bulleted-list"><li style="list-style-type:disc">does logstash have issue to talk to ES?</li></ul><p id="b413e042-3a59-4859-82b6-1e717cbf6740" class="">→ RESULT_1 = SQL_search (’logstash’ AND ’ES’ OR ‘elasticsearch’ AND severity=’error’)</p><p id="0d2715a2-b465-4030-b4b1-07913f9c1dd8" class="">→  RESULT_F = run QUERY on RESULT_1</p><p id="3acaebfd-b158-4ce6-bc84-c646f16c25b5" class="">temperature = 0</p><figure id="f863ffde-44f2-4f62-97b8-b5997ec5bb43" class="image"><a href="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_18.12.47.png"><img style="width:1590px" src="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_18.12.47.png"/></a></figure><p id="2ab39fe8-db95-43b1-920f-58a967e6b9ef" class="">temperature = 0.1</p><figure id="0e787101-ff4c-469d-b759-8142300b3cfe" class="image"><a href="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_18.18.17.png"><img style="width:1844px" src="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_18.18.17.png"/></a></figure><ul id="7f779fa4-1daf-4146-957e-474ebce9eb08" class="bulleted-list"><li style="list-style-type:disc">does log patterns(drain) lagging ? </li></ul><p id="43a987c9-a42f-4562-9ea0-c715af322215" class="">
+</p><figure id="e18c9f13-75c5-4978-8490-bcf67b6ff061" class="image"><a href="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_18.27.07.png"><img style="width:1527px" src="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_18.27.07.png"/></a></figure><p id="f38b76f7-a438-4b88-8961-f59e626bdbef" class="">add some context and change query statement </p><figure id="c7438dac-8a90-4663-94dd-511931e8b0d3" class="image"><a href="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_22.10.56.png"><img style="width:2944px" src="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_22.10.56.png"/></a></figure><p id="c1764576-5ac0-4a15-84db-3c94f30aee92" class="">
+</p><ul id="be5bb787-5290-49ff-b2a6-2859c3e4fcd3" class="bulleted-list"><li style="list-style-type:disc">does it process data now ?</li></ul><figure id="216df2a2-766a-4728-bc19-e1a8f8a21cfb" class="image"><a href="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_22.15.56.png"><img style="width:2904px" src="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_22.15.56.png"/></a></figure><ul id="8ec1a471-0b4d-4ec2-91d9-8fe9b78fa31a" class="bulleted-list"><li style="list-style-type:disc">does ingester receive data ?</li></ul><figure id="ab19683e-3b87-483d-be86-d64aa1a43751" class="image"><a href="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_22.21.24.png"><img style="width:2940px" src="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Screenshot_2022-08-08_at_22.21.24.png"/></a></figure><p id="bc530b1d-0855-47f4-a660-3814b072c2e6" class="">
+</p><h1 id="0a350d86-17f8-400a-b1f1-9251a828d3b3" class="">Questions from Gilles @Metron</h1><ul id="74917cb6-769d-42cb-bfab-686fcc0d4134" class="bulleted-list"><li style="list-style-type:disc">what service mesh is slow?</li></ul><ul id="a3e9c6e2-9078-4714-84a8-aca077783dbe" class="bulleted-list"><li style="list-style-type:disc">create dashboard from there</li></ul><ul id="0a59c870-f7bc-4902-80d3-df29dbef06cd" class="bulleted-list"><li style="list-style-type:disc">period of indisponibilité of a node ?</li></ul><ul id="cea55684-66d2-4cb6-8eeb-6bb511beeced" class="bulleted-list"><li style="list-style-type:disc">what is the cause</li></ul><ul id="e1c112a0-0aa4-4b1f-b604-00782ce8294d" class="bulleted-list"><li style="list-style-type:disc">is my stack of monitoring all good?</li></ul><ul id="2206734d-e1db-4923-82f5-3837f99b284a" class="bulleted-list"><li style="list-style-type:disc">what node has most problematic pods</li></ul><ul id="33267ee3-f667-431d-8972-fc7b2b6ae0d4" class="bulleted-list"><li style="list-style-type:disc">what node has the most pods</li></ul><ul id="b63b838d-2780-4647-a710-d6e6e26dd5b0" class="bulleted-list"><li style="list-style-type:disc">what pod restarts the most?</li></ul><ul id="49fd5de2-2ecf-47f5-a311-166371c6d56a" class="bulleted-list"><li style="list-style-type:disc">what generates most OOM kill errors?</li></ul><ul id="ecbde668-c0d1-4322-a152-190e9c9aaf14" class="bulleted-list"><li style="list-style-type:disc">what container has most OOM kill error?</li></ul><ul id="d66cfbf8-c695-4e9e-b68f-c0e1ccb5cc84" class="bulleted-list"><li style="list-style-type:disc">what pods are throttled most in cpu?</li></ul><ul id="de1df3e2-3a1b-4051-9310-bb1f06631bb4" class="bulleted-list"><li style="list-style-type:disc">what are all applications suffering high usage of cpu?</li></ul><h1 id="663f75d8-9110-4834-9cde-23983e9bdade" class="">Improving NLQ to SQL translation</h1><p id="c455d289-a0f2-40fe-86ca-4add8079b812" class="">From paper “rethinking search” <a href="https://arxiv.org/pdf/2105.02274.pdf">https://arxiv.org/pdf/2105.02274.pdf</a></p><ul id="df7dffc2-0b33-48df-bda8-ece7ec7e10d3" class="bulleted-list"><li style="list-style-type:disc">current IR systems perform stemming or lemmatization prior to indexing
+or retrieval), term similarity (instead, queries are expanded with synonyms prior to retrieval), or grammar (the closest thing to a LM captured by the index is word frequency distributions).</li></ul><p id="191c910f-2aca-4cda-a465-399d8ca43d42" class="">
+</p><h1 id="ed8b42b5-20fd-453f-93ff-a1b225a53a36" class="">Fine tuning SQL translation (obsolete)</h1><figure id="9d518192-5bd0-4a30-acca-04b230faee48" class="link-to-page"><a href="NLQ%20to%20SQL%20benchmark%206511110e42c540c0b8bbe7bce479f105/Fine-tuning%20NLQ-to-SQL%20dataset%209d5181925bd04a30acca04b230faee48.html">Fine-tuning NLQ-to-SQL dataset</a></figure><p id="825af7df-0110-4faf-9faf-aee9328d8952" class="">
+</p><p id="152b93d6-e086-4151-bd7f-f7554f14ddfc" class="">
+</p></div></article></body></html>

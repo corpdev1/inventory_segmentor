@@ -1,0 +1,694 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Relevance score experiment</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="74627aae-033f-4f2b-b79b-e842fd7d81c0" class="page sans"><header><h1 class="page-title">Relevance score experiment</h1><p class="page-description"></p></header><div class="page-body"><p id="c577ee6f-ba5b-4445-b706-18a66d8bf14e" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><figure id="284c373c-82f9-47d7-ae03-2443b7e0dd48"><div class="source"><a href="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/relevance_model.ipynb">relevance_model.ipynb</a></div></figure><figure id="586f5eed-321e-45a5-b66c-f191a9c9d90a"><div class="source"><a href="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/relevance_test.ipynb">relevance_test.ipynb</a></div></figure><figure id="e447a912-8a8e-4ad9-affb-afee6e7e8c22"><div class="source"><a href="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/relevance_test_distributions.ipynb">relevance_test_distributions.ipynb</a></div></figure><figure id="c104e5b6-0aec-4050-b0fc-7c4bf7af2d0e"><div class="source"><a href="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/relevance_score_learn.ipynb">relevance_score_learn.ipynb</a></div></figure><p id="a996936a-b0f9-4a5a-835c-d3e6ab0ead90" class="">
+</p><p id="96bc6a09-6010-494f-88e5-57e2ed94f6b2" class="">The main concerns to be addressed are:</p><ul id="9d05dcfb-05e0-4391-8e45-7193bc5b3057" class="bulleted-list"><li style="list-style-type:disc">Choice of the probability distribution, especially when there is limited data.<ul id="3ab379ff-8fa4-4429-8243-7fe0725e9f83" class="bulleted-list"><li style="list-style-type:circle">Geometric distribution is a reasonable solution.</li></ul></li></ul><ul id="42f7887a-2a80-4a9a-a58a-5dc6db5ba706" class="bulleted-list"><li style="list-style-type:disc">For higher probability events the score should not be reduced to a very low value.<ul id="a4078cd9-2433-45be-835a-2a447becfc14" class="bulleted-list"><li style="list-style-type:circle">Compare log probabilities.</li></ul></li></ul><ul id="8dce4d72-4f9e-4238-80b5-936b27f1b78b" class="bulleted-list"><li style="list-style-type:disc">Measuring the duration of the anomaly.</li></ul><p id="78bc9134-b7ce-4fd5-b83d-dbf93868ebd4" class="">Of the three, measuring the duration will lead to better pay-off. It is more challenging, also.</p><p id="9824aa3c-c3fa-4c8f-b715-394be8af4b91" class="">
+</p><p id="aae29f7d-ecac-4118-9d67-e84f9cde3170" class="">Anodot fits a probabilistic distribution on past anomalies. Then for a new anomaly, its score is adjusted according to this distribution.</p><p id="04d6f210-c214-4001-b556-c43b885a1756" class="">
+</p><p id="5c50f46b-e1ba-460e-aa31-7bc38dc3395d" class="">Anodot recommends fitting an exponential distribution to a set of features describing the anomalies. <strong>Deviation</strong> and <strong>duration</strong> are the foremost. Deviation itself could be of two types (relative with respect to other anomalies and absolute with respect to the normal behavior). Another feature mentioned is volatality. Otherwise, they mention this phrase &quot;other conditions around both duration and deviation&quot;.</p><p id="f473baba-5d07-4d6c-94e5-4c6cd83e4128" class="">
+</p><p id="1c416ceb-c52f-4f83-89b4-cdf5a034abc5" class="">We have so far modeled based on two variables: duration and deviation.</p><p id="d8884aa5-9373-42e0-8b01-f3b72693e105" class="">
+</p><p id="78a0f868-7a05-49c1-bb99-2f59ef42c2fb" class="">Anodot talks about fitting an exponential model. Generally exponential distributions are univariate. Bivariate (and multivariate, in general) exponential distributions exist but they are a research topic and stable software packages don&#x27;t seem to be there. So, to fit a bivariate distribution in our case, we treat the two variables as being independent and fit univariate distributions to each variable.</p><p id="1de7ba8e-e01c-4464-b656-879ba83c2cd4" class="">
+</p><p id="d0b1898e-fecc-4311-9ed6-e488331628f8" class="">At the end of the experiment, we have concluded that the geometric distribution is practical for us.</p><p id="39a18df2-94fc-483d-a296-2348660904cc" class="">
+</p><p id="f6fa7c71-609c-4184-9aa3-0ba58b1b7528" class="">To reach this conclusion we tested the following four distributions:</p><ul id="ced74c55-10f5-4597-aa42-10e255054f8d" class="bulleted-list"><li style="list-style-type:disc">Poisson.</li></ul><ul id="89ab2916-26f5-47ca-a90c-12235797414b" class="bulleted-list"><li style="list-style-type:disc">Exponential.</li></ul><ul id="0959e7da-8218-4bf8-9f2b-f27f7246a715" class="bulleted-list"><li style="list-style-type:disc">Negative binomial.</li></ul><ul id="22ffd350-c1f1-439c-997f-085332b807de" class="bulleted-list"><li style="list-style-type:disc">Geometric.</li></ul><p id="e1262cb7-e03d-4db4-8bdb-7873390507ea" class="">
+</p><p id="6aa127e5-7e86-4c9c-a86e-862c5a44e351" class="">Our variables:</p><ul id="7e5820c3-ffa4-4318-bd92-df8cf8e18172" class="bulleted-list"><li style="list-style-type:disc">Duration: discrete in nature, especially, we are aggregating to 10 second windows.<ul id="f6319449-72de-4a8f-a767-053ee3a855a5" class="bulleted-list"><li style="list-style-type:circle">Experimented with: Poisson, Negative binomial, Geometric.</li></ul></li></ul><ul id="8e458eed-73b3-4d68-b3e8-a9b8637e58a6" class="bulleted-list"><li style="list-style-type:disc">Deviation: Continuous in nature. Could be discretized to buckets.<ul id="bffeb7c1-7c9b-48c9-a7b0-43efb6c70474" class="bulleted-list"><li style="list-style-type:circle">Experimented with: Exponential, Geometric.</li></ul></li></ul><p id="740aff1a-ff35-43fc-9053-8a04908c1a88" class="">
+</p><p id="69da9ae6-7d02-4057-bfe7-ac05449ef689" class="">Data</p><ul id="6940b774-1ed8-4bcf-a70d-1111520d16f8" class="bulleted-list"><li style="list-style-type:disc">Synthetic.</li></ul><ul id="69823764-cc90-49fa-a3b9-7f0f9fabb40a" class="bulleted-list"><li style="list-style-type:disc">CPU metric.</li></ul><figure id="9b52ee8c-22f2-430e-9a00-52ce9c6aef15" class="image"><a href="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/cpu_stat.png"><img style="width:362px" src="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/cpu_stat.png"/></a></figure><h3 id="54494031-ebc3-4084-be00-aed983c41832" class="">Poisson</h3><figure id="a52b544a-f9e5-41dd-8f9a-2c03f43b5ce9" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>p</mi><mi>X</mi></msub><mo stretchy="false">(</mo><mi>k</mi><mo stretchy="false">)</mo><mo>=</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>λ</mi></mrow></msup><mfrac><msup><mi>λ</mi><mi>k</mi></msup><mrow><mi>k</mi><mo stretchy="false">!</mo></mrow></mfrac><mo separator="true">,</mo><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mi>k</mi><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">p_X(k) = e^{-\lambda}\frac{\lambda^k}{k!}, \;\;\;\; k=0,1,2,...</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07847em;">X</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.212108em;vertical-align:-0.686em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">λ</span></span></span></span></span></span></span></span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.526108em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mclose">!</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">λ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">...</span></span></span></span></span></div></figure><ul id="532cc947-2686-4f6e-97ed-96d78b53e972" class="bulleted-list"><li style="list-style-type:disc">Poisson distributions are used to model count data. It models the number of times an event can happen in a given period of time. e.g., the number of typos in a book with a given total number of words, the number of arrivals of patients in a hospital on a given day.<ul id="7345aa19-dd3b-41a1-9e2b-5aea796a2a0c" class="bulleted-list"><li style="list-style-type:circle">In our case: When an anomaly happens, how long will it be?</li></ul></li></ul><ul id="472f91e3-dbc1-4fcf-8e08-b17bc81ddef4" class="bulleted-list"><li style="list-style-type:disc">However, Poisson distribution has a limited variance. Since, for a Poisson random variable,<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">E</mi><mo stretchy="false">[</mo><mi>X</mi><mo stretchy="false">]</mo><mo>=</mo><mi>λ</mi><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mtext>var</mtext><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo><mo>=</mo><mi>λ</mi></mrow><annotation encoding="application/x-tex">\bold{E}[X]=\lambda \;\;\; \text{var}(X) = \lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathbf">E</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">λ</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord text"><span class="mord">var</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">λ</span></span></span></span></span><span>﻿</span></span>, where <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">λ</span></span></span></span></span><span>﻿</span></span> is called the <em>rate parameter</em>.<figure id="7f766add-8c2e-484b-937a-df1a5e93e6f9" class="image"><a href="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/330px-Poisson_pmf.png"><img style="width:330px" src="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/330px-Poisson_pmf.png"/></a></figure><p id="15fab61f-2457-45e1-8fb1-2cd965964121" class="">It is not heavy tailed. Thus,</p><ul id="04f46b3d-ef28-4a77-8af6-d8e283d9b1c4" class="bulleted-list"><li style="list-style-type:circle">if there is a huge range of values in the samples</li></ul><ul id="5d88d48d-1d32-4c45-ac4a-6a8b4543cd6d" class="bulleted-list"><li style="list-style-type:circle">if there are limited number samples with a huge range in values.</li></ul><p id="2bc02da4-0fb4-4558-9eb2-a0bbf438c3ff" class="">then the fitted model shifts the mode of the Poisson, i.e., <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">λ</span></span></span></span></span><span>﻿</span></span> increases to a large value.</p><p id="2d6ef9bc-030b-49d5-b9f1-c66f08cc56ac" class="">For e.g., durations = [9, 10, 29, 139, 178], we get <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mn>73.13</mn></mrow><annotation encoding="application/x-tex">\lambda=73.13</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">λ</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">73.13</span></span></span></span></span><span>﻿</span></span>.</p><p id="70c05024-fbbe-480e-a07e-63b107d2cbf5" class="">Probabilities = 9 (2.8723644232064745e-21), 10 (2.1004773003315053e-20), 29 (2.254409587432086e-09), 139 (2.3185666291896908e-12), 178 (1e-128)</p></li></ul><ul id="9d250742-279d-4cc9-b150-aa341750d801" class="bulleted-list"><li style="list-style-type:disc">Possible solutions:<ul id="46b0e01a-6d4f-41c7-b875-4e8d825d8ff1" class="bulleted-list"><li style="list-style-type:circle">Ignore &quot;outliers&quot;. Fitting Poisson by ignoring outliers is a topic of research<ul id="5368bdd0-87e7-45d7-8012-482c28bbd218" class="bulleted-list"><li style="list-style-type:square">Difficult to decide what to ignore in our case.</li></ul></li></ul><ul id="73a60726-47a7-4cc3-9297-ee4a4cfa5efe" class="bulleted-list"><li style="list-style-type:circle">Fit Poisson after applying log transformation on the duration.<ul id="1eca2a8a-aafe-4822-99f0-49496049ccd5" class="bulleted-list"><li style="list-style-type:square">Difficult to interpret.</li></ul></li></ul></li></ul><h3 id="8cc634f9-a792-453f-9bd9-83f4231e560a" class="">Negative binomial</h3><figure id="5fd71be8-8ae8-4904-a5de-66befdeb2e16" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>p</mi><mi>X</mi></msub><mo stretchy="false">(</mo><mi>k</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>k</mi><mo>+</mo><mi>r</mi><mo>−</mo><mn>1</mn></mrow><mrow><mi>r</mi><mo>−</mo><mn>1</mn></mrow></mfrac><mo fence="true">)</mo></mrow><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><msup><mo stretchy="false">)</mo><mi>k</mi></msup><msup><mi>p</mi><mi>r</mi></msup></mrow><annotation encoding="application/x-tex">p_X(k)={k+r-1 \choose r-1}(1-p)^k p^r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07847em;">X</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="mord"><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714400000000002em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span><span style="top:-3.6770000000000005em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.149108em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span></span></span></span></span></span></span></span></span></div></figure><ul id="e4321c59-5223-431d-8600-225e592fd70a" class="bulleted-list"><li style="list-style-type:disc">The number of successes in a sequence of independent and identically distributed Bernoulli trials before a specified (non-random) number of failures (denoted by <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span></span><span>﻿</span></span>) occurs. For example, we can define rolling a 6 on a die as a failure, and rolling any other number as a success, and ask how many successful rolls will occur before we see the third failure (<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">r=3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span></span><span>﻿</span></span>).<ul id="c80a53a0-8797-4aac-aa13-3a3732528c73" class="bulleted-list"><li style="list-style-type:circle">In our case: How long will the anomaly last, before a normal sample is obtained?</li></ul></li></ul><ul id="034700f4-256d-4ed8-838f-6c65c936f45f" class="bulleted-list"><li style="list-style-type:disc">Allows for more variance (<a href="https://en.wikipedia.org/wiki/Overdispersion">overdispersion</a>).</li></ul><ul id="13483a2b-f0a1-42ac-87ca-87037de43d07" class="bulleted-list"><li style="list-style-type:disc">Similar to Poisson, the mode is away from <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></span><span>﻿</span></span>.</li></ul><h3 id="134c5bd4-d82d-488a-91b4-e0a9b4d5aca6" class="">Exponential</h3><figure id="16bab1c6-ac74-4356-ad55-be0d82b11288" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>f</mi><mi>X</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.1600em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>λ</mi><msup><mi>e</mi><mrow><mo>−</mo><mi>λ</mi><mi>x</mi></mrow></msup><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mtext>if</mtext><mtext>  </mtext><mi>x</mi><mo>≥</mo><mn>0</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mn>0</mn><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mtext>  </mtext><mtext>otherwise</mtext></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">f_X(x)=\left\{                \begin{array}{ll}
+                  \lambda e^{-\lambda x} \;\;\;\; \text{if} \; x \geq 0\\
+                  0 \;\;\;\;\;\;\;\;\;\;\; \text{otherwise}
+                \end{array}
+              \right.</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07847em;">X</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.409108em;vertical-align:-0.9545539999999999em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">{</span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.454554em;"><span style="top:-3.6054459999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">λ</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">λ</span><span class="mord mathnormal mtight">x</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord text"><span class="mord">if</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span></span></span><span style="top:-2.405446em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord text"><span class="mord">otherwise</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9545539999999999em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div></figure><ul id="520b772f-fd98-468b-becf-443435b33115" class="bulleted-list"><li style="list-style-type:disc">Amount of time before an event happens. e.g., the amount of time until a piece of equipment breaks down, until a light bulb burns out or until an accident occurs.</li></ul><ul id="3e596426-2e28-41f0-9318-7737f4d7ee56" class="bulleted-list"><li style="list-style-type:disc">Nice property: <strong>Heavy tail</strong>.<ul id="1fc6ebfc-a4c4-4561-8de9-0bc4f2e0273c" class="bulleted-list"><li style="list-style-type:circle">Works reasonably when the sample size is limited.</li></ul></li></ul><figure id="43f5e450-2af8-418c-ae88-fdd6b96104ba" class="image"><a href="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/800px-Exponential_probability_density.png"><img style="width:384px" src="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/800px-Exponential_probability_density.png"/></a></figure><ul id="5831be77-24b2-4fa5-82cd-db60b8200839" class="bulleted-list"><li style="list-style-type:disc">Intuitively, models lesser deviation and lesser duration with higher probability. Not clear, how to interpret a distribution with a mode away from <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></span><span>﻿</span></span>. </li></ul><ul id="551d41fc-135d-4170-b280-2f0168aff707" class="bulleted-list"><li style="list-style-type:disc">Meant for continuous random variables. <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>X</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f_X(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07847em;">X</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> is the probability density function, not the probability.</li></ul><ul id="13e756b2-116e-4f44-9ebe-d9833b1827bc" class="bulleted-list"><li style="list-style-type:disc">Not a problem, if we are taking comparing two probabilities as a ratio. But not suitable for looking at log probability.</li></ul><ul id="30ab287f-9ee8-43b0-90ad-e90f834f0d5f" class="bulleted-list"><li style="list-style-type:disc">Log probability is needed to deal with huge range of values for the variable. So that higher probability events don&#x27;t get squished.</li></ul><h3 id="846a730b-585a-446d-927e-0207c6535447" class="">Geometric</h3><figure id="117512c7-1b0e-4798-9716-988413b86b01" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>p</mi><mi>X</mi></msub><mo stretchy="false">(</mo><mi>k</mi><mo stretchy="false">)</mo><mo>=</mo><mi>p</mi><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><msup><mo stretchy="false">)</mo><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">p_X(k)=p(1-p)^{k-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07847em;">X</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.149108em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span></span></div></figure><ul id="8f3018d3-7ee4-412a-b499-e4c779f166e6" class="bulleted-list"><li style="list-style-type:disc">Discrete analog of the exponential.</li></ul><ul id="857adb4e-642b-44a8-9577-b7bfc070c626" class="bulleted-list"><li style="list-style-type:disc">Heavy tailed.</li></ul><ul id="3f14c150-4a3d-4700-8c51-1add506d67e2" class="bulleted-list"><li style="list-style-type:disc">Comparison of log probabilities is possible.</li></ul><ul id="16d4ff5b-a912-4816-9f2c-16d635b47925" class="bulleted-list"><li style="list-style-type:disc">The deviation needs to be discretized into buckets.</li></ul><ul id="26cd5268-ad30-4c55-ba10-b9f4ee509184" class="bulleted-list"><li style="list-style-type:disc">The approach cannot handle multi-modal data. For our practical purposes it is ok.</li></ul><h2 id="aa094144-f917-45b5-bc0d-1effa6738e09" class="">Training samples</h2><ul id="8f5879fe-c877-47ae-97ca-4ef1c6c6c1df" class="bulleted-list"><li style="list-style-type:disc">How many are sufficient?<ul id="c792819c-fb39-4b8d-b8a9-0a109b6b942b" class="bulleted-list"><li style="list-style-type:circle">Experiments with synthetic Poisson, showed a minimum size of around 25.</li></ul><ul id="8ec485e4-91a8-4f65-82b6-800d04b33712" class="bulleted-list"><li style="list-style-type:circle">Geometric (and exponential) can give reasonable fit with less data itself.</li></ul></li></ul><ul id="32839699-3313-4a1d-b6b8-6cb9b553e21e" class="bulleted-list"><li style="list-style-type:disc">When to retrain?</li></ul><h2 id="6e7da7ff-629a-43bf-ba2d-508e35c89ae5" class="">Measuring the duration</h2><p id="ddae1e61-8a30-46f5-8fc0-48c05c9ef64d" class="">Why is measuring the duration important?</p><ul id="c60b14de-7d94-4b14-a310-c96317c23148" class="bulleted-list"><li style="list-style-type:disc">Assign score in a better manner to anomalies which are short but greater than 1 unit.<ul id="d59fb09d-66f4-4648-b838-6cda2fa1c6a2" class="bulleted-list"><li style="list-style-type:circle">Maintain the anomaly score better during the anomaly.</li></ul><ul id="4759d209-afa5-4f2a-bbee-d8e58fc6e923" class="bulleted-list"><li style="list-style-type:circle">Handle the situation where a return to normal is seen as an anomaly.</li></ul></li></ul><ul id="47343c3c-b0a0-4290-a2c7-61cb18cd46e8" class="bulleted-list"><li style="list-style-type:disc">Recognize long anomalies and ask the user whether it is a long anomaly or a concept shift.</li></ul><p id="a42d6005-5f69-44dd-8dbe-062b485c7104" class="">
+</p><p id="f914b134-bc7f-4608-a185-69ce292e4826" class="">To freeze Skyline:</p><ul id="24a38a94-4dba-4989-9ca9-cb26c9effaa4" class="bulleted-list"><li style="list-style-type:disc">freezing the detector and maintaining the vector operation is possible with minimal computational cost.</li></ul><ul id="921f3d34-5f3e-474e-a82c-9be8ef17bd74" class="bulleted-list"><li style="list-style-type:disc">We can maintain a set of recent normal behavior values for all metrics. For metrics with anomaly, we can impute normal behavior, when the detector is frozen during the occurrence of anomaly.</li></ul><ul id="e9a6bbeb-bb4a-4d04-9035-6b1c87167e7b" class="bulleted-list"><li style="list-style-type:disc">We will also keep track of the actual values happening during this time. We will use them once the anomaly is over.</li></ul><p id="2f551fc4-33e8-457c-9436-31c39a530755" class="">
+</p><p id="04873a34-2184-44a1-8e3a-5532524f94b2" class="">To freeze Walter:</p><p id="e72d6ec4-e30f-458c-b9aa-e000aa64d373" class="">There are two possibilities.</p><p id="f2fdb67e-907c-490d-8bb1-7caf0e2c2d32" class="">First way</p><ul id="396a8e2c-fa2f-40ad-bca5-3c7b65a4a35e" class="bulleted-list"><li style="list-style-type:disc">Add and immediately delete vectors, once an anomaly starts.</li></ul><ul id="71385c8b-c2b4-4e53-a015-fed4bd1b8660" class="bulleted-list"><li style="list-style-type:disc">Later we can insert all the points sequentially in one go.</li></ul><ul id="7743b4b0-a029-458f-b7da-255428f163dc" class="bulleted-list"><li style="list-style-type:disc">This approach will incur computational cost. At the same time, according to the paper deleting an anomalous point is less expensive because its depth is lesser.</li></ul><p id="3154cdbc-4177-4e75-a388-3ee30d1525e9" class="">Second way</p><ul id="cb1bc522-41a9-4128-a8c3-20888d77737c" class="bulleted-list"><li style="list-style-type:disc">We can check whether the following points are duplicates or near duplicates of the first anomalous point. This will be computationally cheaper but we need to figure out how this check can be done. According to the paper they talk about a radius around the anomalous point.</li></ul><p id="832f570e-00a2-43da-a259-f19ad0fa8666" class="">
+</p><ul id="794c8d26-0d93-4ebc-8500-f803d61e4d79" class="bulleted-list"><li style="list-style-type:disc">Will it be good enough to aggregate over larger windows, say, 30 seconds, to compensate for increase in computational cost?</li></ul><p id="1967c598-bdb2-4493-88fa-692c2621fc81" class="">
+</p><h3 id="43e4e059-825b-48ce-9434-911fc2364d2e" class="">Is the geometric distribution stable?</h3><p id="886fde39-8c72-491c-970c-89f0ec7bb75e" class="">Note: The following results are equally applicable to using CDF of exponential distribution. The geometric distribution is the discrete counterpart of the exponential.</p><p id="4ccf37df-160e-4d46-bf3f-eb20faa48f1e" class="">As mentioned in the beginning of this page, the most important tasks are measuring the duration (and based on the duration, the deviation) of an anomaly. Once these values are in hand for an anomaly, any monotonically decreasing distribution will be good enough.</p><p id="1b3696b7-2923-461a-889d-374d1a9dea86" class="">As an extreme approach: Even a linear interpolation between the largest and smallest values may be good enough. For e.g., we can maintain a sliding window of the past N anomalies and see the smallest and largest values separately for duration and deviation and assign a score for new anomalies based on this scale.</p><p id="b2e887e5-2b90-4ee1-82bf-0e1d4de8fe34" class="">Some plots that show that the geometric distribution is a stable fit for getting relevance score.</p><ul id="a68dbc4e-cd4f-4063-a622-bfcf1d2a3764" class="bulleted-list"><li style="list-style-type:disc">Keeping deviation constant and trying different values for deviation (500 samples).</li></ul><figure id="6d03684b-37d0-45c5-b279-33f840eb8877" class="image"><a href="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/dur_prob.png"><img style="width:1848px" src="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/dur_prob.png"/></a></figure><ul id="cb83b62e-bf37-4472-867d-e08127db061b" class="bulleted-list"><li style="list-style-type:disc">Keeping duration constant and trying different values for duration (500 samples).</li></ul><figure id="7464a164-f130-46d9-940a-0fb211dfa4d9" class="image"><a href="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/dev_prob.png"><img style="width:1848px" src="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/dev_prob.png"/></a></figure><p id="92826d9f-1df9-4522-b3c4-c16417c52eb8" class="">We can see that higher deviation or higher duration lead to lesser probability (y axis is log probability).</p><p id="31604836-5eef-45af-8999-fdd2c0b10f70" class="">Now, both deviation and duration are allowed to vary and you can see an interactive 3D plot by running the following script with the data in the pickle file. A screen shot is below,</p><figure id="9858c0e8-6477-4ef8-997e-9a7a23d68bb7"><div class="source"><a href="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/plot_3d.py">plot_3d.py</a></div></figure><figure id="aaef9671-6cbc-4313-980f-cc81fcac5faf"><div class="source"><a href="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/plot_3d.pickle">plot_3d.pickle</a></div></figure><figure id="e39f7510-5d35-4ac3-913f-ef515e76d626" class="image"><a href="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/plot_3D.png"><img style="width:1848px" src="Relevance%20score%20experiment%2074627aae033f4f2bb79be842fd7d81c0/plot_3D.png"/></a></figure><p id="fb0eaf26-a0b9-4943-83af-a8eab4d65723" class="">The range of values for the probability is divided into four parts and for each part a separate marker is used. We can see through the markers, the monotonic behavior and how similar anomalies (similar in terms of product of the two probabilities) are close-by. The joint probability is plotted as sum of log probabilities.</p><p id="721e7b60-9aac-4d1b-81d4-b550efa66ae8" class="">
+</p></div></article></body></html>

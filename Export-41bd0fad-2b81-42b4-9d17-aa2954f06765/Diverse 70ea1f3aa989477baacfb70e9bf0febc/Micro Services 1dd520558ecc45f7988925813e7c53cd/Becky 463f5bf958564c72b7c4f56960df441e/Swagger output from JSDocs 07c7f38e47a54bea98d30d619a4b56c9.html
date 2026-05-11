@@ -1,0 +1,5128 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Swagger output from JSDocs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="07c7f38e-47a5-4bea-98d3-0d619a4b56c9" class="page sans"><header><h1 class="page-title">Swagger output from JSDocs</h1><p class="page-description"></p></header><div class="page-body"><pre id="1caf1e34-fb5c-4d4a-867d-79fdb27ea597" class="code code-wrap"><code>openapi: 3.0.0
+basePath: /api-docs
+host: http://localhost:3001/api-docs
+servers:
+  - url: http://localhost:3001
+    description: Development server
+info:
+  title: Becky
+  version: 1.0.0
+  description: Becky&#x27;s API documentation
+components:
+  securitySchemes:
+    internal_token:
+      type: apiKey
+      in: header
+      name: X-INTERNAL-TOKEN
+    infra_token:
+      type: apiKey
+      in: header
+      name: X-PAI-TOKEN
+    accounts_auth:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:3333/.well-known/openid-configuration
+  schemas:
+    SignupUser:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        family_name:
+          type: string
+          example: Doe
+        given_name:
+          type: string
+          example: John
+        preferred_username:
+          type: string
+          example: JohnDoe1
+        roles:
+          type: array
+          items:
+            type: string
+            example:
+              - regular
+              - admin
+        sub:
+          type: string
+        company:
+          type: string
+          example: PacketAI
+        apikey:
+          type: string
+    PostUser:
+      type: object
+      properties:
+        infrastructureId:
+          type: string
+          example: 507f1f77bcf86cd799439011
+        email:
+          type: string
+          format: email
+        family_name:
+          type: string
+          example: Doe
+        given_name:
+          type: string
+          example: John
+        preferred_username:
+          type: string
+          example: JohnDoe1
+        password:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+            example:
+              - regular
+              - admin
+    PutUser:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        family_name:
+          type: string
+          example: Doe
+        given_name:
+          type: string
+          example: John
+        preferred_username:
+          type: string
+          example: JohnDoe1
+        roles:
+          type: array
+          items:
+            type: string
+            example:
+              - regular
+              - admin
+    UserPacketAIField:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        email_verified:
+          type: boolean
+          example: false
+        family_name:
+          type: string
+          example: Doe
+        given_name:
+          type: string
+          example: John
+        preferred_username:
+          type: string
+          example: JohnDOE
+        roles:
+          type: array
+          items:
+            type: string
+            example:
+              - regular
+              - admin
+        sub:
+          type: string
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+        email:
+          type: string
+          format: email
+        infrastructure:
+          type: string
+        name:
+          type: string
+        password:
+          type: string
+          format: password
+        packetai:
+          $ref: &#x27;#/components/schemas/UserPacketAIField&#x27;
+    AgentModel:
+      type: object
+      properties:
+        _id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        hostname:
+          type: string
+          format: hostname
+        id:
+          type: string
+        infrastructure:
+          type: string
+        integrationStarted:
+          type: boolean
+        tags:
+          type: object
+        updatedAt:
+          type: string
+          format: date-time
+        updatedAtTimestamp:
+          type: integer
+          example: 1637853767
+        version:
+          type: string
+    AlertingIntegration:
+      type: object
+      properties:
+        alertTypes:
+          type: array
+          items:
+            type: string
+            enum:
+              - mlAlerts
+              - inactiveComponents
+              - negativeLogsReport
+        infrastructure:
+          type: string
+        platform:
+          type: string
+          enum:
+            - slack
+            - googleChat
+            - email
+        value:
+          type: string
+        multipleValues:
+          type: array
+          items:
+            type: string
+            format: email
+            example:
+              - test@gmail.com
+              - test2@gmail.com
+        updatedAt:
+          type: string
+          format: date-time
+    Brokers:
+      type: object
+      properties:
+        brokers:
+          type: array
+          items:
+            type: string
+            example: http://broker.inter.net
+    Health:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+    Grok:
+      type: object
+      properties:
+        groks:
+          type: array
+          items:
+            type: string
+            example: &gt;
+              &#x27;%\{SYSLOGTIMESTAMP:logdatetime\} %{SYSLOGHOST:[system][hostname]}
+              %{DATA:[system][program]}(?:[%{POSINT:[system][pid]}])?:
+              %{GREEDYMULTILINE:content}&#x27;
+        mutate:
+          type: object
+          properties:
+            add_field:
+              type: array
+              items:
+                type: object
+                properties:
+                  keys:
+                    type: string
+                    example: &#x27;[parsed]&#x27;
+                  value:
+                    type: boolean
+                    example: true
+            copy:
+              type: array
+    Groks:
+      type: object
+      additionalProperties:
+        $ref: &#x27;#/components/schemas/Grok&#x27;
+    UserValidatedGrok:
+      type: object
+      properties:
+        ITComponentId:
+          type: string
+        infrastructure:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        module:
+          type: string
+        groks:
+          type: array
+          items:
+            type: string
+    UserValidatedGroks:
+      type: array
+      items:
+        $ref: &#x27;#/components/schemas/UserValidatedGrok&#x27;
+    AWSIntegration:
+      type: object
+      properties:
+        _id:
+          type: string
+        infrastructure:
+          type: string
+        platform:
+          type: string
+          enum:
+            - email
+            - slack
+            - googleChat
+        value:
+          type: string
+        multipleValues:
+          type: array
+          items:
+            type: string
+        updatedAt:
+          type: string
+          format: date-time
+    Infrastructure:
+      type: object
+      properties:
+        _id:
+          type: string
+        brokers:
+          type: object
+          properties:
+            hosts:
+              type: array
+              items:
+                type: string
+                example:
+                  - http://host1
+                  - http://host2
+        dataRetentionDays:
+          type: number
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+        name:
+          type: string
+        owner:
+          type: string
+    AWSIntegrationType:
+      type: object
+      properties:
+        name:
+          type: string
+          example: s3
+        enabled:
+          type: boolean
+          example: false
+    MetricsFilter:
+      type: object
+      properties:
+        metric:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        threshold:
+          type: number
+        enabled:
+          type: boolean
+      example:
+        metric: docker.diskio.read.service_time
+        description: Total time to service IO requests in nanoseconds
+        type: long
+        threshold: 90
+        enabled: true
+    IssueRatingModel:
+      type: object
+      properties:
+        anomalyTimestamp:
+          type: number
+        anomalyType:
+          type: string
+        feedback:
+          type: string
+        infrastructure:
+          type: string
+        ITComponentId:
+          type: string
+        issue:
+          type: string
+        rootCauseFeedback:
+          type: string
+        rootCauseSignificant:
+          type: boolean
+        rootCauseAnomalyTimestamp:
+          type: number
+        rootCauseAnomalyType:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        significant:
+          type: boolean
+    AnomalyRatingModel:
+      type: object
+      properties:
+        infrastructure:
+          type: string
+        ITComponentId:
+          type: string
+        anomaly:
+          type: string
+        anomalyType:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        significant:
+          type: boolean
+        timestamp:
+          type: string
+          format: date-time
+        timestampDate:
+          type: string
+          format: date-time
+        feedback:
+          type: string
+    LogAnomalyRatingModel:
+      type: object
+      properties:
+        infrastructure:
+          type: string
+        ITComponentId:
+          type: string
+        anomaly:
+          type: string
+        id:
+          type: string
+        log:
+          type: string
+        logAnomalyType:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        significant:
+          type: boolean
+        timestamp:
+          type: string
+          format: date-time
+        timestampDate:
+          type: string
+          format: date-time
+        feedback:
+          type: string
+    ITComponentModel:
+      type: object
+      properties:
+        id:
+          type: string
+        children:
+          type: array
+          items:
+            type: string
+        healthScore:
+          type: string
+          example: critical
+        level:
+          type: number
+          example: 5
+        name:
+          type: string
+          example: redis
+        subType:
+          type: string
+          example: redis
+        type:
+          type: string
+          example: service
+    IntegrationModel:
+      type: object
+      properties:
+        agent:
+          type: string
+        containerLabels:
+          type: object
+          properties: {}
+        hasOptions:
+          type: boolean
+        infrastructure:
+          type: string
+        ITComponentId:
+          type: string
+        ITComponentName:
+          type: string
+        isLogicalComponentId:
+          type: boolean
+        logicalComponentId:
+          type: boolean
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - application
+            - service
+            - host
+        options:
+          type: object
+          additionalProperties:
+            type: string
+    KubernetesIntegrationModel:
+      type: object
+      properties:
+        infrastructure:
+          type: string
+        ITComponentId:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - deployment
+            - statefulset
+            - daemonset
+            - cronjob
+        options:
+          type: object
+          additionalProperties:
+            type: string
+    TopologyComponent:
+      type: object
+      properties:
+        id:
+          type: string
+          example: net-linux609a8087fd135654e909eb61
+        level:
+          type: number
+          example: 1
+        neighbors:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+        subType:
+          type: string
+          example: network
+        containerId:
+          type: string
+        containerIds:
+          type: array
+          items: {}
+        logicalComponentId:
+          type: object
+          parameters:
+            id:
+              type: string
+            key:
+              type: string
+        isLogicalComponentId:
+          type: boolean
+        parent:
+          type: string
+        hostId:
+          type: string
+        hostname:
+          type: string
+    AnomalyDataPointModel:
+      isImportant:
+        type: boolean
+      infrastructure:
+        type: string
+      ITComponentId:
+        type: string
+      timestamp:
+        type: number
+      timestampDate:
+        type: string
+        format: date-time
+      type:
+        type: string
+    IssueModel:
+      acknowledged:
+        type: boolean
+      affectedITComponentIds:
+        type: array
+        items:
+          type: string
+      anomalies:
+        type: array
+        items:
+          $ref: &#x27;#/components/schemas/AnomalyDataPointModel&#x27;
+      causalITComponentId:
+        type: string
+      correlatedITComponentIds:
+        type: array
+        items:
+          type: string
+      correlatedHostIds:
+        type: array
+        items:
+          type: string
+      detected:
+        type: number
+      detectionAnomalyType:
+        type: string
+      detectionITComponentId:
+        type: string
+      infrastructure:
+        type: string
+      start:
+        type: number
+      startDate:
+        type: string
+        format: date-time
+paths:
+  /infrastructure/{infrastructureId}/activatedITComponents:
+    get:
+      summary: Returns the list of activated ITComponents for an Infrastructure
+      tags:
+        - activatedITComponents
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ITComponentId:
+                      type: string
+                    options:
+                      type: object
+                      properties: {}
+                    activatedAt:
+                      type: string
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/activatedITComponents/agent/{agentID}:
+    get:
+      summary: Returns the list of activated ITComponents for an Agent
+      tags:
+        - activatedITComponents
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: agentId
+          in: path
+          description: ID of the Agent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ITComponentId:
+                      type: string
+                    options:
+                      type: object
+                      properties: {}
+                    activatedAt:
+                      type: string
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/topologyITComponents/subType/:ITComponentSubType:
+    get:
+      summary: Returns the list of ITComponents by subType
+      description: &gt;
+        Returns the list of components by subType for an infrastructure. If the
+        subtype is ’all’, returns all components regardless of the subType.
+      tags:
+        - ITComponent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentSubType
+          in: path
+          description: SubType of the ITComponent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: &#x27;#/components/schemas/ITComponentModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /admin/infrastructures:
+    get:
+      summary: Returns the list of infrastructures
+      tags:
+        - admin
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: &#x27;#/components/schemas/Infrastructure&#x27;
+      security:
+        - accounts_auth: []
+  /admin/{infrastructureId}/incidentsReport/{incidentsReportFormat}/{incidentsReportType}:
+    get:
+      summary: Returns the incident report for a given infrastructure
+      description: &gt;
+        Retrieve the list of Issue in database using the infrastructureId, and
+        generate a report depending of the incidentsReportType provided, with
+        the anomalyRegionReportFormat argument
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: incidentsReportType
+          in: path
+          description: Type of the response
+          required: true
+          schema:
+            type: string
+            enum:
+              - incidentsByDay
+              - incidentsKPIByDay
+              - incidentsKPIITComponentByDay
+              - incidentsRootITComponentByDay
+        - name: anomaliesReportFormat
+          in: path
+          description: Format of the returned file
+          required: true
+          schema:
+            type: string
+            enum:
+              - excel
+              - json
+              - csv
+      tags:
+        - admin
+      security:
+        - accounts_auth: []
+  /admin/{infrastructureId}/anomaliesReport/{anomaliesReportFormat}/{anomaliesReportType}/{anomaliesReportThreshold}:
+    get:
+      summary: Returns the anomaly report for a given infrastructure
+      description: &gt;
+        Retrieve the list of AnomaliesDataPoint in database using the
+        infrastructureId, getting only documents that has a relevanceScore
+        greater that the defined anomaliesReportThreshold, and generate a report
+        depending of anomaliesReportType asked, with the format provided in
+        anomaliesReportFormat argument
+      tags:
+        - admin
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: anomaliesReportThreshold
+          in: path
+          description: Minimum threshold required for the AnomalyDataPoint
+          required: true
+          type: integer
+        - name: anomaliesReportType
+          in: path
+          description: Type of the response
+          required: true
+          schema:
+            type: string
+            enum:
+              - anomaliesByDay
+              - anomaliesKPIByDay
+              - anomaliesKPIITComponentByDay
+        - name: anomaliesReportFormat
+          in: path
+          description: Format of the returned file
+          required: true
+          schema:
+            type: string
+            enum:
+              - excel
+              - json
+              - csv
+      security:
+        - accounts_auth: []
+  /admin/{infrastructureId}/anomalyRegionsReport/{anomalyRegionsReportFormat}/{anomalyRegionsReportType}/{anomalyRegionsReportThreshold}:
+    get:
+      summary: Returns the anomaly region report for a given infrastructure
+      description: &gt;
+        Retrieve the list of AnomaliesRegion in database using the
+        infrastructureId, getting only documents that has a relevanceScore
+        greater that the defined anomalyRegionReportThreshold, and generate a
+        report depending of anomalyRegionReportType asked, with the format
+        provided in anomalyRegionReportFormat argument
+      tags:
+        - admin
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: anomalyRegionsReportThreshold
+          in: path
+          description: Minimum threshold required for the AnomalyRegion
+          required: true
+          type: integer
+        - name: anomalyRegionsReportType
+          in: path
+          description: Type of the response
+          required: true
+          schema:
+            type: string
+            enum:
+              - anomalyRegionsByDay
+              - anomalyRegionsKPIByDay
+              - anomalyRegionsKPIITComponentByDay
+        - name: anomalyRegionsReportFormat
+          in: path
+          description: Format of the returned file
+          required: true
+          schema:
+            type: string
+            enum:
+              - excel
+              - json
+              - csv
+      security:
+        - accounts_auth: []
+  /admin/{infrastructureId}/feedbackReport/{feedbackReportFormat}:
+    get:
+      summary: Returns the feedback report for a given infrastructure
+      description: &gt;
+        Retrieve the list of issues rated in database using the
+        infrastructureId, and generate a document depending of the format asked
+        with the feedbackReportFormat argument
+      tags:
+        - admin
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: feedbackReportFormat
+          in: path
+          description: Format of the returned file
+          required: true
+          schema:
+            type: string
+            enum:
+              - excel
+              - json
+              - csv
+      security:
+        - accounts_auth: []
+  /admin/{infrastructureId}/groks/{ITComponentSubType}/{ITComponentId}:
+    get:
+      summary: Returns a list of Groks for a given ITComponentId
+      description: &gt;
+        Gets the list of groks for a given ITComponentID from the database. If
+        no data is retrieved from database, returns the default groks for a
+        given ITComponentSubType. Otherwise, if no grok data is retrieved from
+        ITComponentID or ITComponentSubType, returns the default Grok.
+      tags:
+        - admin
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentSubType
+          in: path
+          description: subtype of the ITComponent
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: Id of the ITComponent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/Groks&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+    post:
+      summary: Saves or updates an array of Groks in the database
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentSubType
+          in: path
+          description: subtype of the ITComponent
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: Id of the ITComponent
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                groks:
+                  $ref: &#x27;#/components/schemas/Groks&#x27;
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - admin
+      security:
+        - accounts_auth: []
+  /admin/{infrastructureId}/user-groks/{ITComponentSubType}/{ITComponentId}:
+    get:
+      summary: &gt;-
+        Returns userGroks, userGroksPatternDefinitions, userGroksParsedResults,
+        userGroksState and KPI for the ITComponent topic
+      description: &gt;
+        Gets the list of user submitted grok patterns(submitted by users through
+        the grokBot) for the ITComponent raw log topic from the grokDB API if
+        they exist. Gets the list of results of the grok parser with the state
+        and KPI for the ITComponent raw log topic from the grokDB API.
+      tags:
+        - admin
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentSubType
+          in: path
+          description: subType of the ITComponent
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: Id of the ITComponent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userGroks:
+                    type: array
+                    items:
+                      type: string
+                  userGroksPatternDefinitions:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  userGroksState:
+                    type: string
+                  userGrokParsedResults:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        template:
+                          type: string
+                        content:
+                          type: string
+                        log:
+                          type: string
+                        grok:
+                          type: string
+                  kpi:
+                    type: object
+                    additionalProperties:
+                      type: string
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+    post:
+      summary: Sends the modified user groks to the grok parser api for grok parsing
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentSubType
+          in: path
+          description: subtype of the ITComponent
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: Id of the ITComponent
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                ITComponentUserGroks:
+                  type: array
+                  items:
+                    type: string
+                ITComponentUserGroksPatternDefinitions:
+                  type: array
+                  items:
+                    type: object
+                    additionalProperties:
+                      type: string
+                drainTag:
+                  type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;500&#x27;:
+          description: GrokDB API
+      tags:
+        - admin
+      security:
+        - accounts_auth: []
+  /admin/{infrastructureId}/user-groks/{ITComponentSubType}/{ITComponentId}/drain-tag:
+    post:
+      summary: Sends the modified drain tag to the grok parser api for grok parsing
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentSubType
+          in: path
+          description: subtype of the ITComponent
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: Id of the ITComponent
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                drainTag:
+                  type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;500&#x27;:
+          description: GrokDB API
+      tags:
+        - admin
+      security:
+        - accounts_auth: []
+  /admin/{infrastructureId}/user-groks/{ITComponentSubType}/{ITComponentId}/validated:
+    post:
+      summary: Saves or updates the list of user validated groks in the database
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentSubType
+          in: path
+          description: subtype of the ITComponent
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: Id of the ITComponent
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: &#x27;#/components/schemas/UserValidatedGrok&#x27;
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - admin
+      security:
+        - accounts_auth: []
+    get:
+      summary: Returns a list of user validated groks for a given ITComponentId
+      description: &gt;
+        Gets the list of user validated groks for a given ITComponentId from the
+        database.
+      tags:
+        - admin
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentSubType
+          in: path
+          description: subType of the ITComponent
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: Id of the ITComponent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/UserValidatedGrok&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /admin/{infrastructureId}/options/incident-manager/incident-collection:
+    get:
+      summary: Returns the incident manager incident collection
+      description: |
+        Gets the currently set incident manager incident colleciton if it exists
+      tags:
+        - admin
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                example: alpha
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /admin/{infrastructureId}/options/incident-manager/incident-collection/{incidentCollection}:
+    post:
+      summary: &gt;-
+        Saves or updates the choosen incident manager incident collection and
+        returns it. Closes any running incidents
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: incidentCollection
+          in: path
+          description: Incident collection
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                example: alpha
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - admin
+      security:
+        - accounts_auth: []
+  /v2/infrastructure/{infrastructureId}/agent/active:
+    get:
+      summary: Returns the list of agents active in the infrastructure
+      description: &gt;
+        Gets the list of agents from DGraph topology and Agent collections, and
+        filter out entries that are not in both databases
+      tags:
+        - agent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agents:
+                    type: array
+                    items:
+                      $ref: &#x27;#/components/schemas/AgentModel&#x27;
+                    example:
+                      - _id: linux61926d6eb43f1abfa62e1585
+                        integrationsStarted: true
+                        tags: []
+                        infrastructure: 6177f9c66b97002572e20465
+                        createdAt: &#x27;2021-11-15T14:23:42.712Z&#x27;
+                        updatedAt: &#x27;2021-11-15T14:29:53.626Z&#x27;
+                        updatedAtTimestamp: 1636986593626
+                        version: 2021.11.10-5aba7a45
+                        id: linux61926d6eb43f1abfa62e1585
+                        hostname: ore
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/agent:
+    post:
+      deprecated: true
+      summary: Creates a new Agent in database
+      tags:
+        - agent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agentId:
+                    type: string
+                    format: uuid
+        &#x27;401&#x27;:
+          description: Infrastructure not found
+    get:
+      summary: Returns the list of agents in the infrastructure
+      description: |
+        Gets the list of agents from Agent collections, and returns it
+      tags:
+        - agent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: &#x27;#/components/schemas/AgentModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/agent/register/{origin}:
+    post:
+      summary: Creates a new Agent in database
+      tags:
+        - agent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: origin
+          in: path
+          description: origin of the agent
+          required: false
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+        &#x27;401&#x27;:
+          description: Infrastructure not found
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/agent/active:
+    get:
+      summary: Returns the list of agents active in the infrastructure
+      description: &gt;
+        Gets the list of agents from MasterTopology and Agent collections, and
+        filter out entries that are not in both collections
+      tags:
+        - agent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agents:
+                    type: array
+                    items:
+                      $ref: &#x27;#/components/schemas/AgentModel&#x27;
+                    example:
+                      - _id: linux61926d6eb43f1abfa62e1585
+                        integrationsStarted: true
+                        tags: []
+                        infrastructure: 6177f9c66b97002572e20465
+                        createdAt: &#x27;2021-11-15T14:23:42.712Z&#x27;
+                        updatedAt: &#x27;2021-11-15T14:29:53.626Z&#x27;
+                        updatedAtTimestamp: 1636986593626
+                        version: 2021.11.10-5aba7a45
+                        id: linux61926d6eb43f1abfa62e1585
+                        hostname: ore
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/agent/{agentId}:
+    get:
+      summary: Returns the status of the agent
+      description: &gt;
+        Retrive the asked agent in the database using the agentId provided, and
+        returns the status if the agent exists in database or not.
+      tags:
+        - agent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: agentId
+          in: path
+          description: ID of the agent
+          required: true
+          schema: null
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enabled:
+                    type: boolean
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;404&#x27;:
+          description: &#x27;Not found: Agent does not exist&#x27;
+      security:
+        - accounts_auth: []
+    post:
+      summary: Updates the agent
+      description: &gt;
+        Updates the agent&#x27;s host and tags fields in the database for the agent
+        asked with the agentId
+      tags:
+        - agent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: agentId
+          in: path
+          description: ID of the agent
+          required: true
+          schema: null
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                host:
+                  type: object
+                  properties:
+                    hostname:
+                      type: string
+                      example: ore
+                    tags:
+                      type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+    delete:
+      summary: Deletes an agent
+      description: &gt;
+        Deletes completely an agent from the infrastructure (as S3 Bucket, Kafka
+        consumers, Elastic Indexes data, Mongo document, and its integrations in
+        Integration document.
+      tags:
+        - agent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: agentId
+          in: path
+          description: ID of the agent
+          required: true
+          schema: null
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/agent/{agentId}/brokers:
+    get:
+      deprecated: true
+      summary: Returns the list of brokers availables for an agent
+      tags:
+        - agent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: agentId
+          in: path
+          description: ID of the agent
+          required: true
+          schema: null
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/Brokers&#x27;
+  /infrastructure/{infrastructureId}/agent/{agentId}/health:
+    get:
+      summary: Updates its version and returns if the agent must be stopped
+      description: &gt;
+        Gets an agent in database using the provided agentId, update its version
+        in database, and returns a boolean if the agent must be stopped. Boolean
+        is set to true if the agent does not exist anymore in database.
+      tags:
+        - agent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: agentId
+          in: path
+          description: ID of the agent
+          required: true
+          schema: null
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                version:
+                  type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mustStop:
+                    type: boolean
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;404&#x27;:
+          description: &#x27;Not found: Agent does not exist&#x27;
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/alerting:
+    put:
+      summary: Insert a new alerting rule in database
+      tags:
+        - alerting
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      requestBody:
+        description: null
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+                  example: https://webhook.slack.com/
+                multipleValues:
+                  type: array
+                  items:
+                    type: string
+                    example:
+                      - test@gmail.com
+                      - test2@gmail.com
+                platform:
+                  type: string
+                  enum:
+                    - slack
+                    - googleChat
+                    - email
+                alerts:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - mlAlerts
+                      - inactiveComponents
+                      - negativeLogsReport
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;400&#x27;:
+          description: Missing value
+      security:
+        - accounts_auth: []
+    post:
+      summary: Updates an Alerting rule in database
+      tags:
+        - alerting
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      requestBody:
+        description: null
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                value:
+                  type: string
+                  example: https://webhook.slack.com/
+                multipleValues:
+                  type: array
+                  items:
+                    type: string
+                    example:
+                      - test@gmail.com
+                      - test2@gmail.com
+                platform:
+                  type: string
+                  enum:
+                    - slack
+                    - googleChat
+                    - email
+                alerts:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - mlAlerts
+                      - inactiveComponents
+                      - negativeLogsReport
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;400&#x27;:
+          description: Missing value
+      security:
+        - accounts_auth: []
+    get:
+      summary: Returns a list of alerting rules for a given infrastructure
+      tags:
+        - alerting
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: &#x27;#/components/schemas/AlertingIntegration&#x27;
+      security:
+        - accounts_auth: []
+    delete:
+      summary: Deletes an alerting rule from database
+      tags:
+        - alerting
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      requestBody:
+        description: null
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/anomaly/{ITComponentId}/logs:
+    get:
+      deprecated: true
+      summary: Returns ITComponent with anomaly infos
+      tags:
+        - anomaly
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITComponent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ITComponent:
+                    allOf:
+                      - $ref: &#x27;#/components/schemas/TopologyComponent&#x27;
+                      - type: object
+                        properties:
+                          anomalyManagedELKMetricsDashboard:
+                            type: string
+                          anomalyManagedELKMetricsContainerDashboard:
+                            type: string
+                          anomalyManagedELKEventsDashboard:
+                            type: string
+                  logAnomalyDateTimes:
+                    type: array
+                    items:
+                      type: string
+                  ITComponentLogsIndex:
+                    type: string
+                    example: index-infraId-hostId-mllog-ITComponentID
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/anomaly/{ITComponentId}/{ITComponentLogsIndex}/{timestamp}:
+    get:
+      summary: Returns Elasticsearch data for a given index
+      tags:
+        - anomaly
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the component
+          required: true
+          type: string
+        - name: ITComponentLogsIndex
+          in: path
+          required: true
+          type: string
+        - name: timestamp
+          in: path
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/anomaly/{ITComponentId}/{ITComponentLogsIndex}/{timestamp}/timespan:
+    get:
+      summary: Returns Elasticsearch data for a given index
+      description: &gt;
+        Query data from Elasticsearch for a given index, from the given
+        timestamp with 1 day range.
+      tags:
+        - anomaly
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the component
+          required: true
+          type: string
+        - name: ITComponentLogsIndex
+          in: path
+          required: true
+          type: string
+        - name: timestamp
+          in: path
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/anomaly/{ITComponentId}:
+    get:
+      deprecated: true
+      summary: Returns anomaly metadata for an ITComponent
+      tags:
+        - anomaly
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the component
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ITComponentSubType:
+                    type: string
+                  anomalyCharts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        newDataPoints:
+                          type: array
+                          items: {}
+                        fullDataPoints:
+                          type: array
+                          items: {}
+                        anomalyRegions:
+                          type: array
+                          items: {}
+                        type:
+                          type: string
+                  ITComponent:
+                    allOf:
+                      - $ref: &#x27;#/components/schemas/TopologyComponent&#x27;
+                      - type: object
+                        properties:
+                          anomalyManagedELKMetricsDashboard:
+                            type: string
+                          anomalyManagedELKMetricsContainerDashboard:
+                            type: string
+                          anomalyManagedELKEventsDashboard:
+                            type: string
+                  anomalyDateTimes:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: string
+                  anomalyTypeTimestamps:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: string
+                  ITComponentLogsIndex:
+                    type: string
+                  ITComponentMetricsIndex:
+                    type: string
+        &#x27;403&#x27;:
+          description: Unauthorized
+        &#x27;404&#x27;:
+          description: Infrastructure not found
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/anomaly/{ITComponentId}/{ITComponentLogsIndex}/{ITComponentMetricsIndex}/{timestamp}:
+    get:
+      summary: Returns anomaly data from given indexes and timestamp
+      tags:
+        - anomaly
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the component
+          required: true
+          type: string
+        - name: ITComponentLogsIndex
+          in: path
+          required: true
+          type: string
+        - name: ITComponentMetricsIndex
+          in: path
+          required: true
+          type: string
+        - name: timestamp
+          in: path
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    dataPoints:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          isImportant:
+                            type: boolean
+                          userThreshold:
+                            type: number
+                          timestamp:
+                            type: string
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/anomaly/{ITComponentId}/{ITComponentLogsIndex}/{ITComponentMetricsIndex}/{timestamp}/timespan:
+    get:
+      summary: Returns anomaly data from given indexes and timestamp for 1 day range
+      tags:
+        - anomaly
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the component
+          required: true
+          type: string
+        - name: ITComponentLogsIndex
+          in: path
+          required: true
+          type: string
+        - name: ITComponentMetricsIndex
+          in: path
+          required: true
+          type: string
+        - name: timestamp
+          in: path
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    dataPoints:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          isImportant:
+                            type: boolean
+                          userThreshold:
+                            type: number
+                          timestamp:
+                            type: string
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/anomaly/{ITComponentId}/{timestamp}:
+    get:
+      summary: Returns metric anomaly data for a given ITComponent
+      tags:
+        - anomaly
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the component
+          required: true
+          type: string
+        - name: timestamp
+          in: path
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    dataPoints:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          timestamp:
+                            type: string
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/anomalyRating/{ITComponentId}:
+    get:
+      summary: Returns an AnomalyRating from database
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITcomponent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/AnomalyRatingModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - anomalyRating
+      security:
+        - accounts_auth: []
+    post:
+      summary: Register a new AnomalyRating in database
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITcomponent
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                anomalyType:
+                  type: string
+                rating:
+                  type: string
+                timestamp:
+                  type: string
+                  format: date-time
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/AnomalyRatingModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - anomalyRating
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/anomalyRating/{ITComponentId}/feedback/{anomalyRatingId}:
+    post:
+      summary: Updates a AnomalyRating with a feedback
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITcomponent
+          required: true
+          type: string
+        - name: anomalyRatingId
+          in: path
+          description: ID of the AnomalyRating
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                feedback:
+                  type: string
+                  example: Not important
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/AnomalyRatingModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - anomalyRating
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/AWS:
+    get:
+      summary: Returns the list of activated and disabled AWS integration
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: &#x27;#/components/schemas/AWSIntegrationType&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - AWS
+      security:
+        - accounts_auth: []
+    post:
+      summary: Returns the list of agents for an infrastructure
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      requestBody:
+        required: true
+        description: AWS credentials and service to enable
+        content:
+          application/json:
+            schema:
+              properties:
+                accessKeyId:
+                  type: string
+                secretAccessKey:
+                  type: string
+                AWSIntegrationTypes:
+                  type: array
+                  items:
+                    $ref: &#x27;#/components/schemas/AWSIntegrationType&#x27;
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - AWS
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/AWS/downloadLambdaFunction:
+    get:
+      summary: Returns a AWS lamdba function file
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            text/javascript:
+              schema:
+                type: object
+                example: {}
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - AWS
+      security:
+        - accounts_auth: []
+  /brokers:
+    get:
+      summary: Returns the list of brokers
+      tags:
+        - brokers
+      produces:
+        - application/json
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/Brokers&#x27;
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/elk/stats:
+    get:
+      summary: Returns ELK stats
+      tags:
+        - ITComponent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  logDocumentsCount:
+                    type: number
+                  logsSize:
+                    type: number
+                  metricDocumentsCount:
+                    type: number
+                  metricsSize:
+                    type: number
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/groks:
+    get:
+      summary: Returns the configurations of groks
+      tags:
+        - ITComponent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ITComponentId:
+                      type: string
+                    module:
+                      type: string
+                      example: linux
+                    filesets:
+                      type: array
+                      items:
+                        groks:
+                          type: array
+                          items:
+                            type: string
+                        mutate:
+                          type: object
+                          properties:
+                            add_field:
+                              type: array
+                              item: {}
+                            copy:
+                              type: array
+                              item: {}
+                    customCode:
+                      type: string
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/groks/default:
+    get:
+      summary: Returns default groks configurations
+      tags:
+        - ITComponent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    module:
+                      type: string
+                      example: linux
+                    filesets:
+                      type: array
+                      items:
+                        groks:
+                          type: array
+                          items:
+                            type: string
+                        mutate:
+                          type: object
+                          properties:
+                            add_field:
+                              type: array
+                              item: {}
+                            copy:
+                              type: array
+                              item: {}
+                    customCode:
+                      type: string
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /health:
+    get:
+      summary: Returns OK status
+      tags:
+        - health
+      produces:
+        - application/json
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/Health&#x27;
+  /infrastructure/{infrastructureId}/users:
+    get:
+      summary: Returns the list of users for an infrastructure
+      description: |
+        Retrieves the list of users from Accounts and returns it
+      tags:
+        - infrastructure
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                    firstName:
+                      type: string
+                      example: John
+                    id:
+                      type: string
+                    lastName:
+                      type: string
+                      example: Doe
+                    roles:
+                      type: array
+                      items:
+                        type: string
+                        example:
+                          - regular
+                          - admin
+                    userName:
+                      type: string
+                      example: johnDoe1
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/roles:
+    get:
+      summary: Returns the list of roles for an infrastructure
+      description: |
+        Retrieves the list of roles from Accounts and returns it
+      tags:
+        - infrastructure
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    roleName:
+                      type: string
+                      example: regular
+                    indexPermissions:
+                      type: array
+                      items:
+                        type: object
+                        example: {}
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/token:
+    get:
+      summary: Returns an unique infrastructure secret token
+      description: &gt;
+        Returns a secret token from database or generates, insert a new one if
+        no token has been found in database, and returns it.
+      tags:
+        - infrastructure
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: 63b96aae3249045230af7852
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/kafkaTopics:
+    delete:
+      summary: Deletes Kafka consumers and topics for an infrastructure
+      description: &gt;
+        Deletes every Kafka consumers and topics that are involved with the
+        infrastructure. Deletes the Elasticsearch indexes as well.
+      tags:
+        - infrastructure
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;403&#x27;:
+          description: Unauthorized
+        &#x27;500&#x27;:
+          description: Server error
+      security:
+        - accounts_auth: []
+  /infrastructure:
+    get:
+      summary: Get the list of infrastructure ids with their Kafka broker lists
+      tags:
+        - infrastructure
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: &#x27;#/components/schemas/Infrastructure&#x27;
+                    - type: object
+                      properties:
+                        id:
+                          type: string
+        &#x27;403&#x27;:
+          description: Unauthorized
+        &#x27;500&#x27;:
+          description: Server error
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}:
+    get:
+      summary: Returns the list of agents for an infrastructure
+      tags:
+        - infrastructure
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: &#x27;#/components/schemas/Brokers&#x27;
+                  - type: object
+                    properties:
+                      agents:
+                        type: array
+                        items:
+                          $ref: &#x27;#/components/schemas/AgentModel&#x27;
+        &#x27;403&#x27;:
+          description: Unauthorized
+        &#x27;500&#x27;:
+          description: Server error
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/integration/options:
+    get:
+      summary: Returns the list of integration options
+      description: |
+        Returns the complete list of available integration options
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  defaultIntegrations:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        options:
+                          type: object
+                          properties:
+                            logPaths:
+                              type: object
+                              properties:
+                                paths:
+                                  type: array
+                                  items:
+                                    type: string
+                        enabled:
+                          type: boolean
+                        editable:
+                          type: boolean
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - integration
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/integration/default:
+    get:
+      summary: Returns the list of default integrations options
+      description: &gt;
+        Returns the complete list of available integrations, and the value if
+        they are enabled by default or not.
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  defaultIntegrations:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        options:
+                          type: object
+                          properties:
+                            logPaths:
+                              type: object
+                              properties:
+                                paths:
+                                  type: array
+                                  items:
+                                    type: string
+                        enabled:
+                          type: boolean
+                        editable:
+                          type: boolean
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - integration
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/integration/default/{integration}:
+    post:
+      summary: Saves the default options for an integration
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: integration
+          in: path
+          description: Name of the integration
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  type: object
+                enabled:
+                  type: boolean
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - integration
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/integration/{agentId}:
+    get:
+      summary: Returns the list of integrations for an agent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: agentId
+          in: path
+          description: ID of the agent
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json: null
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  integrations:
+                    type: array
+                    items:
+                      $ref: &#x27;#/components/schemas/IntegrationModel&#x27;
+                  integrationsStarted:
+                    type: boolean
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - integration
+      security:
+        - accounts_auth: []
+    post:
+      summary: Register a list of integrations for an agent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: agentId
+          in: path
+          description: ID of the agent
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                integrations:
+                  type: array
+                  items:
+                    $ref: &#x27;#/components/schemas/IntegrationModel&#x27;
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - integration
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/integration/{componentITSubType}/{ITComponentId}:
+    get:
+      summary: Gets the list of KPIs for an integration
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: componentITSubType
+          in: path
+          description: SubType of the ITComponent
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITComponent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  integrationFilteredMetrics:
+                    type: array
+                    items:
+                      $ref: &#x27;#/components/schemas/MetricsFilter&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - integration
+      security:
+        - accounts_auth: []
+    post:
+      summary: Saves a list of KPIs for an integration
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: componentITSubType
+          in: path
+          description: SubType of the ITComponent
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITComponent
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                filteredMetricsToSave:
+                  type: array
+                  items:
+                    $ref: &#x27;#/components/schemas/MetricsFilter&#x27;
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - integration
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/integration/{agentId}/errors:
+    post:
+      summary: Register a list of errors for an agent
+      description: &gt;
+        Deletes the list of errors for an agent in database, and replaces it
+        with the provided list of errors per components.
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: agentId
+          in: path
+          description: ID of the agent
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                integrationErrors:
+                  type: object
+                  additionalProperties:
+                    type: array
+                    items:
+                      type: string
+                      example:
+                        - Error while installing x package
+                        - Error while fetching data
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - integration
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/issue/paginated/{ITComponentId}:
+    get:
+      summary: Returns the list of issues for a search query by page
+      tags:
+        - issue
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITComponent
+          required: true
+          type: string
+      requestBody:
+        description: null
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                acknowledgment:
+                  type: string
+                draw:
+                  type: string
+                order:
+                  type: string
+                start:
+                  type: string
+                length:
+                  type: string
+                search:
+                  type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  draw:
+                    type: string
+                    example: &#x27;1&#x27;
+                  recordsTotal:
+                    type: number
+                    example: 0
+                  recordsFiltered:
+                    type: number
+                    example: 0
+                  data:
+                    type: array
+                    items: {}
+                    example:
+                      - null
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/issue/acknowledgment/{acknowledgment}:
+    get:
+      summary: Returns the list of issues acknowledged or not.
+      description: &gt;
+        Returns the list of issues depending on if they are acknowledged or not.
+        If acknowledgment is equal to &quot;all&quot;, returns every issue
+      tags:
+        - issue
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: acknowledgment
+          in: path
+          description: Status of the issue
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: &#x27;#/components/schemas/IssueModel&#x27;
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/issue/{issueId}:
+    get:
+      summary: Returns an issue
+      tags:
+        - issue
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: issueId
+          in: path
+          description: ID of the issue
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  acknowledges:
+                    type: boolean
+                  issueRootITComponents:
+                    type: array
+                    items:
+                      $ref: &#x27;#/components/schemas/ITComponentModel&#x27;
+                  ITComponent:
+                    $ref: &#x27;#/components/schemas/ITComponentModel&#x27;
+                  detected:
+                    type: number
+                  end:
+                    type: number
+                  KPIAnomaly:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      timestamp:
+                        type: number
+                      ITComponentId:
+                        type: string
+                      ITComponentSubType:
+                        type: string
+                  rating:
+                    type: string
+                  rootCauseAnomaly:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                      timestamp:
+                        type: number
+                      ITComponentId:
+                        type: string
+                      ITComponentSubType:
+                        type: string
+                  start:
+                    type: number
+                  timestampComponentsAnomalies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ITComponentId:
+                          type: string
+                        ITComponentSubType:
+                          type: string
+                        type:
+                          type: string
+                          example: causal
+                        anomaly:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                              timestamp:
+                                type: number
+                              isImportant:
+                                type: boolean
+        &#x27;403&#x27;:
+          description: Unauthorized
+        &#x27;404&#x27;:
+          description: Issue not found
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/issue/{issueId}/acknowledgment:
+    post:
+      summary: Update a Issue’s acknowledgemnt status
+      tags:
+        - issue
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: issueId
+          in: path
+          description: ID of the issue
+          required: true
+          type: string
+      requestBody:
+        description: null
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                issueAcknowledgment:
+                  type: boolean
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;403&#x27;:
+          description: Unauthorized
+        &#x27;404&#x27;:
+          description: Issue not found
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/issue/ITComponent/{ITComponentId}/{acknowledgment}:
+    get:
+      summary: Returns a list of issues related to a ITComponent
+      tags:
+        - issue
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITComponent
+          required: true
+          type: string
+        - name: acknowledgment
+          in: path
+          description: acknowledgment status
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ITComponent:
+                    $ref: &#x27;#/components/schemas/ITComponentModel&#x27;
+                  issues:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: &#x27;#/components/schemas/IssueModel&#x27;
+                        - $ref: &#x27;#/components/schemas/IssueRatingModel&#x27;
+        &#x27;403&#x27;:
+          description: Unauthorized
+        &#x27;404&#x27;:
+          description: Issue not found
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/issue/subType/{ITComponentSubType}:
+    get:
+      summary: Returns a list of issues related to a ITComponent
+      tags:
+        - issue
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentSubType
+          in: path
+          description: subType of the ITComponent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: &#x27;#/components/schemas/ITComponentModel&#x27;
+                    - type: object
+                      properties:
+                        issues:
+                          type: number
+                        acknowledgedIssues:
+                          type: number
+                        unAcknowledgedIssues:
+                          type: number
+                        latestIssue:
+                          type: number
+                        latestIssueKPIAnomaly:
+                          type: string
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/issue/{issueId}/ITComponent/{ITComponentId}/KPIFeedback:
+    post:
+      summary: Save a feedback for a given Issue
+      tags:
+        - issue
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: issueId
+          in: path
+          description: ID of the Issue
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITComponent
+          required: true
+          type: string
+      requestBody:
+        description: null
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                feedback:
+                  type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/IssueRatingModel&#x27;
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/issue/{issueId}/ITComponent/{ITComponentId}/KPIRating:
+    post:
+      summary: Save a rating for a given Issue
+      tags:
+        - issue
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: issueId
+          in: path
+          description: ID of the Issue
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITComponent
+          required: true
+          type: string
+      requestBody:
+        description: null
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rating:
+                  type: boolean
+                KPAnomaly:
+                  type: object
+                  properties:
+                    timestamp:
+                      type: number
+                    anomalyType:
+                      type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/IssueRatingModel&#x27;
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/issue/{issueId}/ITComponent/{ITComponentId}/rootCauseFeedback:
+    post:
+      summary: Save a rootCauseFeedback component for a given Issue
+      tags:
+        - issue
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: issueId
+          in: path
+          description: ID of the Issue
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITComponent
+          required: true
+          type: string
+      requestBody:
+        description: null
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                feedback:
+                  type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/IssueRatingModel&#x27;
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/issue/{issueId}/ITComponent/{ITComponentId}/rootCauseRating:
+    post:
+      summary: Save a rootCauseRating component for a given Issue
+      tags:
+        - issue
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: issueId
+          in: path
+          description: ID of the Issue
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITComponent
+          required: true
+          type: string
+      requestBody:
+        description: null
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rating:
+                  type: boolean
+                rootCauseAnomaly:
+                  type: object
+                  properties:
+                    rootCauseAnomalyTimestamp:
+                      type: number
+                    rootCauseAnomalyType:
+                      type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/IssueRatingModel&#x27;
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/ITComponent:
+    get:
+      summary: Returns the list of ITComponents by subType
+      description: &gt;
+        Returns the list of all regular and kubernetes components by for an
+        infrastructure
+      tags:
+        - ITComponent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: &#x27;#/components/schemas/ITComponentModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/ITComponent/hosts:
+    get:
+      summary: Returns the list of host ITComponent
+      tags:
+        - ITComponent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: &#x27;#/components/schemas/ITComponentModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/ITComponent/:ITComponentId:
+    get:
+      summary: Returns the host ITComponent
+      tags:
+        - ITComponent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITComponent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/ITComponentModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/ITComponent/subType/{ITComponentSubType}:
+    get:
+      summary: Returns the list of ITComponents by subType
+      description: &gt;
+        Returns the list of components by subType for an infrastructure. If the
+        subtype is ’all’, returns all components regardless of the subType.
+      tags:
+        - ITComponent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentSubType
+          in: path
+          description: SubType of the ITComponent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: &#x27;#/components/schemas/ITComponentModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/ITComponentDataCheck:
+    get:
+      summary: Check if indexes exists for logs and metrics data
+      tags:
+        - ITComponentIndicesExist
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ITComponentId:
+                      type: string
+                    metricsData:
+                      type: object
+                      properties: {}
+                    logsData:
+                      type: object
+                      properties: {}
+                    metricsMLData:
+                      type: object
+                      properties: {}
+                    logsMLData:
+                      type: object
+                      properties: {}
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/ITComponentDataCheck/agent/{agentId}:
+    get:
+      summary: Check if indexes exists for logs and metrics data for an Agent
+      tags:
+        - ITComponentIndicesExist
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: agentId
+          in: path
+          description: ID of the Agent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ITComponentId:
+                      type: string
+                    metricsData:
+                      type: object
+                      properties: {}
+                    logsData:
+                      type: object
+                      properties: {}
+                    metricsMLData:
+                      type: object
+                      properties: {}
+                    logsMLData:
+                      type: object
+                      properties: {}
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/ITComponentDataCheck/ITComponent/{ITComponentId}:
+    get:
+      summary: Check if indexes exists for logs and metrics data for an ITComponent
+      tags:
+        - ITComponentIndicesExist
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITComponent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ITComponentId:
+                    type: string
+                  metricsData:
+                    type: object
+                    properties: {}
+                  logsData:
+                    type: object
+                    properties: {}
+                  metricsMLData:
+                    type: object
+                    properties: {}
+                  logsMLData:
+                    type: object
+                    properties: {}
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /kafkaConsumer:
+    get:
+      summary: Returns the list of Kafka consumers
+      tags:
+        - kafkaConsumer
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /kafkaConsumer/{infrastructureId}:
+    get:
+      summary: Returns the list of Kafka consumers for an infrastructure
+      tags:
+        - kafkaConsumer
+      parameters:
+        - in: path
+          name: infrastructureId
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/kubernetes:
+    post:
+      summary: Redirect a DGraph query to DGraph server
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                query:
+                  type: object
+                  properties: {}
+                operationName:
+                  type: object
+                  properties: {}
+                variables:
+                  type: object
+                  properties: {}
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - kubernetes
+      security:
+        - infra_token: []
+  /infrastructure/{infrastructureId}/kubernetes/topology/{namespace}:
+    post:
+      summary: Return the Kubenetes topology filtered by Namespace
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: namespace
+          in: path
+          description: Namespace to filter
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties: {}
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;500&#x27;:
+          description: Server Error
+      tags:
+        - kubernetes
+      security:
+        - infra_token: []
+  /infrastructure/{infrastructureId}/kubernetes/topology/{deployment}:
+    post:
+      summary: Return the Kubernetes topology filtered by Deployment
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: deployment
+          in: path
+          description: Deployment to filter
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties: {}
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;500&#x27;:
+          description: Server Error
+      tags:
+        - kubernetes
+      security:
+        - infra_token: []
+  /infrastructure/{infrastructureId}/kubernetes/topology:
+    post:
+      summary: Return the Kubernetes topology
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties: {}
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;500&#x27;:
+          description: Server Error
+      tags:
+        - kubernetes
+      security:
+        - infra_token: []
+  /infrastructure/{infrastructureId}/kubernetes-integration/ITComponents:
+    get:
+      summary: &gt;-
+        Returns the list of all kubernetes components with their integrations if
+        available
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    cluster:
+                      type: string
+                    kubeType:
+                      type: string
+                      enum:
+                        - deployment
+                        - statefulset
+                        - daemonset
+                        - cronjob
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+                    parent:
+                      type: string
+                    kubernetesIntegration:
+                      $ref: &#x27;#/components/schemas/KubernetesIntegrationModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - kubernetesIntegration
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/kubernetes-integration/:clusterName/:ITComponentId:
+    get:
+      summary: Gets the kubernetes integration of a component if it exists
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentKubeType
+          in: path
+          description: Kube type of the component
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: Id of the component
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: &#x27;#/components/schemas/KubernetesIntegrationModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - kubernetesIntegration
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/kubernetes-integration:
+    post:
+      summary: Saves or updates the kubernetes integration of the component
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentKubeType
+          in: path
+          description: Kube type of the component
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: Id of the component
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: &#x27;#/components/schemas/KubernetesIntegrationModel&#x27;
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - kubernetesIntegration
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/kubernetes-integration/modules:
+    get:
+      summary: &gt;-
+        Returns the list of all the infrastructure kubernetes integrations if
+        available for the kubernetes agent
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: Id of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    cluster:
+                      type: string
+                    kubeType:
+                      type: string
+                      enum:
+                        - deployment
+                        - statefulset
+                        - daemonset
+                        - cronjob
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+                    parent:
+                      type: string
+                    kubernetesIntegration:
+                      $ref: &#x27;#/components/schemas/KubernetesIntegrationModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - kubernetesIntegration
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/log:
+    get:
+      summary: Returns the list of agents for an infrastructure
+      tags:
+        - log
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      requestBody:
+        description: null
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                endDateTimestamp:
+                  type: string
+                startDateTimestamp:
+                  type: string
+                search:
+                  type: string
+                selectedITComponents:
+                  type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  allLogs:
+                    type: object
+                    properties: {}
+                  logs:
+                    type: array
+                    properties: {}
+                  logsCount:
+                    type: number
+                  bucketInterval:
+                    type: string
+                  logPatterns:
+                    type: array
+                    items: {}
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/log/patterns:
+    get:
+      summary: Returns the list of agents for an infrastructure
+      tags:
+        - log
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      requestBody:
+        description: null
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                endDateTimestamp:
+                  type: string
+                startDateTimestamp:
+                  type: string
+                search:
+                  type: string
+                selectedITComponents:
+                  type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bucketInterval:
+                    type: string
+                  logPatterns:
+                    type: array
+                    items: {}
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - internal_token: []
+  /infrastructure/{infrastructureId}/logAnomalyRating/{ITComponentId}:
+    get:
+      summary: Returns an LogAnomalyRating from database
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITcomponent
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                logAnomalyType:
+                  type: string
+                timestamp:
+                  type: string
+                  format: date-time
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: &#x27;#/components/schemas/LogAnomalyRatingModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - logAnomalyRating
+      security:
+        - accounts_auth: []
+    post:
+      summary: Saves an LogAnomalyRating in database
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITcomponent
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                logAnomalyType:
+                  type: string
+                timestamp:
+                  type: string
+                  format: date-time
+                logs:
+                  type: array
+                  items:
+                    log:
+                      type: string
+                    timestamp:
+                      type: string
+                      format: date-time
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - logAnomalyRating
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/logAnomalyRating/{ITComponentId}/feedback:
+    post:
+      summary: Updates a list of LogAnomalyRating with a feedback
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITcomponent
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                logAnomalyRatings:
+                  type: array
+                  items:
+                    $ref: &#x27;#/components/schemas/LogAnomalyRatingModel&#x27;
+                feedback:
+                  type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      tags:
+        - logAnomalyRating
+      security:
+        - accounts_auth: []
+  /v2/menu:
+    get:
+      summary: Get menu generated for Minima
+      description: &gt;
+        Generates a menu for Minima depending of the user&#x27;s role (demo, admin or
+        regular), and creates sections for AWS and different components
+        depending if there is nodes or not.
+      tags:
+        - menu
+      produces:
+        - application/json
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /menu:
+    get:
+      deprecated: true
+      summary: Get menu generated for Minima
+      description: &gt;
+        Generates a menu for Minima depending of the user&#x27;s role (demo, admin or
+        regular), and creates sections for AWS and different components
+        depending if there is nodes or not.
+      tags:
+        - menu
+      produces:
+        - application/json
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /role/{roleName}:
+    post:
+      summary: Insert a role in Accounts
+      tags:
+        - role
+      parameters:
+        - in: path
+          name: roleName
+          description: Name of the role
+          required: true
+          type: string
+      requestBody:
+        description: Permissions to add with the role
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                indexPermissions:
+                  type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+    delete:
+      summary: Delete a role in Accounts
+      tags:
+        - role
+      parameters:
+        - in: path
+          name: roleName
+          description: Name of the role
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;403&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/topology:
+    get:
+      deprecated: true
+      summary: Returns the topology from database
+      tags:
+        - topology
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ITComponents:
+                    type: array
+                    items:
+                      $ref: &#x27;#/components/schemas/ITComponentModel&#x27;
+                  rootItComponents:
+                    type: array
+                    items:
+                      $ref: &#x27;#/components/schemas/ITComponentModel&#x27;
+                  inactiveITComponentIntegrations:
+                    type: array
+                    items:
+                      $ref: &#x27;#/components/schemas/ITComponentModel&#x27;
+                  topologyLastUpdate:
+                    type: string
+                    format: date-time
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;404&#x27;:
+          description: No Agent, Infrastructure, or no topology found
+      security:
+        - accounts_auth: []
+  /infrastructure/{infrastructureId}/topology/{ITComponentId}/correlation:
+    get:
+      deprecated: true
+      summary: Returns the correlation topology
+      description: |
+        Generate a correlation topology around a given componentID
+      tags:
+        - topology
+      parameters:
+        - name: infrastructureId
+          in: path
+          description: ID of the infrastructure
+          required: true
+          type: string
+        - name: ITComponentId
+          in: path
+          description: ID of the ITComponent
+          required: true
+          type: string
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: &#x27;#/components/schemas/ITComponentModel&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;404&#x27;:
+          description: No Agent, Infrastructure, or no topology found
+      security:
+        - accounts_auth: []
+  /user/init:
+    post:
+      summary: Create a new User and Infrastructure
+      description: &gt;
+        Creates a new User and new Infrastructure in database, then returns the
+        created user with the infrastructure object embedded.
+      tags:
+        - user
+      requestBody:
+        description: null
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: &#x27;#/components/schemas/SignupUser&#x27;
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: &#x27;#/components/schemas/User&#x27;
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+  /user:
+    post:
+      summary: Insert a new User in database
+      description: &gt;
+        Creates an user in Accounts, creates a new User in database, then
+        returns the created user with the infrastructure object embedded.
+      tags:
+        - user
+      requestBody:
+        description: null
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: &#x27;#/components/schemas/PostUser&#x27;
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;500&#x27;:
+          description: Resource already exists
+      security:
+        - accounts_auth: []
+  /user/{userId}:
+    get:
+      summary: Get an User from database
+      description: |
+        Search for a User in database by its userId, and returns it
+      tags:
+        - user
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: ID of the User
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                  id:
+                    type: string
+                  infrastructureId:
+                    type: string
+                    example: 507f191e810c19729de860ea
+                  name:
+                    type: string
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;404&#x27;:
+          description: User not found
+      security:
+        - accounts_auth: []
+    delete:
+      summary: Delete an User
+      description: |
+        Deletes an user on Accounts and in the database using the userId
+      tags:
+        - user
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: ID of the User
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+        &#x27;500&#x27;:
+          description: User not found
+      security:
+        - accounts_auth: []
+    put:
+      summary: Insert a new User
+      description: |
+        Insert a new User in Accounts and in database
+      tags:
+        - user
+      requestBody:
+        description: null
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: &#x27;#/components/schemas/PutUser&#x27;
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: ID of the User
+      responses:
+        &#x27;200&#x27;:
+          description: OK
+        &#x27;401&#x27;:
+          description: Unauthorized
+      security:
+        - accounts_auth: []
+tags:
+  - name: menu
+  - name: brokers
+  - name: admin
+    description: Restricted routes for Admin page, accessible for users with admin&#x27;s role.
+  - health</code></pre></div></article></body></html>

@@ -1,0 +1,714 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bephor Mehdi handover</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="fed6a793-594e-4ebc-9908-8130df0d4552" class="page sans"><header><h1 class="page-title">Bephor Mehdi handover</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-last_edited_by"><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedBy"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 10.4229C6.05176 10.4229 4.54785 11.1133 3.83008 11.9131C2.90039 10.9082 2.33301 9.55469 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 9.55469 13.1064 10.9082 12.1699 11.9131C11.4521 11.1133 9.94824 10.4229 8 10.4229ZM8 9.30176C9.32617 9.30859 10.3516 8.18066 10.3516 6.71094C10.3516 5.33008 9.31934 4.18164 8 4.18164C6.6875 4.18164 5.6416 5.33008 5.64844 6.71094C5.65527 8.18066 6.68066 9.28809 8 9.30176Z"></path></svg></span>Last Edited By</th><td><span class="user"><img src="../Meeting%20Notes%208525087cd5cb440eba8565cac6b89e72/Custom%20metrics%20with%20prometheus%20340c9951a5a0406e97bee1bf3d8b230f/CV_PIC.jpg" class="icon user-icon"/>Marin Radman</span></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Last Edited Time</th><td><time>@April 14, 2021 11:20 AM</time></td></tr></tbody></table></header><div class="page-body"><h2 id="c9db0cbc-21cd-4a19-8727-0c97bd89718b" class="">Accounts</h2><h3 id="8d1a55b2-f567-44dc-bd83-1ebd24a743ad" class="">Routes:</h3><ul id="a12ba4c8-af0d-4944-8e45-4eafb9427296" class="bulleted-list"><li style="list-style-type:disc">Used and unused routes</li></ul><ul id="36192bcf-76c1-4bec-81ac-c0d4b8558180" class="bulleted-list"><li style="list-style-type:disc">Express or Koa</li></ul><ul id="8429f530-3391-4269-ad5a-90004c3d6899" class="bulleted-list"><li style="list-style-type:disc">Creation of roles and tenants</li></ul><ul id="bd7d845d-6c10-4b95-91bf-eecb4a6e7b89" class="bulleted-list"><li style="list-style-type:disc">Login route and creation of role (commented code)</li></ul><h3 id="478668b2-26a4-42f9-8bf3-5cf38f960d56" class="">OIDC provider:</h3><h3 id="4736966a-3a39-4041-963b-766ff0a7a49d" class="">Certificates and keys:</h3><h3 id="e669fa1e-9632-4117-9cd0-bc855cfa2da2" class="">Redis:</h3><ul id="ac4c1f7b-50d7-4448-beb4-1a26b4cafc25" class="bulleted-list"><li style="list-style-type:disc">Redis is there for the openId login token</li></ul><ul id="bcadcf42-0994-41c4-9990-1c0f10c23805" class="bulleted-list"><li style="list-style-type:disc">Redis is inside of EC2 instances</li></ul><ul id="8d81511f-5117-4586-8b1e-1df7a45c7bee" class="bulleted-list"><li style="list-style-type:disc">Redis cluster inside of Kubernetes doesn&#x27;t work</li></ul><ul id="0e6eea5c-89c4-4e1b-bf38-9b480a859284" class="bulleted-list"><li style="list-style-type:disc">Redis connection is inside of adapters for accounts</li></ul><h3 id="a4a111f6-5be6-4883-94b0-bea251ec1128" class="">UI:</h3><ul id="9899a76a-37ed-4a76-9924-06f796809853" class="bulleted-list"><li style="list-style-type:disc">Login page</li></ul><h3 id="9f554ab2-348c-45fd-8fde-806da6987a84" class="">CI/CD:</h3><ul id="f9a7b121-0f5c-4301-b4cb-d157c46f8027" class="bulleted-list"><li style="list-style-type:disc">Minima, Becky, Account have 3 separate pipelines:<ul id="79f77a66-0e71-4290-a245-add8ef5e83ff" class="bulleted-list"><li style="list-style-type:circle">dev</li></ul><ul id="ff305e8e-4d64-467e-bae0-7110c4d4d571" class="bulleted-list"><li style="list-style-type:circle">staging</li></ul><ul id="e4c28635-85e2-4165-bca7-abbd99ea88cc" class="bulleted-list"><li style="list-style-type:circle">production</li></ul><p id="58b3b1e6-1320-45e0-bf2f-d257ba41ed67" class="">
+</p></li></ul><ul id="12398016-60a7-4183-8f1f-381a7027d582" class="bulleted-list"><li style="list-style-type:disc">Becky and Accounts have gitlab CI which pushes their image to AWS ECR</li></ul><h3 id="5981a717-d79c-4d66-8d82-0124b7db3502" class="">Cleanup:</h3><ul id="7f4986b4-9f34-45ff-9047-2bb416807c41" class="bulleted-list"><li style="list-style-type:disc">Remove Open Distro role definitions </li></ul><ul id="20c3c3fa-545c-45a4-9036-3a608a3c8df8" class="bulleted-list"><li style="list-style-type:disc">Remove UI for the login</li></ul><ul id="07108e76-827b-4a43-a751-4e1768be8693" class="bulleted-list"><li style="list-style-type:disc">Unused routes</li></ul><h2 id="b297a1fa-980e-41a7-82d8-838cd1317629" class="">Open Distro (OpendiostroEC2 repository)</h2><h3 id="0971ab89-b473-423d-a14a-0455caad3034" class="">Running the instance:</h3><ul id="925e6a90-5c0c-4180-8ff4-1a3f8d343488" class="bulleted-list"><li style="list-style-type:disc">Start docker service: <code>sudo service docker start</code></li></ul><ul id="8a16c4cb-5eb6-4cca-936b-c6a3cbe08839" class="bulleted-list"><li style="list-style-type:disc"><strong>openssl-san-*.cnf: </strong>Required to create certificates, need to be modified with the proper targeted Kibana address (like. kb-staging-*)</li></ul><ul id="6b2ad861-343b-467d-8fca-541e934e6c7f" class="bulleted-list"><li style="list-style-type:disc"><strong>create-certs.sh:</strong> Run the script to create all the required certificates</li></ul><ul id="6f497bc6-7d84-44c3-ab56-e4aa88460c93" class="bulleted-list"><li style="list-style-type:disc">Create a load balancer for the instance + the record set</li></ul><ul id="4162b7c5-6f46-4496-874c-56af603f30b0" class="bulleted-list"><li style="list-style-type:disc"><strong>docker-compose.yml: </strong>CERTS and other configs are explained in the comments in the file, need to be modified with the proper targeted Kibana</li></ul><ul id="7d96fc58-47f7-4ffb-8f56-8a1e48acf9f5" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red">All files with accounts/kibana endpoints need to be modified with the proper targets</mark></li></ul><ul id="ab40f055-caf3-4650-b31f-d470a494a5b7" class="bulleted-list"><li style="list-style-type:disc"><code>sudo docker-compose up</code></li></ul><ul id="d13bb3bc-9cf4-4a3e-91c1-f91ebe384ecc" class="bulleted-list"><li style="list-style-type:disc">Update the security inside of kibana:<ul id="25af3628-ea8c-4de9-8f47-f33b3b047248" class="bulleted-list"><li style="list-style-type:circle"><code>sudo docker exec -it {containerid} sh</code></li></ul><ul id="b3f0c8aa-74e6-4872-927f-0ecfa9162402" class="bulleted-list"><li style="list-style-type:circle"><code>cd plugins/opendistro_security/tools</code></li></ul><ul id="63eaf383-dcbc-4f87-981b-8d2165d7c7be" class="bulleted-list"><li style="list-style-type:circle"><code>chmod +x </code><code><a href="http://securityadmin.sh/">securityadmin.sh</a></code></li></ul><ul id="114efa04-df0e-4273-a747-abdca9b48d14" class="bulleted-list"><li style="list-style-type:circle"><code>./securityadmin.sh -cd ../securityconfig/ -icl -nhnv -cacert ../../../config/root-ca.pem -cert ../../../config/admin.pem -key ../../../config/admin-key.pem</code></li></ul><p id="3cd108cd-ddf4-46cb-a1a4-4a0ebdb531f5" class="">
+</p><figure id="1906b013-3ef1-4849-9558-d4853a80b058" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/Screenshot_2020-07-06_at_15.42.59.png"><img style="width:3012px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/Screenshot_2020-07-06_at_15.42.59.png"/></a></figure><figure id="6bf992c4-3aea-48db-b68b-aaa05a0a5781" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/Screenshot_2020-07-06_at_15.44.31.png"><img style="width:2822px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/Screenshot_2020-07-06_at_15.44.31.png"/></a></figure><figure id="1a66b381-f099-41ee-a70d-17ceed0fd1f5" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/Screenshot_2020-07-06_at_15.45.52.png"><img style="width:2814px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/Screenshot_2020-07-06_at_15.45.52.png"/></a></figure><ul id="30d55cfa-6ff6-46dc-be48-c69506b55501" class="bulleted-list"><li style="list-style-type:circle">Security needs to be updated on one elastisearch node but sometimes could require to update both</li></ul><ul id="df687fc3-e0bc-456c-8848-13d38fc3e8e1" class="bulleted-list"><li style="list-style-type:circle">Load balancer health checks could take a lot of time</li></ul><ul id="ee94490e-7daa-476b-95f5-30959dd99086" class="bulleted-list"><li style="list-style-type:circle">Update Accounts and apply</li></ul></li></ul><h3 id="2411eac1-b8f0-42ea-aca0-c3e06fd9ac2a" class="">Updating Open Distro:</h3><ul id="37f81e5e-698a-4d29-bcfd-9b520cfec7ca" class="bulleted-list"><li style="list-style-type:disc">update Open Distro version:<ul id="aad7f208-614f-414d-ac01-2da95298874e" class="bulleted-list"><li style="list-style-type:circle">change image tag (OD version) in the docker-compose</li></ul><ul id="ef0f0e28-4d25-419e-9586-b4fc3ba67578" class="bulleted-list"><li style="list-style-type:circle"><code>docker-compose stop</code></li></ul><ul id="88ef0516-66ab-4a0f-a1b9-ba8f4c41ae71" class="bulleted-list"><li style="list-style-type:circle"><code>docker-compose up</code></li></ul><ul id="2d93516f-3525-4a83-9d48-8f77b6bbc335" class="bulleted-list"><li style="list-style-type:circle">Manually add the tenant and roles if needed</li></ul></li></ul><p id="c426cc80-b6b9-49ae-881f-35d291102ce7" class=""><strong>Staging pass:</strong> <code>UT9acE1IGDH%j##I</code></p><p id="d1dd1f73-4292-4405-8b00-3853a846d8b7" class=""><strong>Production pass:</strong> <code>*nQNxB#aFtWhvYxg</code></p><p id="4773eff5-f953-4203-b51c-5b4801c9b369" class="">
+</p><h3 id="2c5d914d-1c9f-43ce-9783-21f98228d47c" class="">Add index templates to Open Distro: </h3><ul id="61a4b512-fe60-4a77-a80b-f3f01fabc092" class="bulleted-list"><li style="list-style-type:disc">Clone the Logstash repo and find the template files in the <a href="https://gitlab.packetai.co/elk/logstash/-/tree/master/conf">config</a> </li></ul><ul id="d6584d08-e3fc-4e5e-b7e9-39a9c5ef0001" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-template.html#load-template-manually">Metricbeat </a>dev example: <code>curl -u admin:admin -XPUT -H &#x27;Content-Type: application/json&#x27; </code><code><a href="https://kb.packetai.co:9200/_template/metricbeat-7.6.2">https://kb.packetai.co:9200/_template/metricbeat-7.6.2</a></code><code> -d@metricbeat.template.json </code></li></ul><ul id="3f855407-efc5-4b1b-a9b8-9b7de6da4192" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-template.html#load-template-manually-alternate">FiIebeat </a>dev example: <code>curl -u admin:admin -XPUT -H &#x27;Content-Type: application/json&#x27; </code><code><a href="https://kb.packetai.co:9200/_template/filebeat-7.6.2">https://kb.packetai.co:9200/_template/filebeat-7.6.2</a></code><code> -d@filebeat.template.json</code></li></ul><h3 id="009eb77e-908b-4c3a-93b1-0a65a8d1a180" class="">Add Filebeat ingest pipelines to Open Distro: </h3><ul id="f99f95e0-9f5d-4c83-8bd2-e3cd65cc2c1d" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html">Install Filebeat</a> with desired version anywhere:<ul id="4a8db0c6-d1da-4c17-be23-61d88471904c" class="bulleted-list"><li style="list-style-type:circle">install: <code>sudo rpm -vi filebeat-7.10.1-x86_64.rpm</code></li></ul><ul id="9f6c5a82-198a-48c4-8e61-e0324a3f0bf9" class="bulleted-list"><li style="list-style-type:circle">remove: <code>sudo rpm -e filebeat-7.11.2-1.x86_64</code></li></ul></li></ul><ul id="024fcb71-0547-448e-88f0-7032981e3d35" class="bulleted-list"><li style="list-style-type:disc">Modify <code>etc/filebeat/filebeat.yml</code> to target the proper elasticsearch instance</li></ul><pre id="43f90de4-289d-4f8d-a7e8-c8b070077706" class="code"><code># ---------------------------- Elasticsearch Output ----------------------------
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: [&quot;kb.packetai.co:9200&quot;]
+  
+  # Protocol - either `http` (default) or `https`.
+  protocol: &quot;https&quot;
+
+  # Authentication credentials - either API key or username/password.
+  #api_key: &quot;id:api_key&quot;
+  username: &quot;admin&quot;
+  password: &quot;admin&quot;</code></pre><ul id="3cdffb77-1166-4c6e-9d63-43e2c3a97a6f" class="bulleted-list"><li style="list-style-type:disc">Run Filebeat with the setup pipelines command to <a href="https://www.elastic.co/guide/en/beats/filebeat/master/load-ingest-pipelines.html">push the ingest pipelines</a> to your elasticsearch: <code>sudo filebeat setup --pipelines --modules apache,apache2,auditd,elasticsearch,haproxy,icinga,iis,kafka,kibana,logstash,mongodb,mysql,nats,nginx,osquery,postgresql,redis,santa,system,traefik</code></li></ul><h3 id="c623f7f1-8776-4067-9b49-a421d281ee9d" class=""><strong>Update index.max_docvalue_fields_search:</strong></h3><p id="b302fd5d-946c-407d-838d-bdf362772996" class="">
+</p><pre id="e7d31644-c367-4854-b15d-cbe05b6f4482" class="code"><code>PUT index-*/_settings
+{
+	&quot;index&quot; : {
+		&quot;max_docvalue_fields_search&quot; : 200
+		}
+}</code></pre><h3 id="316d891f-5cb2-4190-8f1f-45f97f6bdfcc" class="">Kibana:</h3><ul id="320db953-c467-4ff5-b60a-8abebd095b61" class="bulleted-list"><li style="list-style-type:disc"><del>Missing packetai shared tenant</del></li></ul><ul id="d3db8f97-9729-4924-a6ec-7f5542039084" class="bulleted-list"><li style="list-style-type:disc"><del>Missing .kibana_packetai index permission on regular role</del></li></ul><ul id="082cc0a4-f303-4315-8054-fc1ac545d1ef" class="bulleted-list"><li style="list-style-type:disc"><del>Missing regular role mapping</del></li></ul><ul id="aae2cb58-37f4-4dc7-93f1-fb9fec6823f2" class="bulleted-list"><li style="list-style-type:disc">Admin tenant can&#x27;t see visualizations (when admin tenant selected)</li></ul><ul id="9c0e3b10-c757-450c-8e52-294174770998" class="bulleted-list"><li style="list-style-type:disc">Dashboards/visualizations throw errors if there is no data (on newly created infrastructures)</li></ul><h2 id="28183a67-c1dc-4f5e-9985-d94cca3433c4" class="">Misc</h2><h3 id="1954b212-e52e-4097-875e-8595bcbc0f26" class="">Kubernetes: </h3><ul id="50e9ee3d-4441-459d-be30-fe17091da3b1" class="bulleted-list"><li style="list-style-type:disc">Connect to dashboard:<ul id="33ba430e-03c9-4755-8c61-6a7584244770" class="bulleted-list"><li style="list-style-type:circle">Select Kubernetes Context on desktop app</li></ul><ul id="66217c4f-4dfc-4996-8eb3-98107d58757f" class="bulleted-list"><li style="list-style-type:circle"><code>kubectl proxy</code></li></ul><ul id="d629a65f-9479-449f-bf96-310172f34f89" class="bulleted-list"><li style="list-style-type:circle"><a href="http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login">http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login</a></li></ul><ul id="743eae07-b834-482d-8e26-21bc544d9e91" class="bulleted-list"><li style="list-style-type:circle">To get the required login token: <ul id="b6582f38-47ab-4a15-8a0e-cd65bc19a0a5" class="bulleted-list"><li style="list-style-type:square"><code>kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk &#x27;{print $1}&#x27;)</code></li></ul><p id="ca5e5dce-7aef-42f3-a91b-f1f97b2bc207" class="">
+</p></li></ul><p id="b3ddf931-4a85-4393-b6de-1921c4c5a70b" class="">
+</p></li></ul><ul id="d4e96b9c-b579-46c1-a7e1-a88e88bed55e" class="bulleted-list"><li style="list-style-type:disc">Get pods: <code>kubectl get pods</code></li></ul><ul id="b107bf68-5c54-4c3e-b0f3-4a26fbc498d5" class="bulleted-list"><li style="list-style-type:disc">Get deployments: <code>kubectl get deployments</code></li></ul><ul id="99675c0f-5621-45df-9ce3-b5f7e55d74b2" class="bulleted-list"><li style="list-style-type:disc">Create pods: <code>kubectl apply -f {configFileName}</code></li></ul><ul id="32c10656-ac5e-4d62-97c2-dd4a3f1fbe6d" class="bulleted-list"><li style="list-style-type:disc">Update deployments with new image:<ul id="f25d478d-f227-40f3-a01f-e28fddff3ee0" class="bulleted-list"><li style="list-style-type:circle"><code>kubectl scale deployment {DEPLOYMENT_NAME} --replicas={NUMBER_OF_PODS_NEEDED}</code></li></ul><ul id="6c5e2a4b-e865-442f-a888-da729498dca3" class="bulleted-list"><li style="list-style-type:circle">Destroy: </li></ul><ul id="32376470-3655-4761-a232-99e1d83b2aed" class="bulleted-list"><li style="list-style-type:circle">Create: <code>kubectl scale deployment packetai-account-app --replicas=1</code></li></ul><ul id="bf2d3287-2d70-4651-b0c3-450d786da524" class="bulleted-list"><li style="list-style-type:circle">It means destroy previous deployment and recreate it</li></ul><ul id="3815cf33-e817-4c64-90a0-71797b626fa4" class="bulleted-list"><li style="list-style-type:circle">Scale to 0 host then to 1</li></ul></li></ul><ul id="725107d8-6c99-4f41-9a5b-ad4413424e30" class="bulleted-list"><li style="list-style-type:disc">Get the addresses of the mongo databases (example for DEBBY staging):<ul id="06aef081-d19a-4671-99e2-47f6642b0249" class="bulleted-list"><li style="list-style-type:circle"><code>for ((i = 0; i &lt; 3; ++i)); do kubectl exec --namespace default debby-staging-mongodb-replicaset-$i -- sh -c &#x27;mongo --eval=&quot;printjson(rs.isMaster())&quot;&#x27;; done</code></li></ul><p id="22cb8cba-877b-41b4-964d-1eaee1eedccc" class="">
+</p></li></ul><ul id="fd9618e2-578b-4570-99ab-f5f8f9e1e168" class="bulleted-list"><li style="list-style-type:disc">Port forward Kube MongoDB from mongo namespace for use with Compass or RoboMongo to local port 27020 example:<ul id="a5488d2e-07a4-4a74-9fec-36a513fb879a" class="bulleted-list"><li style="list-style-type:circle"><code>kubectl port-forward -n=mongo pods/mongo-mongodb-replicaset-0 27020:27017</code></li></ul></li></ul><ul id="b9212fa7-cc30-432b-bdd8-7801e091ce50" class="bulleted-list"><li style="list-style-type:disc">Get pod info:<ul id="887809f4-ac1d-4608-b280-4c9220045fb2" class="bulleted-list"><li style="list-style-type:circle"><code>kubectl describe pods {POD_NAME}</code></li></ul></li></ul><ul id="a370c995-42a1-4f6e-aac9-a7b2bec61ff7" class="bulleted-list"><li style="list-style-type:disc">Expose MongoDB ports(possibly target all replicas 0, 1 and 2):<ul id="028e4fdd-e6b2-4994-adea-6c9a72b26015" class="bulleted-list"><li style="list-style-type:circle"><code>kubectl expose pod debby-staging-mongodb-replicaset-0 --type=LoadBalancer</code></li></ul><p id="388283da-16da-4dd1-aa3a-e4ad6b893bf3" class="">
+</p></li></ul><h3 id="75dadf68-37e4-4ffb-9dd4-29a17e9fdb44" class="">Helm:</h3><p id="0e3cc619-76ba-4d79-a0d8-25dc03ac989d" class=""><strong>MongoDB:</strong></p><ul id="3af635dd-3c35-42c6-b246-4079d0fb4648" class="bulleted-list"><li style="list-style-type:disc">Add helm repository locally: <a href="https://github.com/helm/charts/tree/master/stable/mongodb-replicaset">https://github.com/helm/charts/tree/master/stable/mongodb-replicaset</a></li></ul><ul id="fe7e212f-5c21-4666-9e38-37294ff46cad" class="bulleted-list"><li style="list-style-type:disc"><code>helm repo add stable </code><code><a href="https://kubernetes-charts.storage.googleapis.com/">https://kubernetes-charts.storage.googleapis.com/</a></code></li></ul><ul id="caf1bfe1-ba0b-4bc5-9300-13e57dc1b057" class="bulleted-list"><li style="list-style-type:disc">Modify values.yml  file for MongoDB </li></ul><ul id="4d83bb24-6c51-442f-965e-5f09c45f4ca3" class="bulleted-list"><li style="list-style-type:disc">Install MongoDB:<code> helm install debby-staging -f values.yml stable/mongodb-replicaset</code></li></ul><ul id="5106bf98-98a6-4bdc-94e6-e95e140d06a4" class="bulleted-list"><li style="list-style-type:disc">Connect to MongoDB with admin user: <code>kubectl exec -it debby-staging-mongodb-replicaset-0 -- mongo mydb -u {USER} -p {PWD} --authenticationDatabase admin</code></li></ul><ul id="187a7bed-7f63-4662-810a-60718bd19ffb" class="bulleted-list"><li style="list-style-type:disc">Expose MongoDB ports: <code>kubectl expose pod debby-staging-mongodb-replicaset-0 --type=LoadBalancer</code></li></ul><ul id="22b3b05d-0db8-40f7-89a8-bebbb72f5ba7" class="bulleted-list"><li style="list-style-type:disc">Add micro services port to EC2 load balancer whitelist</li></ul><ul id="593d02bb-cd54-4b94-863b-2c9405e392c8" class="bulleted-list"><li style="list-style-type:disc">Upgrade MongoDB: <code>helm upgrade staging-debby -f values.yaml incubator/mongodb-replicaset</code></li></ul><ul id="f288ac98-98d0-420d-b119-652fe95b6401" class="bulleted-list"><li style="list-style-type:disc">Delete MongoDB: <ul id="fba2a090-a013-49cc-ae84-7c0453437cfb" class="bulleted-list"><li style="list-style-type:circle">Get helm list: <code>helm list</code></li></ul><ul id="c6d931f8-2cac-47d4-a20d-a5ba779bb12d" class="bulleted-list"><li style="list-style-type:circle">Delete selected helm chart:  <code>helm delete {NAME}</code></li></ul><p id="17e917c1-6531-43b4-b01e-f5b40260b368" class="">
+</p></li></ul><h3 id="c0a7f0d6-bf44-45b6-989c-19a69e628d24" class="">Duplicating an EC2 instance:</h3><ul id="4b45ffdb-10b7-4a8d-b625-5e0c21ad4427" class="bulleted-list"><li style="list-style-type:disc">Create an image from existing instance<figure id="cd179a46-cbd9-4e9c-bca7-00c7708875f3" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2CrateImage.png"><img style="width:1919px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2CrateImage.png"/></a></figure><p id="157ba554-0e0d-4228-a71d-9ed16a72bf78" class="">
+</p></li></ul><ul id="45784c6f-f939-4891-ab66-a28ef3d97452" class="bulleted-list"><li style="list-style-type:disc">Create new instance and select the newly created image from myAMIs (t2.2xlarge)</li></ul><ul id="7155150c-63d9-4e41-a487-b143035d38e7" class="bulleted-list"><li style="list-style-type:disc">Select instance type, </li></ul><ul id="78c3a503-622c-4e8f-9607-ec35fb396f51" class="bulleted-list"><li style="list-style-type:disc">Select same security group and a AWS key pair for connecting (aws_paris_instance)</li></ul><ul id="0ead833d-907b-43b9-a821-74a53b6503da" class="bulleted-list"><li style="list-style-type:disc">Rename the instance</li></ul><p id="4bde5d3f-0ada-4965-aa71-01bf6fc21dac" class="">
+</p><h3 id="dfdc7b1e-b781-41a6-9884-9e4cf4767f35" class="">Cloudfront:</h3><ul id="8e308988-20c7-47fe-92d5-1da255ba5cc6" class="bulleted-list"><li style="list-style-type:disc">After upload on S3 select a Cloudfront distribution </li></ul><ul id="65ac0f42-f483-4b55-bffc-7f1e025d99e2" class="bulleted-list"><li style="list-style-type:disc">Create new invalidation with <code>/*</code> as Object Paths</li></ul><ul id="5852fb87-387b-4598-ac16-349b04630ff3" class="bulleted-list"><li style="list-style-type:disc">This is automated in the GitLab CI for Minima</li></ul><h3 id="7e935ad3-f89f-4e6f-a594-3e0d1f1394ed" class="">GitLab CI/CD to S3 for Minima:</h3><ul id="1115e4a8-2998-453f-8870-f467c387947e" class="bulleted-list"><li style="list-style-type:disc">Automated deployment for Minima on all 3 pipes</li></ul><p id="ddeef541-3cbb-468a-accf-22adffa4618d" class="">
+</p><h3 id="955944d5-9ad9-4ea0-90c2-c8a2ed6b7662" class="">Create EC2 Load Balancer:</h3><ul id="8fdf938d-d458-4fb8-ab30-6dec6e922c3a" class="bulleted-list"><li style="list-style-type:disc">Select create Load Balancer ⇒ Application Load balancer</li></ul><ul id="535cc12c-efac-4b84-9654-0670ddd074c6" class="bulleted-list"><li style="list-style-type:disc">Enter name ⇒ select https ⇒ select all Availability Zones</li></ul><ul id="e4e95dc3-742f-4397-b32e-ca3a152f2ad2" class="bulleted-list"><li style="list-style-type:disc">Choose first Certificate type ⇒ choose <code>*.packetai.co</code> certificate name<figure id="7949daaf-7e0e-483f-8073-a8e0633964a9" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancer.png"><img style="width:1050px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancer.png"/></a></figure><ul id="c677ec1d-d013-4b24-aaa4-73b51b77d0fa" class="bulleted-list"><li style="list-style-type:circle">Choose security group <code>launch-wizard-3</code> </li></ul><ul id="10c7d994-3d45-4898-b7eb-502fb2e81d01" class="bulleted-list"><li style="list-style-type:circle">Configure routing<figure id="3e3d98ad-c093-42a5-9670-7650484ea3fb" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerRouting.png"><img style="width:1055px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerRouting.png"/></a></figure><ul id="c9b7a511-8753-4407-9ded-283b14833d6e" class="bulleted-list"><li style="list-style-type:square">Register targets (port 443): select and add your EC2 instance </li></ul><ul id="4982385c-61e6-443b-bb13-71686315a8ae" class="bulleted-list"><li style="list-style-type:square">Create the load balancer and wait until it&#x27;s provisioned</li></ul><ul id="6ae9992f-2282-41ca-84db-66a7632f1e38" class="bulleted-list"><li style="list-style-type:square">Create Elasticsearch and Kibana target groups under EC2 ⇒ Load Balancing ⇒ Target Groups </li></ul><ul id="0a076e1f-03ff-4070-956e-af0e9b5237bd" class="bulleted-list"><li style="list-style-type:square">Elastisearch is under https </li></ul></li></ul></li></ul><figure id="b314f140-bb2d-4423-89be-ce399f8e0b99" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerCreateTargetGroup.png"><img style="width:1054px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerCreateTargetGroup.png"/></a></figure><ul id="56d67236-4f61-4966-a8dd-168f09c66cc4" class="bulleted-list"><li style="list-style-type:disc">Kibana is under https </li></ul><figure id="39aa16d8-011c-4922-93e5-d12d49c51320" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerRoutingKibana.png"><img style="width:1055px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerRoutingKibana.png"/></a></figure><ul id="3f0b1719-e06e-41ff-be65-45f9b0fe9980" class="bulleted-list"><li style="list-style-type:disc">Add listeners to the load balancer </li></ul><figure id="9d0e77e7-e13b-4510-95e2-ce70b87d8dee" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerListenerES.png"><img style="width:1404px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerListenerES.png"/></a></figure><figure id="6c516e30-6067-43c4-bfd6-e81d3c81dcc6" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerListenerKibana.png"><img style="width:1405px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerListenerKibana.png"/></a></figure><ul id="00541ff7-76ff-4b4d-bb32-6c647e68e4c9" class="bulleted-list"><li style="list-style-type:disc">Target groups ⇒ search load balancer ⇒ add registered target<figure id="3dfd931d-032e-4ea0-99cf-7a23fb6aeafe" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerRegisterTarget.png"><img style="width:1919px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerRegisterTarget.png"/></a></figure></li></ul><ul id="fb8ecd09-cf2a-4c75-89e9-b4a8c0c48f76" class="bulleted-list"><li style="list-style-type:disc">Go to Route 53 ⇒ Hosted zones 0&gt; packetai.co</li></ul><ul id="43e55164-1edf-4ba6-8f1b-abc0b5b6326c" class="bulleted-list"><li style="list-style-type:disc">Create a DNS Record Set (<code>kibana-staging.packetai.co</code>) and choose the Load Balancer as Alias Target<figure id="23efc272-ca29-40c7-a5d5-8e96eff2a537" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerRecodSets.png"><img style="width:1405px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/EC2LoadBalancerRecodSets.png"/></a></figure><h3 id="a8b1a6d6-25c0-465d-831e-2106a8e5fefb" class="">EC2 volume change:</h3><ul id="950671ec-ced1-4f44-b70e-59dd78a34118" class="bulleted-list"><li style="list-style-type:circle">Change the volume size in AWS</li></ul><ul id="f3c80f9d-41ab-4f8e-9215-1529276d16de" class="bulleted-list"><li style="list-style-type:circle"><code>sudo growpart /dev/xvda 1</code></li></ul><ul id="55f3fc94-8284-478f-8b5e-49961271529d" class="bulleted-list"><li style="list-style-type:circle"><code>sudo resize2fs /dev/xvda1</code></li></ul><p id="2dcae97c-20b4-4ba7-9fd1-6b5ec46c42c3" class="">
+</p><h3 id="289cc7c2-f302-4ca8-8c9b-63dad92320d7" class="">Amazon certificates:</h3><h3 id="3aaa1122-5519-40e9-8e94-d1e498c8d09a" class="">PM2 daemon:</h3><h3 id="3c7f6e8a-763c-478c-9439-1ff879898bf2" class="">GitLab runner:</h3><p id="3834d531-1d63-4f84-8cd7-1729f952b64a" class="">
+</p><h3 id="22e885de-a4a8-4747-8b48-62c322cf7433" class="">Duplicate kafka:</h3><ul id="831a30dc-49e7-4d35-8925-9fce041148cd" class="bulleted-list"><li style="list-style-type:circle">Create a new instance(copy EC2)</li></ul><ul id="1671ffbc-b59a-475c-b241-0f23d98d83a9" class="bulleted-list"><li style="list-style-type:circle">Change it&#x27;s IP address on ⇒ Elastic IP ⇒ Allocate new IP Address ⇒ Choose instance </li></ul><ul id="f9c37fa2-d611-4de0-aadd-af35d12d37de" class="bulleted-list"><li style="list-style-type:circle">Add DNS entry ⇒ Route 53 ⇒ Select packetai hosted zone ⇒ Create brokers, kafka... ( connected to the new instance IP</li></ul><ul id="5f5b4386-6557-4853-8448-c13dac40fbc4" class="bulleted-list"><li style="list-style-type:circle">Clean old certificates</li></ul><figure id="778ab59d-866a-4524-a0c0-06fc815b99a8" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/CleanKafkaConf.png"><img style="width:1403px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/CleanKafkaConf.png"/></a></figure><ul id="3358b747-9fdf-47d1-9a54-f11227641852" class="bulleted-list"><li style="list-style-type:circle">Update the ssl file with new IP, DNS...<figure id="f70155d6-1a10-4cc7-aeb6-8fc22f3fbc12" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/Capture.png"><img style="width:1170px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/Capture.png"/></a></figure><ul id="1dadf421-4e86-48b9-8d94-1b142099cae4" class="bulleted-list"><li style="list-style-type:square">Update docker-compose.yml with the new IP</li></ul><ul id="addb8e62-59d8-439c-b8df-73f1426e617f" class="bulleted-list"><li style="list-style-type:square">Update the certificate creation script with the new IP</li></ul><ul id="3c86ddb4-1877-43ff-be98-459336c1d872" class="bulleted-list"><li style="list-style-type:square">Run script and enter passwords from kafka.properties</li></ul></li></ul><ul id="2a117265-39d1-41cf-ad32-c0b94a341de7" class="bulleted-list"><li style="list-style-type:circle">Update the ssl file with new IP, DNS...<figure id="074eac18-7aa6-4c3a-9f55-2909d22aa183" class="image"><a href="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/Capture.png"><img style="width:1170px" src="Bephor%20Mehdi%20handover%20fed6a793594e4ebc99088130df0d4552/Capture.png"/></a></figure><ul id="379e2e6e-6bd4-4de8-8ee7-2881c83955c7" class="bulleted-list"><li style="list-style-type:square">Update docker-compose.yml with the new IP</li></ul><ul id="4b062bbc-8558-44d2-8ecc-6d9704f53bcc" class="bulleted-list"><li style="list-style-type:square">Update the certificate creation script with the new IP</li></ul><ul id="24022f88-5543-4b3a-8321-814d02ad07fb" class="bulleted-list"><li style="list-style-type:square">Run script and enter passwords from kafka.properties</li></ul></li></ul><p id="b9d824a2-7f80-4017-9cae-eaa6eac9b1e1" class="">
+</p><p id="9a0097b7-3fdd-456a-98b3-5ea43b5b6ca0" class="">
+</p><p id="3f6f5439-eae4-4e11-ba2f-d5a484c6d3cd" class="">
+</p><p id="653c857b-e1db-414a-bdb3-2828d1d9cdfc" class="">PROD: MHwKpRaM!%pDRTxH</p><p id="0c44e93a-3c0a-4a16-8450-38e1fb8acae7" class="">STAGING: 4KCBkm%ne$I*kRCB</p><p id="57ee75bc-596a-4021-aa09-5fafc906e18e" class="">
+</p><p id="e32059da-8d91-4c2a-a256-ae2cbf4bc9da" class="">
+</p><p id="b015b6b2-5f16-4c98-835d-d54042e15fbc" class="">
+</p><p id="a74b9bcb-56b3-4323-9df3-72443d1b1787" class="">
+</p><p id="a9f97817-27e6-47f2-8f56-2957d2ad4ba1" class="">
+</p></li></ul></div></article></body></html>

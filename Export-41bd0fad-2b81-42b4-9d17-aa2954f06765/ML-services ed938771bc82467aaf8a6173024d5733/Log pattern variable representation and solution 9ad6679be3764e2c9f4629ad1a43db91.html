@@ -1,0 +1,694 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Log pattern variable representation and solution</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9ad6679b-e376-4e2c-9f46-29ad1a43db91" class="page sans"><header><h1 class="page-title">Log pattern variable representation and solution</h1><p class="page-description"></p></header><div class="page-body"><p id="7452243a-3aa2-4613-bf8f-58efc8b56ff1" class="">
+</p><p id="d2b08e12-ffdf-44ae-8fec-a505536d4d3a" class=""><em>This mail is intended to make everyone knows what&#x27;s the incoming and upcoming big picture and to help people if they experience some difficulties.</em></p><h1 id="4ec30dd4-410c-4404-af1b-3186d73a6678" class="">Motif</h1><p id="14086635-1ec7-4b85-b6ff-1bf158e12ae5" class="">In order to let user understand more on the log, apart from offer log pattern to log UI, packetai can also show the variables of log pattern in the position of wildcard. Since each log pattern can have multiple variables due to many logs of this pattern, we have to give some smart representation</p><p id="6d98746f-d08b-4a6d-a324-6afe76feac9c" class="">of those variables for each pattern.</p><p id="0981e64d-8856-4ef3-9a00-00397dfdeb4c" class="">
+</p><h1 id="9ba2bb38-65b2-4588-8d73-5c4bc186a80a" class="">Log pattern variable representation</h1><h2 id="56971359-2564-4033-8084-826fef3bc526" class="">proposition1:</h2><ol type="1" id="8b7b7d91-1f58-418f-b542-895bba5bcd04" class="numbered-list" start="1"><li>for numeric value: we use range like [min, max]</li></ol><ol type="1" id="0cbc002d-dfa6-4cd4-ad3b-1c3b714c59b4" class="numbered-list" start="2"><li>for string value: we show N most occurrent string, ex: N=5<ol type="a" id="3251f888-4708-4bcc-b738-d5b3796d36db" class="numbered-list" start="1"><li>Possibility to just count unique values → description=<code>”&lt;788 uniques&gt; some_text here bla bla bla”</code> → Bloom filter</li></ol><ol type="a" id="4297be79-dbc6-41a8-9c8b-0e22b3d1a93c" class="numbered-list" start="2"><li>Possibility to just count unique values → description=<code>”&lt;100+ uniques&gt; some_text here bla bla bla”</code> </li></ol></li></ol><h1 id="c586637d-94fd-4d14-bfee-9a59b2af9d9b" class="">Design solution</h1><h2 id="c8be85bf-d58e-4dac-9868-0ae6eb293d0f" class="">proposition1:</h2><p id="0b930bdf-0a30-4b76-8cf3-d7dc7a4bf85e" class="">we send every variable to ES with template_id , then frontend query those variables for same template_id, and get the range</p><p id="a720a79c-29d0-45dd-90bd-edd4375f8843" class="">
+</p><p id="118b612b-2af3-4e5e-a4de-998391a76485" class="">pros: flexisible to ajust or change the representation algorithm</p><p id="efbb0bc2-cfcf-4ef5-8580-044af7556cfd" class="">cons: may have frontend performance impact</p><p id="41cd71eb-0430-4762-9270-f5041270e719" class="">
+</p><h2 id="64f41c9d-6aeb-40ec-9010-ad3b84ea2dbc" class="">proposition2:</h2><p id="0ef3a908-d0b7-4a58-85b2-7914797922fc" class="">in logpattern service, each time we extract variables, we check with the existing range in mongo and update the range to mongo <code>lad_templates</code>
+ , then frontend get the range directly from mongo</p><p id="174b092d-b82c-4831-9782-ff5c27566bdf" class="">
+</p><p id="5cb11d2e-24f5-410e-994b-4c8a6837ff28" class="">pros:  frontend  can direclty get the calculated value without algorithm calculation</p><p id="8d7a465b-3cdd-4240-896c-05ad2edb24d0" class="">cons: it may impact logpattern service performance</p><p id="343f20fd-6a2e-459e-98f5-434c94e70553" class="">
+</p><h2 id="7a52cd2e-ea89-42ef-b3d3-45b166a49949" class="">proposition3:</h2><p id="f284df36-c44f-4989-b44a-fdd21d318104" class="">in logpattern service, each time we extract variables, we send to kafka, another service calculate the range and update to mongo</p><p id="02fa59db-77dc-4f3f-90bd-b00e4a2d87e9" class="">
+</p><p id="ac39838b-69ae-43f8-b59e-71e1c365a8b4" class="">pros:  frontend can direclty get the calculated value without algorithm calculation, also don’t impact logpattern service, new service total decoupled from logpattern service</p><p id="f57e1598-1707-4b90-a1de-eb230e025b5d" class="">cons: additional service</p><p id="620edd62-b782-4455-87e0-cb5628ed2392" class="">
+</p><p id="a5fb307d-a062-4598-9a3e-25bac3d9d4b3" class=""><strong>Decision: choose proposition3</strong></p><p id="df77463d-7fa4-4f8d-b5db-77192d31b737" class="">plus feature: to support masking wildcard variables</p><p id="a5ca2044-c761-44dd-bc5a-1f1177498762" class="">expose api to put range/count into template for frontend</p><p id="3a2ebd6c-9dc3-4fd2-b1f3-75504161bf06" class="">
+</p><p id="3b610e8b-5875-4deb-bd27-06a4183b4edd" class="">
+</p><h2 id="d42bdb3b-d506-4435-8409-e7441437cb58" class=""><strong>Implementation and features</strong></h2><p id="618c9146-187f-4b77-afc7-84b3a1c75117" class="">
+</p><figure id="7d967972-6234-4601-99a7-054f4e1aa59c" class="image"><a href="Log%20pattern%20variable%20representation%20and%20solution%209ad6679be3764e2c9f4629ad1a43db91/Untitled.png"><img style="width:864px" src="Log%20pattern%20variable%20representation%20and%20solution%209ad6679be3764e2c9f4629ad1a43db91/Untitled.png"/></a></figure><p id="13460da9-b135-4433-afb0-5a78e46b260e" class="">clean json msg: <code><strong>sent : {&quot;x&quot;:&quot;y&quot;, &quot;key&quot;:&quot;value&quot;}</strong></code><strong>  ⇒ </strong><code><strong>sent : {&quot;x&quot;:&quot;*&quot;, &quot;key&quot;:&quot;*&quot;}</strong></code></p><p id="f54a3762-6fc3-4ebe-a907-376f862c0beb" class="">wildcarder equal value: <code><strong>request=&quot;GET&quot; size=&quot;64&quot;</strong></code><strong>  ⇒ </strong><code><strong>request=&lt;*&gt; size=&lt;*&gt;</strong></code></p><p id="772bc354-5bf4-4474-b0ba-00541ecc1112" class="">masking: <code><strong>accepting AMQP connection &lt;0.27737.4709&gt; (10.0.9.71:59590 -&gt; 10.0.9.28:5672)</strong></code><strong>=&gt; </strong><code><strong>accepting AMQP connection &lt;PID&gt; (IPPORT -&gt; IPPORT)</strong></code></p><p id="eea1fff4-566e-427a-b51e-b4b84ec8075f" class="">drain: <code><strong>tomcat receive 556 messages</strong></code><strong> ⇒ </strong><code><code><strong>tomcat receive</strong></code></code><code><strong>&lt;*&gt; messages</strong></code></p><p id="3fdec3df-3934-4526-96bc-c57582ad3017" class="">
+</p><p id="50fcb9fd-336f-47bc-ac4f-d7bf458355a2" class="">variables = <code>[</code><code><strong>&quot;y&quot;</strong></code><code>, </code><code><strong>&quot;value&quot;</strong></code><code>, </code><code><strong>&#x27;&quot;GET&quot;&#x27;</strong></code><code>, </code><code><strong>&#x27;&quot;64&quot;&#x27;, &quot;556&quot;</strong></code><code>]</code></p><p id="5e48dc32-bc6a-4bf2-926d-44d4d1149fa1" class="">masking variables = <code><strong>[&quot;0.27728.4715&quot;,</strong></code><code><strong>&quot;10.1.5.78:69690&quot;,</strong></code><code><strong>&quot;14.1.26.28:6972&quot;]</strong></code></p><p id="3a3a5d22-3119-4e98-9740-c13e625207ac" class="">
+</p><p id="83a5be46-a9bb-4062-8bd4-8e636232afbe" class=""><strong>new feature: keep mask word untouched by drain</strong></p><p id="65ae5799-210a-4b89-a4e2-fc67e5907bc2" class="">msg1=<code><strong>accepting AMQP connection &lt;PID&gt; (IPPORT -&gt; IPPORT) tomcat receive 556 messages</strong></code></p><p id="0b4a48f3-eb9d-4fda-8840-d30b7360a206" class="">msg2=<code><strong>accepting AMQP connection &lt;PID&gt; (DATETIME -&gt; DATETIME) tomcat receive 773 messages</strong></code></p><p id="a765d95c-93bc-45d3-aa06-9e19a93900d4" class="">msg3=<code><strong>accepting AMQP connection &lt;PID&gt; (IPPORT -&gt; IPPORT) tomcat receive 45 messages</strong></code></p><p id="27662b87-5033-404c-863c-4090823b41bc" class="">msg4=<code><strong>accepting AMQP connection &lt;PID&gt; (DATETIME -&gt; DATETIME) tomcat receive 23 messages</strong></code></p><p id="31dcea95-2130-47aa-9953-b32254e6f1cb" class="">current drain output: </p><p id="192ba3fc-9fd7-4785-a714-c7119d685808" class=""><code><strong>accepting AMQP connection &lt;PID&gt; (&lt;*&gt; -&gt; &lt;*&gt;) tomcat receive &lt;*&gt; messages</strong></code></p><p id="f9c4b217-bbe5-4ab8-aec3-937b62841978" class="">
+</p><p id="9b32af8c-efa9-44c4-84c2-6652780460b5" class="">what we want is:</p><p id="9d8dba69-7a36-4d2e-b6b0-6fbb6ba541c5" class="">template1: <code><strong>accepting AMQP connection &lt;PID&gt; (IPPORT -&gt; IPPORT) tomcat receive &lt;*&gt; messages</strong></code></p><p id="a4387a3e-e845-432d-a547-0d45c49a530e" class="">template2: <code><strong>accepting AMQP connection &lt;PID&gt; (DATETIME -&gt; DATETIME) tomcat receive &lt;*&gt; messages</strong></code></p><p id="0b3aa895-f9de-4c67-bbc5-0eb07655688a" class="">
+</p><p id="5ce61d6a-9680-47c0-88c8-2e200ad7ea69" class="">solution: replace mask word by * before processed by drain, replace variable by &lt;*&gt; based on position</p><p id="d2ca9978-c42e-46f6-9c99-0b2a959be288" class="">
+</p><p id="5f0ff485-e6f9-4433-adad-dd7cfda7cfb4" class="">
+</p></div></article></body></html>

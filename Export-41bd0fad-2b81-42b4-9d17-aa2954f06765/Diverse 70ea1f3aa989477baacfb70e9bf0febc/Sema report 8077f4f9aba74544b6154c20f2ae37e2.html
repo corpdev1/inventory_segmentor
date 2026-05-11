@@ -1,0 +1,692 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Sema report </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8077f4f9-aba7-4544-b615-4c20f2ae37e2" class="page sans"><header><h1 class="page-title">Sema report </h1><p class="page-description"></p></header><div class="page-body"><p id="a619b990-2955-4e94-889f-82a96766edf6" class="">link to report <a href="https://docs.google.com/presentation/d/1FSPCBhurkDqRfhBuOMarYVET6yllk0bP/edit#slide=id.p13">https://docs.google.com/presentation/d/1FSPCBhurkDqRfhBuOMarYVET6yllk0bP/edit#slide=id.p13</a></p><h3 id="f1fd0296-78c9-4c63-bf7d-2322db62a8e8" class="">Code Quality</h3><ol type="1" id="526c2545-f246-47d1-a0cc-0f99745a8407" class="numbered-list" start="1"><li><strong>The organization’s total line count is in the 14th percentile of all organizations Sema has analyzed until now. The organization has no repositories that exceed Sema’s benchmark for a large repository (within the top 5% in all the repositories analyzed by Sema). Large repositories are often candidates for refactoring, but other repositories could be, too. Are any refactorings planned or underway? If they are, how much work is left to do?</strong><ul id="b3f932f4-896f-40da-a438-12c8a53625f2" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">No major refactoring is planned. Maybe except including some PoC repos in production repo. 
+We try to follow the Single Responsibility Principle in designing our microservices which explains the high number of folders and the small size per repo. </li></ul></li></ol><ol type="1" id="06046618-779f-4e92-a68f-79771970cb79" class="numbered-list" start="2"><li><strong>Testing</strong><ul id="f491aa89-e5f4-45a9-b777-853f33d9d0f6" class="bulleted-list"><li style="list-style-type:disc"><strong>The scan </strong><em><strong>estimates </strong></em><strong>Code Owner’s unit testing coverage to be 47%. What does Code Owner believe the unit testing to be?</strong><ul id="7f53fa37-42f7-4f43-bdc1-60ec27a5b0fa" class="block-color-teal_background bulleted-list"><li style="list-style-type:circle">We have discussed this with Centreon <figure id="62c3d30e-4200-4ab5-b395-dda946c08ceb" class="image"><a href="Sema%20report%208077f4f9aba74544b6154c20f2ae37e2/Screenshot_2023-02-08_at_11.34.11.png"><img style="width:2090px" src="Sema%20report%208077f4f9aba74544b6154c20f2ae37e2/Screenshot_2023-02-08_at_11.34.11.png"/></a></figure></li></ul></li></ul><ul id="1bcbe582-22ca-4ff9-878d-d813fbdf5ca5" class="bulleted-list"><li style="list-style-type:disc"><strong>Sema identified test code within 1 repository as files with “test” in its name. Does this represent the organization’s approach to automated testing to mitigate this finding?</strong><ul id="02a818b5-c7c0-4ff3-abbd-98306be653e6" class="block-color-teal_background bulleted-list"><li style="list-style-type:circle">Yes almost all the files will contain test in their names. for example for golang the test files will be named as<code>*_test.go</code></li></ul><ul id="3705adea-e800-41f1-a807-7b4d6f254c90" class="block-color-teal_background bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal_background">All python tests have a prefix </mark><mark class="highlight-teal_background"><code>test_*.py</code></mark></li></ul></li></ul><ul id="a45f00d3-ce80-4638-8a6a-e5f4ff767d9d" class="bulleted-list"><li style="list-style-type:disc"><strong>Does the organization use In-code unit testing, higher-level automated testing (Selenium, Cucumber, etc.), manual testing, user acceptance testing, or any other testing methodology?</strong><ul id="3a251f92-4d6f-4b46-869e-5198c28727af" class="block-color-teal_background bulleted-list"><li style="list-style-type:circle">We use Unit testing, Integration testing. We also use Selenium to do end2end tests. The general workflow as follows: 1) PR is created, Unit tests are run automatically 2) PR is peer reviewed and approved 4) PR is merged to dev branch 5) Once merged,  unit tests are run automatically, and runs the acceptance or end-2-end tests using github actions.</li></ul></li></ul><ul id="e2475920-e159-413b-9fab-5409deeb3b91" class="bulleted-list"><li style="list-style-type:disc"><strong>Are there any business reasons to not invest in automated test coverage, such as business prioritization, absence of customer issues, etc.? What is your overall philosophy regarding overall testing, including unit testing, integration testing, automated testing, and acceptance testing?</strong><ul id="6461c784-16d1-490c-81ee-f85ce1219304" class="block-color-teal_background bulleted-list"><li style="list-style-type:circle">We do have automated test coverage. 
+Our overall philosophy is to continuously test new features (acceptance, unit and integration) and make sure there are no regressions on the overall product, especially on the ML side (end to end testing)</li></ul></li></ul></li></ol><ol type="1" id="1f95d053-ba99-4bea-a6ee-8e7934d5f3be" class="numbered-list" start="3"><li><strong>Is a line-level scanning tool such as SonarQube in place? This is recommended for companies with &gt;100 current developers or when third-party development shops are used, for the development team.</strong><ul id="a456a83f-ea7b-4d19-b972-d7f4f78a514a" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">we have Sonarcloud, Dependabot and Snyk. We also run Sysdig to align with one of our large clients </li></ul></li></ol><ol type="1" id="ac3ba99f-978f-49ff-a073-2ca058108d23" class="numbered-list" start="4"><li><strong>107 instances of 54 technologies were identified, including two versions of jQuery. Is there a process in place to regularly catalogue and assess technologies, including potential upgrades? Does the Code Owner have any evidence that engineering effectiveness, product security or user experience is affected by the multiple versions of software products?</strong><ul id="c7e8368e-9e54-4525-94de-6060a9fde2ca" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">This is a valid tech debt point. Since we work on microservices in independent folders, over time, versions diverge. At our scale we are not significantly affected by the multiple instances/versions of the same technology. Hence, we didn’t yet put in place a process to catalogue technologies and tools. This might come as we scale up. </li></ul><ul id="03fd57de-ea36-44bb-867a-13ba9bd8a955" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">However, we think that it is a good time to start a process to assess technologies security-wise. Today, this is done ad-hoc by subscribing to CVE feeds and some important repos such as Opensearch repo (to keep track of issues).  </li></ul></li></ol><p id="0c1420e0-b06d-4f07-a77f-cbf4346d2ede" class="">
+</p><h3 id="d76047cb-78d5-4dbf-a717-f2e001d693d8" class="">Code IP Risk</h3><ol type="1" id="f1fe0079-33f8-42b2-8516-355d5c5aab2a" class="numbered-list" start="1"><li><strong>Has the code owner previously carried out an Open Source Scan? If so, when was this last performed?</strong><ul id="a484d20b-9ee5-45ce-9103-c1517c343682" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">no we haven’t carried a 3rd party open source scan (to detect license issues in open source repos themselves), we rely mainly on the author’s declared  licenses in code repos </li></ul><ul id="287212e3-d691-431b-9854-03d635c94743" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">however, we use tools to keep track of 3rd party licenses in our code repo </li></ul><ul id="d32b6e48-1a69-415c-9ad4-c38b2bd52763" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">we have a page to summarise our license tracking <a href="../Security%20%F0%9F%94%90%20cb53248ba7ff4ad683d90d1dea9ec819/3rd%20party%20libraries%20&amp;%20licenses%202aaa4a19a64a41f087da4a3a3804323e.html">3rd party libraries &amp; licenses </a> (this page was shared with Centreon)</li></ul></li></ol><ol type="1" id="4929568e-a15b-48bc-a992-dfb91d5147a2" class="numbered-list" start="2"><li><strong>Do you have a policy in place for adding third-party libraries to your codebase?</strong><ul id="f419088f-2fcf-4ccc-a628-00b2431a726b" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">Our main policy is to avoid any licenses that prohibit total liberty in commercial use </li></ul><ul id="c9375c0f-30b1-4661-b657-1a51d9ace84c" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">Each developer is responsible for applying this policy </li></ul><ul id="e78a8c3e-a5eb-4f60-8257-918ffca840c7" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">Control is done during QA, and during different demos, plannings etc</li></ul></li></ol><ol type="1" id="e6cdba36-efda-4062-9252-14efac953a99" class="numbered-list" start="3"><li><strong>Can you share a review of third-party licenses for code managed with a package manager?</strong><ul id="b5b4f0a8-bd92-4d13-9524-b0cc53cc3cb6" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">see this page: <a href="../Security%20%F0%9F%94%90%20cb53248ba7ff4ad683d90d1dea9ec819/3rd%20party%20libraries%20&amp;%20licenses%202aaa4a19a64a41f087da4a3a3804323e.html">3rd party libraries &amp; licenses </a> </li></ul></li></ol><ol type="1" id="661733dc-d2c3-46da-b917-81d22174d35b" class="numbered-list" start="4"><li><strong>Do you currently modify or produce derivative work directly from a third-party library? If so, which library/libraries is/are used in this manner?</strong><ul id="27655beb-2462-4053-a07d-98821022fb33" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">most 3rd party libraries are used as is.</li></ul></li></ol><ol type="1" id="48b8a74c-c0c7-44be-9889-c94bf9d92d56" class="numbered-list" start="5"><li><strong>Following the discussion, a certain number of high and medium-high risk licenses should be triaged using the attached worksheet.</strong><ol type="a" id="f944d78d-5e24-42a5-a70a-78be568dd65d" class="block-color-red_background numbered-list" start="1"><li>Could you please list the copyleft packages? (page 9)</li></ol><ol type="a" id="d5ca6b83-f561-4315-812e-bc29f26aa5d7" class="block-color-red_background numbered-list" start="2"><li>what is package vs library for you?</li></ol></li></ol><p id="9de81db3-870f-42d6-b741-9bc2606f7a45" class="">
+</p><h3 id="2eb88fe9-7730-434e-aa55-9198ae2ca030" class="">Code Security</h3><ol type="1" id="e073f3a3-cf06-4676-a2f5-2e20c6d82f41" class="numbered-list" start="1"><li><strong>Are there tools and processes in place to review code for in-house and third-party (CVE) security violations, prevent the addition of such violations, and identify historical warnings? If not, Sema recommends implementing one after investment or acquisition.</strong><ol type="a" id="951079e7-b04e-4a63-8b10-f8df1d2abd24" class="block-color-teal_background numbered-list" start="1"><li>We use Snyk and Github dependabot for 3rd party security vulnerabilities. We try our best to keep our libraries up-to-date to patch critical CVEs.</li></ol></li></ol><ol type="1" id="b34f2954-0c34-420d-8189-4788d0ffba73" class="numbered-list" start="2"><li><strong>What investment of time and tooling does Product / Finance / Sales make available to developers to prevent and fix In-House security warnings and CVEs?</strong><ol type="a" id="45037870-9b65-4af3-9d9f-703d6ec4c863" class="block-color-teal_background numbered-list" start="1"><li>see above </li></ol></li></ol><ol type="1" id="76dbcab6-07c0-4f63-b99c-ca84730f6cc1" class="numbered-list" start="3"><li><strong>Following the discussion, a certain number of high and medium-high risk licenses should be triaged using the attached worksheet.</strong><ul id="7ecab0b3-3f47-4d6f-bf68-f4f97a404f58" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">access to our Snyk was already provided to Centreon. </li></ul><ul id="d6d5c7d5-31f1-48e6-a0db-c7393dfa7dd6" class="block-color-red_background bulleted-list"><li style="list-style-type:disc">some comments on slides </li></ul><ul id="bf4ae1e5-8435-4418-9c22-52d3af4f4f31" class="block-color-red_background bulleted-list"><li style="list-style-type:disc">what does in-house security warning mean in this case? </li></ul><ul id="5d71707e-a8b7-4e7d-b306-cde8f4050be3" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">we have &lt;5 remaining high risk CVEs that are fixable </li></ul><ul id="b43d9854-c31a-4f4e-952f-4a9fbc753b7e" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">the remaining high severity CVEs are not fixable. We will keep an eye on them and do changes onces patches are available. </li></ul></li></ol><ol type="1" id="fca4f962-8687-4976-b0d3-c1cd0e2e8df2" class="numbered-list" start="4"><li><strong>Sema now recommends requiring developers to commit using company-provided version control system accounts. This is due to the rise of cyber security threats from credential breaches– if a personal account is used and the Developer’s personal email account is breached, the company’s code is at risk.</strong><ol type="a" id="d70efc95-0cd6-486c-92a8-71505644c41c" class="block-color-teal_background numbered-list" start="1"><li>We will ask users to switch to company email address, we have already enabled 2FA on all the accounts.</li></ol></li></ol><p id="956211a1-11ed-4c64-a4d0-371169cd1977" class="">
+</p><h3 id="0408371f-8da8-48fc-be37-74689dc035a5" class="">Cyber Security</h3><ol type="1" id="b2eefa83-dac1-402e-8aa6-1b3cd77f7e4e" class="numbered-list" start="1"><li><strong>Describe your cyber security investment– people, tools, and advisors.</strong><ol type="a" id="6c629041-fe80-4a92-8e3c-00b102a55351" class="block-color-teal_background numbered-list" start="1"><li>We use snyk, sysdig, github Dependabot. </li></ol><ol type="a" id="e7662857-5830-4571-9b97-a6574aefdb36" class="block-color-teal_background numbered-list" start="2"><li>We make sure that we enable MFA for all tools(notion, google). </li></ol><ol type="a" id="2a733121-5407-4213-b67a-406aac865d0b" class="block-color-teal_background numbered-list" start="3"><li>We follow cloud security best-practices to our best </li></ol><p id="aaef1955-5061-4cad-b98f-4b6c77e4d501" class="block-color-teal_background">We already shared our practices with Centreon (meeting with CISO). They are mostly simple processes adapted to our size and need.</p></li></ol><ol type="1" id="4b8c3e8b-e87d-470e-a959-bd0d8d0bc71e" class="numbered-list" start="2"><li><strong>Packetai.co and 31 subdomains were scanned for Cyber Security Risk– see detail in Worksheet. Are there other domains or sub-domains that Code Owner uses? If so, do they receive similar or different investment in cyber security as this list?</strong><ol type="a" id="5d42e352-33f6-42fe-9519-17edb5462ddf" class="block-color-teal_background numbered-list" start="1"><li>No we don&#x27;t have any subdomains. we use only <a href="http://packetai.co">packetai.co</a> and other subdomains <code>*.packetai.co</code></li></ol></li></ol><ol type="1" id="1b69a198-b35c-4e11-b49a-9e82e8894d14" class="numbered-list" start="3"><li><strong>Please review the cyber risks identified in this document with detail in the Worksheets for triaging and remediation in accordance with their security.</strong><ul id="f85a44af-e266-422b-9233-af49b4c23d51" class="block-color-red_background bulleted-list"><li style="list-style-type:disc">comments on slides </li></ul><figure id="9f1ea511-37aa-4659-a046-69005f4ba63f" class="block-color-teal_background link-to-page"><a href="Sema%20report%208077f4f9aba74544b6154c20f2ae37e2/Our%20process%20to%20deal%20with%20high-level%20CVEs%209f1ea51137aa4659a04669005f4ba63f.html">Our process to deal with high-level CVEs</a></figure></li></ol><p id="fef5176e-62bf-422e-a971-bcd4aca82c42" class="">
+</p><h3 id="a0688558-ebf6-451c-98e1-085a509da8c2" class="">Team Quality</h3><ol type="1" id="242796f9-6f1d-457a-97e4-aaed3eeeb7e9" class="numbered-list" start="1"><li><strong>Is developer retention primarily due to internal or external factors?</strong><ul id="4aa6b807-eb4d-4e9b-88e8-0936bcda8d8a" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">both</li></ul></li></ol><ol type="1" id="0fac4365-a188-427b-a3f2-62a0c582004f" class="numbered-list" start="2"><li><strong>Please review the highest activity active (green) and non active (red) developers, both for the organization as a whole and across groups.</strong><ul id="e063e4b4-7059-48d4-9e03-382ba7b69b5f" class="bulleted-list"><li style="list-style-type:disc"><strong>Are any of the inactive developers still with the organization but in different roles?</strong><ul id="40f26514-df55-4302-8005-eeda13134d8e" class="block-color-teal_background bulleted-list"><li style="list-style-type:circle">No</li></ul></li></ul><ul id="8e00d6ba-31c0-449c-8331-84614e0c9fdc" class="bulleted-list"><li style="list-style-type:disc"><strong>Have any developers active within the last 90 days since departed?</strong><ul id="6c9ac290-1ebe-4476-8fcc-adcf387fb837" class="block-color-teal_background bulleted-list"><li style="list-style-type:circle">No</li></ul></li></ul><ul id="cdd162a1-36e7-4970-a984-38d5b41d6d4b" class="bulleted-list"><li style="list-style-type:disc"><strong>For those who are no longer with the organization, was there a knowledge transfer before they left, and have there been any challenges or knowledge gaps?</strong><ul id="3fdd71de-0767-4901-9b72-2d9680c833aa" class="block-color-teal_background bulleted-list"><li style="list-style-type:circle">Yes the knowledge transfer is done before they left, and removed access to github and other resources. All transfers are written and tracked on Notion </li></ul></li></ul></li></ol><ol type="1" id="a2b8eaf6-8f49-4026-8d0f-86372f7a5ba1" class="numbered-list" start="3"><li><strong>Does the organization implement any knowledge transfer or knowledge sharing plans within the development organization?</strong><ol type="a" id="46a25125-a350-432b-8425-7b94c38236f7" class="block-color-teal_background numbered-list" start="1"><li>Both Dev and ML team share knowledge actively between the teams. For certain microservices we discuss about how to scale them or deploy them on kubernetes (we have a specific Slack channel for this).</li></ol><ol type="a" id="90c6a03f-24d9-4303-9f47-bf698d5f7f96" class="block-color-teal_background numbered-list" start="2"><li>Dev knowledge sharing is tracked using a Bus Factor method matrix on Notion 
+<a href="Team%20support%20c800b4238c4646e19f1bf77a2a1ecaf3/ML%20Team%20bus%20factor%20matrix%20113a2b115a034d8e8ca78bc881512603.html">https://www.notion.so/packetai/113a2b115a034d8e8ca78bc881512603?v=65cd8208cf844ac68767123f36e61ab2</a> and<p id="9ff1ed48-d090-4242-a576-f5b9ab6c2a27" class=""><a href="Team%20support%20c800b4238c4646e19f1bf77a2a1ecaf3/Dev%20Team%20bus%20factor%20matrix%2056ec93d200614537945bd99a76c0e8f7.html">https://www.notion.so/packetai/56ec93d200614537945bd99a76c0e8f7?v=a9ab91bbd39544fb9cc5e219833eede1</a></p></li></ol></li></ol><ol type="1" id="7ef00ff9-b4c7-42bc-9860-2b776045d7d5" class="numbered-list" start="4"><li><strong>8 of 8 active developers have contributed to more than 1 repository over the past 90 days. Of those 8, 4 have contributed to 3 repositories. Is the code owner overly reliant on the contributions of those 4 developers? How can the code owner encourage more developers to increase their activity throughout the code base?</strong><ol type="a" id="97aad5d4-49bb-4154-86f0-1088c03919ef" class="block-color-teal_background numbered-list" start="1"><li>Our main repository is <code>code</code>, where everyone is contributing including both Dev and ML teams, Other repo is <code>flux</code> which is used to deploy to our resources to production. this repository is being contributed by both ML and Dev teams. The repository <code>frontend-e2e-test</code> is being used by only Dev team to create an end-2-end integration tests using selenium. Similarly <code>ex-machine-meso</code> is being used by ML team</li></ol></li></ol><ol type="1" id="0c9efd43-10ca-4e94-8dba-38097121cea0" class="numbered-list" start="5"><li><strong>Is the code owner satisfied with the level of support it receives for all languages in its technology stack? Are there any knowledge, framework or language gaps you would like to fill in the future?</strong><ol type="a" id="9ca1f986-bf30-4261-bfa8-c4eb41873d17" class="block-color-teal_background numbered-list" start="1"><li>So far, we are satisfied with the current support and frameworks we are using.</li></ol><p id="307cda3d-c785-42c5-9d43-eebe2a3a7181" class="">
+</p></li></ol><h3 id="5b1c498f-0c59-4462-95b6-590c4edff28d" class="">Process Quality</h3><ol type="1" id="2bf63f0d-0990-4414-9ae4-5d2f5dbc27e1" class="numbered-list" start="1"><li><strong>What explains the variation in development activity over the past 13 months? Is the variation likely to continue? Are there non-coding activities that could be removed
+from the development team so they can focus on their most important contribution?</strong><p id="14e1b015-2429-4c45-8240-cb5b748f403e" class="">
+</p></li></ol><ol type="1" id="ab23af4d-ebce-4eb7-9fba-afe4060ca5c8" class="numbered-list" start="2"><li><strong>What explains the apparent changes in the number of developers contributing to the codebase over the last year? [See page 76].</strong></li></ol><p id="2dddd953-49e1-481c-afd1-a92978430dd8" class="">
+</p><p id="9985e175-72cc-4641-be4d-dd838285380d" class="">
+</p><h3 id="16115c23-34c0-4bf5-82ff-5de1220bfe52" class="">Next steps (30 days)</h3><ul id="62773222-d6ef-4200-ba7e-4597921227ea" class="bulleted-list"><li style="list-style-type:disc">review the copyleft and tag if false positive </li></ul><ul id="2f4b13ce-5957-4764-b3b4-b6b683122110" class="bulleted-list"><li style="list-style-type:disc">review the CVEs of only the VERY high severity (list of 24) (for the in-house code) + &lt;5 fixable 3rd party ones</li></ul><p id="ef969e93-1352-491e-8c82-ec149d069f03" class="">
+</p><h3 id="b083b698-f2ef-423a-a485-d38bf69627c1" class="">Reports</h3><figure id="b1c06ca6-c7cb-4229-be4c-3671e23a822e"><div class="source"><a href="Sema%20report%208077f4f9aba74544b6154c20f2ae37e2/Avatar_Tech_Health_Check_vshared_2023.February.07_(1).pptx">Avatar Tech Health Check vshared 2023.February.07 (1).pptx</a></div></figure><figure id="6f53ee70-0ff8-4958-b10a-cf44242af44a"><div class="source"><a href="Sema%20report%208077f4f9aba74544b6154c20f2ae37e2/AvatarCyberSecurityWorksheet.xlsx">AvatarCyberSecurityWorksheet.xlsx</a></div></figure><figure id="d814fd49-0c90-45e2-9f90-d64a3646b251"><div class="source"><a href="Sema%20report%208077f4f9aba74544b6154c20f2ae37e2/AvatarSecurityWarningWorksheet.xlsx">AvatarSecurityWarningWorksheet.xlsx</a></div></figure><figure id="8c2a21dd-6f86-4895-88fc-a33bc65956a3"><div class="source"><a href="Sema%20report%208077f4f9aba74544b6154c20f2ae37e2/AvatarIPRiskWorksheet.xlsx">AvatarIPRiskWorksheet.xlsx</a></div></figure><p id="93cfda8b-103e-4242-bd6c-ad0c11e2228f" class="">
+</p><p id="33f911f5-0793-4487-924f-b61ac59d206f" class="">SBOM </p><figure id="7b05cad3-d77f-40b8-96dd-2f7e35b678cf"><div class="source"><a href="Sema%20report%208077f4f9aba74544b6154c20f2ae37e2/code_PacketAI_a5a7d3e804f53f200ce21e28ab488172028d1a99.json">code_PacketAI_a5a7d3e804f53f200ce21e28ab488172028d1a99.json</a></div></figure><p id="bcdb53c5-8a56-445f-8695-4ebe685c7e24" class="">
+</p><p id="6d5800e8-c8ef-4bca-9cc5-1d58a0636d94" class="">
+</p></div></article></body></html>

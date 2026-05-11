@@ -1,0 +1,704 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Skyline</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="bc22c2a3-9adb-45fa-bdd0-7b03f39f94eb" class="page sans"><header><h1 class="page-title">Skyline</h1><p class="page-description"></p></header><div class="page-body"><p id="7362a437-a467-4047-ad3f-53c4320ca0cc" class="">Reference: <a href="https://github.com/etsy/skyline">https://github.com/etsy/skyline</a></p><p id="e19202e6-3390-4744-8e6e-50b4a2d5f135" class="">Each algorithm raise or not an anomaly. The final score is the average of the outputs of all algorithms.</p><h2 id="4fc1c750-650e-4ebb-a6f6-b9edcffc7add" class="">Constants</h2><p id="cecf79a7-734b-4145-a494-298671c6925a" class=""><strong>FULL_DURATION = The considered duration stored for analysis </strong></p><h2 id="8d2d3b05-736f-4e78-a225-b3f3bca763da" class="">Median Absolute Deviation</h2><p id="7157de9c-91f9-4b32-b1c0-574d96ce7566" class="">A timeseries is anomalous if the deviation of its latest datapoint with respect to the median is X times larger than the median of deviations.</p><p id="694cb56a-6736-4c43-a02a-28d20df31be6" class="">Algorithm :</p><ul id="c1db8043-bd68-45a4-8d1d-f894721bc0ed" class="bulleted-list"><li style="list-style-type:disc">Compute the median of the timeseries : <code>Median = median(Series)</code></li></ul><ul id="ccb01400-fa2a-4732-a96a-7adb19da31f3" class="bulleted-list"><li style="list-style-type:disc">Compute the absolute difference between the timeseries and the Median : <code>Demedianed = absoluteValue(Series - Median)</code></li></ul><ul id="65d802fc-308c-41a3-b7a2-17e1c58e6c61" class="bulleted-list"><li style="list-style-type:disc">Compute the median deviation : <code>MedianDeviation = median(Demedianed)</code></li></ul><ul id="01b26e86-2fa0-44f3-862a-342f6b1c81c4" class="bulleted-list"><li style="list-style-type:disc">If the latest point is <strong>6</strong> time larger than the median, raise an anomaly <code>Demedianed[-1]/MedianDeviation &gt; 6</code></li></ul><p id="87a51e82-adcf-47fd-addb-06490e3fa4f0" class="">
+</p><h2 id="6bdd87ec-a208-4d64-b77c-f419555efe15" class="">First Hour Average</h2><p id="8fe02615-5477-4f34-ae04-bfa344a68f60" class="">Calculate the simple average over one hour, <strong>FULL_DURATION</strong> seconds ago. A timeseries is anomalous if the average of the last three datapoints are outside of three standard deviations of this value.</p><p id="1a5e6d5e-f8b4-4d7f-a879-16786bb16f1e" class="">Algorithm :</p><ul id="74a05833-4f01-4ef1-af6b-df089eacdc4c" class="bulleted-list"><li style="list-style-type:disc">Consider the series from the beginning to Now - (FULL_DURATION - 1 hour) 
+<code>Series = Series[:Now - (FULL_DURATION - 1 hour)]</code> 
+(if FULL_DURATION = 1 Day, we consider the last hour of one day ago)</li></ul><ul id="e0d34696-e75c-4c31-9466-6607c3752c69" class="bulleted-list"><li style="list-style-type:disc">We compute the mean and standard deviation
+<code>Mean = mean(Series)</code>, <code>StdDev = std(Series)</code></li></ul><ul id="672a6647-5921-4167-b55d-061326ad8c9c" class="bulleted-list"><li style="list-style-type:disc">If the average of the last three datapoints if outside the three std we raise an anomaly
+<code>T = mean(Series[-1]+Series[-2]+Series[-3])</code>
+<code>absoluteValue(T - Mean)&gt;3*StdDev</code></li></ul><h2 id="617b50bf-18c2-4e5d-8cc2-652a7a09e6a2" class="">Standard Deviation from Average</h2><p id="cf8b2624-450e-435e-802c-a3091a0b0a2c" class="">definition</p><p id="1779b3b7-9ac3-4918-bea2-36a6a4527792" class="">definition</p><p id="51d55db1-2967-489c-a6f2-55a4bdb70531" class="">definition</p><p id="b6153797-b8df-4b8c-8c4c-daf2d457e81e" class="">definition</p><p id="821a7d8d-1e0e-472a-91c9-886fdea7257a" class="">A timeseries is anomalous if the absolute value of the average of the latest three datapoint minus the moving average is greater than three standard deviations of the average. This does not exponentially weight the MA and so is better for detecting anomalies with respect to the entire series.</p><p id="8e2bf0d5-89ea-402b-a96c-207a3a4d1f99" class="">Algorithm :</p><ul id="3d8aa200-1b41-4915-a79d-4d94ffdbd38b" class="bulleted-list"><li style="list-style-type:disc">We compute the mean and standard deviation
+<code>Mean = mean(Series)</code>, <code>StdDev = std(Series)</code></li></ul><ul id="cd79f42e-6147-41fe-956b-72e8659c28b5" class="bulleted-list"><li style="list-style-type:disc">If the average of the last three datapoints if outside the three std we raise an anomaly
+<code>T = mean(Series[-1]+Series[-2]+Series[-3])</code>
+<code>absoluteValue(T - Mean)&gt;3*StdDev</code></li></ul><p id="be0d35fa-3757-454d-9948-8fd1f30b2aec" class="">
+</p><h2 id="0a82dd04-3bcc-440c-96b0-3f8e2346a44e" class="">Standard Deviation from Moving Average</h2><p id="503e8fda-d1ad-4c36-a160-7cd37c4d84b5" class="">A timeseries is anomalous if the absolute value of the average of the latest three datapoint minus the moving average is greater than three standard deviations of the moving average. This is better for finding anomalies with respect to the short term trends.</p><ul id="928ff642-4e12-4fb8-bc83-88d8b795d846" class="bulleted-list"><li style="list-style-type:disc">Take the exponentially weighted moving average (EWMA) of the timeseries
+<code> EwmaSeries = EWMA(Series)</code></li></ul><ul id="aa748c94-fd49-4f5a-a969-6a6b2e23c27c" class="bulleted-list"><li style="list-style-type:disc">Compute the exponentially weighted moving standard deviation (EWSTD) of the timeseries
+<code>EwstSeries = EWSTD(Series)</code></li></ul><ul id="e1cc991e-974c-4fa7-8fc5-dc2bdb970011" class="bulleted-list"><li style="list-style-type:disc">If the last point of the series minus the average is outside 3 std deviation we raise an anomaly
+<code>absoluteValue(Series[-1] - EwmaSeries[-1]) &gt; 3 * EwstSeries[-1]</code></li></ul><h2 id="3e1c47ad-dbf2-4c18-9122-57b19e7edac4" class="">Mean Substraction Cumulation</h2><p id="d5464c07-1cb8-4206-a775-568358b35785" class="">A timeseries is anomalous if the value of the next datapoint in the series is farther than three standard deviations out in cumulative terms after subtracting the mean from each data point.</p><p id="aa317d92-14a9-4827-bdca-0cd5f4281d23" class="">Algorithm :</p><ul id="18286268-c743-44a4-b259-d00f8b2931d1" class="bulleted-list"><li style="list-style-type:disc">Compute the difference between the timeseries and the mean of the timeseries except the last point
+<code>Series = Series - mean(Series[:-1])</code></li></ul><ul id="b785a73e-542c-40c0-93f3-a30907006d36" class="bulleted-list"><li style="list-style-type:disc">Compute the standard deviation of the series except the last datapoint
+<code>StdDev = std(Series[:-1])</code></li></ul><ul id="73fc8eb0-ac94-4550-8853-9c89ad204928" class="bulleted-list"><li style="list-style-type:disc">If the absolute value of the last datapoint is outside 3 Std we raise anomaly
+<code>absoluteValue(Series[-1]) &gt; 3 StdDev</code></li></ul><h2 id="7e291092-35b0-4ff5-8223-f590a29af3ab" class="">Least Squares</h2><p id="12c218be-4ecd-4c0e-94c0-e3424e4216c5" class="">A timeseries is anomalous if the average of the last three datapoints on a projected least squares model is greater than three sigma.</p><p id="e2737cfc-03a3-4ddc-bca7-528495500c25" class="">Algorithm :</p><ul id="5fad4b91-8ad2-4197-a524-f4515645188b" class="bulleted-list"><li style="list-style-type:disc">Fit a linear model of by the component of the timeseries (time in seconds, values)
+<code>ProjectedValues = M*Time + B</code></li></ul><ul id="3bf1706a-70c9-4991-a877-3a573d07b0e5" class="bulleted-list"><li style="list-style-type:disc">Compute the error between the projected values and the actual values
+<code>Error = Values - ProjectedValues</code></li></ul><ul id="ced6547f-1822-4c16-a3c7-fb8f252fd183" class="bulleted-list"><li style="list-style-type:disc">Compute the standard deviation of the error values
+<code>ErrStdDev = std(Error)</code></li></ul><ul id="55145b3a-c7e2-492f-98c0-38a76ca37fae" class="bulleted-list"><li style="list-style-type:disc">If the average of the last three datapoints if outside the three error std we raise an anomaly
+<code>T = mean(Series[-1]+Series[-2]+Series[-3])</code>
+<code>absoluteValue(T) &gt; 3*ErrStdDev</code></li></ul><p id="88bfb9d8-3beb-46d8-8e3e-f9f0d0d3bb6a" class="">
+</p><h2 id="6d1688f4-148f-471b-b827-67e311479779" class="">Histogram Bin</h2><p id="db787972-af09-4309-bba9-fff880daa745" class="">A timeseries is anomalous if the average of the last three datapoints falls into a histogram bin with less than 20 other datapoints </p><p id="2adc330f-b85a-4a7b-8cc7-906f12895d05" class="">Algorithm : </p><ul id="3739fc96-2f7d-4398-b880-2ad565f45fc1" class="bulleted-list"><li style="list-style-type:disc">Compute the average of the last three points
+<code>T = mean(Series[-1]+Series[-2]+Series[-3])</code></li></ul><ul id="a4593a2f-3ab5-4b70-86b5-2f069f0ace37" class="bulleted-list"><li style="list-style-type:disc">Compute the histogram of the Series
+<code>h = histogram(Series)</code></li></ul><ul id="8861ee99-81b1-41c7-a888-fa9a529358ba" class="bulleted-list"><li style="list-style-type:disc">If the average of the last three datapoints belongs to the bin with less than 20 points we raise an anomaly 
+</li></ul><p id="108a6c96-20b8-4dc9-936d-5e2065bfd2c0" class="">
+</p><p id="4c2c52dd-c8ac-4e50-b0ec-f7b46401c78c" class="">
+</p><p id="d3acf6fb-a279-4703-bc6a-7ec0d60c4917" class="">
+</p><p id="126d152e-2eac-4a51-ab07-a51057030630" class="">definition</p><p id="d695afca-7693-4b00-8ffd-95c3f26a903c" class="">apache</p></div></article></body></html>

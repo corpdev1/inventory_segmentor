@@ -1,0 +1,774 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>GetMyUni relevance score</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="b40f635f-cf74-4a6f-8c67-a4cf8b92351e" class="page sans"><header><h1 class="page-title">GetMyUni relevance score</h1><p class="page-description"></p></header><div class="page-body"><nav id="828c812c-f6a2-4e7f-89ca-b09ef509f3fa" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f574e9ae-104e-48b8-a8be-fdd124050325">Data overview</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c7d7b380-4b60-4fbc-832b-44bf0d740b86">Relevance score</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d1f9b935-b5f4-46e9-abed-9a12f4832286">Why these properties?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#888b6cb0-8426-47f9-b0dc-64d353548ca5">Tradeoff between deviation, duration and time between </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ddceb838-963d-41e5-8952-d28e3923bc9b">Formula for relevance score</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#be9823ee-5745-4321-a080-041ddda8c783">Distributions</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b2e45dcd-ce45-4277-b2da-8341579ef92e">Duration </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#20e22dd7-c9e5-42ae-9ae6-0a4740bdcf87">Time Between two Anomalies</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9d7eacf2-d196-49c8-8527-1c794a549b03">Deviation</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f938260f-f955-4a53-adc6-d974e332c7d5">Experiments</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8384ff9b-9a58-4af9-8fec-9d9e51b240b8">Score definition</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#58cad0ed-c56d-45e2-a844-322a88b0fd62"><strong>Duration</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a1307106-b6dc-4dad-97aa-ccbd4d7df793"><strong>Deviation</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f0e3378b-e8c7-48f4-9874-19ed03f0a98a"><strong>Time between</strong> </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7202ca04-fe2e-4d6b-ab2f-c1643a9dca07">Weights</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#6a6d1d1c-1966-43f5-8e7e-6451c956da2d">Process</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c8dddab2-e051-41a9-a4a9-ee622ff64c59">Case 1</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fe6ce59b-88ec-4380-be56-1319b3d8b4e3">Case 2</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2372d182-6970-43d8-9093-ea3141360c0d">Case 3</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#57bdd2ee-1394-47c1-9254-6230b3e2fa5f">Conclusion</a></div></nav><h2 id="f574e9ae-104e-48b8-a8be-fdd124050325" class="">Data overview</h2><p id="39394e03-6250-4cfe-8a9e-10937b1a4b17" class="">We extracted anomalies detected for GetMyUni between 19.02.2021 and 3.03.2021</p><p id="fae1374a-c150-4daf-a4dd-dea892d22a01" class="">Next, for each metric we compose a DataFrame, where we indicate duration of an anomaly, deviation from the normal and when an anomaly has started:</p><p id="b3aa6453-3019-471d-9368-13aab4f5e076" class="">
+</p><figure id="264fb40a-1004-4a5b-8006-d47658b1bfb2" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_13.04.41.png"><img style="width:240px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_13.04.41.png"/></a></figure><p id="2c580dcc-a8a0-4fc1-9225-38970227e8ff" class="">
+</p><h1 id="c7d7b380-4b60-4fbc-832b-44bf0d740b86" class="">Relevance score</h1><p id="977b353d-7995-4fa6-b555-1063f0d06e34" class="">In order to derive a relevance score formula based on data we will rely on the following properties of anomalies: duration of anomalous period, deviation from the &quot;normal mean&quot; and time between two anomalies.</p><h2 id="d1f9b935-b5f4-46e9-abed-9a12f4832286" class="">Why these properties?</h2><p id="ac96b8fb-4016-4bab-80c0-f4d342f2b994" class="">Before diving into formula derivation, let&#x27;s understand what these three properties could bring to us. </p><ul id="82c4202a-5149-4ba8-a6d4-d5be9c9de0f5" class="bulleted-list"><li style="list-style-type:disc">Duration shows for how long the anomalous period lasted. Intuitively, anomalies with longer duration should be scored higher.</li></ul><ul id="39e55ee2-47f0-4f15-986d-98a168eb5306" class="bulleted-list"><li style="list-style-type:disc">Deviation measures how far the observed value is from the overall average </li></ul><ul id="732a2f5e-bc4e-42a4-9b12-21737fa5c3af" class="bulleted-list"><li style="list-style-type:disc">Time between two anomalies will determine the distribution of time that passes between anomalies. This property could help to silence anomalies which arise periodically and highlight the ones that are out of the ordinary.</li></ul><h2 id="888b6cb0-8426-47f9-b0dc-64d353548ca5" class="">Tradeoff between deviation, duration and time between </h2><p id="0a4655fe-acf1-482b-b4fe-7eae2ae4ec79" class="">We need then to find the tradeoff between these three variables based on business objectives and common sense. </p><p id="07aa1551-2a97-4d54-a903-e17082018217" class="">From the Anodot paper: </p><p id="0de847ce-6394-4bf9-abf9-ab28342f4061" class=""><em>&quot;Consider the outliers shown in </em><em><strong>Figure 1b</strong></em><em>. Even without
+looking at the assigned numbers for some of the outliers,
+a person looking at the signal would probably come
+up with similar scores. How? It is not based on each
+outlier’s amount of deviation from normal, rather, it is
+based on the fact that the high peak outliers deviated
+a lot more, and the smaller ones deviated less than the
+bigger ones. Even for human eyes, it is all relative.&quot;</em></p><figure id="93eb58c8-d500-4272-85ff-c6e7b4402dad" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_11.18.47.png"><img style="width:480px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_11.18.47.png"/></a></figure><p id="33378a83-2adf-4a61-ae9f-48ffaa6abbb9" class="">From a human perspective, that when people look at a long history of a time series and see the outliers within it, in their minds they consider the outliers relative to each other as well as relative to normal.</p><p id="b54aa6f4-857e-4681-9d12-fc3f34807e4f" class="">Thus, we assume that:</p><ol type="1" id="d225d48a-37a0-4380-825e-d9c63079dae2" class="numbered-list" start="1"><li>Large deviation anomalies will be scored higher</li></ol><ol type="1" id="a18370de-592c-46a3-b55d-32a73c08536a" class="numbered-list" start="2"><li>Short anomalous periods with a small deviation from the mean are perceived more as noise than an actual anomaly and should have a lower anomaly score</li></ol><ol type="1" id="5c94c307-343d-49f2-9e9f-e60ef4b50d3e" class="numbered-list" start="3"><li>Anomalies that occur periodically and have a commensurate deviation should be scored lower with each new occurrence</li></ol><p id="cb98aa5e-228a-45d5-95be-cdad513f8f5b" class="">
+</p><h2 id="ddceb838-963d-41e5-8952-d28e3923bc9b" class="">Formula for relevance score</h2><p id="0547cd96-f7d8-42d6-88ec-50eb0c5d6797" class="">Based on the assumptions above and explored distributions for deviation, duration and time between anomalies we could end up with the following formula:</p><p id="60bfc4f6-e88d-49de-aa95-d75b0f2ca2ce" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>c</mi><mi>o</mi><mi>r</mi><mi>e</mi><mo>=</mo><mfrac><mrow><mi>d</mi><mi>e</mi><mi>v</mi><mi>i</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>s</mi><mi>i</mi><mi>g</mi><mi>n</mi><mi>i</mi><mi>f</mi><mi>i</mi><mi>c</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>e</mi><mo>∗</mo><msub><mi>w</mi><mn>1</mn></msub><mo>+</mo><mi>d</mi><mi>u</mi><mi>r</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>s</mi><mi>i</mi><mi>g</mi><mi>n</mi><mi>i</mi><mi>f</mi><mi>i</mi><mi>c</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>e</mi><mo>∗</mo><msub><mi>w</mi><mn>2</mn></msub><mo>+</mo><mi>t</mi><mi>i</mi><mi>m</mi><mi>e</mi><mi mathvariant="normal">_</mi><mi>b</mi><mi>e</mi><mi>t</mi><mi>w</mi><mi>e</mi><mi>e</mi><mi>n</mi><mi mathvariant="normal">_</mi><mi>s</mi><mi>i</mi><mi>g</mi><mi>n</mi><mi>i</mi><mi>f</mi><mi>i</mi><mi>c</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>e</mi><mo>∗</mo><msub><mi>w</mi><mn>3</mn></msub></mrow><mrow><msub><mi>w</mi><mn>1</mn></msub><mo>+</mo><msub><mi>w</mi><mn>2</mn></msub><mo>+</mo><msub><mi>w</mi><mn>3</mn></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">score = \frac{deviation\_significance * w_1 + duration\_significance * w_2 + time\_between\_significance * w_3}{w_1+w_2+w_3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">score</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.458208em;vertical-align:-0.44509999999999994em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.013108em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.02691em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.02691em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.02691em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.527em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mord mathnormal mtight">ia</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">n</span><span class="mord mtight" style="margin-right:0.02778em;">_</span><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="mord mathnormal mtight">ni</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight">an</span><span class="mord mathnormal mtight">ce</span><span class="mbin mtight">∗</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.02691em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">n</span><span class="mord mtight" style="margin-right:0.02778em;">_</span><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="mord mathnormal mtight">ni</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight">an</span><span class="mord mathnormal mtight">ce</span><span class="mbin mtight">∗</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.02691em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">im</span><span class="mord mathnormal mtight">e</span><span class="mord mtight" style="margin-right:0.02778em;">_</span><span class="mord mathnormal mtight">b</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight" style="margin-right:0.02691em;">tw</span><span class="mord mathnormal mtight">ee</span><span class="mord mathnormal mtight">n</span><span class="mord mtight" style="margin-right:0.02778em;">_</span><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="mord mathnormal mtight">ni</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight">an</span><span class="mord mathnormal mtight">ce</span><span class="mbin mtight">∗</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.02691em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.44509999999999994em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></p><p id="29545b8b-83d1-465b-a7f0-e221dd5bdaea" class="">where weights <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>w</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>w</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">w_1, w_2, w_3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> show the significance of deviation, duration and time between relative to each other.</p><p id="373b596c-62a1-49a3-a3fc-4c0c9f9aeb84" class="">For example if we choose the following weights:</p><pre id="a61f033b-26ce-4124-a950-09ba118ad5b7" class="code"><code>weights = {
+		&quot;deviation&quot;: 3,
+		&quot;duration&quot;: 1,
+		&quot;tb&quot;: 2,
+}</code></pre><p id="554c09c0-c1e4-46d9-ab39-8d74a9db93b2" class="">this will mean that 50% of the final score will represent deviation of received value from the overall average, 17% - duration of abnormal period and 33% - time between two anomalies.</p><p id="d91faa30-79c2-495c-a848-2c63b8b3e6c1" class="">
+</p><h1 id="be9823ee-5745-4321-a080-041ddda8c783" class="">Distributions</h1><h3 id="b2e45dcd-ce45-4277-b2da-8341579ef92e" class="">Duration </h3><p id="f1c2faa2-309f-44fc-b40c-399dfac8d5ba" class="">Next, we would like to see the joint distribution of deviation and duration to get a hint about how the relevance score could be calculated:</p><figure id="43888980-df1f-46f7-acf7-56064efff2d5" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_15.00.53.png"><img style="width:384px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_15.00.53.png"/></a></figure><figure id="4ee1923c-e01b-4ab5-a9de-e41632aceedb" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_15.00.41.png"><img style="width:384px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_15.00.41.png"/></a></figure><p id="48d0fb8f-7ad5-43c2-9a88-e57ec85bf73d" class="">As we can see, most of anomalies had a duration of 1 and hence the distribution is very skewed. Let us perform the brut-force procedure which will be looking for the best discrete distribution to fit observed data among the following well-known distributions: </p><p id="4a641b8b-5b3b-4e9c-9d12-b6a7e59dfa96" class=""><code>[negative binomial, Poisson, geometric]</code>  </p><p id="a615779d-07ea-4d53-a08e-a272999c3e5f" class="">
+</p><pre id="f0c423fc-89c2-4b9f-865c-eab0001060bf" class="code code-wrap"><code>no_subject|mysql.status|mysql#status#handler#read#prev
+Best fit: geometric
+Likelihood: 1.4112622803724817e-102
+
+no_subject|mysql.status|mysql#status#innodb#buffer_pool#write_requests
+Best fit: geometric
+Likelihood: 2.822309636432682e-153
+
+no_subject|mysql.status|mysql#status#innodb#rows#deleted
+Best fit: geometric
+Likelihood: 1.2921371066747286e-178
+
+no_subject|mysql.status|mysql#status#handler#update
+Best fit: geometric
+Likelihood: 6.59602597247058e-88</code></pre><p id="b9ecb2f5-61ec-4a41-8dfe-d6321865cee2" class="">For all metrics, the best distribution in terms of likelihood was <a href="https://en.wikipedia.org/wiki/Geometric_distribution">geometric</a> but as we can see from the actual values of the likelihood, this distribution is far from being optimal for observed data.</p><p id="44594994-4756-4872-a62e-d0357e790c28" class="">One of the possible approaches to treat the duration significance is to introduce rule-based score, where we decide levels of significance beforehand.</p><h3 id="20e22dd7-c9e5-42ae-9ae6-0a4740bdcf87" class="">Time Between two Anomalies</h3><p id="8516abff-2615-4903-ba25-66221043e731" class="">Let us instead of duration (discrete variable) consider the time between two anomalies (continuous variable), which we can calculate based on our data as following:</p><p id="45162537-a747-4f59-ae86-4c71a900d09e" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>i</mi><mi>m</mi><mi>e</mi><mi mathvariant="normal">_</mi><mi>b</mi><mi>e</mi><mi>t</mi><mi>w</mi><mi>e</mi><mi>e</mi><msub><mi>n</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>r</mi><msub><mi>t</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>r</mi><msub><mi>t</mi><mi>i</mi></msub><mo>−</mo><mi>d</mi><mi>u</mi><mi>r</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>o</mi><msub><mi>n</mi><mi>i</mi></msub><mo separator="true">,</mo><mi mathvariant="normal">∀</mi><mi>i</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">time\_between_{i+1} = start_{i+1} - start_{i} - duration_{i}, \forall i \ge 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">im</span><span class="mord mathnormal">e</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathnormal">b</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02691em;">tw</span><span class="mord mathnormal">ee</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8234109999999999em;vertical-align:-0.208331em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76508em;vertical-align:-0.15em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">u</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∀</span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span></p><p id="0c33b3fd-fb07-49df-a66f-544f6614b8b4" class="">where <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>r</mi><msub><mi>t</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">start_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76508em;vertical-align:-0.15em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> - timestamp, when <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span></span></span></span></span><span>﻿</span></span>th anomaly started and <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>u</mi><mi>r</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>o</mi><msub><mi>n</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">duration_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">u</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> is the duration of the <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span></span></span></span></span><span>﻿</span></span>th anomaly</p><p id="f0b05510-bf2e-4eab-aa55-cd15daf15a8a" class="">From our initial guess, the time between two anomalies (assuming these events are happening with the same rate) should follow the <a href="https://en.wikipedia.org/wiki/Exponential_distribution">exponential law</a>. Unfortunately it was not confirmed by Kolmogorov-Smirnov test for goodness of fit:</p><p id="b9a31183-e75c-4b64-9d8a-d7f8cead4377" class="">
+</p><pre id="20283308-19c6-40ab-9cc3-47d924a2f292" class="code code-wrap"><code>no_subject|mysql.status|mysql#status#handler#read#prev
+KstestResult(statistic=0.21099219743182854, pvalue=0.00014019097961981067)
+
+no_subject|mysql.status|mysql#status#innodb#buffer_pool#write_requests
+KstestResult(statistic=0.15229212954131044, pvalue=0.0004329012213094065)
+
+no_subject|mysql.status|mysql#status#innodb#rows#deleted
+KstestResult(statistic=0.10818960958487323, pvalue=0.010698539776471469)
+
+no_subject|mysql.status|mysql#status#handler#update
+KstestResult(statistic=0.09842300703066265, pvalue=0.035133399065063325)
+
+no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data
+KstestResult(statistic=0.18855029079725483, pvalue=2.1803542200714365e-06)</code></pre><p id="0bfa8b5a-a8b5-49ad-8c5a-7aa8a063fbaa" class="">After performing the brute-force test, where we were looking for the best continuous distribution to fit observed data among the following distributions from <a href="https://docs.scipy.org/doc/scipy/reference/stats.html">stats package</a>:</p><p id="b484327c-2fd4-4fe5-8943-6b1d6e8ce8b7" class=""><code>[
+&quot;weibull_min&quot;,
+&quot;norm&quot;,
+&quot;weibull_max&quot;,
+&quot;beta&quot;,
+&quot;invgauss&quot;,
+&quot;uniform&quot;,
+&quot;gamma&quot;,
+&quot;expon&quot;,
+&quot;lognorm&quot;,
+&quot;pearson3&quot;,
+&quot;triang&quot;,
+]</code></p><p id="a994f522-0097-435d-ba29-5ce9e3cc2ee8" class="">we found that the best distribution is <a href="https://en.wikipedia.org/wiki/Log-normal_distribution">Log-normal distribution</a>. </p><p id="ac4de761-49ef-4cfd-9533-78c06e1377a8" class="">Thus, if the random variable <code>X</code> is log-normally distributed, then <code>Y = ln(X)</code> has a normal distribution. Eventually, by plotting deviation against time between two anomalies in log scale we can visually confirm it: </p><figure id="7ea3936a-02a9-41da-a000-0a2f37b7135a" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_15.23.46.png"><img style="width:384px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_15.23.46.png"/></a></figure><figure id="b800afbf-1b97-4a5b-b8b7-2529b987d5b8" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_15.24.03.png"><img style="width:384px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_15.24.03.png"/></a></figure><figure id="64c9d1f9-22a3-4d9a-ab82-cd0e026db3e4" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_15.24.19.png"><img style="width:384px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_15.24.19.png"/></a></figure><p id="586c1ac1-02b8-4b91-8d0c-89f8e1302401" class="">Kolmogorov-Smirnov test for goodness of fit with log-normal distribution:</p><p id="9aacb1ee-1431-4d0c-bf50-7d1c87250dd9" class="">
+</p><pre id="1c9e98c8-0530-41ae-906c-559290127949" class="code code-wrap"><code>no_subject|mysql.status|mysql#status#handler#read#prev
+KstestResult(statistic=0.04523740094413514, pvalue=0.9826421064488736)
+
+no_subject|mysql.status|mysql#status#innodb#buffer_pool#write_requests
+KstestResult(statistic=0.06264833835343636, pvalue=0.4708550455475793)
+
+no_subject|mysql.status|mysql#status#innodb#rows#deleted
+KstestResult(statistic=0.11150743290610549, pvalue=0.007734875331228422)
+
+no_subject|mysql.status|mysql#status#handler#update
+KstestResult(statistic=0.08725586532538893, pvalue=0.08302573434372273)
+
+no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data
+KstestResult(statistic=0.05987328663363872, pvalue=0.4923789827090063)
+
+no_subject|mysql.status|mysql#status#innodb#rows#inserted
+KstestResult(statistic=0.06488498437794063, pvalue=0.7787139475593495)
+
+no_subject|mysql.status|mysql#status#handler#read#last
+KstestResult(statistic=0.08178318902105486, pvalue=0.5842880255296464)</code></pre><p id="63a0d12a-d6e1-4633-a490-8ac5dfbf3585" class="">
+</p><h3 id="9d7eacf2-d196-49c8-8527-1c794a549b03" class="">Deviation</h3><p id="fc462a61-4618-4cd6-a676-4994a3b5c22a" class="">Finally, let&#x27;s take a look on the deviation distribution. As before we first start with brute-force fit.</p><p id="1f26d636-9382-49aa-bdcb-030716c11a31" class="">This time we do not have a dominant distribution for our data. Different metrics showed different behaviour as well as performed statistical tests. Some of them showed that the best possible fit for observed data could be either log-normal or <a href="https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution">inverse Gaussian distribution</a>, other showed that exponential or <a href="https://en.wikipedia.org/wiki/Beta_distribution">beta</a> distributions suit the best. </p><p id="9ec41e14-78a8-4383-a50e-e02f88a007cc" class="">The simplest way to understand the significance of observed value is to take a look on the <a href="https://en.wikipedia.org/wiki/Empirical_distribution_function">empirical distribution function</a> which, as we know,  is an estimate of the cumulative distribution function that generated the points in the sample.</p><h1 id="f938260f-f955-4a53-adc6-d974e332c7d5" class="">Experiments</h1><h2 id="8384ff9b-9a58-4af9-8fec-9d9e51b240b8" class="">Score definition</h2><p id="aed8b00e-b9bb-44e5-b884-521c4ed170fd" class="">For this experiment we will calculate relevance scores as follows:</p><h3 id="58cad0ed-c56d-45e2-a844-322a88b0fd62" class=""><strong>Duration</strong></h3><p id="b94e3985-d081-4551-883d-3330c552e381" class="">We will be using the following rule-based significance formula:</p><pre id="45ccfc35-df1c-4e3d-bdc6-333a18964f04" class="code"><code>if current_duration &gt; 12:
+		duration_significance = 1.0
+elif current_duration &gt; 6:
+		duration_significance = 0.8
+elif current_duration &gt; 3:
+		duration_significance = 0.6
+elif current_duration &gt; 1:
+		duration_significance = 0.4
+else:
+		duration_significance = 0.2</code></pre><p id="5b4af3ef-872a-4315-90b9-aa561e9c7bed" class="">Since we are dealing with 10-second data, </p><ul id="3ba4f5cf-f490-4277-811b-8a17bb804b3e" class="bulleted-list"><li style="list-style-type:disc">the duration of 1 (represents 10 seconds) will be assigned with a score of 0.2</li></ul><ul id="78f21d81-6074-40e0-8173-2194baa24fa4" class="bulleted-list"><li style="list-style-type:disc">the duration between 2 and 3 (represents 20s - 30s) will be assigned with a score of 0.4</li></ul><ul id="45aa0bcc-1b34-48b6-937a-6b084adf1117" class="bulleted-list"><li style="list-style-type:disc">the duration between 4 and 6 (represents 40s - 1 min) will be assigned with a score of 0.6</li></ul><ul id="5dc5a809-a02c-4536-b3b9-e5da62c2c2e9" class="bulleted-list"><li style="list-style-type:disc">the duration between 7 and 12 (represents 1 - 2 min ) will be assigned with a score of 0.8</li></ul><ul id="797972dc-7c86-4823-805a-83ad6b6726b9" class="bulleted-list"><li style="list-style-type:disc">the duration of 12 and more (represents 2 min and more) will be assigned with a score of 1</li></ul><h3 id="a1307106-b6dc-4dad-97aa-ccbd4d7df793" class=""><strong>Deviation</strong></h3><p id="5b746c03-17d1-45d4-ace2-067db6d8e64f" class=""><a href="https://www.statsmodels.org/stable/generated/statsmodels.distributions.empirical_distribution.ECDF.html">Empirical distribution function from statsmodel package</a> will be used to define the significance score. </p><h3 id="f0e3378b-e8c7-48f4-9874-19ed03f0a98a" class=""><strong>Time between</strong> </h3><p id="76664594-029f-4dc4-a874-a54789eaf453" class="">We will use log-normal distribution to model the time between the two anomalies and calculate the significance score. More precisely, if <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">v_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> is the time between anomaly <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>−</mo><mn>1</mn><mtext> and </mtext><mi>i</mi></mrow><annotation encoding="application/x-tex">i-1 \text{ and } i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord text"><span class="mord"> and </span></span><span class="mord mathnormal">i</span></span></span></span></span><span>﻿</span></span> we will be calculating the z-score of <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><msub><mi>v</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">log(v_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span></p><h3 id="7202ca04-fe2e-4d6b-ab2f-c1643a9dca07" class="">Weights</h3><p id="171184c6-031f-4dce-8b52-418b6d19f50f" class="">For each experiment we will indicate which set of weights was used</p><h3 id="6a6d1d1c-1966-43f5-8e7e-6451c956da2d" class="">Process</h3><p id="3d7385eb-1123-4a3b-a20f-400e9c771b5a" class="">Each time we calculate the anomaly score we do the following steps:</p><ol type="1" id="380f0f30-4cb7-47ec-84f1-51f20b750196" class="numbered-list" start="1"><li>Compose a dataframe which contains information about anomalies sorted by timestamp (start column)</li></ol><figure id="9488367e-5c94-470d-be50-2d71c617a1b9" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_13.04.41%201.png"><img style="width:240px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-05_at_13.04.41%201.png"/></a></figure><p id="a60c1b99-4627-43be-95f5-938f1f146216" class="">2. We iterate through this dataframe (row-wise) and for each sub-table (<code>df[:idx], idx from 10 to len(df)</code>) of the initial dataframe <code>df</code> we calculate <code>duration_significance</code>, <code>deviation_significance</code> and <code>tb_significance</code></p><h2 id="c8dddab2-e051-41a9-a4a9-ee622ff64c59" class="">Case 1</h2><p id="f6c3b3a5-8ca2-4d70-a44b-fd7bfcaf1297" class="">We will be working with <code>no_subject|mysql.status|mysql#status#threads#created</code> metric and will be using the following weights for this experiment:</p><pre id="db574c6f-cd88-4292-9fe3-1b20e89ca59f" class="code"><code>weights = {
+		&quot;deviation&quot;: 3,
+		&quot;duration&quot;: 1,
+		&quot;tb&quot;: 2,
+}</code></pre><p id="60897e8f-a19a-4146-9555-3ba692792168" class="">Overall we have 107 anomalies of different deviation and duration.</p><figure id="75eedc61-9f7d-4ced-b28a-8530f1c2baff" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_12.33.02.png"><img style="width:624px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_12.33.02.png"/></a></figure><p id="ab69ebd0-f81a-4bea-b72a-21bf931696b0" class="">Let&#x27;s apply the relevance score calculation algorithm and see on the result: </p><figure id="9f6d3aa8-e974-4da2-a44b-1336834b0e00" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_14.13.16.png"><img style="width:1946px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_14.13.16.png"/></a></figure><p id="a4316ddc-2837-4f77-9861-239f4a56c333" class="">Here each point corresponds to an anomaly per 10 seconds, which means that we use <code>n</code> points with the same deviation and time difference to represent an abnormal period which lasted for <code>(n-1)*10</code> seconds.  </p><p id="af730123-2867-4847-8f57-15bced5a3af8" class="">Example:</p><figure id="1219467d-69c7-4813-98dd-1d02901a3bf4" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_14.18.45.png"><img style="width:1956px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_14.18.45.png"/></a></figure><p id="835b769f-1171-4284-8def-8265344298ca" class="">On the chart above we represent an abnormal period which started on the 22th of February at 05:11:40 and ended at 05:13:20 (100 seconds represented by 11 points).</p><p id="5a238adf-3b92-4551-9e7d-930cf2531d6d" class="">The dot&#x27;s colour represents the weighted relevance score. We can see, that points with significant deviation have higher score but if take a closer look, we will see that some points have higher scores that their neighbours with more important deviation and this is the consequence of individual contributions of duration and time between scores.</p><p id="607b7fc9-d74c-4dd0-8d69-b6379023a097" class="">Let us now plot the same anomaly chart but in different colours to highlight the difference in significant scores for different points.</p><p id="17e9fa19-ae26-47b9-810c-9a3661f57f33" class=""><strong>Duration contribution</strong></p><p id="2ca7318b-c0a3-471e-b777-d78a784b96d8" class="">On the chart below we represent the same abnormal periods but coloured regarding their significance based on duration. Let us inspect the group of points around Feb. 22nd</p><figure id="6cc8ff70-ada7-41ef-b78c-878f811a2594" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_14.32.41.png"><img style="width:1926px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_14.32.41.png"/></a></figure><p id="4c4c893a-35ad-4eaa-b90a-feba53c84701" class="">We can observe that anomalies that lasted longer have higher score. There is no surprise since we used a rule-based significant score.</p><figure id="f9627a15-d3d1-4208-8092-e540fed37b00" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_14.34.28.png"><img style="width:1914px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_14.34.28.png"/></a></figure><p id="01f51251-a696-4f75-9001-eedaeaa29f0a" class=""><strong>Deviation contribution</strong></p><p id="b5cca1d9-8db7-4116-b5a5-1153b9262ce2" class="">Let us now colour the points with respect to the significance score based on the deviation. For recall, we used an empiric distribution function which approximates the real distribution function. There is no surprise in observed results: points with the greatest deviation have the highest significance score.</p><figure id="3ee2e4d6-3c58-40cc-9bc5-79629dec89fe" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_14.38.09.png"><img style="width:1914px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_14.38.09.png"/></a></figure><p id="8c916ee7-8558-48a0-973b-541f595a03be" class=""><strong>Time between anomalies contribution</strong></p><p id="0e36188f-f1ec-43f1-bada-f1da0d415ccb" class="">Finally let us look on the relevance scores based on the distribution of time between two anomalies: </p><figure id="d19956bd-24b1-4746-8d70-d32ab2310e10" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_14.42.34.png"><img style="width:1930px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_14.42.34.png"/></a></figure><p id="0ee036aa-a4f9-47f7-9346-3090e4f4bcff" class="">We can observe that points that form bursts get low scores whereas anomalies that were received after some considerable period of time scored higher. If we think about it, it becomes clear why this happens: the more anomalies happened per unit of time, the shorter the expected time until the next anomaly and, accordingly, long periods without anomalies become less likely.</p><p id="eded96ef-48b1-4a0b-857a-6dd6bc254bc2" class="">Let&#x27;s inspect the group in the middle. As we can see the first point of this group of three points (2021-02-26 18:28:20) got the significance score of 96% since last anomaly happened 46 hours before (2021-02-24 20:27:10) while the average time between two anomalies was 1.3 hours!</p><p id="b7071d27-d942-44ed-b21c-ecb33d46b1a8" class="">
+</p><h2 id="fe6ce59b-88ec-4380-be56-1319b3d8b4e3" class="">Case 2</h2><p id="70773fd1-fca2-413c-ba0a-b84a0cd5fbee" class="">This time we will focus ourselves on the <code>no_subject|mysql.status|mysql#status#innodb#rows#deleted</code> metric for which we received 210 anomalies.</p><figure id="b872370e-b33f-47e6-92f8-19d9f73ddb3c" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_15.27.36.png"><img style="width:672px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_15.27.36.png"/></a></figure><p id="6fb68c12-af0b-4754-8f73-079e8c339c60" class="">
+</p><p id="dd39de3a-c566-431b-9b6c-f4ac0dd68077" class="">As we can see, most of the points marked as anomalies by MAD had the same deviation (in average). If we inspect this metric, we will see that the corresponding TS is sparse which leads to a storm of False alarms:</p><figure id="06c120e9-be8b-4350-901e-1f5019368c4c" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_15.42.47.png"><img style="width:864px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_15.42.47.png"/></a></figure><p id="d246b52b-6ad9-464c-ba55-7d88ff6e473d" class="">Since the observed TS is sparse we might adjust weights used to calculate the relevance score to the following:</p><pre id="e5f10268-bb69-4004-a5f0-8e66929aeaa6" class="code"><code>weights = {
+		&quot;deviation&quot;: 2,
+		&quot;duration&quot;: 2,
+		&quot;tb&quot;: 2,
+}</code></pre><p id="98040e9e-e672-4328-a943-109b75a17644" class="">The overall relevance score:</p><figure id="57b584b3-a19d-403f-9f35-7e8c029a9d43" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_16.14.57.png"><img style="width:960px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_16.14.57.png"/></a></figure><p id="41d26ee3-0f28-49a9-8ee1-7824f3789b21" class="">As we can see most of the anomalies got quite low relevance score. </p><p id="b61a3d92-787d-4f6d-9cc1-03b99f871ff7" class="">Let&#x27;s analyse anomalies which correspond to the points with deviation between 400 and 480. It turns out that the average significance score is only 0.37 with std = 0.07, hence we could have filtered out 95% of alarms by setting the significance threshold to 0.6. If we profile the relevance score for this group of anomalies we would see, that they have very low scores regarding duration and time between two anomalies. The last result is due to the periodicity of events (possible automation of user&#x27;s script)</p><figure id="ee13b4a0-3473-4be6-beff-679e552d8d91" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_17.12.09.png"><img style="width:672px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-10_at_17.12.09.png"/></a></figure><p id="414e67d4-84b5-4dd6-8528-44fb42571d77" class="">In fact, according to the weighted relevance score only 10 anomalies (5% of all anomalies) exceed the score of 0.6 and only 1 point (among 210) had the relevance score of more than 0.7.</p><p id="5633f34d-71cc-4582-9c2b-58605417117b" class="">
+</p><h2 id="2372d182-6970-43d8-9093-ea3141360c0d" class="">Case 3</h2><p id="dcd9d0e4-dd69-4150-b866-f94de3fd04a5" class="">Finally, we will take a look on the <code>no_subject|mysql.status|mysql#status#innodb#buffer_pool#write_requests</code> metric for which we received 169 anomalies.</p><figure id="6cbb0a65-985e-457c-afca-bc5407fcb7e3" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-11_at_12.06.14.png"><img style="width:2794px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-11_at_12.06.14.png"/></a></figure><p id="d5c315a6-0de6-43b0-b034-dad2cdefd669" class="">This time data doesn&#x27;t seem to be sparse. If we plot anomalies along with their deviation from the mean we will observe that most of them are at the same level of deviation as in the Case 2.</p><figure id="5f9704b1-1415-40e6-b166-39b871055aab" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-11_at_15.09.34.png"><img style="width:1770px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-11_at_15.09.34.png"/></a></figure><p id="930263c2-22b1-43bc-96a8-b787fa5f93d9" class="">The relevance score for anomalies:</p><figure id="06168a7a-e38f-4400-8187-1090cb67a989" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-11_at_15.08.27.png"><img style="width:1932px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-11_at_15.08.27.png"/></a></figure><p id="b14e7a03-2376-46a1-88d1-d21606a50222" class="">From this chart we can see, that only 7.7% of anomalies (13 cases) had relevance score of more than 0.6 with maximum score of 0.73.</p><p id="8763ece3-0ac5-4cff-8df3-51a6df7c9e7d" class="">Let&#x27;s plot these abnormal periods along with their individual relevance scores:</p><figure id="c8507677-8fad-4caf-8c16-b2eb5ed390b8" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-11_at_15.24.00.png"><img style="width:624px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-11_at_15.24.00.png"/></a></figure><figure id="e13d96e2-67a9-4865-bf84-2bea31ef4aea" class="image"><a href="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-11_at_15.30.25.png"><img style="width:624px" src="GetMyUni%20relevance%20score%20b40f635fcf744a6f8c67a4cf8b92351e/Screenshot_2021-03-11_at_15.30.25.png"/></a></figure><p id="74697b1f-2f65-4253-81d5-70f88b13cdfe" class="">As we can see, most of anomalies that got high relevance score were lasting for more than 2 minutes (probably we need to decrease the lookup period while calculating duration of abnormal period) and with high deviation. </p><p id="76c03dcf-2d68-44a0-b363-531a9bab5ad3" class="">We can also observe, that relevance score of the time between two anomalies was higher for anomalies that arrived either after some considerable amount of time or from &quot;too dense regions&quot; like in the right-hand side of the chart.  </p><h1 id="57bdd2ee-1394-47c1-9254-6230b3e2fa5f" class="">Conclusion</h1><p id="896cb638-2ec1-45c5-8609-2f3730a9729b" class="">
+</p><p id="12e84875-8882-46c6-af7a-259789d3b0c8" class="">We have established an approach to score anomalies regarding their importance. During this project we studied different properties of anomalies concentrating ourselves mostly on the following three of them: the deviation from the normal average, the duration of the abnormal period and the time between observed anomalies. </p><p id="c11ae57d-5765-445d-aee4-5649c9cfb10d" class="">Statistical tests were performed to assess the goodness of fit with theoretical distributions and different strategies were tried to derive individual significance scores. We have seen, that while the time between two anomalies is well approximated by log-normal distribution, other properties need individual studies and the simplest way to measure the importance of deviation is taking the values of the empirical distribution function and the simple rule-based score for the duration of abnormal period.</p><p id="99949adb-c792-408c-860e-1d48e919e8c9" class="">Finally, we presented 3 examples of usage of relevance score where we demonstrate how it could possibly help to reduce the storm of false alarms and find the most significant anomalies based on the underlying distributions.</p></div></article></body></html>

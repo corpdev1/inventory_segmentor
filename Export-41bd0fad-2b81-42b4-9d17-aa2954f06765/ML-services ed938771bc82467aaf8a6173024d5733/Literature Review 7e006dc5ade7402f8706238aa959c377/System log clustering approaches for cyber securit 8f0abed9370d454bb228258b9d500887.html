@@ -1,0 +1,690 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>System log clustering approaches for cyber security applications: A survey</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8f0abed9-370d-454b-b228-258b9d500887" class="page sans"><header><h1 class="page-title">System log clustering approaches for cyber security applications: A survey</h1><p class="page-description"></p></header><div class="page-body"><p id="f0526daf-a4ef-4610-99de-ed51e1428ea2" class=""><a href="https://reader.elsevier.com/reader/sd/pii/S0167404820300250?token=F60106712BFADAD4C80223A1DCA39122F462B5BD2F94BBA8A3096A9323E50D0497B179FCAE9375582013D865248DEB18">paper link</a></p><h1 id="d8fe719c-9678-4434-881c-ca52025d57cf" class="">Introduction</h1><p id="9e3e41bf-79dd-458b-afc9-3d1c21ac4203" class=""><em><strong>Why dealing with logs ?</strong></em></p><ul id="3104a9ea-1abc-4d33-b960-c072bcc732f7" class="bulleted-list"><li style="list-style-type:disc">Contains information about the events that happened on the system</li></ul><ul id="1fdb53b3-83c6-4378-b334-c976fff0d6b0" class="bulleted-list"><li style="list-style-type:disc">Trace back the root for observed problems</li></ul><ul id="59ce5b86-6962-4f7e-85e9-3e93b1b4ed1e" class="bulleted-list"><li style="list-style-type:disc">Help to recover the system to a non faulty state</li></ul><ul id="dc65ac2e-7a9f-482e-82a9-75533f36a205" class="bulleted-list"><li style="list-style-type:disc">Validate the performance of process and discover bottlenecks</li></ul><ul id="245aa2ca-124e-4151-b8f5-c92390b48fd7" class="bulleted-list"><li style="list-style-type:disc">Storing the logs is not expensive</li></ul><p id="65f28d13-53cc-41cf-9101-88508705e04e" class=""><em><strong>How to deal with logs ?</strong></em></p><ul id="ff467806-f552-45ba-8c66-38407c8fa7f3" class="bulleted-list"><li style="list-style-type:disc">Proactive analysis by constantly monitoring on real-time manner</li></ul><ul id="ab548e18-6637-4752-ad59-47f1dff699e9" class="bulleted-list"><li style="list-style-type:disc">Follow indicator of erroneous</li></ul><ul id="e54b1677-9fd3-4498-a5a3-61e1666dd422" class="bulleted-list"><li style="list-style-type:disc">Data is immense and fast, we need machine learning to process the logs and discover interesting patterns</li></ul><ul id="83f5ddcc-49a9-4a3f-8002-6c616a5a28f5" class="bulleted-list"><li style="list-style-type:disc">Clustering is the main ML approach for this problem</li></ul><p id="868d441c-14ad-40e8-8c67-fdca660e9b5a" class="">
+</p><h1 id="50adff23-c0b6-4e88-94fe-e0a1457135a0" class="">Background</h1><p id="d14e67e3-a0d5-4435-8e3e-0bd6bd9e604b" class=""><em><strong>Characteristic of log data</strong></em></p><ul id="c4fb084f-e6cd-4ab6-a4fb-c2811a635226" class="bulleted-list"><li style="list-style-type:disc">A logfile is a set of single or multiline string listed in chronological order</li></ul><ul id="87a13c2f-7f3f-4d54-a6e5-e77beedbb82a" class="bulleted-list"><li style="list-style-type:disc">Could be highly structured (comma separated), semi-structured (key-values pair) and unstructured (free text)</li></ul><ul id="b01cf940-e8b2-47b2-965b-fa69d814490d" class="bulleted-list"><li style="list-style-type:disc">PID (process ID) that describe the task are generally attached</li></ul><ul id="c9f54e46-3bca-4f83-8340-430e09620854" class="bulleted-list"><li style="list-style-type:disc">Level of the log (INFO, DEBUG, ERROR, ...) to indicate the severity</li></ul><ul id="7378e8c3-e245-481d-9d1d-ddc490cde125" class="bulleted-list"><li style="list-style-type:disc">Logs are not natural language because : Similar messages repeated over and over and the appearance of some messages are highly correlated</li></ul><p id="1b2043c4-edbb-47f5-9c9a-b6affc019acd" class=""><em><strong>Static clustering </strong></em></p><ul id="8675f8a3-3574-4379-bb72-1b3fbac20c1d" class="bulleted-list"><li style="list-style-type:disc">Clustering individual loglines by the similarity of their messages</li></ul><ul id="6d1b8aee-b3e6-46aa-b808-c15fd46a665b" class="bulleted-list"><li style="list-style-type:disc">Token based or Character based (More flexible but More expensive)</li></ul><ul id="f77fdbeb-8422-4bb3-afb4-45e170a9f50f" class="bulleted-list"><li style="list-style-type:disc">Order and correlation between messages is neglected</li></ul><ul id="811055fc-9f38-4fbd-a736-754b09a81018" class="bulleted-list"><li style="list-style-type:disc">Is mostly about template extractions</li></ul><p id="2d1d5072-6bd8-4a9f-aa3f-dbeadc6cded5" class="">
+</p><p id="5064fc33-f461-4847-89f4-82c0eaa96f40" class=""><strong><em>Dynamic clustering</em></strong></p><ul id="0d2fe54a-da9b-426e-ab0a-80ddc979cb18" class="bulleted-list"><li style="list-style-type:disc">Sequence analysis of templates extracted from static clustering</li></ul><ul id="ab833d4c-862b-483a-86d7-72ab8bf8f374" class="bulleted-list"><li style="list-style-type:disc">Analyse of frequency, co-occurence and aggregation after time-window aggregation</li></ul><p id="c9eec5a4-a6e0-453b-8e62-96ac77775b3f" class="">
+</p><h1 id="e2e6e9f4-a3e5-4def-85c0-cae83f5cced5" class="">Survey</h1><p id="956a5968-e7e5-4249-918f-b6724edf4e3e" class="">4 types of anomalies discussed</p><p id="4c0349ee-d409-46c5-9027-9a364b898e2e" class=""><em><strong>Types of anomalies</strong></em></p><ul id="e783fd8f-c2bb-4403-819e-65ac5d82e158" class="bulleted-list"><li style="list-style-type:disc">Outlier : Single logline that do not match any of the existing template (static clustering)</li></ul><ul id="2f790b9c-b3b3-4ba9-909b-dd04c35c37fb" class="bulleted-list"><li style="list-style-type:disc">Frequency anomaly : log events that appears unexpectedly frequent or rare</li></ul><ul id="b338687e-400f-457f-ac98-b5d3d7ee2db9" class="bulleted-list"><li style="list-style-type:disc">Correlation anomalies : log events that are expected to occur in pair of groups or events</li></ul><ul id="c696d92a-26aa-4625-bd69-18a6d05a6422" class="bulleted-list"><li style="list-style-type:disc">Inter-arrival time anomalies : deviating time in intervals between log events</li></ul><ul id="9148060e-fe98-48e9-8133-9efd3eab78b5" class="bulleted-list"><li style="list-style-type:disc">Sequence anomalies : missing or additional log events, deviating order in sequence</li></ul><p id="14493a98-8dc4-479b-af84-03834cd4222c" class="">
+</p><p id="159b06ca-8f8c-44d0-9b59-4867108b7b0d" class=""><em><strong>Categories</strong></em></p><ul id="6b4d51d2-9823-42ae-aaf0-97ca439cdfde" class="bulleted-list"><li style="list-style-type:disc">Overview and filtering : Filtering out logs that are  repeating without added-value</li></ul><ul id="983a3a68-f06e-4e79-98c7-42084215827d" class="bulleted-list"><li style="list-style-type:disc">Parsing and signature extraction : Automatic generation of log event template</li></ul><ul id="997f37c6-72bb-4675-be6d-4ed59d936e25" class="bulleted-list"><li style="list-style-type:disc">Outlier detection : Dissimilar to all existing clusters (templates)</li></ul><ul id="731c2af1-dd0d-4f09-a7d7-f777c12fef28" class="bulleted-list"><li style="list-style-type:disc">Group anomaly detection : Group sequences of log lines or disclose temporal patterns such as frequent co-occurrence or correlations are required.<ul id="14778fa8-c838-401d-8205-fca055b8518a" class="bulleted-list"><li style="list-style-type:circle">Linking events to some task or process ID </li></ul><ul id="814c65fc-d563-41db-91c0-27122ccbc161" class="bulleted-list"><li style="list-style-type:circle">Linking event through time-window aggregation</li></ul><p id="b13c814d-8e58-4a7c-a379-f6ec12f7331e" class="">
+</p></li></ul><p id="7966cf51-4d96-45b3-9fb0-86bf8baaceab" class="">The article set many criteria to differentiate between the approaches and provided this website <a href="http://81.189.135.168/selection/">http://81.189.135.168/selection/</a> to compare between them</p><h1 id="6cd51439-d8f1-4637-8ee5-6e81c128c5aa" class="">Other</h1><p id="2a3e309d-9e38-4e1e-9de4-1f6b64514920" class=""><mark class="highlight-red"><em><strong>Issues pointed by the paper</strong></em></mark></p><ul id="d8352c81-7e84-4986-804e-2ef0e3bf792c" class="bulleted-list"><li style="list-style-type:disc">Template extraction : Overgeneralisation<ul id="2d405174-2851-488d-82fa-e73840ef45b8" class="bulleted-list"><li style="list-style-type:circle">Example 1: User A logs in with status -1</li></ul><ul id="38733d16-5e2d-404c-9b82-e50a2d218a11" class="bulleted-list"><li style="list-style-type:circle">Example 2: Use B logs out with status 1</li></ul><ul id="bdf98b0a-f93f-4ecc-a597-247e5ed049b7" class="bulleted-list"><li style="list-style-type:circle">Template extraction : User * logs * with status *</li></ul><ul id="a118c4cd-e484-4e35-9afd-47b47fd8b867" class="bulleted-list"><li style="list-style-type:circle">l<em>ogs in</em> and <em>logs out</em> are two different things, however the template extraction merged them together</li></ul></li></ul><ul id="b3818ed4-7739-45ae-8531-58d3b1b21210" class="bulleted-list"><li style="list-style-type:disc">Merging logs with different Log Level is not recomended</li></ul><p id="8dad239b-5f8f-44a4-b6b3-b5abdb8c6f46" class="">
+</p><p id="99002602-9043-4cec-9179-4c4ea7568915" class=""><em><strong>Papers with code</strong></em></p><ul id="1c983d72-0d4f-40a6-97cc-dabb9c17efd0" class="bulleted-list"><li style="list-style-type:disc">Zhen, J., 2014. Sequence website. <a href="http://sequencer.io/">http://sequencer.io/</a>.</li></ul><ul id="e04e9146-acc3-4a1a-80ec-dad0a858b733" class="bulleted-list"><li style="list-style-type:disc">Logpai <a href="https://github.com/logpai">https://github.com/logpai</a></li></ul><p id="bdbd44fd-3f6c-4a6f-a967-aaf7f4e42f4a" class="">
+</p><p id="aba2723c-f5d7-4729-a478-e36142221d46" class="">
+</p><p id="662867ff-743e-4ced-b9a5-2606f0c82590" class="">
+</p><p id="c9adf718-e08f-4378-a0e8-91011eff7890" class="">
+</p><p id="ec21294c-19ec-4169-a296-e1747569ce9e" class="">
+</p><p id="1188ed05-86c5-43ad-aed3-3c84e3ed0e5d" class="">
+</p><p id="50738740-67a7-4446-acc0-30b915644bed" class="">
+</p><p id="8cbe1232-c35d-4ebc-a8d1-03ffc8375164" class="">
+</p></div></article></body></html>
