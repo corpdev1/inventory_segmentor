@@ -1,0 +1,690 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Microscope</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="63aa9faa-9fff-424c-b64b-0c8b9fe63193" class="page sans"><header><h1 class="page-title">Microscope</h1><p class="page-description"></p></header><div class="page-body"><figure id="4d9901a6-57d9-44c6-985b-7b7874eb58da"><div class="source"><a href="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/2018_Book_Service-OrientedComputing.pdf">2018_Book_Service-OrientedComputing.pdf</a></div></figure><p id="85e8b8d8-41bc-44d1-8ddf-c6d35b3ab30b" class="">(paper is the first in this volume. Couldn&#x27;t find accessible link online)</p><p id="3fd40ba4-0a86-415c-8fff-6a1cde8d9062" class="">
+</p><p id="a5661096-3e25-4831-9767-3fec4cba6445" class="block-color-teal_background"><strong>In summary</strong></p><ol type="1" id="718013b3-16f6-467b-b597-5c30bd5a43d9" class="block-color-teal_background numbered-list" start="1"><li>data collection: collects network connections between services in the same machine and SLOs of each service <ol type="a" id="71e03a95-c57e-4fb7-ad33-b50b08db9aaf" class="numbered-list" start="1"><li>the network connection graph is a DAG. nodes are service instances (IP:port) and edges are directed network connection. Direction indicates client → server communication </li></ol><ol type="a" id="f1eee776-9a76-4bc4-8e51-97aa54cd47a2" class="numbered-list" start="2"><li>one SLO per service is collected: service response time , aka latency </li></ol></li></ol><ol type="1" id="496687fc-51f4-4427-b621-eb723376fcd2" class="block-color-teal_background numbered-list" start="2"><li>When an SLO violation is detected - aka incident, the root cause analysis is triggered. Microscope uses the network connection information and SLO metrics to build a causality graph</li></ol><ol type="1" id="c8f9c2d6-37a1-49a4-901f-f0486ca897b7" class="block-color-teal_background numbered-list" start="3"><li>Then the cause inference engine starts from the front end and traverses the entire causality graph along with the directed edges. After that, Microscope gets a list of possible root cause candidates. </li></ol><ol type="1" id="121211e4-749d-4e77-9408-79bcad67293e" class="block-color-teal_background numbered-list" start="4"><li>Finally, Microscope calculates a score for each candidate and ranks the candidates with
+the score.</li></ol><p id="f58b6e31-6f63-490e-a00b-2f21662b056f" class="">
+</p><p id="b0144cfc-99b2-4a66-8411-0b708315bbf7" class="">
+</p><nav id="2cda102b-fd6b-4c1d-80ec-393762848ba2" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b5eadb90-52f4-4668-95f5-ed6bc2e72349">1. <strong>General overview </strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2fe6be93-9e2a-423c-8e82-ddf407cf6de2">2. Design details</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4a91816d-3161-42ed-822d-d92dc0caa74a">3. Evaluation </a></div></nav><p id="72a80b49-7e50-4002-b03f-f12e061dc93f" class="">
+</p><h3 id="b5eadb90-52f4-4668-95f5-ed6bc2e72349" class="">1. <strong>General overview </strong></h3><figure id="65dac3e9-3abc-4cf6-a256-3c55bd55ffb9" class="image"><a href="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_15.04.55.png"><img style="width:672px" src="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_15.04.55.png"/></a></figure><p id="c7e10af0-a2f3-4dad-88fa-cb4c96f39424" class="">Microscope uses the network connection information and SLO metrics to build a causality graph. Then the cause inference engine starts from the front end and traverses the entire causality graph along with the directed edges. After that, Microscope gets a list of possible root cause candidates. Finally, Microscope calculates a score for each candidate and ranks the candidates with the score.</p><p id="2579d2ae-fdc6-47d5-bf34-4c242e333ed9" class="">
+</p><h3 id="2fe6be93-9e2a-423c-8e82-ddf407cf6de2" class="">2. Design details</h3><p id="ab7faab4-8698-4f8b-b3dc-3ac5a32b7c1f" class=""><div class="indented"><h3 id="1708b8cf-353e-488d-9e12-bb0d79c1d8b6" class=""><span style="border-bottom:0.05em solid"><strong>2.1. Data collection </strong></span></h3></div></p><p id="bb6289cf-233e-423c-b1fe-b3ced7b8b13f" class="">Microscope collects two types of data:</p><ul id="11961473-515a-493f-973e-f285c3eaafbe" class="bulleted-list"><li style="list-style-type:disc">network connection information between two service instances and </li></ul><ul id="2e431abf-006b-44d0-b9dc-e4278dc6612b" class="bulleted-list"><li style="list-style-type:disc">SLO metrics of each service instance</li></ul><figure id="a6860181-2251-4931-aec5-03693374a792" class="image"><a href="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_15.13.21.png"><img style="width:2242px" src="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_15.13.21.png"/></a></figure><p id="3c1052d3-1d54-4608-96df-6c7dfed81d3d" class="">
+</p><p id="87c8c004-3107-4a12-8ad1-0d069c454ba8" class=""><div class="indented"><h3 id="4ea09666-ea39-433c-b9ad-ecd21975093d" class=""><span style="border-bottom:0.05em solid"><strong>2.2. Service Causality Graph Building</strong></span></h3></div></p><p id="1604ac73-fdab-4e6b-8e01-1cd472a4bd0e" class=""><span style="border-bottom:0.05em solid"><strong>Definitions</strong></span> </p><ul id="3e57d57d-fcd2-481a-8c32-9cea7b5d36ad" class="bulleted-list"><li style="list-style-type:disc">X is a cause of Y if the changes of X can affect the distribution of Y but not vice versa, denoted by X→Y. In other words, X is a parent of Y , denoted by X ∈ pa(Y ). In a collective variable, if all the parents of Y have been determined, the distribution of Y will be determined and not affected by other variables. </li></ul><ul id="973a1ce3-a098-472c-ae46-162a10d1c9e4" class="bulleted-list"><li style="list-style-type:disc">X and Y represent the SLO metrics of each microservice. </li></ul><ul id="16863033-c5c5-4f98-92e5-fe79b6683bac" class="bulleted-list"><li style="list-style-type:disc">It is not allowed two variables cause each other. So the causality graph can be represented as a DAG (Directed Acyclic Graph).</li></ul><figure id="634a15bd-fbaf-425a-b7c1-6cadabc9f321" class="image"><a href="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_15.28.17.png"><img style="width:2388px" src="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_15.28.17.png"/></a></figure><p id="37cbb882-c47c-4fec-b7e3-024b657fe507" class=""><span style="border-bottom:0.05em solid"><strong>Graph construction </strong></span></p><ul id="9699a703-df13-4994-8dfd-a6d66be38e4a" class="bulleted-list"><li style="list-style-type:disc">nodes are services </li></ul><ul id="0bf13770-3932-4e35-add1-059d586fb3ce" class="bulleted-list"><li style="list-style-type:disc">two types of links exist:<p id="3b5edcf6-64b3-4e78-9c8c-491b98388055" class=""><strong>  a. Communicating Service Dependency: </strong></p><p id="ff008580-aac7-49ed-8a9a-9daadaa67651" class="">Previous work uses network communication to construct links but the causal direction of links are inferred statistically.  Microscope captures the directed connection information to represent the communicating service instance dependency relation without any statistical error.</p><p id="9501c918-902d-4599-b2cf-69d9e1d92876" class="">
+</p><p id="d4df7e9e-2624-41fd-bcea-db37d651e97d" class="block-color-teal_background">Basically the idea is to parse data from intercepted syscalls such as connect() and send() functions to determine direction of communications (→ determining client-server couples)</p><ul id="eb028704-859d-42bd-992c-6f9fde86f0af" class="block-color-teal_background bulleted-list"><li style="list-style-type:circle">is this enough to infer causality ? how ?</li></ul><ul id="dc1575fa-5778-4d36-8b90-f62fdbcdb5f2" class="block-color-teal_background bulleted-list"><li style="list-style-type:circle">what about microservices that are client and server in the same time?  </li></ul><p id="12dc001e-bea6-4b16-ab08-9fa7cb401f48" class="block-color-teal_background">This physical graph construction serves one purpose: when KPI graph direction contradicts the physical one, use the physical one as ground truth </p><p id="0170e82f-e3a3-4ea1-99c6-20701986ab24" class="">
+</p><p id="d12d762d-6292-44b9-b454-19ab8df76dd3" class=""><strong>b. Non-communicating Service Dependency:</strong></p><p id="e8442cfb-70bd-4337-84c9-e210cd248c36" class="">Due to local resource sharing, the service may interfere with other services running in the same node, which is called “non-communication service dependency”. For example, if a service instance occupies all the CPU resource of a physical machine, the response time of the other service instances in the same node, especially for computation intensive ones, is likely affected. Therefore, the SLO metrics changes of other co-located services are also responsible for changes in the SLO metrics of the current concerned services. We construct such relations by a statistical approach.</p></li></ul><ul id="f75c2eb6-65f0-4555-9a2d-1a3877520983" class="bulleted-list"><li style="list-style-type:disc"><strong>step1</strong>: construct a skeleton of the DAG, namely an undirected graph, using PC-algorithm [16],
+which is more computationally efficient than Bayesian network approaches [11].</li></ul><ul id="86dfa495-6fd4-4bbe-a296-e7fc66f8686f" class="bulleted-list"><li style="list-style-type:disc"><strong>step2</strong>: Then we orientate the skeleton with D-separation [16] rules. A causal Markov condition [22] is used to produce a set of independent relations amongst more than two variables and to construct the skeleton of a causality graph. <p id="987368b9-f58d-4c8f-8f55-b79e8661a992" class="">It is defined as</p><figure id="490a0a3e-38eb-4be0-9dc4-9910f48b5b0d" class="image"><a href="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_16.23.22.png"><img style="width:672px" src="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_16.23.22.png"/></a></figure><p id="357f5cd3-6e37-4100-8dff-8728c5ae754f" class="">we leverage a conditional cross-entropy based metric G2 [22] to qualitatively test whether X is dependent on Y given Z, where X, Y and Z are disjoint set of variables in V , X and Y are single variables, but Z can be a set of variables. We choose G2 instead of other methods like Gaussian independence test [16] as it does not need any assumption on the distribution of each variable.</p><figure id="a5405668-51c8-4531-8ba5-77743542ffb3" class="image"><a href="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_16.28.42.png"><img style="width:1434px" src="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_16.28.42.png"/></a></figure></li></ul><p id="9c3a8629-4031-42f5-92b8-eb227a4958b5" class="">
+</p><p id="411592af-8971-4aef-a781-8cc103ede4e7" class="">The computational complexity of Algorithm 1 is dominated by the DAG skeleton construction procedure. The worst case is bounded by O(nmax{pq, p2}) [17], where n is the data length of each metric, p is the number of metrics, q is maximal size of the adjacent sets, i.e., the cardinality of Z, |Z|. When q is large, the complexity increases exponentially.</p><p id="4e6b3b88-2de7-496f-84dd-2343dec5254d" class=""><div class="indented"><h3 id="7e5832d2-ef46-4f0a-830d-5c748f477577" class=""><span style="border-bottom:0.05em solid"><strong>2.3. Cause Inference</strong></span></h3></div></p><ul id="2108a3bc-0a5d-4f22-a7f0-29b03959e9ab" class="bulleted-list"><li style="list-style-type:disc">3 sigma rule of thumb is used as AD algorithm</li></ul><ul id="6bef8053-0c04-4f5b-8b4e-37d0c0d98ee9" class="bulleted-list"><li style="list-style-type:disc">Ranking score: Pearson correlation coefficient of SLO metrics between the front end and each candidate</li></ul><figure id="2c12a7a8-30eb-4f1a-b4a8-bb2ddaa58c04" class="image"><a href="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_16.34.13.png"><img style="width:624px" src="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_16.34.13.png"/></a></figure><p id="a061dfe8-2fc9-4843-8c23-c29021e802c5" class="">
+</p><h3 id="4a91816d-3161-42ed-822d-d92dc0caa74a" class="">3. Evaluation </h3><figure id="d8d843be-1b19-4572-8471-f75bd2d37858" class="image"><a href="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_16.43.32.png"><img style="width:1966px" src="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_16.43.32.png"/></a></figure><p id="69819924-3563-46b4-9f93-1efdfde59a9f" class="">
+</p><figure id="9895c73b-0b20-4cac-afdd-b4d4f96cd2e3" class="image"><a href="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_16.44.12.png"><img style="width:1810px" src="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_16.44.12.png"/></a></figure><p id="878ff09b-1e9e-44cb-a58b-1cbf894b6bfa" class="">
+</p><figure id="4148be9a-82a5-4ce8-8b0a-409d5e1fb74f" class="image"><a href="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_16.44.52.png"><img style="width:1832px" src="Microscope%2063aa9faa9fff424cb64b0c8b9fe63193/Screenshot_2021-01-06_at_16.44.52.png"/></a></figure></div></article></body></html>

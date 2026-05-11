@@ -1,0 +1,680 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>One hour window</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="aede505d-0d32-40b1-b903-b1ce2a0d0cc9" class="page sans"><header><h1 class="page-title">One hour window</h1><p class="page-description"></p></header><div class="page-body"><nav id="78c48857-10f4-42ef-8ba6-3bb0859ceecf" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7461aebc-1079-4f48-a33b-a5a9503a08bb">dockerb6d1b1b14d453b25 misses</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e0fb0543-a0b3-4341-89d1-4cf5f1e712ac">dockerc3fb5b8782cdbf02 misses</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5e2d014e-de86-45ce-b76b-6802951c8146">linux604b83a14c58ea0011d6220f misses</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9eac646a-6d6f-4f3c-9bfb-5c1b6528aef2">linux604b83aa4c58ea0011d62211 misses</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#24a38fdc-4382-4624-985e-3ddd427aa7ab">linux6040eafa3a9e9f0012cebfd4 misses</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3c13c91b-c6e3-47e4-98e3-df6eeb6155b4">linux6040f7e73a9e9f0012cec090 misses</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#38e606b1-f6ad-43a0-903a-3edf352b16b0">apache_bookstack misses</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#98c7bf8a-0042-4d43-a5e1-128dc3f40078">redis_cache misses</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#72cc7555-6d95-40fa-a8cb-86bf2261c549">nginx_weblate misses</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f6189d6a-2c53-4a32-a6bb-25b7530911bb">rubylogs_fluentd misses</a></div></nav><h3 id="7461aebc-1079-4f48-a33b-a5a9503a08bb" class="">dockerb6d1b1b14d453b25 misses</h3><p id="ad9efbf7-e169-4b4e-a4a9-9af02b7dc7e3" class="">
+</p><figure id="c2eea7b0-6fad-425d-95f2-462382769a77" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0normpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0normpct-no_subject.png"/></a></figure><figure id="2bc66315-f8a9-40f8-94e9-6e69f5c26b35" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0pct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0pct-no_subject.png"/></a></figure><figure id="c9ca51f2-3ad0-430d-b671-bd4967207d64" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelnormpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelnormpct-no_subject.png"/></a></figure><figure id="437b9eb7-e8db-4bcd-9d14-8525944b03db" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelpct-no_subject.png"/></a></figure><figure id="839ff4f7-37a1-42dc-b223-eddb8c8e2b79" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalnormpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalnormpct-no_subject.png"/></a></figure><figure id="4b340e46-9dec-477d-ad60-f2d62114f218" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalpct-no_subject.png"/></a></figure><figure id="8792137a-76d6-45c5-a3f5-cdb2c2bc39c8" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpuusernormpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpuusernormpct-no_subject.png"/></a></figure><figure id="3232623c-937c-4665-8c62-4b4e5a2b07f5" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpuuserpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpuuserpct-no_subject.png"/></a></figure><figure id="16052b4c-d54e-4b82-a976-6fb89b78086c" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockerdiskiosummaryops-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockerdiskiosummaryops-no_subject.png"/></a></figure><figure id="33a8f347-f861-4a7c-b38c-cad91cbeb4f4" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockerdiskiosummaryrate-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockerdiskiosummaryrate-no_subject.png"/></a></figure><figure id="1ceb3df8-1622-4366-9c3b-669a2f8f6ccc" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockermemoryrsspct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockermemoryrsspct-no_subject.png"/></a></figure><figure id="13dfd9f4-007c-4839-888d-b19b2ab6150a" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockermemoryusagepct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockermemoryusagepct-no_subject.png"/></a></figure><figure id="5431035d-904f-47f0-8e5a-c74804020fa5" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0normpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0normpct-no_subject.png"/></a></figure><figure id="b8e6925e-b907-4636-a535-5b849e7c7901" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0pct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0pct-no_subject.png"/></a></figure><figure id="46e139a1-8ef3-4bed-8a96-776e3bb75d2f" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelnormpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelnormpct-no_subject.png"/></a></figure><figure id="bf38ea1c-5923-4a34-b563-6928d0a878de" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelpct-no_subject.png"/></a></figure><figure id="b0a2bf71-020a-4d5b-ba99-ae780de4e2f0" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalnormpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalnormpct-no_subject.png"/></a></figure><figure id="61b8a9c2-8c53-4ba7-b411-0202ea3d8315" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalpct-no_subject.png"/></a></figure><figure id="d6e26a3d-3275-46cf-aa72-cf17569e25bc" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpuusernormpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpuusernormpct-no_subject.png"/></a></figure><figure id="9ee6aa29-fe85-4bf8-a3e9-03ce1c8b22bf" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpuuserpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpuuserpct-no_subject.png"/></a></figure><figure id="fe9f91cc-181a-46ab-a0ca-5e484cb0edda" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockerdiskiosummaryops-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockerdiskiosummaryops-no_subject.png"/></a></figure><figure id="a55e9031-0af5-433c-b734-a8d3824d38a6" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockerdiskiosummaryrate-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockerdiskiosummaryrate-no_subject.png"/></a></figure><figure id="91fbdefb-0771-4c67-8939-f824d8368cdb" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockermemoryrsspct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockermemoryrsspct-no_subject.png"/></a></figure><figure id="f4cc72a1-bc1c-4368-b82d-a4bb5ee7fb17" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockermemoryusagepct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockermemoryusagepct-no_subject.png"/></a></figure><h3 id="e0fb0543-a0b3-4341-89d1-4cf5f1e712ac" class="">dockerc3fb5b8782cdbf02 misses</h3><figure id="daad99fa-08d2-4785-ab6b-a295e94d86ce" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0normpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0normpct-no_subject%201.png"/></a></figure><figure id="198f1c4e-94b1-4389-9436-9dd7a2e8fd5e" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0pct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0pct-no_subject%201.png"/></a></figure><figure id="73336f7b-fffb-4d1f-9a40-3b96a298b48c" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore1normpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore1normpct-no_subject.png"/></a></figure><figure id="97eceb08-8515-4c3e-9b5a-ef2f8074cf3c" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore1pct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore1pct-no_subject.png"/></a></figure><figure id="b26cab8d-148b-47ac-8200-e94373aeb07e" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore2normpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore2normpct-no_subject.png"/></a></figure><figure id="46672281-ac36-4e36-b502-febe1b7a3155" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore2pct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore2pct-no_subject.png"/></a></figure><figure id="76554533-1ada-4d17-aabb-5fd98d10af14" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3normpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3normpct-no_subject.png"/></a></figure><figure id="71f5d621-391e-4504-ba45-2b120a7554c9" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3pct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3pct-no_subject.png"/></a></figure><figure id="1467753b-1a00-4dbe-b6dd-a94d27b2d900" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalnormpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalnormpct-no_subject%201.png"/></a></figure><figure id="ed7147bc-c416-4f65-9b71-57d3c8028dae" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalpct-no_subject%201.png"/></a></figure><figure id="48a80c1f-7ebc-4fe9-81fb-377f1c3d1a7f" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpuusernormpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpuusernormpct-no_subject%201.png"/></a></figure><figure id="10abf6e1-9237-4b05-9dd6-8618754f2fa4" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpuuserpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpuuserpct-no_subject%201.png"/></a></figure><figure id="f057c54c-67f9-4ca5-b124-79e7655e047f" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockerdiskiosummaryops-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockerdiskiosummaryops-no_subject%201.png"/></a></figure><figure id="b4d77a9e-45d6-454b-8669-1e738e4c302f" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockerdiskiosummaryrate-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockerdiskiosummaryrate-no_subject%201.png"/></a></figure><figure id="e5536983-5497-4f95-95d2-47cc1deca184" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockermemoryrsspct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockermemoryrsspct-no_subject%201.png"/></a></figure><figure id="db4a7134-96bc-4133-9840-eff7e1f14404" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockermemoryusagepct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockermemoryusagepct-no_subject%201.png"/></a></figure><figure id="fdd8f171-933e-43ef-bedd-4e688b7462f2" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0normpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0normpct-no_subject%201.png"/></a></figure><figure id="74d2bb30-1461-402d-9fdf-d6fbf0276146" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0pct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0pct-no_subject%201.png"/></a></figure><figure id="84cd63d7-97ab-4896-9a1e-432a1ab20979" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore1normpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore1normpct-no_subject.png"/></a></figure><figure id="5be5d7af-47a9-430e-b01e-6a1eb75453e9" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore1pct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore1pct-no_subject.png"/></a></figure><figure id="dffeea5e-af52-466b-b986-1b74f21a7199" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore2normpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore2normpct-no_subject.png"/></a></figure><figure id="83dbc4b5-77d5-4f17-b548-6692c97a0546" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore2pct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore2pct-no_subject.png"/></a></figure><figure id="d420cf6e-8433-4b62-bb64-a9f62f0cd6d8" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3normpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3normpct-no_subject.png"/></a></figure><figure id="f14e1968-3c96-4d87-ab83-3f8dbe01a89a" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3pct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3pct-no_subject.png"/></a></figure><figure id="9e6252e3-5dc7-4bd9-9e70-9e6c6657fadf" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalnormpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalnormpct-no_subject%201.png"/></a></figure><figure id="45aac61c-aec1-4905-9d98-e72f76182619" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalpct-no_subject%201.png"/></a></figure><figure id="b22376a0-48bf-487f-9830-2d961185244a" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpuusernormpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpuusernormpct-no_subject%201.png"/></a></figure><figure id="07f4da62-a0a8-4a7c-a468-f2a5e7ca35f4" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpuuserpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpuuserpct-no_subject%201.png"/></a></figure><figure id="9d9c2201-a447-4ff2-800b-f135be237553" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockerdiskiosummaryops-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockerdiskiosummaryops-no_subject%201.png"/></a></figure><figure id="1ea4c26b-506b-47b3-bb5a-b452714ade00" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockerdiskiosummaryrate-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockerdiskiosummaryrate-no_subject%201.png"/></a></figure><figure id="34101ab0-25b1-4ba7-8b82-2051e1e0848e" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockermemoryrsspct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockermemoryrsspct-no_subject%201.png"/></a></figure><figure id="17afc7f0-828b-43a6-bd50-4abc7c681174" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockermemoryusagepct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockermemoryusagepct-no_subject%201.png"/></a></figure><h3 id="5e2d014e-de86-45ce-b76b-6802951c8146" class="">linux604b83a14c58ea0011d6220f misses</h3><p id="36dd5ad9-d8a0-45fe-8a7f-7acf9e61bf20" class="">
+</p><figure id="e1eec6ed-dcc5-4aa4-aa8b-1790f203320b" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemcputotalpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemcputotalpct-no_subject.png"/></a></figure><figure id="91bb69ce-eb9f-4b74-a849-4574913e32a3" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sda.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sda.png"/></a></figure><figure id="e55c7202-3adf-47aa-bdc4-03bbc2fbac15" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sda1.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sda1.png"/></a></figure><figure id="207d98e9-d564-4d0b-8fc5-7aacba5535c2" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sdb.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sdb.png"/></a></figure><figure id="9a70727c-80b7-4c8d-8cfb-8f8d9cbd5c1c" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sdb1.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sdb1.png"/></a></figure><figure id="12047d5b-95e7-41c5-a219-874e353187d0" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkinbytes-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkinbytes-no_subject.png"/></a></figure><figure id="539388d5-5423-4b20-86ce-1dad80c0129c" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkinpackets-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkinpackets-no_subject.png"/></a></figure><figure id="2a407ef6-b30a-4e79-96a3-fe81d31d539d" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkoutbytes-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkoutbytes-no_subject.png"/></a></figure><figure id="56f42ff9-a244-43bb-a77b-5fde15075ad5" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkoutpackets-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkoutpackets-no_subject.png"/></a></figure><figure id="3fc2ce3e-391b-4bf5-8a2f-b00e8ad47d77" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemcputotalpct-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemcputotalpct-no_subject.png"/></a></figure><figure id="a891b285-48cd-4007-8d03-06f67da36066" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sda.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sda.png"/></a></figure><figure id="d120fd03-c9b7-43fb-b7e5-a34244c84be0" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sda1.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sda1.png"/></a></figure><figure id="a177a389-88f9-45dd-a935-36fd4993b762" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sdb.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sdb.png"/></a></figure><figure id="c23f7f59-d880-4fb9-a008-eedf2bf89368" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sdb1.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sdb1.png"/></a></figure><figure id="388158b3-18b3-458c-a48b-9fcb67f0fab8" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkinbytes-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkinbytes-no_subject.png"/></a></figure><figure id="1d93fb7b-4c16-431a-88cd-46f08cbe26d9" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkinpackets-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkinpackets-no_subject.png"/></a></figure><figure id="1e1023df-9bdb-4e30-a470-537b7bafcb4c" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkoutbytes-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkoutbytes-no_subject.png"/></a></figure><figure id="2a869558-46de-43ed-99ca-332fbb9486da" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkoutpackets-no_subject.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkoutpackets-no_subject.png"/></a></figure><h3 id="9eac646a-6d6f-4f3c-9bfb-5c1b6528aef2" class="">linux604b83aa4c58ea0011d62211 misses</h3><figure id="3ede0533-5127-4a8c-9a1b-dab066d3650a" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemcputotalpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemcputotalpct-no_subject%201.png"/></a></figure><figure id="ebb8c169-0fe3-4b5b-89f5-0f4a29ddd40a" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sda%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sda%201.png"/></a></figure><figure id="4d3274b2-44b7-4d29-9eb9-aba68e565d8f" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sda1%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sda1%201.png"/></a></figure><figure id="fca1a8c5-a4ad-449f-aa37-714307bd90cf" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sdb%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sdb%201.png"/></a></figure><figure id="6f5f0848-79ba-4f70-b337-06066fcb42cd" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sdb1%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sdb1%201.png"/></a></figure><figure id="b3278fe9-7cfa-4715-9ab4-ba1d07fb8322" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkinbytes-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkinbytes-no_subject%201.png"/></a></figure><figure id="c3cfa52e-2979-4c25-8d21-3df850f2298b" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkinpackets-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkinpackets-no_subject%201.png"/></a></figure><figure id="b89797d6-67e9-4579-9ef6-407c069daa1d" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkoutbytes-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkoutbytes-no_subject%201.png"/></a></figure><figure id="bc287146-6102-4885-beaa-c82666d661cf" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkoutpackets-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkoutpackets-no_subject%201.png"/></a></figure><figure id="34f45030-a8cb-4c4c-bae1-ba1a235af048" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemcputotalpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemcputotalpct-no_subject%201.png"/></a></figure><figure id="644f6b60-2c5b-471f-95f4-5047fb322a74" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sda%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sda%201.png"/></a></figure><figure id="3f07efd6-519d-4d6e-b8e1-af6e3ac4cbaf" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sda1%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sda1%201.png"/></a></figure><figure id="87ab7a1e-36f2-4275-a971-521120c9dddb" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sdb%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sdb%201.png"/></a></figure><figure id="faed8940-ee32-48f9-8851-309452270b75" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sdb1%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sdb1%201.png"/></a></figure><figure id="a9a3ef25-d7b9-4b2d-9043-496d5fb2a0c4" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkinbytes-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkinbytes-no_subject%201.png"/></a></figure><figure id="459e4be5-fc11-4905-b06f-3373b6e857df" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkinpackets-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkinpackets-no_subject%201.png"/></a></figure><figure id="eceb72c8-5149-4b5d-a811-318d528d9d57" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkoutbytes-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkoutbytes-no_subject%201.png"/></a></figure><figure id="e4b9c0b4-b93f-4023-8c67-d3e043e035d4" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkoutpackets-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkoutpackets-no_subject%201.png"/></a></figure><h3 id="24a38fdc-4382-4624-985e-3ddd427aa7ab" class="">linux6040eafa3a9e9f0012cebfd4 misses</h3><figure id="93167240-5fc4-496b-acda-a86870843040" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemcputotalpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemcputotalpct-no_subject%202.png"/></a></figure><figure id="890bbdc7-ba2d-4249-8188-b1ef3cead76d" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkoutpackets-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkoutpackets-no_subject%202.png"/></a></figure><figure id="e6562fc9-69d2-4e62-9042-a7d4713dcd19" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemcputotalpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemcputotalpct-no_subject%202.png"/></a></figure><figure id="e419b062-ba70-4c27-9a21-c33a181be497" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkoutpackets-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkoutpackets-no_subject%202.png"/></a></figure><h3 id="3c13c91b-c6e3-47e4-98e3-df6eeb6155b4" class="">linux6040f7e73a9e9f0012cec090 misses</h3><p id="4887b7ac-b4ea-4f7d-b429-dd60a122a4bd" class="">
+</p><figure id="148b611d-932b-4aac-a181-0390068d51db" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemcputotalpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemcputotalpct-no_subject%203.png"/></a></figure><figure id="23954564-711e-43dc-bcf5-aa209d152764" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sda%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sda%202.png"/></a></figure><figure id="abf300c2-5c23-4155-8929-2972c4dcbb3a" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sda1%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemdiskioiostatwriteper_secbytes-sda1%202.png"/></a></figure><figure id="f97a237a-ddce-4d50-bcef-977eb5ec0fd5" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkinpackets-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkinpackets-no_subject%202.png"/></a></figure><figure id="7cdee5c3-d06e-41ce-90e4-8145394ff4a3" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkoutpackets-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_systemnetworkoutpackets-no_subject%203.png"/></a></figure><figure id="eae1a05b-b8b9-46e0-8ae7-bd5475f189cc" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemcputotalpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemcputotalpct-no_subject%203.png"/></a></figure><figure id="5b11b733-627e-4ccc-b563-67bca95f690a" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sda%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sda%202.png"/></a></figure><figure id="c4147fda-9281-4399-834b-bb708cc38a3a" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sda1%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemdiskioiostatwriteper_secbytes-sda1%202.png"/></a></figure><figure id="59822840-054c-4392-9166-655283ae68ae" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkinpackets-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkinpackets-no_subject%202.png"/></a></figure><figure id="ce502204-f060-4ce9-acba-2464a235c3a4" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkoutpackets-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_systemnetworkoutpackets-no_subject%203.png"/></a></figure><h3 id="38e606b1-f6ad-43a0-903a-3edf352b16b0" class="">apache_bookstack misses</h3><figure id="eb80ec0e-17b1-4d54-942b-dcf1f8c1b497" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockerdiskiosummaryops-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockerdiskiosummaryops-no_subject%202.png"/></a></figure><figure id="0937b0e3-9e3c-4472-95ac-db31268a0518" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockerdiskiosummaryrate-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockerdiskiosummaryrate-no_subject%202.png"/></a></figure><figure id="43881c5d-6a9d-4ddc-86ff-dde62875ad96" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockerdiskiosummaryops-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockerdiskiosummaryops-no_subject%202.png"/></a></figure><figure id="c144d49b-1023-4039-b9ec-1b0078946f78" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockerdiskiosummaryrate-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockerdiskiosummaryrate-no_subject%202.png"/></a></figure><h3 id="98c7bf8a-0042-4d43-a5e1-128dc3f40078" class="">redis_cache misses</h3><figure id="411dae0f-793b-4c0b-8796-6a7551d12bab" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0normpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0normpct-no_subject%202.png"/></a></figure><figure id="344b08ca-a805-426c-9fe7-db05b873a0ba" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0pct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0pct-no_subject%202.png"/></a></figure><figure id="0c3cd964-b61f-4d5e-8212-c9cedcffdc9e" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore1normpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore1normpct-no_subject%201.png"/></a></figure><figure id="fbbe6e3a-aa07-4f26-879e-033bb757faf1" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore1pct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore1pct-no_subject%201.png"/></a></figure><figure id="1edb9572-d30d-4cbe-943b-a120480c6a1c" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore2normpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore2normpct-no_subject%201.png"/></a></figure><figure id="8f6175d6-def3-4943-9a69-4cd70e5067fa" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore2pct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore2pct-no_subject%201.png"/></a></figure><figure id="36d0c8b7-5330-42f1-9e3a-7140819b25fe" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3normpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3normpct-no_subject%201.png"/></a></figure><figure id="3184d7f0-5cbb-46e5-a815-8348d04673db" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3pct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3pct-no_subject%201.png"/></a></figure><figure id="e17a312a-e340-4e10-a201-67ddc623dd4f" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelnormpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelnormpct-no_subject%201.png"/></a></figure><figure id="8e0e7d1a-8995-4d09-ad9b-38e09310324f" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelpct-no_subject%201.png"/></a></figure><figure id="ce1935b6-e9de-4196-9e25-01d47547de72" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalnormpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalnormpct-no_subject%202.png"/></a></figure><figure id="12008450-77f0-43f8-929b-4a4f4f9c92d4" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalpct-no_subject%202.png"/></a></figure><figure id="f5871026-75c2-427c-b901-a3be91a81ea0" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0normpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0normpct-no_subject%202.png"/></a></figure><figure id="a31d01f8-3ce7-4085-8bfe-f9e4114db9ca" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0pct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0pct-no_subject%202.png"/></a></figure><figure id="648f8a37-08af-4c87-b6ba-6f9e7a55fad6" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore1normpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore1normpct-no_subject%201.png"/></a></figure><figure id="ca864af7-ec3e-4f85-b789-0846ae605d42" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore1pct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore1pct-no_subject%201.png"/></a></figure><figure id="6323e1c0-dfaf-48e1-ab67-a55786646b7b" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore2normpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore2normpct-no_subject%201.png"/></a></figure><figure id="54cae393-99ab-4910-b574-a6bab5a7237f" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore2pct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore2pct-no_subject%201.png"/></a></figure><figure id="8fac91d3-6950-40d4-a6ea-247530bb7d78" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3normpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3normpct-no_subject%201.png"/></a></figure><figure id="d89135fb-5a90-4bc1-abb8-92ac9b282d16" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3pct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3pct-no_subject%201.png"/></a></figure><figure id="0af431d5-1c41-4144-b56f-cd267e8932de" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelnormpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelnormpct-no_subject%201.png"/></a></figure><figure id="63644161-67d2-4cc2-b7fd-65932a598011" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelpct-no_subject%201.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelpct-no_subject%201.png"/></a></figure><figure id="8d416c25-cfed-4b81-8d26-ae15126d0083" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalnormpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalnormpct-no_subject%202.png"/></a></figure><figure id="0c4d5528-86c4-4d59-9470-11ed9c0f9052" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalpct-no_subject%202.png"/></a></figure><h3 id="72cc7555-6d95-40fa-a8cb-86bf2261c549" class="">nginx_weblate misses</h3><figure id="ca6c17b6-9c6f-4f13-973c-9dca868b2573" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0normpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0normpct-no_subject%203.png"/></a></figure><figure id="ab9706bb-4740-4c10-a316-555010c75c82" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0pct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore0pct-no_subject%203.png"/></a></figure><figure id="d6692d5e-e174-4201-83a0-1b45a1f6a751" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore1normpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore1normpct-no_subject%202.png"/></a></figure><figure id="f6f7afba-4e58-4e43-a84b-ba85d2bc6216" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore1pct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore1pct-no_subject%202.png"/></a></figure><figure id="f090e0bb-db26-4315-95a1-e4d08bd47357" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore2normpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore2normpct-no_subject%202.png"/></a></figure><figure id="2532c8c5-0363-4090-9f33-3816ff7abb69" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore2pct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore2pct-no_subject%202.png"/></a></figure><figure id="881f0cd7-95af-4352-a450-dd9f1399e081" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3normpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3normpct-no_subject%202.png"/></a></figure><figure id="97fb17d8-a746-4b00-aee5-9327f30bd571" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3pct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3pct-no_subject%202.png"/></a></figure><figure id="b1a8a7ef-e8db-40c0-b0f5-5f22336da975" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelnormpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelnormpct-no_subject%202.png"/></a></figure><figure id="270c19bd-08c6-4d64-9837-b9c954e96830" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelpct-no_subject%202.png"/></a></figure><figure id="d1c4d1f0-6ec2-445a-8730-cdd46bea894e" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalnormpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalnormpct-no_subject%203.png"/></a></figure><figure id="04a561a0-d6a1-460f-9fd6-67376c8e5530" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercputotalpct-no_subject%203.png"/></a></figure><figure id="0a97e1f8-809a-4e7f-9cb2-1ab0968f8eb8" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpuusernormpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpuusernormpct-no_subject%202.png"/></a></figure><figure id="005c724d-17d0-4ed6-beb8-1255a8f6ebb6" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpuuserpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpuuserpct-no_subject%202.png"/></a></figure><figure id="2420c089-f502-4d19-b18e-53b2ee2b3f4c" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0normpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0normpct-no_subject%203.png"/></a></figure><figure id="ee16d476-fe5b-4668-9a26-5ee84de1accb" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0pct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore0pct-no_subject%203.png"/></a></figure><figure id="1b6793bc-698d-4081-ada4-cac64ec89684" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore1normpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore1normpct-no_subject%202.png"/></a></figure><figure id="ca83b7bb-f9ab-469d-9314-0fec50819ebd" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore1pct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore1pct-no_subject%202.png"/></a></figure><figure id="3ecdb0cd-067e-49fa-8ed4-df483aa8b8f1" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore2normpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore2normpct-no_subject%202.png"/></a></figure><figure id="5706a965-912e-43d7-972f-06e26d73e10c" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore2pct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore2pct-no_subject%202.png"/></a></figure><figure id="62858c5d-ac43-48d1-bb9d-17de37c579be" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3normpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3normpct-no_subject%202.png"/></a></figure><figure id="ef49eece-ab3c-4614-8c17-9aa84d167e89" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3pct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3pct-no_subject%202.png"/></a></figure><figure id="3e7d8099-0671-433c-9674-a46a917a78a6" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelnormpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelnormpct-no_subject%202.png"/></a></figure><figure id="8e56c6b6-a1a8-4d17-bed3-0c227e81892c" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelpct-no_subject%202.png"/></a></figure><figure id="be3ddedb-5fdb-4e8a-ba9d-350d25f279cd" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalnormpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalnormpct-no_subject%203.png"/></a></figure><figure id="ff28a587-fac0-4b12-9eee-2de0cdb0cef8" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercputotalpct-no_subject%203.png"/></a></figure><figure id="c185a1f1-d257-4c89-9701-ed117367a4a5" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpuusernormpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpuusernormpct-no_subject%202.png"/></a></figure><figure id="cd7143bc-bac5-4d8a-994f-ed6281b5f45e" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpuuserpct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpuuserpct-no_subject%202.png"/></a></figure><h3 id="f6189d6a-2c53-4a32-a6bb-25b7530911bb" class="">rubylogs_fluentd misses</h3><figure id="6b3ec29a-cc02-4a38-8e12-ec6184023266" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3normpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3normpct-no_subject%203.png"/></a></figure><figure id="5b8c86bd-a4a6-4cbe-912c-a60f1ad52382" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3pct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpucore3pct-no_subject%203.png"/></a></figure><figure id="c4943d0d-da9a-4e41-b9f9-9d190dfd4d3d" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelnormpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelnormpct-no_subject%203.png"/></a></figure><figure id="560e3dab-a603-4b48-a41a-e5a2c86613e9" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockercpukernelpct-no_subject%203.png"/></a></figure><figure id="ee79ed46-2909-4299-9b73-6b8a0d3b6900" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3normpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3normpct-no_subject%203.png"/></a></figure><figure id="fcfb0a68-c1f1-4b97-a8af-025d2c6826b4" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3pct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpucore3pct-no_subject%203.png"/></a></figure><figure id="416f4544-21cb-4456-8867-373bf340aa6b" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelnormpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelnormpct-no_subject%203.png"/></a></figure><figure id="abeffd8c-18ee-4446-8c95-58e457bb352b" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelpct-no_subject%203.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockercpukernelpct-no_subject%203.png"/></a></figure><p id="28623474-3366-4b66-b2ab-2ede0bbbf2ef" class="">
+</p><figure id="7c29048a-af5e-433b-8a57-e2c15abf1670" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockermemoryusagepct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/ori_dockermemoryusagepct-no_subject%202.png"/></a></figure><figure id="4335c910-4a8b-4a64-9229-773ee05ba779" class="image"><a href="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockermemoryusagepct-no_subject%202.png"><img style="width:640px" src="One%20hour%20window%20aede505d0d3240b1b903b1ce2a0d0cc9/zscore_dockermemoryusagepct-no_subject%202.png"/></a></figure></div></article></body></html>

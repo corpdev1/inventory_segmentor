@@ -1,0 +1,725 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Scaling DL algos  -wip</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="af9d0b95-2de4-41b0-8603-03456d52848c" class="page sans"><header><h1 class="page-title">Scaling DL algos  -wip</h1><p class="page-description"></p></header><div class="page-body"><p id="8d3248fb-c14d-4a7c-90f2-9eea678ec345" class="">
+</p><nav id="da0cf918-70f2-4b98-8365-2dd00bf7ee93" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#abebd006-8628-4f5d-b10d-10a67fcbc1e8">Scaling <strong>Deeplog </strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ca71a9fc-d4d9-46b4-b32f-d541cf8278ff">PoC Deeplog</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9563190a-8fe5-43f9-923c-917160da57da">The dataset </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a13d4431-54b7-4b4d-898f-cf7748e84c86">First Approach </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#794470ab-4569-420e-8b40-4ad292099195">Preprocessing step</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#297114f1-1025-4899-b77e-27c3ad7be5f6">The model</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e366c2f7-4fa5-4def-8a7d-580a65d88682">Results</a></div></nav><h3 id="abebd006-8628-4f5d-b10d-10a67fcbc1e8" class="">Scaling <strong>Deeplog </strong></h3><p id="a17016d5-b778-49ba-b951-93c85042e854" class="">for details, refer to <a href="Documentations%20of%20logs%20algorithms%202368cd998943417eaa5de0134cf54dee/DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b.html">https://www.notion.so/packetai/DeepLog-a5bde3c588c04d7fadd36e711ac33e3b</a></p><p id="3caee26b-1969-4fca-b609-6bee26ceaff6" class="block-color-pink_background"><strong>Product Objectives</strong></p><ul id="cebbf850-1811-41b2-b4ae-62ea1a1bb3b2" class="block-color-pink_background bulleted-list"><li style="list-style-type:disc">detect log (sequence) anomalies in real time </li></ul><ul id="b9898c06-0863-492c-893e-de2740c28666" class="block-color-pink_background bulleted-list"><li style="list-style-type:disc">point to the root cause of log anomalies in real time </li></ul><p id="a8060134-44d3-482d-8173-50f3b5bb544b" class="block-color-pink_background"><strong>Inputs</strong></p><ul id="dd345665-28ed-4c85-a83f-bcc90ccf0e23" class="block-color-pink_background bulleted-list"><li style="list-style-type:disc">IT logs from potentially tens of different sources  </li></ul><p id="c0b28c50-10ba-496a-85b4-d53810333a7e" class="block-color-pink_background"><strong>Output</strong></p><ul id="ca6c387b-ab42-4a63-91d1-dd63ec5cbcb6" class="block-color-pink_background bulleted-list"><li style="list-style-type:disc">probability of a log (sequence) anomaly </li></ul><p id="72682398-bfe0-43ef-b15a-a766cd012b60" class="block-color-pink_background">(note, the output of the LSTM behind deeplog is either a probability of anomalous template or probability of anomalous template sequence)</p><p id="f63f92a0-09e2-4cba-8bf6-e81d8deafdcc" class="">
+</p><p id="0cad5a13-b337-4140-82d2-80a65d3b0eea" class=""><strong>Possible architectures</strong></p><ol type="1" id="4ee0768c-4185-480d-abb0-aea83823d77a" class="numbered-list" start="1"><li><span style="border-bottom:0.05em solid"><strong>Single task</strong></span><span style="border-bottom:0.05em solid"> </span><span style="border-bottom:0.05em solid"><strong>architecture: </strong></span><strong>one Dlog model per log source </strong></li></ol><p id="3d19bbe1-d57b-4c5a-b4c9-f644763a8b6b" class="">in this design, we deploy one Dlog model instance per log stream (i.e per IT component). Example: </p><div id="2993f684-f85c-4777-b55a-284291159eea" class="column-list"><div id="460ca417-85e3-4b00-9e0e-10ef96749d04" style="width:50%" class="column"><figure id="8b2729bb-3426-4bcb-b1b2-011b58d0c16c" class="image"><a href="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/IMG_2448.jpg"><img style="width:336px" src="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/IMG_2448.jpg"/></a></figure></div><div id="bb6028fb-db6c-4ba9-9b27-37fd6fd089bd" style="width:50%" class="column"><figure id="95de8724-da99-463a-8258-9f03d57f0f87" class="image"><a href="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/IMG_8244.jpg"><img style="width:336px" src="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/IMG_8244.jpg"/></a></figure></div></div><p id="95bfdd3d-fb95-4a9c-8f26-70e95edf161c" class=""><strong>Pros</strong></p><ul id="a16e3856-860a-4d17-82b2-cb9376136bbe" class="bulleted-list"><li style="list-style-type:disc">Complete isolation of the pipeline of data, from source to deeplog output → easy troubleshooting </li></ul><ul id="b6010127-69c7-4bdf-ace9-37a38864b457" class="bulleted-list"><li style="list-style-type:disc">one-task learning → higher accuracy </li></ul><ul id="9e5d8c46-f29b-4b8d-b079-3de2dc6177c6" class="bulleted-list"><li style="list-style-type:disc">Straightforward RCA</li></ul><ul id="76b0c256-3215-403e-aa25-08938f7364d3" class="bulleted-list"><li style="list-style-type:disc">Fine-grained pipeline → extensible architecture. Eg, easy to add user control over what and what not to monitor using dlog. </li></ul><ul id="fb6fc4fa-3fe7-48cd-bf29-9ee424cb7a0a" class="bulleted-list"><li style="list-style-type:disc">Fine-grained pipeline → abstractable architecture. Eg, easy to build more abstract pipelines if needed in the future (eg, one dlog model per collection of data sources - all syslogs together for example)</li></ul><p id="2b2b3ec1-74bb-4a91-82b7-1e9153dd4630" class=""><strong>Cons</strong></p><ul id="2ead5ff2-fab9-40ef-9166-9f8f12f4da07" class="bulleted-list"><li style="list-style-type:disc">expensive in compute resource. What&#x27;s the size and cost of one Dlog instance? </li></ul><ul id="e2364b41-a9d3-4f3a-82d7-cd8d0145e056" class="bulleted-list"><li style="list-style-type:disc">requires system level scalability (i.e distribution) </li></ul><p id="212f2ccb-1b21-4c13-ba42-fec3ef3e839f" class="">
+</p><p id="1f5e7ec6-6ab9-44b6-9e3d-b17eded49c51" class=""><strong>2. </strong><span style="border-bottom:0.05em solid"><strong>Multi-task architecture:</strong></span><strong> one Dlog model for all log sources</strong></p><p id="d24cd193-4f63-4c9f-8a78-546182121a66" class="">in this design, we deploy one dlog instance to process logs from all sources. Eg: </p><figure id="16168651-2dd2-4f1e-9263-a4a58653ed7d" class="image"><a href="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/IMG_5499.jpg"><img style="width:336px" src="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/IMG_5499.jpg"/></a></figure><p id="c2b63a9b-d423-4e48-b03f-036424f3bd50" class=""><strong>Pros</strong></p><ul id="ae6cceb8-d631-4a90-b474-339a98ef4d2b" class="bulleted-list"><li style="list-style-type:disc">easy to build and maintain on a system level </li></ul><ul id="bcd9c021-0efa-4a67-a581-a2da92f545fc" class="bulleted-list"><li style="list-style-type:disc">multi-task learning → captures inter-dependancies </li></ul><ul id="4c4f1d00-7ff2-4925-9c8b-6232c25273ac" class="bulleted-list"><li style="list-style-type:disc">cheap in compute resource </li></ul><p id="d316be43-2589-479d-980d-2245df7f0f2a" class=""><strong>Cons</strong></p><ul id="b1218a62-296f-49f5-9037-1165a49120d3" class="bulleted-list"><li style="list-style-type:disc">requires separate encoding of templates to enable RCA (if anomaly, encoding indicates the source)</li></ul><p id="1b031966-c2fe-4554-b41f-0dc29d6c9d75" class="">
+</p><p id="a484bc88-2c93-4f0a-9cc5-02a25817ebe7" class=""><strong>3. </strong><strong><span style="border-bottom:0.05em solid">Hybrid architecture:</span></strong><strong> one Dlog model per collection of log sources</strong></p><p id="7bdc5a60-bda3-41a1-a08f-7e3f29ed0350" class="">in this design, we deploy one dlog instance to process logs from a collection of sources. Eg: </p><figure id="3106bf31-8683-4cc7-9b26-09f8ebbc2085" class="image"><a href="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/IMG_8288.jpg"><img style="width:336px" src="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/IMG_8288.jpg"/></a></figure><p id="29a35f70-0df8-448d-b6c7-4e308aa0ee8a" class=""><strong>Pros</strong></p><ul id="d11cd108-7f5e-4880-983d-0a8998e22d38" class="bulleted-list"><li style="list-style-type:disc"></li></ul><p id="e3d4126d-8684-4c45-a32c-9d405e600707" class="">
+</p><p id="5044265a-d1c2-4e97-b023-7a98ff342f91" class=""><strong>Cons</strong> </p><p id="ded92da5-87de-442d-9da5-cf0d275b48cb" class="">
+</p><p id="3ca5e7e5-62f7-47ed-9d4d-be62d9ffc1c5" class=""><strong><span style="border-bottom:0.05em solid">4. Redundant hybrid architecture: </span></strong><strong>a hybrid architecture with redundant model </strong></p><p id="bc56285e-ea8d-4ce5-b20d-01e658a9e0cd" class="">in this design, we deploy one dlog instance to process logs from each log source. We also deploy another global model instance to process logs from all sources. Eg:</p><figure id="426cf827-ca50-42ed-a7a3-c02b3fcb74c8" class="image"><a href="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/IMG_8746.jpg"><img style="width:336px" src="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/IMG_8746.jpg"/></a></figure><p id="f9d9f96c-98a3-425a-8c07-dded91dfb42b" class=""><strong>Pros</strong></p><ul id="646f64cb-d8e8-44b7-a77d-419ab7ad1868" class="bulleted-list"><li style="list-style-type:disc"></li></ul><p id="5e20d8f5-80f3-4c7f-b0be-36cf67db936f" class="">
+</p><p id="4f3957ce-8daf-43f7-b0ca-7c65293b656b" class=""><strong>Cons</strong></p><p id="72020912-5a80-42c5-8c18-1122ac9c70d1" class="">
+</p><p id="14175507-e8ec-4603-8020-ac19d9732f7f" class="">
+</p><p id="330c3a21-0fa8-4924-bde9-b8b4bf0d2f18" class=""><span class="user">@Isaac Cohen Sabban</span></p><p id="66655b07-735d-444f-80d9-aa8a92b0380b" class=""><strong><span style="border-bottom:0.05em solid">Mixture: </span></strong><strong>a hybrid architecture</strong></p><p id="3bf8d709-f575-41bc-952d-e2d3418c0be8" class="">Start with a little literature about others applications</p><p id="2d3cf0b3-94b7-4fd1-86a7-ee63f3efaa0a" class="">
+</p><p id="d516f7c9-9e27-425b-b9ab-5fddf9f5bbe3" class="">In finance, Insurance, biology  is pretty common to have a mixture of law.<div class="indented"><p id="f2833737-7b15-4b52-8e91-2eac6acfaf92" class="">In insurance, the cost of a claims is a mix between a Gamma law and a Pareto law.</p><p id="934dcb77-c15e-41a1-b3e4-5b14cdbd19b3" class="">Pareto is use for extremes and rares events.</p><p id="09be87bb-a5d6-4b9b-8fe8-86ed689c8a4e" class="">An extreme event is not necessary a rare event but in this use case is the same things.</p><p id="9749ea65-e2f8-4b15-83b1-54b5028a57d9" class="">Take a financial crisis, it&#x27;s something rare, and the losses are extreme.</p><p id="ef220334-e038-4170-9670-50d2476a8f7d" class="">
+</p></div></p><p id="49716e6c-af29-4b2c-8281-5feef3de6f81" class="">For establish model based on a mixture of law, Bishop introduce in 1994 MDN for <a href="https://publications.aston.ac.uk/id/eprint/373/1/NCRG_94_004.pdf">Mixture Density Network</a>. </p><p id="52e00825-9053-4634-8535-eea00440741d" class="">The output is not directly a prediction but </p><ul id="c7041a78-d0e0-444f-b3b2-a2ff6b4dab4d" class="bulleted-list"><li style="list-style-type:disc">the probability of an observation to belong to the distribution k</li></ul><ul id="14e71938-cfc0-4cd2-9bc0-a0fdad20a126" class="bulleted-list"><li style="list-style-type:disc">The different paramètre of the distributions </li></ul><p id="c5cbf737-26b4-4063-a95b-d4378f28e37f" class="">
+</p><p id="73019c95-fec4-4ad7-a7ec-6d64251b39b8" class="">
+</p><p id="ee61eb03-2387-49c0-9e09-730c8d5099fc" class="">Mixture model with K components<div class="indented"><figure id="8a684688-852f-420c-bc3a-cdcd0d15e2a4" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mo stretchy="false">(</mo><mi>t</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mi>K</mi></munderover><msub><mi>π</mi><mi>i</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>∗</mo><msub><mi>f</mi><mi>k</mi></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">p(t|x)=\sum_{i=0}^K \pi_i(x)*f_k(t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mord">∣</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.106005em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283360000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">K</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span></span></div></figure><p id="7edc768e-2eb5-43cf-a7c0-66f2be3b4fde" class="">where </p><figure id="9d23bf64-2ae0-4a2f-9942-0d65569d5f5d" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>π</mi><mi>i</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>t</mi><mi>h</mi><mi>e</mi><mtext> </mtext><mi>p</mi><mi>r</mi><mi>o</mi><mi>b</mi><mi>a</mi><mi>b</mi><mi>i</mi><mi>l</mi><mi>i</mi><mi>t</mi><mi>y</mi><mtext> </mtext><mi>t</mi><mi>h</mi><mi>a</mi><mi>t</mi><mtext> </mtext><mi>x</mi><mtext> </mtext><mi>i</mi><mi>s</mi><mtext> </mtext><mi>i</mi><mi>n</mi><mtext> </mtext><mi>K</mi><mtext> </mtext><mi>a</mi><mi>n</mi><mi>d</mi><mtext> </mtext><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mi>K</mi></munderover><msub><mi>π</mi><mi>i</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex"> \pi_i(x)\ the\ probability\ that\ x\ is\ in\ K\ and\ \sum_{i=0}^K \pi_i(x)=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.106005em;vertical-align:-1.277669em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace"> </span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mspace"> </span><span class="mord mathnormal">p</span><span class="mord mathnormal">ro</span><span class="mord mathnormal">babi</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace"> </span><span class="mord mathnormal">t</span><span class="mord mathnormal">ha</span><span class="mord mathnormal">t</span><span class="mspace"> </span><span class="mord mathnormal">x</span><span class="mspace"> </span><span class="mord mathnormal">i</span><span class="mord mathnormal">s</span><span class="mspace"> </span><span class="mord mathnormal">in</span><span class="mspace"> </span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mspace"> </span><span class="mord mathnormal">an</span><span class="mord mathnormal">d</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283360000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">K</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span></div></figure><figure id="405b626d-d686-4eb3-8300-f197c3398240" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>f</mi><mi>k</mi></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>d</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>i</mi><mi>t</mi><mi>y</mi><mtext> </mtext><mi>f</mi><mi>u</mi><mi>n</mi><mi>c</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mtext> </mtext><mi>o</mi><mi>f</mi><mtext> </mtext><mi>t</mi><mi>h</mi><mi>e</mi><mtext> </mtext><mi>K</mi><mo>−</mo><mi>t</mi><mi>h</mi><mtext> </mtext><mi>c</mi><mi>o</mi><mi>m</mi><mi>p</mi><mi>o</mi><mi>n</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">f_k(t)\ density\ function\ of\ the\ K-th\ components </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace"> </span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">s</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace"> </span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">u</span><span class="mord mathnormal">n</span><span class="mord mathnormal">c</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mspace"> </span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mspace"> </span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mspace"> </span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mspace"> </span><span class="mord mathnormal">co</span><span class="mord mathnormal">m</span><span class="mord mathnormal">p</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">s</span></span></span></span></span></div></figure><p id="4929fea4-3754-404d-aaac-12c5c9ba62eb" class="">Two suggestions:</p><p id="a9ddcadf-4d69-444f-a72e-fd4d9c217780" class="">First one Embedding matrix for each techno</p><figure id="2c604eff-77cd-4840-9249-e143e49ac52a" class="image"><a href="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/Deeplog.001.jpeg"><img style="width:1920px" src="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/Deeplog.001.jpeg"/></a></figure><p id="42635ee5-8685-4b26-b1aa-c477d61d91ff" class="">
+</p><p id="c910822d-1885-4272-af80-4f18d7e6927f" class="">Second one embedding for all technologies</p><figure id="e7701338-f552-467b-8f18-da7b869bdc89" class="image"><a href="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/Deeplog.002.jpeg"><img style="width:1920px" src="Scaling%20DL%20algos%20-wip%20af9d0b952de441b0860303456d52848c/Deeplog.002.jpeg"/></a></figure><p id="dbad745c-c51f-4c06-b011-c9241650764a" class="">
+</p><p id="5183857a-3632-4d72-80ed-d356f6fec5e7" class="">I think the second is most interesting for us </p><p id="0f7fed41-1f95-48e9-911b-3a01bdb3444b" class="">
+</p><p id="ea494589-17ff-4044-9fdd-9334ba50e7f8" class="">
+</p><p id="5189e9a2-1e6a-409a-8fc8-fe1b82d63c38" class=""><strong>Pros</strong></p><ul id="d9c6351c-7ff2-40f5-b760-83b391c98dbd" class="bulleted-list"><li style="list-style-type:disc">We have the chance to already now how many mixture we have. In other domains the don&#x27;t have this chance</li></ul><ul id="c9594413-be84-4243-815b-5beaae5b2335" class="bulleted-list"><li style="list-style-type:disc">We can also apply it to Gus </li></ul><ul id="3d373732-c75f-4ef2-9fe6-41df51bef77b" class="bulleted-list"><li style="list-style-type:disc">Proof on real time </li></ul><p id="7e54780f-7902-43dd-80f9-a1be7f630e14" class="">
+</p><p id="17806f27-9e2e-47d8-9455-b1b279581fdb" class=""><strong>Cons</strong></p><p id="c1bbede9-9199-4788-8863-e1e25da22c44" class="">
+</p><p id="3fc4753b-5f7b-4ad6-8162-81a03c64b98c" class="">
+</p><p id="8f4cedb8-5be0-4990-b341-57b0c87ca970" class="">Next step </p><ol type="1" id="bf3ff681-bb48-42cb-8257-545f0d81fcb2" class="numbered-list" start="1"><li>Test One Embedding Matrix for Many technos</li></ol><ol type="1" id="2d4f479d-d758-4412-a765-6f3f06231b83" class="numbered-list" start="2"><li>Test the output of the Embedding as an Input for deeplog</li></ol><ol type="1" id="9a7c4341-ba21-4166-99d7-2da126a8887f" class="numbered-list" start="3"><li>Test many inputs for deeplog with one Embedding</li></ol><ol type="1" id="bb67de3c-f960-4c0b-bd8a-94e7743017fc" class="numbered-list" start="4"><li>Test many Embeddings algorithms </li></ol><ol type="1" id="90b3c8ad-0c31-42d6-bfcf-72c83caf8311" class="numbered-list" start="5"><li>Optimize Embedding Time computation </li></ol><p id="f79791f9-fa2a-4fdf-87f4-a79e7b0a6258" class="">
+</p></div></p><p id="e3126b57-ee83-4bb1-be22-b1de315a9328" class="">Ressource :</p><p id="dd3736c5-2d26-4a10-b4f0-b10ff885c4b5" class=""><a href="https://openreview.net/pdf?id=BJJLHbb0-">Deep Autoencoding GMM for unsupervised Anomaly Detection</a></p><p id="b04736a0-bb3f-4ab8-9849-c40217cbae81" class=""><a href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.130.7445&amp;rep=rep1&amp;type=pdf">A Bayesian Classification Model for Real-Time Intrusion Detection</a></p><p id="08a9ab75-39d5-44ae-adf1-416d1e163895" class=""><a href="https://watermark.silverchair.com/181194.pdf?token=AQECAHi208BE49Ooan9kkhW_Ercy7Dm3ZL_9Cf3qfKAc485ysgAAAr4wggK6BgkqhkiG9w0BBwagggKrMIICpwIBADCCAqAGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMtJCTxSVS1gvKP78FAgEQgIICcYXk6oMcbVjGbiLkcwvuHMhW3MEAzoW5m3NzxrbS9DFuNfA_8gXn7JKj5ApBfPyWkd_OPlzzrYWkG9jNHXifuLC0SCJaN6Iqbs6flQzvOcqcDgKX6QE7MllnOKmxTvuLcK3Pk7Yxx8vLDgHdSlo3Bi86Ff8Zj4TXR9tsYS5y3Ggp_09L_q1y8mB7jrbZMTRq6Hh0w599DgDTnnI7i0dGqZoRTlvSKotAUpppnFLZINySi7ck5DrtyFxTcPMv5T6kA2-ZADIm1mGInMS6-WF0OF7s8eUYlyzLB4Qmc25zAhf0SqkF0zpemDJ-efxw-yEz-bJldrZT71fBCai0t2yRvj9_Hf_6fZOYaUs4b-GMFDr3gPBLnO460v9Fpiyz4PTR2C0PhtGfTCMf2XHgrzgW3jZk_hRB66jdXPimBSxa4VbG9TInua8EGMsARRTdggfQlZ_FRxa5efvrvlzjqEtB1CsRxy-wIBUuLwGGVHIuZtY3n-Gp_PJnhWUUX_tRwvUOYWQvpzOuR8d0jLq0l1a8xciSiDLtVtODAO9lHYCEBBQZuqk8eyyGsuCp-0_EELDpY9sSiNdiRBfFvsiuxM0xzIyX4suavaCULVgMfAR5whSKV1mwzWjdsjC5rYg4u6OcXTlIQalYY4LzyzKWkwN07gHh_ie1WY8jaWdFyS3Pf8Yp6jey5M0h3b_tYtBAm_SVsPIapxm_7Hfe6ksegBpZ1pyTMT4ff1zN_e9ZqtE-RN8m-96gOxP12DkJ47rM4RpJJEGDzw_UekxOp1JTAd9oKBvIu-vDDdd8hf4PBwdS9BFecIF54x2cVyh51Y4httVBlu4">https://watermark.silverchair.com/181194.pdf?token=AQECAHi208BE49Ooan9kkhW_Ercy7Dm3ZL_9Cf3qfKAc485ysgAAAr4wggK6BgkqhkiG9w0BBwagggKrMIICpwIBADCCAqAGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMtJCTxSVS1gvKP78FAgEQgIICcYXk6oMcbVjGbiLkcwvuHMhW3MEAzoW5m3NzxrbS9DFuNfA_8gXn7JKj5ApBfPyWkd_OPlzzrYWkG9jNHXifuLC0SCJaN6Iqbs6flQzvOcqcDgKX6QE7MllnOKmxTvuLcK3Pk7Yxx8vLDgHdSlo3Bi86Ff8Zj4TXR9tsYS5y3Ggp_09L_q1y8mB7jrbZMTRq6Hh0w599DgDTnnI7i0dGqZoRTlvSKotAUpppnFLZINySi7ck5DrtyFxTcPMv5T6kA2-ZADIm1mGInMS6-WF0OF7s8eUYlyzLB4Qmc25zAhf0SqkF0zpemDJ-efxw-yEz-bJldrZT71fBCai0t2yRvj9_Hf_6fZOYaUs4b-GMFDr3gPBLnO460v9Fpiyz4PTR2C0PhtGfTCMf2XHgrzgW3jZk_hRB66jdXPimBSxa4VbG9TInua8EGMsARRTdggfQlZ_FRxa5efvrvlzjqEtB1CsRxy-wIBUuLwGGVHIuZtY3n-Gp_PJnhWUUX_tRwvUOYWQvpzOuR8d0jLq0l1a8xciSiDLtVtODAO9lHYCEBBQZuqk8eyyGsuCp-0_EELDpY9sSiNdiRBfFvsiuxM0xzIyX4suavaCULVgMfAR5whSKV1mwzWjdsjC5rYg4u6OcXTlIQalYY4LzyzKWkwN07gHh_ie1WY8jaWdFyS3Pf8Yp6jey5M0h3b_tYtBAm_SVsPIapxm_7Hfe6ksegBpZ1pyTMT4ff1zN_e9ZqtE-RN8m-96gOxP12DkJ47rM4RpJJEGDzw_UekxOp1JTAd9oKBvIu-vDDdd8hf4PBwdS9BFecIF54x2cVyh51Y4httVBlu4</a></p><p id="aacb0839-ee18-4ec9-b07d-48f366b847a1" class=""><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=4967863">A hybrid Pareto Mixture for Conditional Asymmetric Fat-Tailed Distribution </a></p><p id="05bbbe56-8df2-4e07-b0ac-26943b710388" class=""><a href="https://core.ac.uk/download/pdf/288487414.pdf">Review of popular word embedding models for event log anomaly detection purposes</a></p><p id="f38521d2-b3dd-4e5e-a7db-aa09f957a54a" class=""><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=7996706">Detecting and predicting outages in mobile networks with log data</a></p><p id="dbbb7623-b206-441e-8cfe-47b42aef2a94" class=""><a href="https://academiccommons.columbia.edu/doi/10.7916/D8C53SKF">Anomaly Detection over Noisy Data Using Learned Probability Distributions</a></p><p id="84a07016-81fc-4aee-84ab-5743be50055b" class=""><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=6406752">A new, principled approche to AD</a></p><p id="558ba35c-dc6e-4615-a657-9be88e58657d" class=""><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8884802">DIOT: A Federated Self-learning Anomaly Detection System for IoT</a></p><p id="583de153-9cc0-4159-889f-910974d0f7c6" class=""><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8665792">Doomsday: Predicting Which Node Will Fail When on Supercomputers</a></p><p id="0da30be9-d094-4324-a2eb-a8edfcfa8626" class="">
+</p><p id="b0e2e9f4-c7b2-4fab-ad93-a623abef81c4" class="">
+</p><h1 id="ca71a9fc-d4d9-46b4-b32f-d541cf8278ff" class="">PoC Deeplog</h1><p id="860f296c-0b36-4a20-bf64-ebc80558d7bd" class="">
+</p><h2 id="9563190a-8fe5-43f9-923c-917160da57da" class="">The dataset </h2><p id="894a7dd9-1ab1-430b-8b26-03c07d469321" class="">
+</p><h3 id="a13d4431-54b7-4b4d-898f-cf7748e84c86" class="">First Approach </h3><p id="933f34a6-9d67-488c-846d-4a51223794b1" class=""><span class="user">@Isaac Cohen Sabban</span> </p><p id="fba7a93a-420c-4a0c-8d27-e9983ebd0e66" class="">
+</p><p id="0f9c8cd1-5ffc-4b39-874f-f8e2705de111" class="">The dataset we use is a dataset that we have created.
+It is based on 2K datasets from <a href="https://github.com/logpai/logparser/tree/master/logs">Logpai</a>.</p><p id="68ce7d67-de31-4cc5-b79f-d96c4dc4abda" class="">Following this sequence</p><pre id="21b5d710-99c1-49a2-ab00-5bc4bed87b30" class="code"><code>[&#x27;HealthApp&#x27;, &#x27;HealthApp&#x27;, &#x27;Spark&#x27;, &#x27;Apache&#x27;, &#x27;Hadoop&#x27;, &#x27;Hadoop&#x27;, &#x27;Hadoop&#x27;, &#x27;Zookeeper&#x27;]</code></pre><p id="88471a70-b553-4acb-8cba-02f4627cbaa5" class="">We draw a log from each dataset to simulate an instance with multi sources.</p><p id="c7bedfb3-179b-41a6-b896-d6f806dfe52d" class="">To simulate anomalies, we decided to change, every 1000 logs, the logs from the train dataset by the 10 first log from HDFS.</p><h2 id="794470ab-4569-420e-8b40-4ad292099195" class="">Preprocessing step</h2><p id="2a9b12d8-6005-437e-942d-049cf05408ab" class="">For this step, we decide to follow the second approach of </p><figure id="278cc8f0-c752-4574-a9b5-a69e4ebbd45b" class="link-to-page"><a href="Documentations%20of%20logs%20algorithms%202368cd998943417eaa5de0134cf54dee/Template%20Extraction%20based%20on%20Word%20Embedding%20ef8dda8c38564e978a40f4b607622ceb/Archive%200f032d79a80f470fb0119d53b670aa88/Template%20Extraction%20based%20on%20Word%20Embedding%20278cc8f0c7524574a9b5a69e4ebbd45b.html">Template Extraction based on Word Embedding</a></figure><p id="6400d60b-3001-4328-95a7-eebfbd43a138" class="">All the dataset pass into an Embedding matrix and a clustering based on cosinus similarity.</p><h2 id="297114f1-1025-4899-b77e-27c3ad7be5f6" class="">The model</h2><p id="0d2a71a0-a339-4a39-8929-8271fee2a3e3" class="">For more information about Deeplog, go to this page </p><figure id="a5bde3c5-88c0-4d7f-add3-6e711ac33e3b" class="link-to-page"><a href="Documentations%20of%20logs%20algorithms%202368cd998943417eaa5de0134cf54dee/DeepLog%20a5bde3c588c04d7fadd36e711ac33e3b.html">DeepLog</a></figure><p id="632b4c43-fa6c-4e71-8f14-644ceba752cc" class="">1 input Layer, 1 output Layer</p><p id="b279e4de-533c-426e-a3e7-22fbbd6e7a1a" class="">2 Bi-LSTM and Attention Layer </p><figure id="7e48d028-822e-41c9-8dc8-00c4ce884970" class="link-to-page"><a href="Documentations%20of%20logs%20algorithms%202368cd998943417eaa5de0134cf54dee/Scalable%20Encoder-Decoder%20Model%20with%20(Self-)attenti%207e48d028822e41c98dc800c4ce884970.html">Scalable Encoder-Decoder Model with (Self-)attention mechanism</a></figure><p id="869e851f-1e46-45fe-a888-3088ff4ddb1b" class="">Input and output : Cluster from Word Embedding.</p><p id="169e942f-96d0-45ce-9d98-b6fa10a9d33e" class="">Input is a sequence of integer</p><p id="d04e9277-5f36-4025-acc8-b96551b546e9" class="">Output is a vector of probability. </p><p id="985d6926-3efe-4ad4-946b-f39bbe0cac67" class="">
+</p><p id="1708a5fa-03e3-4fef-b39b-faeb2b3c65f2" class="">
+</p><h2 id="e366c2f7-4fa5-4def-8a7d-580a65d88682" class="">Results</h2><p id="6a9bdc6a-839e-43fd-b0bf-94f8d2a8122a" class="">F1-scores</p><pre id="2ed2dc79-c0cb-4dda-be29-2627fa093e37" class="code"><code>g=1
+0.9571867215109207
+g=2
+0.9316873404949848
+g=3
+0.9153359445616149
+g=4
+0.8985436299106596
+g=5
+0.8634928652607652
+g=6
+0.8521872210177274
+g=7
+0.8384848680389753
+g=8
+0.8278197447251888
+g=9
+0.8226829746876839
+g=10
+0.8153218375674609</code></pre><p id="5a6bd98c-61d5-4706-8091-f55ef17b22e0" class="">
+</p></div></article></body></html>

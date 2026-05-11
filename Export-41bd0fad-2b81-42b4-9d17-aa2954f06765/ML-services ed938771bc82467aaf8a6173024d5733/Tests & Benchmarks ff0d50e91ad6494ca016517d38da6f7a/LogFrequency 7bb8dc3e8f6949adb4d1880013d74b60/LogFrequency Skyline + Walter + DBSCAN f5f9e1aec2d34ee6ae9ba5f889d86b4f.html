@@ -1,0 +1,676 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>LogFrequency: Skyline + Walter + DBSCAN</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f5f9e1ae-c2d3-4ee6-ae9b-a5f889d86b4f" class="page sans"><header><h1 class="page-title">LogFrequency: Skyline + Walter + DBSCAN</h1><p class="page-description"></p></header><div class="page-body"><figure id="e406cf60-3d3e-46df-ba33-56719ec7247f"><div class="source"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/benchmark.py">benchmark.py</a></div></figure><nav id="bc3c7895-ce95-4502-8f0c-354179c2b4f0" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fb00949e-0602-46fd-90f7-0692e8369a0f">Intro</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#41de2100-8788-4849-a41a-c4ba23b9beb6">Results</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#be44a760-32ec-490e-bb8b-6d3223b20087">60ddc7da72033d00111f4be1-docker-log-pythonzero-gachis-rabbit-master-stashed</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6ca4d769-b5b6-4c79-adca-1129ecc189c1">60ddc7da72033d00111f4be1-docker-log-zero-gachis-celery-master-stashed</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#24c95fe4-e77c-4338-9c89-6978eecd4c78">60ddc7da72033d00111f4be1-docker-log-pythonemail-service-master-stashed</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c1da2f14-06dd-4b5d-8b11-42df769cbdeb">6040a96cdcc614001153fc55-docker-log-post-processing_post-processing-stashed</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c4f6ef30-6923-4a09-a774-1c8d5ae2cee7">6040a96cdcc614001153fc55-docker-log-nginxweblate_weblate-stashed</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dfcf09d0-7dd6-4f32-9ee0-5a938ad63402">6040a96cdcc614001153fc55-docker-log-apachedocumentation_bookstack-stashed</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#db162532-4a0e-456e-867c-3668ab8abb06">6040a96cdcc614001153fc55-docker-log-nginxappsmith_appsmith-nginx-stashed</a></div></nav><h2 id="fb00949e-0602-46fd-90f7-0692e8369a0f" class="">Intro</h2><p id="f1b4a1cc-26c5-485d-b98d-a3651e3fe3f3" class="">During this experiment we were clustering anomalies based on the average anomaly score (an average is taken over all algorithms inside of Skyline + Walter). </p><ul id="fb86efd0-ffe6-4094-829e-38b18b3882bf" class="bulleted-list"><li style="list-style-type:disc">For each anomaly the following features were used during the clustering:</li></ul><p id="9ccd8138-52ad-4032-9ddb-32e052002693" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><mi>s</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><mfrac><mrow><mi>h</mi><mi>o</mi><mi>u</mi><mi>r</mi></mrow><mn>24</mn></mfrac><mo>∗</mo><mn>2</mn><mi>π</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>c</mi><mi>o</mi><mi>s</mi><mo stretchy="false">(</mo><mfrac><mrow><mi>h</mi><mi>o</mi><mi>u</mi><mi>r</mi></mrow><mn>24</mn></mfrac><mo>∗</mo><mn>2</mn><mi>π</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>s</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><mfrac><mrow><mi>m</mi><mi>i</mi><mi>n</mi><mi>u</mi><mi>t</mi><mi>e</mi></mrow><mn>60</mn></mfrac><mo>∗</mo><mn>2</mn><mi>π</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>c</mi><mi>o</mi><mi>s</mi><mo stretchy="false">(</mo><mfrac><mrow><mi>m</mi><mi>i</mi><mi>n</mi><mi>u</mi><mi>t</mi><mi>e</mi></mrow><mn>60</mn></mfrac><mo>∗</mo><mn>2</mn><mi>π</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{sin(\frac{hour}{24} * 2 \pi), cos(\frac{hour}{24} * 2 \pi),sin(\frac{minute}{60} * 2 \pi), cos(\frac{minute}{60} * 2 \pi), value\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mopen">{</span><span class="mord mathnormal">s</span><span class="mord mathnormal">in</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">24</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">cos</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">24</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.200664em;vertical-align:-0.345em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">in</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.855664em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">60</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.200664em;vertical-align:-0.345em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">cos</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.855664em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">60</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">u</span><span class="mord mathnormal">e</span><span class="mclose">}</span></span></span></span></span><span>﻿</span></span></p><ul id="70566baa-66c9-43c3-8a75-567c7193f107" class="bulleted-list"><li style="list-style-type:disc">We normalize the data (<em>MinMax scaler</em>) before performing the clustering</li></ul><ul id="301d51bb-aaff-4282-9d49-9aa1b262835a" class="bulleted-list"><li style="list-style-type:disc">DBSCAN parameters: <em>eps=0.5, min_samples=10</em></li></ul><h2 id="41de2100-8788-4849-a41a-c4ba23b9beb6" class="">Results</h2><p id="7508cdcb-5cec-42a4-beb5-d3d253e0ef78" class="">The following examples contain (for each topic):</p><ul id="41f92760-6f86-476e-9d13-c0c91516b80d" class="bulleted-list"><li style="list-style-type:disc">Initial <mark class="highlight-blue">metric values</mark> (in blue) and anomalies based on <mark class="highlight-red">average anomaly score</mark> (in red). An average is taken over all algorithms inside of Skyline + Walter</li></ul><ul id="ad44ced4-dc36-4ca4-8f00-081658087bdd" class="bulleted-list"><li style="list-style-type:disc">Clusters based on <a href="https://en.wikipedia.org/wiki/DBSCAN">DBSCAN</a> algorithm</li></ul><ul id="6708f841-f477-4b8a-9af7-3cf3a83f7de5" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red">Outliers</mark> (in red) and <mark class="highlight-teal">adjusted anomalies</mark> (in green) based on DBSCAN clusters</li></ul><h3 id="be44a760-32ec-490e-bb8b-6d3223b20087" class="">60ddc7da72033d00111f4be1-docker-log-pythonzero-gachis-rabbit-master-stashed</h3><figure id="a3e793fe-7e59-4529-a213-2c2aab3a2474" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(27).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(27).png"/></a></figure><figure id="34a95b3e-3c0a-42d8-8f26-853503ce1e43" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(29).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(29).png"/></a></figure><figure id="187adabc-0a11-407b-9ff5-e11687813706" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(28).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(28).png"/></a></figure><h3 id="6ca4d769-b5b6-4c79-adca-1129ecc189c1" class="">60ddc7da72033d00111f4be1-docker-log-zero-gachis-celery-master-stashed</h3><figure id="523e6c3e-818a-4325-8f94-b3ba44c88f51" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(30).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(30).png"/></a></figure><figure id="cd742acb-8905-4b6c-91dd-2020d976b4c3" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(31).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(31).png"/></a></figure><figure id="a2c55d44-d1d9-474d-b357-2ed408192087" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(32).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(32).png"/></a></figure><h3 id="24c95fe4-e77c-4338-9c89-6978eecd4c78" class="">60ddc7da72033d00111f4be1-docker-log-pythonemail-service-master-stashed</h3><figure id="779180f9-f65e-4fc3-af1f-68a09914d709" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(33).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(33).png"/></a></figure><figure id="e6b9d39d-d6b3-45b4-9595-6f03af9e8da0" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(35).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(35).png"/></a></figure><figure id="7fa44c21-523b-498a-8229-4f0a0c8ccddf" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(34).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(34).png"/></a></figure><h3 id="c1da2f14-06dd-4b5d-8b11-42df769cbdeb" class="">6040a96cdcc614001153fc55-docker-log-post-processing_post-processing-stashed</h3><figure id="034a0e55-f47f-4e5d-9e4c-c87845c89671" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(36).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(36).png"/></a></figure><figure id="9b6ef3f6-1de7-4892-93d8-94a0e8529b43" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(37).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(37).png"/></a></figure><figure id="17316ee2-fac6-4b7f-8174-e82bafe22cd4" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(38).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(38).png"/></a></figure><h3 id="c4f6ef30-6923-4a09-a774-1c8d5ae2cee7" class="">6040a96cdcc614001153fc55-docker-log-nginxweblate_weblate-stashed</h3><figure id="dcb7577b-e249-41ce-bf3c-b471304a433f" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(39).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(39).png"/></a></figure><figure id="2826c82c-7d73-4735-b3b7-35ab954daa1c" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(41).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(41).png"/></a></figure><figure id="a1b6d182-3935-4699-a0cd-6f7044a8a8fa" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(40).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(40).png"/></a></figure><h3 id="dfcf09d0-7dd6-4f32-9ee0-5a938ad63402" class="">6040a96cdcc614001153fc55-docker-log-apachedocumentation_bookstack-stashed</h3><figure id="f6becc38-94a5-44c8-a819-c145d4b74f3d" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(45).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(45).png"/></a></figure><figure id="864e7a0c-90a3-4ef4-9686-7b2ba8b1addc" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(46).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(46).png"/></a></figure><figure id="7e21a4ac-d661-44b5-9a10-46a2f3c8dfd7" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(47).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(47).png"/></a></figure><h3 id="db162532-4a0e-456e-867c-3668ab8abb06" class="">6040a96cdcc614001153fc55-docker-log-nginxappsmith_appsmith-nginx-stashed</h3><figure id="dee8264a-dae9-4fbf-97ab-935c1b6764da" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(48).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(48).png"/></a></figure><figure id="6b74b9d2-3fa2-4618-83cd-7c198bae085a" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(49).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(49).png"/></a></figure><figure id="3038bd18-b9e1-4fa5-8b31-37f89ac8d516" class="image"><a href="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(50).png"><img style="width:1600px" src="LogFrequency%20Skyline%20+%20Walter%20+%20DBSCAN%20f5f9e1aec2d34ee6ae9ba5f889d86b4f/newplot_(50).png"/></a></figure></div></article></body></html>

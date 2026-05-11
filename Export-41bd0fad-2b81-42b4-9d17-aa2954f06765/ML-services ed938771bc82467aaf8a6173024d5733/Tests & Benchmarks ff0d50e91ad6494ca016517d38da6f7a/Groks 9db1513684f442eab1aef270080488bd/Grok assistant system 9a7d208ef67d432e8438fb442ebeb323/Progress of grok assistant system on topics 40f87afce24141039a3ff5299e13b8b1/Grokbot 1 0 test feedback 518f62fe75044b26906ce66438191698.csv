@@ -1,0 +1,29 @@
+﻿Issues,Reporter,Impact,Priority,Description,Solution
+"Discovering new groks ","Marwen Sallem, Hariprasad Kannan, karim alami",,,this is sometime a long process that could long up to 30 minutes.,"@dengke li: one grok is composed of multiple grok token, for existing grok token should be found either from candidates proposition or notion page, for new grok token , yes, we need take time to generate it manually"
+Repeatable stuff,"Marwen Sallem, Hariprasad Kannan, karim alami",,,"copy-pasting from/to notion page / give some feedback on the comment page / downloading data and try to find the different properties (period, number of messages, ...) /","@dengke li copy pasting grok token or grok, i think later we can either use a better visualised notion page or some dashboard/windows complement to the grok bot system
+
+"
+Defocus 1,Marwen Sallem,,,Asking and discussion with @Dengke Li regarding the issues we spotted or to use the tool in general,
+Defocus 2,Marwen Sallem,,,Asking @Marwen on how to make some groks,
+Setup,"Marwen Sallem, Hariprasad Kannan",Medium,Low,Setting up the data,"@Hariprasad Kannan: It will be good to prepare a large number of topics (if not all) a day before we start preparing groks for the topics. It will save a lot of context switching time.
+
+@Marwen Sallem this problem would disappear when working live I think. It would be better if we can improve the data fetching on the grokbot though.
+
+@Hariprasad Kannan: If the live stream has enough samples, then yes, it looks like this is not a problem. 
+
+Fix: should be fixed with fix on Grokbot%201%200%20test%20feedback%20518f62fe75044b26906ce66438191698/Topic%20not%20having%20enough%20data%20f3568e0a4537435bb64652d1209bee98.html"
+Topic not having enough data,Hariprasad Kannan,Medium,High,"The topic on the production Kafka may not have enough number of samples.
+On S3, one may have to look back several months to obtain enough samples.","@Hariprasad Kannan: This could be dealt with in a case by case basis. This is tied to the setup phase, where we could decide how to deal with the different topics (some directly from production Kafka, some based on restore service (if restore service, what period gives us enough data)).
+
+Fix : update on restore service with additional arguments"
+Coverage of the topic,Hariprasad Kannan,Low,Low,"It is not clear how many samples are enough to represent a topic.
+There are some topics that change their nature over time. It is not clear how to sample and decide what is representative.
+There are some topics that have more than 60K messages in one hour. So sampling at the level of the one hour aggregated files from S3 may not be enough.",No fix : Alerting pipeline already enable to find non parsed logs
+Not feeding too many samples to the grok-bot,Hariprasad Kannan,,,"The grok-bot slows down linearly with the number of samples it is fed. This is expected behavior. So it is best to feed only up to a maximum (say, 50000) number of messages. This is related to the concern of having enough representative samples in the set that we have chosen.","Fix : additional argument to set up a maximum number of loglines
+Use clustering for smart sampling after improving it."
+Dealing with custom logs,Hariprasad Kannan,,,"Some logs (especially, error messages that start with a distinct string events.js:352\n throw er; // Unhandled 'error' event\n ^, QueryFailedError: ...) need different ways to deal with the first string: either a hard-coded string that is the same value as the first string or regex to extract the first string or merge the first string with the content. This can be figured out only after one or two passes through the set of logs.",
+Recovering ZG Data,karim alami,,,"I spent the first hour to add ZG certificates and configs into GrokBot code in order to download data from ZG Kafka. ",This step should be faster with the new Data restore repo
+Copy/paste from/to notion,karim alami,,,This step was repeatable and slows down the process,
+Unseen groks,karim alami,,,Can take several minutes,Ask the team
+Bad logs,karim alami,Low,,One component logs were badly encoded. The input grok was correct but there was no match,Check GrokBot logs (already done)
+Defocus 3,Marwen Sallem,Low,Medium,"When we start entering groks, the grokbot could suggest to enter a grok for something that is GREEDYDATA. For this we need to enter a ""fake"" grok, otherwise it will match all the following groks ",Fix : should be resolved with a good clustering

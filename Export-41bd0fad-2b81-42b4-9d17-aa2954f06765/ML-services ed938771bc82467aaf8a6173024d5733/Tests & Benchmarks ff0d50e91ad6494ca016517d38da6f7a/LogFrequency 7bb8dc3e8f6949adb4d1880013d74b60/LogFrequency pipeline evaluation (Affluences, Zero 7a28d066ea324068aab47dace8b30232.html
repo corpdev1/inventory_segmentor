@@ -1,0 +1,679 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>LogFrequency: pipeline evaluation (Affluences, Zero Gachis, cwallet)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7a28d066-ea32-4068-aab4-7dace8b30232" class="page sans"><header><h1 class="page-title">LogFrequency: pipeline evaluation (Affluences, Zero Gachis, cwallet)</h1><p class="page-description"></p></header><div class="page-body"><p id="73beec68-28f8-4514-8e3c-fdd40cb4ac08" class=""><span class="user">@Valentin Lapparov</span> wrote <time>@November 18, 2021</time> </p><p id="3dcdba3b-1edb-4b21-9aee-e953c8db4a0f" class="">
+</p><figure id="33131007-39e9-4e19-99a8-8458f3771721" class="link-to-page"><a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Support%20files%203313100739e94e1999a88458f3771721.html">Support files</a></figure><figure id="f285dd48-88c1-4f49-8214-1a2076b78d25" class="link-to-page"><a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Evaluation%20charts%20f285dd4888c14f4982141a2076b78d25.html">Evaluation charts</a></figure><figure id="96560fcc-878c-49c7-9a31-9dc69fd6f8d6" class="link-to-page"><a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Detected%20anomalies%2096560fcc878c49c79a319dc69fd6f8d6.html">Detected anomalies</a></figure><nav id="448a2814-c98f-444a-be3f-b28431466fe9" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#673fb3d2-2d01-4b66-9fdd-db283fa3b794">Experiment setup</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7be35d56-0f3a-48a0-b428-db85e2d65902">Evaluation charts</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#960718c2-813c-4797-92b2-800dadbdb282">Model assignment </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#aa7bd0a3-cb66-42e7-b665-ec9058926deb">Report</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d8cd4890-8769-4470-8947-19d90ff918cf">Observations</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9f9ae96e-3fd4-4ed9-b0f1-d7908322ea97">Update <time>@November 26, 2021</time> : adding absolute delta to log frequency pipeline</a></div></nav><h2 id="673fb3d2-2d01-4b66-9fdd-db283fa3b794" class="">Experiment setup</h2><p id="194339c0-3b3a-4c93-a105-47787e86baa5" class="">The evaluation of LogFrequency pipeline was done using data of Affluences, Zero Gachis and cwallet for the period from <code>2021-11-01 00:00:00</code> till <code>2021-11-16 00:00:00</code> as follows:</p><ul id="400530f5-9927-4450-bf83-aef6388ae39e" class="bulleted-list"><li style="list-style-type:disc">Log count data from <code>2021-11-01 00:00:00</code> till <code>2021-11-08 14:50:00</code> was used to identify the shape of time-series and for model training</li></ul><ul id="ef10a42d-59ad-48c0-85a3-3759bf6c41c8" class="bulleted-list"><li style="list-style-type:disc">Log count data from <code>2021-11-08 14:50:00</code> till <code>2021-11-16 00:00:00</code> was used for model evaluation </li></ul><h2 id="7be35d56-0f3a-48a0-b428-db85e2d65902" class="">Evaluation charts</h2><p id="a4ff86ef-cb23-4bf5-ab93-36543132c4db" class="">For each client we&#x27;ve generated the <a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Evaluation%20charts%20f285dd4888c14f4982141a2076b78d25.html">evaluation charts</a>. They are organized as follows:</p><ul id="d8c4a6db-2cf4-48c6-80b3-f0a9fc15a412" class="bulleted-list"><li style="list-style-type:disc"><code>anomalies</code> folder contains charts for data in which we found anomalies</li></ul><ul id="3c3b2013-6784-404e-8368-9f5a6ea75572" class="bulleted-list"><li style="list-style-type:disc"><code>no_anomalies</code> folder contains charts for data in which no anomalies were found</li></ul><ul id="3ed4fea6-d8c3-4146-b87b-003eec3f70ec" class="bulleted-list"><li style="list-style-type:disc"><code>not_deployed</code> folder contains  charts for topics without deployments (the decision regarding the model deployment to the topic was based on the result of the classifier and the predicted shape. We did not deploy for data of <code>sparse</code> shape)</li></ul><p id="19db9829-1c74-436e-bcdc-a788f2891184" class="">Each chart contains the following information:</p><ul id="a1cc223f-fae8-49ad-9827-2b45c4320ee0" class="bulleted-list"><li style="list-style-type:disc">data source of the form <code>infraID-agentID-componentID</code> </li></ul><ul id="78e1d062-e9f4-43c1-b2b8-adc11eddcb02" class="bulleted-list"><li style="list-style-type:disc">predicted time-series shape</li></ul><ul id="33bfaefb-d287-436b-9d62-fcbc7effe752" class="bulleted-list"><li style="list-style-type:disc">deployed models (<code>HB</code> (stands for the &quot;histogram bins&quot;) and/or <code>Skyline</code>)</li></ul><ul id="4afaaca8-aa29-45c6-983e-efc5642147fd" class="bulleted-list"><li style="list-style-type:disc">train and test data split is highlighted with color</li></ul><ul id="e87e406b-0b9d-4bdb-9d44-c95b39cb157e" class="bulleted-list"><li style="list-style-type:disc">abnormal points colored <mark class="highlight-red">red</mark>: abnormal points that user would receive</li></ul><ul id="40c9635f-154a-492f-b61c-c986d38d5f15" class="bulleted-list"><li style="list-style-type:disc">abnormal points colored black: abnormal points filtered by noise reduction algorithm and user wouldn&#x27;t see</li></ul><h2 id="960718c2-813c-4797-92b2-800dadbdb282" class="">Model assignment </h2><p id="13019fc0-7e4a-4032-8602-fc40fa71e41f" class="">The <span style="border-bottom:0.05em solid"><strong>model assignment</strong></span> was done as follows:</p><ul id="0f39ddda-caa0-4b91-a8f6-044f07b033ed" class="bulleted-list"><li style="list-style-type:disc">“sparse data with no patterns”: <strong>no models</strong></li></ul><ul id="32e35f35-2bdb-40ce-aa11-b63d8a8a6c5f" class="bulleted-list"><li style="list-style-type:disc"><strong>“</strong>usually the same values observed”: <strong>HB</strong></li></ul><ul id="d4c94d2a-9a62-4f91-97a2-41554daced4c" class="bulleted-list"><li style="list-style-type:disc">“random noisy data”: <strong>HB + Skyline</strong></li></ul><ul id="9d0bcc81-c5be-4510-b362-a2b62239a83d" class="bulleted-list"><li style="list-style-type:disc">“dense data around the mean value”: <strong>HB + Skyline</strong></li></ul><p id="8060850b-5499-4c3e-b16a-02a9db535bda" class=""><span style="border-bottom:0.05em solid"><strong>Note</strong></span>: the point is anomalous if <strong>all</strong> detectors gave a positive result, i.e.</p><p id="f7855273-d3fb-41aa-b4ee-e27cde02b38d" class=""><code>HB</code>: True, <code>Skyline</code>: True → the point is abnormal</p><p id="4dd916a6-7b01-4f36-a17d-a212e82edbea" class=""><code>HB</code>: False, <code>Skyline</code>: True → the point is not abnormal</p><p id="57c8ff91-4bcf-4362-a3a7-470d7a03e125" class=""><code>HB</code>: True, <code>Skyline</code>: False → the point is not abnormal</p><h2 id="aa7bd0a3-cb66-42e7-b665-ec9058926deb" class="">Report</h2><table id="37aeb611-35b6-45ff-b0ff-54f87aa65f57" class="simple-table"><thead class="simple-table-header"><tr id="0ddb2397-1f4a-4e03-9d39-7e891c623620"><th id="k=qt" class="simple-table-header-color simple-table-header" style="width:119.99919976128473px">Client</th><th id="Rl;[" class="simple-table-header-color simple-table-header" style="width:119.99919976128473px">Deployed models (covered topics)</th><th id="=e&gt;m" class="simple-table-header-color simple-table-header" style="width:119.99919976128473px">Overall number of detected anomalies</th><th id="Pruj" class="simple-table-header-color simple-table-header" style="width:119.99919976128473px">Overall number of anomalies sent to the client</th><th id="`l~e" class="simple-table-header-color simple-table-header" style="width:119.99919976128473px">False Positive Anomalies</th><th id="TnjN" class="simple-table-header-color simple-table-header" style="width:119.99919976128473px">FP rate</th><th id="VfTh" class="simple-table-header-color simple-table-header" style="width:119.99919976128473px">Average FP per day</th><th id="ZBIF" class="simple-table-header-color simple-table-header" style="width:119.99919976128473px">Incidents (estimation)</th><th id="^e&gt;[" class="simple-table-header-color simple-table-header" style="width:119.99919976128473px">Incidents per day</th></tr></thead><tbody><tr id="ebc6ed88-06de-4e9c-be0a-34eefd4df245"><td id="k=qt" class="" style="width:119.99919976128473px">Affluences</td><td id="Rl;[" class="" style="width:119.99919976128473px">51</td><td id="=e&gt;m" class="" style="width:119.99919976128473px">92</td><td id="Pruj" class="" style="width:119.99919976128473px">79</td><td id="`l~e" class="" style="width:119.99919976128473px">12</td><td id="TnjN" class="" style="width:119.99919976128473px">13%</td><td id="VfTh" class="" style="width:119.99919976128473px">1.7</td><td id="ZBIF" class="" style="width:119.99919976128473px">39</td><td id="^e&gt;[" class="" style="width:119.99919976128473px">5.57</td></tr><tr id="650507d1-6404-40e6-a658-6fd4255f107c"><td id="k=qt" class="" style="width:119.99919976128473px">Zero Gachis</td><td id="Rl;[" class="" style="width:119.99919976128473px">16</td><td id="=e&gt;m" class="" style="width:119.99919976128473px">27</td><td id="Pruj" class="" style="width:119.99919976128473px">27</td><td id="`l~e" class="" style="width:119.99919976128473px">7</td><td id="TnjN" class="" style="width:119.99919976128473px">26%</td><td id="VfTh" class="" style="width:119.99919976128473px">1</td><td id="ZBIF" class="" style="width:119.99919976128473px">18</td><td id="^e&gt;[" class="" style="width:119.99919976128473px">2.57</td></tr><tr id="77271fd6-2310-44ea-a1eb-a6a9e00153e2"><td id="k=qt" class="" style="width:119.99919976128473px">cwallet</td><td id="Rl;[" class="" style="width:119.99919976128473px">21</td><td id="=e&gt;m" class="" style="width:119.99919976128473px">49</td><td id="Pruj" class="" style="width:119.99919976128473px">0</td><td id="`l~e" class="" style="width:119.99919976128473px">7</td><td id="TnjN" class="" style="width:119.99919976128473px">14%</td><td id="VfTh" class="" style="width:119.99919976128473px">1</td><td id="ZBIF" class="" style="width:119.99919976128473px">10</td><td id="^e&gt;[" class="" style="width:119.99919976128473px">1.43</td></tr></tbody></table><figure id="f1898efb-580c-4ed5-9d95-7ef5ee61c08f" class="image"><a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/merged_anomaliesPerDay.png"><img style="width:816px" src="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/merged_anomaliesPerDay.png"/></a></figure><figure id="e5d43b75-bda9-4ef5-abc0-c2531f79ebc9" class="image"><a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/merged_anomaliesPerDay%201.png"><img style="width:816px" src="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/merged_anomaliesPerDay%201.png"/></a></figure><figure id="6ec351b4-6f3d-40a5-8de9-28dbc46adf80" class="image"><a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/merged_anomaliesPerDay%202.png"><img style="width:816px" src="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/merged_anomaliesPerDay%202.png"/></a></figure><h2 id="d8cd4890-8769-4470-8947-19d90ff918cf" class="">Observations</h2><ul id="47e62e20-9c9d-4b09-889d-380286b8ea94" class="bulleted-list"><li style="list-style-type:disc"><strong>Affluences</strong><ul id="06a77449-2aaa-4b53-8e38-0d4f21d7ca6b" class="bulleted-list"><li style="list-style-type:circle">Some False Positives could be reduced by introducing pertinent alerting rules that measure the difference between the average number of logs and observed one (for example <a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Evaluation%20charts%20f285dd4888c14f4982141a2076b78d25/Affluences%2014e24ec7229b40f9afe159ab04b6aba5.html">here</a>, <a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Evaluation%20charts%20f285dd4888c14f4982141a2076b78d25/Affluences%2014e24ec7229b40f9afe159ab04b6aba5.html">here</a> and <a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Evaluation%20charts%20f285dd4888c14f4982141a2076b78d25/Affluences%2014e24ec7229b40f9afe159ab04b6aba5.html">here</a> abnormal points had log counts that were different from average number by no more than 5 logs)</li></ul><ul id="b78f3f9d-d2bd-4899-a9c0-49e982b43c1a" class="bulleted-list"><li style="list-style-type:circle">Anomalies for <a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Evaluation%20charts%20f285dd4888c14f4982141a2076b78d25/Affluences%2014e24ec7229b40f9afe159ab04b6aba5.html"><code>6040a96cdcc614001153fc55-docker-monitoring_prometheus</code></a> were detected but not shown on Minima due to some bug →  raised an issue <time>@November 18, 2021</time> </li></ul><ul id="adc7e9a2-4b59-4ca3-a771-ceaa0ee817dd" class="bulleted-list"><li style="list-style-type:circle">Probably need to review the definition of sparse data: some topics are not covered (<code><a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Evaluation%20charts%20f285dd4888c14f4982141a2076b78d25/Affluences%2014e24ec7229b40f9afe159ab04b6aba5.html">6040a96cdcc614001153fc55-docker-javaappsmith_appsmith-internal-server</a></code> and <code><a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Evaluation%20charts%20f285dd4888c14f4982141a2076b78d25/Affluences%2014e24ec7229b40f9afe159ab04b6aba5.html">6040a96cdcc614001153fc55-docker-redisappsmith_redis</a></code>)</li></ul><ul id="975e7df6-8099-48ee-8e80-6a938062f559" class="bulleted-list"><li style="list-style-type:circle">Level shift was not detected for <a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Evaluation%20charts%20f285dd4888c14f4982141a2076b78d25/Affluences%2014e24ec7229b40f9afe159ab04b6aba5.html"><code>6040a96cdcc614001153fc55-docker-nodeapp_app-api</code></a> and <a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Evaluation%20charts%20f285dd4888c14f4982141a2076b78d25/Affluences%2014e24ec7229b40f9afe159ab04b6aba5.html"><code>6040a96cdcc614001153fc55-docker-nodeapp_app</code></a>→  due to <a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232.html">AND condition</a>: HB detected level shift immediately and quickly adapted while Skyline did it with some delay </li></ul></li></ul><ul id="5247830e-9b72-4d9c-8f4f-97d70e80b008" class="bulleted-list"><li style="list-style-type:disc"><strong>Zero Gachis</strong><ul id="a530e264-af4f-45bf-ac46-0421eb2f8f27" class="bulleted-list"><li style="list-style-type:circle">Many time-series changed their shape from <code>sparse</code> (<a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Evaluation%20charts%20f285dd4888c14f4982141a2076b78d25/Zero%20Gachis%206565c006e29b4d8eb94d3ab6269e2a19.html">example</a>) and need to be reevaluated with data classifier → the proof of necessity for weekly data shapes updates → think about the automation</li></ul></li></ul><ul id="bd030db7-5f3d-4497-a112-b16e4adf9681" class="bulleted-list"><li style="list-style-type:disc"><strong>cwallet</strong><ul id="8acdf94e-03ee-4c7d-a44b-88363c00568e" class="bulleted-list"><li style="list-style-type:circle">All data about exact numbers of detected and sent to the client anomalies was erased since the cluster was deleted → the results for this client are based on data stored on s3 </li></ul><p id="d4d9ce8b-ce70-4a0d-a246-375324a80b87" class="">
+</p></li></ul><h3 id="9f9ae96e-3fd4-4ed9-b0f1-d7908322ea97" class="">Update <time>@November 26, 2021</time> : adding absolute delta to log frequency pipeline</h3><p id="6601ae59-2fdf-4168-bb7d-8dd60a194126" class=""><strong>Absolute delta</strong> definition: an absolute difference between the observed value and <strong>Exponentially weighted mean (calculated in </strong><a href="https://riverml.xyz/latest/api/stats/EWMean/"><strong>stream manner</strong></a><strong>) </strong>of previous positive values</p><p id="8bc97750-39c6-4497-a562-b2cc404f7188" class="">Decision rule: an abnormal point is FP if the absolute delta value is less than a threshold (10 by default)</p><p id="d6472590-b8d5-4018-9dcd-a86f6dd7dd46" class=""><strong>Report with previous results in brackets</strong></p><table id="31f0645d-2cb7-4db6-89bb-22455384230c" class="simple-table"><thead class="simple-table-header"><tr id="99c98cb6-399f-4bf2-8a2a-d94c3192414a"><th id="k=qt" class="simple-table-header-color simple-table-header" style="width:134.9990997314453px">Client</th><th id="Rl;[" class="simple-table-header-color simple-table-header" style="width:134.9990997314453px">Deployed models (covered topics)</th><th id="=e&gt;m" class="simple-table-header-color simple-table-header" style="width:134.9990997314453px">Overall number of detected anomalies</th><th id="`l~e" class="simple-table-header-color simple-table-header" style="width:134.9990997314453px">False Positive Anomalies</th><th id="B{gk" class="simple-table-header-color simple-table-header" style="width:134.9990997314453px">FP rate</th><th id="VfTh" class="simple-table-header-color simple-table-header" style="width:134.9990997314453px">Average FP per day</th><th id="ZBIF" class="simple-table-header-color simple-table-header" style="width:134.9990997314453px">Incidents (estimation)</th><th id="^e&gt;[" class="simple-table-header-color simple-table-header" style="width:134.9990997314453px">Incidents per day</th></tr></thead><tbody><tr id="d04d6893-d9cd-486c-a85d-8f5af898b4a2"><td id="k=qt" class="" style="width:134.9990997314453px">Affluences</td><td id="Rl;[" class="" style="width:134.9990997314453px">51</td><td id="=e&gt;m" class="" style="width:134.9990997314453px">55 (92)</td><td id="`l~e" class="" style="width:134.9990997314453px">4 (12)</td><td id="B{gk" class="" style="width:134.9990997314453px">7% (13%)</td><td id="VfTh" class="" style="width:134.9990997314453px">0.5 (1.7)</td><td id="ZBIF" class="" style="width:134.9990997314453px">24 (39)</td><td id="^e&gt;[" class="" style="width:134.9990997314453px">3.4 (5.57)</td></tr><tr id="4c81240b-b289-408b-b97c-f66c824d72d2"><td id="k=qt" class="" style="width:134.9990997314453px">Zero Gachis</td><td id="Rl;[" class="" style="width:134.9990997314453px">16</td><td id="=e&gt;m" class="" style="width:134.9990997314453px">17 (27)</td><td id="`l~e" class="" style="width:134.9990997314453px">0 (7)</td><td id="B{gk" class="" style="width:134.9990997314453px">0% (26%)</td><td id="VfTh" class="" style="width:134.9990997314453px">0 (1)</td><td id="ZBIF" class="" style="width:134.9990997314453px">14 (18)</td><td id="^e&gt;[" class="" style="width:134.9990997314453px">2 (2.57)</td></tr><tr id="2c29a872-ee54-4d80-ae13-75096aa44965"><td id="k=qt" class="" style="width:134.9990997314453px">cwallet</td><td id="Rl;[" class="" style="width:134.9990997314453px">21</td><td id="=e&gt;m" class="" style="width:134.9990997314453px">30 (49)</td><td id="`l~e" class="" style="width:134.9990997314453px">3 (7)</td><td id="B{gk" class="" style="width:134.9990997314453px">10% (14%)</td><td id="VfTh" class="" style="width:134.9990997314453px">0.4 (1)</td><td id="ZBIF" class="" style="width:134.9990997314453px">9 (10)</td><td id="^e&gt;[" class="" style="width:134.9990997314453px">1.3 (1.43)</td></tr></tbody></table><figure id="e0f9e294-11cf-449f-b01b-57d3e50c8f59" class="image"><a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Screenshot_2021-11-26_at_18.42.59.png"><img style="width:720px" src="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Screenshot_2021-11-26_at_18.42.59.png"/></a></figure><p id="9015c459-f15c-4de2-a0d1-7e22a35a9812" class="">
+</p><figure id="07ff1d66-f84b-4e27-8f14-a6b452818992" class="image"><a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Screenshot_2021-11-26_at_18.57.09.png"><img style="width:720px" src="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Screenshot_2021-11-26_at_18.57.09.png"/></a></figure><figure id="ed607583-360c-4bd7-b37e-4bc1cc4a599c" class="image"><a href="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Screenshot_2021-11-26_at_19.17.40.png"><img style="width:720px" src="LogFrequency%20pipeline%20evaluation%20(Affluences,%20Zero%207a28d066ea324068aab47dace8b30232/Screenshot_2021-11-26_at_19.17.40.png"/></a></figure></div></article></body></html>

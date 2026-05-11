@@ -1,0 +1,681 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Time-series clustering</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="52de7c27-8d63-4d8b-8161-fde3da4e2a27" class="page sans"><header><h1 class="page-title">Time-series clustering</h1><p class="page-description"></p></header><div class="page-body"><nav id="ccedfe07-4645-4dc9-ac10-330da92e11f7" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4d23ed16-2f48-4962-a74d-67eaf392d604">Introduction</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f85ae64e-9964-45d6-b61b-a9b3a6aaa4f2">Resource lists on the web</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a4a7b064-b39c-4ee3-8a8a-ad2aca39511f">List of interesting papers</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5c856e1d-f364-4c86-8a11-8e0ed5d3d419">DL approaches</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#81c38f5f-3192-4a6f-80f8-5ce56fc61d51">Non-DL approaches</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b62c2570-b8d4-43dd-8abe-4fc248fcbb35">DTW, Cross-correlation, Global alignment kernel</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ea1c44ec-7ac0-4135-a93d-ec6c2f94c93e">Cluster based on features generated by TSFresh</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#11a594c8-ff46-4ead-a388-59d6e87448d0">Papers about statistical features extracted from time-series</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a768527b-6ec8-4948-b152-da32ab5210ae">More specialized features</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d8dd76dd-9cf7-4d90-a51d-6bbea621f494">Other approaches</a></div></nav><h2 id="4d23ed16-2f48-4962-a74d-67eaf392d604" class="">Introduction</h2><p id="97fdf37c-3f77-4778-92c7-f23abc217c26" class="">Time-series clustering algorithms fall into <strong>two categories</strong>. Whether similarity measures are defined:</p><ul id="1b2a14d6-512f-42bb-9c18-5dbcf7d50951" class="bulleted-list"><li style="list-style-type:disc">Directly on input (raw) data.</li></ul><ul id="15baf966-f922-448b-b63d-b894903888db" class="bulleted-list"><li style="list-style-type:disc">On the features extracted from input data.</li></ul><p id="fd5e97b5-58d6-4614-8223-ad5b7a89612e" class="">The first approach is based on distance measures like Euclidean distance, cross-correlation, DTW etc. Even though approaches like DTW and cross-correlation allow flexibility in matching corresponding regions between two time-series, there are limits to how different the two time-series can be.
+The second approach considers the time-series instances to be generated by underlying models or probability distributions. This is what we need to cluster time-series according to categories like sparse, step etc.
+Other advantages of feature based methods: Robust to the impact of noise and outliers. Reduces the dimensionality of the data, to the number of features. In the case of distance based approaches the dimensionality is directly related to the length of the time-series.
+Feature based methods can be of two types:</p><ul id="85e2a837-b047-4314-8255-5dbb3295d3e6" class="bulleted-list"><li style="list-style-type:disc">Two stage approaches that cluster after extracting features.</li></ul><ul id="ce75861e-f9b3-474d-a233-c6d95cdee89f" class="bulleted-list"><li style="list-style-type:disc">Approaches that jointly optimize the feature learning and clustering.</li></ul><h2 id="f85ae64e-9964-45d6-b61b-a9b3a6aaa4f2" class="">Resource lists on the web</h2><p id="e6bfbf6e-56e5-454c-b164-8b362befa388" class=""><a href="https://paperswithcode.com/task/time-series-clustering">https://paperswithcode.com/task/time-series-clustering</a></p><p id="62dbf8d8-acfa-487a-ab68-83590d916371" class=""><a href="https://github.com/topics/time-series-clustering">https://github.com/topics/time-series-clustering</a></p><p id="f1ee7e09-192c-4978-8889-e882c8ee7472" class=""><a href="https://github.com/Alro10/deep-learning-time-series">https://github.com/Alro10/deep-learning-time-series</a></p><h2 id="a4a7b064-b39c-4ee3-8a8a-ad2aca39511f" class="">List of interesting papers</h2><ul id="e1ff7a95-3f57-4199-82a5-b9447ce6d790" class="bulleted-list"><li style="list-style-type:disc">Feature-based classification of time-series data, Nanopoulos et al, Information processing and technology 2001, 326 citations.</li></ul><ul id="9639ccce-3470-4971-be43-63564ed4a11a" class="bulleted-list"><li style="list-style-type:disc">Finding clusters of different sizes, shapes, and densities in noisy, high dimensional data, Ertoez et al, SDM 2003, 829 citations.</li></ul><ul id="70fd4998-6093-458f-b062-9b14fc97aa87" class="bulleted-list"><li style="list-style-type:disc">(Survey) Clustering of time series data—a survey, Liao, Pattern recognition 2005, 2649 citations.</li></ul><ul id="421e90cf-efbc-4d53-86d4-811b234a1ae2" class="bulleted-list"><li style="list-style-type:disc">(Theory) Clustering of time-series subsequences is meaningless: implications for previous and future research, Keogh and Lin, Knowledge and information systems 2005, 711 citations.</li></ul><ul id="bf070356-3d7f-4ddf-8b92-99e8e8574d85" class="bulleted-list"><li style="list-style-type:disc">Characteristic-Based Clustering for Time Series Data, Wang et al, Data mining and knowledge discovery 2006, 512 citations.</li></ul><ul id="b7124222-61f4-4c95-8eca-be7a52214672" class="bulleted-list"><li style="list-style-type:disc">A kernel for time series based on global alignments, Cuturi et al, ICASSP 2007, 243 citations.</li></ul><ul id="10a6de1f-b979-4fd1-b004-79347376562c" class="bulleted-list"><li style="list-style-type:disc">Feature-Based clustering for electricity use time series data, Raesaenen and Kolehmainen, International Conference on Adaptive and Natural Computing Algorithms 2009, 84 citations.</li></ul><ul id="f8c2a4bf-cc04-499c-8ac6-ac9cb0797a61" class="bulleted-list"><li style="list-style-type:disc">(Survey) A review on time series data mining, Fu, Engineering applications of AI 2011, 1251 citations.</li></ul><ul id="b65086a0-f5d7-4a01-9e2d-2c1a1117eada" class="bulleted-list"><li style="list-style-type:disc">(Survey) Time series data mining, Esling and Agon, ACM Computing Surveys 2012, 893 citations.</li></ul><ul id="c23038c8-438b-4778-9f9c-d29b66140107" class="bulleted-list"><li style="list-style-type:disc">Clustering Time Series using Unsupervised-Shapelets, Zakaria et al, ICDM 2012, 191 citations.</li></ul><ul id="50d22e86-7e7a-4d25-9fbc-26956d535683" class="bulleted-list"><li style="list-style-type:disc">(DL) Variational recurrent auto-encoders, Fabius and Amersfoort, ICLR workshop 2015, 201 citations.</li></ul><ul id="550ce052-a974-4d6b-bfd2-ceaba2f96c86" class="bulleted-list"><li style="list-style-type:disc">Scalable Clustering of Time Series with U-Shapelets, Ulanova et al, SDM 2015, 47 citations.</li></ul><ul id="a9814c5a-4515-4199-8caa-d3ee37a9f989" class="bulleted-list"><li style="list-style-type:disc">YADING: Fast Clustering of Large-Scale Time Series Data, Ding et al, VLDB 2015, 77 citations.</li></ul><ul id="6f1a6117-38c9-4520-8244-6ad19cb8fe59" class="bulleted-list"><li style="list-style-type:disc">k-Shape: Efficient and Accurate Clustering of Time Series, Paparrizos and Gravano, SIGMOD 2015, 373 citations.</li></ul><ul id="42506e02-0c1a-413c-b94d-ee7effebc6d8" class="bulleted-list"><li style="list-style-type:disc">(Survey) A Comparison Study on Similarity and Dissimilarity Measures in Clustering Continuous Data, Shirkhorshidi et al, PloS one 2015, 220 citations.</li></ul><ul id="b95d9452-dfc6-4204-aadf-cc0d7556ffad" class="bulleted-list"><li style="list-style-type:disc">(Survey) Time-series clustering–a decade review, Aghabozorgi et al, Information Systems 2015, 973 citations.</li></ul><ul id="433c273a-c0a6-4af9-b66f-5f035542f058" class="bulleted-list"><li style="list-style-type:disc">Time Series Clustering via Community Detection in Networks, Ferreira and Zhao, Information Sciences 2016, 108 citations.</li></ul><ul id="af3d9e33-dcf6-4543-a24c-c0bd1760a292" class="bulleted-list"><li style="list-style-type:disc">Unsupervised Feature Learning from Time Series, Zhang et al, IJCAI 2016, 39 citations.</li></ul><ul id="93e76765-2ae5-4381-9d43-744386a132ad" class="bulleted-list"><li style="list-style-type:disc">Unsupervised Feature Extraction by Time-Contrastive Learning and Nonlinear ICA, Hyvarinen, Morioka, NeurIPS 2016, 110 citations.</li></ul><ul id="3e80ae40-1183-43cb-9080-bfac2ce5add3" class="bulleted-list"><li style="list-style-type:disc">Toeplitz Inverse Covariance-Based Clustering of Multivariate Time Series Data, Hallac et al, KDD 2017, 123 citations.</li></ul><ul id="aa93761f-1f7a-4117-a85d-f0ae2b376b48" class="bulleted-list"><li style="list-style-type:disc">Shape-Based Approach to Household Electric Load Curve Clustering and Prediction, Teeraratkul et al, IEEE Transactions on Smart Grids 2017, 71 citations.</li></ul><ul id="53e1ed70-2f7a-45e6-a906-c299339b86c9" class="bulleted-list"><li style="list-style-type:disc">(Survey) Feature-based time-series analysis, Ben D. Fulcher, Book chapter in Feature Engineering for Machine Learning and Data Analytics 2018, 64 citations.</li></ul><ul id="0874c45c-863b-4467-ae32-8e033ebb64e1" class="bulleted-list"><li style="list-style-type:disc">(DL) A Survey of Clustering With Deep Learning: From the Perspective of Network Architecture, Min et al, IEEE Access 2018, 183 citations.</li></ul><ul id="7b90eb36-e6ea-4c49-bb0f-e68c1a699d1f" class="bulleted-list"><li style="list-style-type:disc">(DL) Deep temporal clustering: Fully unsupervised learning of time-domain features, Madiraju et al, arxiv 2018, 37 citations.</li></ul><ul id="217637b7-ee7a-4683-bca9-cbcbc32701b9" class="bulleted-list"><li style="list-style-type:disc">Clustering of residential electricity customers using load time series, Motlagh et al, Applied energy 2019, 42 citations.</li></ul><ul id="1c6ca2e6-8a25-4caf-9c26-289ffdad8928" class="bulleted-list"><li style="list-style-type:disc">Clustering methods to find representative periods for the optimization of energy systems: An initial framework and comparison, Teichgraeber and Brandt, Applied energy 2019, 65 citations.</li></ul><ul id="0dbb71c4-829c-4ae5-aecc-92c648d22c53" class="bulleted-list"><li style="list-style-type:disc">Salient subsequence learning for time series clustering, Zhang et al, PAMI 2019, 31 citations.</li></ul><ul id="f55ff8c0-ec73-4bc2-8b70-23f2fcf8338d" class="bulleted-list"><li style="list-style-type:disc">(DL) SOM-VAE: Interpretable discrete representation learning on time series, Fortuin et al, ICLR 2019, 62 citations.</li></ul><ul id="1437e7a9-c90a-41fe-8ac6-e1deb3905b38" class="bulleted-list"><li style="list-style-type:disc">(DL) Unsupervised representation learning for time series with temporal neighborhood coding, Franceschi et al, NeurIPS 2019, 47 citations.</li></ul><ul id="4634405b-19ce-4d39-b287-903c1556c53c" class="bulleted-list"><li style="list-style-type:disc">(DL) Learning representations for time series clustering, Ma et al, NeurIPS 2019, 21 citations.</li></ul><ul id="f33ad8cc-31f7-4842-bb01-6b632b34b4f2" class="bulleted-list"><li style="list-style-type:disc">GRAIL: Efficient Time-Series Representation Learning, Paparrizos and Franklin, VLDB 2019, 6 citations.</li></ul><ul id="d04a1a97-db0e-487b-8a07-b37b77434291" class="bulleted-list"><li style="list-style-type:disc">Similarity Preserving Representation Learning for Time Series Clustering, Lei et al, IJCAI 2019, 22 citations.</li></ul><ul id="e0dd47e4-54d5-4e22-a2e4-dbc058ffdc88" class="bulleted-list"><li style="list-style-type:disc">(Survey) A benchmark study on time series clustering, Javed et al, Machine Learning with Applications 2020, 5 citations.</li></ul><ul id="8314a6d5-b3bf-4f6a-a4aa-26c2851b6a46" class="bulleted-list"><li style="list-style-type:disc">Time series clustering based on the characterization of segment typologies, Guijo-Rubio et al, IEEE Transactions on Cybernetics 2020, 12 citations.</li></ul><ul id="481d08e5-d4b5-4d87-b461-d601b728a6a6" class="bulleted-list"><li style="list-style-type:disc">(DL) DPSOM: Deep probabilistic clustering with self-organizing maps, Manduchi et al, arxiv 2020, 6 citations.</li></ul><ul id="98914da5-8e92-4539-9ffb-29f2f77efce9" class="bulleted-list"><li style="list-style-type:disc">Time2Graph: Revisiting Time Series Modeling with Dynamic Shapelets, Cheng et al, AAAI 2020, 6 citations.</li></ul><ul id="46bb74e8-5319-405a-a1a9-88cd2eb1749c" class="bulleted-list"><li style="list-style-type:disc">(DL) TimeAutoML: Autonomous Representation Learning for Multivariate Irregularly Sampled Time Series, Jiao et al, arxiv 2020, 1 citation.</li></ul><ul id="4fe9d358-d71a-423a-a6fe-6719eb24122d" class="bulleted-list"><li style="list-style-type:disc">(DL) N2D: (Not Too) Deep Clustering via Clustering the Local Manifold of an Autoencoded Embedding, McConville et al, ICPR 2020, 23 citations.</li></ul><ul id="821a2c14-6cf5-4ee4-80e2-b7e9055e258f" class="bulleted-list"><li style="list-style-type:disc">(DL) Reservoir computing approaches for representation and classification of multivariate time series, Bianchi et al, IEEE Transactions on Neural Networks and Learning Systems 2021, 24 citations.</li></ul><ul id="4c2114cc-d798-4c8a-a427-764d7e808bc3" class="bulleted-list"><li style="list-style-type:disc">Factor Modelling for Clustering High-dimensional Time Series, Zhang et al, arxiv 2021.</li></ul><h2 id="5c856e1d-f364-4c86-8a11-8e0ed5d3d419" class="">DL approaches</h2><p id="230b5986-d4ae-44bb-9d18-d7c0b1c5a037" class="">Some general points about deep learning and time-series analysis</p><p id="9f4c82f0-d8a2-4912-b3b9-3ce9c1a081db" class=""><a href="https://towardsdatascience.com/time-series-analysis-with-deep-learning-simplified-5c444315d773">https://towardsdatascience.com/time-series-analysis-with-deep-learning-simplified-5c444315d773</a></p><p id="8ef09fbf-5c8d-4a6a-acf5-abb0aebc99cb" class="">It is difficult to judge which deep learning based approach is better. There are papers that are well cited, having many github stars but rejected by ICLR.</p><p id="d06c33f8-e9e0-49c1-a596-a8fcba4f7fff" class="">Variational recurrent auto-encoders, Fabius and Amersfoort, ICLR workshop 2015, 201 citations.</p><ul id="9e972cf4-39f0-453c-9167-ae3000d5cc08" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/tejaslodaya/timeseries-clustering-vae">https://github.com/tejaslodaya/timeseries-clustering-vae</a></li></ul><p id="47f0fdae-9f4b-4974-b1e5-702c90e2e480" class="">Deep temporal clustering: Fully unsupervised learning of time-domain features, Madiraju et al, arxiv 2018, 37 citations.</p><ul id="4553424d-b8ed-4144-8db8-3d8101e07cad" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/FlorentF9/DeepTemporalClustering">https://github.com/FlorentF9/DeepTemporalClustering</a></li></ul><ul id="f4aa5e59-4342-40f0-bea9-c164d8babe5c" class="bulleted-list"><li style="list-style-type:disc">Rejected by ICLR.</li></ul><p id="827b9f38-844e-4650-9932-d2c498c5d137" class="">Learning representations for time series clustering, Ma et al, NeurIPS 2019, 21 citations.</p><ul id="8dbcc12a-333b-41d2-9658-5a1d5b99d2e1" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/qianlima-lab/DTCR">https://github.com/qianlima-lab/DTCR</a></li></ul><ul id="2faeab25-02d7-408a-8737-a3c8b9824e13" class="bulleted-list"><li style="list-style-type:disc">Assumes that the time-series are of equal length.</li></ul><ul id="415e92cf-1c73-471d-adec-59562281c217" class="bulleted-list"><li style="list-style-type:disc">The codebase from github is not saving the checkpoint weights when a new model is trained. Need to look further into leads like <a href="https://www.tensorflow.org/tutorials/keras/save_and_load">https://www.tensorflow.org/tutorials/keras/save_and_load</a> to fix this issue. </li></ul><p id="6b808e06-7698-4380-b30e-a6d3550b20ac" class="">SOM-VAE: Interpretable discrete representation learning on time series, Fortuin et al, ICLR 2019, 62 citations.
+DPSOM: Deep probabilistic clustering with self-organizing maps, Manduchi et al, arxiv 2020, 6 citations.</p><ul id="04efd2cb-e243-49ca-b18f-12f5fb607cdc" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/ratschlab/SOM-VAE">https://github.com/ratschlab/SOM-VAE</a></li></ul><ul id="c6227b76-fa5f-4c07-8eb9-eabfb02795dd" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/ratschlab/dpsom">https://github.com/ratschlab/dpsom</a></li></ul><ul id="f4be1412-0042-4aa6-9381-1276ea70c664" class="bulleted-list"><li style="list-style-type:disc">Even though DPSOM has been rejected by ICLR, SOM-VAE from the same group was published in ICLR 2019.</li></ul><ul id="55f8c11e-d2fd-4f97-8669-85fb64e87b78" class="bulleted-list"><li style="list-style-type:disc">According to them DPSOM is better than SOM-VAE.</li></ul><p id="2b6fa443-e88f-4ea0-a344-037b302dfddf" class="">Reservoir computing approaches for representation and classification of multivariate time series, Bianchi et al, IEEE Transactions on Neural Networks and Learning Systems 2021, 24 citations.</p><ul id="6e489267-85bb-49a5-96fe-02dcfcd32b6c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/FilippoMB/Time-series-classification-and-clustering-with-Reservoir-Computing">https://github.com/FilippoMB/Time-series-classification-and-clustering-with-Reservoir-Computing</a></li></ul><p id="50ed34d2-b502-449b-95e6-53c4a94bb39c" class="">N2D: (Not Too) Deep Clustering via Clustering the Local Manifold of an Autoencoded Embedding, McConville et al, ICPR 2020, 23 citations.</p><ul id="6add20dd-3c63-4bba-87d0-7d2975464704" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/rymc/n2d">https://github.com/rymc/n2d</a></li></ul><ul id="1309e3eb-b040-4671-bb4c-3621ba0a1478" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/josephsdavid/N2D">https://github.com/josephsdavid/N2D</a></li></ul><p id="d3a598e9-c9f5-45f5-9e53-506a97608a00" class="">TimeAutoML: Autonomous Representation Learning for Multivariate Irregularly Sampled Time Series, Jiao et al, arxiv 2020, 1 citation.</p><ul id="1c03d5e7-ef6d-4185-a951-03591f90f054" class="bulleted-list"><li style="list-style-type:disc">No code found so far.</li></ul><h2 id="81c38f5f-3192-4a6f-80f8-5ce56fc61d51" class="">Non-DL approaches</h2><h3 id="b62c2570-b8d4-43dd-8abe-4fc248fcbb35" class="">DTW, Cross-correlation, Global alignment kernel</h3><ul id="a226510e-5797-45c6-80a1-10ef2f068d9f" class="bulleted-list"><li style="list-style-type:disc">DTW requires the samples to be samples at the same time instances across all the time-series.</li></ul><ul id="4863d6d0-ee01-4fd3-8bf1-ca3eebca80bc" class="bulleted-list"><li style="list-style-type:disc">DTW can handle distortions in amplitude (scaling) and phase (shifting).</li></ul><ul id="b78f831d-dede-4ac6-8de4-51e9aee19d30" class="bulleted-list"><li style="list-style-type:disc">Cross-correlation (k-shape) can also handle such distortions.<ul id="40b2e9e4-b3f4-40ae-abeb-ec958150a6a3" class="bulleted-list"><li style="list-style-type:circle">k-Shape: Efficient and Accurate Clustering of Time Series, Paparrizos and Gravano, SIGMOD 2015, 333 citations.</li></ul><ul id="4a2cdb2a-f988-4ffc-b95c-42c9e9f0f854" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/johnpaparrizos/kshape">https://github.com/johnpaparrizos/kshape</a></li></ul></li></ul><ul id="e5278998-12ed-405c-a16b-862ce4e42856" class="bulleted-list"><li style="list-style-type:disc"><a href="https://tslearn.readthedocs.io/en/stable/gen_modules/tslearn.clustering.html#module-tslearn.clustering">https://tslearn.readthedocs.io/en/stable/gen_modules/tslearn.clustering.html#module-tslearn.clustering</a></li></ul><ul id="19523dac-adca-47f8-a5c7-0302a135648f" class="bulleted-list"><li style="list-style-type:disc">Also, refer this <a href="../Survey%20on%20literature%20and%20packages%2086cd84a4af6e46f7bfc41f468ad89e98.html">section on alignment</a>.</li></ul><h3 id="ea1c44ec-7ac0-4135-a93d-ec6c2f94c93e" class="">Cluster based on features generated by TSFresh</h3><ul id="23a368a7-5fc0-4359-af77-f6ea8652909c" class="bulleted-list"><li style="list-style-type:disc">A huge set of features can be computed using TSFresh.<ul id="a1df743c-2d93-4f2c-af64-ee1d326c441a" class="bulleted-list"><li style="list-style-type:circle">787 features in our experiment with 249 time-series.</li></ul></li></ul><ul id="f907d557-bd42-4459-ae28-563e001691e6" class="bulleted-list"><li style="list-style-type:disc">Deciding which ones to use for clustering needs more thought.<ul id="ba203e2f-fc78-4b53-9f5c-3778ea808ca7" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/blue-yonder/tsfresh/issues/678">https://github.com/blue-yonder/tsfresh/issues/678</a></li></ul><ul id="2d8c1a4a-7298-44df-9d81-3babf99daff1" class="bulleted-list"><li style="list-style-type:circle">By referring to papers using statistical features for time-series clustering, we can figure out what features can be tried.</li></ul></li></ul><h3 id="11a594c8-ff46-4ead-a388-59d6e87448d0" class="">Papers about statistical features extracted from time-series</h3><p id="9102f864-68b6-47be-aa1f-17aced075d61" class="">Characteristic-Based Clustering for Time Series Data, Wang et al, Data mining and knowledge discovery 2006, 512 citations.</p><ul id="ac92a489-722e-4afa-876b-31343fc70b22" class="bulleted-list"><li style="list-style-type:disc">Global measures describing the time series are obtained by applying statistical operations that best capture the underlying characteristics: trend, seasonality, periodicity, serial correlation, skewness, kurtosis, chaos, nonlinearity, and self-similarity.</li></ul><ul id="4d8eb70d-0331-4064-b32a-a17eab8f314d" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/njfritter/Characteristic-Based-Time-Series-Clustering">https://github.com/njfritter/Characteristic-Based-Time-Series-Clustering</a></li></ul><p id="784d0a6e-d501-4683-b31d-4e70689702b4" class="">Feature-Based clustering for electricity use time series data, Raesaenen and Kolehmainen, International Conference on Adaptive and Natural Computing Algorithms 2009, 84 citations.</p><ul id="f25bf6da-054f-4839-bf9c-204f230dc8b1" class="bulleted-list"><li style="list-style-type:disc">7 features: In this study, features were extracted from the raw hourly measured electricity use data using window of one week i.e. 168 data rows (hours). We extracted 7 features from each customer&#x27;s data. The features extracted were; mean, standard deviation, skewness, kurtosis, chaos (Maximal Lyapunov exponent), energy (the sum of the squared discrete FFT component magnitudes of the signal, normalized by the window length) and periodicity (Discrete Power Spectrum (periodogram): the most powerful frequency value).</li></ul><p id="65a3bcd4-ab35-417a-95ee-2bc0b74e8dff" class="">Feature-based time-series analysis, Ben D. Fulcher, Book chapter in Feature Engineering for Machine Learning and Data Analytics 2018, 64 citations.</p><p id="1a6ff052-1db4-4d49-af0a-b808ddd242d5" class=""><a href="https://lemaizi.com/blog/time-series-clustering-the-curse-of-dimensionality/">https://lemaizi.com/blog/time-series-clustering-the-curse-of-dimensionality/</a></p><ul id="0300d4f0-0f52-405a-9d05-63f0175d1e89" class="bulleted-list"><li style="list-style-type:disc">Trends, means, maximum values on certain days or entropy for example.</li></ul><h3 id="a768527b-6ec8-4948-b152-da32ab5210ae" class="">More specialized features</h3><p id="b7ea23c1-3329-42f8-9b01-e7746b6ca9c9" class="">Matrix Profile and clustering</p><ul id="56c13afa-ade7-4e33-9ffe-a9b76fabc04f" class="bulleted-list"><li style="list-style-type:disc"><a href="https://towardsdatascience.com/time-series-consensus-motifs-8345152bd6ac">https://towardsdatascience.com/time-series-consensus-motifs-8345152bd6ac</a></li></ul><ul id="22eb6a76-e633-4bc0-afff-af69e42f3f18" class="bulleted-list"><li style="list-style-type:disc">Refer stumpy documentation also.</li></ul><p id="c397377e-4c93-40fe-8598-526150632d0d" class="">SAX based clustering.</p><ul id="e71d4269-32a5-46ce-9a1c-a5873130bb44" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/seninp/saxpy">https://github.com/seninp/saxpy</a></li></ul><ul id="eae62a83-a277-4af9-a437-2159e59b6cf7" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/nphoff/saxpy">https://github.com/nphoff/saxpy</a></li></ul><ul id="61d268b3-7a77-40ea-aa63-aa8618137dd3" class="bulleted-list"><li style="list-style-type:disc"><a href="https://vigne.sh/posts/symbolic-aggregate-approximation/">https://vigne.sh/posts/symbolic-aggregate-approximation/</a></li></ul><p id="b29092e8-8b67-482f-baa1-1673f7db3a3f" class="">Shapelet</p><ul id="458ec539-36ee-4c52-b6fe-aaa941e6d402" class="bulleted-list"><li style="list-style-type:disc"><a href="https://sites.google.com/site/ushapelet/">https://sites.google.com/site/ushapelet/</a> Matlab code.</li></ul><ul id="7b9ca4de-c445-42e4-861f-5eada40a3a9d" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/uea-machine-learning/tsml">https://github.com/uea-machine-learning/tsml</a> has shapelet based clustering code but it is in Java.</li></ul><ul id="d93036ae-6aad-4927-9881-bfc8232b9595" class="bulleted-list"><li style="list-style-type:disc">Library feature requests<ul id="de178bc1-9c1d-443b-bb38-6dcf3c747757" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/tslearn-team/tslearn/issues/169">https://github.com/tslearn-team/tslearn/issues/169</a></li></ul><ul id="7c6cac82-6cbe-4edc-aaa8-2cf2774bb88a" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/tslearn-team/tslearn/issues/111">https://github.com/tslearn-team/tslearn/issues/111</a></li></ul><ul id="b173cec2-a41d-449b-84b2-3e4ca9cfa6df" class="bulleted-list"><li style="list-style-type:circle"><a href="https://alexandra-amidon.medium.com/the-sktime-package-for-time-series-machine-learning-has-methods-for-ts-classification-and-has-plans-6b21ad9fbe94">https://alexandra-amidon.medium.com/the-sktime-package-for-time-series-machine-learning-has-methods-for-ts-classification-and-has-plans-6b21ad9fbe94</a></li></ul></li></ul><p id="c9b4e461-7f8d-42e6-89cb-49a2a485615e" class="">Similarity Preserving Representation Learning for Time Series Clustering, Lei et al, IJCAI 2019, 22 citations.</p><ul id="ad3f2186-0079-42a2-b1bf-007e83cb3fc6" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/cecilialeiqi/SPIRAL">https://github.com/cecilialeiqi/SPIRAL</a> (Matlab code)</li></ul><p id="e2d344c4-3978-46f4-9d49-9bf21e366975" class="">Unsupervised Feature Extraction by Time-Contrastive Learning and Nonlinear ICA, Hyvarinen, Morioka, NeurIPS 2016, 110 citations.</p><ul id="b85f6001-44e4-4aef-bc8a-a7acd918a3a1" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/hirosm/TCL">https://github.com/hirosm/TCL</a> (referred here also: <a href="https://www.cs.helsinki.fi/u/ahyvarin/software.shtml">https://www.cs.helsinki.fi/u/ahyvarin/software.shtml</a>)</li></ul><ul id="019b2356-3535-414a-be64-93ff4e7e2f99" class="bulleted-list"><li style="list-style-type:disc">&quot;Hidden Markov Nonlinear ICA: Unsupervised Learning from Nonstationary Time Series&quot;, Halva and Hyvarinen, UAI 2020.<ul id="1d10b5bb-f995-44b2-8ef2-81490427347f" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/HHalva/hmnlica">https://github.com/HHalva/hmnlica</a></li></ul></li></ul><ul id="641ad243-97f0-4d25-8f9c-dcc740bf6565" class="bulleted-list"><li style="list-style-type:disc">&quot;ICE-BeeM: Identifiable Conditional Energy-Based Deep Models Based on Nonlinear ICA&quot;, Khemakhem et al, NeurIPS 2020.<ul id="9b4c372e-4620-498b-a059-9fb4c5595665" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/ilkhem/icebeem">https://github.com/ilkhem/icebeem</a></li></ul></li></ul><p id="5def4cea-7381-4b33-b002-78654cca848f" class="">Scalable Time Series Data Analytics using SFA, BOSS, BOSS VS and WEASEL<div class="indented"><ul id="3a42c7f2-9eff-4a8d-bccc-a41fda4df43f" class="bulleted-list"><li style="list-style-type:disc">Patrick Schäfer <a href="https://www2.informatik.hu-berlin.de/~schaefpa/">https://www2.informatik.hu-berlin.de/~schaefpa/</a></li></ul><ul id="a7344bdc-8ecc-4560-8142-129c653a0689" class="bulleted-list"><li style="list-style-type:disc"><a href="https://pyts.readthedocs.io/en/stable/auto_examples/classification/plot_bossvs.html">https://pyts.readthedocs.io/en/stable/auto_examples/classification/plot_bossvs.html</a><ul id="9abba4d1-9ceb-4a0a-b384-7100b6656479" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/johannfaouzi/pyts">https://github.com/johannfaouzi/pyts</a></li></ul></li></ul></div></p><ul id="aad5c6d8-717d-433a-b5cc-08f9bb4d2bb0" class="bulleted-list"><li style="list-style-type:disc"><a href="https://rstudio-pubs-static.s3.amazonaws.com/602435_4b2dc0a99c364441bc019d76cfeae651.html">https://rstudio-pubs-static.s3.amazonaws.com/602435_4b2dc0a99c364441bc019d76cfeae651.html</a></li></ul><h3 id="d8dd76dd-9cf7-4d90-a51d-6bbea621f494" class="">Other approaches</h3><p id="10972c7e-a68d-4aba-b93b-03164510fa01" class="">Time Series Clustering via Community Detection in Networks, Ferreira and Zhao, Information Sciences 2016, 108 citations.</p><ul id="56cb1ebd-7130-4731-9653-d4040bd92766" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/lnferreira/time_series_clustering_via_community_detection">https://github.com/lnferreira/time_series_clustering_via_community_detection</a> (R package, 23 stars)</li></ul><p id="63f51989-1c71-45cc-8664-a6b3d461e57a" class="">Clustering methods to find representative periods for the optimization of energy systems: An initial framework and comparison, Teichgraeber and Brandt, Applied energy 2019, 65 citations.</p><ul id="a1803006-f503-4f6d-af03-0905ae824ca7" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/holgerteichgraeber/TimeSeriesClustering.jl">https://github.com/holgerteichgraeber/TimeSeriesClustering.jl</a> (Julia, 51 stars)</li></ul><p id="85d25f74-723b-4d2f-b5cf-76b35aba53a2" class="">GRAIL: Efficient Time-Series Representation Learning, Paparrizos and Franklin, VLDB 2019, 6 citations.</p><ul id="1b0cee97-20a0-4f1c-9070-1e811389ce7a" class="bulleted-list"><li style="list-style-type:disc"><a href="https://sites.google.com/site/code4grail/">https://sites.google.com/site/code4grail/</a> Matlab and Spark code.</li></ul><p id="49962b49-b6d7-48d1-891b-a9de16e98ba0" class="">Time series clustering based on the characterization of segment typologies, Guijo-Rubio et al, IEEE Transactions on Cybernetics 2020, 12 citations.</p><ul id="5d6c5878-5ba5-47ec-ac00-d8416da40043" class="bulleted-list"><li style="list-style-type:disc">No code found so far.</li></ul><p id="a97b2ed9-8463-4ed4-8bf9-ea181363bf88" class="">
+</p></div></article></body></html>

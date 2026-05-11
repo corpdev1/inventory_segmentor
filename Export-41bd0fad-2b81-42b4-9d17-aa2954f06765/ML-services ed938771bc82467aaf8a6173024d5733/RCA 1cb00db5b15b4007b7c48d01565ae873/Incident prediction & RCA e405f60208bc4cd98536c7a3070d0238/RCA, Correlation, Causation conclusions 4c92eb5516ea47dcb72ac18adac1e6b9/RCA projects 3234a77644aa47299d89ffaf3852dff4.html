@@ -1,0 +1,678 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>RCA projects</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3234a776-44aa-4729-9d89-ffaf3852dff4" class="page sans"><header><h1 class="page-title">RCA projects</h1><p class="page-description"></p></header><div class="page-body"><p id="e26086b3-472b-4b18-b874-8f6d07098b87" class="">We can categorise RCA projects in three categories:</p><p id="ce796e46-5cd7-4bd8-b072-57b0044254ff" class="">In-app RCA: </p><ul id="8fd64f6a-c5d0-44d5-a4fe-b1828d839fcf" class="bulleted-list"><li style="list-style-type:disc">iSquad</li></ul><p id="e247cead-5d24-40c3-bd49-1b00fb8afc8c" class="">Microservices architecture or node-based RCA:</p><ul id="8d903c01-c89f-4415-a9be-3e2dac4ae070" class="bulleted-list"><li style="list-style-type:disc">Microscope</li></ul><ul id="dbee06bc-fa72-4b21-bc74-7c48ed152c69" class="bulleted-list"><li style="list-style-type:disc">MicroRCA/MicroDiag</li></ul><p id="2834bd52-eae3-46fc-b0d3-c7ae12badbd8" class="">Metrics RCA:</p><ul id="64833702-c383-4616-9ee9-cd390fa19b02" class="bulleted-list"><li style="list-style-type:disc">coflux</li></ul><ul id="737a4c5b-ba6d-4ed4-8abb-4a29be9c5993" class="bulleted-list"><li style="list-style-type:disc">causation</li></ul><ul id="805f7d35-a3ba-4bae-8d42-ffc8918af790" class="bulleted-list"><li style="list-style-type:disc">Anodot normal and abnormal behavior correlation</li></ul><p id="297a3a4f-9f37-4507-a851-24a3939d6f1e" class="">
+</p><nav id="95268bf6-b2d0-4133-a501-417e2a95fe54" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#484ef523-0ee0-425f-b7ea-faf3d8e1fe61">In-app RCA</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#84e6c4f3-e7c9-4431-a42d-26a0f09ea35c">PoC iSQUAD </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#99b4a532-ac44-43be-82d5-63e294cf0131">Procedure</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c4fa4b0c-fb81-4f9c-978e-2821ff859039">Documents</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#12c6e209-406a-4719-aec6-37d4a54ff52d">Conclusions</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#672f0a10-8863-421e-acde-882f3e4b9185">Microservices RCA</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#44cc2597-079c-4c40-ba66-2506ebaaf9d5">PoC microscope </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#954b2d96-12be-492c-9615-ac1ed758939c">Description</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e4bf38fb-c0a7-4f67-b12b-dde1c173ab9f">Results</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b609ae51-0e7f-46e6-a435-140e3beb6376">Conclusions</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#946bac48-b40b-4dba-8c16-20422ed1d40c">PoC microRCA / microDIAG (same authors)</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#63bf16e3-b826-400e-9909-1b7c1771f53d">Description</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ba56799c-1c47-4091-836a-84a3cffb424f">Comments</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#92872573-16b0-48c7-a252-b8000d9e25e1">Service map / Dependency graph</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c9a500bc-75e6-4b68-9a1c-1b3fcc433cac">Istio/Envoy</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#db25e218-9341-4cd9-bef5-d4430fa27112">APM</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bb60a9c6-2693-4cf7-975b-b68ff14608d0">Metrics RCA</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e72fc792-1ee2-4f6d-ae7a-e5d7eb24ed8c">PoC on correlation of metrics </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#50cf98b1-7c28-41c3-b6a5-4f443118cbe5">PoC on causality</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#09b03cd1-6b2f-47ec-bad8-17750f6d8146">Results </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#55c49e55-5412-40a9-8480-ab8209ead880">PoC on normal behaviour correlation (Anodot inspired)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0c071a6f-8724-4f4f-87c2-5a74cfdfe007">PoC on abnormal behaviour correlation (Anodot inspired) </a></div></nav><h1 id="484ef523-0ee0-425f-b7ea-faf3d8e1fe61" class="">In-app RCA</h1><p id="d138b20a-4abf-42b9-80a8-2b1617215abe" class="">In-app RCA aims to explain anomalies of an application, system, database by only using its own metrics</p><h2 id="84e6c4f3-e7c9-4431-a42d-26a0f09ea35c" class="">PoC iSQUAD </h2><p id="3ca0d630-cbc2-4ae3-9496-9102e9361dc8" class="">iSquad creates clusters of similar incidents. Each cluster is labeled by the root cause of the incidents. When a new incident happens, iSquad computes similarity between the new incident and existing clusters.</p><p id="4e7b3373-9429-424c-9a78-a149dfdcd77c" class=""><a href="https://github.com/PacketAI/code/tree/dev/ml/isquad">code</a></p><h3 id="99b4a532-ac44-43be-82d5-63e294cf0131" class="">Procedure</h3><p id="53b179d2-346e-4cf0-9a50-0eea4da5f71e" class=""><span style="border-bottom:0.05em solid">Learning</span>: </p><p id="6496d823-23c3-4bfd-b55f-6f5ba5e95a75" class="">For any component X (mainly databases):</p><ol type="1" id="843016dc-f421-4035-8c38-a04f4fd19041" class="numbered-list" start="1"><li>Detect anomaly on KPIs of X</li></ol><ol type="1" id="e7a84c1e-c172-4008-adc1-6fe4e5fc2aec" class="numbered-list" start="2"><li>Encode anomalous pattern for metrics of X<ol type="a" id="d2dc2439-069b-4d7a-9835-d051d6ad18c4" class="numbered-list" start="1"><li>spike up</li></ol><ol type="a" id="58f177df-5225-4cdc-bd4f-4685bf36b484" class="numbered-list" start="2"><li>spike down</li></ol><ol type="a" id="e8c0985e-0990-43d5-80f5-74dacebb6187" class="numbered-list" start="3"><li>level shift up</li></ol><ol type="a" id="2a75e31c-e555-4907-b472-841928ed4aa3" class="numbered-list" start="4"><li>level shift down</li></ol></li></ol><ol type="1" id="12647bfc-8984-4f4e-8bca-6965a9299832" class="numbered-list" start="3"><li>Compute clusters of similar incident with adapted cosine similarity</li></ol><ol type="1" id="ece7c81d-ced9-4a1a-8ee6-c5ea4dd5e3b7" class="numbered-list" start="4"><li>Label each cluster with it corresponding root cause</li></ol><p id="5e1d5fb3-8520-4aa6-9a66-58fed140792a" class=""><span style="border-bottom:0.05em solid">Inferring</span>: </p><ol type="1" id="20df33c3-cf51-4c8b-836a-7e59da2febc2" class="numbered-list" start="1"><li>Detect anomaly on KPIs of a component X</li></ol><ol type="1" id="722b711c-1307-4830-b176-a42695466714" class="numbered-list" start="2"><li>Encode anomalous pattern for metrics of X</li></ol><ol type="1" id="38d8f28c-cd0f-4ab7-a119-b605786da08b" class="numbered-list" start="3"><li>Compute distance to clusters and infer root cause</li></ol><h3 id="c4fa4b0c-fb81-4f9c-978e-2821ff859039" class="">Documents</h3><p id="cd48b905-9bcd-44fd-92e9-61d73464c0f1" class=""><a href="https://drive.google.com/drive/folders/1lGttfQ_uTCD0bEEJP-5Mq5qG-1qkln8A?usp=sharing">https://drive.google.com/drive/folders/1lGttfQ_uTCD0bEEJP-5Mq5qG-1qkln8A?usp=sharing</a></p><h3 id="12c6e209-406a-4719-aec6-37d4a54ff52d" class="">Conclusions</h3><p id="4521e881-c61f-47b1-a986-2752d85e89ca" class="">The accuracy of iSquad as shown <a href="https://docs.google.com/spreadsheets/d/1EQ02N9-gSKFATD04F-AvDB0O7ie9km9sdqz8VXmwSSg/edit#gid=461838512">here</a> varies with the <strong>window interval </strong>choosen around the anomaly as it impacts the identification of the pattern. Globally  These results show that the techniques for anomaly type identification and incident encoding as proposed by iSquad paper are not robust enough for a complete unsupervised RCA.  We need better time series feature extraction and better incident encoding that is less impacted by the extracted interval.</p><h1 id="672f0a10-8863-421e-acde-882f3e4b9185" class="">Microservices RCA</h1><p id="cbb944f8-1a8b-4379-aa18-9a474ebd4aad" class="">Microservices or node-based RCA aim to detect the anomalous node within a set of interconnected nodes. A node can be an application or a host(docker or physical server). First, it builds a dependency graph (also called service map, causality graph …). Then, when an anomaly is detected at some node (mainly front app), the algorithm go over nodes to detected the origin of the anomaly. </p><p id="d9160c55-36b1-409c-97d7-7ac5d2b83957" class=""><a href="https://drive.google.com/drive/folders/1A7_Vzj9YuU_mXUWYcTDGdeKzV6XkdMhn?usp=sharing">Materials</a></p><h2 id="44cc2597-079c-4c40-ba66-2506ebaaf9d5" class="">PoC microscope </h2><p id="6ddfc047-fe72-4044-a23c-aa5963cacba0" class=""><a href="https://github.com/PacketAI/Karim-microscope">code</a></p><h3 id="954b2d96-12be-492c-9615-ac1ed758939c" class="">Description</h3><p id="32a2d3cd-40b8-4175-a042-4f84a615b1ff" class="">The solution has two parts</p><ol type="1" id="c430ec86-6dcc-4082-9416-f737f24b8cd7" class="numbered-list" start="1"><li>Build causality graph<ol type="a" id="05139195-d56e-42e7-9df3-e0677ce957d3" class="numbered-list" start="1"><li>Communicating nodes (communicate synchronously)<ol type="i" id="32accdaf-e11b-4085-b6f4-ff3ffacfd9bf" class="numbered-list" start="1"><li>Istio</li></ol><ol type="i" id="40c0a6a2-f52c-4195-a2d6-7f80e7a64ced" class="numbered-list" start="2"><li>APM tracing</li></ol></li></ol><ol type="a" id="2575763a-b62e-4ced-b69c-fe1ed4125abf" class="numbered-list" start="2"><li>Non communicating nodes (Run on same environments)<ol type="i" id="ae51bdb7-cac2-4d56-a319-7f4187499391" class="numbered-list" start="1"><li>PC Algorithm (did not get satisfying results)</li></ol></li></ol></li></ol><ol type="1" id="d939eca9-9c61-4dbf-92ef-6f1bfa16f9bc" class="numbered-list" start="2"><li>Infer anomalous node<ol type="a" id="02a06813-e7a6-49bc-b740-ba7dd81daefc" class="numbered-list" start="1"><li>Detect anomaly on some microservice X (mainly front)</li></ol><ol type="a" id="325638da-6261-433a-ae0f-31ad7cf974fb" class="numbered-list" start="2"><li>For each anomalous communicating node Y with X, <ol type="i" id="8c551bf3-7e5b-4597-87a6-6d0010a01b7f" class="numbered-list" start="1"><li>compute pearson correlation of X and Y.</li></ol></li></ol><ol type="a" id="bca7b11e-6c39-45d6-a1ae-c6a9efde4432" class="numbered-list" start="3"><li>Rank nodes by the correlation value (Higher value, </li></ol></li></ol><h3 id="e4bf38fb-c0a7-4f67-b12b-dde1c173ab9f" class="">Results</h3><p id="6ed7ba54-6106-4478-8e0e-e0ef3d4a9457" class=""><a href="https://docs.google.com/presentation/d/1DaNrAwu-m2EqUrGhUKaceJAZhbNubUsHiK_dN_NDQhI/edit#slide=id.gd00ee6ff65_0_124">https://docs.google.com/presentation/d/1DaNrAwu-m2EqUrGhUKaceJAZhbNubUsHiK_dN_NDQhI/edit#slide=id.gd00ee6ff65_0_124</a></p><h3 id="b609ae51-0e7f-46e6-a435-140e3beb6376" class="">Conclusions</h3><p id="c3f99f80-59e9-46d1-8004-df4e20545915" class="">The algorithm is quite simple and efficient. It computes the correlation of high kpi (request duration or process duration time) and make links between front ms and potential anomalous ms. In the experiments, PC algorithm did not give satisfying results. It is necessary to find a better solution to compute non communicating nodes. Our topology can apparently do that.</p><h2 id="946bac48-b40b-4dba-8c16-20422ed1d40c" class="">PoC microRCA / microDIAG (same authors)</h2><p id="a46bd266-5f4e-4d4c-a3a0-24f319f129e3" class=""><a href="https://github.com/PacketAI/Karim-microdiag">code</a></p><h3 id="63bf16e3-b826-400e-9909-1b7c1771f53d" class="">Description</h3><figure id="5ac497e3-eda4-472b-a8a5-c52b836af974" class="image"><a href="RCA%20projects%203234a77644aa47299d89ffaf3852dff4/Untitled.png"><img style="width:2370px" src="RCA%20projects%203234a77644aa47299d89ffaf3852dff4/Untitled.png"/></a></figure><figure id="f5c6d73f-3195-4907-b42e-633b176f64de" class="image"><a href="RCA%20projects%203234a77644aa47299d89ffaf3852dff4/Untitled%201.png"><img style="width:2370px" src="RCA%20projects%203234a77644aa47299d89ffaf3852dff4/Untitled%201.png"/></a></figure><h3 id="ba56799c-1c47-4091-836a-84a3cffb424f" class="">Comments</h3><p id="5035d18b-23e2-495d-9894-5603cd8908b7" class="">The algorithms explained in the papers are not clear. I had to add some parts to make the solution work.</p><h2 id="92872573-16b0-48c7-a252-b8000d9e25e1" class="">Service map / Dependency graph</h2><p id="1e2498db-abb2-4a7f-aef5-5a1ba17ca63d" class="">I applied two methods to build the dependency graph</p><h3 id="c9a500bc-75e6-4b68-9a1c-1b3fcc433cac" class="">Istio/Envoy</h3><p id="41243823-e694-4e27-973c-ae374126b815" class=""><a href="https://docs.google.com/presentation/d/1A9Dxx1ydysgOjf5It9jh3J84v3_CM3JUj_cqKbgb6_0/edit#slide=id.ge2940d27d9_0_0">https://docs.google.com/presentation/d/1A9Dxx1ydysgOjf5It9jh3J84v3_CM3JUj_cqKbgb6_0/edit#slide=id.ge2940d27d9_0_0</a></p><h3 id="db25e218-9341-4cd9-bef5-d4430fa27112" class="">APM</h3><p id="60cd8588-6b95-4928-9bd6-abbb1737db6f" class=""><a href="https://docs.google.com/presentation/d/1LgHE7wq1eoWMPDFh3Ty7gG9v86yMBzfRTMY1ddhsLbA/edit#slide=id.ge2940d27d9_0_0">https://docs.google.com/presentation/d/1LgHE7wq1eoWMPDFh3Ty7gG9v86yMBzfRTMY1ddhsLbA/edit#slide=id.ge2940d27d9_0_0</a></p><h1 id="bb60a9c6-2693-4cf7-975b-b68ff14608d0" class="">Metrics RCA</h1><p id="7861d0f8-04eb-4364-a186-e736ffeb9716" class="">This aims to compute relationship of correlation and causality between any pair of set of metrics of some infrastructure/platform. </p><p id="77e26116-860d-4c2b-9893-7ef67ffd13ab" class=""><a href="https://github.com/PacketAI/ex-machina-coflux">code</a></p><h3 id="e72fc792-1ee2-4f6d-ae7a-e5d7eb24ed8c" class="">PoC on correlation of metrics </h3><p id="e2e9937a-8848-40b6-9884-2f7850c7dec5" class="">Algorithms:</p><ul id="3c71a2cd-52ad-4177-813f-624f65b636e7" class="bulleted-list"><li style="list-style-type:disc">CrossCorrelation</li></ul><ul id="5ceb1a08-8c1a-45a2-9a52-69816776bd37" class="bulleted-list"><li style="list-style-type:disc">CoFlux (<a href="https://netman.aiops.org/wp-content/uploads/2019/07/COFLUX_PRESENTATION.pdf)">presentation</a>)</li></ul><h3 id="50cf98b1-7c28-41c3-b6a5-4f443118cbe5" class="">PoC on causality</h3><p id="f4708ac7-5bdb-4e3c-b219-4ea538fe2e0c" class="">Granger causality test (<a href="https://en.wikipedia.org/wiki/Granger_causality">explanation</a>)</p><p id="fae31aa5-14d5-4fed-ae57-28e5277834b7" class="">Requirements for metrics:</p><ol type="1" id="e5f143e1-327a-44ad-acbe-7d23d0fafe7c" class="numbered-list" start="1"><li>Stationary</li></ol><ol type="1" id="3cdc2226-f8e2-47cb-9068-8c2362af5fe6" class="numbered-list" start="2"><li>linear continuation</li></ol><h3 id="09b03cd1-6b2f-47ec-bad8-17750f6d8146" class="">Results </h3><p id="65207446-0b44-4bdf-a963-16d78bc4ab72" class="">Test platforms: <div class="indented"><ul id="f62b067e-9e72-4a7d-be1e-7cb4d51b603f" class="bulleted-list"><li style="list-style-type:disc">Sockshop<p id="98f09eff-8319-49fb-badb-cdcec978baec" class="">Tests on sockshop are with general metrics and opentelemetry metrics</p><p id="7f97af8e-0629-4e2c-9f26-27b679da3664" class="">We stress resources of containers and we compute causality test between opentelemetry metrics (request durations) and system metrics </p></li></ul><ul id="1a70e30c-1264-44d2-9fa5-a70a47957955" class="bulleted-list"><li style="list-style-type:disc">Affluences </li></ul></div></p><p id="fc43514d-395c-4be5-a6ff-3df416e55c4f" class="">In all tests, we compute correlation and causality when anomalies happen.</p><p id="2493b0a8-87c3-4a0f-9151-449dd938608f" class=""><strong>NB: We consider Anomalies raised by mad after noise reduction.</strong></p><p id="c5898f88-2359-4741-b507-f365d1c16ad6" class="">On Affluences<div class="indented"><ul id="8060be48-6514-4c62-84c6-5d797ed802e2" class="bulleted-list"><li style="list-style-type:disc">Correlation: <ul id="f985c505-2577-4e3d-a924-de899eb33e67" class="bulleted-list"><li style="list-style-type:circle">65 % of pairs of anomalies within 5 minutes have flux correlation higher than 0.6</li></ul><ul id="0c44bf27-803a-437f-9862-d1834a696ff5" class="bulleted-list"><li style="list-style-type:circle">For all pairs of highly correlated metrics, more than 80 % of their anomalies  do not happen within a short window</li></ul></li></ul><ul id="5e5cfc65-0876-4be4-a7d1-a8ff80dca6cd" class="bulleted-list"><li style="list-style-type:disc">Causality: <ul id="cc49cd58-8bda-480f-b317-5b912ca617cf" class="bulleted-list"><li style="list-style-type:circle">Pairs of anomalies that happened within 5 minutes: 191<ul id="150fb71f-377b-4bf9-9123-66743c1787ad" class="bulleted-list"><li style="list-style-type:square">65% have granger causality p value less than 0.05 with maxlag at 5</li></ul></li></ul><ul id="d72d154b-0d7a-4710-aabe-8c1a69a84854" class="bulleted-list"><li style="list-style-type:circle">25% anomalies on a metric A are followed (or simultaneously) by an anomaly on a metric B such that A gcause B.<ul id="b8f1be18-bb18-4910-bd6b-18d486f5a1b1" class="bulleted-list"><li style="list-style-type:square">Proportions are different between different metrics</li></ul></li></ul></li></ul></div></p><p id="313dc586-b6c7-4e8b-9120-41198f7070e5" class="">On Sockshop:<div class="indented"><ul id="9b816c10-9d2a-4a14-919e-cc3a954c1fbf" class="bulleted-list"><li style="list-style-type:disc">Causality:<p id="af3f36bf-418f-48ce-8379-6181fdca44d7" class="">For microservices that have big traffic like catalogue. Causality test identified only catalogue metrics as cause of the performance behavior. For other microservices, the causes are less accurate. These microservices have their request duration mostly constant with spikes.</p></li></ul></div></p><h3 id="55c49e55-5412-40a9-8480-ab8209ead880" class="">PoC on normal behaviour correlation (Anodot inspired)</h3><p id="f00a3aee-9096-4655-87a2-9543746d9543" class=""><a href="https://docs.google.com/presentation/d/1Xd4CLH_OQGhY0A-CDHp1GKz6vOG4Jpf71JwiduDKHyc/edit#slide=id.gf7e8ef93cb_0_83">description</a></p><p id="8b17e7ba-30a3-465f-9f3f-be5f3b769433" class="">steps:</p><ol type="1" id="855f8b40-9614-4db9-9d19-d041e7b34b07" class="numbered-list" start="1"><li>Compute sequence of patterns by autoencoders</li></ol><ol type="1" id="5adc52fe-c993-41bd-8d62-4279e325d2e6" class="numbered-list" start="2"><li>Compute similarity<ol type="a" id="86e36ed7-04c2-4192-b5fc-cd4ce9faf25c" class="numbered-list" start="1"><li>Cosine similarity</li></ol><ol type="a" id="838931d4-3d1b-4b2d-b5be-cf5099ba6554" class="numbered-list" start="2"><li>Hash groups (Locality sensitive hashing)</li></ol></li></ol><h3 id="0c071a6f-8724-4f4f-87c2-5a74cfdfe007" class="">PoC on abnormal behaviour correlation (Anodot inspired) </h3><p id="71ec44b2-de4d-462b-8baa-1b739cc5f9d7" class=""><a href="https://docs.google.com/presentation/d/1Xd4CLH_OQGhY0A-CDHp1GKz6vOG4Jpf71JwiduDKHyc/edit#slide=id.gf7e8ef93cb_0_10">description</a></p><p id="ab76747b-e348-4395-bc4d-7961206f8e1e" class="">steps:</p><ol type="1" id="99c2693a-b5fd-4ce9-98bf-7ede4496d259" class="numbered-list" start="1"><li>Encode time series to binary vector <ol type="a" id="ea9a945f-6c34-467f-a6d9-d566810077e1" class="numbered-list" start="1"><li>0 is normal behavior </li></ol><ol type="a" id="bc6b059c-1fd9-4aa9-8b30-baf898d3dc49" class="numbered-list" start="2"><li>1 is abnormal behavior</li></ol></li></ol><ol type="1" id="da4d6e37-027c-46f0-aded-ba63a92673cd" class="numbered-list" start="2"><li>Hash binary vector by “Locality sensitive hashing”</li></ol><ol type="1" id="43c4bd50-8ec7-4488-ac7b-c37b28992904" class="numbered-list" start="3"><li>Compute similarity<ol type="a" id="9bd3b20a-261c-4703-ab29-5bb7a921f260" class="numbered-list" start="1"><li>Cosine similarity</li></ol><ol type="a" id="c7bda874-a34a-4236-be9d-188dc703a15f" class="numbered-list" start="2"><li>Clustering with Latent dirichlet allocation</li></ol></li></ol><p id="151b01c8-859a-4837-bf66-c96c3b7e79f7" class="">
+</p></div></article></body></html>

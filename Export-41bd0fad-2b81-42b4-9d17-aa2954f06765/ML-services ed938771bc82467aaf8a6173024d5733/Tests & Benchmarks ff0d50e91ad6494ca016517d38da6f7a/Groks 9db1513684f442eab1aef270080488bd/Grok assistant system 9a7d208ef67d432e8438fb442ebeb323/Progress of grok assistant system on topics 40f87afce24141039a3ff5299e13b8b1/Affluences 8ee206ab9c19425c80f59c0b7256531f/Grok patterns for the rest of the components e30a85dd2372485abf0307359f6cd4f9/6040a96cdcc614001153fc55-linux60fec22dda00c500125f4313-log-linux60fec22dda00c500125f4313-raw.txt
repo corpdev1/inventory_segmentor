@@ -1,0 +1,19 @@
+Nov  8 17:31:33 docker2 dockerd[562]: time="2021-11-08T17:31:33.104501153Z" level=info msg="NetworkDB stats docker2(4f48fec8638f) - netID:5cckeksx2o18jsx6sme7lrlc1 leaving:false netPeers:8 entries:62 Queue qLen:0 netMsg/s:0"
+
+%{SYSLOGBASE:logsys} time="%{TIMESTAMP_ISO8601:logdatetime}" level=%{LOGLEVEL:loglevel} msg=%{QUOTEDSTRING:content}
+
+Nov 11 18:27:20 docker2 dockerd[562]: time="2021-11-11T18:27:20.053444926Z" level=warning msg="got error while decoding json" error="unexpected EOF" retries=21
+
+%{SYSLOGBASE:logsys} time="%{TIMESTAMP_ISO8601:logdatetime}" level=%{LOGLEVEL:loglevel} msg=%{QUOTEDSTRING:content} error=%{QUOTEDSTRING:error} retries=%{POSINT:retries}
+To be replaced in logstash as:
+%{SYSLOGBASE:logsys} time="%{TIMESTAMP_ISO8601:logdatetime}" level=%{LOGLEVEL:loglevel} msg=%{GREEDYDATA:content}
+
+Oct 26 13:06:17 docker2 sshd[10980]: Disconnecting invalid user 0 31.184.198.71 port 7469: Change of username or service not allowed: (0,ssh-connection) -> (!root,ssh-connection) [preauth]
+
+%{SYSLOGBASE:logsys} %{GREEDYDATA:content}
+
+Nov 10 15:53:55 docker2 dockerd[562]: time="2021-11-10T15:53:55.868990930Z" level=info msg="ignoring event" module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+
+%{SYSLOGBASE:logsys} time="%{TIMESTAMP_ISO8601:logdatetime}" level=%{LOGLEVEL:loglevel} msg=%{GREEDYDATA:content}
+
+254349 messages total (randomly sampled 50000). Oct 17th to Nov 16th. 5 minutes.

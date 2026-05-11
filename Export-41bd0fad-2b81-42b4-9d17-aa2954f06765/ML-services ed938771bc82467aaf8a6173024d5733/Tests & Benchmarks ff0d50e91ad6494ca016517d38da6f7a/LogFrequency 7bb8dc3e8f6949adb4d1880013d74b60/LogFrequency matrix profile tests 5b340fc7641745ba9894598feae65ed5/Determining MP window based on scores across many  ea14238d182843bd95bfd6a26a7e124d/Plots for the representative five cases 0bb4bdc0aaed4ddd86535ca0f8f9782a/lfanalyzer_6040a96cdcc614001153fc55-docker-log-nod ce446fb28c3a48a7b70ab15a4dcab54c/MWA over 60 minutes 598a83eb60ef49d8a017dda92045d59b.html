@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>MWA over 60 minutes</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="598a83eb-60ef-49d8-a017-dda92045d59b" class="page sans"><header><h1 class="page-title">MWA over 60 minutes</h1><p class="page-description"></p></header><div class="page-body"><p id="224c3bde-ca6b-4793-859a-1de65566edb8" class="">
+</p><figure id="6f373755-e418-47d9-b79b-3271ba0c1c0b"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_864_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_864_mp_score.html</a></div></figure><figure id="1bed8c53-d29d-4ba9-8566-3925719b68a4" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_864_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_864_mp_score.png"/></a></figure><figure id="f39f4767-26e0-4840-b941-c8ca8065ea58"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_884_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_884_mp_score.html</a></div></figure><figure id="092b3b64-ddf6-49f8-9888-794c3584eaa5" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_884_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_884_mp_score.png"/></a></figure><figure id="e05667dc-3d7f-4158-9f82-80ac7c7c9a1c"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_904_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_904_mp_score.html</a></div></figure><figure id="f2bc9af1-3500-45f2-b6a8-b2512e2c45c5" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_904_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_904_mp_score.png"/></a></figure><figure id="c008e20c-d90b-4e07-b898-f08d86afeb41"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_924_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_924_mp_score.html</a></div></figure><figure id="3d79779d-b520-4e2e-9756-fc951d940331" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_924_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_924_mp_score.png"/></a></figure><figure id="13091bf3-7c0b-49ab-b0dc-6162b8fa2878"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_944_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_944_mp_score.html</a></div></figure><figure id="a995adcc-76a9-4315-84f4-498b3e3f8e2a" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_944_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_944_mp_score.png"/></a></figure><figure id="9e885a9d-ea43-4b25-8295-d87f8b0c9354"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_964_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_964_mp_score.html</a></div></figure><figure id="aa38d7e8-21bf-486a-bba5-88387ddfc74b" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_964_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_964_mp_score.png"/></a></figure><figure id="2fb47939-476c-43ea-ae3a-5a989231b33b"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_984_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_984_mp_score.html</a></div></figure><figure id="574b7af7-5486-4354-8e4f-02878d002b10" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_984_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_984_mp_score.png"/></a></figure><figure id="09b7a93c-21ff-4766-8785-adaed51cbc76"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1004_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1004_mp_score.html</a></div></figure><figure id="b9ef32bd-2bd1-4d07-84a5-17f4d3acefa5" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1004_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1004_mp_score.png"/></a></figure><figure id="d2e3c1bc-9829-4b30-8b90-be36973c3825"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1024_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1024_mp_score.html</a></div></figure><figure id="025f8c3e-8006-4d3c-a608-44a42a3cb4f5" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1024_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1024_mp_score.png"/></a></figure><figure id="1cb30598-f267-4f59-ab78-30a868298b3c"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1044_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1044_mp_score.html</a></div></figure><figure id="35bb8dc0-ab71-48f6-9fc4-dbf63194ab4f" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1044_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1044_mp_score.png"/></a></figure><figure id="4392d220-35b0-4bcc-9e56-73bbd36f7490"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1064_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1064_mp_score.html</a></div></figure><figure id="29a494d2-7e1b-4647-ab57-703afdf1044f" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1064_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1064_mp_score.png"/></a></figure><figure id="bea66066-4bce-49d1-acdc-bd562fe25e4f"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1080_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1080_mp_score.html</a></div></figure><figure id="c437ef8e-bef3-4801-83fd-d97f2471c9d1" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1080_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1080_mp_score.png"/></a></figure><figure id="ca52c3bc-6860-48af-a72a-21254e15e4a8"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1084_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1084_mp_score.html</a></div></figure><figure id="b57a4afc-9d05-41e7-90df-83529ec7cf11" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1084_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1084_mp_score.png"/></a></figure><figure id="e8fdc371-2cc0-49ef-a8ef-3481629c79c1"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1104_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1104_mp_score.html</a></div></figure><figure id="0ab829ba-29e6-4ed9-b4e1-b6cae635cc1a" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1104_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1104_mp_score.png"/></a></figure><figure id="cd652b68-18f1-4c5c-af9a-c068407571d3"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1105_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1105_mp_score.html</a></div></figure><figure id="9c915998-a8f1-4e26-adf3-f6cad389eb6b" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1105_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1105_mp_score.png"/></a></figure><figure id="6708a0a2-631d-4fac-832c-1eba4b0b0426"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1124_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1124_mp_score.html</a></div></figure><figure id="e342610a-02dc-4f0c-b6c6-16b5abecc0b6" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1124_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1124_mp_score.png"/></a></figure><figure id="fa798718-d34f-42ca-beb8-81d8f6b8b6b1"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1130_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1130_mp_score.html</a></div></figure><figure id="409aad97-b533-498f-8e8e-e8878de9ef5a" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1130_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1130_mp_score.png"/></a></figure><figure id="7a96e3fd-4d61-4fcb-ae3b-94df2f565374"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1144_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1144_mp_score.html</a></div></figure><figure id="3597016d-a07e-4fba-9600-4d42a5bde3cb" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1144_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1144_mp_score.png"/></a></figure><figure id="489bedb3-d1f6-4f9d-9943-a6141403a259"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1155_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1155_mp_score.html</a></div></figure><figure id="e219d86f-38ea-4419-adef-e7f528c7b500" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1155_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1155_mp_score.png"/></a></figure><figure id="847c7966-4261-42e4-b3e6-da19caac2be0"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1164_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1164_mp_score.html</a></div></figure><figure id="cf2f9dda-821a-45c0-807c-3db9999d18bb" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1164_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1164_mp_score.png"/></a></figure><figure id="d878f09e-455d-4080-ae0c-ee7426783733"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1180_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1180_mp_score.html</a></div></figure><figure id="b23784ab-8f82-4823-9c17-7a84840bc076" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1180_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1180_mp_score.png"/></a></figure><figure id="70c7416b-8f27-4179-ba20-0c9a2672ac35"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1184_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1184_mp_score.html</a></div></figure><figure id="f891094a-2aaa-40b7-87de-f57725c5c129" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1184_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1184_mp_score.png"/></a></figure><figure id="018857c1-7768-4a36-8e93-a37a700f4fa3"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1188_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1188_mp_score.html</a></div></figure><figure id="5dd49812-de83-4bd5-9cd3-c2c574884963" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1188_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1188_mp_score.png"/></a></figure><figure id="9e45c230-daab-4edb-97e6-0f52eaf84820"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1204_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1204_mp_score.html</a></div></figure><figure id="43e6523f-01cc-4b5a-8e51-ec62da39ae09" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1204_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1204_mp_score.png"/></a></figure><figure id="2d9caa3c-e3a1-4290-b49a-b5865b46751b"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1205_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1205_mp_score.html</a></div></figure><figure id="9f593452-17b8-4d50-80d4-a81a01fc1cc1" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1205_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1205_mp_score.png"/></a></figure><figure id="1cafc2be-82e1-46ac-a6f8-1e18aefa6b7d"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1224_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1224_mp_score.html</a></div></figure><figure id="44629d72-5002-4232-83f1-f346a042103b" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1224_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1224_mp_score.png"/></a></figure><figure id="ae0a7a0a-7a7e-4990-a9f0-7c6cfdf99a78"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1230_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1230_mp_score.html</a></div></figure><figure id="c1857fc9-6a17-40ad-96d1-bee8c43f32ed" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1230_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1230_mp_score.png"/></a></figure><figure id="0ba90664-47c5-40ea-b582-66007b25784d"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1244_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1244_mp_score.html</a></div></figure><figure id="83b5a2f2-bee1-48c3-b1cd-78ef33b3597a" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1244_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1244_mp_score.png"/></a></figure><figure id="771757ef-be2c-47be-93be-7add0768fc80"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1255_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1255_mp_score.html</a></div></figure><figure id="90ed4b20-a822-453d-be3b-5104ae27c156" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1255_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1255_mp_score.png"/></a></figure><figure id="99c63b75-40b8-43fe-8b57-a62de113fe55"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1264_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1264_mp_score.html</a></div></figure><figure id="c1aa3207-d6b7-4e95-bacd-f1cd6ed002ba" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1264_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1264_mp_score.png"/></a></figure><figure id="403f1c64-8dfc-4411-9a48-644290a39c66"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1280_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1280_mp_score.html</a></div></figure><figure id="f1423cca-5127-43de-aff9-5a7b4370e429" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1280_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1280_mp_score.png"/></a></figure><figure id="d98d7267-17c1-4b70-9930-86f9599f8644"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1284_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1284_mp_score.html</a></div></figure><figure id="f0855f74-70ff-47e7-8361-ea8534533253" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1284_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1284_mp_score.png"/></a></figure><figure id="77bf5eb9-e276-4223-bb1d-f2693bef9c01"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1296_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1296_mp_score.html</a></div></figure><figure id="a6094d37-0d24-4514-90ab-f923414ea19b" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1296_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1296_mp_score.png"/></a></figure><figure id="97bada74-06d0-4fa5-b783-2f8cc8854d15"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1305_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1305_mp_score.html</a></div></figure><figure id="79e4694e-af9b-4b41-81be-4b6cc1b6c847" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1305_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1305_mp_score.png"/></a></figure><figure id="8f23abd7-faf3-46d2-b264-343e993e96ca"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1330_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1330_mp_score.html</a></div></figure><figure id="e5d0b8b1-0cb9-464a-a4d7-e00f1d323902" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1330_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1330_mp_score.png"/></a></figure><figure id="9d8c50c9-88f0-4684-b5b7-f4c82ec5491b"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1355_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1355_mp_score.html</a></div></figure><figure id="7b9dc5e6-f7ab-48d1-ad93-f5f397130ad9" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1355_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1355_mp_score.png"/></a></figure><figure id="9aee45fb-5d5d-40cb-9862-e88c120112a7"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1380_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1380_mp_score.html</a></div></figure><figure id="c3b65e7b-9bc6-404d-b052-d87fae397b7e" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1380_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1380_mp_score.png"/></a></figure><figure id="4f6d3389-cacd-41ac-926e-567546fb540b"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1404_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1404_mp_score.html</a></div></figure><figure id="3af82418-efe0-4526-bad3-a633ffbd4de0" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1404_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1404_mp_score.png"/></a></figure><figure id="10cd8626-bbbc-45a2-96a1-82a08156a838"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1405_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1405_mp_score.html</a></div></figure><figure id="a8a7da10-e172-4818-ae04-6cd4636c99db" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1405_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1405_mp_score.png"/></a></figure><figure id="fd08bac6-560a-48b0-8156-14768d1ed62a"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1430_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1430_mp_score.html</a></div></figure><figure id="c67d5eb6-e6e9-4c26-8a3c-4cf9bd25906c" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1430_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1430_mp_score.png"/></a></figure><figure id="4f79a2f5-b7ed-4fc9-b65a-5e43e60c51bb"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1455_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1455_mp_score.html</a></div></figure><figure id="e6a1f7bb-5005-4096-b5ce-863b6a497026" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1455_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1455_mp_score.png"/></a></figure><figure id="a9297ac3-2dd4-44bd-ac88-2a655d1b9346"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1480_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1480_mp_score.html</a></div></figure><figure id="baf51a4b-66b1-439c-9349-552713e44d0a" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1480_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1480_mp_score.png"/></a></figure><figure id="8aac6279-41f0-453c-a9dd-05799fc3004c"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1505_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1505_mp_score.html</a></div></figure><figure id="0f98f2d2-2188-4381-9f71-4de569f23eaf" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1505_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1505_mp_score.png"/></a></figure><figure id="c771c07a-9e13-4bf5-ba1a-189667f2a38c"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1512_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1512_mp_score.html</a></div></figure><figure id="4618d163-ee6e-4f75-a2f9-e7b2d46623d3" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1512_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1512_mp_score.png"/></a></figure><figure id="5f1d9d0b-784d-46ef-83fd-f9a0459313af"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1530_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1530_mp_score.html</a></div></figure><figure id="24199c25-bc36-449a-8fdc-30f4c111e5b4" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1530_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1530_mp_score.png"/></a></figure><figure id="398bfc7e-cd69-4190-9028-1aee29be53eb"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1555_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1555_mp_score.html</a></div></figure><figure id="694bf988-c5f2-49d3-958c-f553a3290cf8" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1555_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1555_mp_score.png"/></a></figure><figure id="4362dc6d-91d4-4145-9cb3-51b24edc99de"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1580_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1580_mp_score.html</a></div></figure><figure id="3d1ebdd1-1144-4fa3-b503-1ee5d2b112b2" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1580_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1580_mp_score.png"/></a></figure><figure id="c2ac41a2-461f-4742-bdb2-8aa75dbbef4a"><div class="source"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1605_mp_score.html">copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1605_mp_score.html</a></div></figure><figure id="a93b0a9e-06a9-4cd8-ab22-327eac288c87" class="image"><a href="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1605_mp_score.png"><img style="width:700px" src="MWA%20over%2060%20minutes%20598a83eb60ef49d8a017dda92045d59b/copy_lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_1605_mp_score.png"/></a></figure></div></article></body></html>

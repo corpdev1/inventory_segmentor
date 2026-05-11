@@ -1,0 +1,717 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Analysing historical MAD anomalies</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ee943653-cb59-4d6a-91fd-10eca3e4df29" class="page sans"><header><h1 class="page-title">Analysing historical MAD anomalies</h1><p class="page-description"></p></header><div class="page-body"><p id="5b4ed5d5-5e8e-4a0d-9123-51e0de62fdd2" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><h2 id="08bf18fb-7e84-486e-97f0-12dba676d1a5" class="">Summary</h2><ul id="a465ab79-93ed-417a-ba61-11edd01f1dd8" class="bulleted-list"><li style="list-style-type:disc">Possible sources of data are:<ul id="b06f744b-825a-4c64-9795-ac217b6d53d5" class="bulleted-list"><li style="list-style-type:circle">MAD hourly output (from S3).</li></ul><ul id="ba72d780-a6c0-4f1b-bf4c-9571f6f8db6a" class="bulleted-list"><li style="list-style-type:circle">Input to DBScan algorithm (from MongoDB).</li></ul><ul id="ffef691f-b07e-437e-97c5-34afb04c0260" class="bulleted-list"><li style="list-style-type:circle">Issues rated by the client (from MongoDB).</li></ul></li></ul><ul id="15c71732-2e66-4536-ba34-cc3b35f3ef1a" class="bulleted-list"><li style="list-style-type:disc">Ultimately plotting an individual case is very important to properly understand what is going on in that case and to decide how to use that case for a test.<ul id="3cdc1ea2-340d-461f-bcdd-6489193e1bb8" class="bulleted-list"><li style="list-style-type:circle">Numbers like number of anomalies before and after noise suppression, number of client validated anomalies, number of simultaneous anomalies etc could help with choosing particular cases for further analysis. But ultimately we need to make plots to better understand what the detectors and the noise suppression algorithms are doing.</li></ul></li></ul><p id="fe5b9bed-594d-40ab-8a75-7aa8aede8343" class=""> </p><figure id="c33ce3d1-226a-45a7-900e-9689115d0b1e" class="link-to-page"><a href="Analysing%20historical%20MAD%20anomalies%20ee943653cb594d6a91fd10eca3e4df29/Plots%20for%2016%20client%20validated%20anomalies%20c33ce3d1226a45a7900e9689115d0b1e.html">Plots for 16 client validated anomalies</a></figure><p id="075686fe-9690-4218-91b9-b3ae28f55fb1" class="">These cases were chosen based on client feedback that is available in the following file:</p><figure id="1605b596-50e9-4346-95ec-fcb8e9d85c0b"><div class="source"><a href="Analysing%20historical%20MAD%20anomalies%20ee943653cb594d6a91fd10eca3e4df29/issueratings.csv">issueratings.csv</a></div></figure><p id="d6e367ea-9481-48e8-a9d4-bef51d4a9bf5" class="">These 16 cases represent true positives.</p><p id="393653af-63b2-40b5-88c8-8a69f922bc66" class="">
+</p><p id="894c4a46-7cbd-42d4-b35b-5976ef9b13ef" class="">We can take a time window of 3600 seconds before and after the client validated anomaly and see how many anomalies are present before and after noise suppression. The numbers are as follows for these 16 cases. This requires MAD hourly output.</p><p id="0ea56e89-6942-4d72-af2d-cff4d99eee99" class="">In the following, the data is presented as <code>component_metric &lt;number of anomalies after noise suppression&gt; &lt;number of anomalies before noise suppression&gt;</code></p><p id="cb0ace97-8111-4e09-a50e-c3ad17c0a3f7" class="">pythonpost-processing_post-processing-worker docker#memory#rss#total-no_subject: 1 1
+koios_koios-api docker#memory#usage#pct-no_subject: 1 5
+mysql357e569af1d96542 mysql#performance#events_statements#max#timer#wait-no_subject: 1 1
+nodeapp_app-web docker#diskio#write#service_time-no_subject: 1 6
+nodeportal_portal docker#diskio#write#service_time-no_subject: 1 1
+docker24929622c71624a6 docker#diskio#summary#service_time-no_subject: 1 6
+mysqlc65d1f2cd07cc218 mysql#status#aborted#connects-no_subject: 1 1
+mysql6d7613c72a46df40 mysql#performance#events_statements#max#timer#wait-no_subject: 2 2
+linux60fec22ada00c500125f430f system#diskio#iostat#busy-sda: 2 2
+linux60b8d8abaeb6f802698917b1 system#cpu#total#norm#pct-no_subject: 1 1
+linux60fec22ada00c500125f430f system#cpu#user#norm#pct-no_subject: 1 2
+linux60fec238da00c500125f4314 system#diskio#iostat#busy-sda: 1 1
+linux60fec22cda00c500125f4311 system#diskio#iostat#busy-sda: 2 5
+linux60fec22dda00c500125f4313 system#diskio#iostat#busy-sda1: 1 1
+nodereservations-service_reservations-service docker#diskio#write#service_time-no_subject: 4 6
+nodereservations-service_reservations-service docker#diskio#read#wait_time-no_subject: 4 6</p><p id="eba8133b-0072-42ea-aaa1-afb53bbfa559" class="">
+</p><p id="02401f7b-8adb-45d6-b94c-c1b10f2a1b6c" class="">Another way to analyse is to look at the anomalies that are the inputs to the DBScan algorithm. One such set of anomalies is in the following file:</p><figure id="701ed0ee-2fff-4e01-b5cd-49eb84e53e44"><div class="source"><a href="Analysing%20historical%20MAD%20anomalies%20ee943653cb594d6a91fd10eca3e4df29/dbscan.csv">dbscan.csv</a></div></figure><p id="16b9e7dc-e682-4ac2-b1cd-075308326cca" class="">These anomalies are the set of all anomalies detected by MAD before noise suppression (i.e., all cases where anomaly score &gt; threshold).</p><p id="66917a78-996c-407f-8697-5981c214a531" class="">In this particular file, there are 72589 anomalies.</p><p id="95734c10-d727-4186-a506-993be9a73eb5" class="">We then use agglomerative clustering of anomalies with a threshold of 3600 seconds, to create abnormal regions. Then the total number of resulting abnormal regions = 39423</p><p id="fd133614-8073-4392-ad94-3b0aff603228" class="">To more easily analyse the 39423 regions, the number of anomalies in each of the abnormal regions was considered.</p><p id="c5d7afb0-37d0-4d04-a71a-e6b10e0c8451" class="">The possible counts were [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 23, 25, 26]. There were 22 of them.
+Number of regions for each of these unique counts were [24359, 6666, 2158, 4834, 499, 570, 97, 56, 56, 37, 48, 12, 8, 8, 5, 1, 2, 1, 2, 2, 1, 1]
+We could plot one or two representative cases from each of these 22 cases and see whether other interesting shapes appear. In order to choose a case as a representative case, we need to be sure that the case contains at least one anomaly that is finally displayed to the client. We are in a position to decide that only based on data in MAD hourly output.</p><p id="39247e46-f573-4d96-b680-3bf3062cef33" class="">
+</p><p id="64e248b6-cc00-4e19-a727-d9f9b8b53cf8" class="">Continuing with client validated anomalies, the list of cases are as follows:</p><ol type="1" id="339ea036-d650-4897-b321-896b487c4fce" class="numbered-list" start="1"><li>pythonpost-processing_post-processing-worker_docker#memory#rss#total-no_subject 1637967800 2021-11-27 00:03:20</li></ol><ol type="1" id="8becc1fa-d29b-4aa3-818a-b87d3b2494d6" class="numbered-list" start="2"><li>koios_koios-api_docker#memory#usage#pct-no_subject 1637680320 2021-11-23 16:12:00</li></ol><ol type="1" id="8427a646-9999-41d0-8424-0f4f22e0631d" class="numbered-list" start="3"><li>mysql357e569af1d96542_mysql#performance#events_statements#max#timer#wait-no_subject 1636969980 2021-11-15 10:53:00</li></ol><ol type="1" id="1266ca24-88c8-4cea-a0c1-7fed494a9a85" class="numbered-list" start="4"><li>mysqlc65d1f2cd07cc218_mysql#status#aborted#connects-no_subject 1636970700 2021-11-15 11:05:00</li></ol><ol type="1" id="1eae3966-c207-4bf6-a963-053927831b7f" class="numbered-list" start="5"><li>mysql6d7613c72a46df40_mysql#performance#events_statements#max#timer#wait-no_subject 1636976410 2021-11-15 12:40:10</li></ol><ol type="1" id="c39060f2-2275-4150-a7be-2d1f7c97b6ad" class="numbered-list" start="6"><li>nodeapp_app-web_docker#diskio#write#service_time-no_subject 1637162710 2021-11-17 16:25:10</li></ol><ol type="1" id="f524f420-4cf3-47ba-845e-a377794f6391" class="numbered-list" start="7"><li>nodeportal_portal_docker#diskio#write#service_time-no_subject 1636982590 2021-11-15 14:23:10</li></ol><ol type="1" id="37d3eb34-4b4f-4ae7-8cc1-b18dc98c0330" class="numbered-list" start="8"><li>linux60b8d8abaeb6f802698917b1_system#cpu#total#norm#pct-no_subject 1637477760 2021-11-21 07:56:00</li></ol><ol type="1" id="63d5317c-5b35-43f0-ab8c-5a818c6f7612" class="numbered-list" start="9"><li>linux60fec22ada00c500125f430f_system#diskio#iostat#busy-sda 1637574780 2021-11-22 10:53:00</li></ol><ol type="1" id="b9bc48e3-fd3d-4667-bc04-d05d5817c991" class="numbered-list" start="10"><li>linux60fec22ada00c500125f430f_system#cpu#user#norm#pct-no_subject 1638367290 2021-12-01 15:01:30</li></ol><ol type="1" id="55aa9e57-bd43-4ce4-a6d9-6ae60f702669" class="numbered-list" start="11"><li>docker24929622c71624a6_docker#diskio#summary#service_time-no_subject 1637575010 2021-11-22 10:56:50</li></ol><ol type="1" id="80fac85d-bbb6-4b05-ba3a-a9bc9cc6a9c8" class="numbered-list" start="12"><li>linux60fec228da00c500125f430d_system#diskio#iostat#busy-sda 1637576160 2021-11-22 11:16:00</li></ol><ol type="1" id="e04e23b5-09a3-4329-9620-6fd81e0029c0" class="numbered-list" start="13"><li>linux60fec22cda00c500125f4311_system#diskio#iostat#busy-sda 1638975290 2021-12-08 15:54:50</li></ol><ol type="1" id="63679017-a3a1-45ca-9f1d-1610a7c330ad" class="numbered-list" start="14"><li>linux60fec22dda00c500125f4313_system#diskio#iostat#busy-sda1 1637576160 2021-11-22 11:16:00</li></ol><ol type="1" id="7eda4238-b3e1-41c8-9696-3cd921a2eba2" class="numbered-list" start="15"><li>linux60fec238da00c500125f4314_system#diskio#iostat#busy-sda 1637575020 2021-11-22 10:57:00</li></ol><ol type="1" id="890fbac1-120b-4bee-9c17-7b8254cd2a96" class="numbered-list" start="16"><li>nodereservations-service_reservations-service_docker#diskio#write#service_time-no_subject 1638310140 2021-11-30 23:09:00</li></ol><ol type="1" id="14c9e003-12ae-4b47-8fdd-5a327602e0c8" class="numbered-list" start="17"><li>nodereservations-service_reservations-service_docker#diskio#read#wait_time-no_subject 1638546890 2021-12-03 16:54:50</li></ol><p id="cfb0b653-0973-4ff2-a623-038150dfc5d3" class="">
+</p><p id="72e8b351-c983-4566-a76c-b87df55ff8a2" class="">Like how we did above, we can look at the number of anomalies (before noise suppression) that happen around these time stamps on the individual metric time-series. We observe that abnormal region size 1 has 7 cases, abnormal region size 2  has 4 cases, abnormal region size 5 has 2 cases and abnormal region size 6 has 4 cases.</p><p id="73e454f6-ea6d-4ba1-9b4e-31eb29bd2a8c" class="">
+</p><p id="e91092cf-fa61-40e7-a42f-c7a11df01587" class="">We can look at anomalies that are simultaneously happening across all components and metrics for the above time stamps. We get the following sets of components, when we look exact timestamp overlap:</p><p id="ef076f3f-8d58-44a7-bc88-28fc06cbabc5" class="">16 incidents. 6 based on single component alone.</p><p id="7060f3cd-5dd1-4758-8ae7-669992828298" class="">2021-11-15 10:53:00 mysql357e569af1d96542 and linux608ac1c48e4afc0040b43d19
+2021-11-15 11:05:00 mysql357e569af1d96542 and mysqlc65d1f2cd07cc218
+2021-11-15 12:40:10 mysql6d7613c72a46df40 and linux604b83a14c58ea0011d6220f
+2021-11-15 14:23:10 nodeportal_portal
+2021-11-17 16:25:10 linux60fec22ada00c500125f430f and nodeapp_app-web
+2021-11-21 07:56:00 linux60b8d8abaeb6f802698917b1 and pythonkoios_koios-tasks
+2021-11-22 10:53:00 linux60fec22ada00c500125f430f, linux60fec22dda00c500125f4312, linux60fec22dda00c500125f4313 and linux60fec22cda00c500125f4311
+2021-11-22 10:56:50 gateway_caddy_server, pythonbackup_dockup-master, docker24929622c71624a6, nodesensor-service_sensor-service, nodewebapi_webapi-server, pythonbackup_dockup-node, consul_consul-server
+2021-11-22 10:57:00 linux60fec238da00c500125f4314
+2021-11-22 11:16:00 linux60fec22dda00c500125f4313, linux60fec22dda00c500125f4312, linux60fec22ada00c500125f430f, linux60fec22dda00c500125f4313, linux60fec22ada00c500125f4310, linux60fec22dda00c500125f4312, portainer_portainer, pythonkoios_koios-tasks, pythonalerts_alerts-engine, linux60fec228da00c500125f430d, linux60fec229da00c500125f430e, linux60fec22cda00c500125f4311
+2021-11-23 16:12:00 koios_koios-api, linux60fec22dda00c500125f4313
+2021-11-27 00:03:20 pythonpost-processing_post-processing-worker
+2021-11-30 23:09:00 nodereservations-service_reservations-service
+2021-12-01 15:01:30 linux60fec22ada00c500125f430f
+2021-12-03 16:54:50 nodereservations-service_reservations-service
+2021-12-08 15:54:50 mysqlc65d1f2cd07cc218, linux60fec22cda00c500125f4311, docker533eacfa0bebb3ca, linux60fec22ada00c500125f430f, docker533eacfa0bebb3ca, linux60fec22dda00c500125f4312</p><p id="e1f678d3-6373-4d70-8614-202402569bb0" class="">
+</p><p id="d697e216-f86b-49cc-8545-fe44ca017611" class="">Right now, these simultaneous anomalies are MAD anomalies before noise suppression. It will be good to look at simultaneous anomalies after noise suppression.</p><p id="3270a078-bc4b-49ab-9208-438e13cbb5bc" class="">
+</p><p id="3d4fbe58-fd18-4e39-b91e-3a2f37c186c0" class="">Here are the lists of simultaneous anomalies for different time windows of overlap around the client validated anomalies:</p><figure id="ad6fe4bf-8776-47ce-adb7-ef9928706a60"><div class="source"><a href="Analysing%20historical%20MAD%20anomalies%20ee943653cb594d6a91fd10eca3e4df29/simul_sign_0.csv">simul_sign_0.csv</a></div></figure><figure id="c9602029-4a16-4da4-95c6-c1c8372ffee7"><div class="source"><a href="Analysing%20historical%20MAD%20anomalies%20ee943653cb594d6a91fd10eca3e4df29/simul_sign_60.csv">simul_sign_60.csv</a></div></figure><figure id="21c6dd40-2c0e-40aa-9377-c9dee8743b57"><div class="source"><a href="Analysing%20historical%20MAD%20anomalies%20ee943653cb594d6a91fd10eca3e4df29/simul_sign_300.csv">simul_sign_300.csv</a></div></figure><figure id="96797c3a-6fec-4543-835c-8898ccf8b3c5"><div class="source"><a href="Analysing%20historical%20MAD%20anomalies%20ee943653cb594d6a91fd10eca3e4df29/simul_sign_900.csv">simul_sign_900.csv</a></div></figure><figure id="3f7da6b6-d44e-4fdf-ba78-105c031b1dcc"><div class="source"><a href="Analysing%20historical%20MAD%20anomalies%20ee943653cb594d6a91fd10eca3e4df29/simul_sign_1800.csv">simul_sign_1800.csv</a></div></figure><figure id="41c5b4c5-dd6d-476b-82d9-9485ec7c66ef"><div class="source"><a href="Analysing%20historical%20MAD%20anomalies%20ee943653cb594d6a91fd10eca3e4df29/simul_sign_3600.csv">simul_sign_3600.csv</a></div></figure><p id="d08f244b-d447-4236-bbb8-56e3a2c3b6af" class="">
+</p><p id="af35e244-bb08-4a48-9cb2-570076b1a089" class="">We need to see how to use these data about simultaneous anomalies.</p><p id="32a072d6-308d-4dcf-a694-152d9da9b5cf" class="">
+</p></div></article></body></html>

@@ -1,0 +1,2201 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Comparison between sentiment analysis packages for SARA </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="fb237ce8-644b-4209-82cb-f259066b4f01" class="page sans"><header><h1 class="page-title">Comparison between sentiment analysis packages for SARA </h1><p class="page-description"></p></header><div class="page-body"><p id="c7ac708c-cd48-4152-b4b0-26d5ea7a258d" class="">
+</p><nav id="e2df4f11-11f4-44c6-9150-48f56f7001a3" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d5cd36b2-8eb1-4b8d-baa5-6449ab1f9127">Report 1 : Sentiment on mysql-8</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#61c7ee17-a429-4a3c-aa08-ce907cc23fa1">Report 2 : Sentiment cross  host topics</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6a148b43-1432-45c6-bc07-6f7acba72761">Report 3 : Sentiments using TextBlob</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a0ddd31d-5f5c-4fe0-bf57-cbd1eaf1e60b">Report 4 : Remove log header + Introduce HuggingFace model</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c34b8a09-10ad-481d-b13a-7fd182beac7f">SARA</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#00544154-c117-418a-835a-0de06495c0a0">TextBlob</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#897faa9f-007b-4357-87eb-7b9ee74142c4">HuggingFace : nlptown/bert-base-multilingual-uncased-sentiment</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#82b85e9b-c4e6-4645-a556-5b09787e35ad">HuggingFace : cardiffnlp/twitter-roberta-base-sentiment</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#75b62b07-88e0-4046-bb05-1f904f857797">Summary</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5aaec4a0-0b51-4de7-a6b4-0cddaa92bf39">Performances</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e119c219-6017-4d0a-ba3d-e496b1e74776">HuggingFace Twitter</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#99d6cd38-508f-486b-acfa-227bee33a98a">HuggingFace Product</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9533a939-4c91-404c-80e2-95812b5506ad">TextBlob</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bdf79f7b-b1df-4f25-b061-efc5d8fec8c1">Sara</a></div></nav><p id="197b8941-4beb-4e24-84fa-37dda435a496" class="">
+</p><p id="9a0598a8-127d-4e77-8fef-510e9ecf8296" class="">
+</p><h1 id="d5cd36b2-8eb1-4b8d-baa5-6449ab1f9127" class="">Report 1 : Sentiment on mysql-8</h1><p id="e6bd143f-3796-4617-9594-cf0e79299858" class="">The logs listed below are classified as negative sentiment :</p><p id="9e677244-fd9c-4edf-8912-b0025390051f" class="">
+</p><ul id="c05cdb17-e103-4fa6-8548-fc8792faab46" class="bulleted-list"><li style="list-style-type:disc"><strong>Goal : </strong>Apply Sentiment component of SARA on Affluences mysql-8 component </li></ul><ul id="8ae6831a-823b-4a16-85af-77d63ce2d707" class="bulleted-list"><li style="list-style-type:disc"><strong>Scope : </strong>12 April to 25 April</li></ul><ul id="6d5f55ca-bb5c-439b-9111-8e37a212918a" class="bulleted-list"><li style="list-style-type:disc"><strong>Approach : </strong><ul id="97fae20a-5cc6-4896-8ce1-3b9d7fb40a29" class="bulleted-list"><li style="list-style-type:circle">Apply the initial model of sentiment analysis on the logs day by day</li></ul><ul id="1e3d82ee-2dde-4b0e-a9dd-0712836ab383" class="bulleted-list"><li style="list-style-type:circle">If a message has a score more than 30% it is considered as anomaly</li></ul><ul id="eb43195d-623d-4d89-a568-2797d52633de" class="bulleted-list"><li style="list-style-type:circle">The messages that are similar by +75% to the already considered anomalies are not taken into account</li></ul></li></ul><ul id="176d324e-386f-4080-a530-e7e88446ff4a" class="bulleted-list"><li style="list-style-type:disc"><strong>Note :</strong><ul id="8e5b5efe-e2dd-4533-9828-f728feae342b" class="bulleted-list"><li style="list-style-type:circle">Spacy similarity is used for this experiment</li></ul><ul id="91a032b9-2eea-4bf7-888c-3cd5245d2457" class="bulleted-list"><li style="list-style-type:circle">The similarity filter is used to mimic the rareness component of SARA </li></ul></li></ul><p id="6401d4a0-8599-44e8-a728-fa50ac84a109" class="">
+</p><p id="40044e8c-6670-45aa-a2cf-df403ae09130" class="">
+</p><pre id="c9491fc2-0e9e-45be-8e7f-cea3c0b6f4a7" class="code"><code>2021-04-12
+Apr 12 03:01:18 mysql-8 sshd[6796]: Disconnected from invalid user teamspeak 45.91.226.236 port 43198 [preauth]
+Apr 12 05:32:27 mysql-8 sshd[11499]: Invalid user warehouse from 159.89.110.220 port 37702
+Apr 12 00:00:02 mysql-8 systemd[1]: logrotate.service: Succeeded.
+
+2021-04-13
+Apr 13 03:07:30 mysql-8 sshd[3296]: Invalid user element from 154.126.32.138 port 53698
+Apr 13 04:16:32 mysql-8 sshd[3448]: Disconnected from invalid user redmine 165.22.179.40 port 42372 [preauth]
+Apr 13 00:00:02 mysql-8 systemd[1]: logrotate.service: Succeeded.
+
+2021-04-14
+Apr 14 03:02:56 mysql-8 sshd[9053]: Invalid user nnn from 78.17.166.75 port 57830
+Apr 14 00:00:02 mysql-8 systemd[1]: logrotate.service: Succeeded.
+
+2021-04-15
+Apr 15 03:17:19 mysql-8 sshd[15718]: Invalid user customer from 45.135.232.165 port 38709
+Apr 15 03:59:55 mysql-8 sshd[15806]: Disconnected from invalid user dovecot 165.22.193.179 port 37618 [preauth]
+Apr 15 00:00:02 mysql-8 systemd[1]: logrotate.service: Succeeded.
+
+2021-04-16
+Apr 16 03:29:36 mysql-8 sshd[24100]: Invalid user qf from 125.70.244.7 port 38232
+Apr 16 00:00:02 mysql-8 systemd[1]: logrotate.service: Succeeded.
+
+2021-04-17
+Apr 17 03:31:31 mysql-8 sshd[29621]: Invalid user nmrsu from 195.223.211.242 port 38915
+Apr 17 00:00:02 mysql-8 systemd[1]: logrotate.service: Succeeded.
+Apr 17 22:02:21 mysql-8 sshd[32755]: Disconnected from invalid user csgo 207.180.221.187 port 40986 [preauth]
+
+2021-04-18
+Apr 18 03:00:46 mysql-8 sshd[1767]: Invalid user git from 109.104.151.112 port 51654
+Apr 18 04:34:22 mysql-8 sshd[2105]: Disconnected from invalid user saram 34.101.189.95 port 47938 [preauth]
+Apr 18 00:00:02 mysql-8 systemd[1]: logrotate.service: Succeeded.
+Apr 18 23:19:19 mysql-8 sshd[5317]: Invalid user csgo from 207.180.221.187 port 44066
+
+2021-04-19
+Apr 19 03:00:26 mysql-8 sshd[7903]: Invalid user dst from 207.180.221.187 port 40350
+Apr 19 00:00:02 mysql-8 systemd[1]: logrotate.service: Succeeded.
+Apr 19 00:14:19 mysql-8 sshd[5749]: Disconnected from invalid user csgo 207.180.221.187 port 41346 [preauth]
+
+2021-04-20
+Apr 20 03:35:09 mysql-8 sshd[12451]: Invalid user umcapasocanoas from 180.250.115.121 port 58876
+Apr 20 18:01:21 mysql-8 dhclient[18967]: Killed old client process
+Apr 20 18:30:24 mysql-8 systemd[1]: Starting MySQL Community Server...
+Apr 20 18:36:57 mysql-8 packetai-server[11270]: #033[90m6:36PM#033[0m #033[33mDBG#033[0m listing and exporting 128 processes took 37.21661ms.
+Apr 20 18:37:07 mysql-8 packetai-server[11270]: #033[90m6:37PM#033[0m #033[33mDBG#033[0m listing and exporting 128 processes took 35.973083ms.
+Apr 20 18:58:02 mysql-8 kernel: [    0.000000] kvm-clock: using sched offset of 6682550863 cycles
+Apr 20 18:58:02 mysql-8 kernel: [    0.006646] last_pfn = 0xee6000 max_arch_pfn = 0x400000000
+Apr 20 18:58:02 mysql-8 systemd[1]: Starting Flush Journal to Persistent Storage...
+Apr 20 18:58:02 mysql-8 kernel: [    1.930316] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=16
+Apr 20 18:58:02 mysql-8 sh[550]: DHCPREQUEST for 51.83.14.10 on eth0 to 255.255.255.255 port 67
+Apr 20 18:58:02 mysql-8 kernel: [    2.191907] rcu: Hierarchical SRCU implementation.
+Apr 20 18:58:02 mysql-8 kernel: [    2.328989] smpboot: Total of 16 processors activated (70399.93 BogoMIPS)
+Apr 20 18:58:02 mysql-8 kernel: [    2.399134] acpiphp: Slot [10] registered
+Apr 20 18:58:02 mysql-8 kernel: [    2.401009] acpiphp: Slot [12] registered
+Apr 20 18:58:02 mysql-8 kernel: [    0.007621]   3 disabled
+Apr 20 18:58:02 mysql-8 kernel: [    3.926073] sd 2:0:0:1: [sdc] 209715200 512-byte logical blocks: (107 GB/100 GiB)
+Apr 20 07:59:39 mysql-8 sshd[13609]: Received disconnect from 221.181.185.220 port 45978:11:  [preauth]
+
+2021-04-21
+Apr 21 03:58:04 mysql-8 sshd[16105]: Invalid user yeti from 142.93.220.128 port 33460
+Apr 21 00:00:00 mysql-8 systemd[1]: logrotate.service: Succeeded.
+
+2021-04-22
+Apr 22 03:13:12 mysql-8 sshd[22828]: Invalid user test from 171.239.254.202 port 36784
+Apr 22 04:09:05 mysql-8 sshd[24488]: Disconnected from invalid user bitbucket 104.248.244.119 port 36154 [preauth]
+Apr 22 00:00:00 mysql-8 systemd[1]: logrotate.service: Succeeded.
+
+2021-04-23
+Apr 23 03:01:48 mysql-8 sshd[30130]: Invalid user usuario1 from 200.219.8.19 port 59494
+Apr 23 18:25:39 mysql-8 sshd[25694]: Disconnecting invalid user Symbol 45.141.84.10 port 58150: Change of username or service not allowed: (Symbol,ssh-connection) -&gt; (admin,ssh-connection) [preauth]
+Apr 23 00:00:00 mysql-8 systemd[1]: logrotate.service: Succeeded.
+Apr 23 23:42:57 mysql-8 sshd[2005]: Invalid user nodejs from 122.163.120.43 port 47524
+Apr 23 22:54:39 mysql-8 sshd[523]: Invalid user csgo from 122.163.120.43 port 34900
+
+2021-04-24
+Apr 24 03:00:58 mysql-8 sshd[7913]: Invalid user dst from 122.163.120.43 port 51686
+Apr 24 07:02:12 mysql-8 sshd[14673]: Disconnected from invalid user pentaho 122.163.120.43 port 55018 [preauth]
+Apr 24 00:00:00 mysql-8 systemd[1]: logrotate.service: Succeeded.
+
+2021-04-25
+Apr 25 05:01:35 mysql-8 sshd[3384]: Invalid user logviewer from 61.133.122.19 port 64684
+Apr 25 00:00:00 mysql-8 systemd[1]: logrotate.service: Succeeded.
+Apr 25 13:50:10 mysql-8 sshd[11718]: Disconnected from invalid user nodejs 119.45.222.252 port 55422 [preaut</code></pre><p id="90759a62-2b1e-42eb-baf3-4d6d653f8d7a" class="">
+</p><p id="aa82b993-e6bb-4f7f-a390-02898e689a86" class=""><strong>Conclusion</strong></p><ul id="40d19a3d-9c9b-4beb-adb1-1bd668d148c6" class="bulleted-list"><li style="list-style-type:disc">April 20th shows an anomalous period</li></ul><p id="b9c931c2-4300-474c-88c9-567df7e17bbd" class="">
+</p><p id="df8b8e61-41c6-4aac-9efa-678e3006c88c" class="">
+</p><h1 id="61c7ee17-a429-4a3c-aa08-ce907cc23fa1" class="">Report 2 : Sentiment cross  host topics</h1><p id="9c80a737-cc5d-4c5a-aea8-e61f4c4a3b29" class="">The logs listed below are classified as negative sentiment :</p><ul id="839ce015-71c1-4643-b9ee-3adc3b28452a" class="bulleted-list"><li style="list-style-type:disc"><strong>Goal : </strong>Apply Sentiment component of SARA on Affluences host components</li></ul><ul id="720d24d1-2b17-4e89-b669-651751ff32e0" class="bulleted-list"><li style="list-style-type:disc"><strong>Scope : </strong>12 April to 25 April</li></ul><ul id="5c66731f-6da2-4932-a68c-134f3ba8bbe5" class="bulleted-list"><li style="list-style-type:disc"><strong>Approach : </strong><ul id="599e308f-358e-4092-b871-064d38d8dfb1" class="bulleted-list"><li style="list-style-type:circle">Apply the initial model of sentiment analysis on the logs on the whole period</li></ul><ul id="a370aa97-8413-4ad9-9cee-7fe198039609" class="bulleted-list"><li style="list-style-type:circle">If a message has a score more than 30% it is considered as anomaly</li></ul><ul id="2947c2fb-314e-43f4-a0c6-dcf2675949ef" class="bulleted-list"><li style="list-style-type:circle">The messages that are similar by +75% to the already considered anomalies are not taken into account</li></ul></li></ul><ul id="48de7c65-d152-4fca-b95d-ca2aed3743a9" class="bulleted-list"><li style="list-style-type:disc"><strong>Note :</strong><ul id="4e0ad657-73e1-469b-a858-3a10b4de0f31" class="bulleted-list"><li style="list-style-type:circle">Spacy similarity is used for this experiment</li></ul><ul id="9f375ed1-627d-4999-8c19-be755a928edc" class="bulleted-list"><li style="list-style-type:circle">The similarity filter is used to mimic the rareness component of SARA </li></ul></li></ul><p id="e83074c4-07b7-476f-856a-52ecea161c6c" class="">
+</p><p id="8750f516-d032-4729-9d02-718b4d7012c4" class="">
+</p><ul id="c39a00c3-2a12-4375-99e3-3a8d18f357e0" class="toggle"><li><details open=""><summary><strong>docker0</strong> : linux6040eafa3a9e9f0012cebfd4</summary><pre id="05fdb13d-93a6-43cc-9c3a-b051f6f86940" class="code"><code>Apr 12 03:04:43 docker0 sshd[7690]: Invalid user 0101 from 45.227.254.10 port 41272
+Apr 12 04:03:25 docker0 sshd[32604]: input_userauth_request: invalid user ziggo [preauth]
+Apr 12 05:04:01 docker0 sshd[25597]: Disconnecting: Change of username or service not allowed: (266344,ssh-connection) -&gt; (23646,ssh-connection) [preauth]
+Apr 12 14:15:17 docker0 kernel: [31869167.461793] Call Trace:
+Apr 16 10:58:58 docker0 kernel: [32202985.886890] [18223] 65534 18223 13210760 1085796 2502 53 0 0 prometheus
+</code></pre></details></li></ul><ul id="b7b4c3da-6665-4bf4-8355-28d638b1dadc" class="toggle"><li><details open=""><summary><strong>docker4</strong> : linux6040f8233a9e9f0012cec099</summary><pre id="37e19c1d-86dd-4643-a936-90dfaacc52d9" class="code"><code>Apr 12 03:29:10 docker4 sshd[24014]: Invalid user user from 178.214.243.19 port 38666
+Apr 12 17:03:17 docker4 sshd[16725]: Disconnected from invalid user katarzyna 110.88.160.233 port 59964 [preauth]
+Apr 12 00:00:06 docker4 systemd[1]: logrotate.service: Succeeded.
+Apr 12 00:33:30 docker4 PackageKit: daemon quit
+Apr 13 12:02:34 docker4 sshd[30728]: Invalid user owncloud from 132.232.45.204 port 33776
+Apr 20 16:12:30 docker4 kernel: [8232830.036021] Call Trace:
+Apr 20 16:12:30 docker4 kernel: [8232830.058792] RAX: 0000000000001001 RBX: 000056395170dff0 RCX: 000056395170f000
+Apr 20 16:12:30 docker4 kernel: [8232830.062300] RBP: 000056395170e000 R08: 0000000000000001 R09: 000056395170e000
+Apr 20 16:12:30 docker4 kernel: [8232830.084759] [ 2328] 0 2328 72456 9961 868352 0 0 node</code></pre></details></li></ul><ul id="87730ac5-d22f-4526-b886-1da376d08de9" class="toggle"><li><details open=""><summary><strong>mysql-8</strong> : linux604b83a14c58ea0011d6220f</summary><pre id="accc8dae-45ef-4b45-82ec-9628789e205c" class="code"><code>Apr 12 03:01:18 mysql-8 sshd[6796]: Disconnected from invalid user teamspeak 45.91.226.236 port 43198 [preauth]
+Apr 12 05:32:27 mysql-8 sshd[11499]: Invalid user warehouse from 159.89.110.220 port 37702
+Apr 12 00:00:02 mysql-8 systemd[1]: logrotate.service: Succeeded.
+Apr 17 22:02:21 mysql-8 sshd[32755]: Invalid user csgo from 207.180.221.187 port 40986
+Apr 17 22:42:20 mysql-8 sshd[574]: Invalid user nodejs from 207.180.221.187 port 54770
+Apr 20 18:01:21 mysql-8 dhclient[18967]: Killed old client process
+Apr 20 18:30:24 mysql-8 systemd[1]: Starting MySQL Community Server...
+Apr 20 18:36:57 mysql-8 packetai-server[11270]: #033[90m6:36PM#033[0m #033[33mDBG#033[0m listing and exporting 128 processes took 37.21661ms.
+Apr 20 18:37:07 mysql-8 packetai-server[11270]: #033[90m6:37PM#033[0m #033[33mDBG#033[0m listing and exporting 128 processes took 35.973083ms.
+Apr 20 18:58:02 mysql-8 kernel: [ 0.000000] kvm-clock: using sched offset of 6682550863 cycles
+Apr 20 18:58:02 mysql-8 kernel: [ 0.006646] last_pfn = 0xee6000 max_arch_pfn = 0x400000000
+Apr 20 18:58:02 mysql-8 systemd[1]: Starting Flush Journal to Persistent Storage...
+Apr 20 18:58:02 mysql-8 kernel: [ 1.930316] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=16
+Apr 20 18:58:02 mysql-8 sh[550]: DHCPREQUEST for 51.83.14.10 on eth0 to 255.255.255.255 port 67
+Apr 20 18:58:02 mysql-8 kernel: [ 2.191907] rcu: Hierarchical SRCU implementation.
+Apr 20 18:58:02 mysql-8 kernel: [ 2.328989] smpboot: Total of 16 processors activated (70399.93 BogoMIPS)
+Apr 20 18:58:02 mysql-8 kernel: [ 2.399134] acpiphp: Slot [10] registered
+Apr 20 18:58:02 mysql-8 kernel: [ 2.401009] acpiphp: Slot [12] registered
+Apr 20 18:58:02 mysql-8 kernel: [ 0.007621] 3 disabled
+Apr 20 18:58:02 mysql-8 kernel: [ 3.926073] sd 2:0:0:1: [sdc] 209715200 512-byte logical blocks: (107 GB/100 GiB)
+</code></pre></details></li></ul><ul id="80f63821-64dd-41b6-8b20-c6498a333072" class="toggle"><li><details open=""><summary><strong>mysql-cluster2</strong> : linux604b83b34c58ea0011d62213</summary><pre id="13e02e51-7821-419d-b048-46305c2777d8" class="code"><code>Apr 12 03:00:26 mysql-cluster2 sshd[17815]: Invalid user test from 62.210.82.18 port 50112
+Apr 12 03:13:06 mysql-cluster2 sshd[17916]: Disconnected from invalid user roux 62.210.82.18 port 47726 [preauth]
+Apr 12 03:55:13 mysql-cluster2 PackageKit: daemon quit
+Apr 12 00:00:06 mysql-cluster2 systemd[1]: logrotate.service: Succeeded.
+Apr 12 09:02:55 mysql-cluster2 kernel: [7153446.681788] Call Trace:
+Apr 12 09:02:55 mysql-cluster2 kernel: [7153446.719782] RAX: 0000000000000001 RBX: 0000000000000000 RCX: 0000000000000000
+Apr 12 09:02:55 mysql-cluster2 kernel: [7153446.723547] RBP: 00007f2550922970 R08: 0000000000000000 R09: e000000000000000
+Apr 12 09:02:55 mysql-cluster2 kernel: [7153446.736804]  active_file:474 inactive_file:605 isolated_file:73
+Apr 12 09:02:55 mysql-cluster2 kernel: [7153446.833219] [    601]     0   601     2372      325    57344        0             0 dhclient
+Apr 12 09:02:55 mysql-cluster2 kernel: [7153446.841975] [    804]     0   804     2110       58    53248        0             0 cron
+Apr 12 09:02:55 mysql-cluster2 kernel: [7153446.850683] [    814]   104   814     2305      253    57344        0          -900 dbus-daemon
+Apr 12 09:02:55 mysql-cluster2 kernel: [7153446.856259] [    826]     0   826    62836     2959   126976        0             0 fail2ban-server
+Apr 12 09:02:55 mysql-cluster2 kernel: [7153446.859337] [    844]     0   844     3942      213    65536        0         -1000 sshd
+Apr 12 09:02:55 mysql-cluster2 kernel: [7153446.888858] [  29007]   106 29007    19117      146    65536        0             0 ntpd
+Apr 12 09:02:55 mysql-cluster2 kernel: [7153446.901059] [  19484]   108 19484  7549698  7156125 58597376        0             0 mysqld
+Apr 12 09:03:50 mysql-cluster2 kernel: [7153502.036330]  &lt;IRQ&gt;
+Apr 12 09:04:11 mysql-cluster2 systemd[1]: mysql.service: Main process exited, code=killed, status=9/KILL
+Apr 12 09:27:10 mysql-cluster2 kernel: [    2.052346] NR_IRQS: 33024, nr_irqs: 488, preallocated irqs: 16
+Apr 12 09:27:10 mysql-cluster2 kernel: [    2.124460] bootconsole [earlyser0] disabled
+Apr 12 09:27:10 mysql-cluster2 kernel: [    2.368357] NMI watchdog: Perf NMI watchdog permanently disabled
+Apr 12 09:27:10 mysql-cluster2 kernel: [    2.497393] audit: initializing netlink subsys (disabled)
+Apr 12 09:27:10 mysql-cluster2 apparmor.systemd[332]: Restarting AppArmor
+Apr 12 09:27:10 mysql-cluster2 kernel: [    2.937848] pnp: PnP ACPI init
+Apr 12 09:27:10 mysql-cluster2 systemd[1]: Started D-Bus System Message Bus.
+Apr 12 09:36:50 mysql-cluster2 packetai-server[793]: #033[90m9:36AM#033[0m #033[33mDBG#033[0m listing and exporting 137 processes took 68.133199ms.
+Apr 13 08:38:13 mysql-cluster2 sshd[3533]: Disconnected from authenticating user root 221.181.185.220 port 11531 [preauth]
+Apr 18 09:41:30 mysql-cluster2 packetai-server[793]: #033[90m9:41AM#033[0m #033[33mDBG#033[0m listing and exporting 118 processes took 36.531219ms.</code></pre></details></li></ul><ul id="a67f1640-1990-4abe-a383-621b80dec424" class="toggle"><li><details open=""><summary><strong>docker3</strong>: linux6040f81b3a9e9f0012cec097</summary><pre id="84ff4d14-04dd-4460-9ae4-48824149e677" class="code"><code>Apr 12 03:59:00 docker3 sshd[18670]: Invalid user janus from 129.211.74.252 port 42540
+Apr 12 20:45:50 docker3 sshd[5475]: Disconnected from invalid user icinga 91.121.30.117 port 46346 [preauth]
+Apr 12 00:00:06 docker3 systemd[1]: logrotate.service: Succeeded.
+Apr 12 00:49:48 docker3 PackageKit: daemon quit
+Apr 18 08:46:43 docker3 sshd[9762]: Invalid user owncloud from 85.234.117.151 port 37817</code></pre></details></li></ul><ul id="f6889995-bef9-4639-877e-d3edb21e42ac" class="toggle"><li><details open=""><summary><strong>mysql-cluster1</strong>: linux604b83aa4c58ea0011d62211</summary><pre id="e942cdb6-18d8-48c5-ba03-70ea57c70456" class="code"><code>Apr 12 03:00:25 mysql-cluster1 sshd[30712]: Invalid user test from 62.210.82.18 port 57722
+Apr 12 03:13:05 mysql-cluster1 sshd[31162]: Disconnected from invalid user roux 62.210.82.18 port 55336 [preauth]
+Apr 12 00:00:07 mysql-cluster1 systemd[1]: logrotate.service: Succeeded.
+Apr 12 01:16:03 mysql-cluster1 PackageKit: daemon quit
+Apr 13 08:38:50 mysql-cluster1 sshd[16487]: Invalid user csgo from 46.105.127.217 port 32768
+Apr 15 17:00:20 mysql-cluster1 sshd[11801]: Invalid user owncloud from 51.15.204.155 port 39240
+Apr 20 16:16:22 mysql-cluster1 ntpd[926]: 194.177.34.116 local addr 51.210.184.31 -&gt; &lt;null&gt;
+Apr 20 15:06:33 mysql-cluster1 systemd[1]: Stopping Fail2Ban Service...
+Apr 20 15:28:24 mysql-cluster1 kernel: [    0.007546]   1 disabled
+Apr 20 15:28:24 mysql-cluster1 apparmor.systemd[396]: Restarting AppArmor
+Apr 20 15:28:24 mysql-cluster1 kernel: [    0.991413] NR_IRQS: 33024, nr_irqs: 552, preallocated irqs: 16
+Apr 20 15:28:24 mysql-cluster1 kernel: [    1.157071] NMI watchdog: Perf NMI watchdog permanently disabled
+Apr 20 15:28:24 mysql-cluster1 kernel: [    1.331527] audit: initializing netlink subsys (disabled)
+Apr 20 15:28:24 mysql-cluster1 kernel: [    1.316060] x86/mm: Memory block size: 128MB
+Apr 20 15:28:24 mysql-cluster1 systemd[1]: Starting OpenBSD Secure Shell server...
+Apr 20 15:28:24 mysql-cluster1 systemd[1]: Started System Logging Service.
+Apr 20 15:30:35 mysql-cluster1 packetai-server[930]: #033[90m3:30PM#033[0m #033[33mDBG#033[0m listing and exporting 194 processes took 67.456293ms.
+Apr 20 15:31:06 mysql-cluster1 kernel: [    0.000000] kvm-clock: Using msrs 4b564d01 and 4b564d00
+Apr 20 15:31:06 mysql-cluster1 kernel: [    0.015384] ACPI: FACP 0x00000000BFFE125F 000074 (v01 BOCHS  BXPCFACP 00000001 BXPC 00000001)</code></pre></details></li></ul><ul id="60523935-63ce-4f50-8f5c-0a8610dda975" class="toggle"><li><details open=""><summary><strong>docker2</strong>: linux6040f8103a9e9f0012cec095</summary><pre id="0d3f6463-3d2b-479d-8a62-3afc28520a5b" class="code"><code>Apr 12 03:07:26 docker2 sshd[9416]: Invalid user user from 112.160.143.70 port 52727
+Apr 12 19:26:18 docker2 sshd[11114]: Disconnected from invalid user choudhury 118.24.202.34 port 51660 [preauth]
+Apr 12 00:00:03 docker2 systemd[1]: logrotate.service: Succeeded.
+Apr 12 14:50:35 docker2 PackageKit: daemon quit
+Apr 18 22:24:05 docker2 sshd[11602]: Invalid user owncloud from 51.158.104.101 port 49036
+Apr 20 16:13:42 docker2 kernel: [8233606.878932] Call Trace:
+Apr 20 16:13:42 docker2 kernel: [8233606.927003] [   7802]     0  7802    72483     9968   892928        0             0 node</code></pre></details></li></ul><ul id="bbe075f5-f47b-4eea-8b2c-f403cecdb2d0" class="toggle"><li><details open=""><summary><strong>docker1</strong>: linux6040f7e73a9e9f0012cec090</summary><pre id="341c7527-d724-4610-9d8b-326ee38a28d5" class="code"><code>Apr 12 03:05:17 docker1 sshd[10060]: Invalid user nisa from 103.253.200.161 port 56052
+Apr 12 02:36:19 docker1 PackageKit: daemon quit
+Apr 12 00:00:00 docker1 systemd[1]: logrotate.service: Succeeded.
+Apr 13 06:49:18 docker1 sshd[1012]: Disconnected from authenticating user irc 103.134.177.163 port 32792 [preauth]
+Apr 23 23:35:18 docker1 sshd[14973]: Invalid user nodejs from 222.85.25.31 port 36038</code></pre></details></li></ul><p id="05f17c4b-11a1-4186-8ac5-235952f36c33" class="">
+</p><h1 id="6a148b43-1432-45c6-bc07-6f7acba72761" class="">Report 3 : Sentiments using TextBlob</h1><p id="4b5c60f6-95e6-48d9-90d2-0f3802c43d50" class="">The logs listed below are classified as negative sentiment :</p><ul id="5b4aa506-cc31-4193-8ff6-8a586b9a82fb" class="bulleted-list"><li style="list-style-type:disc"><strong>Goal : </strong>Apply Sentiment component of TextBlob on Affluences host components</li></ul><ul id="b2555d2b-e02f-484f-bcb5-48eaed601ed1" class="bulleted-list"><li style="list-style-type:disc"><strong>Scope : </strong>12 April to 25 April</li></ul><ul id="4f0ef188-a563-45fe-933d-f0606d36b09a" class="bulleted-list"><li style="list-style-type:disc"><strong>Approach : </strong><ul id="bbdc6a67-df77-450d-bd81-e631b2d39e10" class="bulleted-list"><li style="list-style-type:circle">Apply the model of sentiment analysis on the logs on the whole period</li></ul><ul id="1571ab12-ccbc-4a10-b332-7ce0aa6ee164" class="bulleted-list"><li style="list-style-type:circle">If a message has a score of less than -50% it is considered as negative</li></ul><ul id="c28ed0a0-1d22-490c-a941-29033c2bb4b2" class="bulleted-list"><li style="list-style-type:circle">The messages that are similar by +75% to the already marked as negative are not taken into account</li></ul></li></ul><ul id="69453c50-b1a2-4bf1-a6fc-9ba85ab3d2df" class="bulleted-list"><li style="list-style-type:disc"><strong>Note :</strong><ul id="c9a74f65-d1f8-4b71-a7b7-1f4e7b4754a3" class="bulleted-list"><li style="list-style-type:circle">Spacy similarity is used for this experiment</li></ul><p id="9d82375c-e450-4447-a9ff-d6d26881be11" class="">
+</p><p id="6ebb0596-90c1-43aa-a02a-c133295ab77b" class="">
+</p></li></ul><ul id="9f0c9699-c775-4417-8019-aa716d3894c2" class="toggle"><li><details open=""><summary><strong>docker0</strong> : linux6040eafa3a9e9f0012cebfd4</summary><pre id="ffffc6c5-f9e5-4b26-8df4-a601ffc1ccdd" class="code"><code>Apr 12 03:11:31 docker0 sshd[10748]: Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.68.112.227 port 38416
+Apr 12 03:17:01 docker0 CRON[13090]: (root) CMD (   cd / &amp;&amp; run-parts --report /etc/cron.hourly)
+Apr 12 05:43:48 docker0 kernel: [31838477.875383] eth1: renamed from vethf252ca1
+Apr 12 06:25:01 docker0 liblogging-stdlog:  [origin software=&quot;rsyslogd&quot; swVersion=&quot;8.24.0&quot; x-pid=&quot;28321&quot; x-info=&quot;http://www.rsyslog.com&quot;] rsyslogd was HUPed
+Apr 12 06:42:58 docker0 systemd[1]: apt-daily.timer: Adding 28min 12.264793s random time.
+Apr 12 14:15:17 docker0 kernel: [31869167.458997]  ffffffffb0c070d0 0000000000000000 0000000000000000 ffff970094f17c00
+Apr 12 14:15:17 docker0 kernel: [31869167.484063] Memory cgroup stats for /docker/3d745f909564709304b03236de24ef8a891c6c0f8104ebf29f5bd4896ba4be8c: cache:4KB rss:129436KB rss_huge:0KB mapped_file:0KB dirty:0KB writeback:0KB inactive_anon:0KB active_anon:129436KB inactive_file:0KB active_file:0KB unevictable:0KB
+Apr 16 17:43:02 docker0 sshd[6689]: Unable to negotiate with 91.241.19.42 port 47465: no matching cipher found. Their offer: aes256-cbc,rijndael-cbc@lysator.liu.se,aes192-cbc,aes128-cbc,arcfour128,arcfour,3des-cbc,none [preauth]</code></pre></details></li></ul><ul id="0c6a0c2c-2604-4e34-938c-d3edbc0e5403" class="toggle"><li><details open=""><summary><strong>docker4</strong> : linux6040f8233a9e9f0012cec099</summary><pre id="401f0bfe-974e-4db6-8c79-3abc9c762b60" class="code"><code>Apr 12 03:03:28 docker4 sshd[16297]: Received disconnect from 221.181.185.19 port 10772:11:  [preauth]
+Apr 12 03:17:01 docker4 CRON[20614]: (root) CMD (   cd / &amp;&amp; run-parts --report /etc/cron.hourly)
+Apr 12 00:00:06 docker4 rsyslogd:  [origin software=&quot;rsyslogd&quot; swVersion=&quot;8.1901.0&quot; x-pid=&quot;550&quot; x-info=&quot;https://www.rsyslog.com&quot;] rsyslogd was HUPed
+Apr 16 14:11:38 docker4 sshd[25901]: Unable to negotiate with 91.241.19.42 port 14993: no matching cipher found. Their offer: aes256-cbc,rijndael-cbc@lysator.liu.se,aes192-cbc,aes128-cbc,arcfour128,arcfour,3des-cbc,none [preauth]
+Apr 20 16:12:30 docker4 kernel: [8232830.033254] Hardware name: OpenStack Foundation OpenStack Nova, BIOS 2:1.10.2-58953eb7 04/01/2014
+Apr 20 16:12:30 docker4 kernel: [8232830.053404] Code: 00 48 39 e8 74 12 48 83 6c 24 18 20 48 8d 68 20 48 c7 40 10 01 00 00 00 48 8b 44 24 18 48 8d 5d f0 48 8d 54 05 00 48 83 c8 01 &lt;48&gt; 89 42 f0 48 c7 42 f8 01 00 00 00 48 89 45 f8 8b 05 fa 1c 07 00
+Apr 20 16:12:30 docker4 kernel: [8232830.058792] RAX: 0000000000001001 RBX: 000056395170dff0 RCX: 000056395170f000
+Apr 20 16:12:30 docker4 kernel: [8232830.075799] Memory cgroup stats for /docker/1843e6efb5c137e848fdad13ff0df7b52a47b78607a2f4f9ea720db41e40054d: cache:104KB rss:1027076KB rss_huge:143360KB shmem:0KB mapped_file:0KB dirty:0KB writeback:0KB inactive_anon:0KB active_anon:1027248KB inactive_file:0KB active_file:0KB unevictable:0KB
+Apr 20 16:12:30 docker4 kernel: [8232830.088642] Memory cgroup out of memory: Kill process 2448 (node) score 990 or sacrifice child</code></pre></details></li></ul><ul id="5b06dd0f-bc36-4931-939d-afd5aeb76202" class="toggle"><li><details open=""><summary><strong>mysql-8</strong> : linux604b83a14c58ea0011d6220f</summary><pre id="609480dc-a31c-4bd5-a28b-5e83568fc18d" class="code"><code>Apr 12 03:01:18 mysql-8 sshd[6800]: Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.83.14.10 port 52320
+Apr 12 03:05:01 mysql-8 CRON[6870]: (root) CMD (command -v debian-sa1 &gt; /dev/null &amp;&amp; debian-sa1 1 1)
+Apr 12 00:00:02 mysql-8 rsyslogd:  [origin software=&quot;rsyslogd&quot; swVersion=&quot;8.1901.0&quot; x-pid=&quot;643&quot; x-info=&quot;https://www.rsyslog.com&quot;] rsyslogd was HUPed
+Apr 16 11:13:34 mysql-8 sshd[26009]: Unable to negotiate with 91.241.19.42 port 7435: no matching cipher found. Their offer: aes256-cbc,rijndael-cbc@lysator.liu.se,aes192-cbc,aes128-cbc,arcfour128,arcfour,3des-cbc,none [preauth]
+Apr 20 18:58:02 mysql-8 kernel: [    0.000000] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+Apr 20 18:58:02 mysql-8 kernel: [    2.175879] Spectre V2 : mitigation: Enabling conditional Indirect Branch Prediction Barrier
+Apr 20 18:58:02 mysql-8 kernel: [    2.648307] TCP: Hash tables configured (established 524288 bind 65536)
+Apr 20 18:58:02 mysql-8 kernel: [    3.389137] AppArmor: AppArmor sha1 policy hashing enabled
+Apr 20 18:58:02 mysql-8 kernel: [    1.692313] pcpu-alloc: [0] 00 01 02 03 04 05 06 07 [0] 08 09 10 11 12 13 14 15 
+Apr 20 18:58:02 mysql-8 kernel: [    8.592727] EXT4-fs (sda1): resizing filesystem from 52428539 to 104857339 blocks</code></pre></details></li></ul><ul id="d2211693-40f2-4c10-817c-ffc76b7e8638" class="toggle"><li><details open=""><summary><strong>mysql-cluster2</strong> : linux604b83b34c58ea0011d62213</summary><pre id="7a605973-9758-4ba6-bebd-5e7c2113e8e8" class="code"><code>Apr 12 03:01:51 mysql-cluster2 sshd[17831]: Received disconnect from 222.187.232.205 port 37281:11:  [preauth]
+Apr 12 03:17:01 mysql-cluster2 CRON[17973]: (root) CMD (   cd / &amp;&amp; run-parts --report /etc/cron.hourly)
+Apr 12 10:17:19 mysql-cluster2 kernel: [ 3028.396282] nf_conntrack: default automatic helper assignment has been turned off for security reasons and CT-based  firewall rule not found. Use the iptables CT target to attach helpers instead.
+Apr 12 09:02:55 mysql-cluster2 kernel: [7153446.713593] Code: c1 e9 28 0f b6 c9 44 02 2c 08 4c 89 e1 48 c1 e9 30 0f b6 c9 44 02 2c 08 41 0f b6 c5 89 85 18 ff ff ff 0f 1f 84 00 00 00 00 00 &lt;48&gt; 8b 05 81 c8 38 ff 4c 89 e6 4c 89 ff 48 89 82 c8 00 00 00 49 8b
+Apr 12 09:02:55 mysql-cluster2 kernel: [7153446.719782] RAX: 0000000000000001 RBX: 0000000000000000 RCX: 0000000000000000
+Apr 12 09:27:10 mysql-cluster2 kernel: [    0.000000] DMI: OpenStack Foundation OpenStack Nova, BIOS 2:1.10.2-58953eb7 04/01/2014</code></pre></details></li></ul><ul id="daff27b5-472d-450e-a849-97c453540efb" class="toggle"><li><details open=""><summary><strong>docker3</strong>: linux6040f81b3a9e9f0012cec097</summary><pre id="da7d9adc-0440-415e-9ebc-71283685503a" class="code"><code>Apr 12 03:17:01 docker3 CRON[6206]: (root) CMD (   cd / &amp;&amp; run-parts --report /etc/cron.hourly)
+Apr 12 03:28:53 docker3 sshd[9543]: Received disconnect from 221.181.185.153 port 47135:11:  [preauth]
+Apr 12 00:00:06 docker3 rsyslogd:  [origin software=&quot;rsyslogd&quot; swVersion=&quot;8.1901.0&quot; x-pid=&quot;554&quot; x-info=&quot;https://www.rsyslog.com&quot;] rsyslogd was HUPed
+Apr 16 12:42:28 docker3 sshd[14392]: Unable to negotiate with 91.241.19.42 port 38608: no matching cipher found. Their offer: aes256-cbc,rijndael-cbc@lysator.liu.se,aes192-cbc,aes128-cbc,arcfour128,arcfour,3des-cbc,none [preauth]</code></pre></details></li></ul><ul id="1cc8fbb5-24a5-45db-8315-8b8438cfb93c" class="toggle"><li><details open=""><summary><strong>mysql-cluster1</strong>: linux604b83aa4c58ea0011d62211</summary><pre id="d2553160-3d18-4105-a602-13d7322fe1cc" class="code"><code>Apr 12 03:01:30 mysql-cluster1 kernel: [7131730.866558] [UFW BLOCK] IN=eth0 OUT= MAC=fa:16:3e:8b:0e:dc:0e:41:e2:5f:8c:dc:08:00 SRC=10.224.166.12 DST=51.210.184.31 LEN=40 TOS=0x00 PREC=0x00 TTL=50 ID=13915 PROTO=ICMP TYPE=13 CODE=0 
+Apr 12 00:00:06 mysql-cluster1 rsyslogd:  [origin software=&quot;rsyslogd&quot; swVersion=&quot;8.1901.0&quot; x-pid=&quot;7647&quot; x-info=&quot;https://www.rsyslog.com&quot;] rsyslogd was HUPed
+Apr 12 06:25:01 mysql-cluster1 CRON[5514]: (root) CMD (test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.daily ))
+Apr 16 05:24:37 mysql-cluster1 sshd[19189]: Unable to negotiate with 91.241.19.42 port 23855: no matching cipher found. Their offer: aes256-cbc,rijndael-cbc@lysator.liu.se,aes192-cbc,aes128-cbc,arcfour128,arcfour,3des-cbc,none [preauth]
+Apr 20 15:28:24 mysql-cluster1 kernel: [    0.767252] pcpu-alloc: [0] 00 01 02 03 04 05 06 07 [0] 08 09 10 11 12 13 14 15</code></pre></details></li></ul><ul id="83b57f33-ae3f-4b8e-9b31-5f38f3b5fa76" class="toggle"><li><details open=""><summary><strong>docker2</strong>: linux6040f8103a9e9f0012cec095</summary><pre id="0356a2f7-1944-48ef-99f9-456db29617e7" class="code"><code>Apr 12 03:16:08 docker2 sshd[11947]: Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.83.15.227 port 48094
+Apr 12 03:17:01 docker2 CRON[12416]: (root) CMD (   cd / &amp;&amp; run-parts --report /etc/cron.hourly)
+Apr 12 05:43:42 docker2 kernel: [7504621.967451] vethc0f32a1: renamed from eth1
+Apr 12 00:00:03 docker2 rsyslogd:  [origin software=&quot;rsyslogd&quot; swVersion=&quot;8.1901.0&quot; x-pid=&quot;535&quot; x-info=&quot;https://www.rsyslog.com&quot;] rsyslogd was HUPed
+Apr 16 08:20:53 docker2 sshd[8518]: Unable to negotiate with 91.241.19.42 port 7697: no matching cipher found. Their offer: aes256-cbc,rijndael-cbc@lysator.liu.se,aes192-cbc,aes128-cbc,arcfour128,arcfour,3des-cbc,none [preauth]
+Apr 20 16:13:42 docker2 kernel: [8233606.895856] Code: 00 48 39 e8 74 12 48 83 6c 24 18 20 48 8d 68 20 48 c7 40 10 01 00 00 00 48 8b 44 24 18 48 8d 5d f0 48 8d 54 05 00 48 83 c8 01 &lt;48&gt; 89 42 f0 48 c7 42 f8 01 00 00 00 48 89 45 f8 8b 05 fa 1c 07 00
+Apr 20 16:13:42 docker2 kernel: [8233606.900985] RAX: 0000000000001001 RBX: 0000557bf6de5ff0 RCX: 0000557bf6de7000
+Apr 20 16:13:42 docker2 kernel: [8233606.917944] Memory cgroup stats for /docker/0b91f1aacf0289df66e5438027d0d1c01e836fdc10eb3db1c01df8055605b692: cache:84KB rss:1026096KB rss_huge:163840KB shmem:0KB mapped_file:0KB dirty:0KB writeback:0KB inactive_anon:0KB active_anon:1026112KB inactive_file:0KB active_file:0KB unevictable:0KB</code></pre></details></li></ul><ul id="b9db4463-4d5f-4df8-bf0a-24971e53e349" class="toggle"><li><details open=""><summary><strong>docker1</strong>: linux6040f7e73a9e9f0012cec090</summary><pre id="a7aa448a-1da5-4715-8570-7e3b3523b246" class="code"><code>Apr 12 03:01:32 docker1 sshd[9258]: Received disconnect from 221.181.185.19 port 17743:11:  [preauth]
+Apr 12 03:17:01 docker1 CRON[14114]: (root) CMD (   cd / &amp;&amp; run-parts --report /etc/cron.hourly)
+Apr 12 00:00:00 docker1 rsyslogd:  [origin software=&quot;rsyslogd&quot; swVersion=&quot;8.1901.0&quot; x-pid=&quot;581&quot; x-info=&quot;https://www.rsyslog.com&quot;] rsyslogd was HUPed
+Apr 16 12:44:48 docker1 sshd[3207]: Unable to negotiate with 91.241.19.42 port 9271: no matching cipher found. Their offer: aes256-cbc,rijndael-cbc@lysator.liu.se,aes192-cbc,aes128-cbc,arcfour128,arcfour,3des-cbc,none [preauth]</code></pre></details></li></ul><p id="db681d99-13b2-4413-851d-36d9c8e626ea" class="">
+</p><p id="fd813be1-9b5f-4b5a-afba-c8f6f5999cee" class="">
+</p><h1 id="a0ddd31d-5f5c-4fe0-bf57-cbd1eaf1e60b" class="">Report 4 : Remove log header + Introduce HuggingFace model</h1><p id="c4cf0706-1616-4c93-b970-169e473f943f" class="">For this report :</p><ul id="596c6238-62fe-4b4a-bc1e-64e50fc92f84" class="bulleted-list"><li style="list-style-type:disc"><strong>Goal : </strong>Apply Sentiment component of SARA on Affluences host components</li></ul><ul id="4d5119b6-e900-489d-ad50-6fe5ac6b1d2d" class="bulleted-list"><li style="list-style-type:disc"><strong>Scope : </strong>12 April to 25 April</li></ul><ul id="3fa573aa-ad1b-4d2b-b8d9-e0b06005a11a" class="bulleted-list"><li style="list-style-type:disc">Remove the header of the log and keep only the content</li></ul><ul id="a627d1e4-04dd-4a74-9a6e-a3c199928222" class="bulleted-list"><li style="list-style-type:disc">Remove duplicated logs</li></ul><ul id="f4713ba1-f58e-43f0-a7be-8ea00aa8ca9c" class="bulleted-list"><li style="list-style-type:disc">Remove similar logs</li></ul><p id="1c7e20ef-df6f-4613-8239-eb6e3945dec4" class="">
+</p><h2 id="c34b8a09-10ad-481d-b13a-7fd182beac7f" class="">SARA</h2><ul id="6bf53053-a4c8-47ae-8a0b-99cbcb5e7b38" class="toggle"><li><details open=""><summary><strong>docker0</strong> : linux6040eafa3a9e9f0012cebfd4</summary><pre id="f0e45eb1-d89f-411e-9888-66fe440394f8" class="code"><code>1 Invalid user 0101 from 45.227.254.10 port 41272
+2 input_userauth_request: invalid user 0101 [preauth]
+3 Invalid user VF-IRhg556 from 45.141.84.10 port 58975
+4 Invalid user test from 1.180.211.138 port 14711
+5 [32020615.509507] Call Trace:
+6 Invalid user testadmin from 45.55.134.210 port 47012</code></pre></details></li></ul><ul id="a88b9cfa-2770-4038-b84b-ca88d6f4ce39" class="toggle"><li><details open=""><summary><strong>docker4</strong> : linux6040f8233a9e9f0012cec099</summary><pre id="94755643-b7d3-457b-98cf-fd155b8eacc0" class="code"><code>1 Invalid user volk from 124.156.135.43 port 57088
+2 Disconnected from invalid user ansible 68.183.133.241 port 36148 [preauth]
+3 Invalid user huang from 139.59.142.223 port 49540
+4 daemon quit
+5 Invalid user kt from 42.192.99.30 port 41906
+6 Disconnecting invalid user admin 87.241.1.186 port 19584: Too many authentication failures [preauth]
+7 Invalid user pi from 65.78.98.124 port 59202
+8 Invalid user quit-plays from 51.15.206.200 port 40902
+9 [8232830.036021] Call Trace:
+10 Invalid user ts3-3 from 51.15.206.200 port 58344
+11 Invalid user ava from 59.126.51.197 port 55396</code></pre></details></li></ul><ul id="7a4be52a-68a5-401c-804e-b84469173a90" class="toggle"><li><details open=""><summary><strong>mysql-8</strong> : linux604b83a14c58ea0011d6220f</summary><pre id="8e2242eb-d8fa-463e-839d-d26eab3df1a9" class="code"><code>1 Disconnected from invalid user jira 109.104.151.108 port 35904 [preauth]
+2 Invalid user bogon from 68.183.119.63 port 40052
+3 Invalid user bbsd-client from 45.141.84.10 port 22470
+4 Invalid user MDaemon from 45.141.84.10 port 34236
+5 Connection closed by invalid user ip-51-83-14 167.172.147.6 port 38698 [preauth]
+6 Invalid user leot from 207.180.221.187 port 43176
+7 Killed old client process
+8 mysql.service: Failed with result &#x27;exit-code&#x27;.
+9 Powering Off...
+10 ntpd exiting on signal 15 (Terminated)
+11 51.68.44.27 local addr 51.83.14.10 -&gt; &lt;null&gt;
+12 Restarting AppArmor
+13 Reloading AppArmor profiles
+14 [    2.195005] NMI watchdog: Perf NMI watchdog permanently disabled
+15 ntpd 4.2.8p12@1.3728-o (1): Starting
+16 Invalid user rafi from 14.29.249.7 port 34272</code></pre></details></li></ul><ul id="c4ea5d21-d2bf-4d26-9b23-9e2547290b55" class="toggle"><li><details open=""><summary><strong>mysql-cluster2</strong> : linux604b83b34c58ea0011d62213</summary><pre id="9033b34f-d3b8-4fc3-9dbd-ccad5ea7ddc5" class="code"><code>1 Invalid user test from 62.210.82.18 port 50112
+2 Invalid user fred from 139.59.234.167 port 39400
+3 daemon quit
+4 [7153446.681788] Call Trace:
+5 mysql.service: Failed with result &#x27;signal&#x27;.
+6 [    2.052346] NR_IRQS: 33024, nr_irqs: 488, preallocated irqs: 16
+7 Restarting AppArmor
+8 Reloading AppArmor profiles
+9 ntpd 4.2.8p12@1.3728-o (1): Starting
+10 51.159.64.5 local addr 51.210.191.168 -&gt; &lt;null&gt;
+11 Disconnecting invalid user admin 31.132.171.85 port 49125: Too many authentication failures [preauth]
+12 Invalid user dercally from 46.105.127.217 port 35938
+13 Invalid user user-webi from 51.15.206.200 port 49232</code></pre></details></li></ul><ul id="1b401849-90ea-4d4b-baba-0073ae144d08" class="toggle"><li><details open=""><summary><strong>docker3</strong>: linux6040f81b3a9e9f0012cec097</summary><pre id="33404c42-b088-4018-a16f-03a7932c1f27" class="code"><code>1 Invalid user arun from 103.119.92.107 port 51626
+2 daemon quit
+3 Invalid user no-reply from 68.183.181.7 port 34956
+4 Invalid user cos from 81.69.38.149 port 51292
+5 Invalid user test-miawodo from 164.132.113.219 port 51004
+6 Disconnecting invalid user admin 120.224.50.233 port 15352: Too many authentication failures [preauth]
+7 Invalid user quit-plays from 51.15.206.200 port 32878</code></pre></details></li></ul><ul id="2c107f22-f5bc-492c-958c-438a4c55c25c" class="toggle"><li><details open=""><summary><strong>mysql-cluster1</strong>: linux604b83aa4c58ea0011d62211</summary><pre id="07de6ee8-c9ef-400a-8235-a89be5237a2b" class="code"><code>1 Invalid user test from 62.210.82.18 port 57722
+2 Invalid user  from 65.49.20.68 port 41634
+3 Invalid user kendra from 140.143.0.155 port 50348
+4 daemon quit
+5 mysql.service: Failed with result &#x27;exit-code&#x27;.
+6 Disconnecting invalid user admin 120.224.50.233 port 6908: Too many authentication failures [preauth]
+7 194.177.34.116 local addr 51.210.184.31 -&gt; &lt;null&gt;
+8 [    0.007546]   1 disabled
+9 Restarting AppArmor
+10 Reloading AppArmor profiles
+11 [    1.157071] NMI watchdog: Perf NMI watchdog permanently disabled
+12 ntpd exiting on signal 15 (Terminated)</code></pre></details></li></ul><ul id="650d8a89-5d88-42b0-bb50-bac349c7a624" class="toggle"><li><details open=""><summary><strong>docker2</strong>: linux6040f8103a9e9f0012cec095</summary><pre id="2d175fe3-50e7-494e-b092-fa40f3d65839" class="code"><code>1 Invalid user user from 112.160.143.70 port 52727
+2 Connection closed by invalid user  65.49.20.68 port 51762 [preauth]
+3 daemon quit
+4 Invalid user jenkins from 207.180.221.187 port 36862
+5 [8233606.878932] Call Trace:</code></pre></details></li></ul><ul id="8254789d-5116-4bad-8816-4cd46ee80070" class="toggle"><li><details open=""><summary><strong>docker1</strong>: linux6040f7e73a9e9f0012cec090</summary><pre id="2f5f592a-a6bf-4e9f-add3-35c022cc7f49" class="code"><code>1 Invalid user nisa from 103.253.200.161 port 56052
+2 Invalid user csgo-server from 159.75.26.109 port 48882
+3 daemon quit
+4 Disconnecting invalid user admin 87.241.1.186 port 61127: Too many authentication failures [preauth]
+5 Disconnected from invalid user tk 52.130.78.186 port 37822 [preauth]
+6 Invalid user ubnt from 92.44.6.223 port 50765
+7 Invalid user it from 94.180.247.20 port 35432</code></pre></details></li></ul><h2 id="00544154-c117-418a-835a-0de06495c0a0" class="">TextBlob</h2><ul id="8534e70d-573a-4949-b515-e8b2face6e0d" class="toggle"><li><details open=""><summary><strong>docker0</strong> : linux6040eafa3a9e9f0012cebfd4</summary><pre id="a605ecbe-0d19-47d8-82a5-dce08301c62e" class="code"><code>1 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.68.112.227 port 38416
+2 Disconnecting: Change of username or service not allowed: (blank,ssh-connection) -&gt; (admin,ssh-connection) [preauth]
+3 time=&quot;2021-04-12T09:13:43.101848934Z&quot; level=info msg=&quot;Container ff130337a8cd7a0af460955a7d4cdbacab3218d4df7f79c6d20dd837efbec75e failed to exit within 10 seconds of signal 15 - using the force&quot;
+4 apt-daily.timer: Adding 28min 12.264793s random time.
+5 bind(47) AF_INET6 fe80::4c78:caff:fee3:ffd9%24960#123 flags 0x11 failed: Cannot assign requested address
+6 unable to create socket on vethd043526 (4990) for fe80::4c78:caff:fee3:ffd9%24960#123
+7 failed to init interface for address fe80::8805:36ff:fe25:529c%24956
+8 failed to init interface for address fe80::38b3:64ff:fee1:9d76%25005
+9 failed to init interface for address fe80::5473:d2ff:fedd:46fc%25092
+10 failed to init interface for address fe80::50a7:b9ff:fecb:35d9%25424</code></pre></details></li></ul><ul id="04611b44-358b-464c-94c0-abe593478c87" class="toggle"><li><details open=""><summary><strong>docker4</strong> : linux6040f8233a9e9f0012cec099</summary><pre id="2359a5cf-3091-43c8-8efc-713e6998ee02" class="code"><code>1 Received disconnect from 221.181.185.19 port 10772:11:  [preauth]
+2 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.75.198.71 port 41544
+3 bind(33) AF_INET6 fe80::8890:bff:fe93:2a6c%30613#123 flags 0x11 failed: Cannot assign requested address
+4 unable to create socket on veth04d3bec (553) for fe80::8890:bff:fe93:2a6c%30613#123
+5 failed to init interface for address fe80::8890:bff:fe93:2a6c%30613
+6 failed to init interface for address fe80::9c91:c4ff:fe90:a65a%30623
+7 Unable to negotiate with 77.121.92.243 port 57288: no matching cipher found. Their offer: aes128-cbc,3des-cbc,aes256-cbc,aes192-cbc [preauth]
+8 failed to init interface for address fe80::c871:2aff:fe3f:1b1e%30836
+9 failed to init interface for address fe80::5005:66ff:fe48:456c%30887
+10 failed to init interface for address fe80::f0b0:45ff:fee9:2975%30909
+11 unable to create socket on veth85ff65a (620) for fe80::d0b9:76ff:fe6e:f80b%30984#123</code></pre></details></li></ul><ul id="f919ae15-c669-40b4-840c-12ca734d295d" class="toggle"><li><details open=""><summary><strong>mysql-8</strong> : linux604b83a14c58ea0011d6220f</summary><pre id="96da5b93-9019-4bef-bd2e-d51dc4d74094" class="code"><code>1 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.83.14.10 port 52320
+2 Disconnecting invalid user PFCUser 45.141.84.10 port 31505: Change of username or service not allowed: (PFCUser,ssh-connection) -&gt; (corecess,ssh-connection) [preauth]
+3 Received disconnect from 221.181.185.153 port 40453:11:  [preauth]
+4 mysql.service: Failed with result &#x27;exit-code&#x27;.
+5 Failed to start MySQL Community Server.
+6 [    1.685505] random: get_random_bytes called from start_kernel+0x93/0x520 with crng_init=0
+7 [    2.389498] acpi PNP0A03:00: fail to add MMCONFIG information, can&#x27;t access extended PCI configuration space under this bridge.
+8 [    1.692313] pcpu-alloc: [0] 00 01 02 03 04 05 06 07 [0] 08 09 10 11 12 13 14 15 
+9 #033[90m6:58PM#033[0m #033[32mINF#033[0m Using brokers: [broker3-affluences.packetai.co:19092 broker3-affluences.packetai.co:29092 broker3-affluences.packetai.co:39092].
+10 [    2.465466] sd 2:0:0:1: [sdc] Write cache: enabled, read cache: enabled, doesn&#x27;t support DPO or FUA
+11 unable to create socket on eth1 (7) for fe80::f816:3eff:fe80:cff2%3#123
+12 failed to init interface for address fe80::f816:3eff:fe80:cff2%3</code></pre></details></li></ul><ul id="485aa7ea-00db-417e-94a5-8506e9ac1019" class="toggle"><li><details open=""><summary><strong>mysql-cluster2</strong> : linux604b83b34c58ea0011d62213</summary><pre id="73df939a-81e7-4d8c-939a-3885a442f41e" class="code"><code>1 Received disconnect from 222.187.232.205 port 37281:11:  [preauth]
+2 Bad protocol version identification &#x27;&#x27; from 162.142.125.128 port 5276
+3 mysql.service: Failed with result &#x27;signal&#x27;.
+4 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from ::1 port 47208
+5 [    0.486202] random: get_random_bytes called from start_kernel+0x93/0x520 with crng_init=0
+6 [    2.528754] ACPI: (supports S0 S4 S5)
+7 [    2.544764] acpi PNP0A03:00: fail to add MMCONFIG information, can&#x27;t access extended PCI configuration space under this bridge.
+8 #033[90m9:27AM#033[0m #033[32mINF#033[0m Using brokers: [broker3-affluences.packetai.co:19092 broker3-affluences.packetai.co:29092 broker3-affluences.packetai.co:39092].</code></pre></details></li></ul><ul id="8b364508-7c09-4d0b-b4da-1cc0350a8488" class="toggle"><li><details open=""><summary><strong>docker3</strong>: linux6040f81b3a9e9f0012cec097</summary><pre id="54ce0c16-2fcd-43ef-98fc-1acdb8fd2d31" class="code"><code>1 Received disconnect from 221.181.185.153 port 47135:11:  [preauth]
+2 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.68.41.217 port 40148
+3 bind(32) AF_INET6 fe80::bc13:41ff:fe1a:84a9%48098#123 flags 0x11 failed: Cannot assign requested address
+4 unable to create socket on veth2ae57d9 (370) for fe80::bc13:41ff:fe1a:84a9%48098#123
+5 failed to init interface for address fe80::bc13:41ff:fe1a:84a9%48098
+6 failed to init interface for address fe80::140c:c9ff:fec7:4614%48169
+7 unable to create socket on veth91811a1 (399) for fe80::347e:b5ff:fe1a:816b%48290#123
+8 failed to init interface for address fe80::d05c:62ff:fec7:2a85%48306</code></pre></details></li></ul><ul id="88a04e96-7b75-4df5-b04b-000d4127300e" class="toggle"><li><details open=""><summary><strong>mysql-cluster1</strong>: linux604b83aa4c58ea0011d62211</summary><pre id="c99d270a-c231-4ef3-bfda-3d79ac490567" class="code"><code>1 Received disconnect from 222.187.232.205 port 50891:11:  [preauth]
+2 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.210.184.31 port 57664
+3 mysql.service: Failed with result &#x27;exit-code&#x27;.
+4 Failed to start MySQL Community Server.
+5 [    0.762139] random: get_random_bytes called from start_kernel+0x93/0x520 with crng_init=0
+6 [    1.155648] random: crng done (trusting CPU&#x27;s manufacturer)
+7 [    1.369882] acpi PNP0A03:00: fail to add MMCONFIG information, can&#x27;t access extended PCI configuration space under this bridge.
+8 #033[90m3:28PM#033[0m #033[32mINF#033[0m Using brokers: [broker3-affluences.packetai.co:19092 broker3-affluences.packetai.co:29092 broker3-affluences.packetai.co:39092].
+9 [    1.080012] acpi PNP0A03:00: _OSC failed (AE_NOT_FOUND); disabling ASPM
+10 bind(23) AF_INET6 fe80::f816:3eff:fe2f:aec0%3#123 flags 0x11 failed: Cannot assign requested address
+11 unable to create socket on eth1 (7) for fe80::f816:3eff:fe2f:aec0%3#123
+12 failed to init interface for address fe80::f816:3eff:fe2f:aec0%3</code></pre></details></li></ul><ul id="830c9a5b-658a-4a67-b906-ce38a76b7fce" class="toggle"><li><details open=""><summary><strong>docker2</strong>: linux6040f8103a9e9f0012cec095</summary><pre id="fe41eba3-2479-47b1-b2dd-910aafb0624f" class="code"><code>1 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.83.15.227 port 48094
+2 Received disconnect from 221.181.185.198 port 20739:11:  [preauth]
+3 bind(36) AF_INET6 fe80::1c12:a3ff:fe18:706d%81007#123 flags 0x11 failed: Cannot assign requested address
+4 unable to create socket on veth97d87be (11937) for fe80::1c12:a3ff:fe18:706d%81007#123
+5 failed to init interface for address fe80::40bc:7fff:fe7a:3934%81084
+6 failed to init interface for address fe80::a8c6:f3ff:fe28:74ba%81011
+7 failed to init interface for address fe80::8c7a:fdff:fe89:7f9f%81186</code></pre></details></li></ul><ul id="a146a358-cf75-440e-858f-df407b0a8b22" class="toggle"><li><details open=""><summary><strong>docker1</strong>: linux6040f7e73a9e9f0012cec090</summary><pre id="1ddad49c-25af-4fdb-ac4d-12b3a430720e" class="code"><code>1 Received disconnect from 221.181.185.19 port 17743:11:  [preauth]
+2 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.75.7.107 port 45318
+3 bind(30) AF_INET6 fe80::2439:3aff:fe67:b965%45395#123 flags 0x11 failed: Cannot assign requested address
+4 unable to create socket on veth2df6a34 (419) for fe80::2439:3aff:fe67:b965%45395#123
+5 failed to init interface for address fe80::2439:3aff:fe67:b965%45395
+6 failed to init interface for address fe80::38e2:8dff:febe:2222%45495</code></pre></details></li></ul><h2 id="897faa9f-007b-4357-87eb-7b9ee74142c4" class="">HuggingFace : nlptown/bert-base-multilingual-uncased-sentiment</h2><ul id="3a9dd908-bd32-40e3-82fe-078ec141e6c8" class="bulleted-list"><li style="list-style-type:disc">How to use the model 
+</li></ul><pre id="5c7e706b-d79c-4d77-a5fa-1f8151e53d31" class="code"><code>from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import pipeline
+
+tokenizer = AutoTokenizer.from_pretrained(&quot;nlptown/bert-base-multilingual-uncased-sentiment&quot;)
+model = AutoModelForSequenceClassification.from_pretrained(&quot;nlptown/bert-base-multilingual-uncased-sentiment&quot;)
+classifier = pipeline(&#x27;sentiment-analysis&#x27;, model=model, tokenizer=tokenizer)</code></pre><ul id="f67fd93c-f2a0-4290-ad00-73400898ecf6" class="bulleted-list"><li style="list-style-type:disc">Play with the model live : <a href="https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment">https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment</a></li></ul><ul id="aca0020a-4c9d-4c1b-a8f2-05a537148878" class="bulleted-list"><li style="list-style-type:disc">Threshold : 1 star &gt; 0.5</li></ul><p id="33658607-701e-43c5-96ea-cf29651a992c" class="">
+</p><ul id="0555fa77-640e-4dda-9492-4ca1ad554d24" class="toggle"><li><details open=""><summary><strong>docker0</strong> : linux6040eafa3a9e9f0012cebfd4</summary><pre id="a688dc8c-c531-4591-9fc7-06c0f1c593e2" class="code"><code>1 #033[90m3:00AM#033[0m #033[33mDBG#033[0m listing and exporting 175 processes took 30.753856ms.
+
+2 time=&quot;2021-04-12T03:02:56.114392623Z&quot; level=info msg=&quot;NetworkDB stats docker0(a6784ea532ce) - netID:kmj6noy18upaj9o02mc5ul15n leaving:false netPeers:7 entries:123 Queue qLen:0 netMsg/s:0&quot;
+
+3 Did not receive identification string from 45.227.254.10 port 39560
+
+4 Invalid user 0101 from 45.227.254.10 port 41272
+
+5 input_userauth_request: invalid user 0101 [preauth]
+
+6 Connection closed by 45.227.254.10 port 41272 [preauth]
+
+7 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.68.112.227 port 38416
+
+8 Disconnecting: Change of username or service not allowed: (blank,ssh-connection) -&gt; (admin,ssh-connection) [preauth]
+
+9 Received disconnect from 186.189.193.207 port 59558:11: Bye Bye [preauth]
+
+10 #033[90m3:28AM#033[0m #033[33mDBG#033[0m ignore process 17591 without parent
+
+11 Invalid user VF-IRhg556 from 45.141.84.10 port 58975
+
+12 time=&quot;2021-04-12T05:43:42.592923460Z&quot; level=warning msg=&quot;Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.&quot;
+
+13 Received disconnect from 91.121.30.117 port 36306:11: Normal Shutdown, Thank you for playing [preauth]
+
+14 Unable to negotiate with 122.224.17.186 port 42712: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1,diffie-hellman-group-exchange-sha1 [preauth]
+
+15 error: maximum authentication attempts exceeded for root from 45.141.84.10 port 1213 ssh2 [preauth]
+
+16 Disconnecting: Too many authentication failures [preauth]
+
+17 #033[90m4:18PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+18 Invalid user test from 1.180.211.138 port 14711
+
+19 time=&quot;2021-04-12T09:13:43.101848934Z&quot; level=info msg=&quot;Container ff130337a8cd7a0af460955a7d4cdbacab3218d4df7f79c6d20dd837efbec75e failed to exit within 10 seconds of signal 15 - using the force&quot;
+
+20 [31851073.825209] docker_gwbridge: port 5(veth302940b) entered disabled state
+
+21 Deleting interface #4967 veth8d74ccf, fe80::6c37:3bff:fed7:3cc5%24860#123, interface stats: received=0, sent=0, dropped=0, active_time=1026306 secs
+
+22 2021/04/12 06:41:01 Unsolicited response received on idle HTTP channel starting with &quot;SSH-2.0-OpenSSH_7.4p1 Debian-10+deb9u6\n&quot;; err=&lt;nil&gt;
+
+23 bind(47) AF_INET6 fe80::4c78:caff:fee3:ffd9%24960#123 flags 0x11 failed: Cannot assign requested address
+
+24 time=&quot;2021-04-12T15:07:46.894726878Z&quot; level=warning msg=&quot;Peer operation failed:could not delete fdb entry for nid:fkm63eq9szicv7b3uhvi07utq eid:4938debf71f4aef2543495e0e78110e0cd5a37d81e57f84c795e2eb0e517873f into the sandbox:Search neighbor failed for IP 10.0.10.217, mac 02:42:0a:00:16:14, present in db:false op:&amp;{2 fkm63eq9szicv7b3uhvi07utq 4938debf71f4aef2543495e0e78110e0cd5a37d81e57f84c795e2eb0e517873f [0 0 0 0 0 0 0 0 0 0 255 255 10 0 22 20] [255 255 255 0] [2 66 10 0 22 20] [0 0 0 0 0 0 0 0 0 0 255 255 10 0 10 217] false false false EventNotify}&quot;
+
+25 [31869167.476273] Task in /docker/3d745f909564709304b03236de24ef8a891c6c0f8104ebf29f5bd4896ba4be8c killed as a result of limit of /docker/3d745f909564709304b03236de24ef8a891c6c0f8104ebf29f5bd4896ba4be8c
+
+26 failed to init interface for address fe80::8805:36ff:fe25:529c%24956
+
+27 Could not set offload features of vx-001013-q6w5f: No such device
+
+28 Disconnected from 49.234.92.108 port 42224 [preauth]
+
+29 Invalid user testadmin from 45.55.134.210 port 47012
+
+30 Unable to negotiate with 44.234.111.80 port 55270: no matching host key type found. Their offer: ecdsa-sha2-nistp384 [preauth]
+
+31 fatal: monitor_read: unpermitted request 6
+
+32 [32450095.217760] Task in /docker/d51c6a5c5a6a1535018084d8776e49a9c48bdb45e89c565a91ca1468ae9b12cb killed as a result of limit of /docker/d51c6a5c5a6a1535018084d8776e49a9c48bdb45e89c565a91ca1468ae9b12cb
+
+33 Invalid user 7hur@y@t3am$#@!(*( from 37.59.56.75 port 57800
+
+34 Invalid user git-admin from 37.59.56.75 port 51798
+
+35 Received disconnect from 82.65.30.196 port 58456:11: disconnected by user
+
+36 Disconnected from 82.65.30.196 port 58456
+
+37 {&quot;level&quot;:&quot;error&quot;,&quot;module&quot;:&quot;apache&quot;,&quot;error&quot;:&quot;parse \&quot;${data.host}:${data.port}\&quot;: first path segment in URL cannot contain colon&quot;,&quot;time&quot;:&quot;2021-04-21T09:23:47Z&quot;,&quot;message&quot;:&quot;could not parse url ${data.host}:${data.port}&quot;}
+
+38 #033[90m9:23AM#033[0m #033[31mWRN#033[0m could not enable module docker #033[31merror=#033[0m#033[31m&quot;not authorized module&quot;#033[0m
+
+39 [32647523.872482] Killed process 24909 (prometheus) total-vm:56933976kB, anon-rss:8367384kB, file-rss:287296kB, shmem-rss:0kB</code></pre></details></li></ul><ul id="1b7bb59a-6cb6-44fd-b803-f6058916ef38" class="toggle"><li><details open=""><summary><strong>docker4</strong> : linux6040f8233a9e9f0012cec099</summary><pre id="cb01f9ef-eb7f-42e7-acc1-a8b40d3338ea" class="code"><code>1 time=&quot;2021-04-12T03:00:00.271432772Z&quot; level=warning msg=&quot;got error while decoding json&quot; error=&quot;unexpected EOF&quot; retries=0
+
+2 #033[90m3:00AM#033[0m #033[33mDBG#033[0m listing and exporting 1354 processes took 280.525524ms.
+
+3 Received disconnect from 221.181.185.19 port 10772:11:  [preauth]
+
+4 Disconnected from authenticating user root 221.181.185.19 port 10772 [preauth]
+
+5 time=&quot;2021-04-12T03:04:01.578690591Z&quot; level=info msg=&quot;NetworkDB stats docker4(a34337eae1fb) - netID:ta6wpqggjg4y940fb67zfu6py leaving:false netPeers:1 entries:3 Queue qLen:0 netMsg/s:0&quot;
+
+6 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.75.198.71 port 41544
+
+7 Did not receive identification string from 192.241.213.65 port 35220
+
+8 Received disconnect from 81.71.42.147 port 32882:11: Bye Bye [preauth]
+
+9 Invalid user volk from 124.156.135.43 port 57088
+
+10 #033[90m4:01AM#033[0m #033[33mDBG#033[0m ignore process 3687 without parent
+
+11 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+12 [7503933.182070] docker_gwbridge: port 16(veth6d96172) entered disabled state
+
+13 Deleting interface #552 veth6d96172, fe80::68d2:e8ff:fe71:d15d%30609#123, interface stats: received=0, sent=0, dropped=0, active_time=20754 secs
+
+14 bind(33) AF_INET6 fe80::8890:bff:fe93:2a6c%30613#123 flags 0x11 failed: Cannot assign requested address
+
+15 Received disconnect from 209.141.52.57 port 53634:11: Normal Shutdown, Thank you for playing [preauth]
+
+16 failed to init interface for address fe80::9c91:c4ff:fe90:a65a%30623
+
+17 Could not set offload features of vx-00101b-fkm63: No such device
+
+18 Unable to negotiate with 77.121.92.243 port 57288: no matching cipher found. Their offer: aes128-cbc,3des-cbc,aes256-cbc,aes192-cbc [preauth]
+
+19 Disconnected from invalid user ansible 68.183.133.241 port 36148 [preauth]
+
+20 Invalid user huang from 139.59.142.223 port 49540
+
+21 daemon quit
+
+22 packagekit.service: Main process exited, code=killed, status=15/TERM
+
+23 error: kex protocol error: type 20 seq 2 [preauth]
+
+24 time=&quot;2021-04-13T15:36:26.396637202Z&quot; level=warning msg=&quot;deleteServiceInfoFromCluster NetworkDB DeleteEntry failed for c2a1bc55f594a574c615f89a69e22653f99c12a673fcaacce35d6c39042b1772 j34giobngqqxlaut0hz8dgepd err:cannot delete entry endpoint_table with network id j34giobngqqxlaut0hz8dgepd and key c2a1bc55f594a574c615f89a69e22653f99c12a673fcaacce35d6c39042b1772 does not exist or is already being deleted&quot;
+
+25 error: maximum authentication attempts exceeded for root from 41.226.25.4 port 9378 ssh2 [preauth]
+
+26 Could not set offload features of veth200601d: Operation not permitted
+
+27 time=&quot;2021-04-14T17:47:47.592747158Z&quot; level=warning msg=&quot;Peer operation failed:could not delete fdb entry for nid:q6w5ft35vxaix0hxuyvx3gfzz eid:95c45a4224808c865f5a31ac65695050d258c3a110939a21216405298d17af9d into the sandbox:Search neighbor failed for IP 10.0.10.217, mac 02:42:0a:00:11:89, present in db:false op:&amp;{2 q6w5ft35vxaix0hxuyvx3gfzz 95c45a4224808c865f5a31ac65695050d258c3a110939a21216405298d17af9d [0 0 0 0 0 0 0 0 0 0 255 255 10 0 17 137] [255 255 255 0] [2 66 10 0 17 137] [0 0 0 0 0 0 0 0 0 0 255 255 10 0 10 217] false false false EventNotify}&quot;
+
+28 Invalid user kt from 42.192.99.30 port 41906
+
+29 Disconnecting invalid user admin 87.241.1.186 port 19584: Too many authentication failures [preauth]
+
+30 #033[90m11:59AM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+31 time=&quot;2021-04-15T17:12:26.448917321Z&quot; level=warning msg=&quot;Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.&quot;
+
+32 #033[90m2:43PM#033[0m #033[32mINF#033[0m detected new webapplication on pid: 18614 ip: 0.0.0.0 port: 9133
+
+33 Invalid user pi from 65.78.98.124 port 59202
+
+34 failed to init interface for address fe80::5005:66ff:fe48:456c%30887
+
+35 failed to init interface for address fe80::f0b0:45ff:fee9:2975%30909
+
+36 Invalid user quit-plays from 51.15.206.200 port 40902
+
+37 [8232830.036805]  dump_stack+0x66/0x90
+
+38 [8232830.038629]  oom_kill_process.cold.30+0xb/0x1cf
+
+39 [8232830.067559] Task in /docker/1843e6efb5c137e848fdad13ff0df7b52a47b78607a2f4f9ea720db41e40054d killed as a result of limit of /docker/1843e6efb5c137e848fdad13ff0df7b52a47b78607a2f4f9ea720db41e40054d
+
+40 Invalid user ts3-3 from 51.15.206.200 port 58344
+
+41 Invalid user kali from 45.13.132.56 port 39580
+
+42 Invalid user ava from 59.126.51.197 port 55396
+
+43 Received disconnect from 82.65.30.196 port 58468:11: disconnected by user
+
+44 Disconnected from user raphael-galmiche 82.65.30.196 port 58468
+
+45 Session 2414 logged out. Waiting for processes to exit.
+
+46 Removed session 2414.
+
+47 Closed GnuPG cryptographic agent and passphrase cache (restricted).
+
+48 Started Exit the Session.
+
+49 #033[90m9:23AM#033[0m #033[1m#033[31mERR#033[0m#033[0m Problem reading the action pipe. #033[31merror=#033[0m#033[31m&quot;message is not destinated to this agent actual linux6040f8233a9e9f0012cec099 vs linux6040eafa3a9e9f0012cebfd4&quot;#033[0m</code></pre></details></li></ul><ul id="ef879196-4413-4d32-8487-d1c858b926c6" class="toggle"><li><details open=""><summary><strong>mysql-8</strong> : linux604b83a14c58ea0011d6220f</summary><pre id="6f7dd5ff-6a89-47c2-a39a-e4cc6ce07b4a" class="code"><code>1 #033[90m3:00AM#033[0m #033[33mDBG#033[0m listing and exporting 119 processes took 51.814985ms.
+
+2 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.83.14.10 port 52320
+
+3 Invalid user teamspeak from 45.91.226.236 port 43198
+
+4 Received disconnect from 45.91.226.236 port 43198:11: Bye Bye [preauth]
+
+5 Connection closed by invalid user admin 67.205.179.170 port 51540 [preauth]
+
+6 Received disconnect from 112.160.143.70 port 46046:11: Normal Shutdown, Thank you for playing [preauth]
+
+7 Did not receive identification string from 192.241.213.65 port 44410
+
+8 error: kex protocol error: type 20 seq 2 [preauth]
+
+9 Disconnected from invalid user jira 109.104.151.108 port 35904 [preauth]
+
+10 Invalid user bogon from 68.183.119.63 port 40052
+
+11 Invalid user bbsd-client from 45.141.84.10 port 22470
+
+12 Disconnecting invalid user PFCUser 45.141.84.10 port 31505: Change of username or service not allowed: (PFCUser,ssh-connection) -&gt; (corecess,ssh-connection) [preauth]
+
+13 Invalid user MDaemon from 45.141.84.10 port 34236
+
+14 Disconnecting invalid user MGR 45.141.84.10 port 2761: Too many authentication failures [preauth]
+
+15 Received disconnect from 82.65.30.196 port 49747:11: disconnected by user
+
+16 Session 52840 logged out. Waiting for processes to exit.
+
+17 Removed session 52840.
+
+18 Stopping User Manager for UID 1000...
+
+19 Stopped target Default.
+
+20 Closed GnuPG cryptographic agent and passphrase cache (access for web browsers).
+
+21 Closed GnuPG network certificate management daemon.
+
+22 Closed GnuPG cryptographic agent (ssh-agent emulation).
+
+23 Started Exit the Session.
+
+24 Stopping User Runtime Directory /run/user/1000...
+
+25 #033[90m10:21AM#033[0m #033[33mDBG#033[0m ignore process 18648 without parent
+
+26 Invalid user Intel(R) from 106.12.174.217 port 49924
+
+27 error: maximum authentication attempts exceeded for root from 27.110.250.34 port 26203 ssh2 [preauth]
+
+28 Connection closed by invalid user ip-51-83-14 167.172.147.6 port 38698 [preauth]
+
+29 Unable to negotiate with 213.171.214.14 port 57088: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 [preauth]
+
+30 Invalid user hb from 49.233.119.93 port 43694
+
+31 #033[90m7:40AM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+32 Received disconnect from 221.181.185.153 port 40453:11:  [preauth]
+
+33 Invalid user leot from 207.180.221.187 port 43176
+
+34 Killed old client process
+
+35 receive_packet failed on eth1: Network is down
+
+36 Deleting interface #4 eth1, 10.0.10.20#123, interface stats: received=0, sent=0, dropped=0, active_time=6176919 secs
+
+37 mysql.service: Main process exited, code=exited, status=1/FAILURE
+
+38 mysql.service: Failed with result &#x27;exit-code&#x27;.
+
+39 Failed to start MySQL Community Server.
+
+40 Server listening on 0.0.0.0 port 22.
+
+41 Stopped target Cloud-init target.
+
+42 Stopped Execute cloud user/final scripts.
+
+43 Stopped Daily rotation of log files.
+
+44 Stopping Node Exporter...
+
+45 ntpd exiting on signal 15 (Terminated)
+
+46 51.68.44.27 local addr 51.83.14.10 -&gt; &lt;null&gt;
+
+47 Removed slice system-cloudflared.slice.
+
+48 Started Update UTMP about System Boot/Shutdown.
+
+49 [    0.039687] Zeroed struct page in unavailable ranges: 8326 pages
+
+50 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+51 2021-04-20 18:57:59,387 - stages.py[WARNING]: Failed to rename devices: [nic not present] Cannot rename mac=fa:16:3e:c0:a8:9e to eth1, not available.
+
+52 [    2.195005] NMI watchdog: Perf NMI watchdog permanently disabled
+
+53 /etc/dhcp/dhclient-exit-hooks.d/rfc3442-classless-routes returned non-zero exit status 2
+
+54 [    2.366866] HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+
+55 Listen and drop on 0 v6wildcard [::]:123
+
+56 Listen and drop on 1 v4wildcard 0.0.0.0:123
+
+57 kernel reports TIME_ERROR: 0x41: Clock Unsynchronized
+
+58 #033[90m6:58PM#033[0m #033[32mINF#033[0m I am the agent with ID linux604b83a14c58ea0011d6220f from the infra 6040a96cdcc614001153fc55.
+
+59 #033[90m6:58PM#033[0m #033[32mINF#033[0m Using brokers: [broker3-affluences.packetai.co:19092 broker3-affluences.packetai.co:29092 broker3-affluences.packetai.co:39092].
+
+60 #033[90m6:58PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not create docker client #033[31merror=#033[0m#033[31m&quot;stat /var/run/docker.sock: no such file or directory&quot;#033[0m
+
+61 receive: Unexpected origin timestamp 0xe429a2c4.1e905257 does not match aorg 0000000000.00000000 from server@80.74.64.1 xmt 0xe429a2c4.759c3aa2
+
+62 could not read from &#x27;/sys/module/intel_uncore/initstate&#x27;: No such device
+
+63 Invalid user rafi from 14.29.249.7 port 34272
+
+64 Invalid user 51.158.79.160 - SSH-2.0-Ope.SSH_7.4p1 Debian-10+deb9u7 from 138.201.192.145 port 36624</code></pre></details></li></ul><ul id="7a3da4d6-7e95-4016-af0b-07423067421f" class="toggle"><li><details open=""><summary><strong>mysql-cluster2</strong> : linux604b83b34c58ea0011d62213</summary><pre id="c7b33438-2d5b-449d-b6ac-0560045a87a2" class="code"><code>1 #033[90m3:00AM#033[0m #033[33mDBG#033[0m listing and exporting 119 processes took 49.976183ms.
+
+2 Received disconnect from 51.91.58.14 port 38656:11: Normal Shutdown, Thank you for playing [preauth]
+
+3 Disconnected from authenticating user root 51.91.58.14 port 38656 [preauth]
+
+4 Invalid user test from 62.210.82.18 port 50112
+
+5 Received disconnect from 222.187.232.205 port 37281:11:  [preauth]
+
+6 Bad protocol version identification &#x27;&#x27; from 162.142.125.128 port 5276
+
+7 Invalid user fred from 139.59.234.167 port 39400
+
+8 Did not receive identification string from 192.241.203.73 port 44306
+
+9 daemon quit
+
+10 packagekit.service: Main process exited, code=killed, status=15/TERM
+
+11 #033[90m4:55AM#033[0m #033[33mDBG#033[0m ignore process 19199 without parent
+
+12 Received disconnect from 82.65.30.196 port 49850:11: disconnected by user
+
+13 Disconnected from user raphael-galmiche 82.65.30.196 port 49850
+
+14 Session 3 logged out. Waiting for processes to exit.
+
+15 Stopping User Manager for UID 1002...
+
+16 Stopped target Default.
+
+17 Closed GnuPG cryptographic agent and passphrase cache (restricted).
+
+18 Closed GnuPG network certificate management daemon.
+
+19 Started Exit the Session.
+
+20 Stopping User Runtime Directory /run/user/1002...
+
+21 level=error ts=2021-04-12T07:59:20.717Z caller=exporter.go:174 msg=&quot;Error from scraper&quot; scraper=slave_status err=&quot;context deadline exceeded&quot;
+
+22 Invalid user ft from 180.76.141.248 port 54356
+
+23 [7153446.655861] mysqld invoked oom-killer: gfp_mask=0x6200ca(GFP_HIGHUSER_MOVABLE), nodemask=(null), order=0, oom_score_adj=0
+
+24 [7153446.685078]  dump_stack+0x66/0x90
+
+25 [7153446.689662]  ? oom_badness+0x23/0x140
+
+26 [7153446.736804] active_anon:7226696 inactive_anon:48397 isolated_anon:0
+
+27 [7153446.762550] Node 0 DMA free:15908kB min:32kB low:44kB high:56kB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15992kB managed:15908kB mlocked:0kB kernel_stack:0kB pagetables:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+
+28 [7153446.821584] Swap cache stats: add 0, delete 0, find 0/0
+
+29 [7153446.920682] Killed process 19484 (mysqld) total-vm:30198792kB, anon-rss:28624500kB, file-rss:0kB, shmem-rss:0kB
+
+30 mysql.service: Failed with result &#x27;signal&#x27;.
+
+31 mysql.service: Service RestartSec=100ms expired, scheduling restart.
+
+32 Stopped MySQL Community Server.
+
+33 Server listening on 0.0.0.0 port 22.
+
+34 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from ::1 port 47208
+
+35 [    0.486202] random: get_random_bytes called from start_kernel+0x93/0x520 with crng_init=0
+
+36 [    2.513747] HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+
+37 Stopped target Cloud-init target.
+
+38 Stopping Node Exporter...
+
+39 Stopped Execute cloud user/final scripts.
+
+40 Stopped Apply the settings specified in cloud-config.
+
+41 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+42 Started Update UTMP about System Boot/Shutdown.
+
+43 Started Uncomplicated firewall.
+
+44 2021-04-12 09:26:59,398 - stages.py[WARNING]: Failed to rename devices: [nic not present] Cannot rename mac=fa:16:3e:4a:9e:85 to eth1, not available.
+
+45 Listen and drop on 0 v6wildcard [::]:123
+
+46 Listen and drop on 1 v4wildcard 0.0.0.0:123
+
+47 kernel reports TIME_ERROR: 0x41: Clock Unsynchronized
+
+48 #033[90m9:27AM#033[0m #033[32mINF#033[0m Using brokers: [broker3-affluences.packetai.co:19092 broker3-affluences.packetai.co:29092 broker3-affluences.packetai.co:39092].
+
+49 receive: Unexpected origin timestamp 0xe41e90f7.ab7fb54c does not match aorg 0000000000.00000000 from server@5.196.160.139 xmt 0xe41e90f6.ccf487ce
+
+50 51.159.64.5 local addr 51.210.191.168 -&gt; &lt;null&gt;
+
+51 #033[90m3:02PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+52 error: maximum authentication attempts exceeded for root from 31.132.171.85 port 48997 ssh2 [preauth]
+
+53 Disconnecting invalid user admin 31.132.171.85 port 49125: Too many authentication failures [preauth]
+
+54 Disconnected from invalid user bio 46.105.127.217 port 36316 [preauth]
+
+55 Unable to negotiate with 213.171.214.14 port 53146: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 [preauth]
+
+56 Invalid user dercally from 46.105.127.217 port 35938
+
+57 Invalid user um from 36.89.25.220 port 44620
+
+58 Received disconnect from 202.165.22.10 port 59378:11: Bye Bye [preauth]
+
+59 Invalid user user-webi from 51.15.206.200 port 49232</code></pre></details></li></ul><ul id="fe8a814a-14bc-46dd-b2ea-a4c750ba80d2" class="toggle"><li><details open=""><summary><strong>docker3</strong>: linux6040f81b3a9e9f0012cec097</summary><pre id="2f9fdd1d-b707-4b90-b7a6-9725c4fb3504" class="code"><code>1 #033[90m3:00AM#033[0m #033[33mDBG#033[0m listing and exporting 169 processes took 49.325439ms.
+
+2 time=&quot;2021-04-12T03:01:04.866734718Z&quot; level=info msg=&quot;NetworkDB stats docker3(27acba80ad18) - netID:o56s8e9wbo696n27dyy16gqdh leaving:false netPeers:7 entries:23 Queue qLen:0 netMsg/s:0&quot;
+
+3 Received disconnect from 221.181.185.153 port 47135:11:  [preauth]
+
+4 Disconnected from authenticating user root 221.181.185.153 port 47135 [preauth]
+
+5 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.68.41.217 port 40148
+
+6 Did not receive identification string from 192.241.213.65 port 46710
+
+7 Invalid user wv from 119.29.150.241 port 57506
+
+8 #033[90m5:33AM#033[0m #033[33mDBG#033[0m ignore process 15182 without parent
+
+9 [30823814.085515] docker_gwbridge: port 12(veth8d2912c) entered disabled state
+
+10 [30823814.168332] device veth8d2912c left promiscuous mode
+
+11 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+12 Deleting interface #368 veth8d2912c, fe80::9448:f1ff:fe72:b60a%48080#123, interface stats: received=0, sent=0, dropped=0, active_time=20743 secs
+
+13 Invalid user arun from 103.119.92.107 port 51626
+
+14 Received disconnect from 154.8.147.238 port 54878:11: Bye Bye [preauth]
+
+15 Received disconnect from 91.121.30.117 port 44052:11: Normal Shutdown, Thank you for playing [preauth]
+
+16 #033[90m4:17PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+17 error: maximum authentication attempts exceeded for root from 120.224.50.233 port 25080 ssh2 [preauth]
+
+18 daemon quit
+
+19 packagekit.service: Main process exited, code=killed, status=15/TERM
+
+20 time=&quot;2021-04-12T09:03:14.503401392Z&quot; level=warning msg=&quot;Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.&quot;
+
+21 Could not set offload features of vethfc3e151: No such device
+
+22 Could not set offload features of vethbd4980e: Operation not permitted
+
+23 bind(32) AF_INET6 fe80::bc13:41ff:fe1a:84a9%48098#123 flags 0x11 failed: Cannot assign requested address
+
+24 time=&quot;2021-04-12T15:43:30.514760119Z&quot; level=warning msg=&quot;Peer operation failed:could not delete fdb entry for nid:fkm63eq9szicv7b3uhvi07utq eid:c291887a9daa86e871c8466d746f175f08d66d749681354ed70a94f17d66387a into the sandbox:Search neighbor failed for IP 10.0.10.164, mac 02:42:0a:00:16:1a, present in db:false op:&amp;{2 fkm63eq9szicv7b3uhvi07utq c291887a9daa86e871c8466d746f175f08d66d749681354ed70a94f17d66387a [0 0 0 0 0 0 0 0 0 0 255 255 10 0 22 26] [255 255 255 0] [2 66 10 0 22 26] [0 0 0 0 0 0 0 0 0 0 255 255 10 0 10 164] false false false EventNotify}&quot;
+
+25 Unable to negotiate with 213.171.214.14 port 62964: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 [preauth]
+
+26 2021/04/13 08:05:45 Unsolicited response received on idle HTTP channel starting with &quot;SSH-2.0-OpenSSH_7.9p1 Debian-10+deb10u2\r\n&quot;; err=&lt;nil&gt;
+
+27 Invalid user no-reply from 68.183.181.7 port 34956
+
+28 Invalid user cos from 81.69.38.149 port 51292
+
+29 failed to init interface for address fe80::140c:c9ff:fec7:4614%48169
+
+30 Invalid user test-miawodo from 164.132.113.219 port 51004
+
+31 Disconnecting invalid user admin 120.224.50.233 port 15352: Too many authentication failures [preauth]
+
+32 Received disconnect from 82.65.30.196 port 58466:11: disconnected by user
+
+33 Session 9209 logged out. Waiting for processes to exit.
+
+34 Removed session 9209.
+
+35 Closed GnuPG cryptographic agent and passphrase cache (restricted).
+
+36 Started Exit the Session.
+
+37 Invalid user quit-plays from 51.15.206.200 port 32878
+
+38 failed to init interface for address fe80::d05c:62ff:fec7:2a85%48306
+
+39 #033[90m9:23AM#033[0m #033[1m#033[31mERR#033[0m#033[0m Problem reading the action pipe. #033[31merror=#033[0m#033[31m&quot;message is not destinated to this agent actual linux6040f81b3a9e9f0012cec097 vs linux6040eafa3a9e9f0012cebfd4&quot;#033[0m
+
+40 #033[90m1:20PM#033[0m #033[32mINF#033[0m detected new webapplication on pid: 23861 ip: 0.0.0.0 port: 9033
+
+41 Invalid user im from 143.110.225.133 port 43032
+
+42 Invalid user 7hur@y@t3am$#@!(*( from 51.178.55.162 port 35710
+
+43 Invalid user 51.158.78.181 - SSH-2.0-Ope.SSH_7.6p1 Ubuntu-4ubuntu0.3\r from 138.201.192.145 port 55374</code></pre></details></li></ul><ul id="a03d953d-8544-46a1-a98b-79e4966e3c46" class="toggle"><li><details open=""><summary><strong>mysql-cluster1</strong>: linux604b83aa4c58ea0011d62211</summary><pre id="5ec46874-dcca-45d2-8e4e-8d2f2753f249" class="code"><code>1 #033[90m3:00AM#033[0m #033[33mDBG#033[0m listing and exporting 119 processes took 25.509266ms.
+
+2 Received disconnect from 51.91.58.14 port 35298:11: Normal Shutdown, Thank you for playing [preauth]
+
+3 Disconnected from authenticating user root 51.91.58.14 port 35298 [preauth]
+
+4 Invalid user test from 62.210.82.18 port 57722
+
+5 Received disconnect from 222.187.232.205 port 50891:11:  [preauth]
+
+6 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.210.184.31 port 57664
+
+7 Did not receive identification string from 192.241.203.73 port 55710
+
+8 Invalid user  from 65.49.20.68 port 41634
+
+9 Disconnected from invalid user willy 112.137.131.11 port 38640 [preauth]
+
+10 #033[90m4:13AM#033[0m #033[33mDBG#033[0m ignore process 892 without parent
+
+11 Invalid user kendra from 140.143.0.155 port 50348
+
+12 #033[90m5:05PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+13 Session 2116 logged out. Waiting for processes to exit.
+
+14 Removed session 2116.
+
+15 daemon quit
+
+16 packagekit.service: Main process exited, code=killed, status=15/TERM
+
+17 Invalid user ansible from 68.183.119.63 port 35018
+
+18 Stopped target Basic System.
+
+19 Closed GnuPG cryptographic agent and passphrase cache (restricted).
+
+20 Started Exit the Session.
+
+21 level=error ts=2021-04-13T16:17:56.056Z caller=exporter.go:149 msg=&quot;Error pinging mysqld&quot; err=&quot;dial tcp [::1]:3306: connect: connection refused&quot;
+
+22 Stopping MySQL Community Server...
+
+23 mysql.service: Failed with result &#x27;exit-code&#x27;.
+
+24 Failed to start MySQL Community Server.
+
+25 Received disconnect from 82.65.30.196 port 54167:11: disconnected by user
+
+26 Disconnected from user raphael-galmiche 82.65.30.196 port 54167
+
+27 error: maximum authentication attempts exceeded for root from 120.224.50.233 port 3946 ssh2 [preauth]
+
+28 Disconnecting invalid user admin 120.224.50.233 port 6908: Too many authentication failures [preauth]
+
+29 Invalid user ec2-user from 46.105.127.217 port 57212
+
+30 Invalid user serving from 46.105.127.217 port 44264
+
+31 Unable to negotiate with 44.234.117.206 port 57356: no matching host key type found. Their offer: ecdsa-sha2-nistp384 [preauth]
+
+32 (to mysql) root on none
+
+33 mysql.service: Service RestartSec=100ms expired, scheduling restart.
+
+34 194.177.34.116 local addr 51.210.184.31 -&gt; &lt;null&gt;
+
+35 System is powering down (hypervisor initiated shutdown).
+
+36 Received signal 15; terminating.
+
+37 Stopped target Cloud-init target.
+
+38 Server listening on 0.0.0.0 port 22.
+
+39 Stopped Execute cloud user/final scripts.
+
+40 Stopped Apply the settings specified in cloud-config.
+
+41 #033[90m3:06PM#033[0m #033[32mINF#033[0m Signal to stop received
+
+42 [    0.007546]   1 disabled
+
+43 [    0.034527] Zeroed struct page in unavailable ranges: 8326 pages
+
+44 Started Update UTMP about System Boot/Shutdown.
+
+45 [    0.762139] random: get_random_bytes called from start_kernel+0x93/0x520 with crng_init=0
+
+46 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+47 [    1.157071] NMI watchdog: Perf NMI watchdog permanently disabled
+
+48 Started Uncomplicated firewall.
+
+49 2021-04-20 15:27:28,771 - stages.py[WARNING]: Failed to rename devices: [nic not present] Cannot rename mac=fa:16:3e:52:68:b6 to eth1, not available.
+
+50 could not read from &#x27;/sys/module/intel_uncore/initstate&#x27;: No such device
+
+51 [    1.345965] HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+
+52 #033[90m3:28PM#033[0m #033[32mINF#033[0m I am the agent with ID linux604b83aa4c58ea0011d62211 from the infra 6040a96cdcc614001153fc55.
+
+53 Listen and drop on 0 v6wildcard [::]:123
+
+54 Listen and drop on 1 v4wildcard 0.0.0.0:123
+
+55 kernel reports TIME_ERROR: 0x41: Clock Unsynchronized
+
+56 Started Unattended Upgrades Shutdown.
+
+57 #033[90m3:28PM#033[0m #033[32mINF#033[0m Using brokers: [broker3-affluences.packetai.co:19092 broker3-affluences.packetai.co:29092 broker3-affluences.packetai.co:39092].
+
+58 #033[90m3:28PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not create docker client #033[31merror=#033[0m#033[31m&quot;stat /var/run/docker.sock: no such file or directory&quot;#033[0m
+
+59 receive: Unexpected origin timestamp 0xe42971a0.93fd3cc2 does not match aorg 0000000000.00000000 from server@94.23.2.80 xmt 0xe42971a1.6215dc09
+
+60 ntpd exiting on signal 15 (Terminated)
+
+61 [    1.080012] acpi PNP0A03:00: _OSC failed (AE_NOT_FOUND); disabling ASPM
+
+62 bind(23) AF_INET6 fe80::f816:3eff:fe2f:aec0%3#123 flags 0x11 failed: Cannot assign requested address
+
+63 Connection closed by invalid user &#x27; $(ping -c 1 847cc98f-$(echo s2).jitgit.com) 185.220.102.7 port 35363 [preauth]</code></pre></details></li></ul><ul id="2a2b625b-bcf6-4077-bed9-8eda2f399dc5" class="toggle"><li><details open=""><summary><strong>docker2</strong>: linux6040f8103a9e9f0012cec095</summary><pre id="0ae95a1d-7cf7-4971-bb40-a60dc0f451b7" class="code"><code>1 #033[90m3:00AM#033[0m #033[33mDBG#033[0m listing and exporting 207 processes took 45.495506ms.
+
+2 time=&quot;2021-04-12T03:01:58.095712931Z&quot; level=info msg=&quot;NetworkDB stats docker2(4f48fec8638f) - netID:dvujuycowfa0ffgbf2m9b5qme leaving:false netPeers:5 entries:17 Queue qLen:0 netMsg/s:0&quot;
+
+3 Invalid user user from 112.160.143.70 port 52727
+
+4 Received disconnect from 112.160.143.70 port 52727:11: Normal Shutdown, Thank you for playing [preauth]
+
+5 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.83.15.227 port 48094
+
+6 Connection closed by invalid user  65.49.20.68 port 51762 [preauth]
+
+7 Received disconnect from 221.181.185.198 port 20739:11:  [preauth]
+
+8 Did not receive identification string from 192.241.213.65 port 49472
+
+9 #033[90m4:23AM#033[0m #033[33mDBG#033[0m ignore process 913 without parent
+
+10 [7504621.852144] br0: port 8(veth246) entered disabled state
+
+11 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+12 Deleting interface #11936 veth7ec7fea, fe80::4c64:d5ff:fe28:6deb%81003#123, interface stats: received=0, sent=0, dropped=0, active_time=20765 secs
+
+13 time=&quot;2021-04-12T05:44:17.673069144Z&quot; level=warning msg=&quot;Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.&quot;
+
+14 Could not set offload features of veth68c9646: No such device
+
+15 bind(36) AF_INET6 fe80::1c12:a3ff:fe18:706d%81007#123 flags 0x11 failed: Cannot assign requested address
+
+16 Disconnected from invalid user elastic 120.53.28.165 port 34458 [preauth]
+
+17 Could not set offload features of vx-00101b-fkm63: Operation not permitted
+
+18 #033[90m3:46PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+19 daemon quit
+
+20 packagekit.service: Main process exited, code=killed, status=15/TERM
+
+21 error: maximum authentication attempts exceeded for root from 27.110.250.34 port 8370 ssh2 [preauth]
+
+22 Disconnecting authenticating user root 27.110.250.34 port 12095: Too many authentication failures [preauth]
+
+23 Unable to negotiate with 213.171.214.14 port 56665: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 [preauth]
+
+24 failed to init interface for address fe80::8c7a:fdff:fe89:7f9f%81186
+
+25 time=&quot;2021-04-15T10:09:07.314938755Z&quot; level=warning msg=&quot;Neighbor entry already present for IP 10.0.15.11, mac 02:42:0a:00:0f:0b neighbor:&amp;{dstIP:[0 0 0 0 0 0 0 0 0 0 255 255 10 0 15 11] dstMac:[2 66 10 0 15 11] linkName:vx-001011-n6is0 linkDst:vxlan0 family:0} forceUpdate:false&quot;
+
+26 Invalid user Intel(R) from 61.175.192.50 port 43592
+
+27 Disconnected from invalid user Intel(R) 61.175.192.50 port 43592 [preauth]
+
+28 error: kex protocol error: type 20 seq 2 [preauth]
+
+29 Received disconnect from 81.71.19.202 port 58766:11: Bye Bye [preauth]
+
+30 Invalid user git-admin from 207.180.221.187 port 53136
+
+31 Invalid user jenkins from 207.180.221.187 port 36862
+
+32 [8233606.861923] node invoked oom-killer: gfp_mask=0x6000c0(GFP_KERNEL), nodemask=(null), order=0, oom_score_adj=0
+
+33 [8233606.879695]  dump_stack+0x66/0x90
+
+34 [8233606.909266] Task in /docker/0b91f1aacf0289df66e5438027d0d1c01e836fdc10eb3db1c01df8055605b692 killed as a result of limit of /docker/0b91f1aacf0289df66e5438027d0d1c01e836fdc10eb3db1c01df8055605b692
+
+35 Received disconnect from 82.65.30.196 port 58463:11: disconnected by user
+
+36 Disconnected from user raphael-galmiche 82.65.30.196 port 58463
+
+37 Session 2409 logged out. Waiting for processes to exit.
+
+38 Closed GnuPG cryptographic agent and passphrase cache (restricted).
+
+39 Started Exit the Session.
+
+40 #033[90m9:23AM#033[0m #033[1m#033[31mERR#033[0m#033[0m Problem reading the action pipe. #033[31merror=#033[0m#033[31m&quot;message is not destinated to this agent actual linux6040f8103a9e9f0012cec095 vs linux6040eafa3a9e9f0012cebfd4&quot;#033[0m
+
+41 Disconnected from authenticating user www-data 35.223.116.25 port 59240 [preauth]</code></pre></details></li></ul><ul id="bd2e5975-5998-4c72-91c6-b8747a52f536" class="toggle"><li><details open=""><summary><strong>docker1</strong>: linux6040f7e73a9e9f0012cec090</summary><pre id="93107d9a-cb4e-48b7-a951-a539ab245ebf" class="code"><code>1 #033[90m3:00AM#033[0m #033[33mDBG#033[0m listing and exporting 161 processes took 61.494198ms.
+
+2 Received disconnect from 221.181.185.19 port 17743:11:  [preauth]
+
+3 Disconnected from authenticating user root 221.181.185.19 port 17743 [preauth]
+
+4 time=&quot;2021-04-12T03:02:34.425246212Z&quot; level=info msg=&quot;NetworkDB stats docker1(5dbd75d58e2a) - netID:o56s8e9wbo696n27dyy16gqdh leaving:false netPeers:7 entries:23 Queue qLen:0 netMsg/s:0&quot;
+
+5 Invalid user nisa from 103.253.200.161 port 56052
+
+6 Received disconnect from 103.253.200.161 port 56052:11: Bye Bye [preauth]
+
+7 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.75.7.107 port 45318
+
+8 Invalid user csgo-server from 159.75.26.109 port 48882
+
+9 Did not receive identification string from 192.241.213.65 port 36500
+
+10 [29960596.162735] docker_gwbridge: port 19(veth55821ae) entered disabled state
+
+11 [29960596.239898] device veth55821ae left promiscuous mode
+
+12 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+13 time=&quot;2021-04-12T04:00:32.672777731Z&quot; level=warning msg=&quot;Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.&quot;
+
+14 Deleting interface #398 veth55821ae, fe80::60eb:5ff:fe37:a95f%45325#123, interface stats: received=0, sent=0, dropped=0, active_time=301624 secs
+
+15 bind(30) AF_INET6 fe80::2439:3aff:fe67:b965%45395#123 flags 0x11 failed: Cannot assign requested address
+
+16 failed to init interface for address fe80::2439:3aff:fe67:b965%45395
+
+17 daemon quit
+
+18 packagekit.service: Main process exited, code=killed, status=15/TERM
+
+19 error: maximum authentication attempts exceeded for root from 87.241.1.186 port 59420 ssh2 [preauth]
+
+20 Disconnecting invalid user admin 87.241.1.186 port 61127: Too many authentication failures [preauth]
+
+21 #033[90m2:51AM#033[0m #033[33mDBG#033[0m ignore process 6125 without parent
+
+22 Received disconnect from 104.248.55.129 port 45370:11: Normal Shutdown, Thank you for playing [preauth]
+
+23 Could not set offload features of vx-00101b-fkm63: No such device
+
+24 #033[90m3:02PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+25 Disconnected from invalid user tk 52.130.78.186 port 37822 [preauth]
+
+26 Unable to negotiate with 213.171.214.14 port 52475: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 [preauth]
+
+27 time=&quot;2021-04-13T15:36:07.437536033Z&quot; level=warning msg=&quot;Peer operation failed:could not delete fdb entry for nid:q6w5ft35vxaix0hxuyvx3gfzz eid:019e8afc5424303c21de6ba28b528c6baf3accf8d40f54e1d02f50465f992ffd into the sandbox:Search neighbor failed for IP 10.0.10.60, mac 02:42:0a:00:11:78, present in db:false op:&amp;{2 q6w5ft35vxaix0hxuyvx3gfzz 019e8afc5424303c21de6ba28b528c6baf3accf8d40f54e1d02f50465f992ffd [0 0 0 0 0 0 0 0 0 0 255 255 10 0 17 120] [255 255 255 0] [2 66 10 0 17 120] [0 0 0 0 0 0 0 0 0 0 255 255 10 0 10 60] false false false EventNotify}&quot;
+
+28 Invalid user ubnt from 92.44.6.223 port 50765
+
+29 Could not set offload features of veth4a94993: Operation not permitted
+
+30 Invalid user it from 94.180.247.20 port 35432
+
+31 time=&quot;2021-04-15T12:26:31.647148708Z&quot; level=warning msg=&quot;deleteServiceInfoFromCluster NetworkDB DeleteEntry failed for 7b054bc943aedc556bd37fdb9908729b6ea1208e8d4ed8f3fed76b4385f5d39f kmj6noy18upaj9o02mc5ul15n err:cannot delete entry endpoint_table with network id kmj6noy18upaj9o02mc5ul15n and key 7b054bc943aedc556bd37fdb9908729b6ea1208e8d4ed8f3fed76b4385f5d39f does not exist or is already being deleted&quot;
+
+32 Received disconnect from 82.65.30.196 port 58462:11: disconnected by user
+
+33 Disconnected from user raphael-galmiche 82.65.30.196 port 58462
+
+34 Session 8960 logged out. Waiting for processes to exit.
+
+35 Removed session 8960.
+
+36 Closed GnuPG cryptographic agent (ssh-agent emulation).
+
+37 Started Exit the Session.
+
+38 #033[90m9:23AM#033[0m #033[1m#033[31mERR#033[0m#033[0m Problem reading the action pipe. #033[31merror=#033[0m#033[31m&quot;message is not destinated to this agent actual linux6040f7e73a9e9f0012cec090 vs linux6040eafa3a9e9f0012cebfd4&quot;#033[0m
+
+39 Invalid user 51.158.78.181 - SSH-2.0-Ope.SSH_7.6p1 Ubuntu-4ubuntu0.3\r from 138.201.192.145 port 54868</code></pre></details></li></ul><p id="5088d157-6384-4d80-b01b-6e5ba099406a" class="">
+</p><h2 id="82b85e9b-c4e6-4645-a556-5b09787e35ad" class="">HuggingFace : cardiffnlp/twitter-roberta-base-sentiment</h2><ul id="5fc2ada7-9e52-452d-9b5d-23e1e52ba299" class="bulleted-list"><li style="list-style-type:disc">How to use the model :</li></ul><pre id="e191d3ef-85bf-4d85-9f9a-00fd32863fa5" class="code"><code>from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import pipeline
+
+tokenizer = AutoTokenizer.from_pretrained(&quot;cardiffnlp/twitter-roberta-base-sentiment&quot;)
+model = AutoModelForSequenceClassification.from_pretrained(&quot;cardiffnlp/twitter-roberta-base-sentiment&quot;)
+classifier = pipeline(&#x27;sentiment-analysis&#x27;, model=model, tokenizer=tokenizer)</code></pre><ul id="799337fa-2292-42b1-996e-a7a68034be88" class="bulleted-list"><li style="list-style-type:disc">Play with the model : <a href="https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment?text=Bad+protocol+version+identification+%27GET+%2F+HTTP%2F1.1%27+from+51.83.15.227+port+48094">https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment?text=Bad+protocol+version+identification+&#x27;GET+%2F+HTTP%2F1.1&#x27;+from+51.83.15.227+port+48094</a></li></ul><ul id="269bef05-be8e-4e57-910c-a24a980ea410" class="bulleted-list"><li style="list-style-type:disc">Threshold : LABEL_0 &gt; 0.4</li></ul><p id="f189ba86-433a-4ef5-a531-a405644be44b" class="">
+</p><ul id="ba6a23b4-d792-400d-95af-5ff89d33e059" class="toggle"><li><details open=""><summary><strong>docker0</strong> : linux6040eafa3a9e9f0012cebfd4</summary><pre id="70bca4dc-ba4f-4755-b147-df8807f8eb71" class="code"><code>1 Did not receive identification string from 45.227.254.10 port 39560
+
+2 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.68.112.227 port 38416
+
+3 Disconnecting: Change of username or service not allowed: (blank,ssh-connection) -&gt; (admin,ssh-connection) [preauth]
+
+4 time=&quot;2021-04-12T05:43:42.592923460Z&quot; level=warning msg=&quot;Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.&quot;
+
+5 [31838477.316590] IPv6: ADDRCONF(NETDEV_UP): vethb2b73be: link is not ready
+
+6 Could not generate persistent MAC address for veth63e5fb1: No such file or directory
+
+7 Unable to negotiate with 122.224.17.186 port 42712: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1,diffie-hellman-group-exchange-sha1 [preauth]
+
+8 error: maximum authentication attempts exceeded for root from 45.141.84.10 port 1213 ssh2 [preauth]
+
+9 Disconnecting: Too many authentication failures [preauth]
+
+10 #033[90m4:18PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+11 Invalid user test from 1.180.211.138 port 14711
+
+12 time=&quot;2021-04-12T09:13:43.101848934Z&quot; level=info msg=&quot;Container ff130337a8cd7a0af460955a7d4cdbacab3218d4df7f79c6d20dd837efbec75e failed to exit within 10 seconds of signal 15 - using the force&quot;
+
+13 bind(47) AF_INET6 fe80::4c78:caff:fee3:ffd9%24960#123 flags 0x11 failed: Cannot assign requested address
+
+14 unable to create socket on vethd043526 (4990) for fe80::4c78:caff:fee3:ffd9%24960#123
+
+15 time=&quot;2021-04-12T15:07:46.894726878Z&quot; level=warning msg=&quot;Peer operation failed:could not delete fdb entry for nid:fkm63eq9szicv7b3uhvi07utq eid:4938debf71f4aef2543495e0e78110e0cd5a37d81e57f84c795e2eb0e517873f into the sandbox:Search neighbor failed for IP 10.0.10.217, mac 02:42:0a:00:16:14, present in db:false op:&amp;{2 fkm63eq9szicv7b3uhvi07utq 4938debf71f4aef2543495e0e78110e0cd5a37d81e57f84c795e2eb0e517873f [0 0 0 0 0 0 0 0 0 0 255 255 10 0 22 20] [255 255 255 0] [2 66 10 0 22 20] [0 0 0 0 0 0 0 0 0 0 255 255 10 0 10 217] false false false EventNotify}&quot;
+
+16 [31869167.476273] Task in /docker/3d745f909564709304b03236de24ef8a891c6c0f8104ebf29f5bd4896ba4be8c killed as a result of limit of /docker/3d745f909564709304b03236de24ef8a891c6c0f8104ebf29f5bd4896ba4be8c
+
+17 failed to init interface for address fe80::8805:36ff:fe25:529c%24956
+
+18 link_config: could not get ethtool features for veth99e7b4a
+
+19 time=&quot;2021-04-13T16:45:20.758890169Z&quot; level=warning msg=&quot;got error while decoding json&quot; error=&quot;unexpected EOF&quot; retries=12
+
+20 Could not set offload features of vx-001013-q6w5f: No such device
+
+21 failed to init interface for address fe80::38b3:64ff:fee1:9d76%25005
+
+22 Unable to negotiate with 44.234.111.80 port 55270: no matching host key type found. Their offer: ecdsa-sha2-nistp384 [preauth]
+
+23 failed to init interface for address fe80::5473:d2ff:fedd:46fc%25092
+
+24 fatal: monitor_read: unpermitted request 6
+
+25 [32450095.217760] Task in /docker/d51c6a5c5a6a1535018084d8776e49a9c48bdb45e89c565a91ca1468ae9b12cb killed as a result of limit of /docker/d51c6a5c5a6a1535018084d8776e49a9c48bdb45e89c565a91ca1468ae9b12cb
+
+26 {&quot;level&quot;:&quot;error&quot;,&quot;module&quot;:&quot;apache&quot;,&quot;error&quot;:&quot;parse \&quot;${data.host}:${data.port}\&quot;: first path segment in URL cannot contain colon&quot;,&quot;time&quot;:&quot;2021-04-21T09:23:47Z&quot;,&quot;message&quot;:&quot;could not parse url ${data.host}:${data.port}&quot;}
+
+27 #033[90m9:23AM#033[0m #033[31mWRN#033[0m could not enable module docker #033[31merror=#033[0m#033[31m&quot;not authorized module&quot;#033[0m
+
+28 failed to init interface for address fe80::50a7:b9ff:fecb:35d9%25424
+
+29 [32646829.290310] Memory cgroup out of memory: Kill process 14832 (prometheus) score 1092 or sacrifice child</code></pre></details></li></ul><ul id="150d2119-415e-48d4-842c-b54a5d7c9bd3" class="toggle"><li><details open=""><summary><strong>docker4</strong> : linux6040f8233a9e9f0012cec099</summary><pre id="db6cce63-a80d-47f0-83c1-0e8ee50e1c21" class="code"><code>1 time=&quot;2021-04-12T03:00:00.271432772Z&quot; level=warning msg=&quot;got error while decoding json&quot; error=&quot;unexpected EOF&quot; retries=0
+
+2 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.75.198.71 port 41544
+
+3 Did not receive identification string from 192.241.213.65 port 35220
+
+4 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+5 Could not generate persistent MAC address for veth29b085a: No such file or directory
+
+6 [7503938.772106] IPv6: ADDRCONF(NETDEV_UP): veth04d3bec: link is not ready
+
+7 bind(33) AF_INET6 fe80::8890:bff:fe93:2a6c%30613#123 flags 0x11 failed: Cannot assign requested address
+
+8 unable to create socket on veth04d3bec (553) for fe80::8890:bff:fe93:2a6c%30613#123
+
+9 failed to init interface for address fe80::8890:bff:fe93:2a6c%30613
+
+10 link_config: could not get ethtool features for vethea256a8
+
+11 failed to init interface for address fe80::9c91:c4ff:fe90:a65a%30623
+
+12 Could not set offload features of vx-00101b-fkm63: No such device
+
+13 Unable to negotiate with 77.121.92.243 port 57288: no matching cipher found. Their offer: aes128-cbc,3des-cbc,aes256-cbc,aes192-cbc [preauth]
+
+14 error: kex protocol error: type 20 seq 2 [preauth]
+
+15 time=&quot;2021-04-13T15:36:26.396637202Z&quot; level=warning msg=&quot;deleteServiceInfoFromCluster NetworkDB DeleteEntry failed for c2a1bc55f594a574c615f89a69e22653f99c12a673fcaacce35d6c39042b1772 j34giobngqqxlaut0hz8dgepd err:cannot delete entry endpoint_table with network id j34giobngqqxlaut0hz8dgepd and key c2a1bc55f594a574c615f89a69e22653f99c12a673fcaacce35d6c39042b1772 does not exist or is already being deleted&quot;
+
+16 error: maximum authentication attempts exceeded for root from 41.226.25.4 port 9378 ssh2 [preauth]
+
+17 Could not set offload features of veth200601d: Operation not permitted
+
+18 time=&quot;2021-04-14T17:47:47.592747158Z&quot; level=warning msg=&quot;Peer operation failed:could not delete fdb entry for nid:q6w5ft35vxaix0hxuyvx3gfzz eid:95c45a4224808c865f5a31ac65695050d258c3a110939a21216405298d17af9d into the sandbox:Search neighbor failed for IP 10.0.10.217, mac 02:42:0a:00:11:89, present in db:false op:&amp;{2 q6w5ft35vxaix0hxuyvx3gfzz 95c45a4224808c865f5a31ac65695050d258c3a110939a21216405298d17af9d [0 0 0 0 0 0 0 0 0 0 255 255 10 0 17 137] [255 255 255 0] [2 66 10 0 17 137] [0 0 0 0 0 0 0 0 0 0 255 255 10 0 10 217] false false false EventNotify}&quot;
+
+19 Disconnecting invalid user admin 87.241.1.186 port 19584: Too many authentication failures [preauth]
+
+20 #033[90m11:59AM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+21 failed to init interface for address fe80::c871:2aff:fe3f:1b1e%30836
+
+22 time=&quot;2021-04-15T17:12:26.448917321Z&quot; level=warning msg=&quot;Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.&quot;
+
+23 failed to init interface for address fe80::5005:66ff:fe48:456c%30887
+
+24 failed to init interface for address fe80::f0b0:45ff:fee9:2975%30909
+
+25 Invalid user quit-plays from 51.15.206.200 port 40902
+
+26 [8232830.067559] Task in /docker/1843e6efb5c137e848fdad13ff0df7b52a47b78607a2f4f9ea720db41e40054d killed as a result of limit of /docker/1843e6efb5c137e848fdad13ff0df7b52a47b78607a2f4f9ea720db41e40054d
+
+27 unable to create socket on veth85ff65a (620) for fe80::d0b9:76ff:fe6e:f80b%30984#123</code></pre></details></li></ul><ul id="1f568047-e81b-4394-ab76-dcce916a4969" class="toggle"><li><details open=""><summary><strong>mysql-8</strong> : linux604b83a14c58ea0011d6220f</summary><pre id="22f741c1-1002-42e1-ac5a-0638457e0764" class="code"><code>1 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.83.14.10 port 52320
+
+2 Connection closed by invalid user admin 67.205.179.170 port 51540 [preauth]
+
+3 Did not receive identification string from 192.241.213.65 port 44410
+
+4 error: kex protocol error: type 20 seq 2 [preauth]
+
+5 Disconnecting invalid user PFCUser 45.141.84.10 port 31505: Change of username or service not allowed: (PFCUser,ssh-connection) -&gt; (corecess,ssh-connection) [preauth]
+
+6 Disconnecting invalid user MGR 45.141.84.10 port 2761: Too many authentication failures [preauth]
+
+7 error: maximum authentication attempts exceeded for root from 27.110.250.34 port 26203 ssh2 [preauth]
+
+8 Connection closed by invalid user ip-51-83-14 167.172.147.6 port 38698 [preauth]
+
+9 Unable to negotiate with 213.171.214.14 port 57088: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 [preauth]
+
+10 #033[90m7:40AM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+11 Killed old client process
+
+12 receive_packet failed on eth1: Network is down
+
+13 mysql.service: Failed with result &#x27;exit-code&#x27;.
+
+14 Failed to start MySQL Community Server.
+
+15 System is powering down.
+
+16 Network interface NamePolicy= disabled on kernel command line, ignoring.
+
+17 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+18 2021-04-20 18:57:59,387 - stages.py[WARNING]: Failed to rename devices: [nic not present] Cannot rename mac=fa:16:3e:c0:a8:9e to eth1, not available.
+
+19 [    2.389498] acpi PNP0A03:00: fail to add MMCONFIG information, can&#x27;t access extended PCI configuration space under this bridge.
+
+20 kernel reports TIME_ERROR: 0x41: Clock Unsynchronized
+
+21 #033[90m6:58PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not create docker client #033[31merror=#033[0m#033[31m&quot;stat /var/run/docker.sock: no such file or directory&quot;#033[0m
+
+22 receive: Unexpected origin timestamp 0xe429a2c4.1e905257 does not match aorg 0000000000.00000000 from server@80.74.64.1 xmt 0xe429a2c4.759c3aa2
+
+23 [    2.465466] sd 2:0:0:1: [sdc] Write cache: enabled, read cache: enabled, doesn&#x27;t support DPO or FUA
+
+24 could not read from &#x27;/sys/module/intel_uncore/initstate&#x27;: No such device
+
+25 unable to create socket on eth1 (7) for fe80::f816:3eff:fe80:cff2%3#123
+
+26 failed to init interface for address fe80::f816:3eff:fe80:cff2%3</code></pre></details></li></ul><ul id="45ee1a57-d325-40b4-8045-b85612fe03f1" class="toggle"><li><details open=""><summary><strong>mysql-cluster2</strong> : linux604b83b34c58ea0011d62213</summary><pre id="48defc01-1ac7-40d1-82ef-5605f754b7ab" class="code"><code>1 Invalid user test from 62.210.82.18 port 50112
+
+2 Bad protocol version identification &#x27;&#x27; from 162.142.125.128 port 5276
+
+3 Did not receive identification string from 192.241.203.73 port 44306
+
+4 [ 3028.396282] nf_conntrack: default automatic helper assignment has been turned off for security reasons and CT-based  firewall rule not found. Use the iptables CT target to attach helpers instead.
+
+5 level=error ts=2021-04-12T07:59:20.717Z caller=exporter.go:174 msg=&quot;Error from scraper&quot; scraper=slave_status err=&quot;context deadline exceeded&quot;
+
+6 mysql.service: Failed with result &#x27;signal&#x27;.
+
+7 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from ::1 port 47208
+
+8 [    2.544764] acpi PNP0A03:00: fail to add MMCONFIG information, can&#x27;t access extended PCI configuration space under this bridge.
+
+9 Network interface NamePolicy= disabled on kernel command line, ignoring.
+
+10 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+11 Condition check resulted in Kernel Configuration File System being skipped.
+
+12 Started Uncomplicated firewall.
+
+13 2021-04-12 09:26:59,398 - stages.py[WARNING]: Failed to rename devices: [nic not present] Cannot rename mac=fa:16:3e:4a:9e:85 to eth1, not available.
+
+14 kernel reports TIME_ERROR: 0x41: Clock Unsynchronized
+
+15 receive: Unexpected origin timestamp 0xe41e90f7.ab7fb54c does not match aorg 0000000000.00000000 from server@5.196.160.139 xmt 0xe41e90f6.ccf487ce
+
+16 #033[90m3:02PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+17 error: maximum authentication attempts exceeded for root from 31.132.171.85 port 48997 ssh2 [preauth]
+
+18 Disconnecting invalid user admin 31.132.171.85 port 49125: Too many authentication failures [preauth]
+
+19 Unable to negotiate with 213.171.214.14 port 53146: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 [preauth]</code></pre></details></li></ul><ul id="3d1a3512-3cf9-4e50-a204-1a89953139a0" class="toggle"><li><details open=""><summary><strong>docker3</strong>: linux6040f81b3a9e9f0012cec097</summary><pre id="f0956401-5f2c-403f-a2f2-d226510d1411" class="code"><code>1 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.68.41.217 port 40148
+
+2 Did not receive identification string from 192.241.213.65 port 46710
+
+3 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+4 #033[90m4:17PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+5 error: maximum authentication attempts exceeded for root from 120.224.50.233 port 25080 ssh2 [preauth]
+
+6 time=&quot;2021-04-12T09:03:14.503401392Z&quot; level=warning msg=&quot;Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.&quot;
+
+7 [30835756.440648] IPv6: ADDRCONF(NETDEV_UP): veth1a9e8c2: link is not ready
+
+8 Could not generate persistent MAC address for vethbb28e77: No such file or directory
+
+9 link_config: could not get ethtool features for vethfc3e151
+
+10 Could not set offload features of vethfc3e151: No such device
+
+11 Could not set offload features of vethbd4980e: Operation not permitted
+
+12 bind(32) AF_INET6 fe80::bc13:41ff:fe1a:84a9%48098#123 flags 0x11 failed: Cannot assign requested address
+
+13 unable to create socket on veth2ae57d9 (370) for fe80::bc13:41ff:fe1a:84a9%48098#123
+
+14 failed to init interface for address fe80::bc13:41ff:fe1a:84a9%48098
+
+15 time=&quot;2021-04-12T15:43:30.514760119Z&quot; level=warning msg=&quot;Peer operation failed:could not delete fdb entry for nid:fkm63eq9szicv7b3uhvi07utq eid:c291887a9daa86e871c8466d746f175f08d66d749681354ed70a94f17d66387a into the sandbox:Search neighbor failed for IP 10.0.10.164, mac 02:42:0a:00:16:1a, present in db:false op:&amp;{2 fkm63eq9szicv7b3uhvi07utq c291887a9daa86e871c8466d746f175f08d66d749681354ed70a94f17d66387a [0 0 0 0 0 0 0 0 0 0 255 255 10 0 22 26] [255 255 255 0] [2 66 10 0 22 26] [0 0 0 0 0 0 0 0 0 0 255 255 10 0 10 164] false false false EventNotify}&quot;
+
+16 Unable to negotiate with 213.171.214.14 port 62964: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 [preauth]
+
+17 Invalid user no-reply from 68.183.181.7 port 34956
+
+18 failed to init interface for address fe80::140c:c9ff:fec7:4614%48169
+
+19 Disconnecting invalid user admin 120.224.50.233 port 15352: Too many authentication failures [preauth]
+
+20 unable to create socket on veth91811a1 (399) for fe80::347e:b5ff:fe1a:816b%48290#123
+
+21 failed to init interface for address fe80::d05c:62ff:fec7:2a85%48306</code></pre></details></li></ul><ul id="683b6fd0-40cb-4201-9607-d5b016a89861" class="toggle"><li><details open=""><summary><strong>mysql-cluster1</strong>: linux604b83aa4c58ea0011d62211</summary><pre id="e045860a-f546-4fce-83c7-ebd4a7ba8259" class="code"><code>1 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.210.184.31 port 57664
+
+2 Did not receive identification string from 192.241.203.73 port 55710
+
+3 #033[90m5:05PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+4 level=error ts=2021-04-13T16:17:56.056Z caller=exporter.go:149 msg=&quot;Error pinging mysqld&quot; err=&quot;dial tcp [::1]:3306: connect: connection refused&quot;
+
+5 mysql.service: Failed with result &#x27;exit-code&#x27;.
+
+6 Failed to start MySQL Community Server.
+
+7 error: maximum authentication attempts exceeded for root from 120.224.50.233 port 3946 ssh2 [preauth]
+
+8 Disconnecting invalid user admin 120.224.50.233 port 6908: Too many authentication failures [preauth]
+
+9 Unable to negotiate with 44.234.117.206 port 57356: no matching host key type found. Their offer: ecdsa-sha2-nistp384 [preauth]
+
+10 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+11 Started Uncomplicated firewall.
+
+12 2021-04-20 15:27:28,771 - stages.py[WARNING]: Failed to rename devices: [nic not present] Cannot rename mac=fa:16:3e:52:68:b6 to eth1, not available.
+
+13 could not read from &#x27;/sys/module/intel_uncore/initstate&#x27;: No such device
+
+14 [    1.369882] acpi PNP0A03:00: fail to add MMCONFIG information, can&#x27;t access extended PCI configuration space under this bridge.
+
+15 kernel reports TIME_ERROR: 0x41: Clock Unsynchronized
+
+16 Started Unattended Upgrades Shutdown.
+
+17 #033[90m3:28PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not create docker client #033[31merror=#033[0m#033[31m&quot;stat /var/run/docker.sock: no such file or directory&quot;#033[0m
+
+18 receive: Unexpected origin timestamp 0xe42971a0.93fd3cc2 does not match aorg 0000000000.00000000 from server@94.23.2.80 xmt 0xe42971a1.6215dc09
+
+19 [    1.080012] acpi PNP0A03:00: _OSC failed (AE_NOT_FOUND); disabling ASPM
+
+20 bind(23) AF_INET6 fe80::f816:3eff:fe2f:aec0%3#123 flags 0x11 failed: Cannot assign requested address
+
+21 unable to create socket on eth1 (7) for fe80::f816:3eff:fe2f:aec0%3#123
+
+22 failed to init interface for address fe80::f816:3eff:fe2f:aec0%3
+
+23 [  812.903336] nf_conntrack: default automatic helper assignment has been turned off for security reasons and CT-based  firewall rule not found. Use the iptables CT target to attach helpers instead.
+
+24 error: kex protocol error: type 30 seq 3 [preauth]</code></pre></details></li></ul><ul id="dfd5d8cf-e1bd-48b2-b434-740d5a91c6e5" class="toggle"><li><details open=""><summary><strong>docker2</strong>: linux6040f8103a9e9f0012cec095</summary><pre id="619a673a-ac16-4d48-84b5-e29cd2438c61" class="code"><code>1 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.83.15.227 port 48094
+
+2 Did not receive identification string from 192.241.213.65 port 49472
+
+3 time=&quot;2021-04-12T04:49:58.121349597Z&quot; level=error msg=&quot;Bulk sync to node 27acba80ad18 timed out&quot;
+
+4 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+5 time=&quot;2021-04-12T05:44:17.673069144Z&quot; level=warning msg=&quot;Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.&quot;
+
+6 Could not generate persistent MAC address for veth95c61ea: No such file or directory
+
+7 link_config: could not get ethtool features for veth68c9646
+
+8 Could not set offload features of veth68c9646: No such device
+
+9 [7504662.573880] IPv6: ADDRCONF(NETDEV_UP): veth97d87be: link is not ready
+
+10 bind(36) AF_INET6 fe80::1c12:a3ff:fe18:706d%81007#123 flags 0x11 failed: Cannot assign requested address
+
+11 unable to create socket on veth97d87be (11937) for fe80::1c12:a3ff:fe18:706d%81007#123
+
+12 Could not set offload features of vx-00101b-fkm63: Operation not permitted
+
+13 failed to init interface for address fe80::40bc:7fff:fe7a:3934%81084
+
+14 failed to init interface for address fe80::a8c6:f3ff:fe28:74ba%81011
+
+15 #033[90m3:46PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+16 error: maximum authentication attempts exceeded for root from 27.110.250.34 port 8370 ssh2 [preauth]
+
+17 Disconnecting authenticating user root 27.110.250.34 port 12095: Too many authentication failures [preauth]
+
+18 Unable to negotiate with 213.171.214.14 port 56665: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 [preauth]
+
+19 failed to init interface for address fe80::8c7a:fdff:fe89:7f9f%81186
+
+20 error: kex protocol error: type 20 seq 2 [preauth]
+
+21 [8233606.909266] Task in /docker/0b91f1aacf0289df66e5438027d0d1c01e836fdc10eb3db1c01df8055605b692 killed as a result of limit of /docker/0b91f1aacf0289df66e5438027d0d1c01e836fdc10eb3db1c01df8055605b692</code></pre></details></li></ul><ul id="69729080-bc65-4d70-a955-36ae6578c078" class="toggle"><li><details open=""><summary><strong>docker1</strong>: linux6040f7e73a9e9f0012cec090</summary><pre id="11218d7f-284f-4b12-ad6b-a3547988cd33" class="code"><code>1 time=&quot;2021-04-12T03:05:02.312263455Z&quot; level=warning msg=&quot;got error while decoding json&quot; error=&quot;unexpected EOF&quot; retries=9
+
+2 Bad protocol version identification &#x27;GET / HTTP/1.1&#x27; from 51.75.7.107 port 45318
+
+3 Did not receive identification string from 192.241.213.65 port 36500
+
+4 link_config: autonegotiation is unset or enabled, the speed and duplex are not writable.
+
+5 time=&quot;2021-04-12T04:00:32.672777731Z&quot; level=warning msg=&quot;Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.&quot;
+
+6 Could not generate persistent MAC address for vethfbb05e1: No such file or directory
+
+7 link_config: could not get ethtool features for vethbaf71de
+
+8 [29960601.719204] IPv6: ADDRCONF(NETDEV_UP): vethcb866d0: link is not ready
+
+9 bind(30) AF_INET6 fe80::2439:3aff:fe67:b965%45395#123 flags 0x11 failed: Cannot assign requested address
+
+10 unable to create socket on veth2df6a34 (419) for fe80::2439:3aff:fe67:b965%45395#123
+
+11 failed to init interface for address fe80::2439:3aff:fe67:b965%45395
+
+12 error: maximum authentication attempts exceeded for root from 87.241.1.186 port 59420 ssh2 [preauth]
+
+13 Disconnecting invalid user admin 87.241.1.186 port 61127: Too many authentication failures [preauth]
+
+14 Could not set offload features of vx-00101b-fkm63: No such device
+
+15 #033[90m3:02PM#033[0m #033[1m#033[31mERR#033[0m#033[0m could not unmarshal health check response: invalid character &#x27;&lt;&#x27; looking for beginning of value #033[31merror=#033[0m#033[31m&quot;invalid character &#x27;&lt;&#x27; looking for beginning of value&quot;#033[0m
+
+16 failed to init interface for address fe80::38e2:8dff:febe:2222%45495
+
+17 Unable to negotiate with 213.171.214.14 port 52475: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1 [preauth]
+
+18 time=&quot;2021-04-13T15:36:07.437536033Z&quot; level=warning msg=&quot;Peer operation failed:could not delete fdb entry for nid:q6w5ft35vxaix0hxuyvx3gfzz eid:019e8afc5424303c21de6ba28b528c6baf3accf8d40f54e1d02f50465f992ffd into the sandbox:Search neighbor failed for IP 10.0.10.60, mac 02:42:0a:00:11:78, present in db:false op:&amp;{2 q6w5ft35vxaix0hxuyvx3gfzz 019e8afc5424303c21de6ba28b528c6baf3accf8d40f54e1d02f50465f992ffd [0 0 0 0 0 0 0 0 0 0 255 255 10 0 17 120] [255 255 255 0] [2 66 10 0 17 120] [0 0 0 0 0 0 0 0 0 0 255 255 10 0 10 60] false false false EventNotify}&quot;
+
+19 Could not set offload features of veth4a94993: Operation not permitted
+
+20 time=&quot;2021-04-15T12:26:31.647148708Z&quot; level=warning msg=&quot;deleteServiceInfoFromCluster NetworkDB DeleteEntry failed for 7b054bc943aedc556bd37fdb9908729b6ea1208e8d4ed8f3fed76b4385f5d39f kmj6noy18upaj9o02mc5ul15n err:cannot delete entry endpoint_table with network id kmj6noy18upaj9o02mc5ul15n and key 7b054bc943aedc556bd37fdb9908729b6ea1208e8d4ed8f3fed76b4385f5d39f does not exist or is already being deleted&quot;</code></pre></details></li></ul><h2 id="75b62b07-88e0-4046-bb05-1f904f857797" class="">Summary</h2><p id="ed3eda50-de4f-4a13-abf3-df43e76e3571" class="">
+</p><div id="9b196168-7ee1-4ba8-a955-964b24a6394b" class="collection-content"><h4 class="collection-title">Number of anomalies per model</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Topics</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>N Messages</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>After Deduplication</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>After Removing Similar</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>HuggingFace BERT</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>HuggingFace Twitter</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>TextBlob</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>SARA</th></tr></thead><tbody><tr id="82bae87c-6816-4010-9c4e-816426de1e62"><td class="cell-title"><a href="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Number%20of%20anomalies%20per%20model%209b1961687ee14ba8a955964b24a6394b/linux6040eafa3a9e9f0012cebfd4%2082bae87c681640109c4e816426de1e62.html">linux6040eafa3a9e9f0012cebfd4</a></td><td class="cell-e}^C">293970</td><td class="cell-W{gz">265736</td><td class="cell-q?vf">87</td><td class="cell-@|zU">39</td><td class="cell-Ep[K">29</td><td class="cell-^Mkq">10</td><td class="cell-?y=|">6</td></tr><tr id="82db93b3-0931-4234-a3a6-7526a0e469de"><td class="cell-title"><a href="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Number%20of%20anomalies%20per%20model%209b1961687ee14ba8a955964b24a6394b/linux6040f8233a9e9f0012cec099%2082db93b309314234a3a67526a0e469de.html">linux6040f8233a9e9f0012cec099</a></td><td class="cell-e}^C">449055</td><td class="cell-W{gz">235511</td><td class="cell-q?vf">104</td><td class="cell-@|zU">49</td><td class="cell-Ep[K">27</td><td class="cell-^Mkq">11</td><td class="cell-?y=|">11</td></tr><tr id="2c5f8dce-4083-4b90-b08c-04c6c9dd043c"><td class="cell-title"><a href="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Number%20of%20anomalies%20per%20model%209b1961687ee14ba8a955964b24a6394b/linux604b83a14c58ea0011d6220f%202c5f8dce40834b90b08c04c6c9dd043c.html">linux604b83a14c58ea0011d6220f</a></td><td class="cell-e}^C">270082</td><td class="cell-W{gz">180295</td><td class="cell-q?vf">183</td><td class="cell-@|zU">64</td><td class="cell-Ep[K">26</td><td class="cell-^Mkq">12</td><td class="cell-?y=|">16</td></tr><tr id="14d29a20-0da6-4d8d-91f3-3aeae34ff284"><td class="cell-title"><a href="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Number%20of%20anomalies%20per%20model%209b1961687ee14ba8a955964b24a6394b/linux604b83b34c58ea0011d62213%2014d29a200da64d8d91f33aeae34ff284.html">linux604b83b34c58ea0011d62213</a></td><td class="cell-e}^C">151896</td><td class="cell-W{gz">124820</td><td class="cell-q?vf">178</td><td class="cell-@|zU">59</td><td class="cell-Ep[K">19</td><td class="cell-^Mkq">8</td><td class="cell-?y=|">13</td></tr><tr id="2a83eed6-400c-42c0-bd1a-064ec54e9d17"><td class="cell-title"><a href="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Number%20of%20anomalies%20per%20model%209b1961687ee14ba8a955964b24a6394b/linux6040f81b3a9e9f0012cec097%202a83eed6400c42c0bd1a064ec54e9d17.html">linux6040f81b3a9e9f0012cec097</a></td><td class="cell-e}^C">454117</td><td class="cell-W{gz">240629</td><td class="cell-q?vf">85</td><td class="cell-@|zU">43</td><td class="cell-Ep[K">21</td><td class="cell-^Mkq">8</td><td class="cell-?y=|">7</td></tr><tr id="28b35b26-641c-41b7-a733-eb39908561b2"><td class="cell-title"><a href="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Number%20of%20anomalies%20per%20model%209b1961687ee14ba8a955964b24a6394b/linux604b83aa4c58ea0011d62211%2028b35b26641c41b7a733eb39908561b2.html">linux604b83aa4c58ea0011d62211</a></td><td class="cell-e}^C">235276</td><td class="cell-W{gz">151697</td><td class="cell-q?vf">187</td><td class="cell-@|zU">63</td><td class="cell-Ep[K">24</td><td class="cell-^Mkq">12</td><td class="cell-?y=|">12</td></tr><tr id="c3a8dbfa-bb22-4aec-9389-101333314383"><td class="cell-title"><a href="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Number%20of%20anomalies%20per%20model%209b1961687ee14ba8a955964b24a6394b/linux6040f8103a9e9f0012cec095%20c3a8dbfabb224aec9389101333314383.html">linux6040f8103a9e9f0012cec095</a></td><td class="cell-e}^C">436329</td><td class="cell-W{gz">228967</td><td class="cell-q?vf">95</td><td class="cell-@|zU">41</td><td class="cell-Ep[K">21</td><td class="cell-^Mkq">7</td><td class="cell-?y=|">5</td></tr><tr id="a76b6d15-57ac-48e1-aed0-65cba54818c7"><td class="cell-title"><a href="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Number%20of%20anomalies%20per%20model%209b1961687ee14ba8a955964b24a6394b/linux6040f7e73a9e9f0012cec090%20a76b6d1557ac48e1aed065cba54818c7.html">linux6040f7e73a9e9f0012cec090</a></td><td class="cell-e}^C">449440</td><td class="cell-W{gz">241556</td><td class="cell-q?vf">81</td><td class="cell-@|zU">39</td><td class="cell-Ep[K">20</td><td class="cell-^Mkq">6</td><td class="cell-?y=|">7</td></tr></tbody></table><br/><br/></div><p id="8ff52c41-19f8-4b72-82cd-5458a64a7c2f" class="">
+</p><h1 id="5aaec4a0-0b51-4de7-a6b4-0cddaa92bf39" class="">Performances</h1><figure id="80a95bc4-9db4-494b-b980-bc94183caef6" class="link-to-page"><a href="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Model%20Comparison%2080a95bc49db4494bb980bc94183caef6.html">Model Comparison</a></figure><p id="20f8a86d-d29c-4d08-9ef5-de22aaa5ed3d" class="">
+</p><h2 id="e119c219-6017-4d0a-ba3d-e496b1e74776" class="">HuggingFace Twitter</h2><figure id="eaba2dcd-224b-486c-86a4-304381f0cdfd" class="image"><a href="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Untitled.png"><img style="width:372px" src="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Untitled.png"/></a></figure><h2 id="99d6cd38-508f-486b-acfa-227bee33a98a" class="">HuggingFace Product</h2><figure id="a10d0c72-7f72-4895-aea9-f5a6ac1bbf50" class="image"><a href="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Untitled%201.png"><img style="width:372px" src="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Untitled%201.png"/></a></figure><h2 id="9533a939-4c91-404c-80e2-95812b5506ad" class="">TextBlob</h2><figure id="e69a4168-6b6c-4a05-bf5c-28557f045e13" class="image"><a href="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Untitled%202.png"><img style="width:372px" src="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Untitled%202.png"/></a></figure><h2 id="bdf79f7b-b1df-4f25-b061-efc5d8fec8c1" class="">Sara</h2><figure id="f1b69cb8-4984-4915-adc8-3561d0b04c6b" class="image"><a href="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Untitled%203.png"><img style="width:372px" src="Comparison%20between%20sentiment%20analysis%20packages%20for%20fb237ce8644b420982cbf259066b4f01/Untitled%203.png"/></a></figure><p id="8ef7f2a0-11bd-44a4-9382-7cc855d6615a" class="">
+</p></div></article></body></html>

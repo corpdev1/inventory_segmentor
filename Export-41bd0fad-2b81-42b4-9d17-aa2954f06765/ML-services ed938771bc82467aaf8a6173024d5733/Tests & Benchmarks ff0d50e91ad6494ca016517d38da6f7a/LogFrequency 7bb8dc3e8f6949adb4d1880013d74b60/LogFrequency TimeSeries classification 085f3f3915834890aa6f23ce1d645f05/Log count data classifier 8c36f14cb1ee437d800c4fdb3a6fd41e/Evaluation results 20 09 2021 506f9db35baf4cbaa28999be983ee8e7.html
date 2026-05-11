@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Evaluation results 20.09.2021</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="506f9db3-5baf-4cba-a289-99be983ee8e7" class="page sans"><header><h1 class="page-title">Evaluation results 20.09.2021</h1><p class="page-description"></p></header><div class="page-body"><p id="97ca7a8f-aa3b-4017-ba68-494130341f96" class="">Results based on the improved version of outlier detection function</p><ul id="ffc601a5-af82-47a2-a5fe-d6ae4baf1325" class="toggle"><li><details open=""><summary>0: &#x27;usually the same values observed&#x27;</summary><figure id="d6fdb83e-b9b2-4ee1-a2a1-97f3875c0eee" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-dead-letter-cron-develop-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-dead-letter-cron-develop-stashed_evaluation.png"/></a></figure><figure id="a202684a-48bc-4357-a011-81a6ea4e6a7a" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-dead-letter-cron-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-dead-letter-cron-master-stashed_evaluation.png"/></a></figure><figure id="ac111098-a46e-41ac-a1ef-68d0379caa07" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-donation-celery-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-donation-celery-master-stashed_evaluation.png"/></a></figure><figure id="27469483-5406-4b76-a179-d77c72fc6348" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-donation-cron-develop-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-donation-cron-develop-stashed_evaluation.png"/></a></figure><figure id="6a347014-5d75-4752-a667-b008e9023fb1" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-donation-cron-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-donation-cron-master-stashed_evaluation.png"/></a></figure><figure id="8f6bc6ed-e531-48a8-95c7-ff3f36f39692" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-dotnet-template-service-develop-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-dotnet-template-service-develop-stashed_evaluation.png"/></a></figure><figure id="3f8ee196-e7d4-4efb-bdf4-0733336e87d8" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-dotnet-template-service-master-stashed_evaluation.png"><img style="width:864px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-dotnet-template-service-master-stashed_evaluation.png"/></a></figure><figure id="37cbf78b-aac2-4127-91f0-111488790cff" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-external-is-cron-develop-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-external-is-cron-develop-stashed_evaluation.png"/></a></figure><figure id="328b06ec-0c77-490c-b163-771e0451f424" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-packetaipacket-ai-agent-service-develop-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-packetaipacket-ai-agent-service-develop-stashed_evaluation.png"/></a></figure><figure id="414ebea5-becd-4591-8458-79b61949e92a" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-packetaipacket-ai-agent-service-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-packetaipacket-ai-agent-service-master-stashed_evaluation.png"/></a></figure><figure id="b52f32f3-a9fe-44ff-97b8-02d3e802bd33" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonauth-service-develop-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonauth-service-develop-stashed_evaluation.png"/></a></figure><figure id="ac586490-0fce-40de-8a0a-cfe45e8e93d6" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondead-letter-service-develop-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondead-letter-service-develop-stashed_evaluation.png"/></a></figure><figure id="50532a94-277e-456f-8204-fe4dc72c2d7c" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondonation-rabbit-develop-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondonation-rabbit-develop-stashed_evaluation.png"/></a></figure><figure id="0bc10c85-59ba-4f96-8ed8-c06723fe89dd" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondonation-rabbit-master-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondonation-rabbit-master-stashed_evaluation.png"/></a></figure><figure id="cdaef35d-d3a3-4811-b2ee-1ba633355e6f" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-rabbit-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-rabbit-master-stashed_evaluation.png"/></a></figure><figure id="55f12f7f-136d-4b1f-8bb8-4b7b41f921e6" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-sdet-celery-develop-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-sdet-celery-develop-stashed_evaluation.png"/></a></figure><figure id="8150e7e9-94cc-4270-852b-caa449474458" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-sdet-cron-develop-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-sdet-cron-develop-stashed_evaluation.png"/></a></figure><figure id="c3598265-b9a1-4e3c-8f10-e53ff5c6e45e" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-sync-service-develop-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-sync-service-develop-stashed_evaluation.png"/></a></figure><figure id="dca08aaa-07b9-4198-9500-e01a21872508" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-zero-gachis-cron-develop-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-zero-gachis-cron-develop-stashed_evaluation.png"/></a></figure><figure id="7399bede-03ae-40e7-a9da-d3e0f2034f7c" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-zero-gachis-cron-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-zero-gachis-cron-master-stashed_evaluation.png"/></a></figure><figure id="86854a0a-b849-4023-a61b-9e3f09559317" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effadaa06f32001133675c-log-packetai8143abc5b8149d09-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effadaa06f32001133675c-log-packetai8143abc5b8149d09-stashed_evaluation.png"/></a></figure><figure id="cd99b339-1732-4e0c-8c2f-c9b397bd8916" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effafba06f32001133675d-log-packetaid45c4d52e0eced48-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effafba06f32001133675d-log-packetaid45c4d52e0eced48-stashed_evaluation.png"/></a></figure><figure id="41539101-324a-48ac-abd2-deda56c14f1d" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-linux60effb4aa06f320011336762-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-linux60effb4aa06f320011336762-stashed_evaluation.png"/></a></figure><figure id="afd43da6-7cfd-4449-a338-fe208c360191" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-packetai1e1ced0f189e2626-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-packetai1e1ced0f189e2626-stashed_evaluation.png"/></a></figure><figure id="204e9898-1574-4b76-885e-dfb7f083d732" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-redisd8c18514db6a755b-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-redisd8c18514db6a755b-stashed_evaluation.png"/></a></figure><figure id="13bdcee7-47be-4c48-89d0-cc4901981345" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb11a06f32001133675e-log-apache18870476d1dd1663-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb11a06f32001133675e-log-apache18870476d1dd1663-stashed_evaluation.png"/></a></figure><figure id="8265380c-5d0b-459c-a7c6-f6b48ca73162" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb11a06f32001133675e-log-packetaifa38aa8ce0b94f43-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb11a06f32001133675e-log-packetaifa38aa8ce0b94f43-stashed_evaluation.png"/></a></figure><figure id="b6df09f7-b4a8-4258-8ffc-fb96d1a5d073" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb26a06f320011336760-log-packetaid43c54a48a1009eb-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb26a06f320011336760-log-packetaid43c54a48a1009eb-stashed_evaluation.png"/></a></figure><figure id="a5f86878-f55b-4913-b5b1-ffa0e8621d6e" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb30a06f320011336761-log-packetaie55e008e14de3a44-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb30a06f320011336761-log-packetaie55e008e14de3a44-stashed_evaluation.png"/></a></figure><figure id="cede2705-c3d1-4538-a56d-bb5229fa5529" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-data-api_data-api-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-data-api_data-api-stashed_evaluation.png"/></a></figure><figure id="133c5e7e-0ba8-4aad-92ef-824570bde23f" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-koios_koios-api-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-koios_koios-api-stashed_evaluation.png"/></a></figure><figure id="79e44fee-46ae-484d-99b4-47e391fabf4c" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-stashed_evaluation.png"/></a></figure><figure id="a040905c-ea77-4117-9dd2-6ddcb274669d" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-mysql_router-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-mysql_router-stashed_evaluation.png"/></a></figure><figure id="d4214a77-678c-4012-923f-25683238f5e5" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodeapp_app-api-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodeapp_app-api-stashed_evaluation.png"/></a></figure><figure id="1535548d-28bc-495c-864e-dbef78678cf7" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-portainer_agent-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-portainer_agent-stashed_evaluation.png"/></a></figure><figure id="5777986f-7dcb-4bd1-be35-88d12ee6e582" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-portainer_portainer-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-portainer_portainer-stashed_evaluation.png"/></a></figure><figure id="9348629c-02c5-4bbe-9a1d-649bafd0fd2d" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythoncloudflare_doa-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythoncloudflare_doa-stashed_evaluation.png"/></a></figure><figure id="a9f0895f-ee71-4b1d-a326-c881e1c41344" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythondynamic-flow_scheduler-stashed_evaluation.png"><img style="width:874px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythondynamic-flow_scheduler-stashed_evaluation.png"/></a></figure><figure id="85974157-6333-4d6a-adc7-8cd556c7bc8c" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonhyperion_client-plages-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonhyperion_client-plages-stashed_evaluation.png"/></a></figure><figure id="154ea714-ab93-4d58-a311-fd61326b84e8" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-tasks-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-tasks-stashed_evaluation.png"/></a></figure><figure id="de8d0a39-73cb-4447-ad2f-7fdb59af0c99" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-tasks-stashed_evaluation.png"><img style="width:875px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-tasks-stashed_evaluation.png"/></a></figure><figure id="ffacbe95-02e5-4d5a-812a-92b0e6ecaa1c" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-redisgaia_redis-stashed_evaluation.png"><img style="width:864px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-redisgaia_redis-stashed_evaluation.png"/></a></figure><figure id="f95857f8-4b1d-4e73-bdec-53fafbac926c" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-redissite-service_redis-cache-stashed_evaluation.png"><img style="width:864px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-redissite-service_redis-cache-stashed_evaluation.png"/></a></figure><figure id="496313f6-df1a-4e78-a1e0-470afc4d5593" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-packetai1f0470fa7ea18846-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-packetai1f0470fa7ea18846-stashed_evaluation.png"/></a></figure><figure id="7743496d-a5f1-422d-b457-93bcedac364a" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec228da00c500125f430d-log-linux60fec228da00c500125f430d-stashed_evaluation.png"><img style="width:889px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec228da00c500125f430d-log-linux60fec228da00c500125f430d-stashed_evaluation.png"/></a></figure><figure id="7a117fc5-bf8e-4d34-b770-a38da8cc617e" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-packetaie6471dd6a1a09b54-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-packetaie6471dd6a1a09b54-stashed_evaluation.png"/></a></figure><figure id="ddd84967-04f6-45d8-a99a-835c42a41c76" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-mysqlc65d1f2cd07cc218-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-mysqlc65d1f2cd07cc218-stashed_evaluation.png"/></a></figure><figure id="ed784392-5442-43be-86ad-49dd43647e7a" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-packetaibcbf6881c8b51cc6-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-packetaibcbf6881c8b51cc6-stashed_evaluation.png"/></a></figure><figure id="b9b8c0e8-5d52-48c7-b33c-e66295cf5c24" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-packetaiab4704e4d9d6263b-stashed_evaluation.png"><img style="width:896px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-packetaiab4704e4d9d6263b-stashed_evaluation.png"/></a></figure><figure id="442ab916-b315-48cb-a24d-d1eef556aa28" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bdec6b677860011c6e30c-log-packetai413744d48e902e0a-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bdec6b677860011c6e30c-log-packetai413744d48e902e0a-stashed_evaluation.png"/></a></figure><figure id="89a56fde-c4f2-47e1-9d77-a29083795951" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-apache834fd0b59d9ddf17-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-apache834fd0b59d9ddf17-stashed_evaluation.png"/></a></figure></details></li></ul><ul id="ddfa762c-59e3-4290-b5fb-d650d22ce0f6" class="toggle"><li><details open=""><summary>1: &#x27;dense data around the mean value&#x27;</summary><figure id="e4416035-9622-44d6-a46e-2e734b825927" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-rabbitmqeb234c270bf3d9cd-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb4aa06f320011336762-log-rabbitmqeb234c270bf3d9cd-stashed_evaluation.png"/></a></figure><figure id="03bb8a22-178c-4134-b727-3d215c793aa6" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodecollector-api_collector-api-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodecollector-api_collector-api-stashed_evaluation.png"/></a></figure><figure id="3b42c6c2-872b-43a8-a8e7-342714b4a782" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-linux609bdf19b677860011c6e30e-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-linux609bdf19b677860011c6e30e-stashed_evaluation.png"/></a></figure><figure id="95850950-21a7-4ab5-92d0-f38c929739b6" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-packetai7fe5cf5bc665897f-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bdf19b677860011c6e30e-log-packetai7fe5cf5bc665897f-stashed_evaluation.png"/></a></figure></details></li></ul><ul id="ee418b4d-a6de-447f-a7b0-ace9a2230e10" class="toggle"><li><details open=""><summary>2: &#x27;random noisy data&#x27;</summary><figure id="5183148f-1514-4687-b28f-d77c2c0ce4cd" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-datadog-agent-service-develop-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-datadog-agent-service-develop-stashed_evaluation.png"/></a></figure><figure id="f6b2bb32-ee18-4db7-8e04-46221b2e872d" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-datadog-agent-service-master-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-datadog-agent-service-master-stashed_evaluation.png"/></a></figure><figure id="014ad6f5-ba3c-4321-ba39-b6363736eb8b" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-dead-letter-celery-develop-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-dead-letter-celery-develop-stashed_evaluation.png"/></a></figure><figure id="70640c34-03c9-4d94-9a0b-f76aa6fe6e7c" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-dead-letter-celery-master-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-dead-letter-celery-master-stashed_evaluation.png"/></a></figure><figure id="6db22b4f-7b10-451d-a50c-3b175dd605d3" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-donation-celery-develop-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-donation-celery-develop-stashed_evaluation.png"/></a></figure><figure id="4851b3ea-4834-4054-87d6-f2fffc626d18" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-external-is-celery-develop-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-external-is-celery-develop-stashed_evaluation.png"/></a></figure><figure id="ed1711eb-e209-45aa-96f9-cd91aac5472d" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-external-is-celery-master-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-external-is-celery-master-stashed_evaluation.png"/></a></figure><figure id="91155234-7439-440a-bafd-2ce53155a516" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-external-is-cron-master-stashed_evaluation.png"><img style="width:880px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-external-is-cron-master-stashed_evaluation.png"/></a></figure><figure id="e91fe91b-cf63-4fd7-81ca-62b7836d9c3c" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-javakeycloak-service-master-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-javakeycloak-service-master-stashed_evaluation.png"/></a></figure><figure id="b4b567b5-150d-407d-93da-d3135c63e872" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nginxapi-gateway-service-develop-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nginxapi-gateway-service-develop-stashed_evaluation.png"/></a></figure><figure id="64550f7b-f86f-42ae-b613-95fb9640eb3b" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nginxapi-gateway-service-master-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nginxapi-gateway-service-master-stashed_evaluation.png"/></a></figure><figure id="a5992b99-5d51-4b1e-87db-f60bba5b157e" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nginxzero-gachis-api-develop-stashed_evaluation.png"><img style="width:890px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nginxzero-gachis-api-develop-stashed_evaluation.png"/></a></figure><figure id="66a516b3-8724-4b56-b0b9-fda230f10292" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nginxzero-gachis-service-develop-stashed_evaluation.png"><img style="width:889px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nginxzero-gachis-service-develop-stashed_evaluation.png"/></a></figure><figure id="bb810472-4671-4447-893b-09883a5203fb" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nginxzero-gachis-service-master-stashed_evaluation.png"><img style="width:889px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nginxzero-gachis-service-master-stashed_evaluation.png"/></a></figure><figure id="3cc5da47-961a-4179-82a6-cea6174c67dc" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nodeheadless-browser-service-develop-stashed_evaluation.png"><img style="width:885px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nodeheadless-browser-service-develop-stashed_evaluation.png"/></a></figure><figure id="e76d437b-adc6-45c4-9013-dc4b4cfe70ed" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nodeheadless-browser-service-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-nodeheadless-browser-service-master-stashed_evaluation.png"/></a></figure><figure id="e9b66ada-cb16-4e44-aa34-bd032eedd9f9" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonauth-service-master-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonauth-service-master-stashed_evaluation.png"/></a></figure><figure id="d52867a3-10ee-4e5f-a585-aba21a372555" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonb2b-dashboard-service-develop-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonb2b-dashboard-service-develop-stashed_evaluation.png"/></a></figure><figure id="91921293-7066-4134-be37-c5546dc53c74" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondead-letter-rabbit-master-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondead-letter-rabbit-master-stashed_evaluation.png"/></a></figure><figure id="5baf492b-19e8-4a54-9491-25cc5fac996c" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondead-letter-service-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondead-letter-service-master-stashed_evaluation.png"/></a></figure><figure id="19b59ec7-8503-404f-95ee-4c392ea4b0c7" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondonation-service-develop-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondonation-service-develop-stashed_evaluation.png"/></a></figure><figure id="8dbad8f5-c143-470c-8de4-b6ad06d7e2d0" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondonation-service-master-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythondonation-service-master-stashed_evaluation.png"/></a></figure><figure id="e82d0bfc-5a48-4ee5-99ca-0f83680e627a" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonemail-service-develop-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonemail-service-develop-stashed_evaluation.png"/></a></figure><figure id="045a89da-9284-465f-bee0-f87b1bb6fbbf" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonemail-service-master-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonemail-service-master-stashed_evaluation.png"/></a></figure><figure id="01ec48a7-7c91-4adb-a165-5d548a3ca110" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-rabbit-master-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-rabbit-master-stashed_evaluation.png"/></a></figure><figure id="9a8833fb-576f-49d4-ac6b-c7e3616d119e" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-service-develop-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-service-develop-stashed_evaluation.png"/></a></figure><figure id="55cdf1dc-9cda-4db3-b2d8-e7f3a3f485dd" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-service-master-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-service-master-stashed_evaluation.png"/></a></figure><figure id="50e19739-7fb3-4a3b-8d20-acb98a095d15" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-service-develop-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-service-develop-stashed_evaluation.png"/></a></figure><figure id="a4aecaff-5f90-4dd4-b031-cfefbb5f08a8" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-service-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-service-master-stashed_evaluation.png"/></a></figure><figure id="0967e48a-0a57-4017-8ae9-7c738e61f5d4" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonpipedrive-service-develop-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonpipedrive-service-develop-stashed_evaluation.png"/></a></figure><figure id="957cb6fb-bf52-4626-8bb1-ff9617fde0a6" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonpipedrive-service-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonpipedrive-service-master-stashed_evaluation.png"/></a></figure><figure id="8c7c1cba-5b97-49df-9744-f497eeed0e38" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonsales-service-develop-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonsales-service-develop-stashed_evaluation.png"/></a></figure><figure id="71da510d-b794-468e-ae19-93665036abb8" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonsales-service-master-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonsales-service-master-stashed_evaluation.png"/></a></figure><figure id="c7a8c555-ea56-40a7-8f34-a4205555a727" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonsdet-service-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonsdet-service-master-stashed_evaluation.png"/></a></figure><figure id="860e5bac-37e5-4f17-9870-d72b9e51d2ff" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonstock-service-develop-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonstock-service-develop-stashed_evaluation.png"/></a></figure><figure id="4c7efc58-67df-491f-993f-063933a07564" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonstock-service-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonstock-service-master-stashed_evaluation.png"/></a></figure><figure id="2e9efc3a-7d3b-4176-a6b5-0a0c84b400e7" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonzero-gachis-rabbit-develop-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonzero-gachis-rabbit-develop-stashed_evaluation.png"/></a></figure><figure id="1c7ff8a5-0315-4f51-b65b-134dd5317550" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonzero-gachis-rabbit-master-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonzero-gachis-rabbit-master-stashed_evaluation.png"/></a></figure><figure id="6a79c553-12b8-4e27-ab46-84757bc571ee" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-sdet-cron-master-stashed_evaluation.png"><img style="width:880px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-sdet-cron-master-stashed_evaluation.png"/></a></figure><figure id="21b9ffec-36d5-4354-924a-44e736149010" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-traefiktraefik-develop-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-traefiktraefik-develop-stashed_evaluation.png"/></a></figure><figure id="b2854429-98ff-4ac7-abd8-6049b8fb2f50" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-traefiktraefik-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-traefiktraefik-master-stashed_evaluation.png"/></a></figure><figure id="8968b327-dd5b-4bd1-ba0a-74ce50c714de" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-zero-gachis-api-develop-stashed_evaluation.png"><img style="width:889px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-zero-gachis-api-develop-stashed_evaluation.png"/></a></figure><figure id="bfacf5df-6e3b-46a9-9cea-df9b39667bd0" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-zero-gachis-celery-develop-stashed_evaluation.png"><img style="width:881px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-zero-gachis-celery-develop-stashed_evaluation.png"/></a></figure><figure id="84089d47-62aa-43fb-ba1b-823c0687e09e" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-zero-gachis-celery-master-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-zero-gachis-celery-master-stashed_evaluation.png"/></a></figure><figure id="744c2506-4301-4ac9-9a78-2864fbe54c37" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effa84a06f32001133675a-log-linux60effa84a06f32001133675a-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effa84a06f32001133675a-log-linux60effa84a06f32001133675a-stashed_evaluation.png"/></a></figure><figure id="c255cd42-7e3a-474d-82eb-1472fc06d3ed" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effa84a06f32001133675a-log-packetaib090e5849913000e-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effa84a06f32001133675a-log-packetaib090e5849913000e-stashed_evaluation.png"/></a></figure><figure id="3ca1a364-98b2-4195-a30f-6835603bbf6a" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effadaa06f32001133675c-log-linux60effadaa06f32001133675c-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effadaa06f32001133675c-log-linux60effadaa06f32001133675c-stashed_evaluation.png"/></a></figure><figure id="710c01a9-43a3-4de8-a0b7-5fb6e71b0c23" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effafba06f32001133675d-log-linux60effafba06f32001133675d-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effafba06f32001133675d-log-linux60effafba06f32001133675d-stashed_evaluation.png"/></a></figure><figure id="1be3097d-ef24-4627-aa50-0b87ecbf4ff3" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb11a06f32001133675e-log-linux60effb11a06f32001133675e-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb11a06f32001133675e-log-linux60effb11a06f32001133675e-stashed_evaluation.png"/></a></figure><figure id="c05ced91-c226-4cf5-9b09-bdd50131e779" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb26a06f320011336760-log-linux60effb26a06f320011336760-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb26a06f320011336760-log-linux60effb26a06f320011336760-stashed_evaluation.png"/></a></figure><figure id="d3581621-a0c4-4ac1-a27d-d6e7274c3797" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb30a06f320011336761-log-linux60effb30a06f320011336761-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ed840f588aa700127280d6-linux60effb30a06f320011336761-log-linux60effb30a06f320011336761-stashed_evaluation.png"/></a></figure><figure id="6e7aecc6-68a2-4380-b3f1-37cd206822a8" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-apachedocumentation_bookstack-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-apachedocumentation_bookstack-stashed_evaluation.png"/></a></figure><figure id="7d126dc6-86df-41f4-bd8e-dfcef1e50f52" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-consul_consul-server-stashed_evaluation.png"><img style="width:874px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-consul_consul-server-stashed_evaluation.png"/></a></figure><figure id="9d428fe8-1431-47e0-8d3c-6dcc6bb21e76" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-gateway_caddy_server-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-gateway_caddy_server-stashed_evaluation.png"/></a></figure><figure id="5d3370e5-56c2-444c-9d9c-d32e28af67a7" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-javaappsmith_appsmith-internal-server-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-javaappsmith_appsmith-internal-server-stashed_evaluation.png"/></a></figure><figure id="bcf44229-5768-472d-b865-41aec21db89f" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-keto_keto-stashed_evaluation.png"><img style="width:864px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-keto_keto-stashed_evaluation.png"/></a></figure><figure id="eb24b6e0-ce5e-457b-82f8-10358bd45717" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nginxappsmith_appsmith-nginx-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nginxappsmith_appsmith-nginx-stashed_evaluation.png"/></a></figure><figure id="35a7b293-de7b-449a-8286-3d56e2a1e48c" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nginxweblate_weblate-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nginxweblate_weblate-stashed_evaluation.png"/></a></figure><figure id="08fea61c-084a-4453-bd42-e4756f1d6125" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodeapp_app-web-stashed_evaluation.png"/></a></figure><figure id="6ef4b20e-c58c-4112-b3f8-c20294d0fe00" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodehyperion_server-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodehyperion_server-stashed_evaluation.png"/></a></figure><figure id="84d493ce-0c2a-4787-9174-d6041793dd05" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodenotifications_notifications-service-stashed_evaluation.png"><img style="width:880px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodenotifications_notifications-service-stashed_evaluation.png"/></a></figure><figure id="1fa34480-a5c7-41d1-b9ba-80bdc60aa749" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodeportal_portal-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodeportal_portal-stashed_evaluation.png"/></a></figure><figure id="cb865c45-5faa-43d1-a31f-5c6a0b8851f1" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-noderealtime-status_realtime-worker-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-noderealtime-status_realtime-worker-stashed_evaluation.png"/></a></figure><figure id="6bad8bd6-f4de-4771-ac52-37b85578a8f3" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodereports-service_reports-service-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodereports-service_reports-service-stashed_evaluation.png"/></a></figure><figure id="13d58292-eee4-4ea3-8037-2f2c644bf666" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodereservation_reservation-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodereservation_reservation-stashed_evaluation.png"/></a></figure><figure id="f5b91188-cdb0-4a98-af48-dd65586c31b1" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodereservations-service_reservations-service-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodereservations-service_reservations-service-stashed_evaluation.png"/></a></figure><figure id="5f9ad491-9e22-4601-a665-0ca740a988f3" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodescrapers_scrapers-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodescrapers_scrapers-stashed_evaluation.png"/></a></figure><figure id="e870f3a2-bbc0-4560-96a0-a565a38c608e" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodesensinglabs-mqtt_sensinglabs-mqtt-stashed_evaluation.png"><img style="width:864px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodesensinglabs-mqtt_sensinglabs-mqtt-stashed_evaluation.png"/></a></figure><figure id="1d97f8a7-8995-44c2-9a48-b38da2477307" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodesensor-service_sensor-service-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodesensor-service_sensor-service-stashed_evaluation.png"/></a></figure><figure id="f3725314-8ccf-42fb-a59a-b157f3d4063a" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodestats-service_stats-service-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodestats-service_stats-service-stashed_evaluation.png"/></a></figure><figure id="e9bf2e81-897a-40f9-89ad-dd3fd720eeb2" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodewebapi_webapi-server-stashed_evaluation.png"><img style="width:880px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodewebapi_webapi-server-stashed_evaluation.png"/></a></figure><figure id="e3eba861-964a-4154-9e90-517404cebe5f" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-packetaipacketai_packetai-agent-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-packetaipacketai_packetai-agent-stashed_evaluation.png"/></a></figure><figure id="d4109992-d8a6-40c6-8a8d-dc6d2e42d85f" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-post-processing_post-processing-stashed_evaluation.png"><img style="width:884px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-post-processing_post-processing-stashed_evaluation.png"/></a></figure><figure id="52ab7f58-585b-406d-a9fa-70e41fe71eca" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonalerts_alerts-engine-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonalerts_alerts-engine-stashed_evaluation.png"/></a></figure><figure id="54ea73bb-fdb2-4826-a0bd-dade4113bf17" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-master-stashed_evaluation.png"><img style="width:874px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-master-stashed_evaluation.png"/></a></figure><figure id="a78d915a-adae-4f9b-bc12-dea1942e80b2" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-worker-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-worker-stashed_evaluation.png"/></a></figure><figure id="259f93a7-4daa-42d5-b3f0-8c3ff52a5669" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-worker-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-worker-stashed_evaluation.png"/></a></figure><figure id="49b132ac-157e-4f3b-9d7c-aeaff29e29b8" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-rabbitmqqueue_rabbitmq-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-rabbitmqqueue_rabbitmq-stashed_evaluation.png"/></a></figure><figure id="93a85c98-1e71-42ab-8a2f-1249c96167ca" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-redisappsmith_redis-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-redisappsmith_redis-stashed_evaluation.png"/></a></figure><figure id="2e1c6786-436e-443f-9121-6922e61ce7b8" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-redisweblate_cache-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-redisweblate_cache-stashed_evaluation.png"/></a></figure><figure id="b537ad8d-9d61-424a-85c9-5e1785503c5b" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-rubylogs_fluentd-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-rubylogs_fluentd-stashed_evaluation.png"/></a></figure><figure id="ea73420e-c959-4d36-bf06-b0109ad65b0b" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-linux60b8d8abaeb6f802698917b1-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-linux60b8d8abaeb6f802698917b1-stashed_evaluation.png"/></a></figure><figure id="9b1fdbe4-88d2-4aae-bca8-47c830a681c7" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec22ada00c500125f430f-log-linux60fec22ada00c500125f430f-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec22ada00c500125f430f-log-linux60fec22ada00c500125f430f-stashed_evaluation.png"/></a></figure><figure id="258f371e-d9fa-4c18-a330-a58c03969752" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec22ada00c500125f4310-log-linux60fec22ada00c500125f4310-stashed_evaluation.png"><img style="width:890px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec22ada00c500125f4310-log-linux60fec22ada00c500125f4310-stashed_evaluation.png"/></a></figure><figure id="0f470489-e0b4-4880-bf08-c47db71d4e11" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec22cda00c500125f4311-log-linux60fec22cda00c500125f4311-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec22cda00c500125f4311-log-linux60fec22cda00c500125f4311-stashed_evaluation.png"/></a></figure><figure id="0c4b8ef9-c790-47b1-a216-20eaa85155e3" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec22dda00c500125f4312-log-linux60fec22dda00c500125f4312-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec22dda00c500125f4312-log-linux60fec22dda00c500125f4312-stashed_evaluation.png"/></a></figure><figure id="9aeedd47-873a-4c04-93ee-0e1d9931b931" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec22dda00c500125f4313-log-linux60fec22dda00c500125f4313-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec22dda00c500125f4313-log-linux60fec22dda00c500125f4313-stashed_evaluation.png"/></a></figure><figure id="ea1bc0a7-81f2-45f8-b067-ad7f4b3eeb11" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec229da00c500125f430e-log-linux60fec229da00c500125f430e-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec229da00c500125f430e-log-linux60fec229da00c500125f430e-stashed_evaluation.png"/></a></figure><figure id="4b739884-5bd0-4f1e-9864-1beb694f05ba" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec238da00c500125f4314-log-linux60fec238da00c500125f4314-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux60fec238da00c500125f4314-log-linux60fec238da00c500125f4314-stashed_evaluation.png"/></a></figure><figure id="07708d1a-7a80-4937-9489-3aec984e1c48" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-linux604b83a14c58ea0011d6220f-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-linux604b83a14c58ea0011d6220f-stashed_evaluation.png"/></a></figure><figure id="635a2745-7e9f-410c-a54c-30b9fb53c275" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-mysql6d7613c72a46df40-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-mysql6d7613c72a46df40-stashed_evaluation.png"/></a></figure><figure id="6d2494a0-a2a6-488d-af5d-8e540e20b4a6" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-linux604b83aa4c58ea0011d62211-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-linux604b83aa4c58ea0011d62211-stashed_evaluation.png"/></a></figure><figure id="256c56d9-0fd4-48dd-a28c-c6d50d913f1e" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-linux608ac1c48e4afc0040b43d19-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-linux608ac1c48e4afc0040b43d19-stashed_evaluation.png"/></a></figure><figure id="6e06add3-8d57-4a45-99bc-5f51865c9c7e" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-mysql357e569af1d96542-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-mysql357e569af1d96542-stashed_evaluation.png"/></a></figure><figure id="c18db06c-c0fa-4733-ab8d-2a667ec78442" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-apache65f6ec80b7aa2937-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-apache65f6ec80b7aa2937-stashed_evaluation.png"/></a></figure><figure id="a9414d95-90ec-4bc5-8c21-58de5d0bcd57" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-linux609bde4db677860011c6e30b-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-linux609bde4db677860011c6e30b-stashed_evaluation.png"/></a></figure><figure id="72634ddf-0853-477d-9fa6-a0532837e245" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-packetaif7c8ca92a057eb2b-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bde4db677860011c6e30b-log-packetaif7c8ca92a057eb2b-stashed_evaluation.png"/></a></figure><figure id="16761235-f7ec-4761-a7f2-ff5fac2e70c1" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bdec6b677860011c6e30c-log-linux609bdec6b677860011c6e30c-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bdec6b677860011c6e30c-log-linux609bdec6b677860011c6e30c-stashed_evaluation.png"/></a></figure><figure id="ba4617d8-cea1-4ecf-9151-ae402606d3ca" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bdef1b677860011c6e30d-log-linux609bdef1b677860011c6e30d-stashed_evaluation.png"><img style="width:877px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-linux609bdef1b677860011c6e30d-log-linux609bdef1b677860011c6e30d-stashed_evaluation.png"/></a></figure></details></li></ul><ul id="3551c497-b207-499b-aa21-c6dff1600400" class="toggle"><li><details open=""><summary>3: &#x27;sparse data with no patterns&#x27;</summary><figure id="de43eaa3-7303-4011-9d8c-665710dac4b8" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-rabbit-develop-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonexternal-is-rabbit-develop-stashed_evaluation.png"/></a></figure><figure id="84380c75-4e8d-4841-acc5-ea0e0abb5a5c" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-rabbit-develop-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-pythonhelpdesk-rabbit-develop-stashed_evaluation.png"/></a></figure><figure id="5b09790e-c8a7-4d92-b7f4-a3b179cc4ac8" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-sdet-celery-master-stashed_evaluation.png"><img style="width:871px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/60ddc7da72033d00111f4be1-docker-log-sdet-celery-master-stashed_evaluation.png"/></a></figure><figure id="eeca73cb-d2d2-473b-ad3b-b074af8c57f9" class="image"><a href="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodezoho_zoho-service-stashed_evaluation.png"><img style="width:883px" src="Evaluation%20results%2020%2009%202021%20506f9db35baf4cbaa28999be983ee8e7/6040a96cdcc614001153fc55-docker-log-nodezoho_zoho-service-stashed_evaluation.png"/></a></figure></details></li></ul><p id="fa040890-4224-47ba-8427-b6d9d11b76e6" class="">
+</p></div></article></body></html>

@@ -1,0 +1,806 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Results for other periodic metrics</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="c4d97902-8ee8-4bf0-adb9-46b26627175b" class="page sans"><header><h1 class="page-title">Results for other periodic metrics</h1><p class="page-description"></p></header><div class="page-body"><p id="6191a0c3-dc32-44be-b72e-eebab499da39" class="">Sum of streaming score and window greater than detected time period</p><p id="1278b104-6b38-46e6-a92f-543bc600c60b" class="">Test MP period&#x27;s are 1136 1163 1190 1217 1244 1271 1298 1325 1352 1379 1406 1433 1460 1487 1514 1541 1568 1595 1622 1649 1676 1703
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-data-api_data-api-stashed, suitable MP window is 1433, time period is 1420
+
+Test MP period&#x27;s are 1136 1163 1190 1217 1244 1271 1298 1325 1352 1379 1406 1433 1460 1487 1514 1541 1568 1595 1622 1649 1676 1703
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservations-service_reservations-service-stashed, suitable MP window is 1433, time period is 1421
+
+Test MP period&#x27;s are 1151 1178 1205 1232 1259 1286 1313 1340 1367 1394 1421 1448 1475 1502 1529 1556 1583 1610 1637 1664 1691 1718
+For metric lfanalyzer_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-mysql6d7613c72a46df40-stashed, suitable MP window is 1502, time period is 1439
+
+Test MP period&#x27;s are 1148 1175 1202 1229 1256 1283 1310 1337 1364 1391 1418 1445 1472 1499 1526 1553 1580 1607 1634 1661 1688 1715
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-redissite-service_redis-cache-stashed, suitable MP window is 1445, time period is 1435
+
+Test MP period&#x27;s are 1140 1167 1194 1221 1248 1275 1302 1329 1356 1383 1410 1437 1464 1491 1518 1545 1572 1599 1626 1653 1680 1707
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-noderealtime-status_realtime-worker-stashed, suitable MP window is 1437, time period is 1426
+
+Test MP period&#x27;s are 1151 1178 1205 1232 1259 1286 1313 1340 1367 1394 1421 1448 1475 1502 1529 1556 1583 1610 1637 1664 1691 1718
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-master-stashed, suitable MP window is 1502, time period is 1439
+
+Test MP period&#x27;s are 1153 1180 1207 1234 1261 1288 1315 1342 1369 1396 1423 1450 1477 1504 1531 1558 1585 1612 1639 1666 1693 1720
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeportal_portal-stashed, suitable MP window is 1585, time period is 1442
+
+Test MP period&#x27;s are 1027 1051 1075 1099 1123 1147 1171 1195 1219 1243 1267 1291 1315 1339 1363 1387 1411 1435 1459 1483 1507 1531
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-consul_consul-server-stashed, suitable MP window is 1363, time period is 1284
+
+Test MP period&#x27;s are 197 201 205 209 213 217 221 225 229 233 237 241 245 249 253 257 261 265 269 273 277 281 285 289 293
+For metric lfanalyzer_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-linux60b8d8abaeb6f802698917b1-stashed, suitable MP window is 253, time period is 247
+
+Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-mysql_router-stashed, suitable MP window is -1, time period is 1276
+
+Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-redisappsmith_redis-stashed, suitable MP window is -1, time period is 1534
+
+Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-tasks-stashed, suitable MP window is -1, time period is 1349
+
+Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservation_reservation-stashed, suitable MP window is -1, time period is 1439
+
+Test MP period&#x27;s are 95 97 99 101 103 105 107 109 111 113 115 117 119 121 123 125 127 129 131 133 135 137 139 141 287 293 299 305 311 317 323 329 335 341 347 353 359 365 371 377 383 389 395 401 407 413 419 425
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-stashed, suitable MP window is 121, time period is 119
+
+Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodescrapers_scrapers-stashed, suitable MP window is -1, time period is 1453</p><p id="1ce9e3f6-a767-494c-b352-5e44d5aa2858" class="">
+</p><p id="a69c5cb3-e627-4fd6-803f-672d8b9483f7" class="">Sum of streaming score and all windows</p><p id="c287b456-a95f-42d5-b0b4-9174d1386443" class="">Test MP period&#x27;s are 1136 1163 1190 1217 1244 1271 1298 1325 1352 1379 1406 1433 1460 1487 1514 1541 1568 1595 1622 1649 1676 1703
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-data-api_data-api-stashed, suitable MP window is 1136, time period is 1420</p><p id="a0850efa-fa25-4abf-aee8-1b1ca47e7e74" class="">Test MP period&#x27;s are 1136 1163 1190 1217 1244 1271 1298 1325 1352 1379 1406 1433 1460 1487 1514 1541 1568 1595 1622 1649 1676 1703
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservations-service_reservations-service-stashed, suitable MP window is 1136, time period is 1421</p><p id="839d2bb5-1e16-48ce-b059-e55728c5228b" class="">Test MP period&#x27;s are 1151 1178 1205 1232 1259 1286 1313 1340 1367 1394 1421 1448 1475 1502 1529 1556 1583 1610 1637 1664 1691 1718
+For metric lfanalyzer_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-mysql6d7613c72a46df40-stashed, suitable MP window is 1367, time period is 1439</p><p id="d60cc183-75bb-41a3-a027-99e02c691fb5" class="">Test MP period&#x27;s are 1148 1175 1202 1229 1256 1283 1310 1337 1364 1391 1418 1445 1472 1499 1526 1553 1580 1607 1634 1661 1688 1715
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-redissite-service_redis-cache-stashed, suitable MP window is 1148, time period is 1435</p><p id="adfa7353-f839-4073-ad64-4529b12cf750" class="">Test MP period&#x27;s are 1140 1167 1194 1221 1248 1275 1302 1329 1356 1383 1410 1437 1464 1491 1518 1545 1572 1599 1626 1653 1680 1707
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-noderealtime-status_realtime-worker-stashed, suitable MP window is 1140, time period is 1426</p><p id="55082ad3-fcc0-4f96-bfd1-a630b5e2a24d" class="">Test MP period&#x27;s are 1151 1178 1205 1232 1259 1286 1313 1340 1367 1394 1421 1448 1475 1502 1529 1556 1583 1610 1637 1664 1691 1718
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-master-stashed, suitable MP window is 1151, time period is 1439</p><p id="ec16ef68-0085-431c-a45b-9931589db46e" class="">Test MP period&#x27;s are 1153 1180 1207 1234 1261 1288 1315 1342 1369 1396 1423 1450 1477 1504 1531 1558 1585 1612 1639 1666 1693 1720
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeportal_portal-stashed, suitable MP window is 1153, time period is 1442</p><p id="df65ad26-0209-4f86-beae-ea7ab308614d" class="">Test MP period&#x27;s are 1027 1051 1075 1099 1123 1147 1171 1195 1219 1243 1267 1291 1315 1339 1363 1387 1411 1435 1459 1483 1507 1531
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-consul_consul-server-stashed, suitable MP window is 1219, time period is 1284</p><p id="bf9240fe-d15b-404c-9e3a-316db6dbbd8c" class="">Test MP period&#x27;s are 197 201 205 209 213 217 221 225 229 233 237 241 245 249 253 257 261 265 269 273 277 281 285 289 293
+For metric lfanalyzer_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-linux60b8d8abaeb6f802698917b1-stashed, suitable MP window is 197, time period is 247</p><p id="08d0a585-6c3c-4978-9344-7af244bff3b4" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-mysql_router-stashed, suitable MP window is -1, time period is 1276</p><p id="96ad6730-f371-4937-9166-e814168de23c" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-redisappsmith_redis-stashed, suitable MP window is -1, time period is 1534</p><p id="05d48588-a9a2-42ac-8a28-8d4fdbc10ae1" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-tasks-stashed, suitable MP window is -1, time period is 1349</p><p id="d648f876-6eb4-4322-9f21-284d3a818300" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservation_reservation-stashed, suitable MP window is -1, time period is 1439</p><p id="521ffc99-b713-4f17-b594-8d767373e1ae" class="">Test MP period&#x27;s are 95 97 99 101 103 105 107 109 111 113 115 117 119 121 123 125 127 129 131 133 135 137 139 141 287 293 299 305 311 317 323 329 335 341 347 353 359 365 371 377 383 389 395 401 407 413 419 425
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-stashed, suitable MP window is 95, time period is 119</p><p id="02d57a9c-7438-4d0d-be31-e990ab12927b" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodescrapers_scrapers-stashed, suitable MP window is -1, time period is 1453</p><p id="e768d50c-4813-45d0-9512-41f9e9aae1ca" class="">
+</p><p id="5bcddba7-ae03-43bb-b276-cc9ca68edb53" class="">Variance of anomaly time stamps and time windows greater than detected time period</p><p id="f9f31ed9-e576-4b24-acb2-babd4ecdf6c3" class="">Test MP periods are  1136  1163  1190  1217  1244  1271  1298  1325  1352  1379  1406  1433  1460  1487  1514  1541  1568  1595  1622  1649  1676  1703
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-data-api_data-api-stashed, suitable MP window is 1622, time period is 1420.</p><p id="637195b8-0c9a-4e65-982e-18f6bbd7183c" class="">Test MP periods are  1136  1163  1190  1217  1244  1271  1298  1325  1352  1379  1406  1433  1460  1487  1514  1541  1568  1595  1622  1649  1676  1703
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservations-service_reservations-service-stashed, suitable MP window is 1433, time period is 1421.</p><p id="13edec3e-9414-4ded-ab42-b56fec1cb80b" class="">Test MP periods are  1151  1178  1205  1232  1259  1286  1313  1340  1367  1394  1421  1448  1475  1502  1529  1556  1583  1610  1637  1664  1691  1718
+For metric lfanalyzer_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-mysql6d7613c72a46df40-stashed, suitable MP window is 1448, time period is 1439.</p><p id="8d1f2624-f1f1-47fe-81bd-7c380b50b2e4" class="">Test MP periods are  1148  1175  1202  1229  1256  1283  1310  1337  1364  1391  1418  1445
+/home/hari/anaconda3/envs/tsclassenv/lib/python3.7/site-packages/numpy/core/fromnumeric.py:3584: RuntimeWarning: Degrees of freedom &lt;= 0 for slice
+**kwargs)
+/home/hari/anaconda3/envs/tsclassenv/lib/python3.7/site-packages/numpy/core/_methods.py:186: RuntimeWarning: invalid value encountered in true_divide
+arrmean, rcount, out=arrmean, casting=&#x27;unsafe&#x27;, subok=False)
+/home/hari/anaconda3/envs/tsclassenv/lib/python3.7/site-packages/numpy/core/_methods.py:209: RuntimeWarning: invalid value encountered in double_scalars
+ret = ret.dtype.type(ret / rcount)
+1472  1499  1526  1553  1580  1607  1634  1661  1688  1715
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-redissite-service_redis-cache-stashed, suitable MP window is 1445, time period is 1435.</p><p id="5d50187d-98aa-4ed5-9e0e-80352671418c" class="">Test MP periods are  1140  1167  1194  1221  1248  1275  1302  1329  1356  1383  1410  1437  1464  1491  1518  1545  1572  1599  1626  1653  1680  1707
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-noderealtime-status_realtime-worker-stashed, suitable MP window is 1707, time period is 1426.</p><p id="8f794b2a-30fa-4e09-809e-9e3f202ba2a2" class="">Test MP periods are  1151  1178  1205  1232  1259  1286  1313  1340  1367  1394  1421  1448  1475  1502  1529  1556  1583  1610  1637  1664  1691  1718
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-master-stashed, suitable MP window is 1448, time period is 1439.</p><p id="42b49737-1bb7-4991-8ca1-b81af884af83" class="">Test MP periods are  1153  1180  1207  1234  1261  1288  1315  1342  1369  1396  1423  1450  1477  1504  1531  1558  1585  1612  1639  1666  1693  1720
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeportal_portal-stashed, suitable MP window is 1585, time period is 1442.</p><p id="60f74110-c8a0-4497-9c31-4d0fb0175648" class="">Test MP periods are  1027  1051  1075  1099  1123  1147  1171  1195  1219  1243  1267  1291  1315  1339  1363  1387  1411  1435  1459  1483  1507  1531
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-consul_consul-server-stashed, suitable MP window is 1531, time period is 1284.</p><p id="e3020494-9c72-4dc6-ac34-ac9c97a9845a" class="">Test MP periods are  197  201  205  209  213  217  221  225  229  233  237  241  245  249  253  257  261  265  269  273  277  281  285  289  293
+For metric lfanalyzer_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-linux60b8d8abaeb6f802698917b1-stashed, suitable MP window is 281, time period is 247.</p><p id="f5341e2f-cfb0-46f5-bba1-6b2723e6f0a2" class="">Test MP periods are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-mysql_router-stashed, suitable MP window is -1, time period is 1276.</p><p id="81bebb28-820d-42ad-be35-b3cba12587b1" class="">Test MP periods are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-redisappsmith_redis-stashed, suitable MP window is -1, time period is 1534.</p><p id="a23a9a08-421f-42a8-a4a3-41e14528ddb7" class="">Test MP periods are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-tasks-stashed, suitable MP window is -1, time period is 1349.</p><p id="71055686-ac9b-46b4-a5ed-c3a59c923d3e" class="">Test MP periods are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservation_reservation-stashed, suitable MP window is -1, time period is 1439.</p><p id="7b8be637-d31c-488a-8601-890664889f46" class="">Test MP periods are  95  97  99  101  103  105  107  109  111  113  115  117  119  121  123  125  127  129  131  133  135  137  139  141  287  293  299  305  311  317  323  329  335  341  347  353  359  365  371  377  383  389  395  401  407  413  419  425
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-stashed, suitable MP window is 371, time period is 119.</p><p id="af769bf5-e59c-4385-8da9-0e17b0c0e54f" class="">Test MP periods are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodescrapers_scrapers-stashed, suitable MP window is -1, time period is 1453.</p><p id="05c66e5f-ca44-44c0-8b1e-9c82fa347f5e" class="">
+</p><p id="b9f9140a-6fb9-4a73-9838-395b9f6f36d1" class="">Variance of anomaly time stamps and all test time windows</p><p id="2a77d19f-837c-461c-a756-a752b0b80a6b" class="">Test MP periods are  1136  1163  1190  1217  1244  1271  1298  1325  1352  1379  1406  1433  1460  1487  1514  1541  1568  1595  1622  1649  1676  1703
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-data-api_data-api-stashed, suitable MP window is 1622, time period is 1420.</p><p id="366b0f2a-898f-4028-b2c0-b8195ceaf3f2" class="">Test MP periods are  1136  1163  1190  1217  1244  1271  1298  1325  1352  1379  1406  1433  1460  1487  1514  1541  1568  1595  1622  1649  1676  1703
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservations-service_reservations-service-stashed, suitable MP window is 1379, time period is 1421.</p><p id="1eae5074-091f-4317-a248-2d00a955a3a1" class="">Test MP periods are  1151  1178  1205  1232  1259  1286  1313  1340  1367  1394  1421  1448  1475  1502  1529  1556  1583  1610  1637  1664  1691  1718
+For metric lfanalyzer_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-mysql6d7613c72a46df40-stashed, suitable MP window is 1448, time period is 1439.</p><p id="2784bf6b-18d8-4617-a925-0582ba1108e0" class="">Test MP periods are  1148  1175  1202  1229  1256  1283  1310  1337  1364  1391  1418  1445  1472  1499  1526  1553  1580  1607  1634  1661  1688  1715
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-redissite-service_redis-cache-stashed, suitable MP window is 1148, time period is 1435.</p><p id="def0c53c-ead9-4912-92de-3ddd56eb4109" class="">Test MP periods are  1140  1167  1194  1221  1248  1275  1302  1329  1356  1383  1410  1437  1464  1491  1518  1545  1572  1599  1626  1653  1680  1707
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-noderealtime-status_realtime-worker-stashed, suitable MP window is 1707, time period is 1426.</p><p id="187e272e-4f91-4497-afd9-2e960816cf81" class="">Test MP periods are  1151  1178  1205  1232  1259  1286  1313  1340  1367  1394  1421  1448  1475  1502  1529  1556  1583  1610  1637  1664  1691  1718
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-master-stashed, suitable MP window is 1151, time period is 1439.</p><p id="71a55305-76af-426f-8d13-84f3c3141048" class="">Test MP periods are  1153  1180  1207  1234  1261  1288  1315  1342  1369  1396  1423  1450  1477  1504  1531  1558  1585  1612  1639  1666  1693  1720
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeportal_portal-stashed, suitable MP window is 1585, time period is 1442.</p><p id="76f64aeb-d022-4c6c-bf4a-fd0fa3700267" class="">Test MP periods are  1027  1051  1075  1099  1123  1147  1171  1195  1219  1243  1267  1291  1315  1339  1363  1387  1411  1435  1459  1483  1507  1531
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-consul_consul-server-stashed, suitable MP window is 1531, time period is 1284.</p><p id="b074d7af-b729-4394-98fd-fcd09692a113" class="">Test MP periods are  197  201  205  209  213  217  221  225  229  233  237  241  245  249  253  257  261  265  269  273  277  281  285  289  293
+For metric lfanalyzer_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-linux60b8d8abaeb6f802698917b1-stashed, suitable MP window is 205, time period is 247.</p><p id="bd03fff7-5ff6-4b2d-b7ec-538ec1bff58b" class="">Test MP periods are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-mysql_router-stashed, suitable MP window is -1, time period is 1276.</p><p id="06e28936-2835-4fec-99a8-5fcee40749b9" class="">Test MP periods are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-redisappsmith_redis-stashed, suitable MP window is -1, time period is 1534.</p><p id="f4904684-9602-4dbc-a8c0-df38e04da57c" class="">Test MP periods are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-tasks-stashed, suitable MP window is -1, time period is 1349.</p><p id="bb392aff-231b-445e-a20c-5330694b9a30" class="">Test MP periods are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservation_reservation-stashed, suitable MP window is -1, time period is 1439.</p><p id="d11c1e97-80b7-495c-a57c-7db0a185b734" class="">Test MP periods are  95  97  99  101  103  105  107  109  111  113  115  117  119  121  123  125  127  129  131  133  135  137  139  141  287  293  299  305  311  317  323  329  335  341  347  353  359  365  371  377  383  389  395  401  407  413  419  425
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-stashed, suitable MP window is 371, time period is 119.</p><p id="22e46505-2962-4ac4-bd02-d427dece9d9a" class="">Test MP periods are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodescrapers_scrapers-stashed, suitable MP window is -1, time period is 1453.</p><p id="ff986c3b-4ace-4f74-8105-386713680ed9" class="">
+</p><p id="65900834-1dfb-41c3-9e3e-e811d9f0c080" class="">Sum of raw scores and test periods greater than detected time period</p><p id="37c2bba2-aad1-45dc-9d91-12c21d13d18e" class="">Test MP period&#x27;s are 1136 1163 1190 1217 1244 1271 1298 1325 1352 1379 1406 1433 1460 1487 1514 1541 1568 1595 1622 1649 1676 1703
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-data-api_data-api-stashed, suitable MP window is 1433, time period is 1420</p><p id="83d4d878-f151-4da6-a7bb-f30f3c49a7aa" class="">Test MP period&#x27;s are 1136 1163 1190 1217 1244 1271 1298 1325 1352 1379 1406 1433 1460 1487 1514 1541 1568 1595 1622 1649 1676 1703
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservations-service_reservations-service-stashed, suitable MP window is 1433, time period is 1421</p><p id="23309df3-4f01-41c7-9fff-e40313fd73ff" class="">Test MP period&#x27;s are 1151 1178 1205 1232 1259 1286 1313 1340 1367 1394 1421 1448 1475 1502 1529 1556 1583 1610 1637 1664 1691 1718
+For metric lfanalyzer_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-mysql6d7613c72a46df40-stashed, suitable MP window is 1448, time period is 1439</p><p id="c21823dd-ab5b-42f7-8f18-f14e695582ee" class="">Test MP period&#x27;s are 1148 1175 1202 1229 1256 1283 1310 1337 1364 1391 1418 1445 1472 1499 1526 1553 1580 1607 1634 1661 1688 1715
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-redissite-service_redis-cache-stashed, suitable MP window is 1445, time period is 1435</p><p id="e08954b1-a89f-4613-bdcc-4b5c75e4a425" class="">Test MP period&#x27;s are 1140 1167 1194 1221 1248 1275 1302 1329 1356 1383 1410 1437 1464 1491 1518 1545 1572 1599 1626 1653 1680 1707
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-noderealtime-status_realtime-worker-stashed, suitable MP window is 1437, time period is 1426</p><p id="6c4e9057-1dc5-49b4-bc3f-af24387e5fff" class="">Test MP period&#x27;s are 1151 1178 1205 1232 1259 1286 1313 1340 1367 1394 1421 1448 1475 1502 1529 1556 1583 1610 1637 1664 1691 1718
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-master-stashed, suitable MP window is 1448, time period is 1439</p><p id="7b9145e3-5cbb-4d8d-848c-24c569afd531" class="">Test MP period&#x27;s are 1153 1180 1207 1234 1261 1288 1315 1342 1369 1396 1423 1450 1477 1504 1531 1558 1585 1612 1639 1666 1693 1720
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeportal_portal-stashed, suitable MP window is 1450, time period is 1442</p><p id="2b82c8e7-4ce1-4095-8554-94cdd4a8b894" class="">Test MP period&#x27;s are 1027 1051 1075 1099 1123 1147 1171 1195 1219 1243 1267 1291 1315 1339 1363 1387 1411 1435 1459 1483 1507 1531
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-consul_consul-server-stashed, suitable MP window is 1291, time period is 1284</p><p id="ae87ec02-92a6-4c46-96c2-724297301a9c" class="">Test MP period&#x27;s are 197 201 205 209 213 217 221 225 229 233 237 241 245 249 253 257 261 265 269 273 277 281 285 289 293
+For metric lfanalyzer_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-linux60b8d8abaeb6f802698917b1-stashed, suitable MP window is 249, time period is 247</p><p id="23952e19-12a2-4c38-be91-dfa1b4dcaf39" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-mysql_router-stashed, suitable MP window is -1, time period is 1276</p><p id="df2c11e6-ede2-4cc9-966d-e092dade2cfc" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-redisappsmith_redis-stashed, suitable MP window is -1, time period is 1534</p><p id="051fed64-1fe2-4387-a7f6-d0e22e2835a5" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-tasks-stashed, suitable MP window is -1, time period is 1349</p><p id="1c1cdfdf-ba8f-4104-943c-b9c6d0cb9e39" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservation_reservation-stashed, suitable MP window is -1, time period is 1439</p><p id="1d3ec486-afb0-41ad-9771-247ce05abafd" class="">Test MP period&#x27;s are 95 97 99 101 103 105 107 109 111 113 115 117 119 121 123 125 127 129 131 133 135 137 139 141 287 293 299 305 311 317 323 329 335 341 347 353 359 365 371 377 383 389 395 401 407 413 419 425
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-stashed, suitable MP window is 121, time period is 119</p><p id="6f8cabb6-0ad6-48d3-9774-04ee383d7f0c" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodescrapers_scrapers-stashed, suitable MP window is -1, time period is 1453</p><p id="226b39ac-3a20-468a-8bcb-0560bb634aa5" class="">
+</p><p id="326ef417-7780-4c2f-a947-52ebe696a4ce" class="">Sum of raw scores and all time periods</p><p id="11938134-4010-4804-b7f5-14aadc19c178" class="">Test MP period&#x27;s are 1136 1163 1190 1217 1244 1271 1298 1325 1352 1379 1406 1433 1460 1487 1514 1541 1568 1595 1622 1649 1676 1703
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-data-api_data-api-stashed, suitable MP window is 1136, time period is 1420</p><p id="55ae785c-b2d8-4fa6-8e3b-c25154db6c51" class="">Test MP period&#x27;s are 1136 1163 1190 1217 1244 1271 1298 1325 1352 1379 1406 1433 1460 1487 1514 1541 1568 1595 1622 1649 1676 1703
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservations-service_reservations-service-stashed, suitable MP window is 1136, time period is 1421</p><p id="43edb18a-4f18-4d44-abba-d07e36388e1b" class="">Test MP period&#x27;s are 1151 1178 1205 1232 1259 1286 1313 1340 1367 1394 1421 1448 1475 1502 1529 1556 1583 1610 1637 1664 1691 1718
+For metric lfanalyzer_6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-mysql6d7613c72a46df40-stashed, suitable MP window is 1394, time period is 1439</p><p id="c4bf1cbe-fa54-4e93-9563-0b718f9e8ab8" class="">Test MP period&#x27;s are 1148 1175 1202 1229 1256 1283 1310 1337 1364 1391 1418 1445 1472 1499 1526 1553 1580 1607 1634 1661 1688 1715
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-redissite-service_redis-cache-stashed, suitable MP window is 1148, time period is 1435</p><p id="7eb00496-d47a-4e59-b980-fecab7bb30ee" class="">Test MP period&#x27;s are 1140 1167 1194 1221 1248 1275 1302 1329 1356 1383 1410 1437 1464 1491 1518 1545 1572 1599 1626 1653 1680 1707
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-noderealtime-status_realtime-worker-stashed, suitable MP window is 1140, time period is 1426</p><p id="a5bd5d75-40f5-4d94-a21e-dc8007b4439b" class="">Test MP period&#x27;s are 1151 1178 1205 1232 1259 1286 1313 1340 1367 1394 1421 1448 1475 1502 1529 1556 1583 1610 1637 1664 1691 1718
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonbackup_dockup-master-stashed, suitable MP window is 1151, time period is 1439</p><p id="49d5e0ce-3813-4c8e-aae5-a746947b4c66" class="">Test MP period&#x27;s are 1153 1180 1207 1234 1261 1288 1315 1342 1369 1396 1423 1450 1477 1504 1531 1558 1585 1612 1639 1666 1693 1720
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodeportal_portal-stashed, suitable MP window is 1153, time period is 1442</p><p id="21d7fa9f-38fc-4646-9ac6-6815271c8b94" class="">Test MP period&#x27;s are 1027 1051 1075 1099 1123 1147 1171 1195 1219 1243 1267 1291 1315 1339 1363 1387 1411 1435 1459 1483 1507 1531
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-consul_consul-server-stashed, suitable MP window is 1243, time period is 1284</p><p id="8e8d9515-cb42-411d-8d75-87e31959e568" class="">Test MP period&#x27;s are 197 201 205 209 213 217 221 225 229 233 237 241 245 249 253 257 261 265 269 273 277 281 285 289 293
+For metric lfanalyzer_6040a96cdcc614001153fc55-linux60b8d8abaeb6f802698917b1-log-linux60b8d8abaeb6f802698917b1-stashed, suitable MP window is 197, time period is 247</p><p id="8480301c-248a-48b9-9506-d55a817fa700" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-mysql_router-stashed, suitable MP window is -1, time period is 1276</p><p id="82c91741-3120-4bbe-b414-5f30cebd3251" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-redisappsmith_redis-stashed, suitable MP window is -1, time period is 1534</p><p id="aa272213-906e-4053-b71a-440319e649b8" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-pythonpost-processing_post-processing-tasks-stashed, suitable MP window is -1, time period is 1349</p><p id="34b527bd-12e9-4bb7-8304-2a9dd572101d" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodereservation_reservation-stashed, suitable MP window is -1, time period is 1439</p><p id="e1f861fb-d210-47ea-904b-7dcea215ece7" class="">Test MP period&#x27;s are 95 97 99 101 103 105 107 109 111 113 115 117 119 121 123 125 127 129 131 133 135 137 139 141 287 293 299 305 311 317 323 329 335 341 347 353 359 365 371 377 383 389 395 401 407 413 419 425
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-stashed, suitable MP window is 95, time period is 119</p><p id="b839fe16-1918-41a1-9a5a-ee4dc8045021" class="">Test MP period&#x27;s are
+For metric lfanalyzer_6040a96cdcc614001153fc55-docker-log-nodescrapers_scrapers-stashed, suitable MP window is -1, time period is 1453</p></div></article></body></html>

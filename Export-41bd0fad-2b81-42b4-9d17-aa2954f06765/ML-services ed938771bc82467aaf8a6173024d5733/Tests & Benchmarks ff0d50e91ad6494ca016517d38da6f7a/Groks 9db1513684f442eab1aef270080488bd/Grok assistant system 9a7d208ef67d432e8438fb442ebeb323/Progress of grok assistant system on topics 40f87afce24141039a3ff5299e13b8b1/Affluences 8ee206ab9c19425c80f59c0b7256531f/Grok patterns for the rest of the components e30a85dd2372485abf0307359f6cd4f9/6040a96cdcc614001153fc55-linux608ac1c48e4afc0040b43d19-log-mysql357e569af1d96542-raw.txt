@@ -1,0 +1,17 @@
+# User@Host: alerts[alerts] @  [10.0.10.217]  Id: 57593498
+# Query_time: 14.141721  Lock_time: 0.000912 Rows_sent: 581  Rows_examined: 1341900
+SET timestamp=1634428812;
+SELECT immotion.sensors.hardware_id AS hardware_id, immotion.sensors_settings.site_id AS site_id, max(subquery3.last_record_datetime) AS last_record_datetime 
+FROM immotion.sensors_settings INNER JOIN immotion.sensors ON immotion.sensors.sensor_id = immotion.sensors_settings.sensor_id INNER JOIN immotion.sensor ON immotion.sensor.hardware_id = immotion.sensors.hardware_id INNER JOIN (SELECT immotion.counter.sensor_id AS sensor_id, immotion.counter.position_id AS position_id, timestamp(immotion.counter.date, immotion.counter.`time`) AS last_record_datetime 
+FROM immotion.counter INNER JOIN (SELECT immotion.counter.sensor_id AS sensor_id, immotion.counter.position_id AS position_id, immotion.counter.date AS last_record_date, max(immotion.counter.`time`) AS last_record_time 
+FROM immotion.counter INNER JOIN (SELECT immotion.counter.sensor_id AS sensor_id, immotion.counter.position_id AS position_id, max(immotion.counter.date) AS max_date 
+FROM immotion.counter GROUP BY immotion.counter.sensor_id, immotion.counter.position_id) AS subquery1 ON immotion.counter.sensor_id = subquery1.sensor_id AND immotion.counter.position_id = subquery1.position_id AND immotion.counter.date = subquery1.max_date GROUP BY immotion.counter.sensor_id, immotion.counter.position_id) AS subquery2 ON subquery2.sensor_id = immotion.counter.sensor_id AND subquery2.position_id = immotion.counter.position_id AND subquery2.last_record_date = immotion.counter.date AND subquery2.last_record_time = immotion.counter.`time`) AS subquery3 ON subquery3.sensor_id = immotion.sensor.sensor_id GROUP BY immotion.sensors_settings.sensor_settings_id;
+
+^# User@Host: %{USER:[mysql][slowlog][user]}(\[[^\]]+\])? @ (%{HOSTNAME:[mysql][slowlog][host]})? \[%{IP:[mysql][slowlog][ip]}\](\s*Id:\s* %{NUMBER:[mysql][slowlog][id]})?\n# Query_time: %{NUMBER:[mysql][slowlog][query_time][sec]}\s* Lock_time: %{NUMBER:[mysql][slowlog][lock_time][sec]}\s* Rows_sent: %{NUMBER:[mysql][slowlog][rows_sent]}\s* Rows_examined: %{NUMBER:[mysql][slowlog][rows_examined]}\n(SET timestamp=%{NUMBER:[mysql][slowlog][timestamp]};\n)?%{GREEDYMULTILINE:[mysql][slowlog][query]}
+GREEDYMULTILINE=>(.|\n)*
+
+2021-10-19T09:50:42.264974Z 56144171 [Warning] [MY-010315] [Server] 'user' entry 'root@prod-back' ignored in --skip-name-resolve mode.
+
+%{TIMESTAMP_ISO8601:logdatetime} %{NUMBER:mysql_id} \[%{LOGLEVEL:loglevel}\] \[%{DATA:source1}\] \[%{DATA:source2}\] %{GREEDYDATA:content}
+or according to Packet-AI logstash configuration:
+%{TIMESTAMP_ISO8601:logdatetime} %{NUMBER:[mysql][error][thread_id]} \[%{DATA:[mysql][error][level]}\] %{GREEDYDATA:content}

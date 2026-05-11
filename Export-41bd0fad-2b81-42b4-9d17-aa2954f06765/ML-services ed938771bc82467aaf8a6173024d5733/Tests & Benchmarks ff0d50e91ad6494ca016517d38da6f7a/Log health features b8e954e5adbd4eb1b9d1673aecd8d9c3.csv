@@ -1,0 +1,29 @@
+﻿Log Health Feature,Implemented,JSON prop,Title,Description,Computation level,Priority,Difficulty,Output
+Log severity mismatch,Yes,level_mismatch,Incoherent severity,Indicates a mismatch in the  different severity levels found in the same log line.,Logstash,P1,Medium,"Boolean, as it is either consistent or not"
+Log sensitive data,Yes,pii_email,"Email ",Indicates presence of an email address in a log line. Email addresses are considered personally identifiable information (PII) and should not be logged.,"Logstash, Patterns",P1,Difficult,"A nullable list of detected PII types (EMAIL, CARD, etc.) or a vector of boolean"
+,Yes,pii_name,Name,"Indicates presence of a proper name in a log line. A proper name can be a person, city or country name. Proper names are considered personally identifiable information (PII) and should not be logged.",,P1,,
+,Yes,pii_uuid,"UUID ",Indicates presence of a UUID (Unique User Identifier) in a log line. UUIDs are considered personally identifiable information (PII) and should not be logged.,,P1,Easy,
+,Yes,pii_address,"Postal address ",Indicates presence of a street address in a log line. Street addresses are considered personally identifiable information (PII) and should not be logged.,,P2,,
+,Yes,pii_cardnum,Payment card number,Indicates presence of a credit or debit card number in a log line. Card numbers are considered personally identifiable information (PII) and should not be logged.,,P2,,
+,Yes,pii_postalcode,Postal code,Indicates presence of a postal code in a log line. Postal codes are considered sensitive information and should not be logged.,,P2,,
+,Yes,pii_phonenum,Phone number,Indicates presence of a phone number in a log line. Phone numbers are considered sensitive information and should not be logged.,,P2,,
+,Yes,pii_ip,IP address,Indicates presence of an IPv4 or IPV6 address in a log line. IPs are considered sensitive information and should not be logged.,,P2,,
+,No,pii_geo,Geo coordinates,Indicates presence of geolocation information in a log line. This comprises longitude and latitude. Geolocation data are considered sensitive information and should not be logged.,,P3,,
+,Yes,pii_iban,IBAN account number,Indicates presence of an International Bank Account Number (IBAN). IBANs are considered personally identifiable information (PII) and should not be logged.,,,Easy,
+,Yes,pii_usbanknum,US bank account number,Indicates presence of a US bank account number is between 8 to 17 digits. Bank accounts are considered personally identifiable information (PII) and should not be logged.,,,,
+,Yes,pii_usdriverlicence,US driving licence number,Indicates presence of a US driver license number according to https://ntsi.com/drivers-license-format/. Driver licence numbers are considered personally identifiable information (PII) and should not be logged.,,,,
+,Yes,pii_usitin,US taxpayer ID,Indicates presence of a US Individual Taxpayer Identification Number (ITIN). ITINs are considered personally identifiable information (PII) and should not be logged.,,,,
+,Yes,pii_usssn,US social security number,Indicates presence of a US Social Security Number (SSN) with 9 digits. SSNs are considered personally identifiable information (PII) and should not be logged.,,,,
+,Yes,pii_medlicence,Medical license number,Indicates presence of a common medical license number. Medical licence numbers are considered personally identifiable information (PII) and should not be logged.,,,,
+,Yes,pii_uspassportnum,US passport number,Indicates presence of a US passport number (9 digits) in a log line. Passport numbers are considered personally identifiable information (PII) and should not be logged.,,,,
+,Yes,pii_nrp,"Nationality, religion or politics","Indicates presence of a person’s nationality, religious or political group. Those informations are considered sensitive information and should not be logged.",,,,
+Log sizes,Yes,size_low,Low message size,"Indicates that the log’s message  size is too small. This can point to a lack of descriptiveness of some log messages. Logs should provide a sufficiently rich yet concise contextual information to help with debugging or troubleshooting. ",Logstash,P1,Easy,"A number, or a boolean if we compare it to a predefined value, or a nullable list of range types (10K_SIZE, 100K_SIZE, etc.)"
+,Yes,size_high,High message size,"Indicates that the log’s message  size is too large. This can be due to an excess of verbosity or to large data chunks present in the log line. Logs should provide a sufficiently rich yet concise contextual information to help with debugging or troubleshooting. ",Logstash,P1,Easy,
+Log language,Yes,lang_mismatch,Multiple languages - multiple lines,Indicates presence of multiple languages in logs. A single language should be favored for logging messages to ease and maximize information recall when searching for logs.,Patterns,P2,Easy,"A list of detected language types (LANG_FR, LANG_ENG, etc.) or a nullable list of detected language issue types (MULTI_LANG)"
+,No,lang_multi,Multiples languages - same line,Indicates presence of multiple languages in the same log line. A single language should be favored for logging messages to ease and maximize information recall when searching for logs.,Patterns,,Difficult,
+Non informative log,No,context_low,Lack of context,"Indicates lack of contextual variables in a log level. Logs should provide a sufficiently rich yet concise contextual information to help with debugging or troubleshooting. ","Logstash, Patterns",P3,Difficult,"A nullable list of detected types (NO_CONTEXT, etc.)"
+Log similarities,No,,,,Patterns,P3,Medium,
+,No,,,,,,,
+,No,,,,,,,
+,No,,,,,,,
+,No,,,,,,,

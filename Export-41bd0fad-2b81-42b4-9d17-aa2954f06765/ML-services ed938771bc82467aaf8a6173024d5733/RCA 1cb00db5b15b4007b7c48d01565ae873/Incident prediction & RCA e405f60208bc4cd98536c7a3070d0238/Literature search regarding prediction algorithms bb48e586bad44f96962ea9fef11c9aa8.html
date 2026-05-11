@@ -1,0 +1,690 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Literature search regarding prediction algorithms</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="bb48e586-bad4-4f96-962e-a9fef11c9aa8" class="page sans"><header><h1 class="page-title">Literature search regarding prediction algorithms</h1><p class="page-description"></p></header><div class="page-body"><p id="7036733e-bec7-4ca6-a5f3-5e4463cacb4a" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><nav id="62b70b7c-62da-492a-9c66-9328b0809a1d" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4ea051be-8549-438d-bfc0-f6f840fb3a7f">Objective</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#06245280-ce00-4623-8818-06a14d5002ba">Main challenges</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a3e819b0-fd52-4dfd-ac07-68510ca8d853">How to define and if possible measure high level KPIs</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#87a7b795-62ea-4461-a6a6-f8951dc0cca5">Root cause analysis of KPIs</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3fbe77af-cb7f-43d6-aebc-ab2534bc5dae">Regarding Prophet</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f632f9a4-2357-4f9c-a9d1-1504994214ef">Prophet and vector valued input and output</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e56a513c-8067-4b45-8117-e03ab824c1e4">Suitable KPIs for Prophet</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#071fa548-a136-43bb-89e9-f4b369ab4715">Issues/Doubts regarding Prophet</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#18cc9a70-6ac3-4bbf-8dc4-7af2b6938f90">Prophet and AIOps</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#509fb721-8511-42be-84a9-41a0f5a5c465">Other approaches ( simple and/or with code) for vector valued input</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#83727a1a-7617-4512-bb8b-901b4fcc53de">Other more sophisticated approaches for vector valued data</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1b738172-801e-4d92-a5c2-bcba9198fda7">Benchmarking algorithms</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2a6b0eae-e87e-43be-bece-ada7e9ed6be6">Importance of features</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3b48fc34-f6d0-4f90-a656-96643c58c941">Possible problems and datasets</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#578a5f21-3faf-4169-a9fa-a955c2d638b5">Generating own dataset</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0b874bc5-ef5c-41ff-b3d4-c0ef02fab483">Books, Tutorials</a></div></nav><h2 id="4ea051be-8549-438d-bfc0-f6f840fb3a7f" class="">Objective</h2><p id="3d593be3-74a2-4356-b8a1-063848603596" class="">Possible objectives are:</p><ul id="2fa2ba4e-c8f7-4201-b7c3-0e88662207a3" class="bulleted-list"><li style="list-style-type:disc">Given low level metrics, forecast high level KPIs or detect anomalies in high level KPIs.</li></ul><ul id="84461997-6968-4f77-b9ab-910c178cee7a" class="bulleted-list"><li style="list-style-type:disc">Given a measured high level KPI, perform root cause analysis.</li></ul><ul id="b248a297-27c0-48b9-bec2-8ade18f7a2d3" class="bulleted-list"><li style="list-style-type:disc">Forecast a measurable high level KPI directly.</li></ul><p id="42ba2270-8630-4183-9953-1e9645ce1d6b" class="">
+</p><ul id="d871a778-b86c-4100-8c08-41bf0c66d385" class="bulleted-list"><li style="list-style-type:disc">For forecasting: There is an approach based on Prophet which will work for one KPI at a time.<ul id="e82ad039-4adc-4a76-a5df-4a542447f33f" class="bulleted-list"><li style="list-style-type:circle">The high level KPI should be measurable directly.</li></ul><ul id="604ed082-52cc-42f0-8113-331c35e8c8e5" class="bulleted-list"><li style="list-style-type:circle">If there are low level metrics and a high level KPI that are related, then the high level KPI can be forecasted based on low level metrics.  </li></ul></li></ul><ul id="b8869091-3d76-4ed4-afa6-03b991dba786" class="bulleted-list"><li style="list-style-type:disc">Good to know about other packages that give a vector output.</li></ul><ul id="861b92b4-de99-49fe-9bc2-8333ccfa2089" class="bulleted-list"><li style="list-style-type:disc">Scalability is always an important concern.</li></ul><h2 id="06245280-ce00-4623-8818-06a14d5002ba" class="">Main challenges</h2><p id="bf344b50-d04b-4684-a1b2-2f5fe7e31fcb" class="">The following are related to each other. Addressing one will help with the other:</p><ul id="7166b36a-e97d-46a2-bb43-30200a78c391" class="bulleted-list"><li style="list-style-type:disc">Need to think about cold starting the procedure.</li></ul><ul id="f9b0d5a1-ae1a-4c33-abc5-2e76e61cc2b4" class="bulleted-list"><li style="list-style-type:disc">How to define high level KPIs?</li></ul><ul id="1b2a1b2c-6bdc-4e66-ac6e-513dfa48b802" class="bulleted-list"><li style="list-style-type:disc">How to measure high level KPIs?</li></ul><ul id="f019e539-48ae-4643-ad3f-54b2725166e4" class="bulleted-list"><li style="list-style-type:disc">Identify concrete problems - the low level metrics and the high level KPIs.</li></ul><p id="101ff5c8-4517-4ebd-b8f1-678ebd7e6c13" class="">
+</p><p id="bf059d3a-10ba-4a7e-87ab-a9e961acc745" class="">What are the inputs to the algorithm?<div class="indented"><ul id="b6321ffd-f655-44ff-b561-817de6180c2c" class="bulleted-list"><li style="list-style-type:disc">Raw values of the low level metrics.</li></ul><ul id="94b86e13-783c-46ae-92c1-e939f72a48d5" class="bulleted-list"><li style="list-style-type:disc">Anomaly scores for the low level metrics from MAD.</li></ul><ul id="897c15ab-cb20-444e-9dc9-cd2150a0fa7c" class="bulleted-list"><li style="list-style-type:disc">Both.</li></ul><ul id="daf2bc4d-41c6-40a6-b3ad-8dc163613c9b" class="bulleted-list"><li style="list-style-type:disc">Raw values of the high-level KPIs.</li></ul></div></p><p id="0f07d4fa-b14e-44ea-91e1-b04b02547c7d" class="">
+</p><p id="3de0eb5d-a0c8-45b2-8c14-a876fc75a981" class="">Need to know:</p><ul id="449abad9-a559-4ea8-89b7-8cc5233ce163" class="bulleted-list"><li style="list-style-type:disc">What problem do we want to address, first? prediction or anomaly detection or root cause analysis.<ul id="9c18fb6f-6459-42b1-84f7-8a0e40d2f33f" class="bulleted-list"><li style="list-style-type:circle">If a KPI can be measured, people usually perform root cause analysis.</li></ul></li></ul><ul id="55d505d4-545b-4b97-9896-67b2dea44604" class="bulleted-list"><li style="list-style-type:disc">Typically, how many low level metrics are there in our components?<ul id="9df86351-01f7-41c4-8e45-59a7243140e8" class="bulleted-list"><li style="list-style-type:circle">Roughly, tens per component for us.</li></ul></li></ul><ul id="55847c6c-b31d-4cbd-9207-1dafbac70622" class="bulleted-list"><li style="list-style-type:disc">Typically, what are the high level KPIs?<ul id="8195316f-ae47-4b7a-9833-6be59c6b6e85" class="bulleted-list"><li style="list-style-type:circle">Are these three enough for the time being? <ul id="cec31919-5cf3-4d27-80d1-4c90fa838ed4" class="bulleted-list"><li style="list-style-type:square">On/Off; Latency; Number of errors.</li></ul></li></ul></li></ul><ul id="67f87dc9-e44b-4f5c-935d-417543170718" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">What are some concrete examples of analysis performed on the output of anomaly detection algorithms running on low level metrics?</mark></li></ul><ul id="99925e9b-a1d2-45e0-8e5b-a4c19ea87cec" class="bulleted-list"><li style="list-style-type:disc">Can a forecasting algorithm be good enough to forecast an anomaly?<ul id="9826ae9a-7a2d-4148-8bbd-f61d1710a305" class="bulleted-list"><li style="list-style-type:circle">Usually, forecasting seems to be used for anomaly detection by comparing forecasted with actual value.</li></ul></li></ul><ul id="e509519d-71fd-459c-8f2a-c30e6813dc8f" class="bulleted-list"><li style="list-style-type:disc">Suppose, we have several different runs of time series data (with both input variables and output variables), what are the good machine learning techniques that can learn a model of the temporal behavior? Prophet is designed to work for only one run of time series data and it predicts for time instances beyond that run.</li></ul><ul id="c5eb5c30-8357-4ea1-a1cf-1e0ad6bee367" class="bulleted-list"><li style="list-style-type:disc">What is a framework like atspy (<a href="https://github.com/firmai/atspy">https://github.com/firmai/atspy</a>) automating? In the backend, it connects to several existing algorithms but it currently works for univariate data only.</li></ul><h2 id="a3e819b0-fd52-4dfd-ac07-68510ca8d853" class="">How to define and if possible measure high level KPIs</h2><ul id="02a8f8fa-48a2-45e4-af16-335b899758ab" class="bulleted-list"><li style="list-style-type:disc">Could we define rules relating lower level metrics to high level KPIs?<ul id="847ebc51-0151-471c-9cbc-cfdf6ed0121f" class="bulleted-list"><li style="list-style-type:circle"><a href="https://www.stackstate.com/blog/relating-it-issues-to-business-kpis-with-aiops">https://www.stackstate.com/blog/relating-it-issues-to-business-kpis-with-aiops</a></li></ul></li></ul><ul id="482367d3-a18f-4a87-a53d-4399d2919c42" class="bulleted-list"><li style="list-style-type:disc">Could we cluster lower level metrics and see whether we can assign a meaningful KPI to the clusters?<ul id="ab2cdfb4-d556-4e82-9c56-c707597f9d52" class="bulleted-list"><li style="list-style-type:circle">The following is a very high level article: <a href="https://www.districtdatalabs.com/using-machine-learning-to-create-new-kpis">https://www.districtdatalabs.com/using-machine-learning-to-create-new-kpis</a></li></ul></li></ul><ul id="0d41cdb7-ebe8-4181-8234-0b7d9d25e7a4" class="bulleted-list"><li style="list-style-type:disc">Reading further, it looks like many KPIs can be defined with some parameters like thresholds. Thus, many high level KPIs can be measured based on other low level metrics.<ul id="bcd7de66-76bb-4384-8d0c-ab1e4ba1ad04" class="bulleted-list"><li style="list-style-type:circle">IT e.g.: latency can be defined based on a percentile and a threshold (e.g., 95% of the requests should be processed within 300 ms). </li></ul><ul id="02c1a5a0-1ed5-4fac-8147-752a66b985c7" class="bulleted-list"><li style="list-style-type:circle">Business e.g.: <a href="https://www.sqlshack.com/how-to-automatically-create-kpis-in-sql-server-reporting-services/">https://www.sqlshack.com/how-to-automatically-create-kpis-in-sql-server-reporting-services/</a></li></ul></li></ul><ul id="2c1b0845-8952-467f-9405-3952eb634182" class="bulleted-list"><li style="list-style-type:disc">What are some high level KPIs that can be defined based on low level metrics but cannot be measured directly? Thus, they have to be detected or predicted based on low level metrics.</li></ul><ul id="80cc0a58-96d8-41f7-aa74-975f9d1ba185" class="bulleted-list"><li style="list-style-type:disc">Repairable system and the related KPIs: associated with mean time between failures (MTBF).</li></ul><ul id="d482b0d4-61ad-420a-abb0-ee3074857d4c" class="bulleted-list"><li style="list-style-type:disc">Non-repairable system and the related KPIs: associated with mean time to failure (MTTF).</li></ul><h2 id="87a7b795-62ea-4461-a6a6-f8951dc0cca5" class="">Root cause analysis of KPIs</h2><ul id="a35f286c-4e5d-4e22-aeba-8282358d4d0b" class="bulleted-list"><li style="list-style-type:disc">Predicting high level KPIs from low level metrics and performing root cause analysis for anomalies in high level KPIs seem to be two closely related problems. Could we &quot;reverse engineer&quot; what is done in the context of root cause analysis of problems in KPIs and develop a system that can predict KPIs?</li></ul><figure id="daac7271-0406-4620-851f-55c698c0443b" class="link-to-page"><a href="Literature%20search%20regarding%20prediction%20algorithms%20bb48e586bad44f96962ea9fef11c9aa8/Reading%20list%20for%20RCA%20daac727104064620851f55c698c0443b.html">Reading list for RCA</a></figure><h2 id="3fbe77af-cb7f-43d6-aebc-ab2534bc5dae" class="">Regarding Prophet</h2><h3 id="f632f9a4-2357-4f9c-a9d1-1504994214ef" class="">Prophet and vector valued input and output</h3><ul id="9d9322db-4027-4793-a177-1c29221cb09b" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/facebook/prophet/issues/49">https://github.com/facebook/prophet/issues/49</a></li></ul><ul id="63476ae6-1134-4ccb-87ba-3e376795466c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://thingsolver.com/forecasting-var-prophet/">https://thingsolver.com/forecasting-var-prophet/</a></li></ul><ul id="a77e3651-e58c-40b1-a61f-e2dcdf40547b" class="bulleted-list"><li style="list-style-type:disc"><a href="https://stackoverflow.com/questions/54544285/is-it-possible-to-do-multivariate-multi-step-forecasting-using-fb-prophet">https://stackoverflow.com/questions/54544285/is-it-possible-to-do-multivariate-multi-step-forecasting-using-fb-prophet</a></li></ul><h3 id="e56a513c-8067-4b45-8117-e03ab824c1e4" class="">Suitable KPIs for Prophet</h3><ul id="7a1a72d7-1bca-4def-b5b1-4718d879bcf9" class="bulleted-list"><li style="list-style-type:disc">The high level KPI should be measurable.</li></ul><ul id="496f48f2-fd81-4b3e-8cee-154b3d943ee4" class="bulleted-list"><li style="list-style-type:disc">The KPI should take continuous values.<ul id="bcdc4461-1bb8-4888-9bb2-097a5aabe40a" class="bulleted-list"><li style="list-style-type:circle">Thus, the hard disk failure prediction problem (mentioned below in the datasets section) is not suitable for Prophet. Because the KPI is binary: either the hard disk is working or not working.</li></ul><ul id="bd3b28ce-8bea-4e12-9cde-d7813503c72c" class="bulleted-list"><li style="list-style-type:circle">See more here: <a href="https://github.com/facebook/prophet/issues/1379">https://github.com/facebook/prophet/issues/1379</a>; <a href="https://github.com/facebook/prophet/issues/1153">https://github.com/facebook/prophet/issues/1153</a></li></ul></li></ul><h3 id="071fa548-a136-43bb-89e9-f4b369ab4715" class="">Issues/Doubts regarding Prophet</h3><ul id="7dd8ddf6-cee7-40c8-894f-2af22056d23e" class="bulleted-list"><li style="list-style-type:disc">With vector valued input, the values of the additional regressors should be known in the predicted time window, also.<ul id="765b7f9c-9619-48d5-bbc5-092f82fd1620" class="bulleted-list"><li style="list-style-type:circle">For e.g.: <a href="https://towardsdatascience.com/forecast-model-tuning-with-additional-regressors-in-prophet-ffcbf1777dda">https://towardsdatascience.com/forecast-model-tuning-with-additional-regressors-in-prophet-ffcbf1777dda</a></li></ul></li></ul><ul id="07a993c4-069b-44a0-9d0c-1fe91c6effd9" class="bulleted-list"><li style="list-style-type:disc">Generally, how long should be the number of historical samples for the algorithm to perform well?<ul id="024c2ea8-2556-4e25-b152-f54141f06b04" class="bulleted-list"><li style="list-style-type:circle">According to <a href="https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-forecast">https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-forecast</a>: Prophet works best with time series that have strong seasonal effects and several seasons of historical data.</li></ul></li></ul><ul id="31733ac4-5ceb-4c89-a1f0-8cee2fc64844" class="bulleted-list"><li style="list-style-type:disc">Prophet has scalability issues: Refer, Seagull paper (<a href="https://arxiv.org/abs/2009.12922">https://arxiv.org/abs/2009.12922</a>)</li></ul><ul id="37c04e5b-2724-4f6a-a504-1fce32b3c72c" class="bulleted-list"><li style="list-style-type:disc">According to the KDD 2019 tutorial (refer below), inference is slow.</li></ul><h3 id="18cc9a70-6ac3-4bbf-8dc4-7af2b6938f90" class="">Prophet and AIOps</h3><ul id="675917fd-9bec-4d30-a3c6-a0c62a795b5c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/AICoE/prometheus-data-science/blob/master/notebooks/Prophet%20Model%20Forecasting.ipynb">https://github.com/AICoE/prometheus-data-science/blob/master/notebooks/Prophet Model Forecasting.ipynb</a></li></ul><ul id="ba0cb771-db8c-42f5-8e9c-48c05ab05461" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/nfrumkin/forecast-prometheus">https://github.com/nfrumkin/forecast-prometheus</a></li></ul><h2 id="509fb721-8511-42be-84a9-41a0f5a5c465" class="">Other approaches ( simple and/or with code) for vector valued input</h2><p id="3bbd750c-0347-48dd-a085-7d6846c7a4e5" class="">Also, the following approaches can be easily extended to vector output.</p><ul id="76e355c4-7128-406c-a3cc-41bf9614b522" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.analyticsvidhya.com/blog/2018/09/multivariate-time-series-guide-forecasting-modeling-python-codes/">https://www.analyticsvidhya.com/blog/2018/09/multivariate-time-series-guide-forecasting-modeling-python-codes/</a><ul id="a298b2fe-3403-49e4-b020-2c4ba82f2bb6" class="bulleted-list"><li style="list-style-type:circle">Uses statsmodels (<a href="https://www.statsmodels.org/stable/index.html">https://www.statsmodels.org/stable/index.html</a>).</li></ul></li></ul><ul id="88605c1d-6e5c-4a1b-b535-b127a4a5998d" class="bulleted-list"><li style="list-style-type:disc"><a href="https://machinelearningmastery.com/how-to-develop-machine-learning-models-for-multivariate-multi-step-air-pollution-time-series-forecasting/">https://machinelearningmastery.com/how-to-develop-machine-learning-models-for-multivariate-multi-step-air-pollution-time-series-forecasting/</a><ul id="c451551b-d51b-44da-8b37-e195c94aa8e4" class="bulleted-list"><li style="list-style-type:circle">Linear regression models from scikit-learn.</li></ul></li></ul><ul id="22457245-0fc6-4981-aff1-1f7667a14dd4" class="bulleted-list"><li style="list-style-type:disc"><a href="http://cs229.stanford.edu/proj2015/194_report.pdf">http://cs229.stanford.edu/proj2015/194_report.pdf</a> (KPI-Driven Predictive ML Models Approach
+Towards Municipal Budgeting Optimization)</li></ul><ul id="d13a3afe-c0db-418a-b90b-f3772d048726" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.kaggle.com/pavansanagapati/anomaly-detection-credit-card-fraud-analysis">https://www.kaggle.com/pavansanagapati/anomaly-detection-credit-card-fraud-analysis</a><ul id="53a3e2a8-bf15-4958-a3da-ceeb9807e900" class="bulleted-list"><li style="list-style-type:circle">Uses isolation forests (precursor to robust random cuts approach).</li></ul></li></ul><ul id="55169570-30e7-4068-8b60-f233aac644d3" class="bulleted-list"><li style="list-style-type:disc">auto_arima from pyramid-arima: <a href="https://towardsdatascience.com/anomaly-detection-with-time-series-forecasting-c34c6d04b24a">https://towardsdatascience.com/anomaly-detection-with-time-series-forecasting-c34c6d04b24a</a><ul id="b049f6e2-9762-48a7-a973-142a9017e0e5" class="bulleted-list"><li style="list-style-type:circle">According to forecastTCN: Auto-Regressive Integrated Moving Average (ARIMA) performs best, when the data is stationary. This means that its statistical properties like the mean and variance are constant over the entire set.</li></ul><ul id="3e9813ff-5193-4b1d-9b2f-787145c047c0" class="bulleted-list"><li style="list-style-type:circle">According to Seagull paper: Arima models take a lot of training time but have very low inference time.</li></ul><p id="c066fb82-d203-47a8-b22c-530b2fbc10cc" class="">
+</p></li></ul><h2 id="83727a1a-7617-4512-bb8b-901b4fcc53de" class="">Other more sophisticated approaches for vector valued data</h2><ul id="4ce30c07-d783-464a-a5a9-455109b27049" class="bulleted-list"><li style="list-style-type:disc"><a href="https://gluon-ts.mxnet.io/">https://gluon-ts.mxnet.io/</a><ul id="721b5e9d-fe51-49f2-92a1-2ddb02e1d556" class="bulleted-list"><li style="list-style-type:circle">Refer &quot;Neural forecasting: Introduction and literature overview&quot; for TensorFlow (<a href="https://www.tensorflow.org/probability/api_docs/python/tfp/sts">https://www.tensorflow.org/probability/api_docs/python/tfp/sts</a>) and PyTorch (<a href="https://github.com/MSRDL/Deep4Cast">https://github.com/MSRDL/Deep4Cast</a>) based solutions. Compared to these, gluonTS offers more algorithms, better documentation.</li></ul></li></ul><ul id="71e5a50e-aa5b-41e6-ae80-d768bd638ca2" class="bulleted-list"><li style="list-style-type:disc">sktime: A unified interface for machine learning with time series (<a href="https://arxiv.org/pdf/1909.07872.pdf">https://arxiv.org/pdf/1909.07872.pdf</a>)<ul id="cf5548ab-0e2c-42db-9ec4-37b30db5784f" class="bulleted-list"><li style="list-style-type:circle">Looks like only univariate time series are supported for forecasting. Conclusion based on:<ul id="17a8466f-325f-4513-8ef1-1df5ce1fc4c5" class="bulleted-list"><li style="list-style-type:square"><a href="https://arxiv.org/abs/2005.08067">https://arxiv.org/abs/2005.08067</a>: Forecasting with sktime.</li></ul><ul id="69f6b92a-fbe6-45c4-a38e-baebdf55f4dc" class="bulleted-list"><li style="list-style-type:square">List of algorithms and tools supported: <a href="https://github.com/alan-turing-institute/sktime/blob/master/ESTIMATOR_OVERVIEW.md">https://github.com/alan-turing-institute/sktime/blob/master/ESTIMATOR_OVERVIEW.md</a></li></ul></li></ul><ul id="ec27703d-a217-4dc2-a1ee-0ee228428003" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/alan-turing-institute/sktime">https://github.com/alan-turing-institute/sktime</a></li></ul><ul id="810161f8-2184-4171-8d78-692c856708ae" class="bulleted-list"><li style="list-style-type:circle">Depends on scikit-learn.</li></ul><ul id="7b3629a9-541e-45a4-9f95-e8a335b8b8d9" class="bulleted-list"><li style="list-style-type:circle">Nice point from the website: Many of these tasks are related. An algorithm that can solve one of them can often be re-used to help solve another one, an idea called reduction. sktime’s unified interface allows to easily adapt an algorithm for one task to another.</li></ul></li></ul><ul id="ed5823fe-418b-4bfa-b459-900a068f688f" class="bulleted-list"><li style="list-style-type:disc">ForecastTCN: <a href="https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-forecast">https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-forecast</a></li></ul><ul id="69b16ef3-890f-4252-accf-977983c61b10" class="bulleted-list"><li style="list-style-type:disc">A recent exceptionally good approach: <a href="https://github.com/philipperemy/n-beats">https://github.com/philipperemy/n-beats</a><ul id="5580aeae-d3c2-4316-8f16-c33fa37d8644" class="bulleted-list"><li style="list-style-type:circle">The related works section of the paper is also nice.</li></ul></li></ul><ul id="1e6bf08c-0f48-4cda-af3e-181cf78abed8" class="bulleted-list"><li style="list-style-type:disc">N-Beats gave better results than ES-RNN, which won the M4 competition.<ul id="a27a70ff-2d7d-4f01-91aa-dfabd822a870" class="bulleted-list"><li style="list-style-type:circle"><a href="https://pypi.org/project/ESRNN/">https://pypi.org/project/ESRNN/</a></li></ul></li></ul><ul id="ac84b80e-2174-4bef-9a3d-a4de6b217d85" class="bulleted-list"><li style="list-style-type:disc">NimbusML (based on Python bindings for ML.Net):<ul id="20cff848-c021-4a5c-bf22-9315ac053720" class="bulleted-list"><li style="list-style-type:circle">Seagull paper tried implementation of &quot;Singular Spectrum Analysis&quot; (by Nina Golyandina) in NimbusML and found it scalable.</li></ul></li></ul><ul id="3068c334-a9f0-4377-8213-5bc35c816459" class="bulleted-list"><li style="list-style-type:disc">Tslearn: <a href="https://www.jmlr.org/papers/volume21/20-091/20-091.pdf">https://www.jmlr.org/papers/volume21/20-091/20-091.pdf</a><ul id="9d450752-57fa-4476-bad4-f8caf8516ce6" class="bulleted-list"><li style="list-style-type:circle">code: <a href="https://tslearn.readthedocs.io/en/stable/">https://tslearn.readthedocs.io/en/stable/</a></li></ul><ul id="8aaefd41-a96b-4ade-bc51-28c069bc7f2d" class="bulleted-list"><li style="list-style-type:circle">Depends on scikit-learn.</li></ul></li></ul><ul id="4762c4d4-b63f-457f-8389-38c9e32275ef" class="bulleted-list"><li style="list-style-type:disc">Seglearn: A Python Package for Learning Sequences and Time Series<ul id="fe8482ad-2dd5-4b49-b1b2-7d903f705a08" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/dmbee/seglearn">https://github.com/dmbee/seglearn</a></li></ul></li></ul><ul id="324d4644-1621-421d-b92c-b22ef3647e81" class="bulleted-list"><li style="list-style-type:disc">XGBoost: <a href="https://machinelearningmastery.com/xgboost-for-time-series-forecasting/">https://machinelearningmastery.com/xgboost-for-time-series-forecasting/</a><ul id="8dd3bfa9-2e72-42f4-8409-9d86506eee0b" class="bulleted-list"><li style="list-style-type:circle">XGBoost is known to be scalable to a lot of training data. Probably, it is scalable for running multiple instances of the algorithm, also.</li></ul><ul id="cf30db85-c0c5-40dc-bd8b-e9ac1362073e" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/Microsoft/LightGBM">https://github.com/Microsoft/LightGBM</a>: an alternative with lesser training time.<ul id="f32a41d1-3277-40ff-a1c2-63fb23e7cd1f" class="bulleted-list"><li style="list-style-type:square"><a href="https://www.kdnuggets.com/2017/08/lessons-benchmarking-fast-machine-learning-algorithms.html">https://www.kdnuggets.com/2017/08/lessons-benchmarking-fast-machine-learning-algorithms.html</a></li></ul></li></ul></li></ul><ul id="44979e01-ec2b-4a38-989b-822b90198b64" class="bulleted-list"><li style="list-style-type:disc">Automated ML: <a href="https://docs.microsoft.com/en-us/azure/machine-learning/tutorial-automated-ml-forecast">https://docs.microsoft.com/en-us/azure/machine-learning/tutorial-automated-ml-forecast</a></li></ul><ul id="14903d5f-4735-48ee-bb29-e24e79b0a504" class="bulleted-list"><li style="list-style-type:disc">R package by Rob Hyndman: classic. Considered the reference implementation of many classic forecasting methods such as exponential smoothing and ARIMA.</li></ul><ul id="2e3b8536-9a1b-4f09-ba96-f7cb3fd350c3" class="bulleted-list"><li style="list-style-type:disc">NuPIC: <a href="https://discourse.numenta.org/t/can-htm-be-used-on-multivarient-time-series-problems/3316/2">https://discourse.numenta.org/t/can-htm-be-used-on-multivarient-time-series-problems/3316/2</a><ul id="be8a4f90-a977-4838-9419-3f3f8f5b8b24" class="bulleted-list"><li style="list-style-type:circle">Currently, in maintenance mode and does not support Python 3. <a href="https://discourse.numenta.org/t/should-we-make-nupic-python-3-compliant/1537/42">https://discourse.numenta.org/t/should-we-make-nupic-python-3-compliant/1537/42</a></li></ul><ul id="409fb84f-89ed-4b0e-962c-7779861c8bdf" class="bulleted-list"><li style="list-style-type:circle">This fork is active and supports Python 3: <a href="https://github.com/htm-community/htm.core">https://github.com/htm-community/htm.core</a><a href="https://github.com/MSRDL/Deep4Cast">https://github.com/MSRDL/Deep4Cast</a> </li></ul></li></ul><ul id="473f143f-0dcf-4bf9-908f-a4498a5ac52e" class="bulleted-list"><li style="list-style-type:disc">Theta: a highly cited classic paper.<ul id="a987147d-d4db-4e18-a104-e00085e1ec4d" class="bulleted-list"><li style="list-style-type:circle"><a href="https://www.sciencedirect.com/science/article/pii/S0169207000000662">https://www.sciencedirect.com/science/article/pii/S0169207000000662</a></li></ul><ul id="2160ce1c-b979-40f0-8b10-58385baf5a3e" class="bulleted-list"><li style="list-style-type:circle">Won the M3 competition. Refer M4 and M5 below. </li></ul></li></ul><ul id="8d9dbf30-43a3-489b-a0d9-b9c3f260f025" class="bulleted-list"><li style="list-style-type:disc">PELT: a highly cited change point detection algorithm.<ul id="047ab151-9653-4e90-b8c0-87b9a5367130" class="bulleted-list"><li style="list-style-type:circle">Original paper: Optimal detection of changepoints with a linear
+computational cost (<a href="https://arxiv.org/pdf/1101.1438.pdf">https://arxiv.org/pdf/1101.1438.pdf</a>).</li></ul><ul id="2851ac96-6793-4f21-9157-bae481157ffa" class="bulleted-list"><li style="list-style-type:circle">Python code: <a href="https://techrando.com/2019/08/14/a-brief-introduction-to-change-point-detection-using-python/">https://techrando.com/2019/08/14/a-brief-introduction-to-change-point-detection-using-python/</a></li></ul></li></ul><ul id="f25a6f17-ab70-4364-9d6e-1f5db15904e4" class="bulleted-list"><li style="list-style-type:disc">STUMPY: <a href="https://www.theoj.org/joss-papers/joss.01504/10.21105.joss.01504.pdf">https://www.theoj.org/joss-papers/joss.01504/10.21105.joss.01504.pdf</a></li></ul><ul id="5c02a5da-6362-4aa3-8364-d8265e3fded7" class="bulleted-list"><li style="list-style-type:disc">The following is a scalable deployment with empirical study but the algorithm is based on k-means++:<ul id="2e16d3ae-55c7-42d6-9667-baed341a7160" class="bulleted-list"><li style="list-style-type:circle">Anomaly detection in a multivariate data stream in a highly scalable and fault tolerant
+architecture by Anas Hamadeh (<a href="http://www.diva-portal.org/smash/record.jsf?pid=diva2%3A1172847&amp;dswid=-1013">http://www.diva-portal.org/smash/record.jsf?pid=diva2%3A1172847&amp;dswid=-1013</a>)</li></ul></li></ul><h2 id="1b738172-801e-4d92-a5c2-bcba9198fda7" class="">Benchmarking algorithms</h2><ul id="65a2078d-3951-4228-a6e3-29ab5e1a12c2" class="bulleted-list"><li style="list-style-type:disc">Seagull: An Infrastructure for Load Prediction and Optimized Resource Allocation (<a href="https://arxiv.org/abs/2009.12922">https://arxiv.org/abs/2009.12922</a>)</li></ul><ul id="2ab4ae02-bf01-4635-81dd-b9ea58a149c2" class="bulleted-list"><li style="list-style-type:disc">Forecasting Big Time Series: Theory and Practice (<a href="https://lovvge.github.io/Forecasting-Tutorial-KDD-2019/">https://lovvge.github.io/Forecasting-Tutorial-KDD-2019/</a>)</li></ul><ul id="0a54a04e-09c3-4561-92e3-c5a7fac244e5" class="bulleted-list"><li style="list-style-type:disc">It looks like it is very much possible to deploy neural network models in a large scale manner:<ul id="82543682-5c10-4b5d-bed0-cb18301e5705" class="bulleted-list"><li style="list-style-type:circle">Based on the above KDD 2019 tutorial and the survey &quot;Neural forecasting&quot;.</li></ul><ul id="99d9af56-fbcf-4338-8d9c-ee5372226085" class="bulleted-list"><li style="list-style-type:circle">A real world example: &quot;Deep and Confident Prediction for Time Series at Uber&quot;. <ul id="407c9390-4425-4e46-b58c-495af4ab7535" class="bulleted-list"><li style="list-style-type:square"><a href="https://eng.uber.com/neural-networks-uncertainty-estimation/">https://eng.uber.com/neural-networks-uncertainty-estimation/</a></li></ul><ul id="c9a916de-bf97-4e69-bb70-92f2da4988cf" class="bulleted-list"><li style="list-style-type:square">The authors have not shared any code. Inspired implementations are there:<ul id="9fed4149-2c65-4a49-9529-4749487fa17b" class="bulleted-list"><li style="list-style-type:disc"><a href="https://paperswithcode.com/paper/deep-and-confident-prediction-for-time-series">https://paperswithcode.com/paper/deep-and-confident-prediction-for-time-series</a></li></ul></li></ul></li></ul></li></ul><ul id="0e0e2d30-03dd-456a-b2a4-f8ffa1864323" class="bulleted-list"><li style="list-style-type:disc">Benchmarking of Facebook’s Prophet, PELT and Twitter’s Anomaly detection and automated deployment to cloud (<a href="http://essay.utwente.nl/77529/1/Srivastava_MA_EEMCS.pdf">http://essay.utwente.nl/77529/1/Srivastava_MA_EEMCS.pdf</a>)<ul id="a5e2b1be-f53b-421e-b97f-9efeff39b0c6" class="bulleted-list"><li style="list-style-type:circle">Looks like it benchmark&#x27;s algorithm performance metrics and not scalability.</li></ul></li></ul><ul id="98920408-8fc2-4610-8bd6-f16cfad1932d" class="bulleted-list"><li style="list-style-type:disc">It will be nice to get hold of this paper: <a href="https://www.amazon.science/publications/open-source-forecasting-tools-in-python">https://www.amazon.science/publications/open-source-forecasting-tools-in-python</a></li></ul><ul id="c51e8cc9-5548-444f-ba72-9085cb3999a2" class="bulleted-list"><li style="list-style-type:disc"><a href="https://paperswithcode.com/area/time-series">https://paperswithcode.com/area/time-series</a></li></ul><ul id="d3b93ac4-6535-4385-9e82-0c7fb222dd17" class="bulleted-list"><li style="list-style-type:disc"><a href="https://microsoft.github.io/forecasting/">https://microsoft.github.io/forecasting/</a></li></ul><ul id="c70450eb-4233-4c24-9d5d-31cd82bb92bf" class="bulleted-list"><li style="list-style-type:disc">The M5 competition: <a href="https://www.kaggle.com/c/m5-forecasting-accuracy/overview">https://www.kaggle.com/c/m5-forecasting-accuracy/overview</a></li></ul><ul id="ad9ec4f3-346c-4e7f-9e3d-a85a18cf6a02" class="bulleted-list"><li style="list-style-type:disc">The M4 competition: <a href="https://www.sciencedirect.com/science/article/pii/S0169207019301128">https://www.sciencedirect.com/science/article/pii/S0169207019301128</a></li></ul><ul id="30ca0cff-1781-4e7a-b187-d3a46261a0b0" class="bulleted-list"><li style="list-style-type:disc">Interesting point from a benchmark study of machine learning algorithms (not based on time-series data): The algorithmic and computational complexities of the ML methods have a significant impact on accuracy, model training and inference times. For the given ML method,
+the modern hardware platforms that we tested do not produce significant accuracy, training, and inference time differences. <a href="https://sc18.supercomputing.org/proceedings/workshops/workshop_files/ws_pmbsf119s2-file1.pdf">https://sc18.supercomputing.org/proceedings/workshops/workshop_files/ws_pmbsf119s2-file1.pdf</a></li></ul><h2 id="2a6b0eae-e87e-43be-bece-ada7e9ed6be6" class="">Importance of features</h2><p id="08e54dee-15ac-440e-a2b6-ddb875a108cd" class="">Good features, by themselves, could lead to very good results.</p><ul id="b763a976-0e27-4889-a5b4-74f4b3ef86c7" class="bulleted-list"><li style="list-style-type:disc">The Importance of Features for Statistical Anomaly Detection by Goldberg and Shan, 2015.</li></ul><ul id="b1d51113-605e-48a2-a0ff-a450d73251ba" class="bulleted-list"><li style="list-style-type:disc">AIOps for a Cloud Object Storage Service, Levin et al, 2019.</li></ul><ul id="b9a81598-8018-457a-8969-b2f4b30f644c" class="bulleted-list"><li style="list-style-type:disc">N-BEATS paper talks about using the output of statistical techniques as features for the learning algorithm.</li></ul><ul id="9793843a-f5c6-4f12-9cdd-16bab0815305" class="bulleted-list"><li style="list-style-type:disc">Several ideas from Eamonn Keogh (<a href="https://www.cs.ucr.edu/~eamonn/">https://www.cs.ucr.edu/~eamonn/</a>) and colleagues: SAX, Shapelets, Matrix profile (refer, STUMPY above) etc.</li></ul><h2 id="3b48fc34-f6d0-4f90-a656-96643c58c941" class="">Possible problems and datasets</h2><p id="c76e2ba7-3b19-4697-8e3d-98741e689631" class="">Hard disk failure seems to be a standard IT problem that people are addressing.</p><ul id="cd09cf92-5698-4326-9db3-e30dd704a489" class="bulleted-list"><li style="list-style-type:disc"><a href="http://backblaze.com/b2/hard-drive-test-data.html">backblaze.com/b2/hard-drive-test-data.html</a>: doubt: what is the schema of the database, i.e., what are the metrics that are being measured?<ul id="26590d31-7d2c-45c3-a477-d26479bc9513" class="bulleted-list"><li style="list-style-type:circle">More information: <a href="https://www.backblaze.com/blog/hard-drive-smart-stats/">https://www.backblaze.com/blog/hard-drive-smart-stats/</a>; <a href="https://www.backblaze.com/blog/hard-drive-data-feb2015/">https://www.backblaze.com/blog/hard-drive-data-feb2015/</a></li></ul><ul id="eb00011b-612f-40e0-abbe-64956ac87143" class="bulleted-list"><li style="list-style-type:circle"><a href="https://www.kaggle.com/ezeydan/hard-drive-failure-data">https://www.kaggle.com/ezeydan/hard-drive-failure-data</a>, <a href="https://www.kaggle.com/backblaze/hard-drive-test-data">https://www.kaggle.com/backblaze/hard-drive-test-data</a></li></ul><ul id="4db036ca-0de2-46c8-9751-31a68f7ee80e" class="bulleted-list"><li style="list-style-type:circle">Predictive maintenance: <a href="https://www.kaggle.com/danofer/harddrive-failures-predictive-maintenance">https://www.kaggle.com/danofer/harddrive-failures-predictive-maintenance</a></li></ul></li></ul><ul id="8587a5e1-7ea2-4a61-bb58-765a9e6d53de" class="bulleted-list"><li style="list-style-type:disc"><a href="https://link.springer.com/book/10.1007/978-981-15-7749-9">https://link.springer.com/book/10.1007/978-981-15-7749-9</a>: PAKDD 2020 Competition and Workshop, AI Ops 2020.<ul id="59a1057a-6747-458a-ad36-3fc7ac094d21" class="bulleted-list"><li style="list-style-type:circle">The dataset can be downloaded here: <a href="https://github.com/alibaba-edu/dcbrain/tree/master/diskdata">https://github.com/alibaba-edu/dcbrain/tree/master/diskdata</a></li></ul><ul id="c844def4-8ff9-4e1d-ba68-dc01b92cbfce" class="bulleted-list"><li style="list-style-type:circle">Login credentials (hari@<a href="http://packetai.co">packetai.co</a>, PacketAI@123) were created for this link: <a href="https://tianchi.aliyun.com/dataset/dataDetail?dataId=70251">https://tianchi.aliyun.com/dataset/dataDetail?dataId=70251</a></li></ul></li></ul><p id="aca6b105-9a13-4738-a826-0bac892f6bf6" class="">
+</p><p id="67351f26-c484-47d4-a809-21b518306085" class="">The following three are via LogPAI</p><p id="5c8b79f7-68e5-453e-b0a6-3114fcb7b8b4" class="">
+</p><p id="d8d1ae0f-5fca-4282-bcb3-a1948c76fc74" class="">Predicting cloud workloads</p><ul id="737b9525-9965-4330-9d52-e8329bcc5c5d" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/logpai/AzurePublicDataset">https://github.com/logpai/AzurePublicDataset</a><ul id="2fac654d-454c-4cec-b8c0-ea71b3c06be7" class="bulleted-list"><li style="list-style-type:circle">Resource Central: Understanding and Predicting Workloads for Improved Resource Management in Large Cloud Platforms</li></ul></li></ul><p id="d16b9c5c-d944-4d6f-8614-2e833f40335c" class="">Alibaba cluster management</p><ul id="62c91194-c683-480c-be89-904876ccea7a" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/logpai/clusterdata">https://github.com/logpai/clusterdata</a>; <a href="https://github.com/alibaba/clusterdata">https://github.com/alibaba/clusterdata</a></li></ul><ul id="f645f146-1d2b-44db-baad-8200de28be41" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/alibaba/clusterdata/wiki/About-Alibaba-cluster-and-why-we-open-the-data">https://github.com/alibaba/clusterdata/wiki/About-Alibaba-cluster-and-why-we-open-the-data</a></li></ul><p id="8a2331b7-211f-4a5d-8630-8c80ce627ff8" class="">Google cluster data</p><ul id="456ad1b5-813f-4449-be5f-9e9a4f7ae673" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/logpai/cluster-data">https://github.com/logpai/cluster-data</a></li></ul><p id="8ce8d68e-65b4-4212-a3a6-037e572a2b89" class="">
+</p><p id="4065564c-711f-4273-b677-2f1183507733" class="">There is also the problem of intrusion detection in wireless networks</p><ul id="edbbc85d-05e7-4ae7-869c-8ea649f4e2fa" class="bulleted-list"><li style="list-style-type:disc"><a href="http://icsdweb.aegean.gr/awid/index.html">http://icsdweb.aegean.gr/awid/index.html</a><ul id="e3e66a45-6642-4af6-bef3-70c7ea1efb71" class="bulleted-list"><li style="list-style-type:circle">Associated publication: Intrusion Detection in 802.11 Networks: Empirical
+Evaluation of Threats and a Public Dataset.</li></ul></li></ul><p id="f6626bca-1601-4f55-a615-d268d9cc38ba" class="">
+</p><p id="b5912be8-7b22-442c-b906-69c21a95c98d" class="">More datasets to explore</p><ul id="0d5566e6-d798-4564-80b6-654aadeecd29" class="bulleted-list"><li style="list-style-type:disc"><a href="http://odds.cs.stonybrook.edu/">http://odds.cs.stonybrook.edu/</a></li></ul><ul id="b5fa52d1-3880-467c-9160-4d9792403a2d" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.kaggle.com/mlg-ulb/creditcardfraud">https://www.kaggle.com/mlg-ulb/creditcardfraud</a></li></ul><p id="1a0cb8f9-7b30-4699-841e-46347fcb5f57" class="">
+</p><p id="7ced323f-b5f2-482d-8fa4-6704803cc4b5" class="">Identifying problems</p><ul id="ff1bf375-106d-4b91-b03a-d77401710e9a" class="bulleted-list"><li style="list-style-type:disc"><a href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=2005&amp;sciodt=0%2C5&amp;cites=977433574722231010&amp;scipsc=&amp;q=aiops+latency+&amp;btnG=">https://scholar.google.com/scholar?hl=en&amp;as_sdt=2005&amp;sciodt=0%2C5&amp;cites=977433574722231010&amp;scipsc=&amp;q=aiops+latency+&amp;btnG=</a></li></ul><ul id="c7347d4d-b340-4236-8688-7150663d2787" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/chenryn/aiops-handbook/blob/master/README_en.md">https://github.com/chenryn/aiops-handbook/blob/master/README_en.md</a><ul id="903f378b-d5b7-4976-b8f9-5c1396699381" class="bulleted-list"><li style="list-style-type:circle">Especially, check under forecasting and root cause analysis.</li></ul></li></ul><ul id="9186dbd7-9582-4304-855c-4aa333d60b69" class="bulleted-list"><li style="list-style-type:disc">What problems are being addressed here via forecasting?<ul id="d8acc6dd-f16b-4c68-a616-1a1c5ea48db3" class="bulleted-list"><li style="list-style-type:circle"><a href="https://www.prophetstor.com/">https://www.prophetstor.com/</a></li></ul><ul id="8c1ca13a-d81a-411a-9711-381cf2d3e381" class="bulleted-list"><li style="list-style-type:circle">Can we find datasets for these problems?</li></ul></li></ul><h2 id="578a5f21-3faf-4169-a9fa-a955c2d638b5" class="">Generating own dataset</h2><p id="62f8b60b-eb00-457c-b1e8-81faba908065" class="">We should seriously consider generating our own datasets, especially w.r.t. individual problems that we want to address.</p><ul id="dbda9f9a-a7f2-4e7d-9387-34d05a303c62" class="bulleted-list"><li style="list-style-type:disc">There are papers sharing high statistical behavior that they observe in their systems. This can help others simulate realistic systems. e.g., Resource Central paper from Microsoft.</li></ul><ul id="f455a82b-fdf9-40cf-bee0-d42cb754cf07" class="bulleted-list"><li style="list-style-type:disc">&quot;GoCJ: Google Cloud Jobs Dataset for Distributed and Cloud Computing Infrastructures&quot;, &quot;GPU Scheduling for Short Tasks in Private Cloud&quot;.</li></ul><h2 id="0b874bc5-ef5c-41ff-b3d4-c0ef02fab483" class="">Books, Tutorials</h2><ul id="14c077eb-49f9-4d9b-89a4-9ca842764152" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.amazon.com/Time-Analysis-Forecasting-Probability-Statistics/dp/1118675029">https://www.amazon.com/Time-Analysis-Forecasting-Probability-Statistics/dp/1118675029</a></li></ul><ul id="0a6b7393-17e9-4d2b-b744-eae57dedfdce" class="bulleted-list"><li style="list-style-type:disc"><a href="https://otexts.com/fpp2/">https://otexts.com/fpp2/</a></li></ul><ul id="19788e84-617c-4866-96f9-32901ad9e192" class="bulleted-list"><li style="list-style-type:disc"><a href="https://sites.google.com/view/iwsm2019/home?authuser=0">https://sites.google.com/view/iwsm2019/home?authuser=0</a></li></ul></div></article></body></html>

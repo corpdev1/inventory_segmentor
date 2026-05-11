@@ -1,0 +1,499 @@
+How are the matching technologies found?
+How are grok patterns proposed?
+
+Standard technologies: same technologies across clients.
+Broad technologies: Python, Java etc per client. Filter by Infra ID.
+
+Is it possible to propose grok patterns for the first message?
+Is it possible to avoid proposing %{GREEDYDATA:content} as the grok pattern?
+Is there a way to disable the use of existing grok patterns?
+Mention about output folder in the Readme.
+
+6040a96cdcc614001153fc55-linux60fec229da00c500125f430e-log-linux60fec229da00c500125f430e-raw
+
+8 to 10 interactions. Number of interactions is user dependent. The objective is to avoid entering %{GREEDYDATA:content} as the second half at an early stage. A user can decide to do so at an earlier or later stage.
+
+6040a96cdcc614001153fc55-linux60fec22ada00c500125f430f-log-linux60fec22ada00c500125f430f-raw
+
+No interactions.
+
+6040a96cdcc614001153fc55-docker-log-mysql_router-raw
+
+3 interactions.
+
+6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211-log-mysqlc65d1f2cd07cc218-raw
+
+All 3 or 4 messages shown by the grok-bot have the same grok pattern. Why grok candidate is not suggested in the second and later tries? Grok candidate was blank instead.
+
+Why cases requiring the following grok pattern never appeared?
+
+%{TIMESTAMP_ISO8601:logdatetime} %{POSINT:id} \[%{WORD:loglevel}\] \[%{DATA:source1}\] \[%{WORD:source2}\] %{GREEDYDATA:content}
+
+6040a96cdcc614001153fc55-linux608ac1c48e4afc0040b43d19-log-mysql357e569af1d96542-raw
+
+No interations.
+
+Why cases requiring the following grok pattern never appeared in this case also?
+
+%{TIMESTAMP_ISO8601:logdatetime} %{POSINT:id} \[%{WORD:loglevel}\] \[%{DATA:source1}\] \[%{WORD:source2}\] %{GREEDYDATA:content}
+
+6040a96cdcc614001153fc55-docker-log-nodesensor-service_sensor-service-raw
+
+3 interactions.
+
+6040a96cdcc614001153fc55-docker-log-nginxappsmith_appsmith-nginx-raw
+
+5 interactions.
+
+### Grok candidates for next message:
+"%{NGINX_DATE:ngix_date}" client=%{IP:host.ip} method=%{WORD:http.request.method}
+
+current message is: 
+"30/Nov/2021:17:22:40 +0000" client=10.0.30.23 method=GET request="GET / HTTP/1.1" request_length=171 status=200 bytes_sent=4463 body_bytes_sent=4289 referer=- http_x_forwarded_for=10.0.30.8 user_agent="Go-http-client/1.1" upstream_addr=- upstream_status=- request_time=0.000 upstream_response_time=- upstream_connect_time=- upstream_header_time=-
+
+"%{NGINX_DATE:ngix_date}" client=%{IP:host.ip} method=%{WORD:http.request.method} request=%{GREEDYDATA:content} request_length=%{NUMBER:http.request.bytes:int} status=%{NUMBER:httpstatus:int} bytes_sent=%{NUMBER:http.sent.bytes:int} body_bytes_sent=%{NUMBER:body.bytes.sent:int} referer=%{URI_NAN:url} http_x_forwarded_for=%{IP:host.ip}, %{IP:host.ip} user_agent=%{QS:agent} upstream_addr=%{HOSTPORT_NAN:hostport} upstream_status=%{INT_NAN:upstream_status} request_time=%{NUMBER:request_time} upstream_response_time=%{NUMBER_NAN:upstream_response_time} upstream_connect_time=%{NUMBER_NAN:upstream_connect_time} upstream_header_time=%{NUMBER_NAN:upstream_header_time}
+
+Couldn't we propose grok pattern based on '=' symbol?
+
+Need to ask @Marwen about what to do with such raw logs. Right now, our grok pattern handles each and every '=' symbol based pairs.
+
+6040a96cdcc614001153fc55-docker-log-nodereservations-service_reservations-service-raw
+
+13 interactions. All weird messages. Very different from what was observed last month. Not even one of those messages appeared this time.
+
+Is it possible for the user to explore all the logs directly? As a basic approach, the user can scroll through the logs as a list.
+
+FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+
+Emitted 'error' event on RedisClient instance at:
+    at RedisClient.on_error (/usr/src/app/node_modules/redis/index.js:342:14)
+    at Socket.<anonymous> (/usr/src/app/node_modules/redis/index.js:223:14)
+    at Socket.emit (events.js:375:28)
+    at emitErrorNT (internal/streams/destroy.js:106:8)
+    at emitErrorCloseNT (internal/streams/destroy.js:74:3)
+    at processTicksAndRejections (internal/process/task_queues.js:82:21) {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '10.0.17.184',
+  port: 6379
+
+Error: write ECONNRESET
+    at afterWriteDispatched (internal/stream_base_commons.js:156:25)
+    at writeGeneric (internal/stream_base_commons.js:147:3)
+    at Socket._writeGeneric (net.js:787:11)
+    at Socket._write (net.js:799:8)
+    at writeOrBuffer (internal/streams/writable.js:358:12)
+    at Socket.Writable.write (internal/streams/writable.js:303:10)
+    at RedisClient.write (/usr/src/app/node_modules/redis/index.js:950:43)
+    at RedisClient.internal_send_command (/usr/src/app/node_modules/redis/index.js:886:14)
+    at RedisClient.get (/usr/src/app/node_modules/redis/lib/commands.js:46:25)
+    at /usr/src/app/dist/services/RedisService.js:68:25
+    at new Promise (<anonymous>)
+    at RedisServiceTypeORM.get (/usr/src/app/dist/services/RedisService.js:67:16)
+    at SitesRepo.getSite (/usr/src/app/dist/repositories/SitesRepository.js:57:58)
+    at SitesRepo.getTimezone (/usr/src/app/dist/repositories/SitesRepository.js:50:33)
+    at Function.upsertReservation (/usr/src/app/dist/controllers/ReservationsController.js:75:66)
+    at Function.editReservation (/usr/src/app/dist/controllers/ReservationsController.js:60:21)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async dispatchHandler (/usr/src/app/node_modules/type-graphql/dist/resolvers/helpers.js:82:24)
+    at async /usr/src/app/node_modules/type-graphql/dist/resolvers/helpers.js:83:26
+    at async /usr/src/app/node_modules/@affluences/commons-graphql/dist/dataloader/decorators/InitLoader.js:10:28
+    at async dispatchHandler (/usr/src/app/node_modules/type-graphql/dist/resolvers/helpers.js:82:24)
+
+<--- Last few GCs --->
+
+[1:0x55c7bc980d60] 235070056 ms: Mark-sweep (reduce) 762.9 (769.4) -> 762.4 (770.9) MB, 2454.1 / 0.2 ms  (average mu = 0.156, current mu = 0.090) allocation failure scavenge might not succeed
+
+[1:0x5628829b3d60] 235042589 ms: Scavenge (reduce) 762.7 (769.2) -> 762.4 (770.4) MB, 8.9 / 0.0 ms  (average mu = 0.119, current mu = 0.004) allocation failure
+
+events.js:352
+      throw er; // Unhandled 'error' event
+      ^
+Error: read ECONNRESET
+    at TCP.onStreamRead (internal/stream_base_commons.js:209:20)
+
+Error: getaddrinfo ENOTFOUND reservations-service_redis
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:69:26)
+
+}
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+(node:1) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+
+(node:1) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+
+%{WARNINGTEXT:warning_message}:%{GREEDYDATA:content}
+WARNINGTEXT=>.*Warning
+
+6040a96cdcc614001153fc55-docker-log-noderealtime-status_realtime-worker-raw
+
+No interactions. The following global grok pattern was figured out using previous data:
+
+time=%{TIMESTAMP_ISO8601:logdatetime} level=%{LOGLEVEL:loglevel} msg="%{GREEDYDATA:content}"
+
+6040a96cdcc614001153fc55-docker-log-nodeapp_app-api-raw
+
+2 interactions
+
+Request #1638601015257: Request to Node 0 failed due to "undefined Request failed with HTTP code 503 | Server said: Not Ready or Lagging"
+
+Request #1638601015257: Sleeping for 0.1s and then retrying request...
+
+No message with the following grok pattern was shown:
+
+time=%{TIMESTAMP_ISO8601:logdatetime} level=%{WORD:loglevel} %{GREEDYDATA:content}
+
+6040a96cdcc614001153fc55-docker-log-koios_koios-api-raw
+
+no message in topic
+
+6040a96cdcc614001153fc55-docker-log-nodeportal_portal-raw
+
+9 interactions. Not sure why so many messages which match to time=%{TIMESTAMP_ISO8601:logdatetime} level=%{LOGLEVEL:loglevel} msg="%{GREEDYDATA:content}" grok pattern are being shown.
+
+time=2021-12-07T09:08:01.475Z level=error msg="ignoring encoding parameter as this stream is being piped to another stream which makes the encoding option invalid."
+
+time=2021-12-07T09:39:18.352Z level=error msg="{"message":"cannot read property 'message' of undefined","stack":"typeerror: cannot read property 'message' of undefined\n    at serverresponse.res.json (/usr/src/app/backend/dist/portail.js:200:17)\n    at /usr/src/app/backend/dist/routes/api/stats/dashboard.js:57:43\n    at step (/usr/src/app/backend/dist/routes/api/stats/dashboard.js:33:23)\n    at object.next (/usr/src/app/backend/dist/routes/api/stats/dashboard.js:14:53)\n    at fulfilled (/usr/src/app/backend/dist/routes/api/stats/dashboard.js:5:58)\n    at runmicrotasks (<anonymous>)\n    at processticksandrejections (internal/process/task_queues.js:95:5)"}"
+
+time=2021-12-07T10:51:36.820Z level=error msg="{"message":"cannot read property 'sort' of null","stack":"typeerror: cannot read property 'sort' of null\n    at function.<anonymous> (/usr/src/app/backend/dist/controllers/dashboard/dashboard.controller.js:61:62)\n    at step (/usr/src/app/backend/dist/controllers/dashboard/dashboard.controller.js:33:23)\n    at object.next (/usr/src/app/backend/dist/controllers/dashboard/dashboard.controller.js:14:53)\n    at /usr/src/app/backend/dist/controllers/dashboard/dashboard.controller.js:8:71\n    at new promise (<anonymous>)\n    at __awaiter (/usr/src/app/backend/dist/controllers/dashboard/dashboard.controller.js:4:12)\n    at function.dashboardcontroller.getdashboards (/usr/src/app/backend/dist/controllers/dashboard/dashboard.controller.js:54:16)\n    at /usr/src/app/backend/dist/routes/api/stats/dashboard.js:54:69\n    at step (/usr/src/app/backend/dist/routes/api/stats/dashboard.js:33:23)\n    at object.next (/usr/src/app/backend/dist/routes/api/stats/dashboard.js:14:53)\n    at /usr/src/app/backend/dist/routes/api/stats/dashboard.js:8:71\n    at new promise (<anonymous>)\n    at __awaiter (/usr/src/app/backend/dist/routes/api/stats/dashboard.js:4:12)\n    at /usr/src/app/backend/dist/routes/api/stats/dashboard.js:48:46\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:137:13)\n    at route.dispatch (/usr/src/app/backend/node_modules/express/lib/router/route.js:112:3)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:281:22\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:335:12)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at function.handle (/usr/src/app/backend/node_modules/express/lib/router/index.js:174:3)\n    at router (/usr/src/app/backend/node_modules/express/lib/router/index.js:47:12)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/usr/src/app/backend/node_modules/express/lib/router/index.js:317:13)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:284:7\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:335:12)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at /usr/src/app/backend/dist/routes/api/middlewares.js:52:9\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/usr/src/app/backend/node_modules/express/lib/router/index.js:317:13)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:284:7\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:335:12)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at function.handle (/usr/src/app/backend/node_modules/express/lib/router/index.js:174:3)\n    at router (/usr/src/app/backend/node_modules/express/lib/router/index.js:47:12)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/usr/src/app/backend/node_modules/express/lib/router/index.js:317:13)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:284:7\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:335:12)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:635:15\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:260:14)\n    at function.handle (/usr/src/app/backend/node_modules/express/lib/router/index.js:174:3)\n    at router (/usr/src/app/backend/node_modules/express/lib/router/index.js:47:12)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/usr/src/app/backend/node_modules/express/lib/router/index.js:317:13)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:284:7\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:335:12)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:635:15\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:260:14)\n    at function.handle (/usr/src/app/backend/node_modules/express/lib/router/index.js:174:3)\n    at router (/usr/src/app/backend/node_modules/express/lib/router/index.js:47:12)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/usr/src/app/backend/node_modules/express/lib/router/index.js:317:13)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:284:7\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:335:12)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:635:15\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:260:14)\n    at function.handle (/usr/src/app/backend/node_modules/express/lib/router/index.js:174:3)\n    at router (/usr/src/app/backend/node_modules/express/lib/router/index.js:47:12)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/usr/src/app/backend/node_modules/express/lib/router/index.js:317:13)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:284:7\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:335:12)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:127:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at /usr/src/app/backend/dist/routes/api/index.js:19:9\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:137:13)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at route.dispatch (/usr/src/app/backend/node_modules/express/lib/router/route.js:112:3)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:281:22\n    at param (/usr/src/app/backend/node_modules/express/lib/router/index.js:354:14)\n    at param (/usr/src/app/backend/node_modules/express/lib/router/index.js:365:14)\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:410:3)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:127:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at /usr/src/app/backend/dist/portail.js:218:16\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:137:13)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at route.dispatch (/usr/src/app/backend/node_modules/express/lib/router/route.js:112:3)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:281:22\n    at param (/usr/src/app/backend/node_modules/express/lib/router/index.js:354:14)\n    at param (/usr/src/app/backend/node_modules/express/lib/router/index.js:365:14)\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:410:3)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:127:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at /usr/src/app/backend/dist/portail.js:210:5\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:137:13)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at route.dispatch (/usr/src/app/backend/node_modules/express/lib/router/route.js:112:3)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:281:22\n    at param (/usr/src/app/backend/node_modules/express/lib/router/index.js:354:14)\n    at param (/usr/src/app/backend/node_modules/express/lib/router/index.js:365:14)\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:410:3)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:127:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at jsonparser (/usr/src/app/backend/node_modules/body-parser/lib/types/json.js:110:7)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:137:13)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at route.dispatch (/usr/src/app/backend/node_modules/express/lib/router/route.js:112:3)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:281:22\n    at param (/usr/src/app/backend/node_modules/express/lib/router/index.js:354:14)\n    at param (/usr/src/app/backend/node_modules/express/lib/router/index.js:365:14)\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:410:3)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:127:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at logger (/usr/src/app/backend/node_modules/morgan/index.js:144:5)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:137:13)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/route.js:131:14)\n    at route.dispatch (/usr/src/app/backend/node_modules/express/lib/router/route.js:112:3)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:281:22\n    at param (/usr/src/app/backend/node_modules/express/lib/router/index.js:354:14)\n    at param (/usr/src/app/backend/node_modules/express/lib/router/index.js:365:14)\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:410:3)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:635:15\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:260:14)\n    at /usr/src/app/backend/dist/routes/pages/index.js:40:9\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/usr/src/app/backend/node_modules/express/lib/router/index.js:317:13)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:284:7\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:335:12)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at function.handle (/usr/src/app/backend/node_modules/express/lib/router/index.js:174:3)\n    at router (/usr/src/app/backend/node_modules/express/lib/router/index.js:47:12)\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/usr/src/app/backend/node_modules/express/lib/router/index.js:317:13)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:284:7\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:335:12)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at /usr/src/app/backend/node_modules/connect-flash/lib/flash.js:21:5\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/usr/src/app/backend/node_modules/express/lib/router/index.js:317:13)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:284:7\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:335:12)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at /usr/src/app/backend/dist/portail.js:174:5\n    at layer.handle [as handle_request] (/usr/src/app/backend/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/usr/src/app/backend/node_modules/express/lib/router/index.js:317:13)\n    at /usr/src/app/backend/node_modules/express/lib/router/index.js:284:7\n    at function.process_params (/usr/src/app/backend/node_modules/express/lib/router/index.js:335:12)\n    at next (/usr/src/app/backend/node_modules/express/lib/router/index.js:275:10)\n    at sessionstrategy.strategy.pass (/usr/src/app/backend/node_modules/passport/lib/middleware/authenticate.js:343:9)\n    at /usr/src/app/backend/node_modules/passport/lib/strategies/session.js:69:12\n    at pass (/usr/src/app/backend/node_modules/passport/lib/authenticator.js:337:31)\n    at deserialized (/usr/src/app/backend/node_modules/passport/lib/authenticator.js:349:7)\n    at /usr/src/app/backend/dist/portail.js:75:9\n    at /usr/src/app/backend/dist/database.js:82:38"}"
+
+time=2021-12-07T11:35:44.948Z level=error msg="{"message":"er_dup_entry: duplicate entry '2021-12-07 11:35:44-1263-5119' for key 'count_records.unicity'","stack":"error: er_dup_entry: duplicate entry '2021-12-07 11:35:44-1263-5119' for key 'count_records.unicity'\n    at query.sequence._packettoerror (/usr/src/app/backend/node_modules/mysql/lib/protocol/sequences/sequence.js:47:14)\n    at query.errorpacket (/usr/src/app/backend/node_modules/mysql/lib/protocol/sequences/query.js:79:18)\n    at protocol._parsepacket (/usr/src/app/backend/node_modules/mysql/lib/protocol/protocol.js:291:23)\n    at parser._parsepacket (/usr/src/app/backend/node_modules/mysql/lib/protocol/parser.js:433:10)\n    at parser.write (/usr/src/app/backend/node_modules/mysql/lib/protocol/parser.js:43:10)\n    at protocol.write (/usr/src/app/backend/node_modules/mysql/lib/protocol/protocol.js:38:16)\n    at socket.<anonymous> (/usr/src/app/backend/node_modules/mysql/lib/connection.js:88:28)\n    at socket.<anonymous> (/usr/src/app/backend/node_modules/mysql/lib/connection.js:526:10)\n    at socket.emit (events.js:400:28)\n    at socket.emit (domain.js:475:12)\n    at addchunk (internal/streams/readable.js:293:12)\n    at readableaddchunk (internal/streams/readable.js:267:9)\n    at socket.readable.push (internal/streams/readable.js:206:10)\n    at tcp.onstreamread (internal/stream_base_commons.js:188:23)\n    --------------------\n    at protocol._enqueue (/usr/src/app/backend/node_modules/mysql/lib/protocol/protocol.js:144:48)\n    at poolconnection.query (/usr/src/app/backend/node_modules/mysql/lib/connection.js:198:25)\n    at /usr/src/app/backend/dist/controllers/database.js:134:36\n    at new promise (<anonymous>)\n    at mysqlserviceclass.<anonymous> (/usr/src/app/backend/dist/controllers/database.js:133:39)\n    at step (/usr/src/app/backend/dist/controllers/database.js:33:23)\n    at object.next (/usr/src/app/backend/dist/controllers/database.js:14:53)\n    at /usr/src/app/backend/dist/controllers/database.js:8:71\n    at new promise (<anonymous>)\n    at __awaiter (/usr/src/app/backend/dist/controllers/database.js:4:12)\n    at mysqlserviceclass.query (/usr/src/app/backend/dist/controllers/database.js:131:16)\n    at function.<anonymous> (/usr/src/app/backend/dist/controllers/database.js:198:60)\n    at step (/usr/src/app/backend/dist/controllers/database.js:33:23)\n    at object.next (/usr/src/app/backend/dist/controllers/database.js:14:53)\n    at /usr/src/app/backend/dist/controllers/database.js:8:71\n    at new promise (<anonymous>)\n    at __awaiter (/usr/src/app/backend/dist/controllers/database.js:4:12)\n    at function.database.query (/usr/src/app/backend/dist/controllers/database.js:196:16)\n    at function.<anonymous> (/usr/src/app/backend/dist/database/v2/manual-count/count-records.database.js:116:51)\n    at step (/usr/src/app/backend/dist/database/v2/manual-count/count-records.database.js:52:23)\n    at object.next (/usr/src/app/backend/dist/database/v2/manual-count/count-records.database.js:33:53)\n    at /usr/src/app/backend/dist/database/v2/manual-count/count-records.database.js:27:71\n    at new promise (<anonymous>)\n    at __awaiter (/usr/src/app/backend/dist/database/v2/manual-count/count-records.database.js:23:12)\n    at function.countrecordsdatabase.insertentrycountrecord (/usr/src/app/backend/dist/database/v2/manual-count/count-records.database.js:109:16)\n    at function.<anonymous> (/usr/src/app/backend/dist/controllers/database.js:284:53)\n    at step (/usr/src/app/backend/dist/controllers/database.js:33:23)\n    at object.next (/usr/src/app/backend/dist/controllers/database.js:14:53)\n    at fulfilled (/usr/src/app/backend/dist/controllers/database.js:5:58)\n    at runmicrotasks (<anonymous>)\n    at processticksandrejections (internal/process/task_queues.js:95:5)","code":"er_dup_entry","errno":1062,"sqlmessage":"duplicate entry '2021-12-07 11:35:44-1263-5119' for key 'count_records.unicity'","sqlstate":"23000","index":0,"sql":"\n            insert into \n              count_records (record_datetime_utc, in_count, out_count, user_id, site_id) \n            values \n              ('2021-12-07 11:35:44', 54, 34, 5119, 1263);\n        "}"
+
+Why the "[ at the start of the message is becoming a separate message ]"?
+
+time=2021-12-08T12:51:40.891Z level=error msg="[
+    {
+        "message": "8 resource_exhausted: exhausted concurrent requests quota. please send fewer requests concurrently. for example, wait for requests to finish before sending more. to learn more, see https://developers.google.com/analytics/devguides/reporting/data/v1/quotas",
+        "locations": [
+            {
+                "line": 21,
+                "column": 17
+            }
+        ],
+        "path": [
+            "getmultiplerawdata",
+            0,
+            "aggregation",
+            "applicationviews"
+        ]
+    }
+
+]" (a separate message)
+
+time=2021-12-08T14:47:35.537Z level=error msg="{"message":"connect econnrefused 10.0.37.46:80","name":"error","stack":"error: connect econnrefused 10.0.37.46:80\n    at tcpconnectwrap.afterconnect [as oncomplete] (net.js:1159:16)","config":{"url":"http://reservations-service_reservations-service/temp/api/reservations?resourceid=1537&startdate=2021-12-06&enddate=2021-12-12","method":"get","headers":{"accept":"application/json, text/plain, */*","authorization":"rcdkuqwwhv5e6czbrjpat1dpummlkjcg","user-agent":"axios/0.21.0"},"transformrequest":[null],"transformresponse":[null],"timeout":0,"xsrfcookiename":"xsrf-token","xsrfheadername":"x-xsrf-token","maxcontentlength":-1,"maxbodylength":-1},"code":"econnrefused"}"
+
+time=2021-12-08T14:54:29.848Z level=error msg="{"message":"request to http://reservations-service_reservations-service/graphql failed, reason: connect econnrefused 10.0.37.46:80","stack":"fetcherror: request to http://reservations-service_reservations-service/graphql failed, reason: connect econnrefused 10.0.37.46:80\n    at clientrequest.<anonymous> (/usr/src/app/backend/node_modules/cross-fetch/node_modules/node-fetch/lib/index.js:1393:11)\n    at clientrequest.emit (events.js:400:28)\n    at clientrequest.emit (domain.js:475:12)\n    at socket.socketerrorlistener (_http_client.js:475:9)\n    at socket.emit (events.js:400:28)\n    at socket.emit (domain.js:475:12)\n    at emiterrornt (internal/streams/destroy.js:106:8)\n    at emiterrorclosent (internal/streams/destroy.js:74:3)\n    at processticksandrejections (internal/process/task_queues.js:82:21)","type":"system","errno":"econnrefused","code":"econnrefused"}"
+
+time=2021-12-08T14:55:20.319Z level=error msg="{"message":"read econnreset","name":"error","stack":"error: read econnreset\n    at tcp.onstreamread (internal/stream_base_commons.js:209:20)","config":{"url":"http://reservations-service_reservations-service/temp/api/reservations?siteid=1344&startdate=2021-12-08&enddate=2021-12-08","method":"get","headers":{"accept":"application/json, text/plain, */*","authorization":"rcdkuqwwhv5e6czbrjpat1dpummlkjcg","user-agent":"axios/0.21.0"},"transformrequest":[null],"transformresponse":[null],"timeout":0,"xsrfcookiename":"xsrf-token","xsrfheadername":"x-xsrf-token","maxcontentlength":-1,"maxbodylength":-1},"code":"econnreset"}"
+
+time=%{TIMESTAMP_ISO8601:logdatetime} level=%{LOGLEVEL:loglevel} msg="%{GREEDYDATA:content}"
+
+6040a96cdcc614001153fc55-docker-log-nodescrapers_scrapers-raw
+
+No interactions. The following three grok patterns were found based on previous grok patterns:
+
+time=%{TIMESTAMP_ISO8601:logdatetime} level=%{LOGLEVEL:loglevel} msg=%{QUOTEDSTRING:content}
+Error:%{GREEDYMULTILINE:content}
+\(node:1\) UnhandledPromiseRejectionWarning:%{GREEDYDATA:content}
+
+6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-worker-raw
+
+9 interactions
+
+Why `time=%{TIMESTAMP_ISO8601:logdatetime} level=%{LOGLEVEL:loglevel} msg="%{GREEDYDATA:content}"` was not proposed? It is already in the database.
+Answer: `time=%{TIMESTAMP_ISO8601:logdatetime} level=%{LOGLEVEL:loglevel} msg="%{GREEDYDATA:content}"` was previously entered for a node topic. This is a python topic. That is why the grokbot didn't propose it. 
+
+time=2021-12-04T07:45:00.043Z level=info msg="start updating future days forecasts"
+
+time=2021-12-04T08:02:02.622Z level=error msg="error while updating forecasts with spm 80830 of site 1324" error=TypeError trace="Traceback (most recent call last):\n  File \"worker.py\", line 148, in <module>\n    worker.channel.start_consuming()\n  File \"/usr/local/lib/python3.8/site-packages/pika/adapters/blocking_connection.py\", line 1865, in start_consuming\n    self._process_data_events(time_limit=None)\n  File \"/usr/local/lib/python3.8/site-packages/pika/adapters/blocking_connection.py\", line 2026, in _process_data_events\n    self.connection.process_data_events(time_limit=time_limit)\n  File \"/usr/local/lib/python3.8/site-packages/pika/adapters/blocking_connection.py\", line 833, in process_data_events\n    self._dispatch_channel_events()\n  File \"/usr/local/lib/python3.8/site-packages/pika/adapters/blocking_connection.py\", line 567, in _dispatch_channel_events\n    impl_channel._get_cookie()._dispatch_events()\n  File \"/usr/local/lib/python3.8/site-packages/pika/adapters/blocking_connection.py\", line 1492, in _dispatch_events\n    consumer_info.on_message_callback(self, evt.method,\n  File \"worker.py\", line 116, in callback\n    process_spm_forecast(\n  File \"/usr/src/koios/libkoios/api.py\", line 57, in process_spm_forecast\n    return make_forecasts(site_prediction_model, timetables, persistence=persistence, source=source)\n  File \"/usr/src/koios/libkoios/tasks/forecast.py\", line 225, in make_forecasts\n    koios_forecasts = forecasts(site_prediction_model=site_prediction_model,\n  File \"/usr/src/koios/libkoios/tasks/forecast.py\", line 43, in forecasts\n    return compute_forecasts(\n  File \"/usr/src/koios/libkoios/tasks/forecast.py\", line 78, in compute_forecasts\n    return predictor.predict(features, history_features, history_targets)\n  File \"/usr/src/koios/libkoios/models/AZRF1b.py\", line 105, in predict\n    features = self.preprocess_features(features, history_features, history_targets)\n  File \"/usr/src/koios/libkoios/models/AZRF1b.py\", line 159, in preprocess_features\n    features = past_buckets.transform(features, history_targets, history_features[\'timetable_open_at\'],\n  File \"/usr/src/koios/libkoios/preprocessing/features/previous_record.py\", line 54, in transform\n    past_buckets = pd.merge_asof(\n  File \"/usr/local/lib/python3.8/site-packages/pandas/core/reshape/merge.py\", line 524, in merge_asof\n    op = _AsOfMerge(\n  File \"/usr/local/lib/python3.8/site-packages/pandas/core/reshape/merge.py\", line 1542, in __init__\n    _OrderedMerge.__init__(\n  File \"/usr/local/lib/python3.8/site-packages/pandas/core/reshape/merge.py\", line 1432, in __init__\n    _MergeOperation.__init__(\n  File \"/usr/local/lib/python3.8/site-packages/pandas/core/reshape/merge.py\", line 619, in __init__\n    self._validate_specification()\n  File \"/usr/local/lib/python3.8/site-packages/pandas/core/reshape/merge.py\", line 1558, in _validate_specification\n    super()._validate_specification()\n  File \"/usr/local/lib/python3.8/site-packages/pandas/core/reshape/merge.py\", line 1223, in _validate_specification\n    if len(self.right_on) != len(self.left_on):\nTypeError: object of type \'NoneType\' has no len()"
+
+/usr/local/lib/python3.8/site-packages/sklearn/utils/deprecation.py:143: FutureWarning: The sklearn.ensemble.forest module is  deprecated in version 0.22 and will be removed in version 0.24. The corresponding classes / functions should instead be imported from sklearn.ensemble. Anything that cannot be imported from sklearn.ensemble is now part of the private API.
+  warnings.warn(message, FutureWarning)
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/sharedlib/database/engine.py", line 69, in get_session
+    session.commit()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1046, in commit
+    self.transaction.commit()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 508, in commit
+    t[1].commit()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1762, in commit
+    self._do_commit()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1793, in _do_commit
+    self.connection._commit_impl()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 773, in _commit_impl
+    self._handle_dbapi_exception(e, None, None, None, None)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1514, in _handle_dbapi_exception
+    util.raise_(exc_info[1], with_traceback=exc_info[2])
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 771, in _commit_impl
+    self.engine.dialect.do_commit(self.connection)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/dialects/mysql/base.py", line 2497, in do_commit
+    dbapi_connection.commit()
+  File "/usr/local/lib/python3.8/site-packages/mysql/connector/connection_cext.py", line 400, in commit
+    self._cmysql.commit()
+
+Why the grok pattern entered for the previous case (Traceback%{GREEDYMULTILINE:content}) not proposed for the following?
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 697, in _finalize_fairy
+    fairy._reset(pool)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 893, in _reset
+    pool._dialect.do_rollback(self)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/dialects/mysql/base.py", line 2509, in do_rollback
+    dbapi_connection.rollback()
+  File "/usr/local/lib/python3.8/site-packages/mysql/connector/connection_cext.py", line 406, in rollback
+    self._cmysql.rollback()
+
+Exception during reset or similar
+
+_mysql_connector.MySQLInterfaceError: Lost connection to MySQL server during query
+
+During handling of the above exception, another exception occurred:
+
+Another message starting with "_mysql_connector.MySQLInterfaceError:"
+
+6040a96cdcc614001153fc55-docker-log-pythonalerts_alerts-engine-raw
+
+No interactions. The following grok pattern was found based on previous grok patterns:
+
+time=%{TIMESTAMP_ISO8601:logdatetime} level=%{LOGLEVEL:loglevel} msg="%{GREEDYDATA:content}"
+
+6040a96cdcc614001153fc55-docker-log-pythonhyperion_client-plages-raw
+
+Aborted interaction. There is a message that consists of the description of a neural network.
+
+6040a96cdcc614001153fc55-docker-log-nodezoho_zoho-service-raw
+
+No interactions. The folllowing grok patterns were assigned:
+
+%{TIMESTAMP_ISO8601:logdatetime} level=%{LOGLEVEL:loglevel} msg="%{GREEDYDATA:content}"
+
+6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-mysql6d7613c72a46df40-raw
+
+No interactions. The following grok pattern was assigned:
+
+# User@Host: %{USER:[mysql][slowlog][user]}(\\[[^\\]]+\\])? @ (%{HOSTNAME:[mysql][slowlog][host]})? \\[%{IP:[mysql][slowlog][ip]}\\](\\s*Id:\\s* %{NUMBER:[mysql][slowlog][id]})?\\n# Query_time: %{NUMBER:[mysql][slowlog][query_time][sec]}\\s* Lock_time: %{NUMBER:[mysql][slowlog][lock_time][sec]}\\s* Rows_sent: %{NUMBER:[mysql][slowlog][rows_sent]}\\s* Rows_examined: %{NUMBER:[mysql][slowlog][rows_examined]}\\n(SET timestamp=%{NUMBER:[mysql][slowlog][timestamp]};\\n)?%{GREEDYMULTILINE:[mysql][slowlog][query]}
+
+Similar to previously seen MySQL cases, it is not clear why no message requiring the following grok pattern was encountered in the messages present in the Kafka stream:
+
+%{TIMESTAMP_ISO8601:logdatetime} %{POSINT:id} \[%{WORD:loglevel}\] \[%{DATA:source1}\] \[%{WORD:source2}\] %{GREEDYDATA:content}
+
+6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-raw
+
+3 interactions
+
+Starting from the second message, the proposed grok patterns are of good quality. 
+
+level=debug ts=2021-12-06T21:00:25.076Z caller=scrape.go:962 component="scrape manager" scrape_pool=cadvisor target=http://10.0.11.4:8080/metrics msg="Scrape failed" err="Get \"http://10.0.11.4:8080/metrics\": dial tcp 10.0.11.4:8080: connect: connection refused"
+
+level=info ts=2021-12-06T21:00:33.602Z caller=compact.go:441 component=tsdb msg="compact blocks" count=3 mint=1638792000000 maxt=1638813600000 ulid=01FP8RR3T3WW7ATN0BGAK0RXM8 sources="[01FP844FNCYNM9SDM6J75DBSJJ 01FP8B06Y96B95ZY750TZ5R8FW 01FP8HVY5W3PEG1C3JQ6QC6GJF]" duration=18.55959379s
+
+level=info ts=2021-12-06T23:00:08.019Z caller=compact.go:495 component=tsdb msg="write block" mint=1638820800000 maxt=1638828000000 ulid=01FP8ZKCXFNK1PYPGJ7AZPWH9C duration=7.460605877s
+
+Once level=%{DATA:loglevel} ts=%{TIMESTAMP_ISO8601:logdatetime} caller=%{DATA:caller} %{GREEDYDATA:content}, it matched with the rest of the messages.
+
+6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f-log-packetaie6471dd6a1a09b54-raw
+
+Run time error:
+
+Traceback (most recent call last):
+  File "pipelines/main.py", line 21, in <module>
+    scheduler.schedule_single_topic_msg(messages)
+  File "/home/hari/work/ex-machina-logpatternsearch/src/scheduler/scheduler.py", line 106, in schedule_single_topic_msg
+    techno = kafka_message['value']['event']['module']
+KeyError: 'event'
+
+Data is there on S3.
+
+6040a96cdcc614001153fc55-docker-log-redissite-service_redis-cache-raw
+
+1 interaction.
+
+5048:C 03 Dec 2021 12:35:00.048 * RDB: 0 MB of memory used by copy-on-write
+
+Not sure why no message that matches with `%{POSINT:pid}:signal-handler \(%{POSINT:timestamp}\) %{GREEDYDATA:content}` was encountered.
+
+6040a96cdcc614001153fc55-docker-log-nginxweblate_weblate-raw
+
+5 interactions
+
+uwsgi stderr | [pid: 24935|app: 0|req: 49243/344864] 10.0.1.94 () {36 vars in 532 bytes} [Mon Dec  6 16:14:35 2021] GET / => generated 14167 bytes in 196 msecs (HTTP/1.1 200) 12 headers in 779 bytes (1 switches on core 0)
+
+celery-celery stderr | [2021-12-06 18:38:37,332: INFO/375] admin-portal/portal: repository up to date at d02114bb29530e10cdf49152e7150b90049b3682
+
+Grok candidates for the above message can be better. It was:
+%{WORD:word1} %{WORD:word1} %{WORD:word1}
+%{WORD:word1} %{WORD:word1} %{WORD:word2}
+%{WORD:word1} %{WORD:word2} %{WORD:word1}
+%{WORD:word1} %{WORD:word2} %{WORD:word2}
+%{WORD:word2} %{WORD:word1} %{WORD:word1}
+%{WORD:word2} %{WORD:word1} %{WORD:word2}
+%{WORD:word2} %{WORD:word2} %{WORD:word1}
+%{WORD:word2} %{WORD:word2} %{WORD:word2}
+
+grok pattern created by user:
+
+%{WORD:word1} %{WORD:word2} \| \[%{DATETIME_YEAR_FIRST:logdatetime}: %{LOGLEVEL:loglevel}/%{NUMBER:id}\] %{GREEDYDATA:content}
+DATETIME_YEAR_FIRST=>%{YEAR}[/-]%{MONTHNUM}[/-]%{MONTHDAY} %{TIME}
+
+celery-celery stderr | [2021-12-06 16:15:31,802: INFO/MainProcess] Task weblate.utils.tasks.heartbeat[244dde18-e024-4a24-aae3-ceecc3469598] received
+
+Same grok candidates as previous case were shown. However, there is only one difference with respect to grok pattern created by user for the previous case. %{LOGLEVEL:loglevel}/%{NUMBER:id} should be %{LOGLEVEL:loglevel}/%{DATA:id}
+
+grok pattern created by user:
+
+%{WORD:word1} %{WORD:word2} \| \[%{DATETIME_YEAR_FIRST:logdatetime}: %{LOGLEVEL:loglevel}/%{DATA:id}\] %{GREEDYDATA:content}
+DATETIME_YEAR_FIRST=>%{YEAR}[/-]%{MONTHNUM}[/-]%{MONTHDAY} %{TIME}
+
+nginx stdout | 127.0.0.1 - - [06/Dec/2021:22:59:38 +0100] "GET /healthz/ HTTP/1.1" 200 12 "-" "curl/7.74.0"
+
+grok candidates shown:
+%{WORD:word1} %{WORD:word1}
+%{WORD:word1} %{WORD:word2}
+%{WORD:word2} %{WORD:word1}
+%{WORD:word2} %{WORD:word2}
+
+The following message was shown after several iterations (55642it):
+
+uwsgi stderr | Thu Dec  9 21:21:46 2021 - ...The work of process 24935 is done. Seeya!
+
+It required a grok pattern, with a custom grok token:
+
+%{WORD:word1} %{WORD:word2} \| %{DATESTAMP_OTHER2:logdatetime} - %{GREEDYDATA:content}
+DATESTAMP_OTHER2=>%{DAY} %{MONTH}.*%{MONTHDAY} %{TIME} %{YEAR}
+
+Very dense topic. ES ingestion was running even after a long time (> 50 minutes). Aborted the run at 107149it.
+
+6040a96cdcc614001153fc55-docker-log-rabbitmqqueue_rabbitmq-raw
+
+3 interactions.
+
+2021-12-03 10:03:22.927 [info] <0.9866.7857> connection <0.9866.7857> (10.0.11.16:37894 -> 10.0.11.23:5672): user 'gaia' authenticated and granted access to vhost '/'
+
+missed heartbeats from client, timeout: 60s
+
+grok-bot proposes %{GREEDYDATA:content}
+Is it ok, to propose %{GREEDYDATA:content} at any stage?
+
+user entered the following custom grok pattern, to avoid misses: missed heartbeats %{GREEDYDATA:content}
+
+client unexpectedly closed TCP connection
+
+Again, grok-bot proposes %{GREEDYDATA:content}
+
+user entered the following custom grok pattern, to avoid misses: client %{GREEDYDATA:content}
+
+Another dense topic. > 1.5 hours. Exited after 2342343it.
+
+6040a96cdcc614001153fc55-docker-log-pythonkoios_koios-tasks-raw
+
+1 interaction
+
+time=2021-12-08T10:30:00.014Z level=info msg="start forecasting job"
+
+6040a96cdcc614001153fc55-linux60fec238da00c500125f4314-log-linux60fec238da00c500125f4314-raw
+
+No interactions.
+
+Total 47995it before exiting without error.
+
+All messages matched with: %{SYSLOGBASE:logsys} %{GREEDYDATA:content}
+Need to check whether this is enough.
+Solution: Check in output folder.
+
+6040a96cdcc614001153fc55-docker-log-nodehyperion_server-raw
+
+2 interactions
+
+level=log context=ObjectStorageService msg="Connecting to object storage..."  time=2021-12-08T14:15:01.062Z
+
+user entered: level=%{WORD:loglevel} context=%{DATA:context} msg="%{GREEDYDATA:content}"  time=%{TIMESTAMP_ISO8601:logdatetime}
+
+level=warn context=HttpService msg="DEPRECATED! \"HttpModule\" (from the \"@nestjs/common\" package) is deprecated and will be removed in the next major release. Please, use the \"@nestjs/axios\" package instead."  time=2021-12-10T08:28:37.110Z
+
+grok-bot proposes level=%{WORD:loglevel} context=%{DATA:context} msg="%{GREEDYDATA:content}"  time=%{TIMESTAMP_ISO8601:logdatetime}, which is good.
+
+6040a96cdcc614001153fc55-docker-log-portainer_agent-raw
+
+no message in topic
+
+6040a96cdcc614001153fc55-docker-log-portainer_portainer-raw
+
+2 interactions
+
+1357it before the first message was shown. 0it after the second message.
+This was a complex topic, according to our Affluences groks efforts last month. Need to check how it was covered in two interactions.
+
+2021/12/09 09:01:34 server: proxy#1:R:0.0.0.0:56453=>10.0.2.5:9001: Listening
+
+user entered: %{DATETIME_YEAR_FIRST} %{GREEDYDATA:content}
+
+level=info msg=" (err=service redis: undefined network \"internal-services\""
+
+grok-bot proposes %{GREEDYDATA:content}
+
+user entered: level=%{WORD:loglevel} msg=%{QS:content}
+
+6040a96cdcc614001153fc55-docker-log-gateway_caddy_server-raw
+
+9 interactions
+
+{"level":"error","ts":1638802856.3086321,"logger":"http.handlers.reverse_proxy","msg":"aborting with incomplete response","error":"http2: stream closed"}
+
+{"level":"error","ts":1638802867.7497437,"logger":"http.log.error","msg":"read tcp 10.0.1.177:60642->10.0.1.43:80: read: connection reset by peer","request":{"remote_addr":"193.206.77.213:59978","proto":"HTTP/2.0","method":"PUT","host":"admin.affluences.com","uri":"/api/reservations/reservations/17425356/validate","headers":{"Referer":["https://admin.affluences.com/reservations"],"Cookie":["lang=ita; connect.sid=s%3A6Y0lnRzFbpMLl1uqnfjLkw42cwCQvEux.Lh8i0Tsobz5LFkA8DmZLQ%2FVioIqSCzFNLuuwAeHDrP0; site=1711; lastResourcePlanning={1711,81206}"],"Sec-Fetch-Mode":["cors"],"Content-Length":["0"],"User-Agent":["Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0"],"Accept":["application/json, text/plain, */*"],"Origin":["https://admin.affluences.com"],"Dnt":["1"],"Accept-Encoding":["br, gzip, deflate"],"Accept-Language":["it-IT,it;q=0.8,en-US;q=0.5,en;q=0.3"],"Sec-Fetch-Dest":["empty"],"Sec-Fetch-Site":["same-origin"],"Te":["trailers"]},"tls":{"resumed":false,"version":772,"cipher_suite":4865,"proto":"h2","proto_mutual":true,"server_name":"admin.affluences.com"}},"duration":4.309169369,"status":502,"err_id":"1iwuwgnnx","err_trace":"reverseproxy.(*Handler).ServeHTTP (reverseproxy.go:441)"}
+
+grok-bot proposed {"level":"%{LOGLEVEL:loglevel}","ts":%{NUMBER:timestamp},"logger":"%{DATA:logger}","msg":"%{GREEDYDATA:content}",%{GREEDYDATA:content}, which is reasonably good.
+
+user entered: {"level":"%{LOGLEVEL:loglevel}","ts":%{NUMBER:timestamp},"logger":"%{DATA:logger}",%{GREEDYDATA:content}}
+
+{"level":"error","ts":1638802876.346519,"logger":"http.log.error","msg":"read tcp 10.0.1.39:48398->10.0.1.254:80: read: connection reset by peer","request":{"remote_addr":"31.4.183.189:49931","proto":"HTTP/1.1","method":"POST","host":"reservation.affluences.com","uri":"/api/reserve/71970","headers":{"User-Agent":["Affluences/202111100 CFNetwork/1240.0.4 Darwin/20.6.0 (iPhone/11 iOS/14.7.1)"],"Accept-Language":["es"],"Accept-Encoding":["gzip"],"Content-Length":["187"],"User-Identifier":["7b33b182-b39f-40ec-a42d-7969bdef3db6"],"Content-Type":["application/json; charset=utf-8"]},"tls":{"resumed":false,"version":772,"cipher_suite":4865,"proto":"","proto_mutual":true,"server_name":"reservation.affluences.com"}},"duration":1.298499618,"status":502,"err_id":"k539h7sj9","err_trace":"reverseproxy.(*Handler).ServeHTTP (reverseproxy.go:441)"}
+
+grok-bot proposed (reasonably good proposals):
+{"level":"%{LOGLEVEL:loglevel}","ts":%{NUMBER:timestamp},"logger":"%{DATA:logger}","msg":"%{GREEDYDATA:content}",%{GREEDYDATA:content}}
+{"level":"%{LOGLEVEL:loglevel}","ts":%{NUMBER:timestamp},"logger":"%{DATA:logger}",%{GREEDYDATA:content}}
+{"level":"%{LOGLEVEL:loglevel}","ts":%{NUMBER:timestamp},%{GREEDYDATA:content}}
+{"level":"%{LOGLEVEL:loglevel}",%{GREEDYDATA:content}}
+%{GREEDYDATA:content}}
+
+{"level":"error","ts":1638803010.2445366,"logger":"http.log.error","msg":"read tcp 10.0.1.177:35114->10.0.1.254:80: read: connection reset by peer","request":{"remote_addr":"131.175.147.17:48500","proto":"HTTP/1.1","method":"DELETE","host":"reservation.affluences.com","uri":"/api/cancelReservation?email_token=5816b786-740e-568c-9333-f33a051471ee","headers":{"Accept-Language":["it"],"Accept-Encoding":["gzip"],"Content-Length":["0"],"User-Agent":["Affluences/202111100 Dalvik/2.1.0 (Linux; U; Android 11; SM-A515F Build/RP1A.200720.012)"],"Content-Type":["application/json"]},"tls":{"resumed":false,"version":772,"cipher_suite":4865,"proto":"","proto_mutual":true,"server_name":"reservation.affluences.com"}},"duration":0.147888369,"status":502,"err_id":"0w3vr7b8r","err_trace":"reverseproxy.(*Handler).ServeHTTP (reverseproxy.go:441)"}
+
+grok-bot again proposes the same candidates as previous case.
+
+{"level":"error","ts":1638809318.3289583,"logger":"http.log.error","msg":"read tcp 10.0.1.37:39714->10.0.1.43:80: read: connection reset by peer","request":{"remote_addr":"164.15.47.81:58162","proto":"HTTP/2.0","method":"POST","host":"admin.affluences.com","uri":"/api/reservations/reservations/","headers":{"Sec-Fetch-Dest":["empty"],"Cookie":["lang=fra; site=597; _ga=GA1.2.829226258.1638264354; _ga_HK2R5DLGG9=GS1.1.1638464010.12.0.1638464010.0; _gid=GA1.2.873381690.1638784794; _clck=1bb0bnv|1|ex1|0; connect.sid=s%3AS5Y02R9CqM-qEgxnaD5Y6skrXDR_er7S.wBKsXfqzsikWPK5evm6sad7L2KS%2BdF%2FDJTeJrJMrKAo; lastResourcePlanning={597,10386}; _clsk=1aadjl7|1638808741567|3|1|e.clarity.ms/collect"],"Accept":["application/json, text/plain, */*"],"Content-Type":["application/json"],"Sec-Fetch-Site":["same-origin"],"Referer":["https://admin.affluences.com/reservations/manageReservations"],"Content-Length":["191"],"User-Agent":["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36"],"Origin":["https://admin.affluences.com"],"Sec-Fetch-Mode":["cors"],"Sec-Ch-Ua":["\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"96\", \"Google Chrome\";v=\"96\""],"Sec-Ch-Ua-Platform":["\"Windows\""],"Accept-Encoding":["gzip, deflate, br"],"Accept-Language":["fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7"],"Sec-Ch-Ua-Mobile":["?0"]},"tls":{"resumed":false,"version":772,"cipher_suite":4865,"proto":"h2","proto_mutual":true,"server_name":"admin.affluences.com"}},"duration":3.087833446,"status":502,"err_id":"yv8q5pm7q","err_trace":"reverseproxy.(*Handler).ServeHTTP (reverseproxy.go:441)"}
+
+grok-bot proposed:
+{"level":"%{LOGLEVEL:loglevel}","ts":%{NUMBER:timestamp},"logger":"%{DATA:logger}","msg":"%{GREEDYDATA:content}",%{GREEDYDATA:content}}
+{"level":"%{LOGLEVEL:loglevel}","ts":%{NUMBER:timestamp},"logger":"%{DATA:logger}",%{GREEDYDATA:content}}
+{"level":"%{LOGLEVEL:loglevel}","ts":%{NUMBER:timestamp},%{GREEDYDATA:content}}
+{"level":"%{LOGLEVEL:loglevel}",%{GREEDYDATA:content}}
+%{GREEDYDATA:content}}
+
+{"level":"info","ts":1638824788.474891,"logger":"tls.cache.maintenance","msg":"advancing OCSP staple","identifiers":["www.webapi.affluences.com"],"from":1639126798,"to":1639342798}
+
+grok-bot proposed the same candidates as previous case.
+
+{"level":"info","ts":1638831988.6202462,"logger":"tls","msg":"cleaned up storage units"}
+
+grok-bot proposed:
+{"level":"%{LOGLEVEL:loglevel}","ts":%{NUMBER:timestamp},"logger":"%{DATA:logger}",%{GREEDYDATA:content}}
+{"level":"%{LOGLEVEL:loglevel}","ts":%{NUMBER:timestamp},%{GREEDYDATA:content}}
+{"level":"%{LOGLEVEL:loglevel}",%{GREEDYDATA:content}}
+%{GREEDYDATA:content}}
+
+{"level":"info","ts":1638832116.8017156,"logger":"tls.cache.maintenance","msg":"advancing OCSP staple","identifiers":["reservation.affluences.com","www.reservation.affluences.com"],"from":1639134507,"to":1639304585}
+
+grok-bot proposed:
+{"level":"%{LOGLEVEL:loglevel}","ts":%{NUMBER:timestamp},"logger":"%{DATA:logger}","msg":"%{GREEDYDATA:content}",%{GREEDYDATA:content}}
+{"level":"%{LOGLEVEL:loglevel}","ts":%{NUMBER:timestamp},"logger":"%{DATA:logger}",%{GREEDYDATA:content}}
+{"level":"%{LOGLEVEL:loglevel}","ts":%{NUMBER:timestamp},%{GREEDYDATA:content}}
+{"level":"%{LOGLEVEL:loglevel}",%{GREEDYDATA:content}}
+%{GREEDYDATA:content}}
+
+2021/12/07 23:06:35 [ERROR] While deleting old OCSP staples, unable to load staple file: unable to obtain data for tlsconsul/ocsp/www.affluences.com-e35f86f8: Unexpected response code: 500
+
+grok-bot proposed %{GREEDYDATA:content}, which is better to be avoided.

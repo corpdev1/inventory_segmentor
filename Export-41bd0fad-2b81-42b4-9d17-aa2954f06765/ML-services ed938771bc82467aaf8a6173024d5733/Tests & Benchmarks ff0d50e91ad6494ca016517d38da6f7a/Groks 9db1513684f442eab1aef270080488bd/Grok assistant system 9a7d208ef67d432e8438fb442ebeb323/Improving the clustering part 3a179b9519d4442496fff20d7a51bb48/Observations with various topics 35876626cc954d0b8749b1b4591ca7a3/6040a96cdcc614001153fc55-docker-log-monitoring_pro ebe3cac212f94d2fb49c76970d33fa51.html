@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-raw</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ebe3cac2-12f9-4d2f-b49c-76970d33fa51" class="page sans"><header><h1 class="page-title">6040a96cdcc614001153fc55-docker-log-monitoring_prometheus-raw</h1><p class="page-description"></p></header><div class="page-body"><h2 id="fde711b3-304d-4d91-9d89-8b22c3c37314" class="">Logs presented during grok-bot usage</h2><ul id="aab87037-5b57-4fab-bcb1-6fd60accd47d" class="bulleted-list"><li style="list-style-type:disc">level=info ts=2021-10-17T01:00:07.441Z caller=compact.go:495 component=tsdb msg=&quot;write block&quot; mint=1634421600000 maxt=1634428800000 ulid=01FJ5W6ERZEHTDC6FMPJ8E8FPB duration=7.281793412s</li></ul><ul id="3e34d2af-a00e-46f9-bbaf-299ea57ad47e" class="bulleted-list"><li style="list-style-type:disc">level=info ts=2021-10-17T03:00:26.612Z caller=compact.go:441 component=tsdb msg=&quot;compact blocks&quot; count=3 mint=1634407200000 maxt=1634428800000 ulid=01FJ632K79TN6HYZXCAMBJTBVD sources=&quot;[01FJ5EF08M73FGWS6RG8SNTX8C 01FJ5NAQH0S10X97APD14ETD8Y 01FJ5W6ERZEHTDC6FMPJ8E8FPB]&quot; duration=12.938498334s</li></ul><ul id="ec1ce21e-55a0-4002-abcc-4a16b39ecad1" class="bulleted-list"><li style="list-style-type:disc">level=debug ts=2021-10-26T10:49:41.879Z caller=scrape.go:962 component=&quot;scrape manager&quot; scrape_pool=blackbox-exporter-http2xx target=&quot;<a href="http://tasks.blackbox-exporter:9115/probe?module=http_2xx&amp;target=https%3A%2F%2Ftranslate.affluences.com">http://tasks.blackbox-exporter:9115/probe?module=http_2xx&amp;target=https%3A%2F%2Ftranslate.affluences.com</a>&quot; msg=&quot;Scrape failed&quot; err=&quot;Get \&quot;<a href="http://tasks.blackbox-exporter:9115/probe?module=http_2xx&amp;target=https%3A%2F%2Ftranslate.affluences.com%5C%5C">http://tasks.blackbox-exporter:9115/probe?module=http_2xx&amp;target=https%3A%2F%2Ftranslate.affluences.com\\</a>&quot;: context canceled&quot;</li></ul><ul id="f14adcd9-7e5a-476b-bcf7-bc7873db07d0" class="bulleted-list"><li style="list-style-type:disc">level=info ts=2021-10-26T10:49:45.504Z caller=main.go:339 host_details=&quot;(Linux 4.19.0-16-cloud-amd64 #1 SMP Debian 4.19.181-1 (2021-03-19) x86_64 75fec4ff4f03 (none))&quot;</li></ul><ul id="ef3f5900-d390-4ac6-ad6e-558177b5e461" class="bulleted-list"><li style="list-style-type:disc">level=warn ts=2021-10-26T10:49:41.874Z caller=main.go:524 msg=&quot;Received SIGTERM, exiting gracefully...&quot;</li></ul><ul id="70577170-b8c9-40a8-b978-7ab53ecb81e3" class="bulleted-list"><li style="list-style-type:disc">level=warn ts=2021-10-26T10:49:45.504Z caller=main.go:291 deprecation_notice=&quot;&#x27;storage.tsdb.retention&#x27; flag is deprecated use &#x27;storage.tsdb.retention.time&#x27; instead.&quot;</li></ul><ul id="0e39f130-c58c-4e67-9d93-1caef4f8d44a" class="bulleted-list"><li style="list-style-type:disc">level=info ts=2021-10-26T10:49:45.504Z caller=main.go:338 build_context=&quot;(go=go1.14.2, user=root@2117a9e64a7e, date=20200507-16:51:47)&quot;</li></ul><ul id="3fafc3e0-4b98-48c5-8f6e-f994253c7cc3" class="bulleted-list"><li style="list-style-type:disc">level=info ts=2021-10-26T10:49:45.504Z caller=main.go:340 fd_limits=&quot;(soft=1048576, hard=1048576)&quot;</li></ul><ul id="d9db21eb-0ec9-4c0b-93cc-d137e73f6f0c" class="bulleted-list"><li style="list-style-type:disc">level=info ts=2021-10-26T10:49:45.504Z caller=main.go:341 vm_limits=&quot;(soft=unlimited, hard=unlimited)&quot;</li></ul><ul id="86893902-c348-4e62-822e-c210ffdc629a" class="bulleted-list"><li style="list-style-type:disc">level=info ts=2021-10-26T10:50:07.725Z caller=main.go:694 fs_type=EXT4_SUPER_MAGIC</li></ul><h2 id="7172535c-8859-4eed-a7c2-715bd0bebc3c" class="">Representative logs by current approach</h2><ul id="561831b4-858f-414a-8efa-7d3dbce17c8b" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=info ts=2021-10-17T01:00:07.441Z caller=compact.go:495 component=tsdb msg=&quot;write block&quot; mint=1634421600000 maxt=1634428800000 ulid=01FJ5W6ERZEHTDC6FMPJ8E8FPB duration=7.281793412s&#x27;</li></ul><ul id="6fbb0b6f-4483-43ff-9c9a-093be325a92d" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=info ts=2021-10-17T03:00:26.612Z caller=compact.go:441 component=tsdb msg=&quot;compact blocks&quot; count=3 mint=1634407200000 maxt=1634428800000 ulid=01FJ632K79TN6HYZXCAMBJTBVD sources=&quot;[01FJ5EF08M73FGWS6RG8SNTX8C 01FJ5NAQH0S10X97APD14ETD8Y 01FJ5W6ERZEHTDC6FMPJ8E8FPB]&quot; duration=12.938498334s&#x27;</li></ul><ul id="0b32a78c-f7bd-45e1-b835-63383c97351d" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=debug ts=2021-10-26T10:49:41.879Z caller=scrape.go:962 component=&quot;scrape manager&quot; scrape_pool=blackbox-exporter-http2xx target=&quot;<a href="http://tasks.blackbox-exporter:9115/probe?module=http_2xx&amp;target=https%3A%2F%2Ftranslate.affluences.com">http://tasks.blackbox-exporter:9115/probe?module=http_2xx&amp;target=https%3A%2F%2Ftranslate.affluences.com</a>&quot; msg=&quot;Scrape failed&quot; err=&quot;Get \\&quot;<a href="http://tasks.blackbox-exporter:9115/probe?module=http_2xx&amp;target=https%3A%2F%2Ftranslate.affluences.com%5C%5C%5C%5C">http://tasks.blackbox-exporter:9115/probe?module=http_2xx&amp;target=https%3A%2F%2Ftranslate.affluences.com\\\\</a>&quot;: context canceled&quot;&#x27;</li></ul><ul id="4c4dbe48-5ad8-4021-b67d-331554801454" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=info ts=2021-10-26T10:49:45.504Z caller=main.go:339 host_details=&quot;(Linux 4.19.0-16-cloud-amd64 #1 SMP Debian 4.19.181-1 (2021-03-19) x86_64 75fec4ff4f03 (none))&quot;&#x27;</li></ul><h2 id="168e36c9-dff1-4111-ad54-139ba8207265" class="">Representative logs by proposed approach</h2><ul id="6fb81618-0baf-473d-b6ab-21e8b9b86382" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=info ts=2021-10-17T01:00:07.441Z caller=compact.go:495 component=tsdb msg=&quot;write block&quot; mint=1634421600000 maxt=1634428800000 ulid=01FJ5W6ERZEHTDC6FMPJ8E8FPB duration=7.281793412s&#x27;</li></ul><ul id="1b3d10f3-1409-4b14-85b7-6367db7f2f57" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=info ts=2021-10-17T03:00:26.612Z caller=compact.go:441 component=tsdb msg=&quot;compact blocks&quot; count=3 mint=1634407200000 maxt=1634428800000 ulid=01FJ632K79TN6HYZXCAMBJTBVD sources=&quot;[01FJ5EF08M73FGWS6RG8SNTX8C 01FJ5NAQH0S10X97APD14ETD8Y 01FJ5W6ERZEHTDC6FMPJ8E8FPB]&quot; duration=12.938498334s&#x27;</li></ul><ul id="ded0f32e-442c-4f79-8dff-363d25b914f6" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=debug ts=2021-10-18T15:21:47.285Z caller=scrape.go:962 component=&quot;scrape manager&quot; scrape_pool=reservations-service target=http://10.0.11.56:80/_metrics msg=&quot;Scrape failed&quot; err=&quot;Get \\&quot;<a href="http://10.0.11.56/_metrics%5C%5C%5C%5C">http://10.0.11.56:80/_metrics\\\\</a>&quot;: context canceled&quot;&#x27;</li></ul><ul id="2baaa94c-cbc9-4812-b005-08c798beeec3" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=debug ts=2021-10-26T10:49:41.879Z caller=scrape.go:962 component=&quot;scrape manager&quot; scrape_pool=blackbox-exporter-http2xx target=&quot;<a href="http://tasks.blackbox-exporter:9115/probe?module=http_2xx&amp;target=https%3A%2F%2Ftranslate.affluences.com">http://tasks.blackbox-exporter:9115/probe?module=http_2xx&amp;target=https%3A%2F%2Ftranslate.affluences.com</a>&quot; msg=&quot;Scrape failed&quot; err=&quot;Get \\&quot;<a href="http://tasks.blackbox-exporter:9115/probe?module=http_2xx&amp;target=https%3A%2F%2Ftranslate.affluences.com%5C%5C%5C%5C">http://tasks.blackbox-exporter:9115/probe?module=http_2xx&amp;target=https%3A%2F%2Ftranslate.affluences.com\\\\</a>&quot;: context canceled&quot;&#x27;</li></ul><ul id="aea4febe-c6a0-4bf8-8eb9-1a43260f2cf6" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=info ts=2021-10-26T10:49:41.884Z caller=manager.go:882 component=&quot;rule manager&quot; msg=&quot;Stopping rule manager...&quot;&#x27;</li></ul><ul id="a467ef29-d162-4d8f-a767-e1daaa941d37" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=info ts=2021-10-26T10:49:42.051Z caller=notifier.go:601 component=notifier msg=&quot;Stopping notification manager...&quot;&#x27;</li></ul><ul id="a3a5ad71-64f6-4cd7-a4f9-0a03d8eb9e67" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=warn ts=2021-10-26T10:49:45.504Z caller=main.go:291 deprecation_notice=&quot;\&#x27;storage.tsdb.retention\&#x27; flag is deprecated use \&#x27;storage.tsdb.retention.time\&#x27; instead.&quot;&#x27;</li></ul><ul id="e983ff99-d704-45e3-9631-e080a1c9d136" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=info ts=2021-10-26T10:50:07.725Z caller=main.go:694 fs_type=EXT4_SUPER_MAGIC&#x27;</li></ul><h2 id="e3369c77-20af-4560-8c73-ab299bee63c3" class="">Masked representative logs by proposed approach</h2><ul id="b1dad9d4-0f7e-4285-bd79-93a611a0c38d" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=LEVEL ts=TIMESTAMP HTTP component=tsdb msg=&quot;QUOTEDTEXT&quot; mint=NUM maxt=NUM ulid=01FJ5W6ERZEHTDC6FMPJ8E8FPB duration=NUM.281793412s&#x27;</li></ul><ul id="d9368f1e-f294-4c02-ab37-a8b4565679b2" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=LEVEL ts=TIMESTAMP HTTP component=tsdb msg=&quot;QUOTEDTEXT&quot; count=NUM mint=NUM maxt=NUM ulid=01FJ632K79TN6HYZXCAMBJTBVD sources=&quot;QUOTEDTEXT&quot; duration=NUM.938498334s&#x27;</li></ul><ul id="f4f7b4f3-0f94-482b-bc6b-7b100950eaa5" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=LEVEL ts=TIMESTAMP HTTP component=&quot;QUOTEDTEXT&quot; scrape_pool=reservations-service target=http:PATH msg=&quot;QUOTEDTEXT&quot; LEVEL=&quot;QUOTEDTEXT&quot;&#x27;</li></ul><ul id="0b523462-04fd-4aa8-a5ab-fd3647c2999a" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=LEVEL ts=TIMESTAMP HTTP component=&quot;QUOTEDTEXT&quot; scrape_pool=blackbox-exporter-http2xx target=&quot;QUOTEDTEXT&quot; msg=&quot;QUOTEDTEXT&quot; LEVEL=&quot;QUOTEDTEXT&quot;&#x27;</li></ul><ul id="501490dd-2141-415c-8302-a19e2d487c4b" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=LEVEL ts=TIMESTAMP HTTP component=&quot;QUOTEDTEXT&quot; msg=&quot;QUOTEDTEXT&quot;&#x27;</li></ul><ul id="e95d823e-f50f-4dcf-a119-58162df1d2ba" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=LEVEL ts=TIMESTAMP HTTP component=notifier msg=&quot;QUOTEDTEXT&quot;&#x27;</li></ul><ul id="455f14ac-6212-4152-bc8e-314f0698841f" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=LEVEL ts=TIMESTAMP HTTP deprecation_LEVEL=&quot;QUOTEDTEXT&quot;&#x27;</li></ul><ul id="71b7dd0a-0671-43c9-b6fd-bab0e1087028" class="bulleted-list"><li style="list-style-type:disc">&#x27;level=LEVEL ts=TIMESTAMP HTTP fs_type=EXT4_SUPER_MAGIC&#x27;</li></ul><p id="43ef81d3-eba5-4edb-bb50-7fc1d807b27c" class="">
+</p><p id="2a305d95-2e2f-4f9b-87da-59f9db9d401c" class="">Grok-bot usage: 10. Current approach: 4. Proposed approach: 8.</p><p id="dc49fed2-c22b-449c-a93e-2bc673c81544" class="">Misses: Current approach: 6. Proposed approach: 5.</p><p id="e03c7271-a479-42b3-81ec-19acf6e1f3d2" class="">The misses are because of variety in the left hand side value of a &#x27;=&#x27; relationship. Extra logic is needed to addresses the misses.</p><p id="4bb2eef1-842f-497f-967c-c2fe75678d8d" class="">The 3 extra cases of the proposed approach are because of:</p><ul id="151a344c-57f5-40d3-ab5e-ac20ae8c4132" class="bulleted-list"><li style="list-style-type:disc">The proposed approach is able to catch the structure: &#x27;level=* ts=* caller=* component=* msg=*&#x27;<ul id="11f3d464-40cb-4561-9ba4-cc14d4c234a6" class="bulleted-list"><li style="list-style-type:circle">This structure was missed while using the grok-bot because of using msg=%{GREEDYDATA:content} at an earlier stage.</li></ul></li></ul><ul id="8783fc07-ac5f-41bb-b37d-3fe377e3df91" class="bulleted-list"><li style="list-style-type:disc">The different ways (quoted string, raw data) that the fields - target, component - can take their value.</li></ul></div></article></body></html>

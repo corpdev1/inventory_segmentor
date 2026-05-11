@@ -1,0 +1,676 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>data-events</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1c8610f9-e6cd-4854-9993-4ffe6d051622" class="page sans"><header><h1 class="page-title">data-events</h1><p class="page-description"></p></header><div class="page-body"><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>EventId</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>EventTemplate</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Occurrences</th></tr></thead><tbody><tr id="bdd1977c-d1c1-4c1d-bd5b-c9bf8ea2314e"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/fd211f08%20bdd1977cd1c14c1dbd5bc9bf8ea2314e.html">fd211f08</a></td><td class="cell-c`H{"># 033 [ &lt;*&gt; # 033 [ 0m # 033 [ 33mDBG # 033 [ 0m listing and exporting &lt;*&gt; processes took &lt;*&gt; .</td><td class="cell-OiNE">40266</td></tr><tr id="8231a0eb-cebd-4c98-ab9c-fdf5d6a24b6c"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/e4e1e2d7%208231a0ebcebd4c98ab9cfdf5d6a24b6c.html">e4e1e2d7</a></td><td class="cell-c`H{"># 033 [ &lt;*&gt; # 033 [ 0m # 033 [ 32mINF # 033 [ 0m Send processes message to kafka . Message &#x27;s size : &lt;*&gt; bytes</td><td class="cell-OiNE">40266</td></tr><tr id="bde6db7b-669a-4f2a-a8e4-143d96775a5b"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/71151e0a%20bde6db7b669a4f2aa8e4143d96775a5b.html">71151e0a</a></td><td class="cell-c`H{">Starting Rotate log files ...</td><td class="cell-OiNE">16</td></tr><tr id="a365fd59-4d3b-42ff-9f23-44859d77072f"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/67abf287%20a365fd594d3b42ff9f2344859d77072f.html">67abf287</a></td><td class="cell-c`H{">[ origin software= &#x27;&#x27; rsyslogd &#x27;&#x27; swVersion= &#x27;&#x27; 8.1901.0 &#x27;&#x27; x-pid= &#x27;&#x27; 773 &#x27;&#x27; x-info= &#x27;&#x27; https : //www.rsyslog.com &#x27;&#x27; ] rsyslogd was HUPed</td><td class="cell-OiNE">18</td></tr><tr id="d681d638-1c77-4722-b0eb-51cae2deb256"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/7d8a6027%20d681d6381c774722b0eb51cae2deb256.html">7d8a6027</a></td><td class="cell-c`H{">logrotate.service : Succeeded .</td><td class="cell-OiNE">16</td></tr><tr id="79c5f1f0-df00-4126-a0eb-b57db7f512c2"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/856467d9%2079c5f1f0df004126a0ebb57db7f512c2.html">856467d9</a></td><td class="cell-c`H{">Started &lt;*&gt; &lt;*&gt; &lt;*&gt; .</td><td class="cell-OiNE">24</td></tr><tr id="6951f81e-bda4-438f-8048-f7521681d4ee"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/38dda80a%206951f81ebda4438f8048f7521681d4ee.html">38dda80a</a></td><td class="cell-c`H{">Invalid user &lt;*&gt; from &lt;*&gt; port &lt;*&gt;</td><td class="cell-OiNE">29726</td></tr><tr id="dc1aaca1-43a9-4166-88d8-ea0254bf12e0"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/0c75c8e5%20dc1aaca143a9416688d8ea0254bf12e0.html">0c75c8e5</a></td><td class="cell-c`H{">Received disconnect from &lt;*&gt; port &lt;*&gt; : Bye Bye [ preauth ]</td><td class="cell-OiNE">14118</td></tr><tr id="6507da49-1eb7-4909-91e3-e66a4ae2707c"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/716efbeb%206507da491eb7490991e3e66a4ae2707c.html">716efbeb</a></td><td class="cell-c`H{">Disconnected from &lt;*&gt; user &lt;*&gt; &lt;*&gt; port &lt;*&gt; [ preauth ]</td><td class="cell-OiNE">16684</td></tr><tr id="b7dbb7db-7f27-49e1-9f1c-412cadadfe9b"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/65274719%20b7dbb7db7f2749e19f1c412cadadfe9b.html">65274719</a></td><td class="cell-c`H{">pam_unix ( &lt;*&gt; : session ) : session opened for user &lt;*&gt; by ( uid=0 )</td><td class="cell-OiNE">2428</td></tr><tr id="57806fea-59ad-404e-8ce9-a887ce549390"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/4e54e3f9%2057806fea59ad404e8ce9a887ce549390.html">4e54e3f9</a></td><td class="cell-c`H{">( root ) CMD ( command -v debian-sa1 &gt; /dev/null &amp; &amp; debian-sa1 &lt;*&gt; &lt;*&gt; )</td><td class="cell-OiNE">2026</td></tr><tr id="133b4230-6ede-4073-90ca-6eacbf3fa8b5"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/a4eeed7b%20133b42306ede407390ca6eacbf3fa8b5.html">a4eeed7b</a></td><td class="cell-c`H{">pam_unix ( &lt;*&gt; : session ) : session closed for user &lt;*&gt;</td><td class="cell-OiNE">2556</td></tr><tr id="772c27b2-88b4-4841-af99-077eb623f234"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/01459e8d%20772c27b288b44841af99077eb623f234.html">01459e8d</a></td><td class="cell-c`H{">&lt;*&gt; &lt;*&gt; checking version on GitLab : https : //gitlab.packetai.co/installers/linux/raw/affluences/dev/version.txt</td><td class="cell-OiNE">2012</td></tr><tr id="5e19816c-0afc-48d9-8c31-b9ade59b7d9a"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/0023796e%205e19816c0afc48d98c31b9ade59b7d9a.html">0023796e</a></td><td class="cell-c`H{">&lt;*&gt; &lt;*&gt; received version : v1.10.2-ms</td><td class="cell-OiNE">2012</td></tr><tr id="2b3ff972-c83e-403b-bf70-51b0ec7c3aaa"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/61938c65%202b3ff972c83e403bbf7051b0ec7c3aaa.html">61938c65</a></td><td class="cell-c`H{">Connection &lt;*&gt; by &lt;*&gt; port &lt;*&gt; [ preauth ]</td><td class="cell-OiNE">672</td></tr><tr id="13f7e6c8-f872-4b18-9007-967ef07f3ea5"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/8b7060be%2013f7e6c8f8724b189007967ef07f3ea5.html">8b7060be</a></td><td class="cell-c`H{">( root ) CMD ( cd / &amp; &amp; run-parts -- report /etc/cron.hourly )</td><td class="cell-OiNE">336</td></tr><tr id="f85bfa70-3c58-42b2-aa08-e99bd777cf34"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/a7c73975%20f85bfa703c5842b2aa08e99bd777cf34.html">a7c73975</a></td><td class="cell-c`H{">Connection &lt;*&gt; by &lt;*&gt; user &lt;*&gt; &lt;*&gt; port &lt;*&gt; [ preauth ]</td><td class="cell-OiNE">19126</td></tr><tr id="dd4c5846-5cf9-4cb8-a8c4-2ceca7055690"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/5675c906%20dd4c58465cf94cb8a8c42ceca7055690.html">5675c906</a></td><td class="cell-c`H{">Bad protocol version identification &#x27;GET / HTTP/1.1 &#x27; from &lt;*&gt; port &lt;*&gt;</td><td class="cell-OiNE">3816</td></tr><tr id="c6170310-1e50-45e5-b290-5ab14009259c"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/177f445b%20c61703101e5045e5b2905ab14009259c.html">177f445b</a></td><td class="cell-c`H{">Bad protocol version identification &lt;*&gt; &#x27; from &lt;*&gt; port &lt;*&gt;</td><td class="cell-OiNE">3812</td></tr><tr id="b513e379-8e5c-4352-97bc-feb82b7ece23"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/cf94a865%20b513e3798e5c435297bcfeb82b7ece23.html">cf94a865</a></td><td class="cell-c`H{">Did not receive identification string from &lt;*&gt; port &lt;*&gt;</td><td class="cell-OiNE">1072</td></tr><tr id="b7257c36-47d0-4f05-b370-356e81d619eb"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/f76e9f77%20b7257c3647d04f05b370356e81d619eb.html">f76e9f77</a></td><td class="cell-c`H{">( micael-paisnovo ) CMD ( cd /home/micael-paisnovo/scripts &amp; &amp; ./backup.sh )</td><td class="cell-OiNE">4</td></tr><tr id="6e2e684f-4c84-4e6c-a6ae-03090a7e135b"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/f2be41fe%206e2e684f4c844e6ca6ae03090a7e135b.html">f2be41fe</a></td><td class="cell-c`H{">DHCPREQUEST for &lt;*&gt; on &lt;*&gt; to &lt;*&gt; port 67</td><td class="cell-OiNE">134</td></tr><tr id="4501a3e4-ce26-40f9-b5ca-47b49e9b6fc8"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/151a0778%204501a3e4ce2640f9b5ca47b49e9b6fc8.html">151a0778</a></td><td class="cell-c`H{">DHCPACK of &lt;*&gt; from &lt;*&gt;</td><td class="cell-OiNE">134</td></tr><tr id="518df5d1-a817-4d7a-b6ce-4c3d8fb45ef8"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/bb1b47de%20518df5d1a8174d7ab6ce4c3d8fb45ef8.html">bb1b47de</a></td><td class="cell-c`H{">bound to &lt;*&gt; -- renewal in &lt;*&gt; seconds .</td><td class="cell-OiNE">134</td></tr><tr id="5b8a82f9-5c3c-44de-8e7d-10d3ed969b91"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/36e987ef%205b8a82f95c3c44de8e7d10d3ed969b91.html">36e987ef</a></td><td class="cell-c`H{">( CRON ) info ( No MTA installed , discarding output )</td><td class="cell-OiNE">26</td></tr><tr id="f1c38bd9-c11d-4af8-9335-0251dc4952cc"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/fd03fc20%20f1c38bd9c11d4af893350251dc4952cc.html">fd03fc20</a></td><td class="cell-c`H{">Invalid user from &lt;*&gt; port &lt;*&gt;</td><td class="cell-OiNE">16</td></tr><tr id="f3564142-cbf4-43c7-80c5-40a5e7206a9c"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/0aa24270%20f3564142cbf443c780c540a5e7206a9c.html">0aa24270</a></td><td class="cell-c`H{">Connection &lt;*&gt; by invalid user &lt;*&gt; port &lt;*&gt; [ preauth ]</td><td class="cell-OiNE">16</td></tr><tr id="1cebc74c-7b43-4426-a7ca-15fc9edfa22c"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/c2c2420d%201cebc74c7b434426a7ca15fc9edfa22c.html">c2c2420d</a></td><td class="cell-c`H{">Received disconnect from &lt;*&gt; port &lt;*&gt; : Normal Shutdown , Thank you for playing [ preauth ]</td><td class="cell-OiNE">1802</td></tr><tr id="65ff1881-767f-4669-891e-2e7eac1e43ad"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/c4154f2a%2065ff1881767f4669891e2e7eac1e43ad.html">c4154f2a</a></td><td class="cell-c`H{">Unable to negotiate with 221.4.211.230 port 1422 : no matching cipher found . Their offer : aes256-cbc , rijndael-cbc @ lysator.liu.se , aes192-cbc , aes128-cbc , arcfour128 , arcfour,3des-cbc , none [ preauth ]</td><td class="cell-OiNE">2</td></tr><tr id="d39922a8-a4ee-40e0-a519-87b9c3fb7cad"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/f5a594b3%20d39922a8a4ee40e0a51987b9c3fb7cad.html">f5a594b3</a></td><td class="cell-c`H{">Received disconnect from &lt;*&gt; port &lt;*&gt; : &lt;*&gt; &lt;*&gt; &lt;*&gt; [ preauth ]</td><td class="cell-OiNE">38</td></tr><tr id="0941d190-5cc6-4b7f-b89b-8bad44751630"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/420d3716%200941d1905cc64b7fb89b8bad44751630.html">420d3716</a></td><td class="cell-c`H{">Disconnected from &lt;*&gt; port &lt;*&gt; [ preauth ]</td><td class="cell-OiNE">22</td></tr><tr id="61fe5f96-dc0c-461a-a469-6d7fb23c186f"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/348fe7b5%2061fe5f96dc0c461aa4696d7fb23c186f.html">348fe7b5</a></td><td class="cell-c`H{">( root ) CMD ( test -x /usr/sbin/anacron || ( cd / &amp; &amp; run-parts -- report &lt;*&gt; ) )</td><td class="cell-OiNE">18</td></tr><tr id="3b22118b-88a0-4d8a-9952-27e86d4a1104"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/7fa25391%203b22118b88a04d8a995227e86d4a1104.html">7fa25391</a></td><td class="cell-c`H{">Starting Daily apt upgrade and clean activities ...</td><td class="cell-OiNE">14</td></tr><tr id="d695c1a4-7cd7-4695-b899-76c6b16828b6"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/1da39302%20d695c1a47cd74695b89976c6b16828b6.html">1da39302</a></td><td class="cell-c`H{">Package cloud-init has conffile prompt and needs to be upgraded manually</td><td class="cell-OiNE">14</td></tr><tr id="d503a005-7720-484f-a570-0f8b590793e9"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/4035c38c%20d503a0057720484fa5700f8b590793e9.html">4035c38c</a></td><td class="cell-c`H{">apt-daily-upgrade.service : Succeeded .</td><td class="cell-OiNE">14</td></tr><tr id="37da85d9-af19-4165-bf01-d57ae5d181de"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/6c157ff9%2037da85d9af194165bf01d57ae5d181de.html">6c157ff9</a></td><td class="cell-c`H{">Started Daily apt upgrade and clean activities .</td><td class="cell-OiNE">14</td></tr><tr id="e4198185-7950-4940-a1ae-8516a3236a5b"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/d55cc45d%20e419818579504940a1ae8516a3236a5b.html">d55cc45d</a></td><td class="cell-c`H{"># 033 [ &lt;*&gt; # 033 [ 0m # 033 [ 1m # 033 [ 31mERR # 033 [ 0m # 033 [ 0m Problem reading the action pipe . # 033 [ 31merror= # 033 [ 0m # 033 [ 31m &#x27;&#x27; message is not destinated to this agent actual linux604b83a14c58ea0011d6220f vs &lt;*&gt; &#x27;&#x27; # 033 [ 0m</td><td class="cell-OiNE">500</td></tr><tr id="670d2629-a34c-46e6-9a17-883192a329df"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/37780b2c%20670d2629a34c46e69a17883192a329df.html">37780b2c</a></td><td class="cell-c`H{"># 033 [ &lt;*&gt; # 033 [ 0m # 033 [ 33mDBG # 033 [ 0m &lt;*&gt; beat # 033 [ 36mbeat= # 033 [ &lt;*&gt;</td><td class="cell-OiNE">80</td></tr><tr id="766ed9b3-eb16-4af1-9ab0-a436644356e5"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/26e5dd11%20766ed9b3eb164af19ab0a436644356e5.html">26e5dd11</a></td><td class="cell-c`H{"># 033 [ &lt;*&gt; # 033 [ 0m # 033 [ 33mDBG # 033 [ 0m try to configure module : &lt;*&gt; # 033 [ 36mbeat= # 033 [ &lt;*&gt;</td><td class="cell-OiNE">80</td></tr><tr id="2713c01c-daab-4120-ac29-10420ecacb69"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/cd09b1d1%202713c01cdaab4120ac2910420ecacb69.html">cd09b1d1</a></td><td class="cell-c`H{"># 033 [ &lt;*&gt; # 033 [ 0m # 033 [ 33mDBG # 033 [ 0m enabling module &lt;*&gt; # 033 [ 36mbeat= # 033 [ &lt;*&gt;</td><td class="cell-OiNE">80</td></tr><tr id="577814c0-1f5f-4784-860d-55d4d558af74"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/c2a030a7%20577814c01f5f4784860d55d4d558af74.html">c2a030a7</a></td><td class="cell-c`H{">[ metricbeat -c john_mb.yml -- path.home /etc/packetai/metricbeat ]</td><td class="cell-OiNE">20</td></tr><tr id="ceccf5b3-8391-4035-a534-2b2d1cb76c7c"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/c18d68d4%20ceccf5b383914035a5342b2d1cb76c7c.html">c18d68d4</a></td><td class="cell-c`H{"># 033 [ &lt;*&gt; # 033 [ 0m # 033 [ 31mWRN # 033 [ 0m could not report errors to becky</td><td class="cell-OiNE">20</td></tr><tr id="44cf7173-7447-43c7-93fb-68069fc51834"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/cb6ca0f1%2044cf7173744743c793fb68069fc51834.html">cb6ca0f1</a></td><td class="cell-c`H{">Starting Daily apt download activities ...</td><td class="cell-OiNE">26</td></tr><tr id="b7ae6e87-37d2-4e54-8dfd-a9af093c7dcb"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/941b028d%20b7ae6e8737d24e548dfda9af093c7dcb.html">941b028d</a></td><td class="cell-c`H{"># 033 [ &lt;*&gt; # 033 [ 0m # 033 [ 33mDBG # 033 [ 0m ignore process &lt;*&gt; without parent</td><td class="cell-OiNE">26</td></tr><tr id="044127d5-cc61-4c08-94ac-0c8d4c6f5f8c"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/e62eaa7f%20044127d5cc614c0894ac0c8d4c6f5f8c.html">e62eaa7f</a></td><td class="cell-c`H{">apt-daily.service : Succeeded .</td><td class="cell-OiNE">26</td></tr><tr id="59c344a6-a25e-47c1-9b51-b932339129fe"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/a0b49534%2059c344a6a25e47c19b51b932339129fe.html">a0b49534</a></td><td class="cell-c`H{">Started Daily apt download activities .</td><td class="cell-OiNE">26</td></tr><tr id="8e3d8ddf-abc1-418f-b3ec-03b4c588082a"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/9732bb20%208e3d8ddfabc1418fb3ec03b4c588082a.html">9732bb20</a></td><td class="cell-c`H{">Received disconnect from &lt;*&gt; port &lt;*&gt; : &lt;*&gt; &lt;*&gt; &lt;*&gt;</td><td class="cell-OiNE">760</td></tr><tr id="01c1c5b6-d2a2-490a-8b78-3f9099311de1"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/3828dfda%2001c1c5b6d2a2490a8b783f9099311de1.html">3828dfda</a></td><td class="cell-c`H{">Created slice User Slice of UID 1000 .</td><td class="cell-OiNE">8</td></tr><tr id="dd39b23c-22a5-49e2-bbe0-0c2d2956444e"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/6fb03f4a%20dd39b23c22a549e2bbe00c2d2956444e.html">6fb03f4a</a></td><td class="cell-c`H{">Starting User Runtime Directory /run/user/1000 ...</td><td class="cell-OiNE">8</td></tr><tr id="47c63b08-5fc1-4a5d-864a-fdf34cfb7466"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/f54a93b5%2047c63b085fc14a5d864afdf34cfb7466.html">f54a93b5</a></td><td class="cell-c`H{">Started User Runtime Directory /run/user/1000 .</td><td class="cell-OiNE">8</td></tr><tr id="128c6c8e-6185-41ad-967c-0e02713c8cb2"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/f47adec3%20128c6c8e618541ad967c0e02713c8cb2.html">f47adec3</a></td><td class="cell-c`H{">Starting User Manager for UID 1000 ...</td><td class="cell-OiNE">8</td></tr><tr id="6ba7b01f-4870-4dbd-9bbd-adc4bffbf014"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/7f91ffbb%206ba7b01f48704dbd9bbdadc4bffbf014.html">7f91ffbb</a></td><td class="cell-c`H{">Reached target &lt;*&gt; .</td><td class="cell-OiNE">40</td></tr><tr id="24f6aed7-7652-4164-a2b0-02f84a027ac2"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/edaf671e%2024f6aed776524164a2b002f84a027ac2.html">edaf671e</a></td><td class="cell-c`H{">Listening on GnuPG cryptographic agent and passphrase cache ( restricted ) .</td><td class="cell-OiNE">8</td></tr><tr id="988a81fb-c00e-42ac-98ef-dee154160c29"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/606997cd%20988a81fbc00e42ac98efdee154160c29.html">606997cd</a></td><td class="cell-c`H{">Listening on GnuPG cryptographic agent ( ssh-agent emulation ) .</td><td class="cell-OiNE">8</td></tr><tr id="c380c69a-0e80-4677-a80d-56cf2b634c54"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/27d8498d%20c380c69a0e804677a80d56cf2b634c54.html">27d8498d</a></td><td class="cell-c`H{">Listening on GnuPG cryptographic agent and passphrase cache ( access for web browsers ) .</td><td class="cell-OiNE">8</td></tr><tr id="21ccf28c-d2b0-4a35-b36e-18e0373fe984"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/b6761351%2021ccf28cd2b04a35b36e18e0373fe984.html">b6761351</a></td><td class="cell-c`H{">Listening on GnuPG cryptographic agent and passphrase cache .</td><td class="cell-OiNE">8</td></tr><tr id="98d8711e-65e6-4444-8028-01c6b08b2d59"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/da5ad24c%2098d8711e65e64444802801c6b08b2d59.html">da5ad24c</a></td><td class="cell-c`H{">Listening on GnuPG network certificate management daemon .</td><td class="cell-OiNE">8</td></tr><tr id="8ee54bfe-5acf-4a81-b82c-476204c9dd8d"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/ef662c98%208ee54bfe5acf4a81b82c476204c9dd8d.html">ef662c98</a></td><td class="cell-c`H{">Reached target Basic System .</td><td class="cell-OiNE">8</td></tr><tr id="72c2c096-0860-4f8d-aa2c-248fb833f1ce"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/e3c70b49%2072c2c09608604f8daa2c248fb833f1ce.html">e3c70b49</a></td><td class="cell-c`H{">Startup finished in &lt;*&gt; .</td><td class="cell-OiNE">8</td></tr><tr id="f3fd7590-b0f3-4ba2-bdf5-4b534f529c36"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/3d34b58c%20f3fd7590b0f34ba2bdf54b534f529c36.html">3d34b58c</a></td><td class="cell-c`H{">Started User Manager for UID 1000 .</td><td class="cell-OiNE">8</td></tr><tr id="883d35fb-7533-4579-8652-c2f4d9cae240"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/e0dd5230%20883d35fb753345798652c2f4d9cae240.html">e0dd5230</a></td><td class="cell-c`H{">Accepted publickey for raphael-galmiche from &lt;*&gt; port &lt;*&gt; ssh2 : RSA SHA256 : ogop8DqYkJQnurgbLJcs6ze+RvQV5DoBUbRC406s1Z0</td><td class="cell-OiNE">14</td></tr><tr id="8c64f4eb-a5a1-44c5-bfc8-c5ad2954ea22"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/97c844e8%208c64f4eba5a144c5bfc8c5ad2954ea22.html">97c844e8</a></td><td class="cell-c`H{">New session &lt;*&gt; of user raphael-galmiche .</td><td class="cell-OiNE">14</td></tr><tr id="42a946f3-417c-4bbc-bfc1-b6fd649a0390"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/e70f50dd%2042a946f3417c4bbcbfc1b6fd649a0390.html">e70f50dd</a></td><td class="cell-c`H{">Started Session &lt;*&gt; of user raphael-galmiche .</td><td class="cell-OiNE">14</td></tr><tr id="d5d0533c-02c7-43ca-9afc-ae88c6aed837"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/895eedad%20d5d0533c02c743ca9afcae88c6aed837.html">895eedad</a></td><td class="cell-c`H{">raphael-galmiche : &lt;*&gt; ; PWD=/home/raphael-galmiche ; USER=root ; COMMAND=/bin/sh -c echo &lt;*&gt; ; /usr/bin/python &lt;*&gt;</td><td class="cell-OiNE">126</td></tr><tr id="80d7ed85-d34a-47e8-9ed6-14c6bb8a4d8a"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/4e4f4058%2080d7ed85d34a47e89ed614c6bb8a4d8a.html">4e4f4058</a></td><td class="cell-c`H{">pam_unix ( &lt;*&gt; : session ) : session opened for user root by raphael-galmiche ( uid=0 )</td><td class="cell-OiNE">134</td></tr><tr id="be2b4a4a-877c-4bbb-9c7c-10f0c8c2d53c"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/89f34ce5%20be2b4a4a877c4bbb9c7c10f0c8c2d53c.html">89f34ce5</a></td><td class="cell-c`H{">Invoked with filter=* gather_subset= [ &#x27;all &#x27; ] fact_path=/etc/ansible/facts.d gather_timeout=10</td><td class="cell-OiNE">10</td></tr><tr id="4b5c4beb-e9a7-4b85-a5ac-51791b53810d"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/a973682f%204b5c4bebe9a74b85a5ac51791b53810d.html">a973682f</a></td><td class="cell-c`H{">Invoked with purge=False dpkg_options=force-confdef , force-confold autoremove=False force=False force_apt_get=False policy_rc_d=None package= [ &#x27;curl &#x27; ] autoclean=False install_recommends=None name=curl update_cache_retry_max_delay=12 upgrade=None state=present update_cache_retries=5 update_cache=None allow_unauthenticated=False default_release=None only_upgrade=False deb=None cache_valid_time=0</td><td class="cell-OiNE">10</td></tr><tr id="536aba46-dac4-4c2a-a690-6000020095ea"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/02b6cd5f%20536aba46dac44c2aa6906000020095ea.html">02b6cd5f</a></td><td class="cell-c`H{">[ WARNING ] Updating cache and auto-installing missing dependency : python-apt</td><td class="cell-OiNE">2</td></tr><tr id="6ff67693-9a33-4cc6-b1f9-c0da01de30c5"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/8bc9cfe9%206ff676939a334cc6b1f9c0da01de30c5.html">8bc9cfe9</a></td><td class="cell-c`H{">Invoked with purge=False dpkg_options=force-confdef , force-confold autoremove=False force=False force_apt_get=False policy_rc_d=None package=None autoclean=False install_recommends=None allow_unauthenticated=False update_cache_retry_max_delay=12 upgrade=None state=present update_cache_retries=5 update_cache=None default_release=None only_upgrade=False deb=https : //repo.percona.com/apt/percona-release_latest.generic_all.deb cache_valid_time=0</td><td class="cell-OiNE">10</td></tr><tr id="205e2fa3-1d0c-4d32-b09f-36c700cff7c3"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/b2f16c3c%20205e2fa31d0c4d32b09f36c700cff7c3.html">b2f16c3c</a></td><td class="cell-c`H{">Invoked with creates=None executable=None _uses_shell=False strip_empty_ends=True _raw_params=percona-release enable-only tools removes=None argv=None warn=True chdir=None stdin_add_newline=True stdin=None</td><td class="cell-OiNE">2</td></tr><tr id="7afc4aa1-db0a-45f0-a920-b33cca4d2110"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/e5324cee%207afc4aa1db0a45f0a920b33cca4d2110.html">e5324cee</a></td><td class="cell-c`H{">Invoked with purge=False dpkg_options=force-confdef , force-confold autoremove=False force=False force_apt_get=False policy_rc_d=None package=None autoclean=False install_recommends=None allow_unauthenticated=False update_cache_retry_max_delay=12 upgrade=None state=present update_cache_retries=5 update_cache=True default_release=None only_upgrade=False deb=None cache_valid_time=0</td><td class="cell-OiNE">2</td></tr><tr id="419a80b3-fb0c-49f0-a80f-b6b9fa45371f"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/5e8b5692%20419a80b3fb0c49f0a80fb6b9fa45371f.html">5e8b5692</a></td><td class="cell-c`H{">Invoked with purge=False dpkg_options=force-confdef , force-confold autoremove=False force=False force_apt_get=False policy_rc_d=None package= [ &#x27;percona-xtrabackup-80 &#x27; , &#x27;libgcrypt20 &#x27; , &#x27;openssl &#x27; , &#x27;qpress &#x27; ] autoclean=False install_recommends=None allow_unauthenticated=False update_cache_retry_max_delay=12 upgrade=None state=present update_cache_retries=5 update_cache=None pkg= [ &#x27;percona-xtrabackup-80 &#x27; , &#x27;libgcrypt20 &#x27; , &#x27;openssl &#x27; , &#x27;qpress &#x27; ] default_release=None only_upgrade=False deb=None cache_valid_time=0</td><td class="cell-OiNE">10</td></tr><tr id="061b47c5-8279-429a-868f-709480a5e78a"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/a2308566%20061b47c58279429a868f709480a5e78a.html">a2308566</a></td><td class="cell-c`H{">Reloading .</td><td class="cell-OiNE">8</td></tr><tr id="77122f11-55e2-4ccd-8562-68514b8788ce"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/a9cfcf3f%2077122f1155e24ccd856268514b8788ce.html">a9cfcf3f</a></td><td class="cell-c`H{">Condition check resulted in fast remote file copy program daemon being skipped .</td><td class="cell-OiNE">2</td></tr><tr id="e5dab834-8bca-4e21-b6e7-05476b0b61e7"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/9a28469a%20e5dab8348bca4e21b6e705476b0b61e7.html">9a28469a</a></td><td class="cell-c`H{">new group : name=xtrabackup , GID=997</td><td class="cell-OiNE">2</td></tr><tr id="efb8ddaf-2bf4-400c-ab56-ae1fd6c3f6ff"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/51b4fd53%20efb8ddaf2bf4400cab56ae1fd6c3f6ff.html">51b4fd53</a></td><td class="cell-c`H{">new user : name=xtrabackup , UID=997 , GID=997 , home=/home/xtrabackup , shell=/usr/sbin/nologin</td><td class="cell-OiNE">2</td></tr><tr id="8090be31-d01e-4820-8122-ed10c1468021"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/f8c8989a%208090be31d01e48208122ed10c1468021.html">f8c8989a</a></td><td class="cell-c`H{">Invoked with comment=None ssh_key_bits=0 update_password=always non_unique=False force=False skeleton=None create_home=True password_lock=None ssh_key_passphrase=NOT_LOGGING_PARAMETER uid=None home=None append=True ssh_key_type=rsa ssh_key_comment=ansible-generated on mysql-8 group=None system=True state=present role=None hidden=None local=None authorization=None profile=None shell=/usr/sbin/nologin expires=None ssh_key_file=None groups= [ &#x27;mysql &#x27; ] move_home=False password=NOT_LOGGING_PARAMETER name=xtrabackup seuser=None remove=False login_class=None generate_ssh_key=None</td><td class="cell-OiNE">10</td></tr><tr id="747a2204-c562-432c-82a8-739cc05e7c42"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/825637de%20747a2204c562432c82a8739cc05e7c42.html">825637de</a></td><td class="cell-c`H{">add &#x27;xtrabackup &#x27; to group &#x27;mysql &#x27;</td><td class="cell-OiNE">2</td></tr><tr id="fb056dee-862f-4911-9963-e13200fbd5c9"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/b11d9765%20fb056dee862f49119963e13200fbd5c9.html">b11d9765</a></td><td class="cell-c`H{">add &#x27;xtrabackup &#x27; to shadow group &#x27;mysql &#x27;</td><td class="cell-OiNE">2</td></tr><tr id="274953ac-ff2d-4101-b581-fe9422408cd6"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/4b63c1ea%20274953acff2d4101b581fe9422408cd6.html">4b63c1ea</a></td><td class="cell-c`H{">Invoked with src=None access_time=None force=False setype=None _original_basename=None unsafe_writes=False selevel=None seuser=None recurse=False state=directory access_time_format= % Y % m % d % H % M. % S group=mysql modification_time=None serole=None _diff_peek=None modification_time_format= % Y % m % d % H % M. % S &lt;*&gt; owner=xtrabackup follow=True attributes=None mode=0740</td><td class="cell-OiNE">20</td></tr><tr id="02796390-cc45-454c-903e-70a7cfaa78a1"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/8c8c22aa%2002796390cc45454c903e70a7cfaa78a1.html">8c8c22aa</a></td><td class="cell-c`H{">Invoked with checksum_algorithm=sha1 get_checksum=True follow=False &lt;*&gt; get_md5=False get_mime=True get_attributes=True</td><td class="cell-OiNE">20</td></tr><tr id="c38fc89a-7d7c-4855-9405-b82efff83113"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/ca94c4bd%20c38fc89a7d7c48559405b82efff83113.html">ca94c4bd</a></td><td class="cell-c`H{">Invoked with &lt;*&gt; directory_mode=None force=True attributes=None remote_src=None unsafe_writes=False &lt;*&gt; seuser=None serole=None group=mysql content=NOT_LOGGING_PARAMETER &lt;*&gt; setype=None &lt;*&gt; selevel=None owner=xtrabackup follow=False validate=None &lt;*&gt; backup=False local_follow=None</td><td class="cell-OiNE">12</td></tr><tr id="3b71d796-7ddd-497d-8f88-78f42359fa4e"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/2ce92f02%203b71d7967ddd497d8f8878f42359fa4e.html">2ce92f02</a></td><td class="cell-c`H{">raphael-galmiche : TTY=pts/0 ; PWD=/home/raphael-galmiche ; USER=root ; COMMAND=/usr/bin/su</td><td class="cell-OiNE">4</td></tr><tr id="5cf7de24-feb5-4dad-ba13-ff384bcb19c2"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/2946c356%205cf7de24feb54dadba13ff384bcb19c2.html">2946c356</a></td><td class="cell-c`H{">( to root ) raphael-galmiche on pts/0</td><td class="cell-OiNE">4</td></tr><tr id="47b3927a-b01d-4141-a16a-72b59b3422d9"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/642ca2bf%2047b3927ab01d4141a16a72b59b3422d9.html">642ca2bf</a></td><td class="cell-c`H{">Disconnected from user raphael-galmiche &lt;*&gt; port &lt;*&gt;</td><td class="cell-OiNE">10</td></tr><tr id="bf2a7bc0-c41a-40ab-8151-f48d0aeecf3d"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/944dfcbf%20bf2a7bc0c41a40ab8151f48d0aeecf3d.html">944dfcbf</a></td><td class="cell-c`H{">Session &lt;*&gt; logged out . Waiting for processes to exit .</td><td class="cell-OiNE">14</td></tr><tr id="1de5a6ce-8f8b-4b15-a0df-3cc5174b89cf"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/a148eb7c%201de5a6ce8f8b4b15a0df3cc5174b89cf.html">a148eb7c</a></td><td class="cell-c`H{">&lt;*&gt; : Succeeded .</td><td class="cell-OiNE">84</td></tr><tr id="3fcbbb1d-d6f8-4514-81d2-2f7134d23ddb"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/a32ce968%203fcbbb1dd6f8451481d22f7134d23ddb.html">a32ce968</a></td><td class="cell-c`H{">Removed session &lt;*&gt; .</td><td class="cell-OiNE">14</td></tr><tr id="bd713e58-039b-403d-a0af-e20abddda621"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/9b73d116%20bd713e58039b403da0afe20abddda621.html">9b73d116</a></td><td class="cell-c`H{">Invoked with force=False &lt;*&gt; owner=xtrabackup follow=True group=mysql unsafe_writes=False serole=None state=file access_time=None setype=None &lt;*&gt; selevel=None access_time_format= % Y % m % d % H % M. % S modification_time=None &lt;*&gt; src=None seuser=None recurse=False _diff_peek=None &lt;*&gt; modification_time_format= % Y % m % d % H % M. % S attributes=None</td><td class="cell-OiNE">8</td></tr><tr id="8c75f765-b45f-46a7-a01c-eb59d6048152"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/5b720f1e%208c75f765b45f46a7a01ceb59d6048152.html">5b720f1e</a></td><td class="cell-c`H{">Error connecting consumer group cluster : kafka : client has run out of available brokers to talk to ( Is your cluster reachable ? )</td><td class="cell-OiNE">46</td></tr><tr id="549741cb-8ea0-4243-b576-84f737e797f6"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/2761fbe5%20549741cb8ea04243b57684f737e797f6.html">2761fbe5</a></td><td class="cell-c`H{">suberr : kafka : Failed to produce message to topic 6040a96cdcc614001153fc55-procs : kafka : client has run out of available brokers to talk to ( Is your cluster reachable ? )</td><td class="cell-OiNE">88</td></tr><tr id="3a288587-24df-4e6d-9b68-7f54523637bc"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/2f1395d7%203a28858724df4e6d9b687f54523637bc.html">2f1395d7</a></td><td class="cell-c`H{"># 033 [ &lt;*&gt; # 033 [ 0m # 033 [ 1m # 033 [ 31mERR # 033 [ 0m # 033 [ 0m Could not send process list to kafka . # 033 [ 31merror= # 033 [ 0m # 033 [ 31m &#x27;&#x27; could not send messages : kafka : Failed to deliver 1 messages . `` # 033 [ 0m</td><td class="cell-OiNE">96</td></tr><tr id="307850a3-6b78-40db-b25e-e920f7078f0e"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/7671c1da%20307850a36b7840dbb25ee920f7078f0e.html">7671c1da</a></td><td class="cell-c`H{">suberr : kafka : Failed to produce message to topic 6040a96cdcc614001153fc55-procs : kafka server : Request was for a topic or partition that does not exist on this broker .</td><td class="cell-OiNE">4</td></tr><tr id="2a7f3855-56ae-4eb4-bc2a-c1c0a9bedd56"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/0c0e6d91%202a7f385556ae4eb4bc2ac1c0a9bedd56.html">0c0e6d91</a></td><td class="cell-c`H{">suberr : kafka : Failed to produce message to topic 6040a96cdcc614001153fc55-procs : kafka server : In the middle of a leadership election , there is currently no leader for this partition and hence it is unavailable for writes .</td><td class="cell-OiNE">2</td></tr><tr id="e8db654f-6c74-4fff-b931-3682cad790d9"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/5675fa4e%20e8db654f6c744fffb9313682cad790d9.html">5675fa4e</a></td><td class="cell-c`H{">Error connecting consumer group cluster : kafka server : The broker is still loading offsets after a leader change for that offset &#x27;s topic partition .</td><td class="cell-OiNE">2</td></tr><tr id="9c1ae1c2-f14e-4489-af6b-f1865f9c00d9"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/a8a7d34d%209c1ae1c2f14e4489af6bf1865f9c00d9.html">a8a7d34d</a></td><td class="cell-c`H{">Starting Cleanup of Temporary Directories ...</td><td class="cell-OiNE">14</td></tr><tr id="5c212217-d929-45ed-9332-4f00a2cb4566"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/09f67a61%205c212217d92945ed93324f00a2cb4566.html">09f67a61</a></td><td class="cell-c`H{">[ /usr/lib/tmpfiles.d/mysql.conf:23 ] Line references path below legacy directory /var/run/ , updating /var/run/mysqld → /run/mysqld ; please update the tmpfiles.d/ drop-in file accordingly .</td><td class="cell-OiNE">14</td></tr><tr id="06b3fc1f-c9f3-443a-9bc7-e18b65d7b976"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/b862da0e%2006b3fc1fc9f3443a9bc7e18b65d7b976.html">b862da0e</a></td><td class="cell-c`H{">Started Cleanup of Temporary Directories .</td><td class="cell-OiNE">14</td></tr><tr id="ad69575a-5343-4d32-bd02-d7cf5286d8c9"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/b134ffc3%20ad69575a53434d32bd02d7cf5286d8c9.html">b134ffc3</a></td><td class="cell-c`H{">Stopping User Manager for UID 1000 ...</td><td class="cell-OiNE">8</td></tr><tr id="d27313b8-52c3-4f90-9638-62dedbcb5014"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/1cf6a018%20d27313b852c34f90963862dedbcb5014.html">1cf6a018</a></td><td class="cell-c`H{">Stopped target &lt;*&gt; .</td><td class="cell-OiNE">32</td></tr><tr id="67c53388-45c9-49da-aeeb-b83b5086d506"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/01a4e683%2067c5338845c949daaeebb83b5086d506.html">01a4e683</a></td><td class="cell-c`H{">Stopped target Basic System .</td><td class="cell-OiNE">8</td></tr><tr id="703af9cf-ab51-4cac-b7c3-b6ebdee06206"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/f1b659a6%20703af9cfab514cacb7c3b6ebdee06206.html">f1b659a6</a></td><td class="cell-c`H{">Closed GnuPG cryptographic agent and passphrase cache .</td><td class="cell-OiNE">8</td></tr><tr id="3131ea1e-29b7-4b19-808c-72ee20e42f39"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/c57023d0%203131ea1e29b74b19808c72ee20e42f39.html">c57023d0</a></td><td class="cell-c`H{">Closed GnuPG cryptographic agent and passphrase cache ( restricted ) .</td><td class="cell-OiNE">8</td></tr><tr id="9f642a86-eeef-442a-8b9f-c751efc4b808"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/2a76c757%209f642a86eeef442a8b9fc751efc4b808.html">2a76c757</a></td><td class="cell-c`H{">Closed GnuPG cryptographic agent ( ssh-agent emulation ) .</td><td class="cell-OiNE">8</td></tr><tr id="628e6665-17c5-43db-a075-dd3301416e8b"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/38bcfd30%20628e666517c543dba075dd3301416e8b.html">38bcfd30</a></td><td class="cell-c`H{">Closed GnuPG cryptographic agent and passphrase cache ( access for web browsers ) .</td><td class="cell-OiNE">8</td></tr><tr id="118d9a5e-ecd0-4306-aec9-558c5e47c577"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/a4ec4e71%20118d9a5eecd04306aec9558c5e47c577.html">a4ec4e71</a></td><td class="cell-c`H{">Closed GnuPG network certificate management daemon .</td><td class="cell-OiNE">8</td></tr><tr id="f8dc702f-2e0b-4212-909b-3bd19484dbde"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/7645f934%20f8dc702f2e0b4212909b3bd19484dbde.html">7645f934</a></td><td class="cell-c`H{">Reached target Exit the Session .</td><td class="cell-OiNE">8</td></tr><tr id="c6612819-8557-4265-8e95-9dbf34ee767d"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/cd755d30%20c6612819855742658e959dbf34ee767d.html">cd755d30</a></td><td class="cell-c`H{">user @ 1000.service : Succeeded .</td><td class="cell-OiNE">8</td></tr><tr id="bf515650-80a8-4bef-a543-94b2045a74d4"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/05b813dd%20bf51565080a84befa54394b2045a74d4.html">05b813dd</a></td><td class="cell-c`H{">Stopped User Manager for UID 1000 .</td><td class="cell-OiNE">8</td></tr><tr id="03d52f11-730e-4210-be09-0a7b0ac95817"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/c825484d%2003d52f11730e4210be090a7b0ac95817.html">c825484d</a></td><td class="cell-c`H{">Stopping User Runtime Directory /run/user/1000 ...</td><td class="cell-OiNE">8</td></tr><tr id="dae410c1-7e31-4a1d-b917-349b6049ffaf"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/21a833dc%20dae410c17e314a1db917349b6049ffaf.html">21a833dc</a></td><td class="cell-c`H{">user-runtime-dir @ 1000.service : Succeeded .</td><td class="cell-OiNE">8</td></tr><tr id="64ba217e-ccd6-483c-bf7b-63ce45d80b5a"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/411c8ee4%2064ba217eccd6483cbf7b63ce45d80b5a.html">411c8ee4</a></td><td class="cell-c`H{">Stopped User Runtime Directory /run/user/1000 .</td><td class="cell-OiNE">8</td></tr><tr id="5882d257-6058-40d5-af37-e52faa0abde0"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/afe7666b%205882d257605840d5af37e52faa0abde0.html">afe7666b</a></td><td class="cell-c`H{">Removed slice User Slice of UID 1000 .</td><td class="cell-OiNE">8</td></tr><tr id="74de13f5-90ae-45f8-8f89-07653ce4c417"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/81ae77c4%2074de13f590ae45f88f8907653ce4c417.html">81ae77c4</a></td><td class="cell-c`H{">Bad protocol version identification &#x27;\026\003\001\001 \001 &#x27; from 164.52.24.164 port 55133</td><td class="cell-OiNE">2</td></tr><tr id="007deafc-b3d0-4327-9a15-8362195345e4"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/6bec5a9c%20007deafcb3d043279a158362195345e4.html">6bec5a9c</a></td><td class="cell-c`H{">Invoked with &lt;*&gt; insertbefore=None job=/var/lib/xtrabackup/run_backup &lt;*&gt; &lt;*&gt; reboot=False &lt;*&gt; month=* disabled=False state=present special_time=None user=xtrabackup env=False insertafter=None backup=False day=* minute=0 weekday=*</td><td class="cell-OiNE">12</td></tr><tr id="7967e7d0-dbc8-4876-a508-15835fc99aa8"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/b1e6f70f%207967e7d0dbc84876a50815835fc99aa8.html">b1e6f70f</a></td><td class="cell-c`H{">( &lt;*&gt; ) &lt;*&gt; ( &lt;*&gt; )</td><td class="cell-OiNE">68</td></tr><tr id="d9ec7b7b-1048-4f1f-80bc-e81d3cab57f4"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/71733a0a%20d9ec7b7b10484f1f80bce81d3cab57f4.html">71733a0a</a></td><td class="cell-c`H{">( root ) &lt;*&gt; EDIT ( micael-paisnovo )</td><td class="cell-OiNE">4</td></tr><tr id="afad97ef-4567-4f1e-b92f-00892b7e2e35"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/4cf0d908%20afad97ef45674f1eb92f00892b7e2e35.html">4cf0d908</a></td><td class="cell-c`H{">pam_unix ( sudo : auth ) : authentication failure ; logname=raphael-galmiche uid=1000 euid=0 tty=/dev/pts/0 ruser=raphael-galmiche rhost= user=raphael-galmiche</td><td class="cell-OiNE">2</td></tr><tr id="2ba4f296-55c2-4151-80fa-4200d82da52d"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/0ed1d492%202ba4f29655c2415180fa4200d82da52d.html">0ed1d492</a></td><td class="cell-c`H{">pam_unix ( sudo : auth ) : conversation failed</td><td class="cell-OiNE">2</td></tr><tr id="34fd6091-5de4-4206-8db9-b6d668205e79"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/535e4177%2034fd60915de442068db9b6d668205e79.html">535e4177</a></td><td class="cell-c`H{">pam_unix ( sudo : auth ) : auth could not identify password for [ raphael-galmiche ]</td><td class="cell-OiNE">2</td></tr><tr id="d2bcea0d-1850-4fe4-b632-123b75a9554b"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/16a01e1c%20d2bcea0d18504fe4b632123b75a9554b.html">16a01e1c</a></td><td class="cell-c`H{">raphael-galmiche : 1 incorrect password attempt ; TTY=pts/0 ; PWD=/home/raphael-galmiche ; USER=root ; COMMAND=/bin/sh -c echo BECOME-SUCCESS-zfamrecjszvjznpkzeiywttgcioqeahf ; /usr/bin/python /home/raphael-galmiche/.ansible/tmp/ansible-tmp-1630621240.8320682-17648-267409757535553/AnsiballZ_setup.py</td><td class="cell-OiNE">2</td></tr><tr id="706b7ff8-4aba-4270-bade-d0ab54382770"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/b161a41e%20706b7ff84aba4270baded0ab54382770.html">b161a41e</a></td><td class="cell-c`H{">( xtrabackup ) CMD ( /var/lib/xtrabackup/run_backup &lt;*&gt; )</td><td class="cell-OiNE">22</td></tr><tr id="04eec60d-135d-4407-a55a-3a1e6a425810"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/6b59093b%2004eec60d135d4407a55a3a1e6a425810.html">6b59093b</a></td><td class="cell-c`H{">Unable to negotiate with &lt;*&gt; port &lt;*&gt; : no matching host key type found . Their offer : &lt;*&gt; [ preauth ]</td><td class="cell-OiNE">8</td></tr><tr id="bae48980-a8c3-4062-88cd-b2c4e40f6bea"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/8be49d4e%20bae48980a8c3406288cdb2c4e40f6bea.html">8be49d4e</a></td><td class="cell-c`H{">Bad protocol version identification `` from 162.142.125.128 port &lt;*&gt;</td><td class="cell-OiNE">6</td></tr><tr id="b0965481-e4c9-4c6c-b268-bf1819358b13"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/b0c85a44%20b0965481e4c94c6cb268bf1819358b13.html">b0c85a44</a></td><td class="cell-c`H{">error : maximum authentication attempts exceeded for root from 222.168.30.19 port &lt;*&gt; ssh2 [ preauth ]</td><td class="cell-OiNE">4</td></tr><tr id="358bef5f-5c56-4ef1-9169-8a935145f58e"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/c7931ef3%20358bef5f5c564ef191698a935145f58e.html">c7931ef3</a></td><td class="cell-c`H{">Disconnecting &lt;*&gt; user &lt;*&gt; 222.168.30.19 port &lt;*&gt; : Too many authentication failures [ preauth ]</td><td class="cell-OiNE">30</td></tr><tr id="7e3df83c-11d6-48fd-8658-735526733f97"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/f79c0809%207e3df83c11d648fd8658735526733f97.html">f79c0809</a></td><td class="cell-c`H{">error : maximum authentication attempts exceeded for invalid user &lt;*&gt; from 222.168.30.19 port &lt;*&gt; ssh2 [ preauth ]</td><td class="cell-OiNE">26</td></tr><tr id="b9cd7c7a-98e8-4c8d-8db8-f5beb6693124"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/81469d09%20b9cd7c7a98e84c8d8db8f5beb6693124.html">81469d09</a></td><td class="cell-c`H{">Protocol major versions differ for 27.115.124.36 port 35706 : SSH-2.0-OpenSSH_7.9p1 Debian-10+deb10u2 vs. SSH-1.5-Server</td><td class="cell-OiNE">2</td></tr><tr id="db210f67-3895-44dc-9157-9513597f2565"><td class="cell-title"><a href="data-events%201c8610f9e6cd485499934ffe6d051622/04c5e837%20db210f67389544dc91579513597f2565.html">04c5e837</a></td><td class="cell-c`H{"># 033 [ &lt;*&gt; # 033 [ 0m # 033 [ 1m # 033 [ 31mERR # 033 [ 0m # 033 [ 0m could not unmarshal health check response : invalid character &#x27; &lt; &#x27; looking for beginning of value # 033 [ 31merror= # 033 [ 0m # 033 [ 31m &#x27;&#x27; invalid character &#x27; &lt; &#x27; looking for beginning of value &#x27;&#x27; # 033 [ 0m</td><td class="cell-OiNE">4</td></tr></tbody></table><br/><br/></div></article></body></html>

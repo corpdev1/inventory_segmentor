@@ -1,0 +1,935 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Initial experiment</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2bf39d65-4988-4b66-b336-0972fcedce9e" class="page sans"><header><h1 class="page-title">Initial experiment</h1><p class="page-description"></p></header><div class="page-body"><p id="f194532b-c5a2-4bc2-8a48-2267f26079e4" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><p id="0edf2d0d-36e9-471d-8c26-b3d991ac720c" class="">In this experiment we run the script given at the top of <a href="../Testing%20FluxInfer%20a16a932ef17949cba32d66f847193ebc.html">this link</a> on the ten cases described <a href="../Creating%20incidents%20with%20OLTP-Benchmark%20and%20Stress-%202333e9af6b304dd9837ff5d0d98ba96f.html">here</a>. An incident is marked each time MAD detects a global anomaly.</p><p id="71adc5fa-f9a0-437b-b421-5b182f2f4c99" class="">Points to note:</p><ul id="09c9aa43-45a3-4c7c-8231-92d1a9632c06" class="bulleted-list"><li style="list-style-type:disc">The operations of mysqldump, log-flush, refresh are not slowing down database operation. People are talking about ways in which mysqldump can be done after locking the database at some level. This has to be explored.</li></ul><ul id="ab1bc084-7c16-4114-9b93-4180546455a6" class="bulleted-list"><li style="list-style-type:disc">With saturation of CPU/Memory/IO, our expectation was to see an increase in latency, instead we are seeing a decrease in throughput. Thus, there is no discernible effect on the average latency, instead number of questions reduces.</li></ul><ul id="e3ab56e2-b032-4183-85b6-be71634fd731" class="bulleted-list"><li style="list-style-type:disc">By using the current script, table restore leads to SQL error later (duplicate entries in the tables). Thus, it is not possible to run other scripts. Right now, the database (<code>tpcc</code>) is deleted and recreated (refer ), after running the script for this incident.</li></ul><h2 id="dcf6792c-cbb0-4532-8e96-68ef709330f3" class="">Results</h2><h3 id="155506d6-2a08-4e78-b5ee-41ef230c9638" class="">CPU Saturation</h3><p id="c6e3c499-1fb9-408f-a833-0e165edf2c47" class="">Number of incidents = 10, green KPIs = 2, yellow KPIs = 0, red KPIs = 8
+Incident number 0
+Top KPIs
+KPI: no_subject|mysql.status|mysql#status#threads#cached, Rank score: 0.044513168168408584.
+KPI: no_subject|mysql.status|mysql#status#threads#connected, Rank score: 0.04451316816840855.
+KPI: no_subject|mysql.status|mysql#status#bytes#sent, Rank score: 0.04115329157659595.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.03996597826060979.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait, Rank score: 0.038979326712161685.</p><p id="02d6fbb5-6163-4649-b7fd-38ce91e9884e" class="">
+Anomalous KPIs
+/home/hariprasad-packetai/work/dev/code/ml/mad/results/data/af211-af211/cpusat/mysql.status/mysql#status#threads#cached/no_subject/no_subject|mysql.status|mysql#status#threads#cached.csv
+Incident number 1
+Top KPIs
+KPI: no_subject|mysql.status|mysql#status#connections, Rank score: 0.04972903669247697.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.04165412047833482.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#dirty, Rank score: 0.034872803088598484.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#dirty, Rank score: 0.03487280308859848.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc, Rank score: 0.034127514369286384.
+Anomalous KPIs
+/home/hariprasad-packetai/work/dev/code/ml/mad/results/data/af211-af211/cpusat/mysql.status/mysql#status#innodb#buffer_pool#pages#misc/no_subject/no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc.csv
+Incident number 2
+Top KPIs
+KPI: no_subject|mysql.status|mysql#status#opened_tables, Rank score: 0.035923483577254785.
+KPI: no_subject|mysql.status|mysql#status#open#tables, Rank score: 0.03592348356667949.
+KPI: no_subject|mysql.status|mysql#status#cache#table#open_cache#misses, Rank score: 0.03592348355025024.
+KPI: no_subject|mysql.status|mysql#status#connections, Rank score: 0.030728194158688157.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#write_requests, Rank score: 0.030272605917332898.
+Anomalous KPIs
+/home/hariprasad-packetai/work/dev/code/ml/mad/results/data/af211-af211/cpusat/mysql.status/mysql#status#innodb#buffer_pool#pool#wait_free/no_subject/no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free.csv
+Incident number 3
+Top KPIs
+KPI: no_subject|mysql.status|mysql#status#opened_tables, Rank score: 0.03593645985148647.
+KPI: no_subject|mysql.status|mysql#status#open#tables, Rank score: 0.0359364598393007.
+KPI: no_subject|mysql.status|mysql#status#cache#table#open_cache#misses, Rank score: 0.0359364598195593.
+KPI: no_subject|mysql.status|mysql#status#connections, Rank score: 0.03064147409641314.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#write_requests, Rank score: 0.030274311784149046.
+Anomalous KPIs
+/home/hariprasad-packetai/work/dev/code/ml/mad/results/data/af211-af211/cpusat/mysql.status/mysql#status#innodb#buffer_pool#pool#wait_free/no_subject/no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free.csv
+Incident number 4
+Top KPIs
+KPI: no_subject|mysql.status|mysql#status#handler#read#rnd_next, Rank score: 0.05113513310440977.
+KPI: no_subject|mysql.status|mysql#status#handler#read#rnd, Rank score: 0.05112646290010561.
+KPI: no_subject|mysql.status|mysql#status#connections, Rank score: 0.04105909681686354.
+KPI: no_subject|mysql.status|mysql#status#innodb#rows#deleted, Rank score: 0.03343495913099608.
+KPI: no_subject|mysql.status|mysql#status#handler#read#next, Rank score: 0.033172761355533445.
+Anomalous KPIs
+/home/hariprasad-packetai/work/dev/code/ml/mad/results/data/af211-af211/cpusat/mysql.status/mysql#status#innodb#buffer_pool#pages#misc/no_subject/no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc.csv
+Incident number 5
+Top KPIs
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.044881172959467044.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#data, Rank score: 0.03561900650459674.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data, Rank score: 0.035619006504596734.
+KPI: no_subject|mysql.status|mysql#status#threads#cached, Rank score: 0.035609864987500864.
+KPI: no_subject|mysql.status|mysql#status#threads#connected, Rank score: 0.03560986498750086.
+Anomalous KPIs
+/home/hariprasad-packetai/work/dev/code/ml/mad/results/data/af211-af211/cpusat/mysql.status/mysql#status#innodb#buffer_pool#pages#misc/no_subject/no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc.csv
+Incident number 6
+Top KPIs
+KPI: no_subject|mysql.status|mysql#status#opened_tables, Rank score: 0.035923483577254785.
+KPI: no_subject|mysql.status|mysql#status#open#tables, Rank score: 0.03592348356667949.
+KPI: no_subject|mysql.status|mysql#status#cache#table#open_cache#misses, Rank score: 0.03592348355025024.
+KPI: no_subject|mysql.status|mysql#status#connections, Rank score: 0.030728194158688157.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#write_requests, Rank score: 0.030272605917332898.
+Anomalous KPIs
+/home/hariprasad-packetai/work/dev/code/ml/mad/results/data/af211-af211/cpusat/mysql.status/mysql#status#innodb#buffer_pool#pool#wait_free/no_subject/no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free.csv
+Incident number 7
+Top KPIs
+KPI: no_subject|mysql.status|mysql#status#opened_tables, Rank score: 0.03593645985148647.
+KPI: no_subject|mysql.status|mysql#status#open#tables, Rank score: 0.0359364598393007.
+KPI: no_subject|mysql.status|mysql#status#cache#table#open_cache#misses, Rank score: 0.0359364598195593.
+KPI: no_subject|mysql.status|mysql#status#connections, Rank score: 0.03064147409641314.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#write_requests, Rank score: 0.030274311784149046.
+Anomalous KPIs
+/home/hariprasad-packetai/work/dev/code/ml/mad/results/data/af211-af211/cpusat/mysql.status/mysql#status#innodb#buffer_pool#pool#wait_free/no_subject/no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free.csv
+Incident number 8
+Top KPIs
+KPI: no_subject|mysql.status|mysql#status#handler#read#rnd_next, Rank score: 0.05113513310440977.
+KPI: no_subject|mysql.status|mysql#status#handler#read#rnd, Rank score: 0.05112646290010561.
+KPI: no_subject|mysql.status|mysql#status#connections, Rank score: 0.04105909681686354.
+KPI: no_subject|mysql.status|mysql#status#innodb#rows#deleted, Rank score: 0.03343495913099608.
+KPI: no_subject|mysql.status|mysql#status#handler#read#next, Rank score: 0.033172761355533445.
+Anomalous KPIs
+/home/hariprasad-packetai/work/dev/code/ml/mad/results/data/af211-af211/cpusat/mysql.status/mysql#status#innodb#buffer_pool#pages#misc/no_subject/no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc.csv
+Incident number 9
+Top KPIs
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.044881172959467044.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#data, Rank score: 0.03561900650459674.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data, Rank score: 0.035619006504596734.
+KPI: no_subject|mysql.status|mysql#status#threads#cached, Rank score: 0.035609864987500864.
+KPI: no_subject|mysql.status|mysql#status#threads#connected, Rank score: 0.03560986498750086.
+Anomalous KPIs
+/home/hariprasad-packetai/work/dev/code/ml/mad/results/data/af211-af211/cpusat/mysql.status/mysql#status#innodb#buffer_pool#pages#misc/no_subject/no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc.csv
+[&#x27;no_subject|mysql.status|mysql#status#threads#cached 1609246230000:green:0:0.044513168168408584&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc 1609247520000:green:4:0.034127514369286384&#x27;]
+[]
+[&#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free 1609248680000:red:20:0.03009118406594922&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free 1609248700000:red:20:0.0300895827872836&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc 1609249430000:red:28:0.024292053591207178&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc 1609251120000:red:10:0.03072495149777872&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free 1609248680000:red:20:0.03009118406594922&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free 1609248700000:red:20:0.0300895827872836&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc 1609249430000:red:28:0.024292053591207178&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#misc 1609251120000:red:10:0.03072495149777872&#x27;]</p><p id="56753af6-41f8-449c-b7dd-4e1a928b2019" class="">
+</p><h3 id="0528f1df-f4a4-4454-8086-8228d9adeda1" class="">Memory Saturation</h3><p id="bec73b71-0339-4e97-999b-ecb6f2b4605e" class="">
+</p><p id="fcbb3df3-1913-4789-a860-fe680da903ae" class="">Number of incidents = 8, green cases = 0, yellow = 2, red = 6
+[]
+[&#x27;no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait 1609255840000:yellow:6&#x27;, &#x27;no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait 1609255850000:yellow:6&#x27;]
+[&#x27;no_subject|mysql.status|mysql#status#cache#table#open_cache#misses 1609255940000:red:25&#x27;, &#x27;no_subject|mysql.status|mysql#status#open#tables 1609255940000:red:26&#x27;, &#x27;no_subject|mysql.status|mysql#status#opened_tables 1609255940000:red:27&#x27;, &#x27;no_subject|mysql.status|mysql#status#cache#table#open_cache#misses 1609255950000:red:25&#x27;, &#x27;no_subject|mysql.status|mysql#status#open#tables 1609255950000:red:26&#x27;, &#x27;no_subject|mysql.status|mysql#status#opened_tables 1609255950000:red:27&#x27;]</p><p id="060cb932-5e69-41cd-aa9f-8f859eeff47b" class="">
+</p><h3 id="0411c20e-8f28-42c5-b852-f2bbb675c569" class="">IO Saturation</h3><p id="32659116-a0ee-4777-8b21-de6f79e0966e" class="">
+</p><p id="ff274156-13b7-493d-befe-5e7960cefb5b" class="">Number of incidents = 1, green cases = 0, yellow = 0, red = 1</p><p id="168f84b0-533b-4ddc-8fdd-307e53816847" class="">Incident number 0
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait, Rank score: 0.039063652700641466.
+KPI: no_subject|mysql.status|mysql#status#handler#read#rnd, Rank score: 0.03853480706587273.
+KPI: no_subject|mysql.status|mysql#status#handler#read#rnd_next, Rank score: 0.03785272431224882.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#count#star, Rank score: 0.03754084643906976.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#avg#timer#wait, Rank score: 0.028807719308143534.</p><p id="1bee7b55-489d-4f26-9f49-4ea9685cb769" class="">[]
+[]
+[&#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free 1609260410000:red:34:0.0041968332602893505&#x27;]</p><p id="43abb6ae-11cf-4225-903c-41828ea02252" class="">
+</p><h3 id="160f97d5-a6b1-455b-aee6-77b0dfcbdb1a" class="">Workload spike</h3><p id="c3c9b22c-3d7d-4005-abd1-a286efa91c6e" class="">
+</p><p id="78965793-cadd-4516-9cfe-aa83fbc172ff" class="">Number of incidents = 6, green cases = 3, yellow = 3, red = 8</p><p id="681e91a7-6d53-44ff-8b80-395d3722bbb5" class="">Incident number 0
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.04419210808442891.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait, Rank score: 0.034841149943724094.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#dirty, Rank score: 0.03342937976811367.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#dirty, Rank score: 0.03342937976811367.
+KPI: no_subject|mysql.performance|mysql#performance#table_io_waits#count#fetch, Rank score: 0.03294761876885128.</p><p id="8e71933d-1720-4694-9f0b-c3c6512a5890" class="">
+Incident number 1
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.0454175133590402.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait, Rank score: 0.033515655623592065.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#dirty, Rank score: 0.03343097716564176.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#dirty, Rank score: 0.03343097716564176.
+KPI: no_subject|mysql.performance|mysql#performance#table_io_waits#count#fetch, Rank score: 0.03292545368264245.
+Incident number 2
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.045846874950666326.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#dirty, Rank score: 0.033432153007245634.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#dirty, Rank score: 0.033432153007245634.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait, Rank score: 0.03310839381510604.
+KPI: no_subject|mysql.performance|mysql#performance#table_io_waits#count#fetch, Rank score: 0.032851493991787745.
+Incident number 3
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.045951474347522905.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#dirty, Rank score: 0.03341477619505091.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#dirty, Rank score: 0.03341477619505091.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait, Rank score: 0.03299326425499443.
+KPI: no_subject|mysql.performance|mysql#performance#table_io_waits#count#fetch, Rank score: 0.03284888505544925.
+Incident number 4
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.048190497544799954.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#dirty, Rank score: 0.033437823127991165.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#dirty, Rank score: 0.033437823127991165.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data, Rank score: 0.03206549547000176.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#data, Rank score: 0.03206549547000176.
+Incident number 5
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.049211246176666855.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#dirty, Rank score: 0.0334370614995519.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#dirty, Rank score: 0.03343706149955189.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data, Rank score: 0.03207506497719439.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#data, Rank score: 0.03207506497719439.</p><p id="de0d2fe7-8f18-47cd-9007-123c50d63538" class="">[&#x27;no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait 1609239920000:green:1:0.034841149943724094&#x27;, &#x27;no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait 1609239940000:green:3:0.03310839381510604&#x27;, &#x27;no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait 1609239950000:green:3:0.03299326425499443&#x27;]
+[&#x27;no_subject|mysql.status|mysql#status#threads#running 1609239930000:yellow:7:0.027032183640160773&#x27;, &#x27;no_subject|mysql.status|mysql#status#cache#table#open_cache#misses 1609239930000:yellow:8:0.027031543286340838&#x27;, &#x27;no_subject|mysql.status|mysql#status#open#tables 1609239930000:yellow:9:0.027031543286340838&#x27;]
+[&#x27;no_subject|mysql.status|mysql#status#opened_tables 1609239930000:red:10:0.027031543286340838&#x27;, &#x27;no_subject|mysql.status|mysql#status#connections 1609239930000:red:11:0.027031275330034&#x27;, &#x27;no_subject|mysql.status|mysql#status#threads#connected 1609239930000:red:12:0.027031275330034&#x27;, &#x27;no_subject|mysql.status|mysql#status#max_used_connections 1609239930000:red:13:0.027031275330034&#x27;, &#x27;no_subject|mysql.status|mysql#status#threads#created 1609239930000:red:14:0.027031275330034&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free 1609239930000:red:35:0.00406645802545532&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free 1609240000000:red:36:0.004071769530398944&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free 1609240020000:red:36:0.004055911316956504&#x27;]</p><p id="2e17e3cd-309c-40bb-a0f1-1b0924dd012b" class="">
+</p><h3 id="5c960827-e29e-4504-a0d2-b3d84ddaff64" class="">Contention</h3><p id="8ebf85a8-08f9-4852-aa23-86adfb45c99b" class="">
+</p><p id="565f6226-456b-4a10-bf6d-c90d5d08f279" class="">Number of incidents = 4, green cases = 4, yellow = 1, red = 6</p><p id="e7dc8729-7881-4a78-9e84-3a1aef368ec3" class="">Incident number 0
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data, Rank score: 0.039731070377692565.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#data, Rank score: 0.039731070377692565.
+KPI: no_subject|mysql.status|mysql#status#innodb#rows#reads, Rank score: 0.03970375379943427.
+KPI: no_subject|mysql.status|mysql#status#binlog#cache#use, Rank score: 0.03612667521189333.
+KPI: no_subject|mysql.status|mysql#status#innodb#rows#updated, Rank score: 0.036114813435416546.</p><p id="a670aa98-76eb-446c-8a1a-3ec5fd738c63" class="">
+Incident number 1
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.03739189607656611.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait, Rank score: 0.03733479227518774.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#avg#timer#wait, Rank score: 0.0372764625596471.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data, Rank score: 0.03600055429859148.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#data, Rank score: 0.03600055429859148.</p><p id="8d972b4e-9b47-40f6-accb-5ed38562f525" class="">
+Incident number 2
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.03771102696686727.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait, Rank score: 0.037664199440889584.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#avg#timer#wait, Rank score: 0.037636439106710315.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data, Rank score: 0.035623593022670506.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#data, Rank score: 0.035623593022670506.</p><p id="28cc8f80-3771-4ac7-8c78-9203c522f7b9" class="">
+Incident number 3
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#dirty, Rank score: 0.03549112370178048.
+KPI: no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#dirty, Rank score: 0.03549112370178046.
+KPI: no_subject|mysql.status|mysql#status#handler#read#rnd, Rank score: 0.03397512946332381.
+KPI: no_subject|mysql.status|mysql#status#handler#read#rnd_next, Rank score: 0.0337678701287229.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.03143822922909141.</p><p id="75344b12-0b7b-406e-b6db-a76f7552128b" class="">
+</p><p id="7699a917-825c-47ce-9c27-4800a01818c4" class="">[&#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#data 1609657040000:green:3:0.03600055429859148&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#data
+1609657040000:green:4:0.03600055429859148&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#dirty 1609657160000:green:0:0.03549112370178048&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#dirty 1609657160000:green:1:0.03549112370178046&#x27;]</p><p id="ef1cdefb-34e0-4402-9eb8-c483106735dc" class="">
+[&#x27;no_subject|mysql.status|mysql#status#cache#table#open_cache#misses 1609655830000:yellow:9:0.03595068287359336&#x27;]</p><p id="3e910ac7-2649-4a34-a075-45156ffaad30" class="">
+[&#x27;no_subject|mysql.status|mysql#status#open#tables 1609655830000:red:10:0.03595068287359336&#x27;, &#x27;no_subject|mysql.status|mysql#status#opened_tables 1609655830000:red:11:0.03595068287359336&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free 1609657040000:red:12:0.029737776180529224&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pages#dirty 1609657040000:red:29:0.02943728259613584&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#bytes#dirty 1609657040000:red:30:0.029437282596135813&#x27;, &#x27;no_subject|mysql.status|mysql#status#innodb#buffer_pool#pool#wait_free 1609657100000:red:30:0.02941957446755521&#x27;]</p><p id="19dc6c73-e06b-4be9-84e8-c73d77e96667" class="">
+</p><h3 id="76523e63-72f3-4adc-be29-0580e06c81cc" class="">MySQL Dump</h3><p id="6aedc60a-d052-406f-9da1-0fb076af4751" class="">
+</p><p id="778cb1c2-2eb9-4d40-8809-9612819f2715" class="">No anomalies detected.</p><p id="295f9cce-fcd9-4056-90d7-1743e71532ae" class="">
+</p><h3 id="c131ab7d-7a74-4264-ba85-f854e92e89f3" class="">Flush refresh</h3><p id="eeeca8b0-b52d-4ca3-a262-36616ce51d2d" class="">
+</p><p id="9694b20c-afac-49eb-b3c7-3020ef679b3e" class="">No anomalies detected.</p><p id="709463b3-7a8b-4fc2-b8c1-f9182614a180" class="">
+</p><h3 id="98048ebe-7c2f-464f-9a53-2f9e2f91d689" class="">Restore Table</h3><p id="4ba1bf71-a972-4461-9d6a-8920de6aa31d" class="">
+</p><p id="c413ca39-83c9-4864-974e-cb6c62473366" class="">Number of incidents = 5, green KPIs = 2, yellow KPIs = 2, red KPIs = 8
+</p><p id="415c0f09-33e9-4216-b360-5f36c49c25b9" class="">Incident number 0
+Top KPIs
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#avg#timer#wait, Rank score: 0.03363936213659084.
+KPI: no_subject|mysql.status|mysql#status#connections, Rank score: 0.032867526640732454.
+KPI: no_subject|mysql.status|mysql#status#handler#read#next, Rank score: 0.03126934497637295.
+KPI: no_subject|mysql.status|mysql#status#innodb#rows#deleted, Rank score: 0.030903367654531423.
+KPI: no_subject|mysql.status|mysql#status#innodb#rows#updated, Rank score: 0.03083122411863534.
+</p><p id="ea76ae53-bb91-4d8f-8b52-c5f10b0a566c" class="">Anomalous KPIs
+no_subject|mysql.status|mysql#status#innodb#rows#inserted.csv
+no_subject|mysql.status|mysql#status#handler#write.csv
+</p><p id="dbf17f66-27ab-465c-bcb8-b2adbb635224" class="">Incident number 1
+Top KPIs
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.04250276348211462.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait, Rank score: 0.03928421055737789.
+KPI: no_subject|mysql.status|mysql#status#innodb#rows#reads, Rank score: 0.03901084193041618.
+KPI: no_subject|mysql.status|mysql#status#cache#table#open_cache#misses, Rank score: 0.038079575109799514.
+KPI: no_subject|mysql.status|mysql#status#opened_tables, Rank score: 0.038079575109799514.
+Anomalous KPIs
+no_subject|mysql.status|mysql#status#binlog#cache#disk_use.csv
+</p><p id="6abe899a-c1da-4b3c-99bc-bd3f2df06edf" class="">Incident number 2
+Top KPIs
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait, Rank score: 0.04219200537063226.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.04122735969042504.
+KPI: no_subject|mysql.status|mysql#status#queries, Rank score: 0.040715165808503845.
+KPI: no_subject|mysql.status|mysql#status#questions, Rank score: 0.040715165808503845.
+KPI: no_subject|mysql.status|mysql#status#handler#read#first, Rank score: 0.034692881530842296.
+</p><p id="afbcbd27-e855-4c7a-bc08-fea8f922607c" class="">Anomalous KPIs
+no_subject|mysql.status|mysql#status#handler#read#rnd_next.csv
+no_subject|mysql.status|mysql#status#handler#read#first.csv
+no_subject|mysql.status|mysql#status#open#tables.csv
+no_subject|mysql.status|mysql#status#binlog#cache#disk_use.csv
+</p><p id="de85f4c6-df4c-44f8-bab2-411e48f61087" class="">Incident number 3
+Top KPIs
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait, Rank score: 0.04548895803853047.
+KPI: no_subject|mysql.status|mysql#status#queries, Rank score: 0.041094592890281556.
+KPI: no_subject|mysql.status|mysql#status#questions, Rank score: 0.041094592890281556.
+KPI: no_subject|mysql.status|mysql#status#handler#read#first, Rank score: 0.03442189773541562.
+KPI: no_subject|mysql.status|mysql#status#connections, Rank score: 0.03441553020174467.
+</p><p id="e0229dd3-44a0-427e-ae4c-ae5bb320b797" class="">Anomalous KPIs
+no_subject|mysql.status|mysql#status#cache#table#open_cache#misses.csv
+no_subject|mysql.status|mysql#status#handler#read#first.csv
+no_subject|mysql.status|mysql#status#opened_tables.csv
+</p><p id="8e1c963a-a957-42d3-b8a9-99444183ee7e" class="">Incident number 4
+Top KPIs
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#quantile#95, Rank score: 0.03982306988399932.
+KPI: no_subject|mysql.status|mysql#status#queries, Rank score: 0.03846473286056808.
+KPI: no_subject|mysql.status|mysql#status#questions, Rank score: 0.03846473286056808.
+KPI: no_subject|mysql.performance|mysql#performance#events_statements#max#timer#wait, Rank score: 0.03839068844385131.
+KPI: no_subject|mysql.status|mysql#status#handler#update, Rank score: 0.03582498044000091.
+</p><p id="a54894bf-db9c-4e33-a6d1-3e6aad9b0daf" class="">Anomalous KPIs
+no_subject|mysql.performance|mysql#performance#events_statements#count#star.csv
+</p><p id="cbda803e-6b7c-49a6-810f-f4a352835a16" class="">[&#x27;no_subject|mysql.status|mysql#status#handler#read#first 1609763030000:green:4:0.034692881530842296&#x27;, &#x27;no_subject|mysql.status|mysql#status#handler#read#first 1609763050000:green:3:0.03442189773541562&#x27;]
+[&#x27;no_subject|mysql.status|mysql#status#opened_tables 1609763050000:yellow:8:0.03284027364055765&#x27;, &#x27;no_subject|mysql.status|mysql#status#cache#table#open_cache#misses 1609763050000:yellow:9:0.032840273640557645&#x27;]
+[&#x27;no_subject|mysql.status|mysql#status#innodb#rows#inserted 1609762560000:red:28:0.024976467877209373&#x27;, &#x27;no_subject|mysql.status|mysql#status#handler#write 1609762560000:red:29:0.024975746787298334&#x27;, &#x27;no_subject|mysql.status|mysql#status#binlog#cache#disk_use 1609762820000:red:22:0.02556677377669768&#x27;, &#x27;no_subject|mysql.status|mysql#status#handler#read#rnd 1609763030000:red:15:0.03164174911816554&#x27;, &#x27;no_subject|mysql.status|mysql#status#handler#read#rnd_next 1609763030000:red:16:0.03157225972486908&#x27;, &#x27;no_subject|mysql.status|mysql#status#open#tables 1609763030000:red:22:0.025135234904203923&#x27;, &#x27;no_subject|mysql.status|mysql#status#binlog#cache#disk_use 1609763030000:red:28:0.019978591694722356&#x27;, &#x27;no_subject|mysql.performance|mysql#performance#events_statements#count#star 1609763260000:red:28:0.020439790364836556&#x27;]</p><p id="7761ad1a-da3d-496f-88f2-d9b650cbb366" class="">
+</p><h3 id="5d4e9c8e-3e7f-4b0e-87b7-8e2e4db994c0" class="">Poor physical design</h3><p id="e351ec82-bb53-4562-92e8-6934d909f027" class="">
+</p><p id="b88ecbf9-b76c-45a5-bd91-e8ffbc5b331e" class="">Number of incidents = 2, green KPIs = 0, yellow KPIs = 0, red KPIs = 2</p><p id="fe2bc97b-527d-41f3-ba57-cef5538fd0e7" class="">
+</p><p id="09f8b7c7-9ee1-4898-a2f2-0f1953ccaded" class="">Incident number 0
+Top KPIs
+KPI: no_subject|mysql.status|mysql#status#bytes#sent, Rank score: 0.05113737129777533.
+KPI: no_subject|mysql.status|mysql#status#innodb#rows#reads, Rank score: 0.04592270107713693.
+KPI: no_subject|mysql.status|mysql#status#handler#read#rnd_next, Rank score: 0.045884083318973076.
+KPI: no_subject|mysql.status|mysql#status#handler#write, Rank score: 0.04388199211567212.
+KPI: no_subject|mysql.status|mysql#status#handler#read#rnd, Rank score: 0.0438673132085448.
+</p><p id="5396a9ae-2806-46a2-82d7-dc026fca5742" class="">Anomalous KPIs
+no_subject|mysql.performance|mysql#performance#table_io_waits#count#fetch.csv</p><p id="2708a3f0-2c97-432f-b91e-a4528b4d4eec" class="">
+</p><p id="1cc7f4c4-a9d7-451a-aa05-3a2d65b4ed71" class="">Incident number 1
+Top KPIs
+KPI: no_subject|mysql.status|mysql#status#bytes#sent, Rank score: 0.05113737129777533.
+KPI: no_subject|mysql.status|mysql#status#innodb#rows#reads, Rank score: 0.04592270107713693.
+KPI: no_subject|mysql.status|mysql#status#handler#read#rnd_next, Rank score: 0.045884083318973076.
+KPI: no_subject|mysql.status|mysql#status#handler#write, Rank score: 0.04388199211567212.
+KPI: no_subject|mysql.status|mysql#status#handler#read#rnd, Rank score: 0.0438673132085448.
+</p><p id="bebc75da-4e10-4a1b-bacf-cc94fb264c52" class="">Anomalous KPIs
+no_subject|mysql.performance|mysql#performance#table_io_waits#count#fetch.csv</p><p id="d8524967-ca69-4ec3-86f2-605bcf7167cb" class="">
+</p><p id="9ad828a3-8655-4df7-8554-74712b50b0bc" class="">[&#x27;no_subject|mysql.performance|mysql#performance#table_io_waits#count#fetch 1609703440000:red:28:0.00500282590794067&#x27;, &#x27;no_subject|mysql.performance|mysql#performance#table_io_waits#count#fetch 1609703440000:red:28:0.00500282590794067&#x27;]</p><p id="5de3c430-4fca-4307-94f2-5394634bddb9" class="">
+</p><h3 id="587eaab3-4dcd-4a1d-884f-6fc1ce90f2b6" class="">Slow Join query</h3><p id="c20e3437-dedf-4861-b985-b428a7777243" class="">
+</p><p id="d8043502-47fe-43ba-b55a-453489ccb686" class="">No anomalies detected.</p><p id="68ff094b-c664-45a5-8efe-ba9e812f8c38" class="">
+</p></div></article></body></html>

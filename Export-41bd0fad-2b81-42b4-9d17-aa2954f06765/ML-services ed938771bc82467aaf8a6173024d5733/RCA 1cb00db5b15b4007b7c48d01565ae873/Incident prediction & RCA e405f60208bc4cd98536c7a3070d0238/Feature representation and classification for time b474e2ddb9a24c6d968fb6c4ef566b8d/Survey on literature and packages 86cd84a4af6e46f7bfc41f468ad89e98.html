@@ -1,0 +1,686 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Survey on literature and packages</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="86cd84a4-af6e-46f7-bfc4-1f468ad89e98" class="page sans"><header><h1 class="page-title">Survey on literature and packages</h1><p class="page-description"></p></header><div class="page-body"><p id="230cc1bb-0b9e-4500-afe3-60ed4ae9e193" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><p id="10480095-9f72-460f-bd20-db7ea5366069" class="">Related Jira tickets: BEP-729, BEP-734. </p><nav id="90a14ea3-2a3b-4df6-84b7-d744904df74a" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ae3ff1a6-b138-4b2b-b416-cd608ade6f53">Broad packages for time-series features</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#54fe523b-c8f1-4bd2-8cc0-3e12a71de54c">More specialized approaches for feature extraction and classification</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8be6eb08-7d2f-4a52-94f4-832f14f3ea49">Time-series clustering</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#af6bdb4e-6a87-43ef-978e-52eeefa85bbb">Alignment</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9327ee7c-37e4-47ef-9e97-bdd2562646b3">Other interesting projects</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#aa53806b-cc93-4493-bcf1-b745ee0dc2f7">Datasets</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d64cf443-7209-4a49-a1f2-15442eec540b">Twitter&#x27;s seasonality based approach</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#58c5ab70-5f7a-4d38-94f2-054ed65db454">Packages to get started with</a></div></nav><p id="53b20160-e73b-456d-bc19-0c23007e213c" class="">
+</p><p id="841dfeeb-be9f-455c-b238-d15e480b2a33" class="">In the Packet AI system, feature extraction and classification can be used for:</p><ul id="f84030e3-1a20-4c5e-849e-8722678966f6" class="bulleted-list"><li style="list-style-type:disc">Clustering for RCA.</li></ul><ul id="57c90a6b-cbb6-44f2-86d1-1f789b8ca15f" class="bulleted-list"><li style="list-style-type:disc">Selecting optimal weights for MAD. This may also involve offline clustering into representative groups of time series.</li></ul><ul id="cbbe51d0-60de-4916-9f6e-2b0b91377e46" class="bulleted-list"><li style="list-style-type:disc">Compressed storage.</li></ul><p id="e5647967-76ec-4ddc-bb89-25d8c8883117" class="">
+</p><p id="086f2ef1-c844-4acb-9a48-e39a7a7cf7f7" class="">The following two references lead to others:</p><ul id="4188d35c-77bb-44df-a007-4decbcd0aa8e" class="bulleted-list"><li style="list-style-type:disc">&quot;A Review of Unsupervised Feature Learning and Deep Learning for Time-Series Modeling&quot; by M Längkvist, L Karlsson, A Loutfi, Pattern Recognition Letters, 2014, 818 citations.</li></ul><ul id="ca447787-73cf-4054-9a09-f34e445ad647" class="bulleted-list"><li style="list-style-type:disc">&quot;Deep learning for time series classification: a review&quot; by Fawaz et al, Data mining and knowledge discovery, 2019, 561 citations.<ul id="694961d8-f5df-47ea-94d5-010213c2a0f4" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/hfawaz/dl-4-tsc">https://github.com/hfawaz/dl-4-tsc</a></li></ul></li></ul><p id="0b057c48-4c2d-42dc-bbd2-b92c5be8f130" class="">
+</p><p id="4b00faf4-6829-4d5d-a148-ef9789fd4f00" class="">Note: Techniques which are not tied to deep learning are labelled as &quot;BEYOND-DL&quot;.</p><p id="4b87074e-9a1f-439c-8126-6cc13efeb857" class="">
+</p><p id="46d89ebc-8554-4c73-887a-7af0d4652d65" class="">Time-series features can be extracted from individual time series or can relate two or more time series. Some approaches for feature extraction that relate groups of time series could be used for clustering alone.</p><h2 id="ae3ff1a6-b138-4b2b-b416-cd608ade6f53" class="">Broad packages for time-series features</h2><ul id="1c10df89-dbf6-4f1e-9c0a-c0705dfb2b2c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://tsfresh.readthedocs.io/en/latest/">https://tsfresh.readthedocs.io/en/latest/</a></li></ul><ul id="590edb07-ecb1-40d9-aabc-ece7bdc1d2df" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.sktime.org/en/latest/">https://www.sktime.org/en/latest/</a></li></ul><ul id="b5e60cac-a210-475f-a0b1-a195af6ecf0f" class="bulleted-list"><li style="list-style-type:disc"><a href="https://dmbee.github.io/seglearn/">https://dmbee.github.io/seglearn/</a></li></ul><ul id="30771ea4-3afe-4b83-a6bc-1b31ed5f9ebe" class="bulleted-list"><li style="list-style-type:disc"><a href="http://cesium-ml.org/">http://cesium-ml.org/</a></li></ul><ul id="cd97996b-c13f-4bf5-a8a5-e43399d55232" class="bulleted-list"><li style="list-style-type:disc"><a href="https://tslearn.readthedocs.io/en/stable/index.html">https://tslearn.readthedocs.io/en/stable/index.html</a></li></ul><ul id="a3cae14a-1236-46e6-ae9b-90183c5efdcb" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/johannfaouzi/pyts">https://github.com/johannfaouzi/pyts</a></li></ul><ul id="3accdd07-0cf2-4e8b-a780-5a1c2783426f" class="bulleted-list"><li style="list-style-type:disc"><a href="https://tsfel.readthedocs.io/en/latest/descriptions/feature_list.html">https://tsfel.readthedocs.io/en/latest/descriptions/feature_list.html</a> (found by Karim)</li></ul><ul id="6668b94a-904d-42c6-bdca-450d7ea87704" class="bulleted-list"><li style="list-style-type:disc"><a href="https://arnedb.github.io/tsfuse/">https://arnedb.github.io/tsfuse/</a><ul id="8803f0a7-3a18-4ccd-b6e1-c6d213d847d6" class="bulleted-list"><li style="list-style-type:circle">&quot;Automating Feature Construction for Multi-View Time Series Data&quot;, Brabandere et al, ECMLPKDD Workshop, 2019.</li></ul></li></ul><ul id="6eb65969-2eda-4e43-8fcc-3a4607c81d08" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/tidyverts/feasts">https://github.com/tidyverts/feasts</a> R Package. An important researcher in time-series analysis called Rob Hyndman is associated with this package. Other packages from this researcher&#x27;s group: <a href="https://robjhyndman.com/software/">https://robjhyndman.com/software/</a></li></ul><h2 id="54fe523b-c8f1-4bd2-8cc0-3e12a71de54c" class="">More specialized approaches for feature extraction and classification</h2><p id="d4aceceb-8fe4-4897-9207-f94c3599dda8" class="">(The works listed immediately below are from collaborating teams in Australia, France and UK.)</p><p id="3b2c9616-b3fe-4111-83cf-c29fbe806a64" class="">Papers mentioned in the talk &quot;Time series classification at scale&quot;, presentation by François Petitjean, 2019.</p><ul id="7c1073a7-273a-4deb-a9ae-3380d884b681" class="bulleted-list"><li style="list-style-type:disc">&quot;Proximity Forest: An effective and scalable distance-based classifier for time series&quot;, Lucas et al, 2018 (BEYOND-DL).<ul id="8f31a1da-552d-4973-a8b7-20bb9fe512c9" class="bulleted-list"><li style="list-style-type:circle">Available on sktime: <a href="https://www.sktime.org/en/latest/api_reference/modules/auto_generated/sktime.classification.distance_based.ProximityForest.html">https://www.sktime.org/en/latest/api_reference/modules/auto_generated/sktime.classification.distance_based.ProximityForest.html</a> </li></ul><ul id="1697e796-848b-41e4-9031-9d4cc6b58a15" class="bulleted-list"><li style="list-style-type:circle">Also: <a href="https://github.com/fpetitjean/ProximityForest">https://github.com/fpetitjean/ProximityForest</a> (Java), <a href="https://github.com/moradisten/ProximityForests-python">https://github.com/moradisten/ProximityForests-python</a> (Python).</li></ul></li></ul><ul id="5ef6533f-f6bf-4332-90dd-e706289db881" class="bulleted-list"><li style="list-style-type:disc">TS-Chief (BEYOND-DL):<ul id="9aadc22a-ecce-4303-93de-35a89427ca08" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/dotnet54/TS-CHIEF">https://github.com/dotnet54/TS-CHIEF</a> (Java)</li></ul></li></ul><ul id="1ed2068c-1b56-46c0-baf4-a41fef589e3f" class="bulleted-list"><li style="list-style-type:disc">InceptionTime: Finding AlexNet for Time Series Classification:<ul id="0478c815-3953-44b8-bbe1-973436207360" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/hfawaz/InceptionTime">https://github.com/hfawaz/InceptionTime</a></li></ul></li></ul><p id="b5e0c133-62c5-4783-8171-311ea9275f37" class="">Apart from Proximity forests, other algorithms are also available on <a href="https://github.com/alan-turing-institute/sktime">https://github.com/alan-turing-institute/sktime</a> (Weka compatible Java version here: <a href="https://github.com/uea-machine-learning/tsml">https://github.com/uea-machine-learning/tsml</a>)</p><ul id="8c257a6b-b510-4ef2-aa30-fdcd0fb6c353" class="bulleted-list"><li style="list-style-type:disc">HIVE-COTE (BEYOND-DL): Not scalable.</li></ul><ul id="4042c199-bd96-4046-9610-51c28a36aebf" class="bulleted-list"><li style="list-style-type:disc">Rocket (BEYOND_DL):<ul id="21b61ef6-0eeb-4c4c-9d7f-162e2a4845f3" class="bulleted-list"><li style="list-style-type:circle">ROCKET: Exceptionally fast and accurate time series classification using random convolutional kernels, 2019.</li></ul><ul id="1de3d694-2fd5-45fa-8be0-33cfc54daa0b" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/angus924/rocket">https://github.com/angus924/rocket</a></li></ul></li></ul><ul id="08487bc2-1e12-4ce9-8504-b943314c6851" class="bulleted-list"><li style="list-style-type:disc">Mini-rocket (BEYOND-DL):<ul id="4325be25-e85d-4d0e-a8f9-d9abe7dc3337" class="bulleted-list"><li style="list-style-type:circle">MiniRocket: A Very Fast (Almost) Deterministic Transform for Time Series Classification, 2020.</li></ul><ul id="21ad1807-11f6-4165-98fd-a97c5698da1c" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/angus924/minirocket">https://github.com/angus924/minirocket</a></li></ul></li></ul><p id="6d5badf1-9705-4979-94b4-1b2ec0cb1595" class="">
+</p><p id="b1899077-dc2f-4e4a-b90d-1e827721042a" class="">&quot;Highly comparative time-series analysis: the empirical structure of time series and their methods&quot;, Fulcher et al, 2013, 165 citations.</p><ul id="e20fe1dc-5e9a-45a4-9f92-1e1e103e38a6" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/benfulcher/hctsa">https://github.com/benfulcher/hctsa</a></li></ul><ul id="361960ea-60c2-458f-b2a1-5acc345e733d" class="bulleted-list"><li style="list-style-type:disc">Found it via: <a href="https://stats.stackexchange.com/questions/193295/classifying-time-series-similarity-what-variable-should-i-train-on/193302#193302">https://stats.stackexchange.com/questions/193295/classifying-time-series-similarity-what-variable-should-i-train-on/193302#193302</a></li></ul><p id="86af707d-04e0-4b1e-a638-5daa73c35c44" class="">
+</p><p id="1fe08758-8c62-457d-be60-b3c6f642232b" class="">Unsupervised Scalable Representation Learning for Multivariate Time Series, Franceschi et al, NeurIPS 2019, 33 citations. (BEYOND-DL?)<div class="indented"><ul id="108615a7-1f18-4636-a9c2-986f6816dde9" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/White-Link/UnsupervisedScalableRepresentationLearningTimeSeries">https://github.com/White-Link/UnsupervisedScalableRepresentationLearningTimeSeries</a></li></ul><ul id="c63c12be-69fb-47d7-b3b6-54b39993aa8b" class="bulleted-list"><li style="list-style-type:disc">Can deal with variable lengths among the time series. See the following paper to know more about this problem: &quot;Time series classification for varying length series&quot; by Tan et al, 2019.</li></ul></div></p><p id="e3e4e284-f3c8-4d17-be3f-78695565d7b9" class="">
+</p><p id="6a2a5c7a-9c72-42e7-acfa-8a460267dd43" class="">Motifs, Discords, Matrix Profile, SAX (BEYOND-DL)</p><ul id="b883ab38-b46e-4694-87cb-386386bf1ca2" class="bulleted-list"><li style="list-style-type:disc">&quot;Elastic Time Series Motifs and Discords&quot;, ICMLA 2018.<ul id="b0a163c7-bec7-4bfb-a373-98cbd36b6e94" class="bulleted-list"><li style="list-style-type:circle">Motifs and discords : <a href="https://sites.google.com/view/elastic-motifs-discords">https://sites.google.com/view/elastic-motifs-discords</a></li></ul></li></ul><ul id="19f51c20-dad8-4eeb-b25f-0622a171e5af" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.cs.ucr.edu/~eamonn/MatrixProfile.html">https://www.cs.ucr.edu/~eamonn/MatrixProfile.html</a><ul id="04fd0a04-3511-4e45-84c1-716ddcc718e1" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/TDAmeritrade/stumpy">https://github.com/TDAmeritrade/stumpy</a></li></ul></li></ul><ul id="0f50759f-3ef4-4e49-81c6-755fb2af34ef" class="bulleted-list"><li style="list-style-type:disc"><a href="https://vigne.sh/posts/symbolic-aggregate-approximation/">https://vigne.sh/posts/symbolic-aggregate-approximation/</a><ul id="fa647e38-ce16-452a-9107-af63cc4d3ae5" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/seninp/saxpy">https://github.com/seninp/saxpy</a></li></ul></li></ul><p id="39367961-63ad-4335-9294-cee430bf0528" class="">Shapelet (BEYOND-DL)</p><ul id="4713b6ab-7f0f-4f17-a240-885181a8eb2c" class="bulleted-list"><li style="list-style-type:disc">&quot;A Shapelet Transform for Time Series Classification&quot;, KDD 2012, 283 citations.<ul id="c09372b8-817f-45f3-b745-aac7f8a7f55e" class="bulleted-list"><li style="list-style-type:circle"><a href="https://pyts.readthedocs.io/en/stable/auto_examples/transformation/plot_shapelet_transform.html">https://pyts.readthedocs.io/en/stable/auto_examples/transformation/plot_shapelet_transform.html</a></li></ul><ul id="d676dbe2-2e54-4bdb-ab41-50389169e6ab" class="bulleted-list"><li style="list-style-type:circle"><a href="https://pyts.readthedocs.io/en/stable/auto_examples/classification/plot_learning_shapelets.html">https://pyts.readthedocs.io/en/stable/auto_examples/classification/plot_learning_shapelets.html</a></li></ul></li></ul><ul id="0bfdba1a-97e1-4ecc-9b07-2235bfac0235" class="bulleted-list"><li style="list-style-type:disc">&quot;A fast shapelet selection algorithm for time series classification&quot;, <a href="https://github.com/sdujicun/FastShapeletSelection">https://github.com/sdujicun/FastShapeletSelection</a>, paper: 2019, code: 2017, 28 citations.</li></ul><ul id="69496551-0826-4f82-b4e2-c3f9553a888e" class="bulleted-list"><li style="list-style-type:disc">&quot;Generalized Random Shapelet Forests&quot;, Karlsson et al, 2016, 70 citations.<ul id="157e6310-ce54-4093-be1f-d565b77c7fd3" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/isaksamsten/wildboar">https://github.com/isaksamsten/wildboar</a></li></ul></li></ul><ul id="415c225a-30a6-45ae-9481-33e1d21dbb95" class="bulleted-list"><li style="list-style-type:disc">&quot;Time2Graph: Revisiting Time Series Modeling with Dynamic Shapelets&quot;, AAAI 2020.<ul id="15359fe9-bc5a-4cbc-b201-8039fb78013d" class="bulleted-list"><li style="list-style-type:circle">Supervised learning approach.</li></ul><ul id="3b0a8215-fb52-4156-975e-e1d573ba8949" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/petecheng/Time2Graph">https://github.com/petecheng/Time2Graph</a></li></ul></li></ul><ul id="8091e7f1-5604-4b3e-b775-a6a1afe46fb8" class="bulleted-list"><li style="list-style-type:disc">&quot;Efficient Shapelet Discovery for Time Series Classification&quot;, IEEE TKDE 2020, &quot;Visualizing Shapelets for Time Series Classification&quot;, CIKM 2020 demo paper.<ul id="7463b811-0101-4bfc-921d-57b06b79fba6" class="bulleted-list"><li style="list-style-type:circle"><a href="http://www.comp.hkbu.edu.hk/~csgzli/tsc/">http://www.comp.hkbu.edu.hk/~csgzli/tsc/</a> (Java)</li></ul></li></ul><h2 id="8be6eb08-7d2f-4a52-94f4-832f14f3ea49" class="">Time-series clustering</h2><figure id="52de7c27-8d63-4d8b-8161-fde3da4e2a27" class="link-to-page"><a href="Survey%20on%20literature%20and%20packages%2086cd84a4af6e46f7bfc41f468ad89e98/Time-series%20clustering%2052de7c278d634d8b8161fde3da4e2a27.html">Time-series clustering</a></figure><h2 id="af6bdb4e-6a87-43ef-978e-52eeefa85bbb" class="">Alignment</h2><p id="7153fc97-95e5-495c-bd21-59bf758e0c92" class="">Alignment, i.e., finding corresponding points between two time series (using dynamic time warping etc) etc appears as an intermediate step in several approaches for time series analysis.</p><ul id="31d02787-3d81-477b-bca8-05cd272716ae" class="bulleted-list"><li style="list-style-type:disc">&quot;A Complexity-Invariant Distance Measure for Time Series&quot;, Batista et al, ICDM 2011, 314 citations. BEYOND-DL.<ul id="ce7aa28d-2fde-4f30-8f92-868e852defef" class="bulleted-list"><li style="list-style-type:circle">Unofficial: <a href="https://github.com/PeteWe/ts_similarity_tensorflow">https://github.com/PeteWe/ts_similarity_tensorflow</a></li></ul></li></ul><ul id="6ad7f96b-a0be-49fb-b955-45e668088664" class="bulleted-list"><li style="list-style-type:disc">Global alignment kernel<ul id="9ff9f992-98dc-4d7f-b8cb-aad9eaeaa1a5" class="bulleted-list"><li style="list-style-type:circle"><a href="http://rstudio-pubs-static.s3.amazonaws.com/398402_abe1a0343a4e4e03977de8f3791e96bb.html">http://rstudio-pubs-static.s3.amazonaws.com/398402_abe1a0343a4e4e03977de8f3791e96bb.html</a></li></ul></li></ul><ul id="6cccf5ce-8ea5-4bf7-8ec9-eb69fc119788" class="bulleted-list"><li style="list-style-type:disc">&quot;Soft-DTW: a Differentiable Loss Function for Time-Series&quot;, Cuturi and Blondel, ICML 2017, 153 citations.<ul id="71259cab-87d0-4c0e-9f30-3b964e7c282a" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/mblondel/soft-dtw">https://github.com/mblondel/soft-dtw</a></li></ul><ul id="adde390d-9d7c-449a-b470-99c158423f10" class="bulleted-list"><li style="list-style-type:circle"><a href="https://tslearn.readthedocs.io/en/stable/gen_modules/metrics/tslearn.metrics.soft_dtw.html">https://tslearn.readthedocs.io/en/stable/gen_modules/metrics/tslearn.metrics.soft_dtw.html</a></li></ul></li></ul><ul id="3b5b864f-7f0a-418b-9531-288fe7361237" class="bulleted-list"><li style="list-style-type:disc">&quot;Diffeomorphic Temporal Alignment Nets&quot;, Weber et al, NeurIPS 2019.<ul id="a5f4f9fe-47b7-440c-a2ed-5075061bc21d" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/BGU-CS-VIL/dtan">https://github.com/BGU-CS-VIL/dtan</a></li></ul></li></ul><ul id="15aad988-84c1-431a-ac96-cdcd12b52d05" class="bulleted-list"><li style="list-style-type:disc">&quot;Temporal Transformer Networks: Joint Learning of Invariant and Discriminative Time Warping&quot;, Lohit et al, CVPR 2019.<ul id="b9c6a389-01e7-48bd-bfc4-4ad800a27bed" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/suhaslohit/TTN">https://github.com/suhaslohit/TTN</a></li></ul></li></ul><ul id="d5c48f44-a62c-4e62-87f0-4f272a16976f" class="bulleted-list"><li style="list-style-type:disc">Survey: &quot;Experimental comparison of representation methods and distance measures for time series data&quot;, DMKD 2013.</li></ul><h2 id="9327ee7c-37e4-47ef-9e97-bdd2562646b3" class="">Other interesting projects</h2><ul id="b109fb6f-26e8-4043-a6f4-f11784adb7ef" class="bulleted-list"><li style="list-style-type:disc">Very popular package<ul id="fdb3c2a7-6bde-40cf-a863-0651c28e7272" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/pytorch/fairseq/tree/master/examples/wav2vec">https://github.com/pytorch/fairseq/tree/master/examples/wav2vec</a></li></ul></li></ul><ul id="d5b85f0d-f4b0-48b9-9e5c-bb89c114d1d6" class="bulleted-list"><li style="list-style-type:disc">&quot;Deep temporal clustering: fully unsupervised learning of time-domain features&quot;, Madiraju et al, 2018, 28 citations.<ul id="6b7b624e-cfad-4fb6-8c67-d8fed163bee2" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/FlorentF9/DeepTemporalClustering">https://github.com/FlorentF9/DeepTemporalClustering</a></li></ul></li></ul><ul id="dba657aa-f59f-420f-b2cc-aa9a1354c25a" class="bulleted-list"><li style="list-style-type:disc">&quot;Time Series Classification from Scratch with Deep Neural Networks: A Strong Baseline&quot;, 2016.<ul id="2e69fafd-e76a-468f-a4be-39515db18d5b" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/cauchyturing/UCR_Time_Series_Classification_Deep_Learning_Baseline">https://github.com/cauchyturing/UCR_Time_Series_Classification_Deep_Learning_Baseline</a></li></ul></li></ul><ul id="97d77281-6165-4a2c-8c69-c4ee91278c33" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.kdnuggets.com/2017/11/automated-feature-engineering-time-series-data.html">https://www.kdnuggets.com/2017/11/automated-feature-engineering-time-series-data.html</a></li></ul><ul id="ee0996d1-018a-4a8a-b720-3e4559be35cb" class="bulleted-list"><li style="list-style-type:disc">&quot;Adversarial Attacks on Deep Neural Networks for Time Series Classification&quot;, Fawaz et al, IJCNN 2019.<ul id="b5d93951-ea84-4788-aa1b-c106d3181c72" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/hfawaz/ijcnn19attacks">https://github.com/hfawaz/ijcnn19attacks</a></li></ul></li></ul><ul id="af6f4fb6-2a7b-40d0-a845-35395d97cbe7" class="bulleted-list"><li style="list-style-type:disc">&quot;EEGNet: A Compact Convolutional Network for EEG-based Brain-Computer Interfaces&quot;, Lawhern et al, 2016, 434 citations.<ul id="97352aa9-b0b0-41f9-97f0-a6ab0d80a39c" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/vlawhern/arl-eegmodels">https://github.com/vlawhern/arl-eegmodels</a></li></ul></li></ul><ul id="f3adff4b-e97c-44f3-bc11-36375ec15100" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/PetoLau/TSrepr:">https://github.com/PetoLau/TSrepr:</a> R package but useful to get more awareness about features and metrics regarding time series analysis.</li></ul><ul id="e7cf7728-06aa-4145-810d-db28a50abd5d" class="bulleted-list"><li style="list-style-type:disc">&quot;What went wrong and when? Instance-wise feature importance for time-series black-box models&quot;, Tonekaboni et al, NeurIPS 2020.</li></ul><ul id="dca659d0-8ff6-4ac4-85cf-16aa814e6aa3" class="bulleted-list"><li style="list-style-type:disc">&quot;Time2vec: Learning a vector representation of time&quot;, Kazemi, Goel, Eghbali et al, 2019.<ul id="ad5a17aa-cb50-403d-86f1-afb2a46478ff" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/ojus1/Time2Vec-PyTorch">https://github.com/ojus1/Time2Vec-PyTorch</a></li></ul><ul id="a6e37cd1-d24f-4206-90ff-653a929a29ce" class="bulleted-list"><li style="list-style-type:circle">&quot;Fourier features let networks learn high frequency functions in low dimensional domains&quot;, Tancik, Srinivasan, Mildenhall et al, 2020.</li></ul></li></ul><ul id="6e58a106-366e-43ec-945d-e75ffb61cf66" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/BenjiKCF/Neural-Net-with-Financial-Time-Series-Data">https://github.com/BenjiKCF/Neural-Net-with-Financial-Time-Series-Data</a></li></ul><ul id="9d18939e-28d5-415e-b9b4-a54d8f4bcdca" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/rob-med/awesome-TS-anomaly-detection">https://github.com/rob-med/awesome-TS-anomaly-detection</a></li></ul><ul id="35b3ce71-97ff-4b94-b9af-6ba84489531a" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/Alro10/deep-learning-time-series">https://github.com/Alro10/deep-learning-time-series</a></li></ul><ul id="cb9b748e-8440-4552-9d8a-290aebe40e27" class="bulleted-list"><li style="list-style-type:disc"><a href="https://pyflux.readthedocs.io/en/latest/">https://pyflux.readthedocs.io/en/latest/</a></li></ul><p id="8d13e32f-007a-466d-9b6b-ac45397ad93e" class="">
+</p><p id="efcbabc1-64fb-4da6-aea1-1386f484dc7e" class="">Need to check performance and scalability of the following approaches</p><ul id="c2bc16d4-74c8-490e-b613-998a1eeb8abc" class="bulleted-list"><li style="list-style-type:disc">&quot;A Wasserstein Subsequence Kernel for Time Series&quot;, Bock et al, ICDM 2019.<ul id="e852d130-50c4-439b-8804-594a8e53426d" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/BorgwardtLab/WTK">https://github.com/BorgwardtLab/WTK</a></li></ul></li></ul><ul id="97e7d35b-1ebb-4e51-9017-fa11265f5af7" class="bulleted-list"><li style="list-style-type:disc">&quot;Reservoir computing approaches for representation and classification of multivariate time series&quot;, Bianchi et al, 2020.<ul id="b9fef163-f210-4560-b633-a3935ae0f7fa" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/FilippoMB/Time-series-classification-and-clustering-with-Reservoir-Computing">https://github.com/FilippoMB/Time-series-classification-and-clustering-with-Reservoir-Computing</a></li></ul></li></ul><ul id="53987d9f-5796-4f74-a15c-b9581bdbff33" class="bulleted-list"><li style="list-style-type:disc">&quot;Wave2Vec: Deep representation learning for clinical temporal data&quot;, 2019, 23 citations, code not available.</li></ul><ul id="ac8c3f78-1df2-4426-9325-2a12f9ccc63f" class="bulleted-list"><li style="list-style-type:disc">&quot;GeoStat Representations of Time Series for Fast Classification&quot; by Ravier et al, arxiv 2021, code not available.</li></ul><h2 id="aa53806b-cc93-4493-bcf1-b745ee0dc2f7" class="">Datasets</h2><ul id="78702176-488d-43b2-b7eb-6f043023915e" class="bulleted-list"><li style="list-style-type:disc">Mainly, UCR, UEA, UCI<ul id="e180674f-0ff1-4e52-ab49-0561bd549194" class="bulleted-list"><li style="list-style-type:circle"><a href="http://timeseriesclassification.com/dataset.php">http://timeseriesclassification.com/dataset.php</a></li></ul><ul id="77a55c32-e854-46b3-b5f9-a6be21287829" class="bulleted-list"><li style="list-style-type:circle"><a href="https://archive.ics.uci.edu/ml/datasets.php?format=&amp;task=other&amp;att=&amp;area=&amp;numAtt=&amp;numIns=&amp;type=ts&amp;sort=nameUp&amp;view=table">https://archive.ics.uci.edu/ml/datasets.php?format=&amp;task=other&amp;att=&amp;area=&amp;numAtt=&amp;numIns=&amp;type=ts&amp;sort=nameUp&amp;view=table</a></li></ul><ul id="cec020e7-d958-43bc-b196-53785b8c1a85" class="bulleted-list"><li style="list-style-type:circle">&quot;The great time series classification bake off: a review and experimental evaluation of recent algorithmic advances&quot;, 2017, 656 citations.</li></ul></li></ul><ul id="997c206e-9ff0-4a43-b936-bf64bfa176a6" class="bulleted-list"><li style="list-style-type:disc">An alternative to UCR:<ul id="01012915-6677-4c1f-a9cd-5c89d8546b88" class="bulleted-list"><li style="list-style-type:circle">&quot;Scalable time series similarity search for data analytics&quot;, Patrick Schäfer, PhD 2015.<ul id="560570f4-2c9f-4839-be2e-fbbf91752e71" class="bulleted-list"><li style="list-style-type:square"><a href="https://github.com/patrickzib/SFA">https://github.com/patrickzib/SFA</a>, 219 stars.</li></ul></li></ul><p id="85155777-f8b3-4e77-8adb-8a624329e392" class="">
+</p></li></ul><ul id="73c5992f-52ff-43a8-b11c-52c696e3e9ac" class="bulleted-list"><li style="list-style-type:disc"><a href="https://research.yahoo.com/news/announcing-benchmark-dataset-time-series-anomaly-detection">https://research.yahoo.com/news/announcing-benchmark-dataset-time-series-anomaly-detection</a><ul id="d572b855-4563-4afb-816a-d31b55812bfc" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/osquery/osquery">https://github.com/osquery/osquery</a></li></ul></li></ul><h2 id="d64cf443-7209-4a49-a1f2-15442eec540b" class="">Twitter&#x27;s seasonality based approach</h2><ul id="432f6fbc-45d3-4fc1-b433-b4c1dce53e18" class="bulleted-list"><li style="list-style-type:disc"><a href="https://blog.twitter.com/engineering/en_us/a/2015/introducing-practical-and-robust-anomaly-detection-in-a-time-series.html">https://blog.twitter.com/engineering/en_us/a/2015/introducing-practical-and-robust-anomaly-detection-in-a-time-series.html</a></li></ul><ul id="97460d7c-cb70-40b1-aa8a-1d50981bdf14" class="bulleted-list"><li style="list-style-type:disc">Automatic Anomaly Detection in the Cloud Via Statistical Learning, 2017.</li></ul><ul id="c814b6d5-0b2e-4382-b16d-b872d0497416" class="bulleted-list"><li style="list-style-type:disc">Feature called Extreme Studentized Deviate (ESD) after season-trend-residual decomposition (based on STL), where time periods are assumed to be known (weekly, monthly).</li></ul><ul id="44ce3d23-56c4-4f0c-84bd-3eedcdcae1ea" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/nachonavarro/seasonal-esd-anomaly-detection">https://github.com/nachonavarro/seasonal-esd-anomaly-detection</a></li></ul><h2 id="58c5ab70-5f7a-4d38-94f2-054ed65db454" class="">Packages to get started with</h2><ul id="65c6ef6a-e17c-47b1-9dd3-75737caef749" class="bulleted-list"><li style="list-style-type:disc">BEYOND-DL: Rocket/Minirocket, Shapelet (&quot;A fast shapelet selection algorithm for time series classification&quot;), Stumpy, k-Shape, &quot;Unsupervised Scalable Representation Learning for Multivariate Time Series&quot;, TS-Chief.</li></ul><ul id="347e20ae-166e-4649-bf3a-1b8ea3e5ba04" class="bulleted-list"><li style="list-style-type:disc">DL: wav2vec, &quot;Learning Representations for Time Series Clustering&quot;, &quot;Soft-DTW: a Differentiable Loss Function for Time-Series&quot;, etc.</li></ul><p id="607a1186-760d-4921-8a9e-2543d250dd09" class="">
+</p></div></article></body></html>

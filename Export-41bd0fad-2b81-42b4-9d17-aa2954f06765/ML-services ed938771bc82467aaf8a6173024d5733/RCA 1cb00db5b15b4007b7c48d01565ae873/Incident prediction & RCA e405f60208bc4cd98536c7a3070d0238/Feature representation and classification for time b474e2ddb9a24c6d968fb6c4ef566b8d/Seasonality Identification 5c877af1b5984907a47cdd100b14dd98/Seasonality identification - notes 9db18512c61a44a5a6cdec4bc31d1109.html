@@ -1,0 +1,691 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Seasonality identification - notes</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9db18512-c61a-44a5-a6cd-ec4bc31d1109" class="page sans"><header><h1 class="page-title">Seasonality identification - notes</h1><p class="page-description"></p></header><div class="page-body"><p id="c0747059-5483-484e-99c1-7413d7b34b57" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><p id="41bd805e-9c67-4238-b214-d58f9fc01203" class="">Jira ticket: BEP-886.</p><p id="38bcf194-abc6-4f01-a1d0-3111ca341694" class="">Script:</p><figure id="9b2d30b3-f902-4571-89f4-dc99850741a7"><div class="source"><a href="Seasonality%20identification%20-%20notes%209db18512c61a44a5a6cdec4bc31d1109/test_acf_fft.py">test_acf_fft.py</a></div></figure><p id="d7f3ea3c-0bbc-402b-a1f5-10bea629251c" class="">
+</p><p id="04aaca34-3658-48f1-8858-4552875a68d5" class="">Summary</p><ul id="f091b823-60fe-4776-b6a6-5899997e8a1b" class="bulleted-list"><li style="list-style-type:disc">ACF only approaches (like Anodot) cannot handle presence of multiple periodicities.</li></ul><h3 id="216dd19c-0a1f-4033-a078-98d258bf503d" class="">Anodot&#x27;s approach</h3><p id="44c5341d-03d2-4366-815f-567a1280af38" class="">Details from Anodot&#x27;s KDD paper and white paper</p><p id="60c111ea-0784-4a6e-b5d3-251e8e23deba" class="">Approach</p><ul id="fa8d408b-3af9-4183-a585-2298a9e1a5b6" class="bulleted-list"><li style="list-style-type:disc">Compute the autocorrelation function (ACF).</li></ul><ul id="3a938c97-0e97-42db-af5e-49bd222db2eb" class="bulleted-list"><li style="list-style-type:disc">The duration between peaks of the ACF are clustered. The dominant cluster gives a very robust estimation of the period present in the series.</li></ul><p id="7bcdd3f6-2fa7-49c1-bb42-15bc03669de4" class="">The autocorrelation function (ACF) has several advantages for seasonality detection:</p><ol type="1" id="4337b8f5-305b-4e66-8b0f-01ecc4ed325c" class="numbered-list" start="1"><li>The local maximums of the ACF are integer multiples of the period of the time-series.</li></ol><ol type="1" id="90f8916b-438f-45f4-b1ed-ab30a0f9d111" class="numbered-list" start="2"><li>The way ACF is computed naturally cancels noise.</li></ol><ol type="1" id="bbf4e1d2-ecc6-461b-ba1d-a44ce46e4df9" class="numbered-list" start="3"><li>ACF is less sensitive to missing data.</li></ol><p id="8e4f2c07-4cc6-4bbd-ae5e-83b5163931e8" class="">Since the Fourier transform is a linear operator it propagate the noise and then the spectrum is noisy. In ACF, the noise - which is supposed to be independent of the signal - is automatically rejected. Thus, compared to the Fourier transform method, ACF is more accurate and less sensitive to missing data, but it is computationally expensive.</p><p id="208a1fc5-c6d6-4a6d-95a5-1a989cc1044d" class="">To reduce complexity we use a sampling technique for faster computation of the ACF. The sampling become now an exponential sampling.
+Note (after reading other papers): The autocorrelation is formally a convolution, and we can avoid the quadratic calculation in the time domain by computing it efficiently as a dot product in the frequency domain using the normalized Fourier transform.</p><p id="159475ad-f4bf-4242-9d22-d26622c6e749" class="">Bank filter: The number and the definition of bands are based on statistical analysis of our data-set. In the system, we are computing the ACF for each band.</p><p id="ce46bd67-79b6-4797-98a8-9826b788ad5d" class="">Often we see, not just a single seasonal pattern, but multiple seasonal patterns and even different types of multiple seasonal patterns. The different types of multiple seasonal patterns could happen as a multiplicative combination of signals (amplitude modulation) or additive combination of signals.</p><p id="439149ec-b56d-44c7-9d9b-7a3c85a8f25b" class="">Comments by Anodot about related techniques: Two main approaches to pitch detection: Fourier spectrum based methods and variance matrix eigen analysis.</p><p id="c98c7381-139d-4fce-b5ba-f157c7fba83d" class="">Our (PacketAI) implementation:</p><ul id="6a71d684-1f37-466e-9112-c73ae96ed577" class="bulleted-list"><li style="list-style-type:disc">detecta package to detect the peaks of ACF.</li></ul><ul id="eb54e30e-1f69-4cb7-a80d-44de0da5d043" class="bulleted-list"><li style="list-style-type:disc">KDE based clustering of intervals.
+For more information of clustering 1 dimensional data:<ul id="7467a854-de19-4e05-8da8-a96e6acdd64f" class="bulleted-list"><li style="list-style-type:circle"><a href="https://stackoverflow.com/questions/18364026/clustering-values-by-their-proximity-in-python-machine-learning/">https://stackoverflow.com/questions/18364026/clustering-values-by-their-proximity-in-python-machine-learning/</a></li></ul><ul id="c4f664cf-3651-47e6-999b-1ac4ead70336" class="bulleted-list"><li style="list-style-type:circle"><a href="https://stackoverflow.com/questions/7869609/cluster-one-dimensional-data-optimally">https://stackoverflow.com/questions/7869609/cluster-one-dimensional-data-optimally</a></li></ul><ul id="b7e1e13f-4a63-442b-97ab-f667a8468a95" class="bulleted-list"><li style="list-style-type:circle"><a href="https://stackoverflow.com/questions/11513484/1d-number-array-clustering">https://stackoverflow.com/questions/11513484/1d-number-array-clustering</a></li></ul><ul id="8f5aa8c4-030c-4a1e-822c-8388daebab8e" class="bulleted-list"><li style="list-style-type:circle"><a href="https://stackoverflow.com/questions/35094454/how-would-one-use-kernel-density-estimation-as-a-1d-clustering-method-in-scikit/">https://stackoverflow.com/questions/35094454/how-would-one-use-kernel-density-estimation-as-a-1d-clustering-method-in-scikit/</a></li></ul></li></ul><p id="6411ef59-bcc0-4eb5-85ff-67b1d812b645" class="">Doubt regarding anodot&#x27;s approach</p><ul id="16233328-c62d-4011-aa00-0c11cf871dbf" class="bulleted-list"><li style="list-style-type:disc">How to assess lack of periodicity?<ul id="96049f57-46cc-4aeb-b02c-756ee56a1b34" class="bulleted-list"><li style="list-style-type:circle">How to assess lack of strong clusters? Will KDE based clustering approach always have no strong peaks when the data is spread out without strong clusters?</li></ul><ul id="20fa07cf-55f4-478b-bce7-cbbf49177ce6" class="bulleted-list"><li style="list-style-type:circle">To be tried: A voting approach, to check how many multiples of a given period has a peak in ACF?</li></ul></li></ul><h2 id="5201b139-55ec-4b7a-b492-ec123cd0df46" class="">Other approaches based on ACF</h2><p id="1f92c849-e905-472c-b63b-b30f6e34e15e" class="">&quot;Characteristic-based clustering for time series data&quot;, Wang, Smith, Hyndman, 2006 (490 citations).
+Procedure to find time period:</p><ul id="6d760c92-20d3-45cc-ae3e-0055bd8fba14" class="bulleted-list"><li style="list-style-type:disc">Detrend time series using a regression spline with 3 knots.</li></ul><ul id="60fdb635-c5d2-45c2-8491-730849783094" class="bulleted-list"><li style="list-style-type:disc">Find r_k = Corr(Y_t, Y_{t−k}) (autocorrelation function) for all lags up to 1/3 of series length, then look for peaks and troughs in autocorrelation function.</li></ul><ul id="b3c9bf34-c4b2-4171-ac3a-a7dea568d8cf" class="bulleted-list"><li style="list-style-type:disc">Frequency is the first peak provided with following conditions:
+(a) There is also a trough before it;
+(b) The difference between peak and trough is at least 0.1;
+(c) The peak corresponds to positive correlation.</li></ul><ul id="7ada5b80-d5b1-4628-8582-9fbc6e1f183b" class="bulleted-list"><li style="list-style-type:disc">If no such peak is found, frequency is set to 1 (equivalent to non-seasonal).
+Some more notes from this paper:</li></ul><ul id="0fb6ce3f-1d8e-4943-8b2d-cc9ba9c4785e" class="bulleted-list"><li style="list-style-type:disc">Dealing with long time series.</li></ul><ul id="0db700b4-6809-4202-88df-defc03ada001" class="bulleted-list"><li style="list-style-type:disc">When the time series is very long, some clustering algorithms may fail because the very notation of similarity is dubious in high dimension space.</li></ul><ul id="437c4963-d9b7-4725-9c9c-50d12f69aa2a" class="bulleted-list"><li style="list-style-type:disc">Periodicity and seasonality are global characteristics.</li></ul><ul id="20a5841e-114d-45a7-b71e-45a1c6e949ca" class="bulleted-list"><li style="list-style-type:disc">Seasonal time series are sometimes also called periodic series although there is a major distinction between them. Periodicity (cyclical pattern) varies in frequency length, but seasonality has fixed length over each period. Periodicity is also referred as frequency in some literature.</li></ul><p id="7a2b4593-4279-4cae-84d1-e4b0cf4a785b" class="">
+</p><p id="a6b90b03-521e-4663-92ec-12d7f11e9a56" class=""><a href="https://stats.stackexchange.com/questions/16117/what-method-can-be-used-to-detect-seasonality-in-data">https://stats.stackexchange.com/questions/16117/what-method-can-be-used-to-detect-seasonality-in-data</a></p><ul id="0fae6752-aebc-4903-9d3d-0692b712afdd" class="bulleted-list"><li style="list-style-type:disc">One answer mentions about confidence interval around ACF.</li></ul><ul id="c686a497-c83d-45c1-aaa0-d723ccd20c9b" class="bulleted-list"><li style="list-style-type:disc">Also, talks about adjusting for trend before measuring periodicity.</li></ul><h3 id="8084b58d-28df-44e1-be7c-e1ab9e407d2a" class="">Software Packages</h3><ul id="c21abad8-11a4-45fa-a6a2-7676bf7fc88c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://pypi.org/project/periodicity/:">https://pypi.org/project/periodicity/:</a> Implements ACF, spectral density. We need to implement further steps. There are other advanced subroutines. Need to figure out how to use them.</li></ul><ul id="7e345f89-4960-48f4-8385-993bf0c2b872" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/phuijse/P4J:">https://github.com/phuijse/P4J:</a> Information theoretic periodogram (By Pablo Huijse Heise based on his publication). Need to be tested.</li></ul><ul id="64fafe78-37ee-4775-91f9-d68e3014c0e0" class="bulleted-list"><li style="list-style-type:disc"><a href="https://docs.gammapy.org/0.17/time/period.html">https://docs.gammapy.org/0.17/time/period.html</a></li></ul><ul id="76759a92-5cea-49db-babc-0371cf420208" class="bulleted-list"><li style="list-style-type:disc"><a href="https://rdrr.io/rforge/xts/man/periodicity.html">https://rdrr.io/rforge/xts/man/periodicity.html</a> (R)</li></ul><h3 id="586ec3ce-fb05-4793-9344-992768657dc5" class="">Using the power spectral density</h3><p id="4bae546b-889c-407a-91ff-314de335e32f" class="">Computing the Fourier transform with PacketAI data:
+Sampling rate = once every 10 seconds. In other words, sampling frequency = 0.1 Hz. Hence, Fourier transform captures frequency spectrum upto 0.05 Hz.</p><p id="49ae3b31-b1bf-4d3e-afbc-cf66513b0b81" class="">
+</p><p id="1de57bfd-b32c-4871-9eeb-40fa0d4568b4" class=""><a href="https://robjhyndman.com/hyndsight/tscharacteristics/">https://robjhyndman.com/hyndsight/tscharacteristics/</a></p><ul id="7ea4da98-fb13-4394-99b9-4277f0eda404" class="bulleted-list"><li style="list-style-type:disc"><a href="https://stats.stackexchange.com/questions/1207/period-detection-of-a-generic-time-series/">https://stats.stackexchange.com/questions/1207/period-detection-of-a-generic-time-series/</a></li></ul><ul id="ba9e7175-7bd0-4c80-b812-3239805111e0" class="bulleted-list"><li style="list-style-type:disc">We measured various characteristics of a time series and used the information to determine what forecasting method to apply or how to cluster the time series into meaningful groups.<p id="87875c10-d784-4dc3-8d08-7b72397bf111" class="">Approach:</p><ul id="b6b4c7bd-2be2-4de2-a025-12464db2cdba" class="bulleted-list"><li style="list-style-type:circle">The first positive peak in the PSD corresponds to the time period. If the first peak corresponds to frequency = 0 (i.e., the constant component of the time-series), then the next positive peak is returned.</li></ul></li></ul><ul id="6138fe9f-1a0d-46cc-a041-5c54fe60c5c3" class="bulleted-list"><li style="list-style-type:disc">Doubts:<ul id="9b326e93-8df9-452e-a8d4-71b9ae5b5614" class="bulleted-list"><li style="list-style-type:circle">Threshold for spectral density is 10. What is the range of values of the spectral density?<ul id="71f0235d-3951-4070-9166-79c516cec104" class="bulleted-list"><li style="list-style-type:square"><a href="https://stats.stackexchange.com/questions/16117/what-method-can-be-used-to-detect-seasonality-in-data">https://stats.stackexchange.com/questions/16117/what-method-can-be-used-to-detect-seasonality-in-data</a> talks about normalizing the total energy (sum of all the values in the power spectral density) to 1.</li></ul></li></ul><ul id="f026f57c-0974-4c66-9755-963d024fc279" class="bulleted-list"><li style="list-style-type:circle">This approach is pretty basic and won&#x27;t work well in general. For e.g., the random step case (see plot below).</li></ul></li></ul><h3 id="9e5925ef-e963-45ae-b9b8-d13a2a71cee3" class="">Using both ACF and spectral density</h3><p id="82c489b8-ceb7-4911-9d4a-8fa024bb8b0c" class="">&quot;Robust Periodicity Detection Algorithms&quot;, Parthasarathy et al, 2006.</p><ul id="661f8977-336d-40f0-a7c9-10defdeffa43" class="bulleted-list"><li style="list-style-type:disc">A wide-sense stationary random process z(t) is said to be be mean-square periodic, if ∃ T &gt; 0 such that Rzz (τ) = Rzz (τ + T), ∀ τ, where Rzz (τ) is the autocorrelation function corresponding to z(t). The period of this process is then defined to be the smallest such T.
+The approach:<ul id="ca1d87ce-cec2-49f1-be12-b27047839773" class="bulleted-list"><li style="list-style-type:circle">The spectrogram is constructed.</li></ul><ul id="3b3040b5-48c9-4cd9-891b-6da86183cdb4" class="bulleted-list"><li style="list-style-type:circle">For each frequency, the evolution of the DFT coefficient with time is treated as a time-series. The ACF of each of these time-series are computed and averaged.</li></ul></li></ul><ul id="bb1318dc-1ff3-445e-a746-57820dec0bac" class="bulleted-list"><li style="list-style-type:disc">Paper also talks about multiple periods. Need to check whether the multiple periods combine multiplicatively or additively.</li></ul><p id="cae779bd-6364-425d-953e-a46193dacdf2" class="">
+</p><p id="238e2a4b-fc31-49b3-8c36-a3f2dba3b938" class="">&quot;On periodicity detection and structural periodic similarity&quot; by Vlachos et al.</p><ul id="e346df84-b85f-40a6-ad75-0ceed440aaa3" class="bulleted-list"><li style="list-style-type:disc">&quot;A fully automated periodicity detection in time series&quot; by Puech et al builds on this work.</li></ul><ul id="480d9b79-c45e-4f8a-a453-5694773e5098" class="bulleted-list"><li style="list-style-type:disc">There are two well known estimators of the PSD: the periodogram and the circular autocorrelation.<ul id="3d44824f-3d2d-487f-9aa1-b9eef087e22b" class="bulleted-list"><li style="list-style-type:circle">The periodogram P is provided by the squared length of each Fourier coefficient.</li></ul></li></ul><ul id="001242e4-7796-4bb6-ba0b-25a436687980" class="bulleted-list"><li style="list-style-type:disc">Due to the assumption of the Fourier Transform that the data is periodic, proper windowing of the data might be necessary for achieving a more accurate harmonic analysis. In this work we will sidestep this issue, since it goes beyond the scope of this paper. However, the interested reader is directed to [&quot;On the Use of Windows for Harmonic Analysis with the Discrete Fourier Transform&quot; by Harris, 1978] for an excellent review of data windowing techniques.</li></ul><ul id="02b594b8-e7b8-4bb7-aaef-05451caa842e" class="bulleted-list"><li style="list-style-type:disc">Issues with periodogram:<ul id="60ef6e4c-9853-473c-a5ab-8f91d4e9d509" class="bulleted-list"><li style="list-style-type:circle">It is easy to see that the resolution of the periodogram becomes very coarse for longer periods.</li></ul><ul id="b6c622b0-2937-43b1-8090-41db20b2cedf" class="bulleted-list"><li style="list-style-type:circle">The accuracy of the discovered periods, deteriorates for large periods, due to the increasing width of the DFT bins (N/k).</li></ul><ul id="52e18ed6-3bcd-43bd-bf8f-39035381325b" class="bulleted-list"><li style="list-style-type:circle">Another related issue is spectral leakage, which causes frequencies that are not integer multiples of the DFT bin width, to disperse over the entire spectrum. This can lead to ‘false alarms’ in the periodogram. However, the periodogram can still provide an accurate indicator of important short (to medium) length periods.</li></ul></li></ul><ul id="e727f30b-ccd0-4ff1-8bc4-5ecbbbf97285" class="bulleted-list"><li style="list-style-type:disc">Defines autocorrelation without dividing by variance.</li></ul><ul id="dc2a569f-30d2-43f1-95b2-e2df7df6a82c" class="bulleted-list"><li style="list-style-type:disc">The autocorrelation is formally a convolution, and we can avoid the quadratic calculation in the time domain by computing it efficiently as a dot product in the frequency domain using the normalized Fourier transform.
+Approach:<ul id="7330105d-f26e-4ec3-b3f3-fc61045d7229" class="bulleted-list"><li style="list-style-type:circle">use the periodogram for extracting period candidates.</li></ul><ul id="169efee4-3743-4d83-be7e-849d61bedd62" class="bulleted-list"><li style="list-style-type:circle">assess the candidates using ACF.</li></ul><p id="e4bbd210-152b-4927-82f8-7b401a803350" class="">
+</p></li></ul><h3 id="d00c1fea-8626-418e-b824-89d987659d99" class="">Other papers and packages</h3><p id="8165802e-8a33-4976-91e0-165c0234efe1" class="">These are papers that cite &quot;On periodicity detection and structural periodic similarity&quot;. Since, &quot;A fully automated periodicity detection in time series&quot; extends the former paper, the papers citing the latter paper, cite the former also.</p><ul id="f878399a-4011-45d3-981e-933d24095382" class="bulleted-list"><li style="list-style-type:disc">&quot;Robust and Accurate Period Inference using Regression-Based Techniques&quot;, 2020.<ul id="5ddf2ff1-f523-4083-8ddd-2276bcc7038e" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/SerbanVadineanu/period_inference">https://github.com/SerbanVadineanu/period_inference</a> (Python)</li></ul></li></ul><ul id="26aca4ed-fb09-4b5f-85ef-57fc7f296acb" class="bulleted-list"><li style="list-style-type:disc">mSIMPAD: Efficient and Robust Mining of Successive Similar Patterns of Multiple Lengths in Time Series, 2020.<ul id="6905fa5c-ba32-4554-8b61-72924f4707f7" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/chuntungli/mSIMPAD">https://github.com/chuntungli/mSIMPAD</a> (Python)</li></ul></li></ul><ul id="d4d5760a-3fae-4167-b702-aa6f0c39451e" class="bulleted-list"><li style="list-style-type:disc">SAZED: parameter-free domain-agnostic season length estimation in time series data, 2019.<ul id="3c7faa10-5a6c-42a2-8d63-4ed73063e5f1" class="bulleted-list"><li style="list-style-type:circle"><a href="https://github.com/mtoller/autocorr_season_length_detection">https://github.com/mtoller/autocorr_season_length_detection</a> (R)</li></ul></li></ul><ul id="c46161ee-93d2-403d-b348-fb5520ac2faf" class="bulleted-list"><li style="list-style-type:disc">Automatic and Generic Periodicity Adaptation for KPI Anomaly Detection, 2019.<ul id="e16822ef-8d64-4519-8c10-904a61c33429" class="bulleted-list"><li style="list-style-type:circle">From the Netman (Dan Pei) group.</li></ul></li></ul><ul id="d8d47d80-f02a-4dfd-934e-a611e4ce5f96" class="bulleted-list"><li style="list-style-type:disc"><a href="http://tomrunia.github.io/projects/repetition/">http://tomrunia.github.io/projects/repetition/</a><ul id="4700ee71-8351-4c4c-9294-f3b37a6a09da" class="bulleted-list"><li style="list-style-type:circle">Found via &quot;ReActNet: Temporal Localization of Repetitive Activities in Real-World Videos&quot;.</li></ul></li></ul><ul id="868afd36-f858-444d-b14d-8f11408122fc" class="bulleted-list"><li style="list-style-type:disc">&quot;Semantic periodic pattern mining from spatio-temporal trajectories&quot;, 2019.</li></ul><ul id="36665c32-508a-466b-9b74-ec5222da5951" class="bulleted-list"><li style="list-style-type:disc">&quot;Extended Noise Resistant Correlation Method for Period Estimation of Pseudoperiodic Signals&quot;, 2021.</li></ul><ul id="990af259-8071-473f-be58-031b337e7a8d" class="bulleted-list"><li style="list-style-type:disc">&quot;Detecting Multiple Periods and Periodic Patterns in Event Time Sequences&quot;, 2017.</li></ul><ul id="a81f821a-7f41-4bbe-b31b-4e272aece40d" class="bulleted-list"><li style="list-style-type:disc">&quot;Period Estimation For Incomplete Time Series&quot;, 2020.</li></ul><ul id="1abf48aa-30f6-42ae-9642-b6f22e44e46a" class="bulleted-list"><li style="list-style-type:disc">&quot;Hierarchical trajectory clustering for spatio-temporal periodic pattern mining&quot;, 2018.</li></ul><ul id="da91f539-912e-4302-8755-7bd285f234d2" class="bulleted-list"><li style="list-style-type:disc">Found two papers on computing the STL decomposition in a robust manner.</li></ul><h3 id="525a274b-ef1b-4207-a0b8-f996f6b4d8c9" class="">Additional steps to implement:</h3><ul id="c3cba9cf-1129-4918-8a05-1ee266416a79" class="bulleted-list"><li style="list-style-type:disc">Dealing with multiple scales.</li></ul><ul id="92266af3-d88c-4504-a1e7-cf8e5920347c" class="bulleted-list"><li style="list-style-type:disc">Determine what is the minimum length of time-series needed to confidently assess a given period.</li></ul><ul id="642cacbc-af64-40a4-bb10-bc90aa9eb66f" class="bulleted-list"><li style="list-style-type:disc">Detrending?</li></ul><ul id="268bad07-be62-40ac-b712-a84042b2e894" class="bulleted-list"><li style="list-style-type:disc">Group peaks of a flat peak in ACF into one peak.</li></ul><h3 id="5176cf95-bd07-4dc1-9510-2e7780238277" class="">How to remove trend?</h3><ul id="a0a06a0b-54da-4cb4-9bec-51810c219b9a" class="bulleted-list"><li style="list-style-type:disc">Simplest: Fit a linear model (a+bx) to the time-series or its log.</li></ul><h3 id="cec5c1e7-7a8a-47e3-9b3e-ae6366b52851" class="">Doubts</h3><ul id="42e455b2-74de-42d3-adfd-7cf59bf6e0fc" class="bulleted-list"><li style="list-style-type:disc">For sparse periodic data, why the spectral density doesn&#x27;t have a peak at 0.001 Hz?</li></ul><ul id="5c84425d-c6ac-4893-81da-810b962dde4d" class="bulleted-list"><li style="list-style-type:disc">What are normalized autocorrelation, Durbin-Watson autocorrelation, circular ACF.<ul id="a1a1da16-ad73-49d5-a2f0-3a3a9425a1d4" class="bulleted-list"><li style="list-style-type:circle"><a href="https://dsp.stackexchange.com/questions/8830/how-do-i-determine-if-a-discrete-signal-is-periodic-or-not">https://dsp.stackexchange.com/questions/8830/how-do-i-determine-if-a-discrete-signal-is-periodic-or-not</a></li></ul></li></ul><ul id="76c5e69b-c6c1-4367-b681-13d9cde7e41b" class="bulleted-list"><li style="list-style-type:disc">What is the manner in which normalization of autocorrelation is performed by statsmodels?<ul id="0427bce5-b8ed-4bea-aaea-2aa6be3c6e10" class="bulleted-list"><li style="list-style-type:circle">Some papers talk about detrending the autocorrelation function. Are they working with un-normalized autocorrelation?</li></ul></li></ul><ul id="e0f31b91-9747-4f05-92f5-69af78ff72da" class="bulleted-list"><li style="list-style-type:disc">Confidence interval for autocorrelation. How to use it?</li></ul><ul id="9f672bb6-7dc8-481c-a6e2-0a572419f8d4" class="bulleted-list"><li style="list-style-type:disc">How do these approaches perform when there is noise in the periodicity of the time-series?</li></ul><ul id="859a7740-116b-47fe-9eaf-90cd7fbbf15a" class="bulleted-list"><li style="list-style-type:disc">Spectral approach talks about computing Fourier transform after windowing. Need to look into this.</li></ul><ul id="5097cae3-bf51-49b6-b08b-37c1f79e7a47" class="bulleted-list"><li style="list-style-type:disc">Spectral density for random step time-series is having peaks at low frequencies. How to reject them?<ul id="6f29a56e-fd8c-449b-9c12-000ce7eb3a2c" class="bulleted-list"><li style="list-style-type:circle">In short, how to choose thresholds for analysing power spectral density?</li></ul><ul id="a1b2ca33-a057-40ad-9aa1-5be43ef381b3" class="bulleted-list"><li style="list-style-type:circle">Refer the 99% confidence level approach in &quot;On Periodicity Detection and Structural Periodic Similarity&quot; by Vlachos et al.</li></ul></li></ul><ul id="e443115e-1861-46bf-8e70-c006334f63be" class="bulleted-list"><li style="list-style-type:disc">The derivative of a periodic signal is also periodic. Can this information be used?<ul id="266dce94-cf64-47e3-8092-35a8df60ba0b" class="bulleted-list"><li style="list-style-type:circle"><a href="https://www.math.stonybrook.edu/~lejones/mat341-f09/sol1.pdf">https://www.math.stonybrook.edu/~lejones/mat341-f09/sol1.pdf</a></li></ul></li></ul><ul id="c2f49f44-800a-47c2-8587-d2e2cb06ead7" class="bulleted-list"><li style="list-style-type:disc">One paper mentions the PSD of a not periodic time-series will be exponentially distributed. This is approximately true in the non-periodic step case (see below).</li></ul><ul id="e424b480-09d8-4453-b841-e010e29f66eb" class="bulleted-list"><li style="list-style-type:disc">How does a non-stationary periodic time series look like?</li></ul><ul id="7cbaa637-4817-46e3-8cbb-4c4579b9d82c" class="bulleted-list"><li style="list-style-type:disc">Scipy Welch method changes with the parameters fs and nperseg. Need to understand how these parameters affect the output. Scipy Periodogram is working as expected for us.</li></ul><ul id="47b8a559-df6f-4579-9025-39f04450cfa1" class="bulleted-list"><li style="list-style-type:disc">While determining whether a metric is sparse or not, at what scale should it be done?</li></ul><ul id="3b0807d4-9b07-491c-a206-7eb62d10c20c" class="bulleted-list"><li style="list-style-type:disc">How to consider the intervals between peaks in ACF for clustering, when there are multiple time periods?</li></ul><h3 id="8f53cbf8-53e0-4cb4-92f5-63a26ed74cf5" class="">Other points</h3><ul id="cc8f2d9b-3b2b-422d-96e5-ad7e4e6976ce" class="bulleted-list"><li style="list-style-type:disc">Converting the values of the auto-correlation peaks from the time-domain to the frequency domain should result in the same peaks as the ones calculated by the FFT. The frequency of a signal thus can be found with the auto-correlation as well as with the FFT.</li></ul><ul id="a6eb7b97-c5e8-423c-bff3-11df24c84d7b" class="bulleted-list"><li style="list-style-type:disc">Power Spectral Density (PSD) is, in fact, the Fourier transform of the autocorrelation function.</li></ul><ul id="c3403785-4bab-40a1-b7f6-0dc62ecb3e94" class="bulleted-list"><li style="list-style-type:disc">The wavelet transform is better suited for analyzing signals with a dynamic frequency spectrum, i.e. the frequency spectrum changes over time, or has a component with a different frequency localized in time (the frequency changes abruptly for a short period of time).</li></ul><ul id="90369cee-a586-4dd9-b6cc-8255c5fbb823" class="bulleted-list"><li style="list-style-type:disc">Anodot is showing a confidence interval around a time series which models the seasonal behavior.</li></ul><ul id="688d2151-04e2-4a55-9440-a722ff55011a" class="bulleted-list"><li style="list-style-type:disc">Issues like aliasing in the Fourier transform can cause multiple peaks to be present, some of which are not the actual seasonal frequency, but rather artifacts of the Fourier transform computation.</li></ul><ul id="a7cdcf98-352c-4c9a-960e-3184b462fd78" class="bulleted-list"><li style="list-style-type:disc">The analysis of the eigen values and eigen vectors of the variance matrix of the process. For stationary process the variance matrix is a Toepliz matrix built with the ACF vector.</li></ul><ul id="91c24000-93c8-4856-a347-f2a32d087285" class="bulleted-list"><li style="list-style-type:disc">Pre-processing steps pointed out by Charlie in <a href="https://stats.stackexchange.com/questions/16117/what-method-can-be-used-to-detect-seasonality-in-data">https://stats.stackexchange.com/questions/16117/what-method-can-be-used-to-detect-seasonality-in-data</a></li></ul><h3 id="f7754f5f-68e4-46f1-8559-815959c23838" class="">ACF and spectral density plots</h3><figure id="76681fda-3524-47a0-8459-ac0d36ca5b02" class="image"><a href="Seasonality%20identification%20-%20notes%209db18512c61a44a5a6cdec4bc31d1109/sin_periodic_acf_spec_run3.png"><img style="width:1848px" src="Seasonality%20identification%20-%20notes%209db18512c61a44a5a6cdec4bc31d1109/sin_periodic_acf_spec_run3.png"/></a></figure><figure id="3a03441d-f0b6-4a2c-90c2-b852b1414879" class="image"><a href="Seasonality%20identification%20-%20notes%209db18512c61a44a5a6cdec4bc31d1109/sparse_periodic_acf_spec_run2.png"><img style="width:1848px" src="Seasonality%20identification%20-%20notes%209db18512c61a44a5a6cdec4bc31d1109/sparse_periodic_acf_spec_run2.png"/></a></figure><figure id="25128c17-e9d7-46bd-925c-62e34d6ed0b0" class="image"><a href="Seasonality%20identification%20-%20notes%209db18512c61a44a5a6cdec4bc31d1109/sparse_random_acf_spec_run2.png"><img style="width:1848px" src="Seasonality%20identification%20-%20notes%209db18512c61a44a5a6cdec4bc31d1109/sparse_random_acf_spec_run2.png"/></a></figure><figure id="ce4dfea6-f6a7-47f7-a8e2-cbe616059fd6" class="image"><a href="Seasonality%20identification%20-%20notes%209db18512c61a44a5a6cdec4bc31d1109/step_periodic_acf_spec_run2.png"><img style="width:1848px" src="Seasonality%20identification%20-%20notes%209db18512c61a44a5a6cdec4bc31d1109/step_periodic_acf_spec_run2.png"/></a></figure><figure id="1bad2bab-6038-4829-9bcc-f5a83d8913fe" class="image"><a href="Seasonality%20identification%20-%20notes%209db18512c61a44a5a6cdec4bc31d1109/step_random_acf_spec_run6.png"><img style="width:1848px" src="Seasonality%20identification%20-%20notes%209db18512c61a44a5a6cdec4bc31d1109/step_random_acf_spec_run6.png"/></a></figure><h3 id="f2329991-999a-4632-8fe9-032c8b53b4d9" class="">Dataset</h3><ul id="282be27d-9865-46ff-a8a4-a3ec54270e47" class="bulleted-list"><li style="list-style-type:disc"><a href="https://archive.ics.uci.edu/ml/datasets/Pseudo+Periodic+Synthetic+Time+Series">https://archive.ics.uci.edu/ml/datasets/Pseudo+Periodic+Synthetic+Time+Series</a></li></ul></div></article></body></html>

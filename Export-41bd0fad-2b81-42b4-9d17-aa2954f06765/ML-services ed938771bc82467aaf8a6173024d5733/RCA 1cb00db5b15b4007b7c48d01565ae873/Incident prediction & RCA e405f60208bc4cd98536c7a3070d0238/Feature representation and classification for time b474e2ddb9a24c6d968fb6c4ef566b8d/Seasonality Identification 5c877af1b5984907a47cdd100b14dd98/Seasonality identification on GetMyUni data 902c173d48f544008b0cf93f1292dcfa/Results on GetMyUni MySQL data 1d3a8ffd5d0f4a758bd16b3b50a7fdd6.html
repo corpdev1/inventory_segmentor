@@ -1,0 +1,683 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Results on GetMyUni MySQL data</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1d3a8ffd-5d0f-4a75-8bd1-6b3b50a7fdd6" class="page sans"><header><h1 class="page-title">Results on GetMyUni MySQL data</h1><p class="page-description"></p></header><div class="page-body"><p id="e0ef06f0-3647-4765-8a41-30246a190343" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><p id="0f97c5da-5fae-4987-b0e1-0fe96e0bcc6d" class="">The evolution of approaches based on ACF+PSD:</p><p id="c4a41c11-acfa-4a71-8e11-8e9a171254d7" class=""><strong>Approach 1.</strong> Approach according to the paper: cluster adjacent frequency candidates together and take only the average of the cluster as the candidate.
+<strong>Approach 2.</strong> Approach needed to correct miss in noisy periodic time series. For e.g., GetMyUni time-series like mysql#status#bytes#received-no_subject, mysql#status#bytes#sent-no_subject, mysql#status#threads#created-no_subject, mysql#status#connections-no_subject
+Note: The pseudo-periodic data set from UCR could be handled by Approach 1.
+So, in approach 2, we limit the size of the frequency candidate clusters to maximum size 2. Then, test the time-period candidates in ascending order of size, just like approach 1. In clusters of size 2, the average time period is taken as a candidate.
+<strong>Approach 3.</strong> Approach needed to correct miss in periodic sparse spikes with Approach 2. For e.g., GetMyUni time-series like mysql#status#handler#update-no_subject, mysql#status#handler#write-no_subject.
+In this approach, we test all frequency candidates proposed by the power spectral density. Though, we cannot do it directly in one loop. We first identify clusters based on Approach 2. We choose the first element of all the clusters as candidate clusters. We test the candidates in ascending order of time period, just like Approach 1. Then, we take the second elements (if present) of all the clusters and test them in ascending order, just like approach 1.</p><p id="9fc114c2-0b4a-4629-8dd6-78061227fa8f" class="">
+</p><p id="1d810c57-4e17-42c4-8bcd-3ed4acb1804e" class="">The following zip files have the plots on all (non-zero) time-series of the MySQL and Apache instances. Below, some plots from approach 2 on MSQL are also presented. </p><p id="bdd0b746-a868-4287-a932-d5bd9aa7ad9c" class="">Approach 2 - MySQL</p><figure id="7541fb61-e8c7-47c2-aafa-95bc97c98b63"><div class="source"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/approach_2.zip">approach_2.zip</a></div></figure><p id="c3aa52bc-6425-42fd-8f04-c8c5c9b75056" class="">Approach 3 - MySQL</p><figure id="4e94d4b3-4563-4e98-8a99-96ce6ab7566f"><div class="source"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/approach_3.zip">approach_3.zip</a></div></figure><p id="aa02ec30-58fb-480e-b8d8-9786bc211b82" class="">Approach 3 - Apache</p><figure id="37400c18-f9e8-47d1-8237-7b877a495512"><div class="source"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/gmu_apache.zip">gmu_apache.zip</a></div></figure><p id="6b9f8143-c6c5-4787-9ce0-a8de16a8ae68" class="">Some observations:</p><ul id="612c8e83-c87a-470b-b759-d0d556c2bd55" class="bulleted-list"><li style="list-style-type:disc">Approach 3 picks the 1 day period in almost all the cases. The only miss is in the case of mysql#status#open#tables-no_subject. Most likely the reason is the huge anomalous spike, which is compromising the magnitude of the rest of the time-series. A test by removing this spike will be done soon.</li></ul><ul id="d26a03c8-98d5-43f8-bc8a-317b0e9e04f3" class="bulleted-list"><li style="list-style-type:disc">1 day time period in very noisy time-series are also identified.</li></ul><ul id="26cc3645-707f-4c33-b64f-ab30dca25bc8" class="bulleted-list"><li style="list-style-type:disc">Apache has 10 sparse time-series out of 15. On very noisy cases it is difficult to identify the 1 day period.</li></ul><h3 id="318d2b12-36bc-456e-96aa-b6b12ce440c1" class=""><strong>Some MySQL results based on approach 2</strong></h3><h3 id="4829f494-df59-41f1-a6f6-5ad4cd29ac16" class="">mysql#status#bytes#sent-no_subject</h3><figure id="c95e2257-f02c-415b-b1a4-fba713837dfc" class="image"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusbytessent-no_subject.png"><img style="width:1280px" src="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusbytessent-no_subject.png"/></a></figure><figure id="f479b5e8-b25c-4ffb-9b22-5575e29bf190" class="link-to-page"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/bytes#sent%20validated%20time%20periods%20f479b5e8b25c4ffb9b225575e29bf190.html">bytes#sent: validated time periods</a></figure><h3 id="6e4319e1-ed08-486e-a767-7fde0b6a52fc" class="">mysql#status#bytes#received-no_subject</h3><figure id="61cc841e-6c5f-4559-b1ba-df1e6d774e37" class="image"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusbytesreceived-no_subject.png"><img style="width:1280px" src="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusbytesreceived-no_subject.png"/></a></figure><figure id="cd918632-d46f-46e1-8d86-8e5897b57c4c" class="link-to-page"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/bytes#received%20validated%20time%20periods%20cd918632d46f46e18d868e5897b57c4c.html">bytes#received: validated time periods</a></figure><h3 id="afe2af25-b44b-4332-b4b8-6e64109110d4" class="">mysql#status#connections-no_subject</h3><figure id="ae23fd0f-37e7-4603-aba1-4ae97d7778cd" class="image"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusconnections-no_subject.png"><img style="width:1280px" src="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusconnections-no_subject.png"/></a></figure><figure id="87f96dca-a387-41eb-b258-2819cf6f5e78" class="link-to-page"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/connections%20validated%20time%20periods%2087f96dcaa38741ebb2582819cf6f5e78.html">connections: validated time periods</a></figure><h3 id="3965f01e-67e2-4b7f-88bc-f94ca4e40404" class="">mysql#status#threads#created-no_subject</h3><figure id="9f46ab06-879d-4088-aabd-f954e02199e0" class="image"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusthreadscreated-no_subject.png"><img style="width:1280px" src="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusthreadscreated-no_subject.png"/></a></figure><figure id="6e75a125-adfb-483c-98dc-cf9846ed900b" class="link-to-page"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/threads#created%20validated%20time%20periods%206e75a125adfb483c98dccf9846ed900b.html">threads#created: validated time periods</a></figure><h3 id="cca291e0-3f1e-46b9-9ef1-089e05a6e25f" class="">mysql#status#aborted#clients-no_subject</h3><figure id="dd66c753-9c8f-423d-88e3-98d852c52078" class="image"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusabortedclients-no_subject.png"><img style="width:1280px" src="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusabortedclients-no_subject.png"/></a></figure><figure id="ddfaa3ff-2e6b-4045-90bf-64e2d142a1a0" class="link-to-page"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/aborted#clients%20validated%20time%20periods%20ddfaa3ff2e6b404590bf64e2d142a1a0.html">aborted#clients: validated time periods</a></figure><h3 id="eedc617f-1efe-408b-b63d-0ffeb241ef3a" class="">mysql#status#aborted#connects-no_subject</h3><figure id="fdfeadf3-3ee5-449c-8209-f5a2eb4152d8" class="image"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusabortedconnects-no_subject.png"><img style="width:1280px" src="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusabortedconnects-no_subject.png"/></a></figure><figure id="d5e21924-c82c-4366-aa1a-5fc0598de809" class="link-to-page"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/aborted#connects%20time%20period%20candidates%20d5e21924c82c4366aa1a5fc0598de809.html">aborted#connects: time period candidates</a></figure><h3 id="b8550f10-e19b-448a-9773-b35a08ee77d8" class="">mysql#status#innodb#buffer_pool#bytes#data-no_subject</h3><figure id="46c84970-f14c-46aa-a491-f4269c0ea4a1" class="image"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusinnodbbuffer_poolbytesdata-no_subject.png"><img style="width:1280px" src="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusinnodbbuffer_poolbytesdata-no_subject.png"/></a></figure><figure id="712ee523-b5da-4172-978b-8dedfb96ee9f" class="link-to-page"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/innodb#buffer_pool#bytes#data%20validated%20time%20perio%20712ee523b5da4172978b8dedfb96ee9f.html">innodb#buffer_pool#bytes#data: validated time periods</a></figure><h3 id="ecaa1e56-bab7-49eb-addd-9baa996316ad" class="">mysql#status#innodb#buffer_pool#bytes#dirty-no_subject</h3><figure id="031682a4-20bb-4e01-99bd-d4d9794592fe" class="image"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusinnodbbuffer_poolbytesdirty-no_subject.png"><img style="width:1280px" src="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusinnodbbuffer_poolbytesdirty-no_subject.png"/></a></figure><figure id="7f488776-4604-4806-ae4f-98e413d8d7ca" class="link-to-page"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysql#status#innodb#buffer_pool#bytes#dirty-no_sub%207f48877646044806ae4f98e413d8d7ca.html">mysql#status#innodb#buffer_pool#bytes#dirty-no_subject: validated time periods</a></figure><h3 id="9c2a6e6c-90b4-4452-b3a9-66d97f1b0c31" class="">mysql#status#innodb#buffer_pool#pages#data-no_subject</h3><figure id="91e500fc-e799-43cb-af75-c65fc3e7f575" class="image"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusinnodbbuffer_poolpagesdata-no_subject.png"><img style="width:1280px" src="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysqlstatusinnodbbuffer_poolpagesdata-no_subject.png"/></a></figure><figure id="3a7a422f-d699-4bb6-b216-8588b24d6c48" class="link-to-page"><a href="Results%20on%20GetMyUni%20MySQL%20data%201d3a8ffd5d0f4a758bd16b3b50a7fdd6/mysql#status#innodb#buffer_pool#pages#data-no_subj%203a7a422fd6994bb6b2168588b24d6c48.html">mysql#status#innodb#buffer_pool#pages#data-no_subject: validated time periods</a></figure><p id="af48928f-00d4-4511-a5c5-8ace1166887b" class="">
+</p></div></article></body></html>

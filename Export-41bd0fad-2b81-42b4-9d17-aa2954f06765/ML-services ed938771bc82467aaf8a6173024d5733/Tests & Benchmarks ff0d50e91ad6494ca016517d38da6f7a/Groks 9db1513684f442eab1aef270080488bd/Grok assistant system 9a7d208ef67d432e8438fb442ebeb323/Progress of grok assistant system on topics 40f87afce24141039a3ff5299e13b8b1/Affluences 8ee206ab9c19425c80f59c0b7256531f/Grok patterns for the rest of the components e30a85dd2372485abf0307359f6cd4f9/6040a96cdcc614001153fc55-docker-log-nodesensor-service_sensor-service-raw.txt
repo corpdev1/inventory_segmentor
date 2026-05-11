@@ -1,0 +1,40 @@
+ip=::ffff:10.0.37.21 time=2021-10-17T05:00:00.509Z method=GET path="/xovis/data?element_ids=144&from_datetime_utc=2021-10-17T04%3A40%3A00.343069%2B00%3A00&to_datetime_utc=2021-10-17T05%3A00%3A01.343069%2B00%3A00" status=200 content_length=1282 content_type="application/json; charset=utf-8" elapsed=83ms
+
+ip=%{IP:ip} time=%{TIMESTAMP_ISO8601:logdatetime} %{GREEDYDATA:content}
+
+ip=::ffff:10.255.0.2 time=2021-10-18T07:11:21.285Z method=GET path=/site? status=200 content_length=897469 content_type="application/json; charset=utf-8" elapsed=6126ms
+
+ip=%{IP:ip} time=%{TIMESTAMP_ISO8601:logdatetime} %{GREEDYDATA:content}
+
+(node:18) UnhandledPromiseRejectionWarning: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at ServerResponse.setHeader (_http_outgoing.js:561:11)
+    at ServerResponse.header (/usr/src/app/node_modules/express/lib/response.js:767:10)
+    at ServerResponse.send (/usr/src/app/node_modules/express/lib/response.js:170:12)
+    at ServerResponse.json (/usr/src/app/node_modules/express/lib/response.js:267:15)
+    at ResponseData.sendJson (/usr/src/app/dist/models/ResponseData.js:12:44)
+    at HyperionController.<anonymous> (/usr/src/app/dist/controllers/hyperionController.js:75:37)
+    at Generator.next (<anonymous>)
+    at fulfilled (/usr/src/app/dist/controllers/hyperionController.js:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+
+\(node:%{POSINT:nodeid}\) UnhandledPromiseRejectionWarning: %{LOGLEVEL:loglevel} %{GREEDYMULTILINE:content}
+GREEDYMULTILINE=>(.|\n)*
+
+time=2021-10-18T13:41:34Z level=error msg="parameters invalid {\"elements[0].elements_settings[1].count_forward_direction\":\"body[elements[0].elements_settings[1].count_forward_direction]: Invalid value\",\"elements[0].elements_settings[1].count_backward_direction\":\"body[elements[0].elements_settings[1].count_backward_direction]: Invalid value\",\"elements[0].elements_settings[1].reverse_count\":\"body[elements[0].elements_settings[1].reverse_count]: Invalid value\"}" detail="[\"body[elements[0].elements_settings[1].count_forward_direction]: Invalid value\",\"body[elements[0].elements_settings[1].count_backward_direction]: Invalid value\",\"body[elements[0].elements_settings[1].reverse_count]: Invalid value\"]"
+
+time=%{TIMESTAMP_ISO8601:logdatetime} level=%{LOGLEVEL:loglevel} msg="%{GREEDYDATA:content}"
+
+time=2021-10-18T13:02:07Z level=error msg="TypeError: Converting circular structure to JSON
+    --> starting at object with constructor 'Socket'
+    |     property '_writableState' -> object with constructor 'WritableState'
+    |     property 'afterWriteTickInfo' -> object with constructor 'Object'
+    --- property 'stream' closes the circle"
+
+time=%{TIMESTAMP_ISO8601:logdatetime} level=%{LOGLEVEL:loglevel} msg="%{GREEDYMULTILINE:content}"
+GREEDYMULTILINE=>(.|\n)*
+
+(node:18) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 16)
+
+\(node:%{POSINT:nodeid}\) UnhandledPromiseRejectionWarning: %{GREEDYDATA:content}
+
+27590 messages. Oct 17th - Nov 16th. 10 minutes.

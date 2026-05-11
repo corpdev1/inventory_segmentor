@@ -1,0 +1,777 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Testing FluxInfer with System metrics</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1b74cc68-ccba-4634-be6f-b625a5870b0c" class="page sans"><header><h1 class="page-title">Testing FluxInfer with System metrics</h1><p class="page-description"></p></header><div class="page-body"><p id="08af738a-37e4-4c83-903a-da6b7a7c5c8f" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><p id="2efd0fc9-e20b-4a2b-8ef5-274b1bad964e" class="">
+</p><p id="5f8b4781-d14c-44c5-bbae-f0b02a84b8ab" class=""><strong>Note:</strong> In order to get the system metrics one can access the stashed topic which is named as follows:</p><p id="f648592a-a4e4-457a-85f1-5aa5713da032" class="">agent_id-infra_id-metric-infra_id-stashed</p><p id="452470de-3741-42ca-a8de-311e45020291" class="">
+</p><p id="8b6367b8-11c9-4c14-844a-6d6dec42122d" class="">Initially, the system was tested automatically. It was tested with three settings:</p><ul id="4625af6f-1815-4f4b-a19c-b4ca1d561401" class="bulleted-list"><li style="list-style-type:disc">20 minutes of activity, in which the second 10 minutes has CPU saturation.</li></ul><ul id="665475a4-f5e7-44f5-b45e-ca024314c2d3" class="bulleted-list"><li style="list-style-type:disc">90 minutes of activity, in which the middle 30 minutes has CPU saturation.</li></ul><ul id="cf2b402b-4ec4-4a7c-b5e1-08d5fd0543db" class="bulleted-list"><li style="list-style-type:disc">15 minutes of activity, in which the middle 5 minutes has CPU saturation.</li></ul><p id="83e6fed2-529c-487f-8d11-0f089e2cd9b0" class="">In the first case, when the anomaly was detected, the CPU metric had anomaly score much lower than the top five metrics (CPU metric: 0.013322416152928498, Top ranked anomaly: 0.036697524759120144, 5th ranked anomaly: 0.028172946552678355).</p><p id="e7c7c290-d487-435f-ab06-ec504b44d6fa" class="">To test the ranking performance of FluxInfer, the anomaly was manually marked in the 90 minute dataset and tests were performed. The time windows were centered around the anomaly. The increase in the CPU metric is marked as the point of anomaly. Two window sizes were tested. See below for the results.</p><p id="0ba28633-38d4-4c0e-aa70-60eec944c529" class="">We can see that the CPU metric is given a low rank. The plots of the top 5 metrics, the CPU metric and the metric called questions (the number of client queries executed) are shown below. Many of the database metrics behave similarly to questions, where the metrics show activity before CPU saturation and then have very less activity when CPU saturation starts. The goal is to correctly capture the negative correlation that CPU saturation is having to so many of the database metrics.</p><p id="ca10dd54-9396-494e-8c4c-c6b6175f0f32" class="">The literature says that Fisher Z test requires a sufficient number of samples. We can see that the ranking of the metrics has not changed considerably between these two windows. This shows that the smaller window (96 samples, 1 sample per 10 seconds) appears to be good enough.</p><p id="7d38938d-3583-44a3-a6dc-b35fd030799d" class="">In order to better understand about Fisher Z-test and weighted PageRank the following experiments were done. Many of the time series along with calculation of the p-value of Fisher Z-test had to be examined manually in order to figure out these experiments. Check the bottom of <a href="../Testing%20FluxInfer%20a16a932ef17949cba32d66f847193ebc.html">this link</a> for the plots of all the time series. The experiments are:</p><ul id="be2038cb-fcf5-4f21-94d1-e15a6125651d" class="bulleted-list"><li style="list-style-type:disc">A small graph with 7 metrics (the top 5 metrics, the CPU metric, the metric called questions).</li></ul><ul id="a28a9b75-d4dd-4146-932e-b67dc95387e3" class="bulleted-list"><li style="list-style-type:disc">A graph with all nodes but with unweighted edges, where only edges with high weight (p_value &lt; 1e-5) are retained and assigned a weight of 1.</li></ul><p id="a3f2b5c9-3b42-4fe6-b86b-de8c424ff189" class="">See below regarding how Fisher Z test captures the correlation between pairs from a set of 7 metrics (the top 5 metrics, the CPU metric, the metric called questions). The time series are plotted and the Pearson correlation and the p-value of the Fisher Z test for the pairs are listed.</p><ul id="d1b990da-36b2-47e8-b0fc-455932036bc3" class="bulleted-list"><li style="list-style-type:disc">Two more tests were performed with the data generated by Karim and Dengke. The results are at the end of this page.</li></ul><p id="008d803b-5730-4a04-8e47-aa862af20f29" class="">One can notice the clustering of innodb, network and the rest of the MySQL metrics. In the ranked scores, there is similarity between the two cases.</p><p id="b2aeee8e-185c-40ac-a082-a619b0a31f1f" class="">Check <a href="../Testing%20FluxInfer%20a16a932ef17949cba32d66f847193ebc.html">this link</a> for more results and conclusions.</p><p id="ffc61728-df77-48c4-b70f-343e597879f7" class="">
+</p><p id="8e112de4-f81f-4555-93a4-3da50fa7cd64" class="">Note about MAD:</p><p id="ac435133-918a-4407-b4c6-0044d434b4c5" class="">During the anomalous incident there is an increase in the CPU metric (usually, from a value of (1 to 2) to around 8 ) in all the experiments.</p><p id="5f29234d-a948-4f5d-90f5-c80fe0bba6a2" class="">In the very first test (20 minutes of activity, in which the second 10 minutes has CPU saturation) there was an anomaly detected by MAD but for some reason it is not being detected in the other the automatic tests.</p><p id="557f34c4-bbad-4e5f-8671-812b99e69f48" class="">
+</p><p id="73ae267a-b7f5-4ccc-9c4a-d1be7e211500" class=""><strong>Window of size 480 seconds on either side of the anomaly</strong></p><p id="a5079942-8d58-414a-ab8c-a8945bcb736f" class="">Top 5 metrics</p><p id="12cea582-d244-4a66-b80e-3965347634ec" class="">mysql#status#innodb#buffer_pool#pool#wait_free : 0.04050469343435311</p><p id="54052d54-10e8-4906-a533-d062a8c5f2b7" class="">system#network#out#packets : 0.037207961689745155</p><p id="22a0b401-a80c-4644-ae06-c2fd26bd4852" class="">system#network#in#bytes : 0.03711155675313018</p><p id="44cf728d-14bc-4120-b6e3-866205b271d2" class="">mysql#status#innodb#buffer_pool#pages#misc : 0.036872748182238374</p><p id="f0a8b793-7c78-4603-bef1-2cbf2607964c" class="">system#network#in#packets : 0.03639934698516427.
+</p><p id="b5f67e4d-f662-473e-927f-03a8815dfcc8" class="">Other metrics
+&#x27;mysql#status#innodb#buffer_pool#pages#data :5:0.03488229202898734&#x27;</p><p id="9c883c28-9778-4b31-9661-f4222c48f3e1" class="">&#x27;mysql#status#innodb#buffer_pool#bytes#data :6:0.034882292028987336&#x27;</p><p id="5afa5042-8875-4d51-9637-70bad768d002" class="">&#x27;mysql#status#handler#write :7:0.03253247623539974&#x27;</p><p id="d7e6ec3c-f300-4c15-b054-a9de99b14a90" class="">&#x27;mysql#status#binlog#cache#use :8:0.031972593058552025&#x27;</p><p id="c8c0ca7e-5ce1-4e7f-ad9e-3859f48542a0" class="">&#x27;mysql#status#innodb#buffer_pool#write_requests :9:0.03195635333758906&#x27;</p><p id="77f9bc7e-454c-4ffb-ac5a-a31bcdf554f6" class="">&#x27;mysql#status#bytes#sent 10:0.031951648154339915&#x27;</p><p id="e63ff6f5-99e5-4b5e-9a72-cf641ad46d02" class="">&#x27;mysql#status#innodb#rows#inserted 11:0.03195002654433727&#x27;</p><p id="a2cdb26f-9020-4918-9b19-bf0bac09eae2" class="">&#x27;mysql#status#bytes#received 12:0.03194801639776605&#x27;</p><p id="a3fe1ae1-785c-453e-9eba-1d9b55d100b7" class="">&#x27;mysql#status#queries 13:0.03194797209246818&#x27;</p><p id="6e5f1715-3d32-400e-be7f-f12454c0f31b" class="">&#x27;mysql#status#questions 14:0.03194797084860557&#x27;</p><p id="99aa3c68-3b19-44e5-adbd-f00db9dc1e83" class="">&#x27;mysql#status#cache#table#open_cache#hits 15:0.03194654998604147&#x27;</p><p id="85e4fede-b464-44ed-b95b-903c56c72f1b" class="">&#x27;mysql#status#innodb#rows#updated 16:0.03193781112492754&#x27;</p><p id="d6632b3d-777b-45c6-887a-9179912308de" class="">&#x27;mysql#status#handler#update 17:0.03193776260898088&#x27;</p><p id="cdfdc277-1108-4871-ba5b-a27314c6a4b4" class="">&#x27;mysql#status#innodb#buffer_pool#pool#reads 18:0.03193729552014076&#x27;</p><p id="036068a1-e045-4004-ac97-b44361758613" class="">&#x27;mysql#status#handler#read#key 19:0.03193081234237093&#x27;</p><p id="7cb38807-cd9b-48e0-ad2e-e6b6bb5c2cc1" class="">&#x27;mysql#status#innodb#rows#reads 20:0.03192238369517792&#x27;</p><p id="1a819be8-2d7d-481c-9a1a-5b30079431b3" class="">&#x27;mysql#status#innodb#rows#deleted 21:0.03191059881046698&#x27;</p><p id="08e134e4-a32d-4405-b159-d7dfbe239f67" class="">&#x27;mysql#status#handler#read#next 22:0.03190963103748853&#x27;</p><p id="9f8847ff-0d8d-4ce0-8785-25b771f2f23d" class=""><strong>&#x27;no_subject|system.cpu|system#cpu#total#pct 23:0.03172645306816023&#x27;</strong></p><p id="5e8b094f-62b1-4f58-8178-73cd697497a4" class="">&#x27;system#memory#actual#used#pct 24:0.0317261198984624&#x27;</p><p id="941e1e5e-117a-46ba-a172-79a4d4fd0c85" class="">&#x27;mysql#status#innodb#buffer_pool#pages#dirty 25:0.030328911136599412&#x27;</p><p id="7a198234-c286-4c7b-b272-655a7791500a" class="">&#x27;mysql#status#innodb#buffer_pool#bytes#dirty 26:0.030328911136599405&#x27;</p><p id="93a7dc4e-9ad5-4bd8-89bb-57d582ee4962" class="">&#x27;mysql#status#handler#read#rnd 27:0.028247465326001007&#x27;</p><p id="4f13de46-8829-4eee-b0f7-26e215f3916c" class="">&#x27;mysql#status#handler#read#rnd_next 28:0.0281262351593508&#x27;</p><p id="60d6449e-9bf6-43f7-9dec-cefc9d0a4f25" class="">&#x27;system#network#in#dropped 29:0.02055730959152786&#x27;</p><p id="3c867880-641d-409b-83e0-222e2d31e807" class="">&#x27;system#network#out#bytes 30:0.020362974231608925&#x27;</p><p id="4c6d0266-ed0b-46d4-aa8c-799402958df4" class="">&#x27;mysql#status#threads#running 31:0.004549353384375219&#x27;</p><p id="a7d5c5b4-b569-4fe8-a8c2-2bd80c4d9cca" class="">&#x27;system#memory#swap#used#pct 32:0.0045454741700559935&#x27;</p><p id="69aac695-6c91-4f73-97c1-890002bdb378" class="">
+</p><p id="62153506-99d0-4c67-ae6e-1eea55461b66" class=""><strong>Window of size 1700 seconds on either side of the anomaly</strong></p><p id="9484b0b9-c697-4bbe-bc51-e88c0dcc6d52" class="">Top 5 metrics</p><p id="4ba9465a-39fd-4989-b7d2-0da30924dabb" class="">mysql#status#innodb#buffer_pool#pages#misc : 0.0472986884436138</p><p id="ca751375-0415-4643-817b-677126750cd8" class="">mysql#status#innodb#buffer_pool#pool#wait_free : 0.04617822978500433</p><p id="a1b03a61-f95c-4d15-b78b-2f9ce756636a" class="">system#network#in#packets : 0.04198083450255627</p><p id="d4e32bf4-65e7-4e37-a8fe-cbae305b0992" class="">system#network#in#bytes : 0.032183256416653386</p><p id="6e0fb3de-51e4-4841-be82-3fc1bad39114" class="">system#network#out#packets : 0.03218323403592232</p><p id="5f83393e-b721-4f52-a5ca-dbd56808e95b" class="">
+</p><p id="523f9b8c-28ca-44c2-b961-30c7aa1630af" class="">Other metrics</p><p id="ce1ac2f0-6aa9-4f9f-993e-84ce06ccec57" class="">&#x27;mysql#status#handler#write :5:0.031080714030643428&#x27;
+&#x27;mysql#status#innodb#buffer_pool#write_requests :6:0.031080265150845228&#x27;
+&#x27;mysql#status#bytes#sent :7:0.031079511111781505&#x27;
+&#x27;mysql#status#innodb#buffer_pool#pool#reads :8:0.031078947123247373&#x27;
+&#x27;mysql#status#innodb#rows#inserted :9:0.031078850855278332&#x27;]
+&#x27;mysql#status#bytes#received 10:0.031078811007145088&#x27;
+&#x27;mysql#status#cache#table#open_cache#hits 11:0.03107878076601113&#x27;
+&#x27;mysql#status#questions 12:0.031078747070230648&#x27;
+&#x27;mysql#status#queries 13:0.03107874706266876&#x27;
+&#x27;mysql#status#binlog#cache#use 14:0.031078293405571736&#x27;
+&#x27;mysql#status#handler#update 15:0.031078265549285673&#x27;
+&#x27;mysql#status#innodb#rows#updated 16:0.03107826488806164&#x27;
+&#x27;mysql#status#handler#read#key 17:0.03107801387854462&#x27;
+&#x27;mysql#status#innodb#rows#reads 18:0.03107752076296761&#x27;
+&#x27;mysql#status#innodb#rows#deleted 19:0.03107728101353342&#x27;
+&#x27;mysql#status#handler#read#next 20:0.031076445463961107&#x27;
+&#x27;mysql#status#innodb#buffer_pool#bytes#data 21:0.028530475899143277&#x27;
+&#x27;mysql#status#innodb#buffer_pool#pages#data 22:0.028530475899143277&#x27;
+&#x27;mysql#status#innodb#buffer_pool#bytes#dirty 23:0.02851708578165358&#x27;
+&#x27;mysql#status#innodb#buffer_pool#pages#dirty 24:0.028517085781653576&#x27;
+&#x27;system#memory#swap#used#pct 25:0.02835903494813875&#x27;
+<strong>&#x27;no_subject|system.cpu|system#cpu#total#pct 26:0.028358949458806244&#x27;</strong>
+&#x27;system#memory#actual#used#pct 27:0.028358943175654096&#x27;
+&#x27;mysql#status#handler#read#rnd_next 28:0.027021916552827867&#x27;
+&#x27;mysql#status#handler#read#rnd 29:0.027009741650008388&#x27;
+&#x27;system#network#in#dropped 30:0.022584238911698355&#x27;
+&#x27;system#network#out#bytes 31:0.022584206677873232&#x27;
+&#x27;mysql#status#threads#running 32:0.004546142939872203&#x27;</p><figure id="fd60456d-e2a8-4031-a245-a0b58a44cd39" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/cpu_total_pct.png"><img style="width:640px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/cpu_total_pct.png"/></a></figure><figure id="57dbbfb2-a620-4316-935f-fb49eba76319" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/innodb_buffer_pool_pages_misc.png"><img style="width:1848px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/innodb_buffer_pool_pages_misc.png"/></a></figure><figure id="04fce338-7c79-4848-9b96-e7e0c9165ace" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/innodb_buffer_pool_wait_free.png"><img style="width:720px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/innodb_buffer_pool_wait_free.png"/></a></figure><figure id="04400ca6-38dd-4325-b6b1-0a97455bfd4d" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/network_in_packets.png"><img style="width:640px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/network_in_packets.png"/></a></figure><figure id="123321d3-a5e3-4eeb-83df-3988047e35dc" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/network_in_bytes.png"><img style="width:640px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/network_in_bytes.png"/></a></figure><figure id="aae9d722-28d2-4dd8-87ea-aa4f93c5c6eb" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/network_out_packets.png"><img style="width:640px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/network_out_packets.png"/></a></figure><figure id="9f0acbde-f6da-4202-9596-6528070b5996" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/status_questions.png"><img style="width:640px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/status_questions.png"/></a></figure><p id="394ab96a-b277-4802-8e63-62b8003b88cd" class="">
+</p><p id="b78da86a-c4cb-431c-952a-ecf828be2dcb" class="">&#x27;mysql#status#innodb#buffer_pool#pages#misc&#x27; &#x27;mysql#status#innodb#buffer_pool#pool#wait_free&#x27; r -0.8955843741105337 p_value 1.1985149570309642e-41</p><p id="bf0e6125-e2ff-48ed-8832-6d5958f3572c" class="">&#x27;mysql#status#innodb#buffer_pool#pages#misc&#x27; &#x27;mysql#status#questions&#x27; r -0.027117973620238572 p_value 0.8002669388474317</p><p id="d0b93444-5075-4f5a-a913-e6f046009c1b" class="">&#x27;mysql#status#innodb#buffer_pool#pages#misc&#x27; &#x27;system#cpu#total#pct&#x27; r -0.08156892115826997 p_value 0.45102766676793504</p><p id="5c22687e-dd3a-49bf-9f33-f04931b7cf7d" class="">&#x27;mysql#status#innodb#buffer_pool#pages#misc&#x27; &#x27;system#network#in#bytes&#x27; r 0.030275914806424137 p_value 0.7800794676803104</p><p id="a6da2c96-6e32-4074-ad54-f4b0f67146e9" class="">&#x27;mysql#status#innodb#buffer_pool#pages#misc&#x27; &#x27;system#network#out#packets&#x27; r -0.10589430906387555 p_value 0.3271002797497927</p><p id="1057b0f5-02d0-4797-ab37-113aebaaea7b" class="">&#x27;mysql#status#innodb#buffer_pool#pages#misc&#x27; &#x27;system#network#in#packets&#x27; r -0.02051822069284444 p_value 0.8499398287332063</p><p id="2ae15010-0261-4c0b-af02-3959b8bf87a5" class="">&#x27;mysql#status#innodb#buffer_pool#pool#wait_free&#x27; &#x27;mysql#status#questions&#x27; r -0.049544503758002345 p_value 0.6437234904529779</p><p id="e1104991-45e3-4c26-93c1-bb0433c44587" class="">&#x27;mysql#status#innodb#buffer_pool#pool#wait_free&#x27; &#x27;system#cpu#total#pct&#x27; r 0.13772701477585203 p_value 0.2012840970658436</p><p id="1077f1d3-413a-457e-b6a6-db5bc6e49e36" class="">&#x27;mysql#status#innodb#buffer_pool#pool#wait_free&#x27; &#x27;system#network#in#bytes&#x27; r -0.005438680349597609 p_value 0.9600087129433892</p><p id="7da4eb12-2124-4206-9a55-bca166fce665" class="">&#x27;mysql#status#innodb#buffer_pool#pool#wait_free&#x27; &#x27;system#network#out#packets&#x27; r 0.15057362137564181 p_value 0.1618559581925083</p><p id="9c6dc272-6b33-4d6a-99b7-6039de3be17f" class="">&#x27;mysql#status#innodb#buffer_pool#pool#wait_free&#x27; &#x27;system#network#in#packets&#x27; r 0.06536548675390544 p_value 0.5461757780407959</p><p id="f2f89d1c-2a37-4de8-b644-76fade5d68da" class="">&#x27;mysql#status#questions&#x27; &#x27;system#cpu#total#pct&#x27; r -0.7833041576955762 p_value 2.5733226721606153e-22</p><p id="a7c463be-452f-4d3c-b41d-92b8927bacde" class="">&#x27;mysql#status#questions&#x27; &#x27;system#network#in#bytes&#x27; r 0.049616802030978326 p_value 0.647081585755301</p><p id="e6f619d4-aa51-432c-9bfd-e6e453db3c09" class="">&#x27;mysql#status#questions&#x27; &#x27;system#network#out#packets&#x27; r 0.008300764024613836 p_value 0.9389966353729694</p><p id="371775d6-007e-47a3-993f-be837b129660" class="">&#x27;mysql#status#questions&#x27; &#x27;system#network#in#packets&#x27; r 0.06554777377380884 p_value 0.545053860753993</p><p id="2122c6e1-b087-4264-9b3c-aae574c294f1" class="">&#x27;system#cpu#total#pct&#x27; &#x27;system#network#in#bytes&#x27; r 0.05268235630934979 p_value 0.6268555548109556</p><p id="b885aec7-99fe-48fe-9825-424696c6112a" class="">&#x27;system#cpu#total#pct&#x27; &#x27;system#network#out#packets&#x27; r 0.08536539910735569 p_value 0.43014108040879384</p><p id="f8d6768b-5bd0-4849-89ec-320462a0ba0a" class="">&#x27;system#cpu#total#pct&#x27; &#x27;system#network#in#packets&#x27; r 0.08007640456966253 p_value 0.4593897706943426</p><p id="a1979391-5527-44b2-b055-2a0a4e3f83f1" class="">&#x27;system#network#in#bytes&#x27; &#x27;system#network#out#packets&#x27; r 0.41697374282429506 p_value 4.245581468805726e-05</p><p id="89e44d2a-a0f7-4498-965d-4b223291c065" class="">&#x27;system#network#in#bytes&#x27; &#x27;system#network#in#packets&#x27; r 0.8499289463385823 p_value 5.2781810952879585e-31</p><p id="781999a1-45cf-459d-ac3f-47eaf5015a86" class="">&#x27;system#network#out#packets&#x27; &#x27;system#network#in#packets&#x27; r 0.8091489116931334 p_value 3.4698386878614e-25</p><p id="e5c175ad-7203-4547-8e7e-9688b6838594" class="">
+</p><h3 id="fd89d222-8d81-481d-8dd7-ff3e8fb28e39" class="">Clusters of metrics</h3><p id="230a8389-2c4c-4b21-aaf1-b06a45bcb8be" class="">A closer look at the metric clusters. Each cluster&#x27;s weighted and unweighted graphs are plotted.</p><figure id="a40b208e-1cb2-4f4e-a288-c882595c3f84" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/innodb_cluster.png"><img style="width:1848px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/innodb_cluster.png"/></a></figure><figure id="a45cdc00-4e24-4e74-b01f-9d5a29bad0cf" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/innodb_cluster_unweighted.png"><img style="width:1848px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/innodb_cluster_unweighted.png"/></a></figure><figure id="9d642229-5e91-4099-96ae-270628ead4a8" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/network_cluster.png"><img style="width:1848px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/network_cluster.png"/></a></figure><figure id="b80f8e9f-51a1-49ff-9a20-609f791bf78d" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/network_cluster_unweighted.png"><img style="width:1848px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/network_cluster_unweighted.png"/></a></figure><figure id="bd5d0c28-9108-42bf-993b-75709d66b928" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/mysql_other_cluster.png"><img style="width:1848px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/mysql_other_cluster.png"/></a></figure><figure id="85631bcb-a8fd-4872-bded-20c9bf64e54d" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/mysql_other_cluster_unweighted.png"><img style="width:1848px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/mysql_other_cluster_unweighted.png"/></a></figure><p id="abcc10e3-4f03-414e-8d0b-b0edc67bfc3f" class="">Out of the 528 edges (33 nodes, fully connected graph), here are histograms w.r.t. different coarseness of the bins.</p><ul id="2b1ddf4d-a688-4e31-bf18-c371f31cb65c" class="bulleted-list"><li style="list-style-type:disc">224 edges have a weight of &gt; 1e5. Those are the edges that you see in the unweighted graph, which is split into three connected components.</li></ul><ul id="d45074bd-fdd7-4d24-84e6-b0b2af33bf70" class="bulleted-list"><li style="list-style-type:disc">~300 edges are of strength of around 1000 or less.</li></ul><figure id="b8caffe6-f7ba-4403-ac93-8940cc90914c" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/weight_histograms.png"><img style="width:1848px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/weight_histograms.png"/></a></figure><figure id="51cc2d4e-2266-46dd-8005-b4edb5635d11" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/weight_histogram_two.png"><img style="width:1848px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/weight_histogram_two.png"/></a></figure><h3 id="69517294-4641-40f1-93da-1bdee16420e7" class="">Tests with two cases of CPU saturation generated by Karim and Dengke</h3><p id="1b8c6de0-a153-413e-bf96-a0049e6edd45" class="">Test One</p><p id="d9015411-b949-4df3-95bf-765770f1ef74" class="">#status#innodb#buffer_pool#pages#dirty, Rank: 0, score: 0.0493898173477563.
+#status#innodb#buffer_pool#bytes#dirty, Rank: 1, score: 0.0493898173477563.
+#status#innodb#buffer_pool#bytes#data, Rank: 2, score: 0.03685809165511317.
+#status#innodb#buffer_pool#pages#data, Rank: 3, score: 0.03685809165511317.
+#status#innodb#buffer_pool#pages#misc, Rank: 4, score: 0.03434938200480482.
+#status#innodb#buffer_pool#pool#wait_free, Rank: 5, score: 0.031597529313408514.
+#status#innodb#buffer_pool#pool#reads, Rank: 6, score: 0.03142414577430009.
+#status#innodb#buffer_pool#write_requests, Rank: 7, score: 0.0313859065744292.
+#status#bytes#sent, Rank: 8, score: 0.03136952886201458.
+#status#innodb#rows#inserted, Rank: 9, score: 0.0313674298403546.
+#status#bytes#received, Rank: 10, score: 0.0313644789349103.
+#status#handler#read#key, Rank: 11, score: 0.03136410765214716.
+#status#innodb#rows#reads, Rank: 12, score: 0.0313637395515247.
+#status#cache#table#open_cache#hits, Rank: 13, score: 0.031362080737507445.
+#status#queries, Rank: 14, score: 0.03136195562160564.
+#status#questions, Rank: 15, score: 0.031361951279589094.
+#status#handler#write, Rank: 16, score: 0.03135782943879968.
+#status#handler#read#next, Rank: 17, score: 0.031357520372530076.
+#status#binlog#cache#use, Rank: 18, score: 0.03135339977842126.
+#status#innodb#rows#updated, Rank: 19, score: 0.03134615681038782.
+#status#handler#update, Rank: 20, score: 0.031346138192860855.
+#status#handler#read#rnd, Rank: 21, score: 0.031340108816386256.
+#status#handler#read#rnd_next, Rank: 22, score: 0.03134010881638625.
+#status#innodb#rows#deleted, Rank: 23, score: 0.03130373114694352.
+system#diskio#iostat#read#per_sec#bytes, Rank: 24, score: 0.031205775781240862.
+system#diskio#iostat#write#per_sec#bytes, Rank: 25, score: 0.03049970415089519.
+system#network#out#bytes, Rank: 26, score: 0.030407265655979576.
+system#network#out#packets, Rank: 27, score: 0.030407240321412263.
+system#network#in#packets, Rank: 28, score: 0.03040723146922944.
+system#network#in#bytes, Rank: 29, score: 0.030407206247490465.
+system#cpu#total#pct, Rank: 30, score: 0.004622448988671615.
+#status#threads#running, Rank: 31, score: 0.004584516476201964.
+system#memory#actual#used#pct, Rank: 32, score: 0.004545563383827775.</p><figure id="2a0cdfa2-d375-41d3-adef-24aa73245e16" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/network_cluster%201.png"><img style="width:1848px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/network_cluster%201.png"/></a></figure><figure id="189a8c4d-97af-4b04-a4a1-d0319490970a" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/memory_diskio_cluster.png"><img style="width:1848px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/memory_diskio_cluster.png"/></a></figure><figure id="1dc843bc-80eb-45b6-94ec-866d419250e0" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/innodb_cpu_cluster.png"><img style="width:1848px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/innodb_cpu_cluster.png"/></a></figure><figure id="80497f2b-a04e-4a56-8701-9835501ac8ad" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/other_metrics_cluster.png"><img style="width:1848px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/other_metrics_cluster.png"/></a></figure><p id="2c32170f-2818-4188-8f82-ba13125115b5" class="">Test Two</p><p id="510f33e2-2935-4242-8bc8-8491d751d788" class="">#status#innodb#buffer_pool#pages#misc, Rank: 0, score: 0.051372836571511184.
+#status#innodb#buffer_pool#bytes#data, Rank: 1, score: 0.04412877423966567.
+#status#innodb#buffer_pool#pages#data, Rank: 2, score: 0.044128774239665665.
+#status#innodb#buffer_pool#pages#dirty, Rank: 3, score: 0.0434941931206088.
+#status#innodb#buffer_pool#bytes#dirty, Rank: 4, score: 0.0434941931206088.
+#status#handler#read#rnd, Rank: 5, score: 0.03566874126563095.
+#status#handler#read#rnd_next, Rank: 6, score: 0.03566874126563092.
+#status#handler#write, Rank: 7, score: 0.03390533756020836.
+#status#binlog#cache#use, Rank: 8, score: 0.03388949233066724.
+#status#handler#read#key, Rank: 9, score: 0.03375397522253954.
+#status#bytes#sent, Rank: 10, score: 0.03370811971218548.
+#status#innodb#rows#reads, Rank: 11, score: 0.03359826295221243.
+#status#innodb#buffer_pool#write_requests, Rank: 12, score: 0.033564888207600126.
+#status#innodb#rows#inserted, Rank: 13, score: 0.03356092201262467.
+#status#bytes#received, Rank: 14, score: 0.033527515127832246.
+#status#queries, Rank: 15, score: 0.033518857330234346.
+#status#questions, Rank: 16, score: 0.03351875948012081.
+#status#cache#table#open_cache#hits, Rank: 17, score: 0.03349628467333419.
+#status#handler#read#next, Rank: 18, score: 0.033394333549775564.
+#status#handler#update, Rank: 19, score: 0.03332077560886905.
+#status#innodb#rows#updated, Rank: 20, score: 0.03332076654521357.
+#status#innodb#buffer_pool#pool#reads, Rank: 21, score: 0.033308552076261065.
+#status#innodb#rows#deleted, Rank: 22, score: 0.03330270898008558.
+system#network#out#bytes, Rank: 23, score: 0.030804230173795313.
+system#network#out#packets, Rank: 24, score: 0.030804075239554467.
+system#network#in#packets, Rank: 25, score: 0.030803701565156803.
+system#network#in#bytes, Rank: 26, score: 0.030801734503230906.
+system#cpu#total#pct, Rank: 27, score: 0.011394520609931395.
+#status#innodb#buffer_pool#pool#wait_free, Rank: 28, score: 0.01082213616517156.
+system#diskio#iostat#read#per_sec#bytes, Rank: 29, score: 0.006273500840449436.
+system#diskio#iostat#write#per_sec#bytes, Rank: 30, score: 0.0045518811982296625.
+system#memory#actual#used#pct, Rank: 31, score: 0.004551727802649421.
+#status#threads#running, Rank: 32, score: 0.004546686708744378.</p><figure id="096fd5b9-2aca-4564-a38f-3fc5b861eec2" class="image"><a href="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/entire_graph.png"><img style="width:640px" src="Testing%20FluxInfer%20with%20System%20metrics%201b74cc68ccba4634be6fb625a5870b0c/entire_graph.png"/></a></figure></div></article></body></html>

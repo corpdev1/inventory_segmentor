@@ -1,0 +1,676 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Topics by shapes and levels</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f2771865-c273-4dba-a207-46dc1023acec" class="page sans"><header><h1 class="page-title">Topics by shapes and levels</h1><p class="page-description"></p></header><div class="page-body"><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>topic</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesSelect"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM7.62402 10.6348C7.79492 10.915 8.20508 10.9287 8.37598 10.6348L10.666 6.73145C10.8574 6.41016 10.7002 6.04102 10.3652 6.04102H5.62793C5.29297 6.04102 5.14941 6.43066 5.32031 6.73145L7.62402 10.6348Z"></path></svg></span>level</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesSelect"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM7.62402 10.6348C7.79492 10.915 8.20508 10.9287 8.37598 10.6348L10.666 6.73145C10.8574 6.41016 10.7002 6.04102 10.3652 6.04102H5.62793C5.29297 6.04102 5.14941 6.43066 5.32031 6.73145L7.62402 10.6348Z"></path></svg></span>shape</th></tr></thead><tbody><tr id="25f14c81-188a-45da-9b1e-48e7d6c210f9"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-datadog-agent-serv%2025f14c81188a45da9b1e48e7d6c210f9.html">60ddc7da72033d00111f4be1-docker-datadog-agent-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="47160e67-7019-4de5-8507-02f055537afa"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-datadog-agent-serv%2047160e6770194de5850702f055537afa.html">60ddc7da72033d00111f4be1-docker-datadog-agent-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="428b3613-4806-45b2-8720-fab8fafc3c63"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-datadog-agent-serv%20428b3613480645b28720fab8fafc3c63.html">60ddc7da72033d00111f4be1-docker-datadog-agent-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="a33f232e-2e22-464c-8506-d5fd8e6d0cb3"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-datadog-agent-serv%20a33f232e2e22464c8506d5fd8e6d0cb3.html">60ddc7da72033d00111f4be1-docker-datadog-agent-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="e517ba75-a980-4d13-9003-821a70e652f0"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dotnet-template-se%20e517ba75a9804d139003821a70e652f0.html">60ddc7da72033d00111f4be1-docker-dotnet-template-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="7727dc84-e4d3-4869-83df-13211aaaa8e6"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-datadog-agent-serv%207727dc84e4d3486983df13211aaaa8e6.html">60ddc7da72033d00111f4be1-docker-datadog-agent-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="49988041-651d-4979-b26d-ddd8e236b84d"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-datadog-agent-serv%2049988041651d4979b26dddd8e236b84d.html">60ddc7da72033d00111f4be1-docker-datadog-agent-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="9cf50e24-d9a3-48c3-bf28-17393b802224"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-datadog-agent-serv%209cf50e24d9a348c3bf2817393b802224.html">60ddc7da72033d00111f4be1-docker-datadog-agent-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="1d53769a-6d32-40b0-894c-ba17881284c6"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-datadog-agent-serv%201d53769a6d3240b0894cba17881284c6.html">60ddc7da72033d00111f4be1-docker-datadog-agent-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="59192c68-7cce-498d-9195-b0ec73e481d8"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-celery-ma%2059192c687cce498d9195b0ec73e481d8.html">60ddc7da72033d00111f4be1-docker-donation-celery-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-gray">critical</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="38da29be-a049-40a1-8f9d-9604c4ea3907"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-celery-ma%2038da29bea04940a18f9d9604c4ea3907.html">60ddc7da72033d00111f4be1-docker-donation-celery-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="36969c99-b0bf-486c-b92d-ed3afad2d7f3"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-celery-ma%2036969c99b0bf486cb92ded3afad2d7f3.html">60ddc7da72033d00111f4be1-docker-donation-celery-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="12ee2e90-f865-49b0-9e6c-c2e941dbe43a"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-celery-ma%2012ee2e90f86549b09e6cc2e941dbe43a.html">60ddc7da72033d00111f4be1-docker-donation-celery-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="c66b448b-ee08-487f-afcd-11453b1872a4"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-celery-ma%20c66b448bee08487fafcd11453b1872a4.html">60ddc7da72033d00111f4be1-docker-donation-celery-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="1b5dfc51-fc57-41ee-bd17-575a8d424ec4"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonb2b-dashboar%201b5dfc51fc5741eebd17575a8d424ec4.html">60ddc7da72033d00111f4be1-docker-pythonb2b-dashboard-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="416694da-b9cf-4ba9-a086-f27fdfff81d4"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonb2b-dashboar%20416694dab9cf4ba9a086f27fdfff81d4.html">60ddc7da72033d00111f4be1-docker-pythonb2b-dashboard-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="6e9ed8e8-02f5-48c8-964a-a130583ec71d"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondead-letter-%206e9ed8e802f548c8964aa130583ec71d.html">60ddc7da72033d00111f4be1-docker-pythondead-letter-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="4b9a8a60-a6f9-4a5c-b946-0c17d5576456"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondead-letter-%204b9a8a60a6f94a5cb9460c17d5576456.html">60ddc7da72033d00111f4be1-docker-pythondead-letter-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="ea26c7b2-8335-4662-a007-6a0747833d13"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondead-letter-%20ea26c7b283354662a0076a0747833d13.html">60ddc7da72033d00111f4be1-docker-pythondead-letter-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="a0630661-ac68-402c-8883-abcd6036b983"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-external-is-celery%20a0630661ac68402c8883abcd6036b983.html">60ddc7da72033d00111f4be1-docker-external-is-celery-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="57cb1764-1d12-4d11-904d-44e072beda4b"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-external-is-celery%2057cb17641d124d11904d44e072beda4b.html">60ddc7da72033d00111f4be1-docker-external-is-celery-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="40595a21-9397-4fa9-acc5-e2d8d08a9e60"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-external-is-celery%2040595a2193974fa9acc5e2d8d08a9e60.html">60ddc7da72033d00111f4be1-docker-external-is-celery-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="64c75447-9b55-4683-a487-d80d0c043454"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-external-is-celery%2064c754479b554683a487d80d0c043454.html">60ddc7da72033d00111f4be1-docker-external-is-celery-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="fb03575d-9bbe-4036-b996-f4434dd8b3b3"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-rab%20fb03575d9bbe4036b996f4434dd8b3b3.html">60ddc7da72033d00111f4be1-docker-pythondonation-rabbit-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="8601e593-9898-40a2-a7c9-64d261357d15"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-rab%208601e593989840a2a7c964d261357d15.html">60ddc7da72033d00111f4be1-docker-pythondonation-rabbit-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="ffa67eeb-4fd6-4d6d-89e7-a73669a5f736"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-rab%20ffa67eeb4fd64d6d89e7a73669a5f736.html">60ddc7da72033d00111f4be1-docker-pythondonation-rabbit-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="8d15ac49-67a2-4fd2-8109-9f0bbe602975"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-cron-deve%208d15ac4967a24fd281099f0bbe602975.html">60ddc7da72033d00111f4be1-docker-donation-cron-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="d5320f4c-fde9-45b3-9830-cb2dc7a174ee"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-cron-deve%20d5320f4cfde945b39830cb2dc7a174ee.html">60ddc7da72033d00111f4be1-docker-donation-cron-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="bcec34da-aae9-4fa2-87e9-1341d944d3f4"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-cron-deve%20bcec34daaae94fa287e91341d944d3f4.html">60ddc7da72033d00111f4be1-docker-donation-cron-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="c7e14d8f-0464-4fa9-9a2c-a640f67b83df"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-celery%20c7e14d8f04644fa99a2ca640f67b83df.html">60ddc7da72033d00111f4be1-docker-dead-letter-celery-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="cbfc21f5-fec1-4f9e-859e-7615918b4feb"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-celery%20cbfc21f5fec14f9e859e7615918b4feb.html">60ddc7da72033d00111f4be1-docker-dead-letter-celery-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="4c2033a0-d376-4fc2-93b8-d01012122a43"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-celery%204c2033a0d3764fc293b8d01012122a43.html">60ddc7da72033d00111f4be1-docker-dead-letter-celery-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="6cb6020d-a42d-47ab-8551-859d10fd96c3"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-celery%206cb6020da42d47ab8551859d10fd96c3.html">60ddc7da72033d00111f4be1-docker-dead-letter-celery-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="4bbc42f1-8f92-4e8b-88c2-ff5bb62d06d2"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-rab%204bbc42f18f924e8b88c2ff5bb62d06d2.html">60ddc7da72033d00111f4be1-docker-pythondonation-rabbit-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="010fc717-0cad-4ef2-aa80-fd4ea38eae29"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-rab%20010fc7170cad4ef2aa80fd4ea38eae29.html">60ddc7da72033d00111f4be1-docker-pythondonation-rabbit-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="a41d1bcc-d60f-4e63-9733-0e3fd9091ba7"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-rab%20a41d1bccd60f4e6397330e3fd9091ba7.html">60ddc7da72033d00111f4be1-docker-pythondonation-rabbit-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="00bb77f3-d7e7-4b99-9dff-6f1e4cca9344"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonauth-service%2000bb77f3d7e74b999dff6f1e4cca9344.html">60ddc7da72033d00111f4be1-docker-pythonauth-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="69953c79-6073-4c82-bc13-b0b12ab62385"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonauth-service%2069953c7960734c82bc13b0b12ab62385.html">60ddc7da72033d00111f4be1-docker-pythonauth-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="5694f24e-8727-410e-8e4c-eaa00c46dca7"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonauth-service%205694f24e8727410e8e4ceaa00c46dca7.html">60ddc7da72033d00111f4be1-docker-pythonauth-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="f0041a43-0f2d-45fd-8372-0c4be89d3e5e"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonauth-service%20f0041a430f2d45fd83720c4be89d3e5e.html">60ddc7da72033d00111f4be1-docker-pythonauth-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="4a1c07cc-23cc-4372-8504-43e2717a293a"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondead-letter-%204a1c07cc23cc4372850443e2717a293a.html">60ddc7da72033d00111f4be1-docker-pythondead-letter-rabbit-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="17a8aeea-3720-47ec-94e4-346519689d90"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondead-letter-%2017a8aeea372047ec94e4346519689d90.html">60ddc7da72033d00111f4be1-docker-pythondead-letter-rabbit-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="6fc93d3c-e4f3-472a-9a35-3a955dc25c36"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondead-letter-%206fc93d3ce4f3472a9a353a955dc25c36.html">60ddc7da72033d00111f4be1-docker-pythondead-letter-rabbit-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="8dc74dcb-4688-493e-8a79-96975bb27fea"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-celery-de%208dc74dcb4688493e8a7996975bb27fea.html">60ddc7da72033d00111f4be1-docker-donation-celery-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="f22ac448-3227-47a0-8396-617a9ae6a88c"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-celery-de%20f22ac448322747a08396617a9ae6a88c.html">60ddc7da72033d00111f4be1-docker-donation-celery-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="a64f6d4a-4344-4041-a3f1-c1d2f7907eaf"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-celery-de%20a64f6d4a43444041a3f1c1d2f7907eaf.html">60ddc7da72033d00111f4be1-docker-donation-celery-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="0629252f-7158-40bc-8272-80dbd0d0fe40"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-celery-de%200629252f715840bc827280dbd0d0fe40.html">60ddc7da72033d00111f4be1-docker-donation-celery-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="68391858-4a14-4377-88ee-c077a0e95c0e"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondead-letter-%20683918584a14437788eec077a0e95c0e.html">60ddc7da72033d00111f4be1-docker-pythondead-letter-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="575eea37-2fef-4b96-8cb1-249b315bdebf"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondead-letter-%20575eea372fef4b968cb1249b315bdebf.html">60ddc7da72033d00111f4be1-docker-pythondead-letter-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="6f384ba2-7589-4d0a-91c2-4323bdf12d8c"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondead-letter-%206f384ba275894d0a91c24323bdf12d8c.html">60ddc7da72033d00111f4be1-docker-pythondead-letter-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="ee0d4695-10ab-4872-854e-36cefb35897b"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondead-letter-%20ee0d469510ab4872854e36cefb35897b.html">60ddc7da72033d00111f4be1-docker-pythondead-letter-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="abd6ca73-1845-4b17-b0ec-de57d76b739a"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dotnet-template-se%20abd6ca7318454b17b0ecde57d76b739a.html">60ddc7da72033d00111f4be1-docker-dotnet-template-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="880d7abb-fe41-471d-b688-845f8af11eeb"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dotnet-template-se%20880d7abbfe41471db688845f8af11eeb.html">60ddc7da72033d00111f4be1-docker-dotnet-template-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="00a0997f-5ebb-49f4-94f9-91794716a4d8"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dotnet-template-se%2000a0997f5ebb49f494f991794716a4d8.html">60ddc7da72033d00111f4be1-docker-dotnet-template-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="9915c022-e5c7-440a-b975-e66299015e06"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonemail-servic%209915c022e5c7440ab975e66299015e06.html">60ddc7da72033d00111f4be1-docker-pythonemail-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="d1b80cfc-3aa3-4927-93af-23b86a719831"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonemail-servic%20d1b80cfc3aa3492793af23b86a719831.html">60ddc7da72033d00111f4be1-docker-pythonemail-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="4e861613-918e-4c43-8482-3f00d9e06c7e"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonemail-servic%204e861613918e4c4384823f00d9e06c7e.html">60ddc7da72033d00111f4be1-docker-pythonemail-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="052e5129-13a2-4102-8620-06e89be187ba"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-external-is-celery%20052e512913a24102862006e89be187ba.html">60ddc7da72033d00111f4be1-docker-external-is-celery-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="9cf12846-be8c-4221-9c2a-eca9f023657b"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-external-is-celery%209cf12846be8c42219c2aeca9f023657b.html">60ddc7da72033d00111f4be1-docker-external-is-celery-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="fd50d340-b114-46c7-b790-cbaef9ae0ba3"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-external-is-celery%20fd50d340b11446c7b790cbaef9ae0ba3.html">60ddc7da72033d00111f4be1-docker-external-is-celery-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="df1f9320-555f-4f6e-9c04-535451ad65d4"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-cron-d%20df1f9320555f4f6e9c04535451ad65d4.html">60ddc7da72033d00111f4be1-docker-dead-letter-cron-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="ac242f41-1a20-4467-8e64-120fe236b48b"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-cron-d%20ac242f411a2044678e64120fe236b48b.html">60ddc7da72033d00111f4be1-docker-dead-letter-cron-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="b29b1fc9-0aad-4d6e-843d-20fbb88c3e2b"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-cron-d%20b29b1fc90aad4d6e843d20fbb88c3e2b.html">60ddc7da72033d00111f4be1-docker-dead-letter-cron-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="96c13b68-3b52-4a5e-873b-08b2016e7ff8"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-celery%2096c13b683b524a5e873b08b2016e7ff8.html">60ddc7da72033d00111f4be1-docker-dead-letter-celery-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="acb4ee97-9a42-4b6b-a8c2-aaab81af0afb"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-celery%20acb4ee979a424b6ba8c2aaab81af0afb.html">60ddc7da72033d00111f4be1-docker-dead-letter-celery-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="a9140dc4-5a10-4e0a-87eb-cb1637edead4"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-celery%20a9140dc45a104e0a87ebcb1637edead4.html">60ddc7da72033d00111f4be1-docker-dead-letter-celery-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="b81c8061-4418-45e8-ad5f-0abc8795ce07"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-celery%20b81c8061441845e8ad5f0abc8795ce07.html">60ddc7da72033d00111f4be1-docker-dead-letter-celery-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="5b6ac767-7849-4589-aa90-a363f79fd3af"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-javakeycloak-servi%205b6ac76778494589aa90a363f79fd3af.html">60ddc7da72033d00111f4be1-docker-javakeycloak-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="cd84680e-acc6-4ba7-87fa-7d2617404f5b"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-javakeycloak-servi%20cd84680eacc64ba787fa7d2617404f5b.html">60ddc7da72033d00111f4be1-docker-javakeycloak-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="c0e7e2d3-f067-4482-a5e8-9ab8e0e744ae"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-ser%20c0e7e2d3f0674482a5e89ab8e0e744ae.html">60ddc7da72033d00111f4be1-docker-pythondonation-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="ee3569a2-5b3f-4c76-aa38-d583d5e8de69"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-ser%20ee3569a25b3f4c76aa38d583d5e8de69.html">60ddc7da72033d00111f4be1-docker-pythondonation-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="b1352817-087d-4428-bbfb-94d16a29068b"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-ser%20b1352817087d4428bbfb94d16a29068b.html">60ddc7da72033d00111f4be1-docker-pythondonation-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="ff44870f-0262-4531-9914-fdd8df6db0fc"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-ser%20ff44870f026245319914fdd8df6db0fc.html">60ddc7da72033d00111f4be1-docker-pythondonation-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="77476c5e-f034-48a2-b346-db77cc4ad419"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-cron-m%2077476c5ef03448a2b346db77cc4ad419.html">60ddc7da72033d00111f4be1-docker-dead-letter-cron-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="12eb4412-502e-4fb1-8998-9b9391a2bab4"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-cron-m%2012eb4412502e4fb189989b9391a2bab4.html">60ddc7da72033d00111f4be1-docker-dead-letter-cron-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="b4d1c088-91e0-4f6b-8fc9-eb3c677a02b1"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-dead-letter-cron-m%20b4d1c08891e04f6b8fc9eb3c677a02b1.html">60ddc7da72033d00111f4be1-docker-dead-letter-cron-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="bfbbffd3-4fe1-4312-aef5-c00227e53b70"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-nginxapi-gateway-s%20bfbbffd34fe14312aef5c00227e53b70.html">60ddc7da72033d00111f4be1-docker-nginxapi-gateway-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="88315886-9b8d-435c-94d7-beff9dcf6176"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-nginxapi-gateway-s%20883158869b8d435c94d7beff9dcf6176.html">60ddc7da72033d00111f4be1-docker-nginxapi-gateway-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="76f9988c-e829-42d1-82e3-eb0af7b7e385"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-nginxapi-gateway-s%2076f9988ce82942d182e3eb0af7b7e385.html">60ddc7da72033d00111f4be1-docker-nginxapi-gateway-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="1e949af2-62cf-459a-b5c7-f68bcce2f20b"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-nginxapi-gateway-s%201e949af262cf459ab5c7f68bcce2f20b.html">60ddc7da72033d00111f4be1-docker-nginxapi-gateway-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="def2cb65-de94-42a0-8e84-dfeae47f2790"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-nginxapi-gateway-s%20def2cb65de9442a08e84dfeae47f2790.html">60ddc7da72033d00111f4be1-docker-nginxapi-gateway-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="4a2264ab-69da-4c34-a526-19cfb9ac190b"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-nginxapi-gateway-s%204a2264ab69da4c34a52619cfb9ac190b.html">60ddc7da72033d00111f4be1-docker-nginxapi-gateway-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="3e0595c8-62bc-4016-95b0-201bd15586de"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-nginxapi-gateway-s%203e0595c862bc401695b0201bd15586de.html">60ddc7da72033d00111f4be1-docker-nginxapi-gateway-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="42a885ff-32b0-49ee-898a-5c11bb6e9cb6"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-nginxapi-gateway-s%2042a885ff32b049ee898a5c11bb6e9cb6.html">60ddc7da72033d00111f4be1-docker-nginxapi-gateway-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="916d9825-2601-41f5-8f7d-d85cf0dc266c"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondead-letter-%20916d9825260141f58f7dd85cf0dc266c.html">60ddc7da72033d00111f4be1-docker-pythondead-letter-rabbit-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="936612ae-048a-428b-9514-befe8c5de8c3"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondead-letter-%20936612ae048a428b9514befe8c5de8c3.html">60ddc7da72033d00111f4be1-docker-pythondead-letter-rabbit-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="188c2638-9d15-4fa6-b83c-0b6f2fc6895e"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondead-letter-%20188c26389d154fa6b83c0b6f2fc6895e.html">60ddc7da72033d00111f4be1-docker-pythondead-letter-rabbit-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="3cba0d06-d261-42ba-88f2-33b88598b77f"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonauth-service%203cba0d06d26142ba88f233b88598b77f.html">60ddc7da72033d00111f4be1-docker-pythonauth-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="f8d47d85-469f-4fec-aa4a-425a17015db7"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonauth-service%20f8d47d85469f4fecaa4a425a17015db7.html">60ddc7da72033d00111f4be1-docker-pythonauth-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="d6335ff4-2dd4-419d-938b-d51b2ee1d2dc"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonauth-service%20d6335ff42dd4419d938bd51b2ee1d2dc.html">60ddc7da72033d00111f4be1-docker-pythonauth-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="c51f3dcc-32ec-40f7-9e65-54fafa070bf2"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-external-is-cron-d%20c51f3dcc32ec40f79e6554fafa070bf2.html">60ddc7da72033d00111f4be1-docker-external-is-cron-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="a64edb1c-9fd8-4fa4-a004-32e366140f7c"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-external-is-cron-d%20a64edb1c9fd84fa4a00432e366140f7c.html">60ddc7da72033d00111f4be1-docker-external-is-cron-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="a3ebd30b-3a82-4a8e-8f94-bab5d3ad1e8d"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-external-is-cron-d%20a3ebd30b3a824a8e8f94bab5d3ad1e8d.html">60ddc7da72033d00111f4be1-docker-external-is-cron-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="0e07e79d-1551-49e6-a109-7ee978e4118a"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-cron-mast%200e07e79d155149e6a1097ee978e4118a.html">60ddc7da72033d00111f4be1-docker-donation-cron-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="39d4cc8a-d8ab-4a63-9398-b6a837797aaf"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-donation-cron-mast%2039d4cc8ad8ab4a639398b6a837797aaf.html">60ddc7da72033d00111f4be1-docker-donation-cron-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="f995ae9b-6842-4cb0-88ed-cefe576fce49"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-external-is-cron-m%20f995ae9b68424cb088edcefe576fce49.html">60ddc7da72033d00111f4be1-docker-external-is-cron-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="06b74fe4-49a8-483f-a922-82cc116fbfc6"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-external-is-cron-m%2006b74fe449a8483fa92282cc116fbfc6.html">60ddc7da72033d00111f4be1-docker-external-is-cron-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="762e9809-6653-4d36-a339-1b29816c62c7"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-ser%20762e980966534d36a3391b29816c62c7.html">60ddc7da72033d00111f4be1-docker-pythondonation-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">error</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="edfe8ca3-12e1-4db2-886d-03c3df967170"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-ser%20edfe8ca312e14db2886d03c3df967170.html">60ddc7da72033d00111f4be1-docker-pythondonation-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="7fd697a1-20ca-4fd0-bac4-4c5013b2c05c"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-ser%207fd697a120ca4fd0bac44c5013b2c05c.html">60ddc7da72033d00111f4be1-docker-pythondonation-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="5ff72f8e-3f42-4f47-966b-46f4f00396f2"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythondonation-ser%205ff72f8e3f424f47966b46f4f00396f2.html">60ddc7da72033d00111f4be1-docker-pythondonation-service-develop-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr><tr id="6ca5b69f-4860-4d91-b778-a64f794952c4"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonemail-servic%206ca5b69f48604d91b778a64f794952c4.html">60ddc7da72033d00111f4be1-docker-pythonemail-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-pink">info</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-yellow">usually the same values observed</span></td></tr><tr id="ea190169-0d68-49d7-9d76-5bd2e9993ba4"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonemail-servic%20ea1901690d6849d79d765bd2e9993ba4.html">60ddc7da72033d00111f4be1-docker-pythonemail-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-orange">other</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-gray">random noisy data</span></td></tr><tr id="3a4c141c-a45f-456f-9ffd-11c54b08816d"><td class="cell-title"><a href="Topics%20by%20shapes%20and%20levels%20f2771865c2734dbaa20746dc1023acec/60ddc7da72033d00111f4be1-docker-pythonemail-servic%203a4c141ca45f456f9ffd11c54b08816d.html">60ddc7da72033d00111f4be1-docker-pythonemail-service-master-raw</a></td><td class="cell-iDVX"><span class="selected-value select-value-color-purple">warning</span></td><td class="cell-rGO{"><span class="selected-value select-value-color-blue">sparse data with no patterns</span></td></tr></tbody></table><br/><br/></div></article></body></html>

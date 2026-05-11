@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Manually categorizing the metrics</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="da1ec08f-2038-4abb-92f0-c0a838338a24" class="page sans"><header><h1 class="page-title">Manually categorizing the metrics</h1><p class="page-description"></p></header><div class="page-body"><nav id="8024de6d-f0b6-4331-baf8-99541efbb732" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a0a150bb-6a00-462f-866b-d46cbd37e8d5">10 seconds aggregation</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0300c8ff-0bef-4096-a35e-72c443e20984">1 minute aggregation</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9ed567c7-5fdf-44d3-9171-6106dd415d05">Ranking metrics according to number of anomalies</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ca7ccbf9-4f8f-40ae-a4af-a7bb90b2ee7d">Observations</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5700981b-f013-437f-94a8-2f14f6582c66">Categorizing Affluences metrics that have been studied for optimal weights</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#09e2f22e-3ff9-4418-b7ef-699000c62d1c">Network metrics</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a90cf7c4-db69-4d40-a0c2-7515a8d43b84">Disk I/O metrics</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#066ca54f-2c7a-4bac-a678-f0efde7f5953">Memory metrics</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c67f395a-dc86-4913-a7c2-d469896fa523">Testing updated and class-based updated optimal weights</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a6e9e08b-23fe-4b93-b0a9-966f65e91e5f">Memory metrics</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1da8a0ff-5e01-495a-ace6-521f9099f33e">Disk I/O metrics</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9d7a1cf3-514e-4948-915a-8751f047e53b">Notes about difficult cases</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6c85e02d-913a-4769-866c-341f0e26e06f">Possible reasons why we are not getting good enough performance</a></div></nav><p id="0f959d13-a426-4837-9201-37a34e7af7ea" class="">
+</p><p id="8329a799-c31f-4829-87a0-7e3014f6df27" class="">There are some time-series that can be readily grouped into clusters. However, there are many which cannot be classified readily because of noise. In order to take things forward, an agglomerative approach is being taken. First many clusters are created to group the time-series according to their more distinct behaviors. Then we will see whether some of these distinct clusters can be grouped together.</p><h3 id="a0a150bb-6a00-462f-866b-d46cbd37e8d5" class="">10 seconds aggregation</h3><p id="3f1f48aa-3d14-4c57-990d-dd42826aa373" class="">Data from the 12 components (249 time-series) mentioned above was used.</p><p id="e72db1b8-cc0e-46cc-84e8-577cc408db1e" class="">Note: The following results are based on 10 seconds aggregation.</p><figure id="c843a826-2bbb-4da6-9faf-315a2e88a811" class="link-to-page"><a href="Manually%20categorizing%20the%20metrics%20da1ec08f20384abb92f0c0a838338a24/Clustering%20at%20lowest%20level%20c843a8262bbb4da69faf315a2e88a811.html">Clustering at lowest level</a></figure><figure id="39e53c55-8bb3-4ffa-bae4-188030e7822a" class="link-to-page"><a href="Manually%20categorizing%20the%20metrics%20da1ec08f20384abb92f0c0a838338a24/Notes%20about%20description%20of%20the%20classes%20and%20about%20a%2039e53c558bb34ffabae4188030e7822a.html">Notes about description of the classes and about aggregating the clusters</a></figure><h3 id="0300c8ff-0bef-4096-a35e-72c443e20984" class="">1 minute aggregation</h3><p id="b0151a79-c29c-4e14-980a-6972ef8569aa" class="">Data from the following components were taken:</p><p id="4adf97a8-86ea-49f5-b576-eeeb7e525362" class="">linux6040eafa3a9e9f0012cebfd4</p><p id="1b0d4143-b9b7-4afc-878f-3ba765633a33" class="">linux6040f7e73a9e9f0012cec090</p><p id="37c47233-8e07-4d88-8ab2-74b99f292be4" class="">mysql357e569af1d96542</p><p id="ad7b70d5-621a-4d3e-9aa7-d1bb06bfe958" class="">rabbitmqqueue_rabbitmq</p><p id="eef36264-e934-4227-8a5a-6bf7b554bd11" class="">rubylogs_fluentd</p><p id="22a867ca-b682-410f-9e3e-114d1646b503" class="">165 time-series of which 8 are constant valued.</p><p id="caa8d306-f869-4dec-8066-5b9f5a1c187a" class="">Note: In recent weeks many of the components are not showing interesting activity. These issues are summarized in the Jira task BEP-1398.</p><p id="04225a5f-3256-4af3-8d86-75f3eb980e18" class="">Note: While analysing 10 seconds aggregated data, we observed 1 hour of raw data. However, with 1 minute aggregation we have to observe a longer time window in order to look at enough samples.  In this case there are time-series in MySQL with daily periodicity. It is difficult to assess the shapes when the time-series go up and down due to this periodicity apart from their local behavior. Thus, the exponential moving average has been subtracted from the time-series in order to remove the effect of this daily periodicity.</p><p id="1411d914-7776-4dff-81de-dff0cb26aab9" class="">Note: This is mainly observed in MySQL. RabbitMQ has some metrics with up and down behavior but are randowm without any consistent periodicity.</p><figure id="6fccb8e5-5e26-44c6-884c-1f4df54ca424" class="link-to-page"><a href="Manually%20categorizing%20the%20metrics%20da1ec08f20384abb92f0c0a838338a24/Clustering%20at%20lowest%20level%206fccb8e55e2644c6884c1f4df54ca424.html">Clustering at lowest level</a></figure><p id="ca3189cb-54c8-45be-b557-b0c3d2ce0212" class="">Refer <a href="Experiments%20with%20clustering%20algorithms%202e2b6f05147649d69560a33e2a1ebf49.html">above</a> (10 seconds aggregation) about the description of the classes.</p><h3 id="9ed567c7-5fdf-44d3-9171-6106dd415d05" class="">Ranking metrics according to number of anomalies</h3><p id="4102cb39-c077-4711-b32e-b11bdc98cd04" class="">A pdf file containing all the time-series in descending order of number of anomalies.</p><figure id="4a222e27-625b-4464-a8f2-1b95c125f388"><div class="source"><a href="Manually%20categorizing%20the%20metrics%20da1ec08f20384abb92f0c0a838338a24/ranked_plots.pdf">ranked_plots.pdf</a></div></figure><h3 id="ca7ccbf9-4f8f-40ae-a4af-a7bb90b2ee7d" class="">Observations</h3><ul id="c29bff96-b7fd-4506-8bdc-bfb7d94b7ae9" class="bulleted-list"><li style="list-style-type:disc">Many of the metrics are made of spikes. Different classes are characterized by differing density of spikes, regular or irregular time occurrence of the spikes, regular or irregular values of the spikes, presence of different levels of noise in-between the spikes.</li></ul><ul id="a690c456-2ac9-46d1-94b1-3c6d50429048" class="bulleted-list"><li style="list-style-type:disc">In the case of 1 minute aggregation, it was difficult to categorize some time-series. They had to be observed in multiple time windows (6 hours, 1 day and a few days) to better understand their behavior.</li></ul><ul id="5d0e70a9-74fb-41a8-9d48-bb318baef014" class="bulleted-list"><li style="list-style-type:disc">There are a few metrics in RabbitMQ and MySQL that take discrete values. The shapes of the time-series are in the form of spikes or plateaus, where spikes are more common than plateaus. </li></ul><ul id="1059d861-cadd-4d85-b92a-9e3a929242a2" class="bulleted-list"><li style="list-style-type:disc">There is a multiscale nature to the time-series made of spikes. In a smaller time window the density and the values of the spikes will make the time-series appear to belong to one class, while a larger time window will make it appear as a different (but related) class.</li></ul><ul id="b0f2425c-7764-489d-be3b-6c8c1ee5ecc0" class="bulleted-list"><li style="list-style-type:disc">When the values of the spikes are similar, MAD algorithms adapt to these values and show anomalies only for spikes with a different value. </li></ul><p id="ab10aa38-c031-4ef3-86ca-d3561d9327e5" class="">
+</p><h2 id="5700981b-f013-437f-94a8-2f14f6582c66" class="">Categorizing Affluences metrics that have been studied for optimal weights</h2><p id="a55c740d-ce24-4851-803b-197f8edb1d9d" class="">
+</p><p id="793bd521-7c24-4af4-85d2-7ce6f2b1c554" class="">Check these pages regarding the optimal weights:</p><p id="8ce97d7f-b78f-40ee-b242-7f1dba56d245" class=""><a href="../../../Metrics%20(MAD)%2094e8aac9675847f39c1b942c2ab25594/Optimal%20weights%2043237899069b4513ad2d368d8e761764/Affluences%20420948211dc94c87bf2a75f503ed3875/Network%20metrics%20becd38a671d24e2096650ba5e4444aa3.html">https://www.notion.so/packetai/Network-metrics-becd38a671d24e2096650ba5e4444aa3</a></p><p id="433d04fb-1da7-45a5-8fcb-e93d11739d60" class=""><a href="../../../Metrics%20(MAD)%2094e8aac9675847f39c1b942c2ab25594/Optimal%20weights%2043237899069b4513ad2d368d8e761764/Affluences%20420948211dc94c87bf2a75f503ed3875/Disk%20metrics%20db68f3a85ddc405c88e8133ca8dadb33.html">https://www.notion.so/packetai/Disk-metrics-db68f3a85ddc405c88e8133ca8dadb33</a></p><p id="16a8fa63-114b-4840-8f03-1234b9eca483" class=""><a href="../../../Metrics%20(MAD)%2094e8aac9675847f39c1b942c2ab25594/Optimal%20weights%2043237899069b4513ad2d368d8e761764/Clustering%20for%20Optimal%20Weights%20e4babedce0d54916a2ced0a96c0b1bd8.html">https://www.notion.so/packetai/Clustering-for-Optimal-Weights-e4babedce0d54916a2ced0a96c0b1bd8</a></p><p id="4d1f3d6f-1489-4f21-b16f-789a56a4b51d" class="">
+</p><p id="b1403ba6-8a63-420e-a552-2f930f8b30c8" class="">So far, the metrics need to be observed in multiple time-windows (six hours, 1 day and a few days) in order to reach a conclusion about the class the time-series belongs to.</p><p id="bfac58b5-f1d8-4453-ac64-e54d5bfd467c" class="">Also, the presence or absence of MAD anomalies helps to judge the gap between the spikes.</p><h3 id="09e2f22e-3ff9-4418-b7ef-699000c62d1c" class="">Network metrics</h3><p id="09b0e927-b575-4c1e-872a-1419dd45da73" class="">The optimal weights are available here:</p><p id="3cecaf4c-b7b6-4bf9-9a0a-13016eb42ef1" class=""><a href="../../../Metrics%20(MAD)%2094e8aac9675847f39c1b942c2ab25594/Optimal%20weights%2043237899069b4513ad2d368d8e761764/Affluences%20420948211dc94c87bf2a75f503ed3875/Network%20metrics%20becd38a671d24e2096650ba5e4444aa3.html">https://www.notion.so/packetai/Network-metrics-becd38a671d24e2096650ba5e4444aa3</a></p><p id="fe455e1f-c439-4af1-b319-2d64d8120a0b" class="">The categorization of the metrics is below:</p><figure id="998a6d95-0dc7-401c-a980-b97671ea85ab" class="link-to-page"><a href="Manually%20categorizing%20the%20metrics%20da1ec08f20384abb92f0c0a838338a24/Network%20metrics%20998a6d950dc7401ca980b97671ea85ab.html">Network metrics</a></figure><h3 id="a90cf7c4-db69-4d40-a0c2-7515a8d43b84" class="">Disk I/O metrics</h3><p id="18927703-773c-4f07-9350-9f7bd42af71f" class="">The optimal weights are available here:</p><p id="59ef9ffb-fa98-463d-acc8-3ccd656d4358" class=""><a href="../../../Metrics%20(MAD)%2094e8aac9675847f39c1b942c2ab25594/Optimal%20weights%2043237899069b4513ad2d368d8e761764/Affluences%20420948211dc94c87bf2a75f503ed3875/Disk%20metrics%20db68f3a85ddc405c88e8133ca8dadb33.html">https://www.notion.so/packetai/Disk-metrics-db68f3a85ddc405c88e8133ca8dadb33</a></p><p id="5b1d42c5-0435-4530-8850-5aa32bc8cce2" class="">The categorization of the metrics is below:</p><figure id="cccea7cd-3a2f-4c15-b06b-641484211844" class="link-to-page"><a href="Manually%20categorizing%20the%20metrics%20da1ec08f20384abb92f0c0a838338a24/Disk%20I%20O%20metrics%20cccea7cd3a2f4c15b06b641484211844.html">Disk I/O metrics</a></figure><h3 id="066ca54f-2c7a-4bac-a678-f0efde7f5953" class="">Memory metrics</h3><p id="3d86b83d-2fbf-4ec1-8c86-1052cc1f4826" class="">The optimal weights are available here:</p><p id="68cd205c-52c8-4b97-8cd1-4c5a4364c9a9" class=""><a href="../../../Metrics%20(MAD)%2094e8aac9675847f39c1b942c2ab25594/Optimal%20weights%2043237899069b4513ad2d368d8e761764/Affluences%20420948211dc94c87bf2a75f503ed3875/Memory%20metrics%207745085c8c6043e89a13acfdbf69d59d.html">https://www.notion.so/packetai/Memory-metrics-7745085c8c6043e89a13acfdbf69d59d</a></p><p id="5fe42bf9-d6c1-4f63-bf6a-f6116a5978d6" class="">The categorization of the metrics is below:</p><figure id="1c84aafd-82ba-448f-b3e1-e22c8fc8b120" class="link-to-page"><a href="Manually%20categorizing%20the%20metrics%20da1ec08f20384abb92f0c0a838338a24/Memory%20metrics%201c84aafd82ba448fb3e1e22c8fc8b120.html">Memory metrics</a></figure><p id="f892a814-8ecd-4277-bea7-38707aea1a8e" class="">
+</p><figure id="6f02e29b-5748-4aff-a50b-b77e688dc9cc" class="link-to-page"><a href="Manually%20categorizing%20the%20metrics%20da1ec08f20384abb92f0c0a838338a24/Questions%20to%20discuss%20with%20Valentin%206f02e29b57484affa50bb77e688dc9cc.html">Questions to discuss with Valentin</a></figure><p id="dbee3b50-2760-499a-91bf-7daf5b9c55ce" class="">
+</p><h2 id="c67f395a-dc86-4913-a7c2-d469896fa523" class="">Testing updated and class-based updated optimal weights</h2><p id="1043a95b-ccf8-44ba-ac35-e4de0b3b365a" class="">The following three types of optimal weights were tested:</p><ul id="4cdfc1c2-1538-4777-a943-1d579e45e97a" class="bulleted-list"><li style="list-style-type:disc">Old NAB based weights.</li></ul><ul id="432c8bec-d06c-4f45-a4a0-fc131ef37397" class="bulleted-list"><li style="list-style-type:disc">Updated weights per system metric category like Memory, Disk I/O, Network, CPU.</li></ul><ul id="76810750-b07b-4f42-8d7b-b72547906458" class="bulleted-list"><li style="list-style-type:disc">Updated weights per class per system metric category.</li></ul><h3 id="a6e9e08b-23fe-4b93-b0a9-966f65e91e5f" class="">Memory metrics</h3><p id="04ae52fb-1de5-410a-ae51-1cd21171cce6" class="">In <a href="Manually%20categorizing%20the%20metrics%20da1ec08f20384abb92f0c0a838338a24/Memory%20metrics%201c84aafd82ba448fb3e1e22c8fc8b120.html">this</a> page, interactive plots and tables per metric time-series are available. Look for the pages with the page name ending with &quot;Test MAD&quot;.</p><p id="451990e9-b573-4cd1-8238-9858dccb4861" class="">The following page gives a more global view of the performance:</p><figure id="cd892808-33e9-48db-8f39-47bfff1a18c3" class="link-to-page"><a href="Manually%20categorizing%20the%20metrics%20da1ec08f20384abb92f0c0a838338a24/Memory%20metrics%20performance%20cd89280833e948db8f3947bfff1a18c3.html">Memory metrics performance</a></figure><h3 id="1da8a0ff-5e01-495a-ace6-521f9099f33e" class="">Disk I/O metrics</h3><p id="59c6d7a8-72aa-4094-9817-dd985b9c48b5" class="">In <a href="Manually%20categorizing%20the%20metrics%20da1ec08f20384abb92f0c0a838338a24/Disk%20I%20O%20metrics%20cccea7cd3a2f4c15b06b641484211844.html">this</a> page, interactive plots and tables per metric time-series are available. Look for the pages with the page name ending with &quot;Test MAD&quot;.</p><p id="8742e53d-ed70-4e40-8e9a-1793c7dac9ae" class="">The following page gives a more global view of the performance:</p><figure id="1364cbb4-32eb-4cbe-9bb2-ae39ef7740eb" class="link-to-page"><a href="Manually%20categorizing%20the%20metrics%20da1ec08f20384abb92f0c0a838338a24/Disk%20I%20O%20metrics%20performance%201364cbb432eb4cbe9bb2ae39ef7740eb.html">Disk I/O metrics performance</a></figure><p id="356454dc-02ce-4faa-a7d0-6ebd3067c849" class="">
+</p><h3 id="9d7a1cf3-514e-4948-915a-8751f047e53b" class="">Notes about difficult cases</h3><figure id="496f8a0f-6dde-4fe6-bf55-8b31d918c82f" class="link-to-page"><a href="Manually%20categorizing%20the%20metrics%20da1ec08f20384abb92f0c0a838338a24/Difficult%20cases%20for%20updated%20and%20class%20based%20update%20496f8a0f6dde4fe6bf558b31d918c82f.html">Difficult cases for updated and class based updated weights</a></figure><p id="21fdb028-07ed-45e9-a060-83f69dff24d5" class="">
+</p><h3 id="6c85e02d-913a-4769-866c-341f0e26e06f" class="">Possible reasons why we are not getting good enough performance</h3><ul id="39a90ed9-20b2-4395-800f-c120779e9a7f" class="bulleted-list"><li style="list-style-type:disc">Limited number of ground truth anomalies.</li></ul><ul id="e86fb8e4-c2cb-4849-922f-c86f26b6faa1" class="bulleted-list"><li style="list-style-type:disc">There are case where it is difficult to decide:<ul id="68001bad-31b2-4785-9572-3682a8e80eda" class="bulleted-list"><li style="list-style-type:circle">What the anomalies are.</li></ul><ul id="f8c4751b-5809-4148-a183-04e11f29ab90" class="bulleted-list"><li style="list-style-type:circle">What the shape class is.</li></ul></li></ul><ul id="19987429-418e-4b53-b059-e9f7c1713b73" class="bulleted-list"><li style="list-style-type:disc">Magnitude of anomalies are different across time-series belonging to the same class.</li></ul><ul id="78e964fd-2287-4d4e-9e83-3ada34d47263" class="bulleted-list"><li style="list-style-type:disc">There are eight detectors in hand of which seven (belonging to Skyline) are relatively simple. Also, there is similarity in behavior among a few of the detectors in Skyline.<ul id="f5c3b62a-fdc1-481e-88d0-af5420325509" class="bulleted-list"><li style="list-style-type:circle">It is not clear whether optimal weights will considerably pull up the performance.</li></ul></li></ul></div></article></body></html>

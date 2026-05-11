@@ -1,0 +1,801 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Model Comparison</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="80a95bc4-9db4-494b-b980-bc94183caef6" class="page sans"><header><h1 class="page-title">Model Comparison</h1><p class="page-description"></p></header><div class="page-body"><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>messages</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCheckbox"><path d="M3.85742 14.4561H12.1357C13.6123 14.4561 14.3779 13.6904 14.3779 12.2344V3.91504C14.3779 2.45215 13.6123 1.69336 12.1357 1.69336H3.85742C2.38086 1.69336 1.61523 2.45215 1.61523 3.91504V12.2344C1.61523 13.6973 2.38086 14.4561 3.85742 14.4561ZM3.93945 13.1162C3.30371 13.1162 2.95508 12.7812 2.95508 12.1182V4.02441C2.95508 3.36133 3.30371 3.0332 3.93945 3.0332H12.0537C12.6826 3.0332 13.0381 3.36133 13.0381 4.02441V12.1182C13.0381 12.7812 12.6826 13.1162 12.0537 13.1162H3.93945ZM7.26855 11.3115C7.51465 11.3115 7.72656 11.1885 7.87012 10.9697L10.9258 6.19141C11.0146 6.04785 11.0967 5.88379 11.0967 5.72656C11.0967 5.3916 10.7959 5.16602 10.4746 5.16602C10.2695 5.16602 10.085 5.27539 9.94141 5.50781L7.24121 9.8418L5.96973 8.22168C5.80566 8.00977 5.6416 7.93457 5.43652 7.93457C5.10156 7.93457 4.8418 8.20117 4.8418 8.54297C4.8418 8.70703 4.90332 8.85742 5.01953 9.00098L6.63281 10.9697C6.81738 11.209 7.01562 11.3115 7.26855 11.3115Z"></path></svg></span>hf_twitter</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCheckbox"><path d="M3.85742 14.4561H12.1357C13.6123 14.4561 14.3779 13.6904 14.3779 12.2344V3.91504C14.3779 2.45215 13.6123 1.69336 12.1357 1.69336H3.85742C2.38086 1.69336 1.61523 2.45215 1.61523 3.91504V12.2344C1.61523 13.6973 2.38086 14.4561 3.85742 14.4561ZM3.93945 13.1162C3.30371 13.1162 2.95508 12.7812 2.95508 12.1182V4.02441C2.95508 3.36133 3.30371 3.0332 3.93945 3.0332H12.0537C12.6826 3.0332 13.0381 3.36133 13.0381 4.02441V12.1182C13.0381 12.7812 12.6826 13.1162 12.0537 13.1162H3.93945ZM7.26855 11.3115C7.51465 11.3115 7.72656 11.1885 7.87012 10.9697L10.9258 6.19141C11.0146 6.04785 11.0967 5.88379 11.0967 5.72656C11.0967 5.3916 10.7959 5.16602 10.4746 5.16602C10.2695 5.16602 10.085 5.27539 9.94141 5.50781L7.24121 9.8418L5.96973 8.22168C5.80566 8.00977 5.6416 7.93457 5.43652 7.93457C5.10156 7.93457 4.8418 8.20117 4.8418 8.54297C4.8418 8.70703 4.90332 8.85742 5.01953 9.00098L6.63281 10.9697C6.81738 11.209 7.01562 11.3115 7.26855 11.3115Z"></path></svg></span>hf_product</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCheckbox"><path d="M3.85742 14.4561H12.1357C13.6123 14.4561 14.3779 13.6904 14.3779 12.2344V3.91504C14.3779 2.45215 13.6123 1.69336 12.1357 1.69336H3.85742C2.38086 1.69336 1.61523 2.45215 1.61523 3.91504V12.2344C1.61523 13.6973 2.38086 14.4561 3.85742 14.4561ZM3.93945 13.1162C3.30371 13.1162 2.95508 12.7812 2.95508 12.1182V4.02441C2.95508 3.36133 3.30371 3.0332 3.93945 3.0332H12.0537C12.6826 3.0332 13.0381 3.36133 13.0381 4.02441V12.1182C13.0381 12.7812 12.6826 13.1162 12.0537 13.1162H3.93945ZM7.26855 11.3115C7.51465 11.3115 7.72656 11.1885 7.87012 10.9697L10.9258 6.19141C11.0146 6.04785 11.0967 5.88379 11.0967 5.72656C11.0967 5.3916 10.7959 5.16602 10.4746 5.16602C10.2695 5.16602 10.085 5.27539 9.94141 5.50781L7.24121 9.8418L5.96973 8.22168C5.80566 8.00977 5.6416 7.93457 5.43652 7.93457C5.10156 7.93457 4.8418 8.20117 4.8418 8.54297C4.8418 8.70703 4.90332 8.85742 5.01953 9.00098L6.63281 10.9697C6.81738 11.209 7.01562 11.3115 7.26855 11.3115Z"></path></svg></span>textblob</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCheckbox"><path d="M3.85742 14.4561H12.1357C13.6123 14.4561 14.3779 13.6904 14.3779 12.2344V3.91504C14.3779 2.45215 13.6123 1.69336 12.1357 1.69336H3.85742C2.38086 1.69336 1.61523 2.45215 1.61523 3.91504V12.2344C1.61523 13.6973 2.38086 14.4561 3.85742 14.4561ZM3.93945 13.1162C3.30371 13.1162 2.95508 12.7812 2.95508 12.1182V4.02441C2.95508 3.36133 3.30371 3.0332 3.93945 3.0332H12.0537C12.6826 3.0332 13.0381 3.36133 13.0381 4.02441V12.1182C13.0381 12.7812 12.6826 13.1162 12.0537 13.1162H3.93945ZM7.26855 11.3115C7.51465 11.3115 7.72656 11.1885 7.87012 10.9697L10.9258 6.19141C11.0146 6.04785 11.0967 5.88379 11.0967 5.72656C11.0967 5.3916 10.7959 5.16602 10.4746 5.16602C10.2695 5.16602 10.085 5.27539 9.94141 5.50781L7.24121 9.8418L5.96973 8.22168C5.80566 8.00977 5.6416 7.93457 5.43652 7.93457C5.10156 7.93457 4.8418 8.20117 4.8418 8.54297C4.8418 8.70703 4.90332 8.85742 5.01953 9.00098L6.63281 10.9697C6.81738 11.209 7.01562 11.3115 7.26855 11.3115Z"></path></svg></span>sara</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCheckbox"><path d="M3.85742 14.4561H12.1357C13.6123 14.4561 14.3779 13.6904 14.3779 12.2344V3.91504C14.3779 2.45215 13.6123 1.69336 12.1357 1.69336H3.85742C2.38086 1.69336 1.61523 2.45215 1.61523 3.91504V12.2344C1.61523 13.6973 2.38086 14.4561 3.85742 14.4561ZM3.93945 13.1162C3.30371 13.1162 2.95508 12.7812 2.95508 12.1182V4.02441C2.95508 3.36133 3.30371 3.0332 3.93945 3.0332H12.0537C12.6826 3.0332 13.0381 3.36133 13.0381 4.02441V12.1182C13.0381 12.7812 12.6826 13.1162 12.0537 13.1162H3.93945ZM7.26855 11.3115C7.51465 11.3115 7.72656 11.1885 7.87012 10.9697L10.9258 6.19141C11.0146 6.04785 11.0967 5.88379 11.0967 5.72656C11.0967 5.3916 10.7959 5.16602 10.4746 5.16602C10.2695 5.16602 10.085 5.27539 9.94141 5.50781L7.24121 9.8418L5.96973 8.22168C5.80566 8.00977 5.6416 7.93457 5.43652 7.93457C5.10156 7.93457 4.8418 8.20117 4.8418 8.54297C4.8418 8.70703 4.90332 8.85742 5.01953 9.00098L6.63281 10.9697C6.81738 11.209 7.01562 11.3115 7.26855 11.3115Z"></path></svg></span>manual</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Column</th></tr></thead><tbody><tr id="68c7d5c0-3755-4bf1-bc6e-0c8835ee7cc5"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/#033%5B90m3%2000AM#033%5B0m%20#033%5B33mDBG#033%5B0m%20listing%20a%2068c7d5c037554bf1bc6e0c8835ee7cc5.html">#033[90m3:00AM#033[0m #033[33mDBG#033[0m listing and exporting 175 processes took 30.753856ms.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="f0a577c1-e98f-48df-9b99-719fdb63fab1"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/time=%202021-04-12T03%2002%2056%20114392623Z%20level=info%20ms%20f0a577c1e98f48df9b99719fdb63fab1.html">time=&quot;2021-04-12T03:02:56.114392623Z&quot; level=info msg=&quot;NetworkDB stats docker0(a6784ea532ce) - netID:kmj6noy18upaj9o02mc5ul15n leaving:false netPeers:7 entries:123 Queue qLen:0 netMsg/s:0&quot;
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="f4bdff4b-da87-4837-8fc0-b98adb3e5cfb"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Did%20not%20receive%20identification%20string%20from%2045%20227%20%20f4bdff4bda8748378fc0b98adb3e5cfb.html">Did not receive identification string from 45.227.254.10 port 39560
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-on"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="26aaf408-6eb3-459c-85b4-a7e5c17eb490"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Invalid%20user%200101%20from%2045%20227%20254%2010%20port%2041272%2026aaf4086eb3459c85b4a7e5c17eb490.html">Invalid user 0101 from 45.227.254.10 port 41272
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-on"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="e4926540-b211-458b-aff0-c029aabc3b81"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/input_userauth_request%20invalid%20user%200101%20%5Bpreauth%5D%20e4926540b211458baff0c029aabc3b81.html">input_userauth_request: invalid user 0101 [preauth]
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-on"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="db827b90-8ca1-44cf-aa20-73973c24f7b9"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Connection%20closed%20by%2045%20227%20254%2010%20port%2041272%20%5Bpre%20db827b908ca144cfaa2073973c24f7b9.html">Connection closed by 45.227.254.10 port 41272 [preauth]
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-on"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="b407107d-b356-40c8-9c7d-4c804d9c6a40"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/pam_unix(cron%20session)%20session%20opened%20for%20user%20roo%20b407107db35640c89c7d4c804d9c6a40.html">pam_unix(cron:session): session opened for user root by (uid=0)
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="b32daf4a-4f7f-47fd-94da-18009846bc4e"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/bound%20to%2051%2068%20112%20227%20--%20renewal%20in%2039943%20seconds%20b32daf4a4f7f47fd94da18009846bc4e.html">bound to 51.68.112.227 -- renewal in 39943 seconds.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="143a7c1d-b4c9-422e-828f-67624fabad73"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B31838477%20279075%5D%20veth2906%20renamed%20from%20veth031bdf%20143a7c1db4c9422e828f67624fabad73.html">[31838477.279075] veth2906: renamed from veth031bdfc
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="fd3ffa14-c71d-42a6-add0-bc33a34f93d3"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B31838477%20301320%5D%20device%20veth2906%20entered%20promiscu%20fd3ffa14c71d42a6add0bc33a34f93d3.html">[31838477.301320] device veth2906 entered promiscuous mode
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="3a34d44d-1029-4804-8916-21ea83bfa22a"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Listen%20normally%20on%204986%20vethb2b73be%20%5Bfe80%2098fc%20bbf%203a34d44d10294804891621ea83bfa22a.html">Listen normally on 4986 vethb2b73be [fe80::98fc:bbff:fee1:77b6%24944]:123
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="aa6ddbb6-1e86-4b68-b26e-ba0e686135e8"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Unable%20to%20negotiate%20with%20122%20224%2017%20186%20port%2042712%20aa6ddbb61e864b68b26eba0e686135e8.html">Unable to negotiate with 122.224.17.186 port 42712: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1,diffie-hellman-group-exchange-sha1 [preauth]
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-on"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="71799c1f-4fe4-4f55-a959-2583b7a00633"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Starting%20Cleanup%20of%20Temporary%20Directories%2071799c1f4fe44f55a9592583b7a00633.html">Starting Cleanup of Temporary Directories...
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="da836043-5e6a-42f3-bd87-701ead9b0173"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/DHCPACK%20of%2010%200%2010%2060%20from%2010%200%2010%202%20da8360435e6a42f3bd87701ead9b0173.html">DHCPACK of 10.0.10.60 from 10.0.10.2
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="3dbc5e3e-03a8-4fcc-b587-a392e4cd9468"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Deleting%20interface%20#4967%20veth8d74ccf,%20fe80%206c37%203b%203dbc5e3e03a84fccb587a392e4cd9468.html">Deleting interface #4967 veth8d74ccf, fe80::6c37:3bff:fed7:3cc5%24860#123, interface stats: received=0, sent=0, dropped=0, active_time=1026306 secs
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="c076cfe0-7556-42df-8eea-d77a45bf0652"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Starting%20Daily%20apt%20download%20activities%20c076cfe0755642df8eead77a45bf0652.html">Starting Daily apt download activities...
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="88ec2ea0-0adc-4218-95ba-38baf404d798"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/apt-daily%20timer%20Adding%2028min%2012%20264793s%20random%20tim%2088ec2ea00adc421895ba38baf404d798.html">apt-daily.timer: Adding 28min 12.264793s random time.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="dcdfa5f4-4e46-4e8a-91a3-3c6303675b22"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/bind(47)%20AF_INET6%20fe80%204c78%20caff%20fee3%20ffd9%2524960#1%20dcdfa5f44e464e8a91a33c6303675b22.html">bind(47) AF_INET6 fe80::4c78:caff:fee3:ffd9%24960#123 flags 0x11 failed: Cannot assign requested address
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-on"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="89e00b34-fe4d-467b-96ce-511caa78021a"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B31869167%20456033%5D%20Hardware%20name%20OpenStack%20Foundati%2089e00b34fe4d467b96ce511caa78021a.html">[31869167.456033] Hardware name: OpenStack Foundation OpenStack Nova, BIOS 2:1.10.2-58953eb7 04/01/2014
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="239b3bc2-ce13-4d81-b14f-d2d45a98399a"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B31869167%20457618%5D%200000000000000000%20ffffffffb0d33d7%20239b3bc2ce134d81b14fd2d45a98399a.html">[31869167.457618]  0000000000000000 ffffffffb0d33d74 ffffbd91c3d3bdd8 ffff96fe08be1040
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="88f659b5-bd61-4726-9607-b17e0e310f11"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B31869167%20484063%5D%20Memory%20cgroup%20stats%20for%20docker%203%2088f659b5bd6147269607b17e0e310f11.html">[31869167.484063] Memory cgroup stats for /docker/3d745f909564709304b03236de24ef8a891c6c0f8104ebf29f5bd4896ba4be8c: cache:4KB rss:129436KB rss_huge:0KB mapped_file:0KB dirty:0KB writeback:0KB inactive_anon:0KB active_anon:129436KB inactive_file:0KB active_file:0KB unevictable:0KB
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="374fa9c5-1146-4478-a0b3-7864b4187f25"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/link_config%20could%20not%20get%20ethtool%20features%20for%20vet%20374fa9c511464478a0b37864b4187f25.html">link_config: could not get ethtool features for veth99e7b4a
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-on"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="54e53bc3-e256-4bdc-b97d-aebb421bfc30"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/#033%5B90m5%2005PM#033%5B0m%20#033%5B32mINF#033%5B0m%20detected%20%2054e53bc3e2564bdcb97daebb421bfc30.html">#033[90m5:05PM#033[0m #033[32mINF#033[0m detected new webapplication on pid: 18223 ip: 127.0.0.1 port: 9090
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="aee22922-8a8c-40cc-b4aa-ee430009c3dd"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/fatal%20monitor_read%20unpermitted%20request%206%20aee229228a8c40ccb4aaee430009c3dd.html">fatal: monitor_read: unpermitted request 6
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-on"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="92f4e31c-0bcc-4c2a-aa91-e22871a32907"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B32451671%20478063%5D%20prometheus%20cpuset=bf447293c22a7c%2092f4e31c0bcc4c2aaa91e22871a32907.html">[32451671.478063] prometheus cpuset=bf447293c22a7c236fa2a573e9174cfac5bf9408e54b7f084e5f13f51dbeab30 mems_allowed=0
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="a2bcb875-d225-4690-a834-5f841b3cff99"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Accepted%20publickey%20for%20raphael-galmiche%20from%2082%2065%20a2bcb875d2254690a8345f841b3cff99.html">Accepted publickey for raphael-galmiche from 82.65.30.196 port 58456 ssh2: RSA SHA256:ogop8DqYkJQnurgbLJcs6ze+RvQV5DoBUbRC406s1Z0
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="2419b426-a159-4b64-8a96-ef0dcd98b968"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Disconnected%20from%2082%2065%2030%20196%20port%2058456%202419b426a1594b648a96ef0dcd98b968.html">Disconnected from 82.65.30.196 port 58456
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="779d5797-d165-43ef-a524-3f5d6672f5d6"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B32646829%20290310%5D%20Memory%20cgroup%20out%20of%20memory%20Kill%20779d5797d16543efa5243f5d6672f5d6.html">[32646829.290310] Memory cgroup out of memory: Kill process 14832 (prometheus) score 1092 or sacrifice child
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-on"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="196a57f3-bdd5-4017-9714-af34722eb98a"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/DHCPREQUEST%20for%2051%2075%20198%2071%20on%20eth0%20to%2051%2075%20196%20%20196a57f3bdd540179714af34722eb98a.html">DHCPREQUEST for 51.75.198.71 on eth0 to 51.75.196.1 port 67
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="8291e900-4a36-4389-ac7e-9dd339c334aa"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Using%20default%20interface%20naming%20scheme%20&#x27;v240&#x27;%208291e9004a364389ac7e9dd339c334aa.html">Using default interface naming scheme &#x27;v240&#x27;.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="643bdb6b-865e-486a-97ce-118c7ba2087b"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/run-docker-netns-c973cd7a8857%20mount%20Succeeded%20643bdb6b865e486a97ce118c7ba2087b.html">run-docker-netns-c973cd7a8857.mount: Succeeded.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="6bb19275-3db8-42b5-8fff-c1b5943c50d4"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/new%20interface(s)%20found%20waking%20up%20resolver%206bb192753db842b58fffc1b5943c50d4.html">new interface(s) found: waking up resolver
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="b939324e-e57d-4e99-99ca-d6f21cd619b3"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Starting%20Rotate%20log%20files%20b939324ee57d4e9999cad6f21cd619b3.html">Starting Rotate log files...
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="ccaf403f-3c17-4e0d-a7a7-3ff5301ffdca"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Starting%20PackageKit%20Daemon%20ccaf403f3c174e0da7a73ff5301ffdca.html">Starting PackageKit Daemon...
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="3deb34f4-e099-4a11-9cf5-8b40fe9987d3"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5Bsystem%5D%20Successfully%20activated%20service%20&#x27;org%20freed%203deb34f4e0994a119cf58b40fe9987d3.html">[system] Successfully activated service &#x27;org.freedesktop.PackageKit&#x27;
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="03583f32-473d-4713-8c61-03f0dab372ef"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/daemon%20quit%2003583f32473d47138c6103f0dab372ef.html">daemon quit
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-on"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="8d245363-2843-4d42-a95c-f456e645bc28"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Created%20slice%20User%20Slice%20of%20UID%201002%208d24536328434d42a95cf456e645bc28.html">Created slice User Slice of UID 1002.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="a7776692-d00b-4317-9d30-22c96160368a"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Starting%20User%20Runtime%20Directory%20run%20user%201002%20a7776692d00b43179d3022c96160368a.html">Starting User Runtime Directory /run/user/1002...
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="7c6ec8de-b214-4d0c-949c-948e935f1604"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Listening%20on%20GnuPG%20cryptographic%20agent%20and%20passphr%207c6ec8deb2144d0c949c948e935f1604.html">Listening on GnuPG cryptographic agent and passphrase cache.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="5c707989-5a3c-4fcc-b736-fa524f863a40"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Reached%20target%20Paths%205c7079895a3c4fccb736fa524f863a40.html">Reached target Paths.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="480a1144-8409-41eb-969a-40394efe528e"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Startup%20finished%20in%20142ms%20480a1144840941eb969a40394efe528e.html">Startup finished in 142ms.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="57a645b1-e5b6-4ac0-8298-88fd0fe0f8b7"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Removed%20session%202414%2057a645b1e5b64ac0829888fd0fe0f8b7.html">Removed session 2414.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="67d116ba-4cd3-47a1-ac96-31425f51450a"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/(root)%20CMD%20(command%20-v%20debian-sa1%20dev%20null%20&amp;&amp;%20debi%2067d116ba4cd347a1ac9631425f51450a.html">(root) CMD (command -v debian-sa1 &gt; /dev/null &amp;&amp; debian-sa1 1 1)
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="19daeb93-4189-49a6-aebf-ef4f81796d3a"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Stopping%20User%20Manager%20for%20UID%201000%2019daeb93418949a6aebfef4f81796d3a.html">Stopping User Manager for UID 1000...
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="4bfd0e1c-cff3-4dcc-80ca-eac2443ae72d"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Closed%20GnuPG%20network%20certificate%20management%20daemon%204bfd0e1ccff34dcc80caeac2443ae72d.html">Closed GnuPG network certificate management daemon.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="593a9ca0-c970-4726-aa5c-6826e9b9423c"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Started%20Update%20Argo%20Tunnel%20593a9ca0c9704726aa5c6826e9b9423c.html">Started Update Argo Tunnel.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="97b8ebe9-09be-42c3-bdc8-f96d517cb89e"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/(to%20root)%20raphael-galmiche%20on%20pts%200%2097b8ebe909be42c3bdc8f96d517cb89e.html">(to root) raphael-galmiche on pts/0
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="36de62c6-7ed6-446f-9ebc-3e097e939fad"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/(CRON)%20info%20(No%20MTA%20installed,%20discarding%20output)%2036de62c67ed6446f9ebc3e097e939fad.html">(CRON) info (No MTA installed, discarding output)
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="6509eff6-f5f0-44ad-af35-04fe2db8c86c"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Killed%20old%20client%20process%206509eff6f5f044adaf3504fe2db8c86c.html">Killed old client process
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-on"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-on"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="5e320453-73b8-4799-9e42-f90478d890d7"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Internet%20Systems%20Consortium%20DHCP%20Client%204%204%201%205e32045373b847999e42f90478d890d7.html">Internet Systems Consortium DHCP Client 4.4.1
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="0f5e8f9e-d2e5-487f-bbb1-3bdeb13885eb"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/All%20rights%20reserved%200f5e8f9ed2e5487fbbb13bdeb13885eb.html">All rights reserved.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="5cb8bcd9-adf1-45bb-a4bd-bb867700e44b"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/For%20info,%20please%20visit%20https%20www%20isc%20org%20software%20%205cb8bcd9adf145bba4bdbb867700e44b.html">For info, please visit https://www.isc.org/software/dhcp/
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="d488c89f-35f1-4bee-8976-319e906d2d54"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Listening%20on%20LPF%20eth1%20fa%2016%203e%2080%20cf%20f2%20d488c89f35f14bee8976319e906d2d54.html">Listening on LPF/eth1/fa:16:3e:80:cf:f2
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="2739c28d-c5da-4f9c-a31a-e474d109e01d"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Sending%20on%20Socket%20fallback%202739c28dc5da4f9ca31ae474d109e01d.html">Sending on   Socket/fallback
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="a079644e-bd48-40ea-941a-acf4a2945d25"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/mysql%20service%20Main%20process%20exited,%20code=exited,%20st%20a079644ebd4840ea941aacf4a2945d25.html">mysql.service: Main process exited, code=exited, status=1/FAILURE
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="b215426f-ae6b-4339-bf4a-3a7aab8ac485"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Failed%20to%20start%20MySQL%20Community%20Server%20b215426fae6b4339bf4a3a7aab8ac485.html">Failed to start MySQL Community Server.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-on"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="ea7d950e-c6cb-402e-930d-7171f5f28e78"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Power%20key%20pressed%20ea7d950ec6cb402e930d7171f5f28e78.html">Power key pressed.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="4e4c0907-6bf9-4358-95b8-13a14fb05c53"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Powering%20Off%204e4c09076bf9435895b813a14fb05c53.html">Powering Off...
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-on"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="d316c815-174f-43f2-93ee-8be566e6dd41"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Watching%20system%20buttons%20on%20dev%20input%20event1%20(Power%20d316c815174f43f293ee8be566e6dd41.html">Watching system buttons on /dev/input/event1 (Power Button)
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="3d00da53-8f15-4faa-b45d-bd89900a78d1"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%200%20000000%5D%20x86%20fpu%20Supporting%20XSAVE%20feature%200x001%203d00da538f154faab45dbd89900a78d1.html">[    0.000000] x86/fpu: Supporting XSAVE feature 0x001: &#x27;x87 floating point registers&#x27;
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="e4691678-2127-4762-9569-d74d65427d0a"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%200%20000000%5D%20BIOS-provided%20physical%20RAM%20map%20e4691678212747629569d74d65427d0a.html">[    0.000000] BIOS-provided physical RAM map:
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="69a716de-90f8-4e96-9497-eddaecd8b226"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%200%20000000%5D%20SMBIOS%202%208%20present%2069a716de90f84e969497eddaecd8b226.html">[    0.000000] SMBIOS 2.8 present.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="188387bb-6568-4ed9-ac0d-097a62694dd3"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Stopping%20Node%20Exporter%20188387bb65684ed9ac0d097a62694dd3.html">Stopping Node Exporter...
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="f801cc81-3d14-4241-9570-8ff30cf0bc8a"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/ntpd%20exiting%20on%20signal%2015%20(Terminated)%20f801cc813d14424195708ff30cf0bc8a.html">ntpd exiting on signal 15 (Terminated)
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-on"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="a76222cb-a7a9-405f-a457-435389d453bb"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/51%2068%2044%2027%20local%20addr%2051%2083%2014%2010%20-%20null%20a76222cba7a9405fa457435389d453bb.html">51.68.44.27 local addr 51.83.14.10 -&gt; &lt;null&gt;
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-on"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="37bdebad-e60e-4dbb-b094-bf95335ea557"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Removed%20slice%20system-cloudflared%20slice%2037bdebade60e4dbbb094bf95335ea557.html">Removed slice system-cloudflared.slice.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="15178b37-0cc1-4f83-89ea-46ab383ff120"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Started%20Create%20Static%20Device%20Nodes%20in%20dev%2015178b370cc14f8389ea46ab383ff120.html">Started Create Static Device Nodes in /dev.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="905cdc8f-078d-4ae7-947d-a8679918e0eb"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Restarting%20AppArmor%20905cdc8f078d4ae7947da8679918e0eb.html">Restarting AppArmor
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-on"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="8690544c-9b48-4594-8b59-89de38c3e42a"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Started%20Load%20AppArmor%20profiles%208690544c9b4845948b5989de38c3e42a.html">Started Load AppArmor profiles.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="45627c72-b76e-4194-99b0-c9555b5563ec"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%200%20039687%5D%20Zeroed%20struct%20page%20in%20unavailable%20rang%2045627c72b76e419499b0c9555b5563ec.html">[    0.039687] Zeroed struct page in unavailable ranges: 8326 pages
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="c218e1b3-0a55-4ab1-8a44-050e6662f2eb"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Found%20device%20QEMU_HARDDISK%201%20c218e1b30a554ab18a44050e6662f2eb.html">Found device QEMU_HARDDISK 1.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="74bd4368-5a1d-4f36-b666-8a28773e93f2"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Mounting%20mnt%20mysql%2074bd43685a1d4f36b6668a28773e93f2.html">Mounting /mnt/mysql...
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="e489b856-6d4a-41f0-a501-003cf6e1b0b5"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Cloud-init%20v%2018%203%20running%20&#x27;init-local&#x27;%20at%20Tue,%2020%20%20e489b8566d4a41f0a501003cf6e1b0b5.html">Cloud-init v. 18.3 running &#x27;init-local&#x27; at Tue, 20 Apr 2021 18:57:59 +0000. Up 6.05 seconds.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="cd9b6c24-89c9-4f3c-b6eb-f31319ef1c4a"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Started%20ifup%20for%20eth0%20cd9b6c2489c94f3cb6ebf31319ef1c4a.html">Started ifup for eth0.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="86b84193-2472-4d1b-8215-da1aa87b3f4d"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%201%20595396%5D%20Booting%20paravirtualized%20kernel%20on%20KVM%2086b8419324724d1b8215da1aa87b3f4d.html">[    1.595396] Booting paravirtualized kernel on KVM
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="7e23466e-cdb4-4eaf-994e-c3af7407506f"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%201%20929214%5D%20rcu%20RCU%20restricting%20CPUs%20from%20NR_CPUS=%207e23466ecdb44eaf994ec3af7407506f.html">[    1.929214] rcu: 	RCU restricting CPUs from NR_CPUS=512 to nr_cpu_ids=16.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="1eb09552-d1c7-4223-9496-804e64d67f30"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/RTNETLINK%20answers%20File%20exists%201eb09552d1c742239496804e64d67f30.html">RTNETLINK answers: File exists
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="18570873-23f4-45a6-b1d2-d6cc705c8e10"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/eth0=eth0%201857087323f445a6b1d2d6cc705c8e10.html">eth0=eth0
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="aa76a1c8-8d06-4645-aedd-fc915930e28e"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%202%20020988%5D%20Yama%20disabled%20by%20default;%20enable%20with%20%20aa76a1c88d064645aeddfc915930e28e.html">[    2.020988] Yama: disabled by default; enable with sysctl kernel.yama.*
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="4be680d7-06a2-4267-bdc9-cb7cf7a6c983"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%202%20175273%5D%20Spectre%20V2%20Enabling%20Restricted%20Specula%204be680d706a24267bdc9cb7cf7a6c983.html">[    2.175273] Spectre V2 : Enabling Restricted Speculation for firmware calls
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="e56b8fb6-5b8c-463c-bc74-f6ded3988afc"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%202%20195005%5D%20NMI%20watchdog%20Perf%20NMI%20watchdog%20permane%20e56b8fb65b8c463cbc74f6ded3988afc.html">[    2.195005] NMI watchdog: Perf NMI watchdog permanently disabled
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="f4503503-c002-4548-9e17-e57aded289f2"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%200%20076894%5D%20kvm-clock%20cpu%201,%20msr%20d9ef47041,%20second%20f4503503c00245489e17e57aded289f2.html">[    0.076894] kvm-clock: cpu 1, msr d9ef47041, secondary cpu clock
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="ab2a707f-62ac-45d6-9836-46578ad55341"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/ci-info%20++++++++++++++++++++++++++++++++++++++++Ne%20ab2a707f62ac45d6983646578ad55341.html">ci-info: ++++++++++++++++++++++++++++++++++++++++Net device info++++++++++++++++++++++++++++++++++++++++
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="d6833c38-c3da-4202-94eb-2d2ee4db5487"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/ci-info%20Device%20Up%20Address%20Mask%20Scope%20Hw-Address%20d6833c38c3da420294eb2d2ee4db5487.html">ci-info: | Device |  Up  |           Address            |       Mask      | Scope  |     Hw-Address    |
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="49b2de88-fbbf-4871-9d2e-b67f2a46a779"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%202%20375004%5D%20ACPI%201%20ACPI%20AML%20tables%20successfully%20ac%2049b2de88fbbf48719d2eb67f2a46a779.html">[    2.375004] ACPI: 1 ACPI AML tables successfully acquired and loaded
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="9184c481-888e-4d93-b01f-023a27cda5b5"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/r&#x27;%5E(%20P%20proto%20%5B@%5D%7B0,2%7D)&#x27;%209184c481888e4d93b01f023a27cda5b5.html">  r&#x27;^(?P&lt;proto&gt;[@]{0,2})&#x27;
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="6c1016c2-1571-429b-9a7f-5471a9e09c79"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/ntpd%204%202%208p12@1%203728-o%20(1)%20Starting%206c1016c21571429b9a7f5471a9e09c79.html">ntpd 4.2.8p12@1.3728-o (1): Starting
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-on"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="ac0574c2-d582-4434-9e43-8ac624415082"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Listen%20and%20drop%20on%200%20v6wildcard%20%5B%20%5D%20123%20ac0574c2d58244349e438ac624415082.html">Listen and drop on 0 v6wildcard [::]:123
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="9e604f6d-e3aa-4b4d-96a3-4f1c4ac2200c"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Started%20packetai%20agent%209e604f6de3aa4b4d96a34f1c4ac2200c.html">Started packetai agent.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="f6ab3a7d-3458-435e-be1a-14636ff4066d"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Listen%20normally%20on%202%20lo%20127%200%200%201%20123%20f6ab3a7d3458435ebe1a14636ff4066d.html">Listen normally on 2 lo 127.0.0.1:123
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="2172e053-4581-48e3-a662-62c1e6d3cfd1"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/kernel%20reports%20TIME_ERROR%200x41%20Clock%20Unsynchronize%202172e053458148e3a66262c1e6d3cfd1.html">kernel reports TIME_ERROR: 0x41: Clock Unsynchronized
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-on"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="aebbbf3e-e83c-42d1-bd6b-b905b75fe978"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%203%20176744%5D%20Asymmetric%20key%20parser%20&#x27;x509&#x27;%20registere%20aebbbf3ee83c42d1bd6bb905b75fe978.html">[    3.176744] Asymmetric key parser &#x27;x509&#x27; registered
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="30042149-5514-40d7-b68b-5fadefdb3ddf"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%203%20190274%5D%20io%20scheduler%20deadline%20registered%2030042149551440d7b68b5fadefdb3ddf.html">[    3.190274] io scheduler deadline registered
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="cc5b3ec5-1d35-41a3-ba71-f2e5887bd1c2"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%203%20271307%5D%20mousedev%20PS%202%20mouse%20device%20common%20for%20%20cc5b3ec51d3541a3ba71f2e5887bd1c2.html">[    3.271307] mousedev: PS/2 mouse device common for all mice
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="2db169d7-2df2-4ca1-8b8f-ecd823972f56"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%203%20272786%5D%20rtc_cmos%2000%2000%20RTC%20can%20wake%20from%20S4%202db169d72df24ca18b8fecd823972f56.html">[    3.272786] rtc_cmos 00:00: RTC can wake from S4
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="6e39e9c7-a4b3-4216-aca5-51b7d661d925"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%201%20692313%5D%20pcpu-alloc%20%5B0%5D%2000%2001%2002%2003%2004%2005%2006%2007%206e39e9c7a4b34216aca551b7d661d925.html">[    1.692313] pcpu-alloc: [0] 00 01 02 03 04 05 06 07 [0] 08 09 10 11 12 13 14 15 
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-on"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="318739ef-ba27-4ff8-9edb-6b62ac37b264"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%205%20193306%5D%20EXT4-fs%20(sda1)%20re-mounted%20Opts%20errors=%20318739efba274ff89edb6b62ac37b264.html">[    5.193306] EXT4-fs (sda1): re-mounted. Opts: errors=remount-ro
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="8d6a1fad-7bf0-4199-98c0-983f9b122ec3"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%205%20379404%5D%20audit%20type=1400%20audit(1618945078%20480%202%208d6a1fad7bf0419998c0983f9b122ec3.html">[    5.379404] audit: type=1400 audit(1618945078.480:2): apparmor=&quot;STATUS&quot; operation=&quot;profile_load&quot; profile=&quot;unconfined&quot; name=&quot;nvidia_modprobe&quot; pid=374 comm=&quot;apparmor_parser&quot;
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="e4de1974-7231-4e5e-afe2-f3883d7a1dc3"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Started%20D-Bus%20System%20Message%20Bus%20e4de197472314e5eafe2f3883d7a1dc3.html">Started D-Bus System Message Bus.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="344e064c-41f0-41ec-a139-256362315cc0"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Started%20Getty%20on%20tty1%20344e064c41f041eca139256362315cc0.html">Started Getty on tty1.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="ba02b633-ac48-45a1-bf83-e57e30561dcd"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Started%20Serial%20Getty%20on%20ttyS0%20ba02b633ac4845a1bf83e57e30561dcd.html">Started Serial Getty on ttyS0.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="0dd46d72-9c0b-4ad3-825f-d977644b9247"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Soliciting%20pool%20server%20164%20132%20166%2029%200dd46d729c0b4ad3825fd977644b9247.html">Soliciting pool server 164.132.166.29
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="a14add34-c1d8-48ec-a6ae-60b3ecde642c"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/proto%20precision%20=%200%20089%20usec%20(-23)%20a14add34c1d848eca6ae60b3ecde642c.html">proto: precision = 0.089 usec (-23)
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="2f65cd25-4c98-4c2a-98d6-a5812eb8386a"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B7153446%20655861%5D%20mysqld%20invoked%20oom-killer%20gfp_mas%202f65cd254c984c2a98d6a5812eb8386a.html">[7153446.655861] mysqld invoked oom-killer: gfp_mask=0x6200ca(GFP_HIGHUSER_MOVABLE), nodemask=(null), order=0, oom_score_adj=0
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="83c51a38-88b1-46ba-8dc0-0bbabbd6359d"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B7153446%20675959%5D%20mysqld%20cpuset=%20mems_allowed=0%2083c51a3888b146ba8dc00bbabbd6359d.html">[7153446.675959] mysqld cpuset=/ mems_allowed=0
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="d2ec98dd-580e-43bb-89c8-0a1dbb3de662"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B7153446%20713593%5D%20Code%20c1%20e9%2028%200f%20b6%20c9%2044%2002%202c%200%20d2ec98dd580e43bb89c80a1dbb3de662.html">[7153446.713593] Code: c1 e9 28 0f b6 c9 44 02 2c 08 4c 89 e1 48 c1 e9 30 0f b6 c9 44 02 2c 08 41 0f b6 c5 89 85 18 ff ff ff 0f 1f 84 00 00 00 00 00 &lt;48&gt; 8b 05 81 c8 38 ff 4c 89 e6 4c 89 ff 48 89 82 c8 00 00 00 49 8b
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="688aac79-3e76-411a-b54a-0ef0a0527682"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B7153446%20762550%5D%20Node%200%20DMA%20free%2015908kB%20min%2032kB%20%20688aac793e76411ab54a0ef0a0527682.html">[7153446.762550] Node 0 DMA free:15908kB min:32kB low:44kB high:56kB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15992kB managed:15908kB mlocked:0kB kernel_stack:0kB pagetables:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="2bb356cb-9011-437d-8976-850e95f6d09c"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B7153502%20029802%5D%20NMI%20backtrace%20for%20cpu%201%202bb356cb9011437d8976850e95f6d09c.html">[7153502.029802] NMI backtrace for cpu 1
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="4626b342-3181-43a1-877e-691070bcaa16"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Started%20Session%202133%20of%20user%20micael-paisnovo%204626b342318143a1877e691070bcaa16.html">Started Session 2133 of user micael-paisnovo.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="03af315e-07ef-4e15-b881-027fdb4a96d5"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%202%20052346%5D%20NR_IRQS%2033024,%20nr_irqs%20488,%20preallocat%2003af315e07ef4e15b881027fdb4a96d5.html">[    2.052346] NR_IRQS: 33024, nr_irqs: 488, preallocated irqs: 16
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-on"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="11489fe4-4a06-4a24-bd96-788c8ed019dc"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%202%20141312%5D%20Security%20Framework%20initialized%2011489fe44a064a24bd96788c8ed019dc.html">[    2.141312] Security Framework initialized
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="2982bbfb-4384-46e8-874c-57c81530de54"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%202%20528754%5D%20ACPI%20(supports%20S0%20S4%20S5)%202982bbfb438446e8874c57c81530de54.html">[    2.528754] ACPI: (supports S0 S4 S5)
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-on"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="b369f552-8021-461c-8229-f7d3eca094c3"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Started%20udev%20Kernel%20Device%20Manager%20b369f5528021461c8229f7d3eca094c3.html">Started udev Kernel Device Manager.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="6a2a1270-3d7d-42cb-b7ce-fd9e13d1129a"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Started%20Uncomplicated%20firewall%206a2a12703d7d42cbb7cefd9e13d1129a.html">Started Uncomplicated firewall.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-on"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="c438efcc-3043-4abe-a052-744184dc44ba"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/ifup%20waiting%20for%20lock%20on%20run%20network%20ifstate%20eth1%20c438efcc30434abea052744184dc44ba.html">ifup: waiting for lock on /run/network/ifstate.eth1
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="23aae232-c7ad-4583-9dce-cc3630dc07f3"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/run-docker-runtime%20x2drunc-moby-deacaaf365ae40114e%2023aae232c7ad45839dcecc3630dc07f3.html">run-docker-runtime\x2drunc-moby-deacaaf365ae40114e3b2af4a08a3d0e7aeb2502113c5c5ba2c947bfef393f65-runc.T0zvg4.mount: Succeeded.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="e6e6bbd9-6cf5-46e4-930f-bd909e654e15"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Creating%20run%20nologin,%20blocking%20further%20logins%20e6e6bbd96cf546e4930fbd909e654e15.html">Creating /run/nologin, blocking further logins...
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="e574fcca-54f8-41b7-9368-f27b5e6b0812"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/System%20is%20powering%20down%20(hypervisor%20initiated%20shut%20e574fcca54f841b79368f27b5e6b0812.html">System is powering down (hypervisor initiated shutdown).
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="e5bea03f-5826-4e72-9c46-64025f3e5c7c"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/New%20seat%20seat0%20e5bea03f58264e729c4664025f3e5c7c.html">New seat seat0.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="b37d8860-e3f1-40e7-afa7-847ccc38e387"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Stopping%20OpenBSD%20Secure%20Shell%20server%20b37d8860e3f140e7afa7847ccc38e387.html">Stopping OpenBSD Secure Shell server...
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="ee131c7e-ac86-45ad-938a-f142ca8014f8"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%200%20019407%5D%20ACPI%20APIC%200x00000000BFFE12D3%200000F0%20(v%20ee131c7eac8645ad938af142ca8014f8.html">[    0.019407] ACPI: APIC 0x00000000BFFE12D3 0000F0 (v01 BOCHS  BXPCAPIC 00000001 BXPC 00000001)
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="6f63c1e5-b9e6-414b-9d73-d09d69b35942"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%200%20020980%5D%20No%20NUMA%20configuration%20found%206f63c1e5b9e6414b9d73d09d69b35942.html">[    0.020980] No NUMA configuration found
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="18065e71-d474-453a-a878-bfbf56427dae"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Started%20Unattended%20Upgrades%20Shutdown%2018065e71d474453aa878bfbf56427dae.html">Started Unattended Upgrades Shutdown.
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-on"></div></td><td class="cell-Par|"><div class="checkbox checkbox-on"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-on"></div></td><td class="cell-h~Qi"></td></tr><tr id="5a1f4737-22a6-4868-91fe-1585d0768f6f"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/Starting%20Load%20Save%20Random%20Seed%205a1f473722a6486891fe1585d0768f6f.html">Starting Load/Save Random Seed...
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr><tr id="aa6081b1-9c7a-4f85-986c-2e3bd922de64"><td class="cell-title"><a href="Model%20Comparison%2080a95bc49db4494bb980bc94183caef6/%5B%201%20279449%5D%20pci%200000%2000%2000%200%20Limiting%20direct%20PCI%20P%20aa6081b19c7a4f85986c2e3bd922de64.html">[    1.279449] pci 0000:00:00.0: Limiting direct PCI/PCI transfers
+</a></td><td class="cell-nEsY"><div class="checkbox checkbox-off"></div></td><td class="cell-Par|"><div class="checkbox checkbox-off"></div></td><td class="cell-hKD;"><div class="checkbox checkbox-off"></div></td><td class="cell-osxo"><div class="checkbox checkbox-off"></div></td><td class="cell-oPm]"><div class="checkbox checkbox-off"></div></td><td class="cell-h~Qi"></td></tr></tbody></table><br/><br/></div></article></body></html>

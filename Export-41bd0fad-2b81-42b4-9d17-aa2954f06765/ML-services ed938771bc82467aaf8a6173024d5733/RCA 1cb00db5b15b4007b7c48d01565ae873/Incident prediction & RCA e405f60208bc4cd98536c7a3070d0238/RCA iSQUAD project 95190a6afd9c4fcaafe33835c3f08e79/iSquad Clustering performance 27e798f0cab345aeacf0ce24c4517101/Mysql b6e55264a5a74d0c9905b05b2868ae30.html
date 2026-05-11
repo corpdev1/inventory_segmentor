@@ -1,0 +1,740 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Mysql</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="b6e55264-a5a7-4d0c-9905-b05b2868ae30" class="page sans"><header><h1 class="page-title">Mysql</h1><p class="page-description"></p></header><div class="page-body"><h1 id="979f577b-25dd-4d08-a4e9-75553bfc2f52" class="">Dataset: </h1><h2 id="d633698a-3e89-4696-b2cd-a613ce8af647" class="">71 incidents (mysql)</h2><p id="8478e79c-7eb2-49b2-9f02-0e98ad5be8be" class="">workload spike: 10</p><p id="6b2c5cbb-1b82-4519-833c-57211f5b823e" class="">cpu saturation: 10</p><p id="b5c5390c-df38-4cb9-b95c-7b881847babf" class="">memory saturation: 10</p><p id="63d83541-c486-478c-8725-214615ed8c85" class="">disk io saturation: 10</p><p id="c7382fce-e00c-42b1-8f29-5c2a39b61059" class="">lock contention: 10</p><p id="ca6e73d0-6384-4360-96ab-218be33f6f33" class="">dump sql query: 10</p><p id="e4d9e2ec-afe0-4968-a01d-d7864935c59b" class="">flushing logs: 7</p><p id="9f022cee-18ec-4658-924d-3ce0ea0c23e4" class="">restore query: 4</p><p id="d759b4c7-dcdd-428c-a62e-985ae37bc899" class="">
+</p><h1 id="e26ac64b-63fc-4d3a-b67c-3ba4d838829d" class="">Clustering performance: </h1><h2 id="a2148889-7d94-4a2f-bae4-4a98b162838c" class="">70% similarity threshold</h2><p id="1e456d14-ff83-43d2-8413-b943670172ec" class="">20 classes</p><p id="4d05a85f-43e5-47a2-8ba3-564f7ac3165d" class="">
+</p><p id="f100ddfd-4134-442e-b879-a6f469b9ad1a" class=""><strong>Adjusted rank score:</strong> 0.6577027056181863
+<strong>Adjusted NMI:</strong> 0.7347104311522507
+<strong>Homogeneity:</strong> 0.9133192941257842
+<strong>Completeness:</strong> 0.7486649896242183
+<strong>V-measure:</strong> 0.8228359155327994
+<strong>Fowlkes-Mallows score FMI:</strong> 0.6978066483726462</p><h2 id="70e5f730-72f2-4c58-9358-84bf212ed80a" class="">65% similarity threshold</h2><p id="bdc7d88d-cd50-4845-8935-41654345861a" class="">15 classes</p><p id="6aed7615-6a67-4a0d-a2b6-4ab61b171aab" class="">
+</p><p id="94924d9d-1886-4434-8a94-5d95c847caac" class=""><strong>Adjusted rank score: </strong>0.726185392089152
+<strong>Adjusted NMI: </strong>0.8309951298875871
+<strong>Homogeneity: </strong>0.9046096778593191
+<strong>Completeness: </strong>0.8514532880696154
+<strong>V-measure: </strong>0.8772269554986823
+<strong>Fowlkes-Mallows score FMI: </strong>0.7633652400412492</p><h2 id="db3d2771-3ffc-4793-bfbd-b59e9cf1cff3" class="">60 % similarity threshold</h2><p id="b03da886-8c13-4879-98cd-d9a425f5c8b4" class="">10 classes</p><p id="c8d9a47d-9465-4f20-9d73-d4cdd79df44b" class="">
+</p><p id="1c7f9c9d-9124-4e64-8f00-c28cee56fb34" class=""><strong>Adjusted rank score: </strong>0.7924966581807116
+<strong>Adjusted NMI: </strong>0.8987340616643873
+<strong>Homogeneity: </strong>0.9046096778593191
+<strong>Completeness: </strong>0.9375894476791953
+<strong>V-measure: </strong>0.9208043543951205
+<strong>Fowlkes-Mallows score FMI: </strong>0.8259180071175225</p><p id="024ecf6d-2b3e-4571-9d50-0d4ddb51f696" class="">
+</p><h2 id="d60cc3fa-3da7-4965-a98a-da9a5c9e05a1" class="">Conclusion:</h2><p id="3ca84333-ad88-4517-95ed-17c0badde19b" class="">Best performance is around 62%.  Detailed cluster below.</p><p id="a7465732-ae83-4da9-9690-408667df0f0b" class="">
+</p><p id="eea24bae-dc40-4af6-aefd-4a2016427092" class=""> Main counter-performance is grouping cpu and memory saturation in the same cluster.</p><p id="4c21c63f-79ee-4afa-9873-1b5501c81f14" class="">Two explanation: </p><ol type="1" id="036d102a-f612-4c7e-8c03-11878f194364" class="numbered-list" start="1"><li>cpus and mem saturation have quite similar impact on metrics. e.g. Drop in buffer pools metrics </li></ol><ol type="1" id="02708aa6-dcce-40ef-bf87-ecd315469205" class="numbered-list" start="2"><li>Topic algorithm is not completely deterministic. For each permutation of the input, it gives a different output and the quality of the clusters changes a lot. It keeps one pattern for a cluster. This pattern is chosen by the number of incidents in the cluster. For some permutations, cpu and mem are not completely grouped in the same cluster.</li></ol><p id="d889ff8e-b13d-4c10-9f8e-1ada0bf01866" class="">
+</p><p id="19956650-f8bf-4bb6-9d18-8842a403c101" class="">
+</p><ul id="de7b3ea6-7a7f-4b93-a2b3-cc0fc7b6e571" class="bulleted-list"><li style="list-style-type:disc">[&#x27;cpu_1611030369-1611030669&#x27;, &#x27;mem_1611008698-1611008998&#x27;, &#x27;mem_1611005086-1611005386&#x27;, &#x27;mem_1611010504-1611010804&#x27;, &#x27;cpu_1611024958-1611025258&#x27;, &#x27;cpu_1611035779-1611036079&#x27;, &#x27;cpu_1611033975-1611034275&#x27;, &#x27;mem_1611006892-1611007192&#x27;, &#x27;cpu_1611037582-1611037882&#x27;, &#x27;cpu_1611023155-1611023455&#x27;, &#x27;cpu_1611032172-1611032472&#x27;, &#x27;cpu_1611026762-1611027062&#x27;, &#x27;mem_1611017733-1611018033&#x27;, &#x27;cpu_1611039385-1611039685&#x27;, &#x27;cpu_1611028565-1611028865&#x27;, &#x27;mem_1611015926-1611016226&#x27;, &#x27;mem_1611012311-1611012611&#x27;, &#x27;mem_1611021348-1611021648&#x27;, &#x27;mem_1611019540-1611019841&#x27;, &#x27;mem_1611014118-1611014419&#x27;]</li></ul><ul id="0006b0af-e1c6-4cfa-b7e2-1d7fd1289aa8" class="bulleted-list"><li style="list-style-type:disc">[&#x27;workload_1610991312-1610991615&#x27;, &#x27;workload_1611003398-1611003701&#x27;, &#x27;workload_1610995844-1610996148&#x27;, &#x27;workload_1610997355-1610997658&#x27;, &#x27;workload_1611000376-1611000680&#x27;, &#x27;workload_1610992823-1610993126&#x27;, &#x27;workload_1610998865-1610999169&#x27;, &#x27;workload_1610989801-1610990105&#x27;, &#x27;workload_1610994333-1610994637&#x27;]</li></ul><ul id="260a9646-ed61-4c11-8452-61cae1514a64" class="bulleted-list"><li style="list-style-type:disc">[&#x27;workload_1611001887-1611002191&#x27;]</li></ul><ul id="a005d7fb-a4ed-4686-9cce-5150e7116740" class="bulleted-list"><li style="list-style-type:disc">[&#x27;restore_1611124398-1611124798&#x27;, &#x27;restore_1611126480-1611126883&#x27;, &#x27;restore_1611128566-1611128967&#x27;]</li></ul><ul id="88d75978-36f2-4025-9f2f-775d15ba64bb" class="bulleted-list"><li style="list-style-type:disc">[&#x27;restore_1611122305-1611122714&#x27;]</li></ul><ul id="95dd6ba8-c8d8-4c72-bf66-2aed48387a84" class="bulleted-list"><li style="list-style-type:disc">[&#x27;lock_1611057257-1611057859&#x27;, &#x27;lock_1611053644-1611054246&#x27;, &#x27;lock_1611051839-1611052441&#x27;, &#x27;lock_1611042814-1611043416&#x27;, &#x27;lock_1611041009-1611041611&#x27;, &#x27;lock_1611055449-1611056052&#x27;, &#x27;lock_1611044619-1611045221&#x27;, &#x27;lock_1611050034-1611050636&#x27;, &#x27;lock_1611048229-1611048831&#x27;, &#x27;lock_1611046424-1611047026&#x27;]</li></ul><ul id="f5b2d4d2-3c51-4638-b27d-8f00d6d24ee9" class="bulleted-list"><li style="list-style-type:disc">[&#x27;dump_1611066197-1611066848&#x27;, &#x27;dump_1611063984-1611064514&#x27;, &#x27;dump_1611068531-1611069048&#x27;, &#x27;dump_1611079832-1611080376&#x27;, &#x27;dump_1611077594-1611078149&#x27;, &#x27;dump_1611061727-1611062301&#x27;, &#x27;dump_1611075255-1611075911&#x27;, &#x27;dump_1611059182-1611060044&#x27;, &#x27;dump_1611070731-1611071358&#x27;, &#x27;dump_1611073041-1611073572&#x27;]</li></ul><ul id="3e022c10-676c-4a50-9bd5-4e193ec6a629" class="bulleted-list"><li style="list-style-type:disc">[&#x27;iosat_1611137108-1611137409&#x27;]</li></ul><ul id="2f9cc585-91ab-4018-abec-f017946e9353" class="bulleted-list"><li style="list-style-type:disc">[&#x27;iosat_1611140729-1611141029&#x27;, &#x27;iosat_1611144360-1611144660&#x27;, &#x27;iosat_1611146175-1611146475&#x27;, &#x27;iosat_1611133497-1611133797&#x27;, &#x27;iosat_1611135304-1611135604&#x27;, &#x27;iosat_1611138913-1611139213&#x27;, &#x27;iosat_1611147990-1611148290&#x27;, &#x27;iosat_1611142544-1611142844&#x27;, &#x27;iosat_1611149805-1611150105&#x27;]</li></ul><ul id="72d38431-3253-48c8-a05e-502ad0e768fb" class="bulleted-list"><li style="list-style-type:disc">[&#x27;flush_1611085768-1611085819&#x27;, &#x27;flush_1611083914-1611083965&#x27;, &#x27;flush_1611089475-1611089527&#x27;, &#x27;flush_1611087622-1611087673&#x27;, &#x27;flush_1611082060-1611082111&#x27;, &#x27;flush_1611093186-1611093237&#x27;, &#x27;flush_1611091332-1611091383&#x27;]</li></ul><p id="e895db84-52ff-4137-bd7d-d4fb38fc9975" class="">
+</p><h2 id="cf960b45-5ed3-4d00-82d3-a9135c6768d9" class="">Improvements over the isquad algorithm:</h2><p id="de1b791d-c650-40a8-b586-e9f43db895b3" class="">CLusters similarity function:</p><p id="d00b7cd0-895e-4c17-99f9-0afd6aec162b" class="">I changed the similarity function such that it merges two clusters if the average similarity of every pair of incidents is above the similarity threshold. This allow to avoid randomness when comparing two clusters by two patterns only. </p><p id="d22d0de6-2d62-48ac-95b5-ab4538ef6a30" class="">Incident similarity score:</p><p id="d7cf69f0-3c75-46a6-aede-bb563b2d8767" class="">iSquad algorithm compares only anomalous dimensions. The similarity of two incidents is the fraction  ( # of similar anomaly/  # of anomalous metrics). I changed it to include non anomalous metrics but i give more points to a metric if the two incidents are similar and the metric has an anomaly.</p><p id="c7a927e1-efdb-473a-ba95-d2b175f27347" class="">
+</p><p id="c86af6da-3a37-4c5d-a06f-0133755ff6f4" class="">The new cluster:   Similarity 80%</p><p id="474529ea-a1fe-4874-b19c-32b5a96d7c14" class="">
+</p><p id="146071fc-8fcc-4f25-9e7c-41e31870e7e2" class=""><strong>Adjusted rank score: </strong>0.8255860805067305
+<strong>Adjusted NMI: </strong>0.8595998122031984
+<strong>Homogeneity: </strong>0.9809219355718639
+<strong>Completeness: </strong>0.8316564792900373
+<strong>V-measure: </strong>0.9001432177578033
+<strong>Fowlkes-Mallows score FMI: </strong>0.8528387570436534</p><p id="bc8e8f65-a7cb-45a2-8c6c-7f2e7dd71aac" class="">
+</p><p id="cb5126fb-93b6-423b-b0ae-ddd4aef45954" class="">[&#x27;cpu_1611028565-1611028865&#x27;, &#x27;cpu_1611033975-1611034275&#x27;, &#x27;cpu_1611023155-1611023455&#x27;, &#x27;cpu_1611037582-1611037882&#x27;, &#x27;cpu_1611024958-1611025258&#x27;, &#x27;cpu_1611035779-1611036079&#x27;, &#x27;cpu_1611030369-1611030669&#x27;, &#x27;cpu_1611032172-1611032472&#x27;, &#x27;cpu_1611026762-1611027062&#x27;, &#x27;cpu_1611039385-1611039685&#x27;]
+[&#x27;mem_1611006892-1611007192&#x27;, &#x27;mem_1611008698-1611008998&#x27;, &#x27;mem_1611005086-1611005386&#x27;, &#x27;mem_1611010504-1611010804&#x27;, &#x27;mem_1611019540-1611019841&#x27;, &#x27;mem_1611021348-1611021648&#x27;, &#x27;mem_1611015926-1611016226&#x27;, &#x27;mem_1611014118-1611014419&#x27;]
+[&#x27;mem_1611012311-1611012611&#x27;, &#x27;mem_1611017733-1611018033&#x27;]
+[&#x27;workload_1610992823-1610993126&#x27;, &#x27;workload_1611003398-1611003701&#x27;, &#x27;workload_1610991312-1610991615&#x27;, &#x27;workload_1611000376-1611000680&#x27;, &#x27;workload_1610997355-1610997658&#x27;, &#x27;workload_1610989801-1610990105&#x27;, &#x27;workload_1610998865-1610999169&#x27;, &#x27;workload_1610995844-1610996148&#x27;, &#x27;workload_1610994333-1610994637&#x27;]
+[&#x27;workload_1611001887-1611002191&#x27;]
+[&#x27;iosat_1611138913-1611139213&#x27;, &#x27;iosat_1611140729-1611141029&#x27;, &#x27;iosat_1611144360-1611144660&#x27;, &#x27;iosat_1611147990-1611148290&#x27;, &#x27;iosat_1611142544-1611142844&#x27;, &#x27;iosat_1611146175-1611146475&#x27;]
+[&#x27;iosat_1611133497-1611133797&#x27;, &#x27;iosat_1611135304-1611135604&#x27;, &#x27;iosat_1611149805-1611150105&#x27;]
+[&#x27;dump_1611061727-1611062301&#x27;, &#x27;dump_1611066197-1611066848&#x27;, &#x27;dump_1611075255-1611075911&#x27;, &#x27;dump_1611077594-1611078149&#x27;, &#x27;dump_1611063984-1611064514&#x27;, &#x27;dump_1611068531-1611069048&#x27;, &#x27;dump_1611079832-1611080376&#x27;, &#x27;dump_1611070731-1611071358&#x27;, &#x27;dump_1611059182-1611060044&#x27;]
+[&#x27;dump_1611073041-1611073572&#x27;, &#x27;iosat_1611137108-1611137409&#x27;]
+[&#x27;lock_1611042814-1611043416&#x27;, &#x27;lock_1611053644-1611054246&#x27;, &#x27;lock_1611051839-1611052441&#x27;, &#x27;lock_1611041009-1611041611&#x27;, &#x27;lock_1611057257-1611057859&#x27;, &#x27;lock_1611044619-1611045221&#x27;, &#x27;lock_1611055449-1611056052&#x27;, &#x27;lock_1611050034-1611050636&#x27;, &#x27;lock_1611048229-1611048831&#x27;]
+[&#x27;restore_1611124398-1611124798&#x27;, &#x27;restore_1611126480-1611126883&#x27;, &#x27;restore_1611128566-1611128967&#x27;]
+[&#x27;restore_1611122305-1611122714&#x27;]
+[&#x27;flush_1611085768-1611085819&#x27;, &#x27;flush_1611091332-1611091383&#x27;, &#x27;flush_1611089475-1611089527&#x27;, &#x27;flush_1611093186-1611093237&#x27;, &#x27;flush_1611083914-1611083965&#x27;, &#x27;flush_1611087622-1611087673&#x27;]
+[&#x27;flush_1611082060-1611082111&#x27;, &#x27;lock_1611046424-1611047026&#x27;]</p><p id="8037006b-a7dd-43f7-afb9-cfe51d919a92" class="">
+</p><h2 id="81f5e0bc-ad91-438e-8433-4cc4f36a5057" class=""><strong>Improvement:</strong></h2><p id="bed7bfaa-a394-4f04-a3a1-91a2cc098c9d" class="">I fixed the function for spike identification (spike up was identified spike down) and implement nearestInterval function to find the nearst relevant spike to the incident timestamp</p><p id="a1d13b0d-fcbb-412d-8afd-77cf45bf7484" class="">similarity 80%</p><p id="104ef0da-df0f-4b32-b53f-87b94a3eaa80" class=""><strong>Adjusted rank score: 0.893443150164181</strong>
+<strong>Adjusted NMI: 0.8980048520213391</strong>
+<strong>Homogeneity: 0.9773214874712963</strong>
+<strong>Completeness: 0.8773671113397724</strong>
+<strong>V-measure: 0.9246508884161514</strong>
+<strong>Fowlkes-Mallows score FMI: 0.9083152283872705</strong></p><p id="43d1abf0-565d-4dae-8be5-f29d7459c759" class="">
+</p><p id="7488ca65-134b-450e-becc-eda74df2d980" class="">Clusters:</p><p id="def41d74-281c-4c8d-b68d-b676055a97a1" class="">
+</p><p id="fc7b1a47-f3c0-40e5-9766-af87467a14a6" class="">[&#x27;restore_1611128566-1611128967&#x27;]
+[&#x27;iosat_1611137108-1611137409&#x27;, &#x27;dump_1611073041-1611073572&#x27;]
+[&#x27;restore_1611126480-1611126883&#x27;, &#x27;restore_1611124398-1611124798&#x27;]
+[&#x27;flush_1611091332-1611091383&#x27;, &#x27;flush_1611082060-1611082111&#x27;]
+[&#x27;mem_1611017733-1611018033&#x27;, &#x27;restore_1611122305-1611122714&#x27;, &#x27;mem_1611012311-1611012611&#x27;]
+[&#x27;flush_1611085768-1611085819&#x27;, &#x27;flush_1611093186-1611093237&#x27;, &#x27;flush_1611089475-1611089527&#x27;, &#x27;flush_1611083914-1611083965&#x27;, &#x27;flush_1611087622-1611087673&#x27;]
+[&#x27;mem_1611015926-1611016226&#x27;, &#x27;mem_1611021348-1611021648&#x27;, &#x27;mem_1611008698-1611008998&#x27;, &#x27;mem_1611005086-1611005386&#x27;, &#x27;mem_1611019540-1611019841&#x27;, &#x27;mem_1611014118-1611014419&#x27;, &#x27;mem_1611006892-1611007192&#x27;, &#x27;mem_1611010504-1611010804&#x27;]
+[&#x27;iosat_1611138913-1611139213&#x27;, &#x27;iosat_1611144360-1611144660&#x27;, &#x27;iosat_1611133497-1611133797&#x27;, &#x27;iosat_1611135304-1611135604&#x27;, &#x27;iosat_1611147990-1611148290&#x27;, &#x27;iosat_1611142544-1611142844&#x27;, &#x27;iosat_1611140729-1611141029&#x27;, &#x27;iosat_1611149805-1611150105&#x27;, &#x27;iosat_1611146175-1611146475&#x27;]
+[&#x27;dump_1611070731-1611071358&#x27;, &#x27;dump_1611075255-1611075911&#x27;, &#x27;dump_1611059182-1611060044&#x27;, &#x27;dump_1611063984-1611064514&#x27;, &#x27;dump_1611061727-1611062301&#x27;, &#x27;dump_1611079832-1611080376&#x27;, &#x27;dump_1611068531-1611069048&#x27;, &#x27;dump_1611066197-1611066848&#x27;, &#x27;dump_1611077594-1611078149&#x27;]
+[&#x27;cpu_1611024958-1611025258&#x27;, &#x27;cpu_1611023155-1611023455&#x27;, &#x27;cpu_1611030369-1611030669&#x27;, &#x27;cpu_1611039385-1611039685&#x27;, &#x27;cpu_1611035779-1611036079&#x27;, &#x27;cpu_1611032172-1611032472&#x27;, &#x27;cpu_1611033975-1611034275&#x27;, &#x27;cpu_1611037582-1611037882&#x27;, &#x27;cpu_1611028565-1611028865&#x27;, &#x27;cpu_1611026762-1611027062&#x27;]
+[&#x27;workload_1610992823-1610993126&#x27;, &#x27;workload_1610991312-1610991615&#x27;, &#x27;workload_1610997355-1610997658&#x27;, &#x27;workload_1610994333-1610994637&#x27;, &#x27;workload_1611003398-1611003701&#x27;, &#x27;workload_1610989801-1610990105&#x27;, &#x27;workload_1610998865-1610999169&#x27;, &#x27;workload_1611000376-1611000680&#x27;, &#x27;workload_1610995844-1610996148&#x27;, &#x27;workload_1611001887-1611002191&#x27;]
+[&#x27;lock_1611057257-1611057859&#x27;, &#x27;lock_1611044619-1611045221&#x27;, &#x27;lock_1611050034-1611050636&#x27;, &#x27;lock_1611041009-1611041611&#x27;, &#x27;lock_1611055449-1611056052&#x27;, &#x27;lock_1611053644-1611054246&#x27;, &#x27;lock_1611051839-1611052441&#x27;, &#x27;lock_1611048229-1611048831&#x27;, &#x27;lock_1611042814-1611043416&#x27;, &#x27;lock_1611046424-1611047026&#x27;]</p></div></article></body></html>

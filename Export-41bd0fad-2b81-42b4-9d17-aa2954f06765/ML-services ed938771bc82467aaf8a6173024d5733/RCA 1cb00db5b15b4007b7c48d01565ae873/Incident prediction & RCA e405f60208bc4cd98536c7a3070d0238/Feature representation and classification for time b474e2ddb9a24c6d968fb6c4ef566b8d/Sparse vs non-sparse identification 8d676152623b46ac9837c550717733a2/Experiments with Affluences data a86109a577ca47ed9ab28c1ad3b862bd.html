@@ -1,0 +1,688 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Experiments with Affluences data</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a86109a5-77ca-47ed-9ab2-8c1ad3b862bd" class="page sans"><header><h1 class="page-title">Experiments with Affluences data</h1><p class="page-description"></p></header><div class="page-body"><p id="7ee80242-3731-4eea-a626-e9ab55bd5e8d" class=""><span class="user">@Hariprasad Kannan</span> wrote:</p><p id="6a198592-1804-4cef-9a41-b8a84aa1c064" class="">In the following:</p><p id="36da2c7c-0bbc-40e8-b3cb-260a42e0d93e" class="">Docker-1: 6040a96cdcc614001153fc55-linux6040eafa3a9e9f0012cebfd4/dockerb6d1b1b14d453b25
+Docker-2: 6040a96cdcc614001153fc55-linux6040f7e73a9e9f0012cec090/dockerc3fb5b8782cdbf02
+Linux-1: 6040a96cdcc614001153fc55-linux604b83a14c58ea0011d6220f/linux604b83a14c58ea0011d6220f
+Linux-2: 6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211/linux604b83aa4c58ea0011d62211
+Linux-3: 6040a96cdcc614001153fc55-linux6040eafa3a9e9f0012cebfd4/linux6040eafa3a9e9f0012cebfd4
+Linux-4: 6040a96cdcc614001153fc55-linux6040f7e73a9e9f0012cec090/linux6040f7e73a9e9f0012cec090</p><p id="6d8d926d-b833-4288-bfb0-4872d6d7fffb" class="">MySQL-1: 6040a96cdcc614001153fc55-linux604b83aa4c58ea0011d62211/mysql285f9055e4559221</p><figure id="37b3a3df-26d9-4393-99f1-98a7e02225c9"><div class="source"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/sparse_one_hour.zip">sparse_one_hour.zip</a></div></figure><figure id="2e8866d5-07c5-4a9c-aee8-364e71ad938e"><div class="source"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/sparse_three_hours.zip">sparse_three_hours.zip</a></div></figure><figure id="d174d3cc-cee2-4830-9ef0-fb9bfd3635d0"><div class="source"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/sparse_two_days.zip">sparse_two_days.zip</a></div></figure><p id="47e05ff7-859d-4df6-bdbc-d3ac24acad71" class="">
+</p><div id="cffadfdd-7b55-4d0c-83bd-6c272385f5da" class="collection-content"><h4 class="collection-title">Summarized results by considering a window of size 2 days</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Component</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Total</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Sparse</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Non-sparse</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Accurate cases</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>Misses</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M1.56738 3.25879H14.4258C14.7676 3.25879 15.0479 2.97852 15.0479 2.63672C15.0479 2.29492 14.7744 2.02148 14.4258 2.02148H1.56738C1.21875 2.02148 0.952148 2.29492 0.952148 2.63672C0.952148 2.97852 1.22559 3.25879 1.56738 3.25879ZM1.56738 6.84082H14.4258C14.7676 6.84082 15.0479 6.56055 15.0479 6.21875C15.0479 5.87695 14.7744 5.60352 14.4258 5.60352H1.56738C1.21875 5.60352 0.952148 5.87695 0.952148 6.21875C0.952148 6.56055 1.22559 6.84082 1.56738 6.84082ZM1.56738 10.4229H14.4258C14.7676 10.4229 15.0479 10.1426 15.0479 9.80078C15.0479 9.45898 14.7744 9.18555 14.4258 9.18555H1.56738C1.21875 9.18555 0.952148 9.45898 0.952148 9.80078C0.952148 10.1426 1.22559 10.4229 1.56738 10.4229ZM1.56738 14.0049H8.75879C9.10059 14.0049 9.38086 13.7246 9.38086 13.3828C9.38086 13.041 9.10742 12.7676 8.75879 12.7676H1.56738C1.21875 12.7676 0.952148 13.041 0.952148 13.3828C0.952148 13.7246 1.22559 14.0049 1.56738 14.0049Z"></path></svg></span>False positives</th></tr></thead><tbody><tr id="25c6b706-571e-43a2-b5a2-733273160ae9"><td class="cell-title"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/Summarized%20results%20by%20considering%20a%20window%20of%20size%20cffadfdd7b554d0c83bd6c272385f5da/Docker-1%2025c6b706571e43a2b5a2733273160ae9.html">Docker-1</a></td><td class="cell-S&gt;tG">24</td><td class="cell-QPbe">2</td><td class="cell-b_WO">22</td><td class="cell-EJSa">10</td><td class="cell-Ahr&lt;">0</td><td class="cell-b_Cb">14</td></tr><tr id="e7d2e2b5-97a0-4ba7-8800-c2af1fd2de7f"><td class="cell-title"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/Summarized%20results%20by%20considering%20a%20window%20of%20size%20cffadfdd7b554d0c83bd6c272385f5da/Docker-2%20e7d2e2b597a04ba78800c2af1fd2de7f.html">Docker-2</a></td><td class="cell-S&gt;tG">24</td><td class="cell-QPbe">3</td><td class="cell-b_WO">21</td><td class="cell-EJSa">7</td><td class="cell-Ahr&lt;">0</td><td class="cell-b_Cb">17</td></tr><tr id="99964da8-8f5a-4703-b1a3-ee7414439c1a"><td class="cell-title"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/Summarized%20results%20by%20considering%20a%20window%20of%20size%20cffadfdd7b554d0c83bd6c272385f5da/Linux-1%2099964da88f5a4703b1a3ee7414439c1a.html">Linux-1</a></td><td class="cell-S&gt;tG">18</td><td class="cell-QPbe">11</td><td class="cell-b_WO">7</td><td class="cell-EJSa">12</td><td class="cell-Ahr&lt;">0</td><td class="cell-b_Cb">6</td></tr><tr id="e03054aa-95f5-4db7-acb6-b5af8728bb41"><td class="cell-title"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/Summarized%20results%20by%20considering%20a%20window%20of%20size%20cffadfdd7b554d0c83bd6c272385f5da/Linux-2%20e03054aa95f54db7acb6b5af8728bb41.html">Linux-2</a></td><td class="cell-S&gt;tG">14</td><td class="cell-QPbe">6</td><td class="cell-b_WO">8</td><td class="cell-EJSa">12</td><td class="cell-Ahr&lt;">0</td><td class="cell-b_Cb">2</td></tr><tr id="08aa3a13-46bf-4af5-9355-4a2c591dd60d"><td class="cell-title"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/Summarized%20results%20by%20considering%20a%20window%20of%20size%20cffadfdd7b554d0c83bd6c272385f5da/Linux-3%2008aa3a1346bf4af593554a2c591dd60d.html">Linux-3</a></td><td class="cell-S&gt;tG">10</td><td class="cell-QPbe">8</td><td class="cell-b_WO">2</td><td class="cell-EJSa">10</td><td class="cell-Ahr&lt;">0</td><td class="cell-b_Cb">0</td></tr><tr id="a8e08d30-7c6e-4748-8eb1-476f3386d95c"><td class="cell-title"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/Summarized%20results%20by%20considering%20a%20window%20of%20size%20cffadfdd7b554d0c83bd6c272385f5da/Linux-4%20a8e08d307c6e47488eb1476f3386d95c.html">Linux-4</a></td><td class="cell-S&gt;tG">10</td><td class="cell-QPbe">8</td><td class="cell-b_WO">2</td><td class="cell-EJSa">10</td><td class="cell-Ahr&lt;">0</td><td class="cell-b_Cb">0</td></tr><tr id="d88748d5-bdab-4c0e-9e6a-a0de37df4e4f"><td class="cell-title"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/Summarized%20results%20by%20considering%20a%20window%20of%20size%20cffadfdd7b554d0c83bd6c272385f5da/Total%20d88748d5bdab4c0e9e6aa0de37df4e4f.html">Total</a></td><td class="cell-S&gt;tG">100</td><td class="cell-QPbe">38</td><td class="cell-b_WO">62</td><td class="cell-EJSa">61</td><td class="cell-Ahr&lt;">0</td><td class="cell-b_Cb">39</td></tr></tbody></table><br/><br/></div><p id="5c4c6548-84a9-43dc-8587-8e3fad1c2634" class="">What exactly are sparse time-series? Is the following description acceptable?</p><ul id="668a04c2-a581-4e14-bd80-e4d00331805d" class="bulleted-list"><li style="list-style-type:disc">The time-series takes low values most of the time with occasional spikes.</li></ul><p id="c8d57c73-bd34-486d-813b-cfdd3501a080" class="">
+</p><p id="572f7f4e-9f59-4676-9e95-564885dacade" class="">Doubts</p><ul id="93eb57e9-fe23-413b-83c9-4a8a4ab64f44" class="bulleted-list"><li style="list-style-type:disc">Should all or majority of the low values be (close to) zero or low w.r.t. the spikes?<ul id="d79d2b31-7220-46be-b858-4f12079db4d4" class="bulleted-list"><li style="list-style-type:circle">e.g., system#diskio#iostat#write#per_sec#bytes-sd*, system#network#out#bytes-no_subject, Docker-1 (docker#diskio#summary#rate-no_subject): the low values are low but not zero.</li></ul></li></ul><ul id="db36b3ff-44be-45d3-bad8-3c5305ee28c3" class="bulleted-list"><li style="list-style-type:disc">What should be the difference in magnitude between the low regions and the spikes, when compared to the values of the spikes?<ul id="514913fe-ed62-4bed-b46e-d220903107e3" class="bulleted-list"><li style="list-style-type:circle">Linux-2 (system#memory#actual#used#pct-no_subject) in one or three hour window.</li></ul><ul id="5010d346-7d8b-4133-b6b9-b29a19a4f3be" class="bulleted-list"><li style="list-style-type:circle">Linux-2/-3/-4 (system#cpu#total#pct-no_subject): Peak values (corresponding to spikes) only 3 to 4 times the low regions. Also, the low regions are not (close to) zero. There is a daily periodicity to the low regions (which has been detected so far based on 1 day MWA).</li></ul></li></ul><ul id="11f03e41-d851-4a0b-bba4-07799b10231e" class="bulleted-list"><li style="list-style-type:disc">Sparsity depends on the time window over which the time-series is analysed.<ul id="9f8b0eba-ddd2-46a5-ac91-e5ec7133ae1b" class="bulleted-list"><li style="list-style-type:circle">system#diskio#iostat#write#per_sec#bytes-sda (appearance of sparsity depends on the time window: larger (2 days or 3 hours) than smaller (1 hour)). Because a few big spikes are enough to give a time-series a sparse appearance.</li></ul></li></ul><ul id="2af690f8-ee08-4549-95c8-52393e1f80aa" class="bulleted-list"><li style="list-style-type:disc">Should a spike be of 1 (10 second) sample duration?<ul id="32ec9b32-1864-4bea-ae8e-b356fbf6aac3" class="bulleted-list"><li style="list-style-type:circle">Linux-1: system#diskio#iostat#read#per_sec#bytes-sdc</li></ul></li></ul><p id="7adec9d1-5bf4-4fdc-a207-66235ffa1997" class="">
+</p><p id="b5232176-c277-4483-86fc-1325867b5e07" class="">Metric behaving differently across instances:</p><ul id="beb39bd3-3f8d-498b-a37b-0915f48265e8" class="bulleted-list"><li style="list-style-type:disc">One big spike is enough to give a time-series a sparse appearance.</li></ul><ul id="97c1aba3-f0a6-49b0-99c4-61f845b875e3" class="bulleted-list"><li style="list-style-type:disc">Linux-1/-3/-4 (system#network#out#bytes-no_subject) appears sparse. In Linux-2 not so.</li></ul><ul id="b37e7460-e4c4-4a41-bdeb-ea1c63936a86" class="bulleted-list"><li style="list-style-type:disc">Linux-3/-4 (system#network#in#bytes-no_subject, system#network#in#packets-no_subject, system#network#out#packets-no_subject) appear sparse.</li></ul><ul id="224972c0-cb69-485b-a47a-eaa96a1e8123" class="bulleted-list"><li style="list-style-type:disc">Docker-2 (docker#network#in#bytes-no_subject). Compare with Docker-1.</li></ul><p id="e3e0792b-b07f-4129-ad06-f346cf272f08" class="">
+</p><p id="54d717c9-092d-4d8a-b8ac-d685009d694d" class="">Are these sparse?</p><ul id="81b3a272-8d58-40c4-bea8-e2577444a364" class="bulleted-list"><li style="list-style-type:disc">mysql#status#cache#table#open_cache#overflows-no_subject.</li></ul><p id="de0a3e7e-00b8-42f5-97db-bec73596f9de" class="">
+</p><p id="6d9b5441-abbb-4b1b-9ba2-4b821dcec241" class="">Look at a smaller time window (1 or 3 hours) and see whether the time-series is sparse at that level:</p><ul id="0b213199-b31d-43f2-8b33-90ef1d1c69b0" class="bulleted-list"><li style="list-style-type:disc">Linux-4: system#cpu#total#pct-no_subject.</li></ul><p id="eaa75ad6-6729-49b1-b42e-b073dd10f759" class="">
+</p><p id="483676d9-96e5-49e0-aacf-5ee366f9439a" class="">Steps appearing as spikes</p><p id="c86d3e2f-1901-4d1d-b546-9ce4b765d3dd" class="">There are step shaped time-series that are right now having positive and negative spikes because of difference transform.</p><p id="0dad8a9b-9463-48dc-9e06-525e25dcd7f7" class="">MySQL</p><ul id="6cbe5db4-7a5e-4e2e-9924-fc15696aa78e" class="bulleted-list"><li style="list-style-type:disc">mysql#status#open#files-no_subject.</li></ul><h1 id="226e0e34-6618-4d55-95c3-af623bb241a6" class="">False positives</h1><h2 id="a4c8636c-85cd-4f52-a349-e0429b3d96fd" class="">Docker-1</h2><p id="605a3dbe-bd45-486a-ab79-0ce68924a8bd" class="">Docker CPU metrics (both Docker-1 and Docker-2) are all of low magnitude. <strong>What is the normal range of values for Docker CPU metrics?</strong></p><p id="7a66b071-2387-4556-89a2-5f99f1c7b2e6" class="">Check the Docker network (both Docker-1 and Docker-2) over a smaller time window (1 or 3 hours).</p><figure id="876a1f1c-8b37-4bce-9ccf-86806c4c4146" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore2normpct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore2normpct-no_subject.png"/></a></figure><p id="2ca5b70c-b622-403d-9bd1-b68d9aeff9df" class="">The same metric observed over a three hour window. This metric appears to be made of white noise around a mean region.</p><figure id="9dfc7542-9728-49e0-a3b6-35ab9794f289" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore2normpct-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore2normpct-no_subject%201.png"/></a></figure><figure id="43779684-fda6-4b1b-9b5d-15663517f8c2" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore2pct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore2pct-no_subject.png"/></a></figure><figure id="57d3a166-4f02-4058-ad56-288391e50c2f" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore0normpct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore0normpct-no_subject.png"/></a></figure><p id="62aeb682-1cc6-443f-bb5e-4fac6951e987" class="">The same metric observed over a three hour window. This metric appears to be made of white noise around a mean region, with occasional spikes.</p><figure id="434e4f37-2726-4ae0-baf2-add2c0c36bfa" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore0normpct-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore0normpct-no_subject%201.png"/></a></figure><figure id="2941f072-42c8-4d3e-a602-ceb185f0cf20" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore0pct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore0pct-no_subject.png"/></a></figure><figure id="b9b9a91c-388a-4bda-98a0-ac05ac403065" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercputotalnormpct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercputotalnormpct-no_subject.png"/></a></figure><p id="918beef6-32eb-418e-bf69-44b23b05a256" class="">The same metric observed over a three hour window. This metric appears to be made of white noise around a mean region, with occasional spikes.</p><figure id="c5c79304-50c0-4eca-a5a6-85ad256a46e3" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercputotalnormpct-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercputotalnormpct-no_subject%201.png"/></a></figure><figure id="c749bfeb-e0e3-4308-9e0e-a903c1ae8685" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercputotalpct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercputotalpct-no_subject.png"/></a></figure><figure id="3761b231-30c8-441e-8db5-3ae03ff072f3" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpuusernormpct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpuusernormpct-no_subject.png"/></a></figure><p id="5be255c2-7630-4e92-a9b9-5067feb3068b" class="">The same metric observed over a three hour window. This metric appears to be made of white noise around a mean region, with occasional spikes.</p><figure id="e7be3599-d638-424f-a9b6-244925150858" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpuusernormpct-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpuusernormpct-no_subject%201.png"/></a></figure><figure id="53323a1e-052c-4411-9f0d-53e6065b1704" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpuuserpct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpuuserpct-no_subject.png"/></a></figure><figure id="3fa509e1-58a6-4ba5-9663-1d7b67532239" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpukernelnormpct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpukernelnormpct-no_subject.png"/></a></figure><figure id="69cb6800-c2b8-49dc-9a4b-afb6f9f05204" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpukernelpct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpukernelpct-no_subject.png"/></a></figure><figure id="43e14e82-f1e7-4c02-a49e-90ee173f509f" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkoutpackets-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkoutpackets-no_subject.png"/></a></figure><p id="fc1fe2c5-838a-49d9-b22b-40f7301a5ebe" class="">When observed over a smaller time window, the time-series can be seen as sparse.</p><figure id="e63ee653-14f9-4d1d-b043-2ba6e91acb3a" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkoutpackets-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkoutpackets-no_subject%201.png"/></a></figure><figure id="9b75ba8a-5177-4aec-bffd-7526186329d8" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkoutbytes-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkoutbytes-no_subject.png"/></a></figure><p id="c0462df3-6bd0-424f-9e81-d2c7d31d6832" class="">When observed over a smaller time window, the time-series can be seen as sparse.</p><figure id="29161471-6922-42c5-8a7d-04a9c14bce14" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkoutbytes-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkoutbytes-no_subject%201.png"/></a></figure><figure id="2df3dedc-633a-43dc-94d0-9f9505130a1c" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkinpackets-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkinpackets-no_subject.png"/></a></figure><p id="ccac5744-2590-4fc3-9d40-e446dbdbf0a4" class="">When observed over a smaller time window, the time-series can be seen as sparse.</p><figure id="778ba86b-5a1a-443e-9b9c-1dcd38c7eb25" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkinpackets-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkinpackets-no_subject%201.png"/></a></figure><figure id="28d01e0b-15e1-4c50-9907-953f85576114" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkinbytes-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkinbytes-no_subject.png"/></a></figure><p id="325d9894-96e1-4b9b-b18c-b9d0cb8d0dfe" class="">When observed over a smaller time window, the time-series can be seen as sparse.</p><figure id="4d06797b-a1ad-49ca-a717-0b52f470e630" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkinbytes-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkinbytes-no_subject%201.png"/></a></figure><h2 id="d5fc4d97-177b-415c-a657-6e7a7f9702ef" class="">Docker-2</h2><p id="9aaa3937-bf6a-44fd-b931-6b7ea71d263c" class="">Check the ratio of the range of values to the lowest value. If this ratio is very low, then what we are seeing are not sparse spikes but just noise. This should take care of docker#memory#rss#pct, docker#memory#usage#pct.</p><p id="b187d2c8-c053-4bc4-aeea-56b9f73b91b0" class="">Similar to Docker-1, the network metrics are sparse, when observed over a smaller time window.</p><p id="ad4b34ff-2cc8-4721-8acc-b2211995a6fd" class="">Similar to Docker-1, the CPU metrics behave like white noise around a mean value, with occasional spikes.</p><figure id="ed0e3cb8-b300-4378-b9e8-a6a17b3488a5" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockermemoryrsspct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockermemoryrsspct-no_subject.png"/></a></figure><figure id="1a8add4b-8b29-48d0-97ff-a41b7ede18cd" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockermemoryusagepct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockermemoryusagepct-no_subject.png"/></a></figure><figure id="dd1aab52-3d84-4013-a215-443ee7246327" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkinpackets-no_subject%202.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkinpackets-no_subject%202.png"/></a></figure><figure id="06464639-616e-4eed-8867-7ddc2bdbc623" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkoutbytes-no_subject%202.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkoutbytes-no_subject%202.png"/></a></figure><figure id="88999895-31bc-4913-8ba8-e58fec8dd58e" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkoutpackets-no_subject%202.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockernetworkoutpackets-no_subject%202.png"/></a></figure><figure id="26730197-0e6a-4405-9e07-e01b255545d4" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpukernelnormpct-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpukernelnormpct-no_subject%201.png"/></a></figure><figure id="cc53d957-98e7-4ccd-b4e7-7721d5627f9e" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpukernelpct-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpukernelpct-no_subject%201.png"/></a></figure><figure id="17d71f16-b30b-4b99-ba86-ce3d6bc6476a" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore3normpct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore3normpct-no_subject.png"/></a></figure><figure id="c3ce45bb-c7e8-4ec2-8f7c-ae9fd2a84019" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore3pct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore3pct-no_subject.png"/></a></figure><figure id="d3dbc688-433f-4b0e-aaf1-36949e430a7d" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore0normpct-no_subject%202.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore0normpct-no_subject%202.png"/></a></figure><figure id="2030e8d8-adc7-447b-b484-aa68c0d14f72" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore0pct-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore0pct-no_subject%201.png"/></a></figure><figure id="03d178f7-be49-49fc-8a5e-fe02e344a773" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore1normpct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore1normpct-no_subject.png"/></a></figure><figure id="17d8bce4-0a27-4378-85b4-e19de84a27cd" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore1pct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore1pct-no_subject.png"/></a></figure><figure id="67be9560-8f30-4f2c-9f1c-94cd4a41923d" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore2normpct-no_subject%202.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore2normpct-no_subject%202.png"/></a></figure><figure id="fa65a52c-68d4-4bcf-862d-588025a3e24e" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore2pct-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpucore2pct-no_subject%201.png"/></a></figure><figure id="a3e758f2-9b07-49cf-b74d-fed67f2d0ead" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpuusernormpct-no_subject%202.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpuusernormpct-no_subject%202.png"/></a></figure><figure id="053d10c2-f6a6-4f20-ad39-1bfd90a64a05" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpuuserpct-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/dockercpuuserpct-no_subject%201.png"/></a></figure><h2 id="6fb83700-5a00-4e9d-bdd2-fb8b1aa2bfdb" class="">Linux-1</h2><p id="112c13cf-6393-42d5-861b-d6d3d65cd095" class="">Check the following over a smaller time window (1 or 3 hours).</p><p id="7a423ba9-d319-4cee-b320-a63dd9f1a331" class="">Compare system#diskio#iostat#write#per_sec#bytes-sdb with -sda.</p><p id="a50f45a7-e4f0-4b9c-93a5-f93741b051c3" class="">Linux-2 (system#network#out#packets-no_subject) is more clearly not sparse. In the case of Linux-1, the two day time window chosen has 18 hours of lower valued data. That is also affecting the values in the histogram.</p><figure id="9d0479ef-6c91-4cdd-9dfa-56f0ee812cf5" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemcputotalpct-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemcputotalpct-no_subject.png"/></a></figure><p id="b3da411e-ccd3-4086-aeb8-852d4bce5120" class="">When observed over a small time window (three hours), the sparse nature can be seen.</p><figure id="be4c72a1-2fc9-4192-a0b8-42dfed67baff" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemcputotalpct-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemcputotalpct-no_subject%201.png"/></a></figure><figure id="a6e2b3a4-0e5c-4bd8-a7bc-3a0a0e189758" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemnetworkinpackets-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemnetworkinpackets-no_subject.png"/></a></figure><p id="5ffc3cf1-f74d-4b0b-89a7-ed5502e5920f" class="">The sparse nature is not clear when viewed with a three hour time window. This metric is behaving similar to the Docker CPU metrics - white noise around an average value with occasional spikes.</p><figure id="15f80e9d-103b-4406-b191-fd5712252922" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemnetworkinpackets-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemnetworkinpackets-no_subject%201.png"/></a></figure><figure id="5dc764cc-fdda-495c-9af6-b2e033503269" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemnetworkinbytes-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemnetworkinbytes-no_subject.png"/></a></figure><p id="3c6119be-eafc-47c2-897a-8480bed11d3a" class="">The sparse nature is not clear when viewed with a three hour time window. This metric is behaving similar to the Docker CPU metrics - white noise around an average value with occasional spikes.</p><figure id="045d2592-8459-456f-9e14-2b193d269a96" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemnetworkinbytes-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemnetworkinbytes-no_subject%201.png"/></a></figure><p id="fb921517-57a0-426a-83d6-6a1a080d6ed8" class="">
+</p><figure id="94e375c5-7883-41b5-b556-7b9a9d5fda14" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemnetworkoutpackets-no_subject.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemnetworkoutpackets-no_subject.png"/></a></figure><p id="deada59b-e714-49e6-98c5-d3d7dfd5081b" class="">The sparse nature is not clear when viewed with a three hour time window. This metric is behaving similar to the Docker CPU metrics - white noise around an average value with occasional spikes.</p><figure id="73be45b2-c1ba-45c1-bb0b-2077bd860aed" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemnetworkoutpackets-no_subject%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemnetworkoutpackets-no_subject%201.png"/></a></figure><figure id="06db7957-7611-4b16-b799-8d6e177a5d3b" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb.png"/></a></figure><p id="12c7861d-e247-44ed-82c8-0c19a27368b9" class="">The sparse nature is not clear when viewed with a three hour time window. This metric is behaving similar to the Docker CPU metrics - white noise around an average value with occasional spikes.</p><figure id="ce90942c-a980-4239-af74-782a420d692f" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb%201.png"/></a></figure><figure id="fab04ff0-17a3-45cc-8cec-e6e32fce31ef" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb1.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb1.png"/></a></figure><p id="11c56788-313e-4f92-839f-4429a9b02b3c" class="">The sparse nature is not clear when viewed with a three hour time window. This metric is behaving similar to the Docker CPU metrics - white noise around an average value with occasional spikes.</p><figure id="7b9900ef-2f00-4b38-b194-a958bab13b49" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb1%201.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb1%201.png"/></a></figure><h2 id="679cfd3a-376a-4d3f-9cd3-62efb71efcb7" class="">Linux-2</h2><p id="fe6b945c-843a-494d-b8cd-e02c742a3f38" class="">Check the following two over a smaller time window (1 or 3 hours).</p><figure id="b06911bb-eb40-46e0-9f62-5e57ab45ae71" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb%202.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb%202.png"/></a></figure><p id="c791be82-7093-490d-9c07-a25f16a9326d" class="">The sparse nature is not clear when viewed with a three hour time window. This metric is behaving similar to the Docker CPU metrics - white noise around an average value with occasional spikes.</p><figure id="6c9200b5-8a11-44fa-91b7-dab74ced9607" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb%203.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb%203.png"/></a></figure><figure id="13b70f13-6c34-4f9a-b63e-098a337ac933" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb1%202.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb1%202.png"/></a></figure><p id="e5302c44-fe71-4ce1-a2a5-7e386e06f52f" class="">The sparse nature is not clear when viewed with a three hour time window. This metric is behaving similar to the Docker CPU metrics - white noise around an average value with occasional spikes.</p><figure id="3da485d7-dd5f-4f57-819b-22d486bc5c56" class="image"><a href="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb1%203.png"><img style="width:640px" src="Experiments%20with%20Affluences%20data%20a86109a577ca47ed9ab28c1ad3b862bd/systemdiskioiostatwriteper_secbytes-sdb1%203.png"/></a></figure></div></article></body></html>
