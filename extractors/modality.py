@@ -182,3 +182,42 @@ def infer_modalities(path: Path) -> list[str]:
 def format_modalities_cell(modalities: list[str]) -> str:
     """Serialize modalities for spreadsheet cells (multi-value)."""
     return "; ".join(modalities)
+
+
+_MIME_TO_MODALITIES: dict[str, list[str]] = {
+    "application/vnd.google-apps.spreadsheet": ["tabular"],
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": ["tabular"],
+    "application/vnd.ms-excel": ["tabular"],
+    "application/vnd.ms-excel.sheet.macroenabled.12": ["tabular"],
+    "text/csv": ["tabular"],
+    "text/tab-separated-values": ["tabular"],
+    "application/vnd.google-apps.document": ["text"],
+    "application/msword": ["text"],
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": ["text"],
+    "application/pdf": ["text"],
+    "text/plain": ["text"],
+    "text/html": ["text"],
+    "application/rtf": ["text"],
+    "text/rtf": ["text"],
+    "application/vnd.google-apps.presentation": ["slides", "text"],
+    "application/vnd.ms-powerpoint": ["slides", "text"],
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation": ["slides", "text"],
+    "application/json": ["structured_data"],
+    "application/xml": ["structured_data"],
+    "text/xml": ["structured_data"],
+    "application/vnd.google-apps.drawing": ["image"],
+}
+
+
+def modality_from_mime(mime_type: str) -> list[str]:
+    """Infer modality tags from MIME type alone (no file access needed)."""
+    if not mime_type:
+        return []
+    result = _MIME_TO_MODALITIES.get(mime_type)
+    if result:
+        return sorted(result)
+    if mime_type.startswith("image/"):
+        return ["image"]
+    if mime_type.startswith("video/") or mime_type.startswith("audio/"):
+        return ["audio_video"]
+    return []

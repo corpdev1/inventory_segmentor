@@ -107,6 +107,47 @@ def suggested_local_suffix(mime_type: str, display_name: str) -> str:
     return ".bin"
 
 
+# Maps MIME types to human-readable canonical extensions for display in the inventory.
+# Google Workspace types get their own labels (gdoc/gsheet/gslide) since they have no
+# real file extension — the exported format (.csv, .txt) would be misleading.
+_MIME_TO_CANONICAL_EXT: dict[str, str] = {
+    # Google Workspace native
+    "application/vnd.google-apps.document": "gdoc",
+    "application/vnd.google-apps.spreadsheet": "gsheet",
+    "application/vnd.google-apps.presentation": "gslide",
+    "application/vnd.google-apps.drawing": "gdrawing",
+    # Microsoft Office OOXML
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
+    "application/vnd.ms-excel": "xls",
+    "application/vnd.ms-excel.sheet.macroenabled.12": "xlsm",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
+    "application/msword": "doc",
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation": "pptx",
+    "application/vnd.ms-powerpoint": "ppt",
+    # Common formats
+    "application/pdf": "pdf",
+    "text/plain": "txt",
+    "text/csv": "csv",
+    "text/tab-separated-values": "tsv",
+    "text/html": "html",
+    "application/json": "json",
+    "application/rtf": "rtf",
+    "text/rtf": "rtf",
+}
+
+
+def canonical_extension(mime_type: str, display_name: str) -> str:
+    """Best display extension for an inventory row: filename suffix first, MIME type fallback.
+
+    Never returns the export format (e.g. .csv for a Google Sheet) — uses the
+    true source type so clients see 'gsheet' rather than 'csv'.
+    """
+    ext = Path(display_name).suffix.lower().lstrip(".")
+    if ext:
+        return ext
+    return _MIME_TO_CANONICAL_EXT.get(mime_type or "", "")
+
+
 def fetch_drive_file_to_path(
     service: Any,
     *,

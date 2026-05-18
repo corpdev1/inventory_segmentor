@@ -34,9 +34,10 @@ from extractors.core import (
     media_title_text,
     page_count_from_file,
 )
-from extractors.modality import format_modalities_cell, infer_modalities
+from extractors.modality import format_modalities_cell, infer_modalities, modality_from_mime
 from extractors.quality_tier import infer_quality_tier
 from gdrive.fetch import (
+    canonical_extension,
     fetch_drive_file_to_path,
     is_binary_skip_mime,
     resolve_shortcut_target,
@@ -149,9 +150,10 @@ def _build_evidence_from_temp_file(
     mtime_unix: float,
     artifact_id: int,
     extra: dict[str, Any],
+    mime_type: str = "",
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """Full evidence + classifier item from a downloaded/exported file."""
-    extension = Path(filename).suffix.lower().lstrip(".")
+    extension = canonical_extension(mime_type, filename)
     source_guess = infer_source_system(rel_path) or "Google Drive"
     stat_size = int(temp_path.stat().st_size) if temp_path.is_file() else (size_bytes or 0)
 
@@ -236,6 +238,7 @@ def _metadata_only_evidence(
     mtime_unix: float,
     reason: str,
     extra: dict[str, Any],
+    mime_type: str = "",
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """Evidence built purely from path + filename (no byte download).
 
@@ -254,6 +257,7 @@ def _metadata_only_evidence(
     content_summary = summarize_artifact(
         filename=filename, rel_path=rel_path, extension=extension, snippet=None
     )
+    modalities = modality_from_mime(mime_type)
     ev = {
         "artifact_id": artifact_id,
         "path": rel_path,
@@ -269,7 +273,7 @@ def _metadata_only_evidence(
         "word_count": 0,
         "token_count": 0,
         "page_count": 0,
-        "modality": "",
+        "modality": format_modalities_cell(modalities),
         "content_inventory": "",
         "bucket_number": "",
         "bucket_name": "",
@@ -415,24 +419,27 @@ def _extract_one(
 
     rel_path = str(row.get("path") or "").replace("\\", "/")
     filename = str(row.get("name") or "")
-    extension = Path(filename).suffix.lower().lstrip(".")
     mtime_unix = _parse_drive_time_unix(row.get("modified_time"))
     size_b = _int_size(row.get("size_bytes"))
     extra = _extra_cols_from_row(row)
 
     fid, mime, display_name, err0 = _effective_file_for_row(svc, row)
 
+    # Use canonical_extension so Google Workspace files get gsheet/gdoc/gslide
+    # instead of empty string (their filenames have no suffix in Drive).
+    extension = canonical_extension(mime or "", filename)
+
     if err0:
         ev, pend = _metadata_only_evidence(
             artifact_id=aid, rel_path=rel_path, filename=filename,
             extension=extension, size_bytes=size_b, mtime_unix=mtime_unix,
-            reason=err0, extra=extra,
+            reason=err0, extra=extra, mime_type=mime or "",
         )
     elif mime and is_binary_skip_mime(mime):
         ev, pend = _metadata_only_evidence(
             artifact_id=aid, rel_path=rel_path, filename=filename,
             extension=extension, size_bytes=size_b, mtime_unix=mtime_unix,
-            reason=f"binary_skip:{mime}", extra=extra,
+            reason=f"binary_skip:{mime}", extra=extra, mime_type=mime,
         )
     elif (
         mime in ("application/vnd.google-apps.spreadsheet", "text/csv", "text/tab-separated-values")
@@ -442,7 +449,7 @@ def _extract_one(
         ev, pend = _metadata_only_evidence(
             artifact_id=aid, rel_path=rel_path, filename=filename,
             extension=extension, size_bytes=size_b, mtime_unix=mtime_unix,
-            reason="large_sheet_skip", extra=extra,
+            reason="large_sheet_skip", extra=extra, mime_type=mime,
         )
     else:
         suffix = suggested_local_suffix(mime or "", display_name or filename)
@@ -459,13 +466,13 @@ def _extract_one(
             ev, pend = _metadata_only_evidence(
                 artifact_id=aid, rel_path=rel_path, filename=filename,
                 extension=extension, size_bytes=size_b, mtime_unix=mtime_unix,
-                reason=err or "empty_download", extra=extra,
+                reason=err or "empty_download", extra=extra, mime_type=mime or "",
             )
         else:
             ev, pend = _build_evidence_from_temp_file(
                 temp_path=tmp, rel_path=rel_path, filename=filename,
                 size_bytes=size_b, mtime_unix=mtime_unix,
-                artifact_id=aid, extra=extra,
+                artifact_id=aid, extra=extra, mime_type=mime or "",
             )
         try:
             tmp.unlink(missing_ok=True)

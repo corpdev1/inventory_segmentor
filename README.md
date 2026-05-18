@@ -24,11 +24,10 @@ source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Copy the env template and fill in your API key:
+Run the setup wizard — it will ask for your API key and optionally set up Google Drive access:
 
 ```bash
-cp .env.example .env
-# edit .env — set ANTHROPIC_API_KEY or OPENAI_API_KEY
+python setup.py
 ```
 
 ---
@@ -79,11 +78,13 @@ A browser tab opens — sign in with the Google account that has Drive access. A
 
 ### 3. Run the inventory
 
+Scan your entire Google Workspace (My Drive + all Shared Drives):
+
 ```bash
-python run_drive.py --out out/drive_inventory.xlsx
+python run_drive.py --all-drives --out out/drive_inventory.xlsx
 ```
 
-To scan a specific folder, use the folder ID from the Drive URL:
+Or scan a specific folder only:
 
 ```bash
 python run_drive.py \
@@ -94,7 +95,8 @@ python run_drive.py \
 
 | Flag | Default | Purpose |
 | --- | --- | --- |
-| `--folder-id` | `root` | Drive folder ID or full URL |
+| `--all-drives` | off | Scan My Drive + every Shared Drive |
+| `--folder-id` | `root` | Drive folder ID or full URL (ignored when `--all-drives` is set) |
 | `--out` | `out/drive_1tb_inventory.xlsx` | Output `.xlsx` path |
 | `--workers` | `8` | Parallel download workers |
 | `--max-files` | `0` (unlimited) | Cap file count for testing |

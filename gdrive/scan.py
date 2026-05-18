@@ -198,3 +198,88 @@ def walk_drive_folder(
             progress_log(f"[scan_cache] saved {len(rows)} rows to {cache_path}")
 
     return rows
+
+
+def list_shared_drives(service) -> list[dict[str, Any]]:
+    """Return all Shared Drives (Team Drives) the authenticated user can access."""
+    drives: list[dict[str, Any]] = []
+    page_token: str | None = None
+    while True:
+        resp = (
+            service.drives()
+            .list(pageSize=100, fields="nextPageToken, drives(id, name)", pageToken=page_token)
+            .execute()
+        )
+        drives.extend(resp.get("drives") or [])
+        page_token = resp.get("nextPageToken")
+        if not page_token:
+            break
+    return drives
+
+
+def walk_entire_workspace(
+    service,
+    *,
+    include_my_drive: bool = True,
+    include_shared_drives: bool = True,
+    max_files: int | None = None,
+    progress_log: Callable[[str], None] | None = None,
+    progress_every: int = 500,
+    scan_cache_path: str | Path | None = None,
+) -> list[dict[str, Any]]:
+    """Walk the full Google Workspace: My Drive + every Shared Drive the user can access.
+
+    Each file row's ``path`` is prefixed with the drive name so sources are
+    distinguishable in the inventory (e.g. ``My Drive/Finance/Q3.xlsx`` vs
+    ``Engineering/repo-docs/README.md``).
+    """
+    all_rows: list[dict[str, Any]] = []
+    remaining = max_files
+
+    if include_my_drive:
+        if progress_log:
+            progress_log("[workspace] walking My Drive ...")
+        rows = walk_drive_folder(
+            service,
+            "root",
+            path_prefix="My Drive",
+            max_files=remaining,
+            progress_log=progress_log,
+            progress_every=progress_every,
+            scan_cache_path=(
+                str(scan_cache_path) + ".mydrive.jsonl" if scan_cache_path else None
+            ),
+        )
+        all_rows.extend(rows)
+        if remaining is not None:
+            remaining = max(0, remaining - len(rows))
+            if remaining == 0:
+                return all_rows
+
+    if include_shared_drives:
+        shared = list_shared_drives(service)
+        if progress_log:
+            progress_log(f"[workspace] found {len(shared)} Shared Drive(s)")
+        for drv in shared:
+            did = drv["id"]
+            dname = drv.get("name") or did
+            if progress_log:
+                progress_log(f"[workspace] walking Shared Drive: {dname!r}")
+            rows = walk_drive_folder(
+                service,
+                did,
+                path_prefix=dname,
+                max_files=remaining,
+                progress_log=progress_log,
+                progress_every=progress_every,
+                scan_cache_path=(
+                    str(scan_cache_path) + f".{did}.jsonl" if scan_cache_path else None
+                ),
+            )
+            all_rows.extend(rows)
+            if remaining is not None:
+                remaining = max(0, remaining - len(rows))
+                if remaining == 0:
+                    break
+
+    return all_rows
