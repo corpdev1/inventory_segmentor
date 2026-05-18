@@ -10,11 +10,9 @@ from collections import Counter, defaultdict
 from typing import Any
 
 import pandas as pd
-from anthropic import Anthropic
-from anthropic import APIConnectionError, APITimeoutError, RateLimitError
-from anthropic._exceptions import OverloadedError
 
 from excel_io import BUCKETS
+from llm_provider import call_forced_tool, is_retryable_llm_error
 
 
 DEFAULT_SUMMARY_MODEL = None  # if None, caller should pass DEFAULT_MODEL from segmenter
@@ -187,20 +185,22 @@ def summarize_inventory_from_evidence(
 
         return pd.DataFrame(out_rows)
 
-    client = Anthropic()
+    tool_input: dict[str, Any] | None = None
     last_err: Exception | None = None
     for attempt in range(DEFAULT_SUMMARY_MAX_RETRIES + 1):
         try:
-            resp = client.messages.create(
+            tool_input = call_forced_tool(
                 model=model,
                 max_tokens=DEFAULT_SUMMARY_MAX_TOKENS,
                 system=system_prompt,
                 tools=[SUMMARY_TOOL],
-                tool_choice={"type": "tool", "name": "record_bucket_summaries"},
-                messages=[{"role": "user", "content": user_msg}],
+                tool_name="record_bucket_summaries",
+                user_content=user_msg,
             )
             break
-        except (APIConnectionError, APITimeoutError, RateLimitError, OverloadedError) as e:
+        except Exception as e:
+            if not is_retryable_llm_error(e):
+                raise
             last_err = e
             if attempt >= DEFAULT_SUMMARY_MAX_RETRIES:
                 raise
@@ -210,28 +210,25 @@ def summarize_inventory_from_evidence(
     else:
         raise last_err or RuntimeError("Unknown summary retry failure")
 
+    if tool_input is None:
+        return fallback_inventory_df()
+
     tool_rows: list[dict[str, Any]] | None = None
-    for block in resp.content:
-        if getattr(block, "type", None) == "tool_use" and block.name == "record_bucket_summaries":
-            tool_input = getattr(block, "input", None)
-            if not isinstance(tool_input, dict):
-                return fallback_inventory_df()
+    tool_input_dict = tool_input
+    if isinstance(tool_input_dict, dict):
+        candidate = None
+        for key in ("rows", "summaries", "bucket_rows", "items"):
+            if key in tool_input_dict:
+                candidate = tool_input_dict.get(key)
+                break
 
-            # Primary expected shape is {"rows": [...]}, but be tolerant to minor
-            # shape drift (e.g. {"summaries": [...]}) so the run doesn't crash.
-            candidate = None
-            for key in ("rows", "summaries", "bucket_rows", "items"):
-                if key in tool_input:
-                    candidate = tool_input.get(key)
-                    break
+        if candidate is None:
+            return fallback_inventory_df()
+        if not isinstance(candidate, list):
+            return fallback_inventory_df()
 
-            if candidate is None:
-                return fallback_inventory_df()
-            if not isinstance(candidate, list):
-                return fallback_inventory_df()
+        tool_rows = list(candidate)
 
-            tool_rows = list(candidate)
-            break
     if not tool_rows:
         return fallback_inventory_df()
 

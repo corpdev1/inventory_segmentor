@@ -1,7 +1,4 @@
-"""System prompt for the data inventory segmentation MCP.
-
-Edit this file to tune classifier behavior without touching the rest of the code.
-"""
+"""System prompt for the inventory segmentation classifier."""
 
 SEGMENTATION_SYSTEM_PROMPT = """You are a data inventory classifier. You receive batches of inventory items from a company and assign each one to exactly one of seven buckets.
 
@@ -9,6 +6,8 @@ Use the source system as the strongest signal. Fall back to artifact type and ke
 
 Hard rules:
 - Do NOT speculate or invent details. Only use evidence present in the item fields (description/source/filename/extension/path_hint/snippet).
+- For **video** files (extensions like .mp4, .mov, .mkv, .webm, .avi, etc.), only the **filename, title (stem), path, and extension** are available — the pipeline does **not** read video bytes or transcripts. Classify from those cues only; keep confidence at **medium** or **low** unless the name/path alone is strongly disambiguating, and cite the title or path in the rationale.
+- For **email** files saved as ``.eml``, only the **Subject** line (RFC822/MIME headers) is available — the pipeline does **not** read the message body. Classify from subject, filename, path, and extension; keep confidence at **medium** or **low** unless those cues are strongly disambiguating, and cite the subject or path in the rationale.
 - The rationale MUST cite at least one concrete evidence cue, such as filename, extension, source system, or a path segment.
 - If evidence is insufficient or ambiguous, set confidence to "low" and say "Insufficient evidence" plus the top alternative bucket.
 - Keep rationale short (max ~160 characters). Prefer factual cues over interpretation.

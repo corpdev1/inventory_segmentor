@@ -1,11 +1,8 @@
-"""MCP server: data inventory segmentation.
-
-Exposes one tool: segment_inventory(input_path, output_path, ...).
-Reads an .xlsx or .csv inventory, classifies each row via the Anthropic
-API, and writes a multi-sheet workbook to output_path.
-"""
+"""MCP server exposing the inventory segmentation tool."""
 
 from __future__ import annotations
+
+import env_loader  # noqa: F401 — load `.env` before LLM env reads
 
 import os
 import shutil
@@ -18,12 +15,27 @@ from pathlib import Path
 
 from checkpoint import append_checkpoint, checkpoint_path_for_output, load_checkpoint
 from excel_io import load_inventory, write_company_inventory_workbook, write_segmented_workbook
-from extractors.core import extract_snippet
+from extractors.core import (
+    count_llm_tokens,
+    count_words,
+    extract_full_text,
+    extract_snippet,
+    is_title_only_media,
+    is_video_file,
+    media_title_text,
+    page_count_from_file,
+)
+from extractors.modality import format_modalities_cell, infer_modalities
+from extractors.content_inventory import format_content_inventory_cell, gather_content_inventory
+from extractors.content_type import infer_content_types_cell
+from extractors.quality_tier import infer_quality_tier
 from ingest import infer_source_system, iter_files
 from inventory_writer import summarize_inventory_from_evidence
 from pii import detect_pii
 from artifact_summary import summarize_artifact
+from llm_provider import llm_api_configured
 from segmenter import DEFAULT_BATCH_SIZE, DEFAULT_MODEL, classify_dataframe, classify_items
+from subcategory_classifier import attach_subcategories
 
 
 def _download_and_extract_repo(
@@ -101,7 +113,7 @@ def segment_inventory(
     """Segment a data-inventory spreadsheet into seven buckets.
 
     Reads the inventory at input_path, classifies every row using the
-    Anthropic API, and writes a workbook to output_path containing a
+    LLM API, and writes a workbook to output_path containing a
     Master sheet, one sheet per bucket, and a Summary sheet.
 
     Args:
@@ -110,8 +122,8 @@ def segment_inventory(
         sheet_name: Optional sheet name to read (defaults to the first sheet).
         description_column: Override auto-detection of the description column.
         source_column: Override auto-detection of the source/system column.
-        model: Anthropic model id. Defaults to claude-sonnet-4-6.
-        batch_size: Rows per Anthropic API call. Defaults to 25.
+        model: Model id for the active provider (Anthropic or OpenAI).
+        batch_size: Rows per LLM API call. Defaults to 25.
 
     Returns:
         A short status string with row counts per bucket.
@@ -121,9 +133,10 @@ def segment_inventory(
 
     if not in_path.exists():
         raise FileNotFoundError(f"Input file not found: {in_path}")
-    if not os.environ.get("ANTHROPIC_API_KEY"):
+    if not llm_api_configured():
         raise RuntimeError(
-            "ANTHROPIC_API_KEY is not set in the server's environment."
+            "No LLM API key configured. Set ANTHROPIC_API_KEY (Claude) or OPENAI_API_KEY / "
+            "an OpenAI-style key with LLM_PROVIDER=openai — see .env.example."
         )
 
     df, desc_col, src_col = load_inventory(
@@ -165,7 +178,7 @@ def build_inventory_from_dump(
     """Build the 7-row company inventory (desired format) from a dump folder.
 
     Scans files under dump_path, extracts short snippets, classifies each artifact
-    into one of seven buckets via Anthropic, then writes an .xlsx to output_path
+    into one of seven buckets via the LLM, then writes an .xlsx to output_path
     containing:
       - Inventory (desired 4 columns)
       - Evidence (one row per artifact for auditability)
@@ -175,8 +188,11 @@ def build_inventory_from_dump(
 
     if not dump_root.exists():
         raise FileNotFoundError(f"Dump folder not found: {dump_root}")
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        raise RuntimeError("ANTHROPIC_API_KEY is not set in the server's environment.")
+    if not llm_api_configured():
+        raise RuntimeError(
+            "No LLM API key configured. Set ANTHROPIC_API_KEY (Claude) or OPENAI_API_KEY / "
+            "an OpenAI-style key with LLM_PROVIDER=openai — see .env.example."
+        )
 
     ckpt_path = checkpoint_path_for_output(str(out_path))
     existing = load_checkpoint(ckpt_path)
@@ -203,11 +219,13 @@ def build_inventory_from_dump(
         cleaned: list[dict] = []
         for c in (batch_out or []):
             if not isinstance(c, dict):
+                print(f"[warn] classify_items returned non-dict element: {c!r}", flush=True)
                 continue
             rid = c.get("row_id")
             try:
                 rid_i = int(rid)
             except Exception:
+                print(f"[warn] classify_items returned uncastable row_id={rid!r} in {c!r}", flush=True)
                 continue
             c["row_id"] = rid_i
             cleaned.append(c)
@@ -239,18 +257,48 @@ def build_inventory_from_dump(
         extension = p.suffix.lower().lstrip(".")
         source_guess = infer_source_system(str(p))
 
-        snippet = extract_snippet(str(p))
-        desc = f"{filename} ({extension or 'noext'}, {int(stat.st_size)} bytes)"
-        if snippet:
-            desc = desc + "\n" + snippet
-
-        pii = detect_pii(snippet)
-        content_summary = summarize_artifact(
-            filename=filename,
-            rel_path=rel_path,
-            extension=extension,
-            snippet=snippet,
-        )
+        if is_title_only_media(p):
+            title = media_title_text(p)
+            snippet = None
+            full_text = None
+            word_count = len(title.split()) if title else 0
+            token_count = count_llm_tokens(title) if title else 0
+            page_count = 0
+            modalities = infer_modalities(p)
+            inv_counts = gather_content_inventory(p)
+            kind = "video" if is_video_file(p) else "audio"
+            desc = (
+                f"{filename} ({extension or 'noext'}, {kind} file). "
+                "Only the file title/name is read for classification (no media content).\n"
+                f"Title: {title}\nPath: {rel_path}"
+            )
+            pii = detect_pii(f"{title}\n{rel_path}")
+            content_summary = summarize_artifact(
+                filename=filename,
+                rel_path=rel_path,
+                extension=extension,
+                snippet=title or None,
+            )
+            snippet_str = (title or "")[:800]
+        else:
+            snippet = extract_snippet(str(p))
+            full_text = extract_full_text(p)
+            word_count = count_words(full_text) if full_text else 0
+            token_count = count_llm_tokens(full_text) if full_text else 0
+            page_count = page_count_from_file(p, word_count=word_count)
+            modalities = infer_modalities(p)
+            inv_counts = gather_content_inventory(p)
+            desc = f"{filename} ({extension or 'noext'}, {int(stat.st_size)} bytes)"
+            if snippet:
+                desc = desc + "\n" + snippet
+            pii = detect_pii(snippet)
+            content_summary = summarize_artifact(
+                filename=filename,
+                rel_path=rel_path,
+                extension=extension,
+                snippet=snippet,
+            )
+            snippet_str = (snippet or "")[:800]
 
         artifact_id = processed  # deterministic due to sorted walk above
 
@@ -263,10 +311,15 @@ def build_inventory_from_dump(
                 "size_bytes": int(stat.st_size),
                 "modified_time_unix": float(stat.st_mtime),
                 "source_guess": source_guess,
-                "snippet": (snippet or "")[:800],
+                "snippet": snippet_str,
                 "content_summary": content_summary,
                 "pii_flag": "Yes" if pii.has_pii else "No",
                 "pii_types": ", ".join(pii.types),
+                "word_count": int(word_count),
+                "token_count": int(token_count),
+                "page_count": int(page_count),
+                "modality": format_modalities_cell(modalities),
+                "content_inventory": format_content_inventory_cell(inv_counts),
             }
         )
 
@@ -279,7 +332,7 @@ def build_inventory_from_dump(
                     "filename": filename,
                     "extension": extension,
                     "path_hint": rel_path,
-                    "snippet": (snippet or ""),
+                    "snippet": snippet_str,
                 }
             )
             if len(pending) >= batch_size:
@@ -309,6 +362,71 @@ def build_inventory_from_dump(
     evidence_df["rationale"] = evidence_df["artifact_id"].map(
         lambda rid: by_id.get(int(rid), {}).get("rationale")
     )
+
+    evidence_df = attach_subcategories(
+        evidence_df,
+        model=model,
+        batch_size=batch_size,
+        output_path_for_checkpoint=str(out_path),
+    )
+
+    def _series(name: str):
+        if name not in evidence_df.columns:
+            return pd.Series("", index=evidence_df.index)
+        return evidence_df[name].fillna("").astype(str).replace({"nan": ""})
+
+    evidence_df["content_type"] = [
+        infer_content_types_cell(
+            rationale=r,
+            content_summary=cs,
+            snippet=sn,
+            filename=fn,
+            path=ph,
+        )
+        for r, cs, sn, fn, ph in zip(
+            _series("rationale"),
+            _series("content_summary"),
+            _series("snippet"),
+            _series("filename"),
+            _series("path"),
+        )
+    ]
+
+    tok = (
+        pd.to_numeric(evidence_df["token_count"], errors="coerce")
+        .fillna(0)
+        .astype("int64")
+        if "token_count" in evidence_df.columns
+        else pd.Series(0, index=evidence_df.index, dtype="int64")
+    )
+    wct = (
+        pd.to_numeric(evidence_df["word_count"], errors="coerce")
+        .fillna(0)
+        .astype("int64")
+        if "word_count" in evidence_df.columns
+        else pd.Series(0, index=evidence_df.index, dtype="int64")
+    )
+
+    evidence_df["quality_tier"] = [
+        infer_quality_tier(
+            token_count=int(t),
+            word_count=int(w),
+            pii_flag=str(pi),
+            modality=str(m),
+            content_type=str(ct),
+            extension=str(ex),
+            confidence=str(cf),
+        )
+        for t, w, pi, m, ct, ex, cf in zip(
+            tok,
+            wct,
+            _series("pii_flag"),
+            _series("modality"),
+            _series("content_type"),
+            _series("extension"),
+            _series("confidence"),
+        )
+    ]
 
     inventory_df = summarize_inventory_from_evidence(evidence_df, model=model)
 
@@ -358,6 +476,44 @@ def build_inventory_from_repo(
     )
 
 
+def build_inventory_from_drive(
+    folder_id: str,
+    output_path: str,
+    model: str = DEFAULT_MODEL,
+    batch_size: int = DEFAULT_BATCH_SIZE,
+    max_files: int | None = None,
+) -> str:
+    """Walk Google Drive from ``folder_id``, download/export each file, classify and enrich (full quality).
+
+    Uses the same extract + LLM path as :func:`build_inventory_from_dump`. Requires OAuth token
+    with **drive.readonly** — if your token was created with metadata-only scope, run
+    ``python tools/gdrive_scan.py --login-only --full-read-scope`` once, then re-run this tool.
+    """
+    from gdrive.credentials import (
+        build_drive_service,
+        default_client_secrets_path,
+        default_token_path,
+        get_credentials,
+    )
+    from gdrive.pipeline_build import build_inventory_from_drive as _drive_quality_run
+
+    creds = get_credentials(
+        client_secrets=default_client_secrets_path(),
+        token_path=default_token_path(),
+        full_read_scope=True,
+        login_only=False,
+    )
+    service = build_drive_service(creds)
+    return _drive_quality_run(
+        service=service,
+        folder_id=folder_id,
+        output_path=output_path,
+        model=model,
+        batch_size=batch_size,
+        max_files=max_files,
+    )
+
+
 def _run_mcp() -> None:
     """Start the MCP server (imports `mcp` only when this entrypoint runs)."""
     from mcp.server.fastmcp import FastMCP
@@ -366,6 +522,7 @@ def _run_mcp() -> None:
     mcp.tool()(segment_inventory)
     mcp.tool()(build_inventory_from_dump)
     mcp.tool()(build_inventory_from_repo)
+    mcp.tool()(build_inventory_from_drive)
     mcp.run()
 
 

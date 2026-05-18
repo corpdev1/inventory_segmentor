@@ -1,9 +1,4 @@
-"""Deterministic, evidence-based content summaries for dump artifacts.
-
-Goal: produce clean, short "Content Summary" strings without guessing.
-We rely on filename/path cues and only use snippet text when it contains
-high-signal markers (e.g. secrets).
-"""
+"""Content summary generation for ingested dump artifacts."""
 
 from __future__ import annotations
 
@@ -166,7 +161,7 @@ def _topic_from_snippet(snip: str, lower_path: str) -> str | None:
         return "Shareholders unanimous decision agreement."
     if _has_any(t, ("shareholder register", "registre des actionnaires", "registre actionnaires")):
         return "Shareholders register."
-    if _has_any(t, ("shareholder accounts", "compte courant d'associ", "compte courant d’associ")):
+    if _has_any(t, ("shareholder accounts", "compte courant d'associ", "compte courant d'associ")):
         return "Shareholder accounts register."
     if _has_any(t, ("articles of association", "statuts", "bylaws")):
         return "Corporate regulatory document."
@@ -198,7 +193,7 @@ def _topic_from_snippet(snip: str, lower_path: str) -> str | None:
         return "Assets and liabilities statement."
 
     # Misc media / ops
-    if _has_any(lp, ("photo", "image", "screenshot")) or _has_any(t, ("screenshot", "capture d'écran", "capture d’ecran", "capture d'ecran")):
+    if _has_any(lp, ("photo", "image", "screenshot")) or _has_any(t, ("screenshot", "capture d'écran", "capture d'ecran", "capture d'ecran")):
         return "Screenshot / photo."
 
     return None
@@ -212,13 +207,11 @@ _YEAR_RE = re.compile(r"\b(20\d{2})\b")
 def _compact(s: str, limit: int = 120) -> str:
     s = " ".join((s or "").replace("\r", " ").replace("\n", " ").split())
     s = _EMOJI_RE.sub(" ", s)
-    # Extra cleanup for weird word breaks and glyphs.
     s = s.replace("\u00ad", "").replace("\u200b", "").replace("\ufe0f", "")
     s = " ".join(s.split())
     if len(s) <= limit:
         return s
 
-    # Prefer cutting on a word boundary (not mid-word).
     cut = max(0, limit - 3)
     boundary = s.rfind(" ", 0, cut)
     if boundary >= max(20, int(cut * 0.6)):
@@ -227,7 +220,6 @@ def _compact(s: str, limit: int = 120) -> str:
 
 
 def _looks_like_title(line: str) -> bool:
-    # Skip very short headings / boilerplate.
     t = line.strip()
     if len(t) < 12:
         return True
@@ -267,7 +259,6 @@ def _summary_from_snippet(snip: str) -> str | None:
         if len(ln) >= 18:
             return _compact(ln, limit=160)
 
-    # Fallback: still avoid useless one-liners (table headers, salutations).
     for ln in lines[:25]:
         if _looks_like_title(ln):
             continue
@@ -361,6 +352,11 @@ def summarize_artifact(*, filename: str, rel_path: str, extension: str, snippet:
         return "Company document."
 
     # Fallback: file type summary without guessing content.
+    if ext == "eml":
+        st = (snip or "").strip()
+        if st:
+            return _compact(f"Email (.eml). Subject: {st}", limit=200)
+        return "Email message (.eml)."
     if ext in {"png", "jpg", "jpeg", "webp", "gif", "tiff", "bmp", "heic"}:
         return "Photo / image."
     if ext in {"mp4", "mov", "m4v", "avi", "mkv", "webm"}:

@@ -1,7 +1,4 @@
-"""Lightweight PII detection heuristics (no LLM).
-
-Goal: flag likely PII so dumps can be triaged quickly.
-"""
+"""Lightweight PII detection heuristics."""
 
 from __future__ import annotations
 
