@@ -25,10 +25,10 @@ from excel_io import write_company_inventory_workbook
 from extractors.content_inventory import format_content_inventory_cell, gather_content_inventory
 from extractors.content_type import infer_content_types_cell
 from extractors.core import (
+    MAX_CHARS_DEFAULT,
     count_llm_tokens,
     count_words,
     extract_full_text,
-    extract_snippet,
     is_title_only_media,
     is_video_file,
     media_title_text,
@@ -176,8 +176,8 @@ def _build_evidence_from_temp_file(
             filename=filename, rel_path=rel_path, extension=extension, snippet=title or None
         )
     else:
-        snippet = extract_snippet(str(temp_path))
         full_text = extract_full_text(str(temp_path))
+        snippet = (full_text[:MAX_CHARS_DEFAULT] + "\n…(truncated)…") if full_text and len(full_text) > MAX_CHARS_DEFAULT else full_text
         word_count = count_words(full_text) if full_text else 0
         token_count = count_llm_tokens(full_text) if full_text else 0
         page_count = page_count_from_file(temp_path, word_count=word_count)

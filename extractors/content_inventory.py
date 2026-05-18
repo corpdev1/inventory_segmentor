@@ -193,6 +193,7 @@ def _count_xlsx_zip(path: Path) -> dict[str, int]:
     try:
         with zipfile.ZipFile(path, "r") as zf:
             names = zf.namelist()
+            info_map = {zi.filename: zi for zi in zf.infolist()}
             for n in names:
                 if n.startswith("xl/media/"):
                     suf = Path(n).suffix.lower().lstrip(".")
@@ -217,10 +218,18 @@ def _count_xlsx_zip(path: Path) -> dict[str, int]:
                         out["other_image"] += 1
                 if n.startswith("xl/charts/chart") and n.endswith(".xml"):
                     out["charts"] += 1
-                if n.startswith("xl/tables/table") and n.endswith(".xml"):
-                    out["tables"] += 1
-            ws = [n for n in names if re.match(r"xl/worksheets/sheet\d+\.xml$", n)]
-            out["worksheets"] = len(ws)
+            # Count worksheets and how many have actual data.
+            # A worksheet XML with data is noticeably larger than the empty-sheet skeleton
+            # (~900 bytes). 1 500 bytes is a safe threshold for "has at least one data row".
+            _DATA_BYTES_THRESHOLD = 1_500
+            ws_names = [n for n in names if re.match(r"xl/worksheets/sheet\d+\.xml$", n)]
+            out["worksheets"] = len(ws_names)
+            data_sheets = sum(
+                1 for n in ws_names
+                if info_map.get(n) and info_map[n].file_size >= _DATA_BYTES_THRESHOLD
+            )
+            if data_sheets:
+                out["data_sheets"] = data_sheets
         if out["worksheets"] == 0:
             try:
                 import openpyxl
@@ -258,8 +267,14 @@ def _count_pdf(path: Path) -> dict[str, int]:
         return {}
     try:
         out["pdf_pages"] = len(doc)
+        # Deduplicate by xref: the same image XObject (e.g. a logo in the header)
+        # is referenced on every page but is one embedded image.
+        seen_xrefs: set[int] = set()
         for i in range(len(doc)):
-            out["images"] += len(doc[i].get_images(full=True))
+            for img_info in doc[i].get_images(full=True):
+                seen_xrefs.add(img_info[0])  # img_info[0] is the xref number
+        if seen_xrefs:
+            out["images"] = len(seen_xrefs)
     except Exception:
         pass
     finally:

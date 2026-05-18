@@ -25,6 +25,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--model", default=default_llm_model())
     p.add_argument("--batch-size", type=int, default=int(os.environ.get("SEGMENTER_BATCH_SIZE", "25")))
     p.add_argument("--max-files", type=int, default=0, help="0 means no limit")
+    p.add_argument("--workers", type=int, default=1, help="Parallel workers for extraction and LLM batches")
     p.add_argument(
         "--strict",
         action="store_true",
@@ -43,6 +44,7 @@ def main(argv: list[str] | None = None) -> int:
         batch_size=int(args.batch_size),
         max_files=max_files,
         strict_scan=bool(args.strict),
+        workers=int(args.workers),
     )
     print(msg)
     return 0

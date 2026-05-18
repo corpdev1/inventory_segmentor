@@ -8,18 +8,20 @@ import os
 import shutil
 import tarfile
 import tempfile
+import threading
 import urllib.parse
 import urllib.request
 import urllib.error
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from checkpoint import append_checkpoint, checkpoint_path_for_output, load_checkpoint
 from excel_io import load_inventory, write_company_inventory_workbook, write_segmented_workbook
 from extractors.core import (
+    MAX_CHARS_DEFAULT,
     count_llm_tokens,
     count_words,
     extract_full_text,
-    extract_snippet,
     is_title_only_media,
     is_video_file,
     media_title_text,
@@ -174,14 +176,16 @@ def build_inventory_from_dump(
     batch_size: int = DEFAULT_BATCH_SIZE,
     max_files: int | None = None,
     strict_scan: bool = False,
+    workers: int = 1,
 ) -> str:
     """Build the 7-row company inventory (desired format) from a dump folder.
 
-    Scans files under dump_path, extracts short snippets, classifies each artifact
-    into one of seven buckets via the LLM, then writes an .xlsx to output_path
-    containing:
+    Scans files under dump_path, extracts text, classifies each artifact into one
+    of seven buckets via the LLM, then writes an .xlsx to output_path containing:
       - Inventory (desired 4 columns)
       - Evidence (one row per artifact for auditability)
+
+    workers > 1 parallelises file extraction (I/O + parsing) and LLM API batches.
     """
     dump_root = Path(dump_path).expanduser().resolve()
     out_path = Path(output_path).expanduser().resolve()
@@ -198,59 +202,20 @@ def build_inventory_from_dump(
     existing = load_checkpoint(ckpt_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Stream files and classify in batches so we checkpoint early and can resume.
-    evidence_rows: list[dict] = []
-    pending: list[dict] = []
-    processed = 0
-    classified = 0
-
     exclude_dirs = () if strict_scan else (".venv", "__pycache__")
     include_hidden = bool(strict_scan)
 
-    def flush_batch() -> None:
-        nonlocal classified, pending, existing
-        if not pending:
-            return
-        batch = pending
-        pending = []
-        batch_out = classify_items(batch, model=model, batch_size=len(batch))
+    # Collect all file paths upfront for deterministic artifact_id assignment.
+    all_files = list(iter_files(str(dump_root), exclude_dirs=exclude_dirs, include_hidden=include_hidden))
+    if max_files is not None:
+        all_files = all_files[:max_files]
+    total = len(all_files)
+    print(f"[scan] total files: {total}", flush=True)
 
-        # Defensive: tolerate occasional malformed rows so large runs don't crash.
-        cleaned: list[dict] = []
-        for c in (batch_out or []):
-            if not isinstance(c, dict):
-                print(f"[warn] classify_items returned non-dict element: {c!r}", flush=True)
-                continue
-            rid = c.get("row_id")
-            try:
-                rid_i = int(rid)
-            except Exception:
-                print(f"[warn] classify_items returned uncastable row_id={rid!r} in {c!r}", flush=True)
-                continue
-            c["row_id"] = rid_i
-            cleaned.append(c)
-
-        append_checkpoint(ckpt_path, cleaned)
-        for c in cleaned:
-            try:
-                existing[int(c.get("row_id"))] = c
-            except Exception:
-                continue
-        classified += len(cleaned)
-        print(
-            f"[batch] classified={classified} checkpoint={ckpt_path.name}",
-            flush=True,
-        )
-
-    for p in iter_files(
-        str(dump_root),
-        exclude_dirs=exclude_dirs,
-        include_hidden=include_hidden,
-    ):
-        processed += 1
-        if max_files is not None and processed > max_files:
-            break
-
+    def _extract_one(artifact_id: int, p: Path) -> tuple[dict, dict | None]:
+        """Extract evidence from one file. Thread-safe (no shared mutable state).
+        Returns (ev_row, pending_item_or_None).
+        """
         stat = p.stat()
         rel_path = str(p.resolve().relative_to(dump_root)).replace("\\", "/")
         filename = p.name
@@ -259,8 +224,7 @@ def build_inventory_from_dump(
 
         if is_title_only_media(p):
             title = media_title_text(p)
-            snippet = None
-            full_text = None
+            snippet_str = (title or "")[:800]
             word_count = len(title.split()) if title else 0
             token_count = count_llm_tokens(title) if title else 0
             page_count = 0
@@ -274,15 +238,15 @@ def build_inventory_from_dump(
             )
             pii = detect_pii(f"{title}\n{rel_path}")
             content_summary = summarize_artifact(
-                filename=filename,
-                rel_path=rel_path,
-                extension=extension,
-                snippet=title or None,
+                filename=filename, rel_path=rel_path, extension=extension, snippet=title or None,
             )
-            snippet_str = (title or "")[:800]
         else:
-            snippet = extract_snippet(str(p))
             full_text = extract_full_text(p)
+            snippet: str | None = (
+                (full_text[:MAX_CHARS_DEFAULT] + "\n…(truncated)…")
+                if full_text and len(full_text) > MAX_CHARS_DEFAULT
+                else full_text
+            )
             word_count = count_words(full_text) if full_text else 0
             token_count = count_llm_tokens(full_text) if full_text else 0
             page_count = page_count_from_file(p, word_count=word_count)
@@ -293,58 +257,116 @@ def build_inventory_from_dump(
                 desc = desc + "\n" + snippet
             pii = detect_pii(snippet)
             content_summary = summarize_artifact(
-                filename=filename,
-                rel_path=rel_path,
-                extension=extension,
-                snippet=snippet,
+                filename=filename, rel_path=rel_path, extension=extension, snippet=snippet,
             )
             snippet_str = (snippet or "")[:800]
 
-        artifact_id = processed  # deterministic due to sorted walk above
-
-        evidence_rows.append(
-            {
-                "artifact_id": artifact_id,
-                "path": rel_path,
+        ev: dict = {
+            "artifact_id": artifact_id,
+            "path": rel_path,
+            "filename": filename,
+            "extension": extension,
+            "size_bytes": int(stat.st_size),
+            "modified_time_unix": float(stat.st_mtime),
+            "source_guess": source_guess,
+            "snippet": snippet_str,
+            "content_summary": content_summary,
+            "pii_flag": "Yes" if pii.has_pii else "No",
+            "pii_types": ", ".join(pii.types),
+            "word_count": int(word_count),
+            "token_count": int(token_count),
+            "page_count": int(page_count),
+            "modality": format_modalities_cell(modalities),
+            "content_inventory": format_content_inventory_cell(inv_counts),
+        }
+        pend: dict | None = None
+        if artifact_id not in existing:
+            pend = {
+                "row_id": artifact_id,
+                "description": desc,
+                "source": source_guess,
                 "filename": filename,
                 "extension": extension,
-                "size_bytes": int(stat.st_size),
-                "modified_time_unix": float(stat.st_mtime),
-                "source_guess": source_guess,
+                "path_hint": rel_path,
                 "snippet": snippet_str,
-                "content_summary": content_summary,
-                "pii_flag": "Yes" if pii.has_pii else "No",
-                "pii_types": ", ".join(pii.types),
-                "word_count": int(word_count),
-                "token_count": int(token_count),
-                "page_count": int(page_count),
-                "modality": format_modalities_cell(modalities),
-                "content_inventory": format_content_inventory_cell(inv_counts),
             }
-        )
+        return ev, pend
 
-        if artifact_id not in existing:
-            pending.append(
-                {
-                    "row_id": artifact_id,
-                    "description": desc,
-                    "source": source_guess,
-                    "filename": filename,
-                    "extension": extension,
-                    "path_hint": rel_path,
-                    "snippet": snippet_str,
-                }
-            )
-            if len(pending) >= batch_size:
-                flush_batch()
+    # --- Phase 1: Extract (parallel when workers > 1) ---
+    evidence_rows: list[dict] = [{}] * total
+    pending: list[dict] = []
 
-        if processed % 500 == 0:
-            print(
-                f"[progress] processed={processed} pending={len(pending)} classified={classified}",
-                flush=True,
-            )
+    if workers > 1:
+        done_count = 0
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            futs = {executor.submit(_extract_one, i + 1, p): i + 1 for i, p in enumerate(all_files)}
+            for fut in as_completed(futs):
+                aid = futs[fut]
+                try:
+                    ev, pend = fut.result()
+                except Exception as exc:
+                    print(f"[warn] extraction failed artifact_id={aid}: {exc}", flush=True)
+                    continue
+                evidence_rows[aid - 1] = ev
+                if pend:
+                    pending.append(pend)
+                done_count += 1
+                if done_count % 500 == 0:
+                    print(f"[extract] done={done_count}/{total}", flush=True)
+        evidence_rows = [r for r in evidence_rows if r]
+        pending.sort(key=lambda x: x["row_id"])
+    else:
+        for i, p in enumerate(all_files):
+            artifact_id = i + 1
+            try:
+                ev, pend = _extract_one(artifact_id, p)
+            except Exception as exc:
+                print(f"[warn] extraction failed artifact_id={artifact_id}: {exc}", flush=True)
+                continue
+            evidence_rows[i] = ev
+            if pend:
+                pending.append(pend)
+            if artifact_id % 500 == 0:
+                print(f"[progress] processed={artifact_id}/{total}", flush=True)
+        evidence_rows = [r for r in evidence_rows if r]
 
-    flush_batch()
+    print(f"[extract] done. evidence={len(evidence_rows)} to_classify={len(pending)}", flush=True)
+
+    # --- Phase 2: Classify (batches via workers) ---
+    classified = 0
+    ckpt_lock = threading.Lock()
+
+    def flush_batch(batch: list[dict]) -> None:
+        nonlocal classified
+        if not batch:
+            return
+        batch_out = classify_items(batch, model=model, batch_size=batch_size, workers=workers)
+        cleaned: list[dict] = []
+        for c in (batch_out or []):
+            if not isinstance(c, dict):
+                print(f"[warn] classify_items returned non-dict: {c!r}", flush=True)
+                continue
+            rid = c.get("row_id")
+            try:
+                rid_i = int(rid)
+            except Exception:
+                print(f"[warn] uncastable row_id={rid!r}", flush=True)
+                continue
+            c["row_id"] = rid_i
+            cleaned.append(c)
+        append_checkpoint(ckpt_path, cleaned)
+        with ckpt_lock:
+            for c in cleaned:
+                try:
+                    existing[int(c["row_id"])] = c
+                except Exception:
+                    pass
+            classified += len(cleaned)
+        print(f"[batch] classified={classified} checkpoint={ckpt_path.name}", flush=True)
+
+    for start in range(0, len(pending), batch_size):
+        flush_batch(pending[start : start + batch_size])
+
     by_id = existing
 
     import pandas as pd
@@ -368,6 +390,7 @@ def build_inventory_from_dump(
         model=model,
         batch_size=batch_size,
         output_path_for_checkpoint=str(out_path),
+        workers=workers,
     )
 
     def _series(name: str):
@@ -438,7 +461,7 @@ def build_inventory_from_dump(
 
     lines = [
         f"Wrote company inventory to {out_path}",
-        f"Artifacts scanned: {processed}",
+        f"Artifacts scanned: {total}",
         "Sheets: Inventory, Overview, Sample Files, Evidence, + bucket tabs",
         f"Checkpoint: {ckpt_path}",
     ]
@@ -453,6 +476,7 @@ def build_inventory_from_repo(
     model: str = DEFAULT_MODEL,
     batch_size: int = DEFAULT_BATCH_SIZE,
     max_files: int | None = None,
+    workers: int = 1,
 ) -> str:
     """Build the clean multi-tab inventory workbook from a Git repo URL.
 
@@ -473,6 +497,7 @@ def build_inventory_from_repo(
         model=model,
         batch_size=batch_size,
         max_files=max_files,
+        workers=workers,
     )
 
 

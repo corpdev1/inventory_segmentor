@@ -6,6 +6,7 @@ import json
 import math
 import re
 import shutil
+import threading
 import unicodedata
 from html.parser import HTMLParser
 from io import BytesIO
@@ -203,6 +204,19 @@ def extract_email_subject(path: str | Path) -> str:
 
 # GPT-family-style tokenization (also used as a generic LLM planning estimate).
 _LLM_TOKEN_ENCODING_NAME = "cl100k_base"
+_tiktoken_enc: object = None
+_tiktoken_lock = threading.Lock()
+
+
+def _get_tiktoken_enc() -> object:
+    global _tiktoken_enc
+    if _tiktoken_enc is not None:
+        return _tiktoken_enc
+    with _tiktoken_lock:
+        if _tiktoken_enc is None:
+            import tiktoken
+            _tiktoken_enc = tiktoken.get_encoding(_LLM_TOKEN_ENCODING_NAME)
+    return _tiktoken_enc
 
 # Heuristic divisor when a format has no native page count.
 ESTIMATED_WORDS_PER_PAGE = 275
@@ -281,16 +295,17 @@ def _pdf_text_quality_score(text: str) -> float:
 
 
 def _extract_pdf_pages(path: Path, *, max_pages: int | None) -> str | None:
-    """Extract PDF text using PyMuPDF + pypdf; pick the better output per page.
+    """Extract PDF text using PyMuPDF first; pypdf only as fallback for blank pages.
 
-    PyMuPDF defaults preserve ligatures, which often breaks badly when the PDF
-    ToUnicode map is incomplete (missing ``t``/``f``/``fi`` etc.). We omit
-    TEXT_PRESERVE_LIGATURES and compare against pypdf per page.
+    PyMuPDF is faster and higher quality. pypdf is only invoked for pages where
+    fitz returned empty text (e.g. image-only pages with embedded fonts), avoiding
+    a redundant full-document pypdf pass on every PDF.
 
     ``max_pages`` ``None`` means all pages in the document.
     """
     fitz_pages: list[str] = []
-    pypdf_pages: list[str] = []
+    fitz_ok = False
+    blank_indices: list[int] = []
 
     try:
         import fitz  # type: ignore  # PyMuPDF
@@ -307,39 +322,46 @@ def _extract_pdf_pages(path: Path, *, max_pages: int | None) -> str | None:
         for i in range(n):
             page = doc.load_page(i)
             t = page.get_text("text", flags=flags) or ""
-            fitz_pages.append(_normalize_extracted_text(t) if t.strip() else "")
+            cleaned = _normalize_extracted_text(t) if t.strip() else ""
+            fitz_pages.append(cleaned)
+            if not cleaned.strip():
+                blank_indices.append(i)
         doc.close()
+        fitz_ok = True
     except Exception:
         fitz_pages = []
+        fitz_ok = False
 
-    try:
-        from pypdf import PdfReader  # type: ignore
+    # Only run pypdf for pages fitz left blank (or for the whole doc if fitz failed).
+    pypdf_by_index: dict[int, str] = {}
+    need_pypdf = set(blank_indices) if fitz_ok else None  # None = all pages
+    if not fitz_ok or blank_indices:
+        try:
+            from pypdf import PdfReader  # type: ignore
 
-        reader = PdfReader(str(path))
-        n_all = len(reader.pages)
-        n = n_all if max_pages is None else min(max_pages, n_all)
-        for i in range(n):
-            t = reader.pages[i].extract_text() or ""
-            pypdf_pages.append(_normalize_extracted_text(t) if t.strip() else "")
-    except Exception:
-        pypdf_pages = []
+            reader = PdfReader(str(path))
+            n_all = len(reader.pages)
+            n = n_all if max_pages is None else min(max_pages, n_all)
+            for i in range(n):
+                if need_pypdf is None or i in need_pypdf:
+                    t = reader.pages[i].extract_text() or ""
+                    cleaned = _normalize_extracted_text(t) if t.strip() else ""
+                    if cleaned.strip():
+                        pypdf_by_index[i] = cleaned
+        except Exception:
+            pass
 
-    if not any(fitz_pages) and not any(pypdf_pages):
+    if not fitz_pages and not pypdf_by_index:
         return None
 
-    n = max(len(fitz_pages), len(pypdf_pages))
+    n = len(fitz_pages) if fitz_pages else (max(pypdf_by_index.keys()) + 1 if pypdf_by_index else 0)
     merged: list[str] = []
     for i in range(n):
-        a = fitz_pages[i] if i < len(fitz_pages) else ""
-        b = pypdf_pages[i] if i < len(pypdf_pages) else ""
-        if not a:
-            chosen = b
-        elif not b:
-            chosen = a
-        else:
-            chosen = a if _pdf_text_quality_score(a) >= _pdf_text_quality_score(b) else b
-        if chosen:
-            merged.append(chosen)
+        page_text = fitz_pages[i] if i < len(fitz_pages) else ""
+        if not page_text.strip() and i in pypdf_by_index:
+            page_text = pypdf_by_index[i]
+        if page_text.strip():
+            merged.append(page_text)
 
     return "\n\n".join(merged) if merged else None
 
@@ -663,9 +685,7 @@ def count_llm_tokens(text: str) -> int:
         return 0
     raw = str(text)
     try:
-        import tiktoken
-
-        enc = tiktoken.get_encoding(_LLM_TOKEN_ENCODING_NAME)
+        enc = _get_tiktoken_enc()
         return len(enc.encode(raw))
     except Exception:
         return max(0, len(raw) // 4)

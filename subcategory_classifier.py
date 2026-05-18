@@ -167,15 +167,17 @@ def subcategory_checkpoint_path(output_path: str) -> Path:
 
 def _fill_fallback_subcategories(out: pd.DataFrame) -> None:
     """Assign ``Other / General`` (last allowed label) when bucket exists but sub_category empty."""
-    for i in out.index:
-        if str(out.at[i, "sub_category"] or "").strip():
-            continue
-        bn = pd.to_numeric(out.at[i, "bucket_number"], errors="coerce")
-        if pd.isna(bn):
-            continue
-        labs = labels_for_bucket(int(bn))
-        if labs:
-            out.at[i, "sub_category"] = labs[-1]
+    needs_fill = ~out["sub_category"].astype(str).str.strip().astype(bool)
+    if not needs_fill.any():
+        return
+    # Pre-compute the fallback label per bucket number (at most 7 lookups).
+    fallback_map = {bn: labs[-1] for bn in range(1, 8) if (labs := labels_for_bucket(bn))}
+    bn_numeric = pd.to_numeric(out["bucket_number"], errors="coerce")
+    fallback_series = bn_numeric.map(
+        lambda bn: fallback_map.get(int(bn)) if pd.notna(bn) else None
+    )
+    fill_mask = needs_fill & fallback_series.notna()
+    out.loc[fill_mask, "sub_category"] = fallback_series[fill_mask]
 
 
 def attach_subcategories(
