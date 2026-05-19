@@ -38,7 +38,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--pass1-model", default="", help="Fast model for pass 1 (default: haiku/gpt-4o-mini)")
     p.add_argument("--pass2-model", default=default_llm_model(), help="Full model for pass 2")
     p.add_argument("--max-files", type=int, default=0, help="Cap file count (0=unlimited)")
-    p.add_argument("--snippet-bytes", type=int, default=2048, help="Bytes to export per text file")
+    p.add_argument("--snippet-bytes", type=int, default=8192, help="Bytes to fetch per file (default: 8192; PDFs need ≥8KB to get past binary header)")
     p.add_argument("--workers", type=int, default=16, help="Parallel download workers (default: 16)")
     args = p.parse_args(argv)
 

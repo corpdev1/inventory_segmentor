@@ -55,10 +55,11 @@ from subcategory_classifier import attach_subcategories
 # Tunables
 # ---------------------------------------------------------------------------
 
-# Bytes to export from Google Workspace docs / PDFs.  2 KB gives ~300-500 words
-# — enough for the classifier and PII detection.  Increase if you want richer
-# quality_tier scores (at the cost of more bandwidth/time).
-SNIPPET_EXPORT_BYTES: int = int(os.environ.get("PIPELINE_1TB_SNIPPET_BYTES", str(2 * 1024)))
+# Bytes to fetch per file for classification.  Google Workspace exports (text/plain)
+# yield ~300 words at 2 KB, but raw PDFs need at least 8 KB to get past the binary
+# header/xref tables and into readable content — otherwise fitz returns nothing and
+# the classifier falls back to filename only.
+SNIPPET_EXPORT_BYTES: int = int(os.environ.get("PIPELINE_1TB_SNIPPET_BYTES", str(8 * 1024)))
 
 # Pass-1 model + batch size (cheap, fast).
 PASS1_MODEL_ENV = "PIPELINE_1TB_PASS1_MODEL"
