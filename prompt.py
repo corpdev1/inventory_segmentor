@@ -49,6 +49,7 @@ Disambiguation rules (use these when the source system spans multiple buckets):
 - Gmail / Outlook is bucket 2 when customer-facing, bucket 7 when internal.
 - Zoom, Otter, Fathom, Fireflies transcripts default to bucket 7; use bucket 2 only for explicit sales or customer support calls.
 - Carta is bucket 4 (cap table) by default; use bucket 3 when the description points to investor data room contents.
+- Invoices, bills, receipts, and purchase orders always go to bucket 4 (Financial & Legal) regardless of the vendor type, client name, or subject matter (e.g. a "marketing agency invoice" is still bucket 4, not bucket 6).
 
 For each item return:
 - row_id: echo back the id you were given, unchanged

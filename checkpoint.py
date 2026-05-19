@@ -1,12 +1,13 @@
-"""On-disk checkpointing for long-running classification jobs."""
-
 from __future__ import annotations
 
 import json
+import logging
 import os
 import tempfile
 from pathlib import Path
 from typing import Any
+
+_log = logging.getLogger(__name__)
 
 
 def checkpoint_path_for_output(output_path: str) -> Path:
@@ -26,6 +27,7 @@ def load_checkpoint(path: Path) -> dict[int, dict[str, Any]]:
             try:
                 obj = json.loads(line)
             except Exception:
+                _log.debug("Skipping malformed checkpoint line: %r", line[:80])
                 continue
             rid = obj.get("row_id")
             if rid is None:
@@ -33,6 +35,7 @@ def load_checkpoint(path: Path) -> dict[int, dict[str, Any]]:
             try:
                 rid_i = int(rid)
             except Exception:
+                _log.debug("Skipping checkpoint entry with non-integer row_id: %r", rid)
                 continue
             by_id[rid_i] = obj
     return by_id
@@ -78,6 +81,7 @@ def load_drive_artifact_checkpoint(path: Path) -> dict[int, dict[str, Any]]:
             try:
                 obj = json.loads(line)
             except Exception:
+                _log.debug("Skipping malformed drive artifact checkpoint line: %r", line[:80])
                 continue
             aid = obj.get("artifact_id")
             row = obj.get("row")
@@ -86,6 +90,7 @@ def load_drive_artifact_checkpoint(path: Path) -> dict[int, dict[str, Any]]:
             try:
                 aid_i = int(aid)
             except Exception:
+                _log.debug("Skipping drive artifact checkpoint entry with non-integer artifact_id: %r", aid)
                 continue
             by_id[aid_i] = row
     return by_id

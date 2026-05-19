@@ -1,5 +1,3 @@
-"""Sub-category label taxonomy per bucket."""
-
 from __future__ import annotations
 
 SUBCATEGORIES_BY_BUCKET: dict[int, tuple[str, ...]] = {

@@ -1,5 +1,3 @@
-"""LLM backend: Anthropic Messages API or OpenAI Chat Completions with forced tool calls."""
-
 from __future__ import annotations
 
 import json

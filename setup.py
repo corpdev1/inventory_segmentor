@@ -1,13 +1,3 @@
-#!/usr/bin/env python3
-"""One-time setup wizard: configure API key + Google OAuth credentials.
-
-Run once after cloning:
-
-    python setup.py
-
-Re-run any time to update credentials.
-"""
-
 from __future__ import annotations
 
 import json

@@ -1,15 +1,16 @@
-"""Core classification logic for batch LLM calls."""
-
 from __future__ import annotations
 
-import env_loader  # noqa: F401 — load `.env` before ANTHROPIC_* reads below
+import env_loader 
 
 import json
+import logging
 import os
 import random
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any
+
+_log = logging.getLogger(__name__)
 
 import pandas as pd
 
@@ -101,6 +102,7 @@ def _classify_batch(items: list[dict[str, Any]], model: str) -> list[dict[str, A
             base = DEFAULT_RETRY_BASE_SECONDS * (2**attempt)
             jitter = random.uniform(0.0, base * 0.25)
             sleep_s = min(DEFAULT_RETRY_MAX_SECONDS, base + jitter)
+            _log.debug("classify_batch attempt %d/%d failed (%s), retrying in %.1fs", attempt + 1, DEFAULT_MAX_RETRIES + 1, type(e).__name__, sleep_s)
             time.sleep(sleep_s)
     else:
         # Defensive: loop should always break or raise.
@@ -132,6 +134,7 @@ def _classify_batch(items: list[dict[str, Any]], model: str) -> list[dict[str, A
             try:
                 parsed = json.loads(el)
             except Exception:
+                _log.debug("Skipping non-JSON string element in classifications: %r", el[:100])
                 continue
             if isinstance(parsed, dict):
                 out.append(parsed)

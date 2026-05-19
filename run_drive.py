@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-"""Entry point for the Google Drive inventory pipeline."""
-
 from __future__ import annotations
 
 import argparse
@@ -42,7 +39,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--pass2-model", default=default_llm_model(), help="Full model for pass 2")
     p.add_argument("--max-files", type=int, default=0, help="Cap file count (0=unlimited)")
     p.add_argument("--snippet-bytes", type=int, default=2048, help="Bytes to export per text file")
-    p.add_argument("--workers", type=int, default=8, help="Parallel download workers (default: 8)")
+    p.add_argument("--workers", type=int, default=16, help="Parallel download workers (default: 16)")
     args = p.parse_args(argv)
 
     out_path = str((_ROOT / args.out).resolve())

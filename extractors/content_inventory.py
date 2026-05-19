@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 import zipfile
 from collections import defaultdict
@@ -258,28 +259,17 @@ def _count_delimited_rows(path: Path, *, max_bytes: int = _MAX_TEXT_ROWS_BYTES) 
 
 
 def _count_pdf(path: Path) -> dict[str, int]:
-    out: dict[str, int] = defaultdict(int)
-    try:
-        import fitz  # type: ignore
+    from extractors.core import _fitz_bundle
 
-        doc = fitz.open(str(path))
-    except Exception:
+    bundle = _fitz_bundle(path)
+    if not bundle["ok"]:
         return {}
-    try:
-        out["pdf_pages"] = len(doc)
-        # Deduplicate by xref: the same image XObject (e.g. a logo in the header)
-        # is referenced on every page but is one embedded image.
-        seen_xrefs: set[int] = set()
-        for i in range(len(doc)):
-            for img_info in doc[i].get_images(full=True):
-                seen_xrefs.add(img_info[0])  # img_info[0] is the xref number
-        if seen_xrefs:
-            out["images"] = len(seen_xrefs)
-    except Exception:
-        pass
-    finally:
-        doc.close()
-    return dict(out)
+    out: dict[str, int] = {}
+    if bundle["page_count"]:
+        out["pdf_pages"] = int(bundle["page_count"])
+    if bundle["image_xrefs"]:
+        out["images"] = int(bundle["image_xrefs"])
+    return out
 
 
 def gather_content_inventory(path: Path, *, max_html_bytes: int = _MAX_HTML_BYTES) -> dict[str, int]:

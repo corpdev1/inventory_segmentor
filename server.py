@@ -1,5 +1,3 @@
-"""MCP server exposing the inventory segmentation tool."""
-
 from __future__ import annotations
 
 import env_loader  # noqa: F401 — load `.env` before LLM env reads

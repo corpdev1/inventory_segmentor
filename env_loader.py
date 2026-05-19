@@ -1,5 +1,3 @@
-"""Load .env from the project root, patching blank overridden env vars."""
-
 from __future__ import annotations
 
 import os

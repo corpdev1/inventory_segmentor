@@ -1,14 +1,15 @@
-"""LLM sub-category assignment from bucket + rationale (forced tool use)."""
-
 from __future__ import annotations
 
 import json
+import logging
 import random
 import threading
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError, as_completed
 from pathlib import Path
 from typing import Any
+
+_log = logging.getLogger(__name__)
 
 import pandas as pd
 
@@ -24,6 +25,12 @@ from segmenter import (
 )
 from llm_provider import call_forced_tool, is_retryable_llm_error, llm_api_configured
 from subcategory_taxonomy import labels_for_bucket
+
+# Subcat-specific retry config — fewer retries and shorter waits than the main classifier.
+_SUBCAT_MAX_RETRIES = 3
+_SUBCAT_RETRY_BASE = 1.0
+_SUBCAT_RETRY_MAX = 20.0
+_SUBCAT_BATCH_TIMEOUT = 90  # wall-clock seconds per batch before giving up and using fallback
 
 SUBCATEGORY_SYSTEM = """You assign **sub-categories** for data-inventory artifacts.
 
@@ -89,6 +96,7 @@ def _parse_tool_items(tool_input: dict[str, Any]) -> list[dict[str, Any]]:
         try:
             raw = json.loads(raw)
         except Exception:
+            _log.warning("Failed to parse tool items as JSON; returning empty: %r", raw[:200])
             raw = []
     if not isinstance(raw, list):
         return []
@@ -121,7 +129,7 @@ def _call_subcategory_batch(
 
     last_err: Exception | None = None
     tool_input: dict[str, Any] | None = None
-    for attempt in range(DEFAULT_MAX_RETRIES + 1):
+    for attempt in range(_SUBCAT_MAX_RETRIES + 1):
         try:
             tool_input = call_forced_tool(
                 model=model,
@@ -136,11 +144,13 @@ def _call_subcategory_batch(
             if not is_retryable_llm_error(e):
                 raise
             last_err = e
-            if attempt >= DEFAULT_MAX_RETRIES:
+            if attempt >= _SUBCAT_MAX_RETRIES:
                 raise
-            base = DEFAULT_RETRY_BASE_SECONDS * (2**attempt)
+            base = _SUBCAT_RETRY_BASE * (2**attempt)
             jitter = random.uniform(0.0, base * 0.25)
-            time.sleep(min(DEFAULT_RETRY_MAX_SECONDS, base + jitter))
+            sleep_s = min(_SUBCAT_RETRY_MAX, base + jitter)
+            _log.debug("subcategory_batch bucket=%d attempt %d/%d failed (%s), retrying in %.1fs", bucket_num, attempt + 1, _SUBCAT_MAX_RETRIES + 1, type(e).__name__, sleep_s)
+            time.sleep(sleep_s)
     else:
         raise last_err or RuntimeError("subcategory batch failure")
 
@@ -150,9 +160,14 @@ def _call_subcategory_batch(
     raw_items = _parse_tool_items(tool_input)
     cleaned: list[dict[str, Any]] = []
     for row in raw_items:
+        rid_raw = row.get("row_id")
+        if rid_raw is None:
+            _log.debug("Skipping subcategory row missing row_id: %r", row)
+            continue
         try:
-            rid = int(row.get("row_id"))
+            rid = int(rid_raw)
         except Exception:
+            _log.debug("Skipping subcategory row with non-integer row_id: %r", rid_raw)
             continue
         sub = _normalize_label(str(row.get("sub_category", "")), allowed)
         cleaned.append({"row_id": rid, "sub_category": sub})
@@ -292,12 +307,18 @@ def attach_subcategories(
     with ThreadPoolExecutor(max_workers=max(1, workers)) as executor:
         futs = {executor.submit(_run_batch, item): item for item in work_items}
         for fut in as_completed(futs):
-            bn_i, batch_out, index_by_rid, chunk, err = fut.result()
+            try:
+                bn_i, batch_out, index_by_rid, chunk, err = fut.result(timeout=_SUBCAT_BATCH_TIMEOUT)
+            except FuturesTimeoutError:
+                item = futs[fut]
+                bn_i, _, index_by_rid, chunk = item
+                batch_out, err = None, TimeoutError("subcat batch timed out")
             labs_fb = labels_for_bucket(bn_i)
             fb = labs_fb[-1] if labs_fb else ""
 
             with lock:
                 if err is not None or batch_out is None:
+                    _log.warning("subcategory batch failed for bucket=%d (%s), using fallback label", bn_i, type(err).__name__ if err else "no output")
                     for idx, _aid in chunk:
                         out.at[idx, "sub_category"] = fb
                 else:
@@ -305,9 +326,12 @@ def attach_subcategories(
                     for row in batch_out:
                         rid = row.get("row_id")
                         sub = row.get("sub_category", "")
+                        if rid is None:
+                            continue
                         try:
                             rid_i = int(rid)
                         except Exception:
+                            _log.debug("Skipping batch result row with non-integer row_id: %r", rid)
                             continue
                         if rid_i in index_by_rid:
                             out.at[index_by_rid[rid_i], "sub_category"] = str(sub)

@@ -3,14 +3,69 @@
 from __future__ import annotations
 
 import json
+import logging
 import math
 import re
 import shutil
+import subprocess
+import sys
 import threading
 import unicodedata
 from html.parser import HTMLParser
 from io import BytesIO
 from pathlib import Path
+
+_log = logging.getLogger(__name__)
+
+
+_FITZ_BUNDLE_SCRIPT = """\
+import sys, json, fitz
+path = sys.argv[1]
+try:
+    doc = fitz.open(path)
+    n = len(doc)
+    flags = (int(fitz.TEXT_PRESERVE_WHITESPACE) | int(fitz.TEXT_MEDIABOX_CLIP)
+             | int(fitz.TEXT_DEHYPHENATE) | int(fitz.TEXT_USE_CID_FOR_UNKNOWN_UNICODE))
+    pages = [doc[i].get_text('text', flags=flags) or '' for i in range(n)]
+    xrefs = {img[0] for i in range(n) for img in doc[i].get_images(full=True)}
+    has_imgs = any(doc[i].get_images(full=True) for i in range(min(3, n)))
+    doc.close()
+    print(json.dumps({'ok': True, 'pages': pages, 'page_count': n,
+                      'image_xrefs': len(xrefs), 'has_images': bool(has_imgs)}))
+except Exception as e:
+    print(json.dumps({'ok': False, 'error': str(e)}))
+"""
+
+_FITZ_EMPTY = {"ok": False, "pages": [], "page_count": None, "image_xrefs": 0, "has_images": False}
+
+# Thread-local cache: avoid re-spawning a subprocess for the same file within one thread.
+# All fitz calls for a given file happen sequentially in the same worker thread,
+# so caching the last result eliminates 2 of 3 subprocess spawns per PDF.
+_fitz_tls = threading.local()
+
+
+def _fitz_bundle(path: Path, timeout: int = 120) -> dict:
+    """Run all fitz operations for ``path`` in one subprocess and cache per thread.
+
+    Returns a dict with keys: ok, pages, page_count, image_xrefs, has_images.
+    """
+    path_str = str(path)
+    if getattr(_fitz_tls, "path", None) == path_str:
+        return _fitz_tls.result  # type: ignore[return-value]
+    try:
+        proc = subprocess.run(
+            [sys.executable, "-c", _FITZ_BUNDLE_SCRIPT, path_str],
+            capture_output=True, text=True, timeout=timeout,
+        )
+        if proc.returncode == 0 and proc.stdout.strip():
+            result = json.loads(proc.stdout)
+        else:
+            result = dict(_FITZ_EMPTY)
+    except Exception:
+        result = dict(_FITZ_EMPTY)
+    _fitz_tls.path = path_str
+    _fitz_tls.result = result
+    return result
 
 
 MAX_CHARS_DEFAULT = 4000
@@ -295,42 +350,21 @@ def _pdf_text_quality_score(text: str) -> float:
 
 
 def _extract_pdf_pages(path: Path, *, max_pages: int | None) -> str | None:
-    """Extract PDF text using PyMuPDF first; pypdf only as fallback for blank pages.
-
-    PyMuPDF is faster and higher quality. pypdf is only invoked for pages where
-    fitz returned empty text (e.g. image-only pages with embedded fonts), avoiding
-    a redundant full-document pypdf pass on every PDF.
-
-    ``max_pages`` ``None`` means all pages in the document.
-    """
+    """Extract PDF text using PyMuPDF first; pypdf only as fallback for blank pages."""
+    bundle = _fitz_bundle(path)
     fitz_pages: list[str] = []
-    fitz_ok = False
+    fitz_ok = bundle["ok"]
     blank_indices: list[int] = []
 
-    try:
-        import fitz  # type: ignore  # PyMuPDF
-
-        flags = (
-            int(fitz.TEXT_PRESERVE_WHITESPACE)
-            | int(fitz.TEXT_MEDIABOX_CLIP)
-            | int(fitz.TEXT_DEHYPHENATE)
-            | int(fitz.TEXT_USE_CID_FOR_UNKNOWN_UNICODE)
-        )
-        doc = fitz.open(str(path))
-        n_all = doc.page_count
-        n = n_all if max_pages is None else min(max_pages, n_all)
-        for i in range(n):
-            page = doc.load_page(i)
-            t = page.get_text("text", flags=flags) or ""
+    if fitz_ok:
+        raw_pages: list[str] = bundle["pages"]
+        if max_pages is not None:
+            raw_pages = raw_pages[:max_pages]
+        for i, t in enumerate(raw_pages):
             cleaned = _normalize_extracted_text(t) if t.strip() else ""
             fitz_pages.append(cleaned)
             if not cleaned.strip():
                 blank_indices.append(i)
-        doc.close()
-        fitz_ok = True
-    except Exception:
-        fitz_pages = []
-        fitz_ok = False
 
     # Only run pypdf for pages fitz left blank (or for the whole doc if fitz failed).
     pypdf_by_index: dict[int, str] = {}
@@ -349,7 +383,7 @@ def _extract_pdf_pages(path: Path, *, max_pages: int | None) -> str | None:
                     if cleaned.strip():
                         pypdf_by_index[i] = cleaned
         except Exception:
-            pass
+            _log.debug("pypdf extraction failed for %s", path, exc_info=True)
 
     if not fitz_pages and not pypdf_by_index:
         return None
@@ -642,6 +676,7 @@ def extract_full_text(
 
         return None
     except Exception:
+        _log.debug("extract_full_text failed for %s", file_path, exc_info=True)
         return None
 
 
@@ -714,16 +749,9 @@ def _pages_from_word_estimate(word_count: int, *, per_page: int | None = None) -
 
 
 def _pdf_page_count(path: Path) -> int | None:
-    try:
-        import fitz  # type: ignore  # PyMuPDF
-
-        doc = fitz.open(str(path))
-        try:
-            return int(doc.page_count)
-        finally:
-            doc.close()
-    except Exception:
-        pass
+    bundle = _fitz_bundle(path)
+    if bundle["ok"] and bundle["page_count"] is not None:
+        return int(bundle["page_count"])
     try:
         from pypdf import PdfReader  # type: ignore
 

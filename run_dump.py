@@ -1,5 +1,3 @@
-"""Run a full dump ingest with checkpointing and retry."""
-
 from __future__ import annotations
 
 import argparse

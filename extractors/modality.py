@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import zipfile
 from pathlib import Path
 
@@ -104,24 +105,12 @@ def _html_has_img_tag(path: Path, *, max_bytes: int = 500_000) -> bool:
 
 
 def _pdf_has_embedded_images(path: Path, *, max_pages: int = 3) -> bool:
-    try:
-        import fitz  # type: ignore  # PyMuPDF
-    except ImportError:
-        return False
-    try:
-        doc = fitz.open(str(path))
-    except Exception:
-        return False
-    try:
-        n = min(max_pages, len(doc))
-        for i in range(n):
-            if doc[i].get_images(full=True):
-                return True
-        return False
-    except Exception:
-        return False
-    finally:
-        doc.close()
+    from extractors.core import _fitz_bundle
+
+    bundle = _fitz_bundle(path)
+    if bundle["ok"]:
+        return bool(bundle["has_images"])
+    return False
 
 
 def infer_modalities(path: Path) -> list[str]:

@@ -54,6 +54,7 @@ def _list_children(service, folder_id: str) -> list[dict[str, Any]]:
                 pageSize=200,
                 fields=_LIST_FIELDS,
                 pageToken=page_token,
+                corpora="allDrives",
                 supportsAllDrives=True,
                 includeItemsFromAllDrives=True,
             )

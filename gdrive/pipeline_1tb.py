@@ -67,6 +67,9 @@ PASS1_BATCH_SIZE: int = int(os.environ.get("PIPELINE_1TB_PASS1_BATCH", "100"))
 # Pass-2 only re-classifies low-confidence items from pass 1.
 PASS2_BATCH_SIZE: int = int(os.environ.get("PIPELINE_1TB_PASS2_BATCH", str(DEFAULT_BATCH_SIZE)))
 
+# Subcategory enrichment — simpler task (fixed label list), so larger batches are safe.
+SUBCAT_BATCH_SIZE: int = int(os.environ.get("PIPELINE_1TB_SUBCAT_BATCH", "50"))
+
 
 _tl = threading.local()
 _ckpt_lock = threading.Lock()
@@ -564,6 +567,12 @@ def build_inventory_from_drive_1tb(
     print(msg, flush=True)
     if progress_log:
         progress_log(msg)
+    if total_files == 0:
+        raise SystemExit(
+            "[error] No files found in the specified folder. "
+            "Check that the folder URL is correct, that your Google account has access, "
+            "and that the folder is not empty."
+        )
 
     # -----------------------------------------------------------------------
     # Phase 2: Extract (download / metadata-only)
@@ -828,7 +837,7 @@ def build_inventory_from_drive_1tb(
     evidence_df = attach_subcategories(
         evidence_df,
         model=enrich_model,
-        batch_size=pass2_batch_size,
+        batch_size=SUBCAT_BATCH_SIZE,
         output_path_for_checkpoint=str(out_path),
         progress_log=progress_log,
         workers=workers,

@@ -1,5 +1,3 @@
-"""Ingest a mixed-format company dump folder into structured artifacts."""
-
 from __future__ import annotations
 
 import os

@@ -1,5 +1,3 @@
-"""Content summary generation for ingested dump artifacts."""
-
 from __future__ import annotations
 
 import re
