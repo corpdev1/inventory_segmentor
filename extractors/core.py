@@ -581,6 +581,70 @@ def _extract_xls_full_text(path: Path) -> str | None:
     return _normalize_extracted_text(txt) if txt else None
 
 
+def _extract_pst_text(path: Path, *, max_chars: int = MAX_CHARS_DEFAULT) -> str | None:
+    """Extract a representative text sample from an Outlook PST/OST archive.
+
+    Walks all mail folders and emits one header+body block per message until
+    ``max_chars`` is reached.  Requires ``libpff-python`` (pip install libpff-python).
+    """
+    try:
+        import pypff  # type: ignore
+    except ImportError:
+        _log.debug("libpff-python not installed; cannot extract PST/OST: %s", path)
+        return None
+
+    def _decode(raw: bytes | str | None) -> str:
+        if raw is None:
+            return ""
+        if isinstance(raw, bytes):
+            return raw.decode("utf-8", errors="replace")
+        return str(raw)
+
+    parts: list[str] = []
+    total = 0
+
+    def _walk(folder: "pypff.folder") -> None:
+        nonlocal total
+        if total >= max_chars:
+            return
+        for msg in folder.sub_messages:
+            if total >= max_chars:
+                break
+            try:
+                subject = _decode(msg.subject).strip()
+                sender  = _decode(msg.sender_name).strip()
+                date    = str(msg.delivery_time or msg.client_submit_time or "")
+                body    = _decode(msg.plain_text_body).strip()
+                if not body:
+                    html = _decode(msg.html_body)
+                    body = _strip_html(html).strip() if html else ""
+                n_att = msg.number_of_attachments
+                att_note = f"  [{n_att} attachment(s)]" if n_att else ""
+                block = (
+                    f"Subject: {subject}\n"
+                    f"From: {sender}  Date: {date}{att_note}\n"
+                    f"{body[:600]}\n---"
+                )
+                parts.append(block)
+                total += len(block)
+            except Exception:
+                pass
+        for sub in folder.sub_folders:
+            _walk(sub)
+
+    try:
+        pst = pypff.file()
+        pst.open(str(path))
+        _walk(pst.root_folder)
+        pst.close()
+    except Exception:
+        _log.debug("PST extraction failed for %s", path, exc_info=True)
+        return None
+
+    text = "\n\n".join(parts)
+    return _normalize_extracted_text(text[:max_chars]) if text.strip() else None
+
+
 def extract_full_text(
     file_path: str | Path,
     *,
@@ -673,6 +737,9 @@ def extract_full_text(
             if len(t) > max_bytes:
                 t = t[:max_bytes]
             return _normalize_extracted_text(t) if t.strip() else None
+
+        if ext in {".pst", ".ost"}:
+            return _extract_pst_text(path, max_chars=max_bytes)
 
         return None
     except Exception:
