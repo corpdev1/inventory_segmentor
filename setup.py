@@ -86,17 +86,24 @@ def step_llm_api_key(env: dict[str, str]) -> dict[str, str]:
         _print(f"  OpenAI key already set:    {current_oai[:12]}…")
     _print()
 
-    _print("Paste your API key below (sk-ant-… for Anthropic, sk-proj-… for OpenAI).")
+    _print("Paste your API key below (sk-ant-… for Anthropic, sk-proj-… for OpenAI, AIza… for Gemini).")
     _print("Press Enter to keep the existing key.")
     key = _ask("API key", secret=True)
     if key:
         if key.startswith("sk-ant-") or key.startswith("sk-or-v1-"):
             env["ANTHROPIC_API_KEY"] = key
             env.pop("OPENAI_API_KEY", None)
+            env.pop("GEMINI_API_KEY", None)
             _print("  → saved as ANTHROPIC_API_KEY")
+        elif key.startswith("AIza"):
+            env["GEMINI_API_KEY"] = key
+            env.pop("ANTHROPIC_API_KEY", None)
+            env.pop("OPENAI_API_KEY", None)
+            _print("  → saved as GEMINI_API_KEY")
         else:
             env["OPENAI_API_KEY"] = key
             env.pop("ANTHROPIC_API_KEY", None)
+            env.pop("GEMINI_API_KEY", None)
             _print("  → saved as OPENAI_API_KEY")
     else:
         _print("  → keeping existing key")

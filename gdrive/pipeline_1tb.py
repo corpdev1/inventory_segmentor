@@ -81,9 +81,12 @@ def _default_pass1_model() -> str:
     explicit = os.environ.get(PASS1_MODEL_ENV, "").strip()
     if explicit:
         return explicit
-    # Default: cheapest available model per provider
-    if llm_provider() == "openai":
+    # Default: cheapest fast model per provider
+    p = llm_provider()
+    if p == "openai":
         return "gpt-4o-mini"
+    if p == "gemini":
+        return "gemini-2.0-flash"
     return "claude-haiku-4-5-20251001"
 
 
