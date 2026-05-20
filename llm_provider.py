@@ -124,11 +124,7 @@ def default_llm_model() -> str:
     if p == "gemini":
         return (os.environ.get("GEMINI_MODEL") or "gemini-2.0-flash").strip()
     if p == "openai":
-        return (
-            os.environ.get("OPENAI_MODEL")
-            or os.environ.get("ANTHROPIC_MODEL")
-            or "gpt-4o-mini"
-        ).strip()
+        return (os.environ.get("OPENAI_MODEL") or "gpt-4o-mini").strip()
     return (os.environ.get("ANTHROPIC_MODEL") or "claude-sonnet-4-6").strip()
 
 
