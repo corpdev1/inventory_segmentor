@@ -134,7 +134,7 @@ def step_google_oauth(env: dict[str, str]) -> dict[str, str]:
     _print("Steps (one-time, ~5 minutes):")
     _print("  1. Go to https://console.cloud.google.com/")
     _print("  2. Create or select a project.")
-    _print("  3. APIs & Services → Library → enable 'Google Drive API'.")
+    _print("  3. APIs & Services → Library → enable 'Google Drive API' and 'Gmail API'.")
     _print("  4. APIs & Services → Credentials → Create credentials → OAuth client ID.")
     _print("     Choose 'Desktop app'. Download the JSON file.")
     _print("  5. Paste the path to that file below.")
@@ -306,6 +306,8 @@ def main() -> None:
     _print("  Google Drive:     python run_drive.py --out out/inventory.xlsx")
     _print("  Shared Drives:    python run_drive.py --all-drives --out out/inventory.xlsx")
     _print("  Full workspace:   python run_drive.py --all-drives --service-account .secrets/service_account.json --admin-email admin@yourdomain.com --out out/inventory.xlsx")
+    _print("  Gmail (OAuth):    python run_gmail.py --out out/gmail_inventory.xlsx")
+    _print("  Gmail (all users): python run_gmail.py --all-users --out out/workspace_gmail_inventory.xlsx")
     _print("=" * 60)
     _print()
 

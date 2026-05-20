@@ -17,6 +17,7 @@ from googleapiclient.discovery import build
 SCOPES_METADATA = ("https://www.googleapis.com/auth/drive.metadata.readonly",)
 SCOPES_READONLY = ("https://www.googleapis.com/auth/drive.readonly",)
 SCOPES_ADMIN_USERS = ("https://www.googleapis.com/auth/admin.directory.user.readonly",)
+SCOPES_GMAIL = ("https://www.googleapis.com/auth/gmail.readonly",)
 
 
 def default_service_account_path() -> Path | None:
@@ -169,6 +170,11 @@ def get_credentials(
     return creds
 
 
-def build_drive_service(creds: Credentials):
+def build_drive_service(creds):
     """Return a Drive API v3 service object."""
     return build("drive", "v3", credentials=creds, cache_discovery=False)
+
+
+def build_gmail_service(creds):
+    """Return a Gmail API v1 service object."""
+    return build("gmail", "v1", credentials=creds, cache_discovery=False)
