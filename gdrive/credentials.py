@@ -1,4 +1,4 @@
-"""OAuth 2.0 credentials for Google Drive API (Desktop / installed or Web client)."""
+"""OAuth 2.0 and Service Account credentials for Google Drive API."""
 
 from __future__ import annotations
 
@@ -9,12 +9,38 @@ from pathlib import Path
 from google.auth.exceptions import RefreshError
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
+from google.oauth2 import service_account
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
 # Least privilege for listing tree; use drive.readonly if you need file download later.
 SCOPES_METADATA = ("https://www.googleapis.com/auth/drive.metadata.readonly",)
 SCOPES_READONLY = ("https://www.googleapis.com/auth/drive.readonly",)
+SCOPES_ADMIN_USERS = ("https://www.googleapis.com/auth/admin.directory.user.readonly",)
+
+
+def default_service_account_path() -> Path | None:
+    """Return path from GOOGLE_SERVICE_ACCOUNT_FILE env var, or None if unset."""
+    p = (os.environ.get("GOOGLE_SERVICE_ACCOUNT_FILE") or "").strip()
+    return Path(p).expanduser().resolve() if p else None
+
+
+def get_service_account_credentials(
+    service_account_file: Path,
+    subject: str,
+    scopes: tuple[str, ...],
+):
+    """Return SA credentials impersonating ``subject`` (requires Domain-Wide Delegation)."""
+    creds = service_account.Credentials.from_service_account_file(
+        str(service_account_file),
+        scopes=list(scopes),
+    )
+    return creds.with_subject(subject)
+
+
+def build_admin_service(creds):
+    """Return an Admin SDK Directory v1 service for listing Workspace users."""
+    return build("admin", "directory_v1", credentials=creds, cache_discovery=False)
 
 
 def default_client_secrets_path() -> Path:

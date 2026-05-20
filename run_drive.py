@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 import time
 from datetime import datetime
@@ -13,13 +14,23 @@ if str(_ROOT) not in sys.path:
 import env_loader  # noqa: F401
 
 from gdrive.credentials import (
+    SCOPES_ADMIN_USERS,
+    SCOPES_READONLY,
+    build_admin_service,
     build_drive_service,
     default_client_secrets_path,
+    default_service_account_path,
     default_token_path,
     get_credentials,
+    get_service_account_credentials,
 )
 from gdrive.pipeline_1tb import build_inventory_from_drive_1tb
-from gdrive.scan import list_shared_drives, walk_entire_workspace
+from gdrive.scan import (
+    list_shared_drives,
+    list_workspace_users,
+    walk_all_user_my_drives,
+    walk_entire_workspace,
+)
 from llm_provider import default_llm_model
 
 
@@ -40,35 +51,85 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--max-files", type=int, default=0, help="Cap file count (0=unlimited)")
     p.add_argument("--snippet-bytes", type=int, default=8192, help="Bytes to fetch per file (default: 8192; PDFs need ≥8KB to get past binary header)")
     p.add_argument("--workers", type=int, default=16, help="Parallel download workers (default: 16)")
+    # Service account (Domain-Wide Delegation) — required for full workspace scan of all users' My Drives
+    sa_default = str(default_service_account_path()) if default_service_account_path() else ""
+    p.add_argument("--service-account", default=sa_default, metavar="FILE",
+                   help="Path to service account JSON key (enables DWD workspace scan)")
+    p.add_argument("--admin-email", default="", metavar="EMAIL",
+                   help="Admin email to impersonate when using --service-account")
     args = p.parse_args(argv)
 
     out_path = str((_ROOT / args.out).resolve())
     scan_cache = str(Path(out_path).with_name(Path(out_path).stem + ".scan_cache.jsonl"))
     max_files = None if args.max_files == 0 else args.max_files
 
-    creds = get_credentials(
-        client_secrets=default_client_secrets_path(),
-        token_path=default_token_path(),
-        full_read_scope=True,
-        login_only=False,
-    )
-    service = build_drive_service(creds)
+    use_sa = bool(args.service_account)
+
+    if use_sa:
+        sa_file = Path(args.service_account).expanduser().resolve()
+        if not sa_file.is_file():
+            print(f"ERROR: service account file not found: {sa_file}", flush=True)
+            return 1
+        admin_email = args.admin_email or os.environ.get("GOOGLE_ADMIN_EMAIL", "").strip()
+        if not admin_email:
+            print("ERROR: --admin-email (or GOOGLE_ADMIN_EMAIL env var) is required with --service-account", flush=True)
+            return 1
+        # Drive service impersonating the admin (used for Shared Drives + fallback)
+        admin_drive_creds = get_service_account_credentials(sa_file, admin_email, SCOPES_READONLY)
+        service = build_drive_service(admin_drive_creds)
+        creds = admin_drive_creds
+    else:
+        creds = get_credentials(
+            client_secrets=default_client_secrets_path(),
+            token_path=default_token_path(),
+            full_read_scope=True,
+            login_only=False,
+        )
+        service = build_drive_service(creds)
 
     if args.all_drives:
-        shared = list_shared_drives(service)
-        _log(f"starting full workspace scan: My Drive + {len(shared)} Shared Drive(s)")
-        for d in shared:
-            _log(f"  shared drive: {d.get('name')!r} ({d['id']})")
-        _log(f"out={out_path} workers={args.workers}")
+        if use_sa:
+            # Full workspace: enumerate every user via Admin SDK, scan their My Drive
+            admin_sdk_creds = get_service_account_credentials(sa_file, admin_email, SCOPES_ADMIN_USERS)
+            admin_svc = build_admin_service(admin_sdk_creds)
+            users = list_workspace_users(admin_svc)
+            _log(f"[workspace] {len(users)} user(s) found in domain")
 
-        scan_rows = walk_entire_workspace(
-            service,
-            include_my_drive=True,
-            include_shared_drives=True,
-            max_files=max_files,
-            progress_log=_log,
-            scan_cache_path=scan_cache,
-        )
+            shared = list_shared_drives(service, use_domain_admin_access=True)
+            _log(f"[workspace] {len(shared)} Shared Drive(s)")
+            for d in shared:
+                _log(f"  shared drive: {d.get('name')!r} ({d['id']})")
+            _log(f"out={out_path} workers={args.workers}")
+
+            def _user_service(email: str):
+                u_creds = get_service_account_credentials(sa_file, email, SCOPES_READONLY)
+                return build_drive_service(u_creds)
+
+            scan_rows = walk_all_user_my_drives(
+                _user_service,
+                users,
+                shared_drives=shared,
+                shared_drive_service=service,
+                max_files=max_files,
+                progress_log=_log,
+                scan_cache_path=scan_cache,
+            )
+        else:
+            shared = list_shared_drives(service)
+            _log(f"starting full workspace scan: My Drive + {len(shared)} Shared Drive(s)")
+            for d in shared:
+                _log(f"  shared drive: {d.get('name')!r} ({d['id']})")
+            _log(f"out={out_path} workers={args.workers}")
+
+            scan_rows = walk_entire_workspace(
+                service,
+                include_my_drive=True,
+                include_shared_drives=True,
+                max_files=max_files,
+                progress_log=_log,
+                scan_cache_path=scan_cache,
+            )
+
         _log(f"walk complete: {len(scan_rows)} files")
         folder_id = None  # signal to pipeline that scan_rows is pre-built
     else:

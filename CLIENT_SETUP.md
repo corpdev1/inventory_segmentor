@@ -139,7 +139,11 @@ That's it — the wizard handles the `.env` file for you.
 
 Skip this part if you are only scanning a **local folder** on your computer. Jump to Part 5.
 
-### Get the OAuth credentials file from Google Cloud
+> **Which setup do you need?**
+> - **Single folder or Shared Drive only** → follow Part 4A (OAuth, quick setup)
+> - **All users' My Drives across the whole organisation** → follow Part 4B (Service Account)
+
+### Part 4A — OAuth (single folder / Shared Drive)
 
 You should have received a file named something like `client_secret_xxxx.json` or `google_oauth_client.json`. This file is typically in your **Downloads** folder.
 
@@ -182,6 +186,58 @@ Type `y` and press `Enter`. A browser tab will open. Sign in with the Google acc
 When the browser shows a success message, return to the terminal. You will see:
 ```
 → Google Drive authorized successfully.
+```
+
+---
+
+### Part 4B — Service Account with Domain-Wide Delegation (all users' My Drives)
+
+This is only needed if you want to scan **every user's personal My Drive** in the Google Workspace, not just Shared Drives.
+
+**One-time admin setup (~10 minutes):**
+
+1. **Create a Service Account**
+   - Go to [Google Cloud Console](https://console.cloud.google.com/) → your project
+   - IAM & Admin → Service Accounts → **Create Service Account**
+   - Give it any name (e.g. `inventory-scanner`). Click **Create and Continue** → **Done**.
+   - Click the service account → **Keys** tab → **Add Key** → **Create new key** → **JSON**
+   - The JSON file downloads automatically. Move it to a safe place.
+
+2. **Enable Domain-Wide Delegation on the service account**
+   - Still on the service account page → **Details** tab
+   - Expand **Advanced settings** → copy the **Client ID** (a long number)
+
+3. **Authorise the scopes in Google Workspace Admin**
+   - Go to [admin.google.com](https://admin.google.com) → Security → Access and data control → **API controls**
+   - Click **Manage Domain Wide Delegation** → **Add new**
+   - Paste the Client ID and add these two scopes (comma-separated):
+     ```
+     https://www.googleapis.com/auth/drive.readonly,https://www.googleapis.com/auth/admin.directory.user.readonly
+     ```
+   - Click **Authorise**.
+
+4. **Enable the Admin SDK API in Cloud Console**
+   - Cloud Console → APIs & Services → Library → search **Admin SDK API** → **Enable**
+
+**Step 9B — Run the setup wizard:**
+
+```
+python setup.py
+```
+
+When it asks `Set up Service Account for full workspace scan? (y/n)`, type `y`.
+Paste the path to the service account JSON file and your super-admin email when prompted.
+
+**Run command for full workspace scan:**
+
+```
+python run_drive.py --all-drives --out out/workspace_inventory.xlsx
+```
+
+The service account path and admin email are read from `.env` automatically (set by the wizard). You can also pass them explicitly:
+
+```
+python run_drive.py --all-drives --service-account ~/Downloads/service_account.json --admin-email admin@yourdomain.com --out out/workspace_inventory.xlsx
 ```
 
 ---

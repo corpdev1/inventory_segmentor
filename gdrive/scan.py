@@ -201,14 +201,24 @@ def walk_drive_folder(
     return rows
 
 
-def list_shared_drives(service) -> list[dict[str, Any]]:
-    """Return all Shared Drives (Team Drives) the authenticated user can access."""
+def list_shared_drives(service, *, use_domain_admin_access: bool = False) -> list[dict[str, Any]]:
+    """Return all Shared Drives the user can access.
+
+    Pass ``use_domain_admin_access=True`` when the service is authenticated as a
+    super-admin (via service account DWD) to enumerate **all** drives in the domain,
+    not just the ones the impersonated user is a member of.
+    """
     drives: list[dict[str, Any]] = []
     page_token: str | None = None
     while True:
         resp = (
             service.drives()
-            .list(pageSize=100, fields="nextPageToken, drives(id, name)", pageToken=page_token)
+            .list(
+                pageSize=100,
+                fields="nextPageToken, drives(id, name)",
+                pageToken=page_token,
+                useDomainAdminAccess=use_domain_admin_access,
+            )
             .execute()
         )
         drives.extend(resp.get("drives") or [])
@@ -216,6 +226,119 @@ def list_shared_drives(service) -> list[dict[str, Any]]:
         if not page_token:
             break
     return drives
+
+
+def list_workspace_users(admin_service) -> list[str]:
+    """Return primary email addresses of all non-suspended users in the domain.
+
+    Requires the Admin SDK Directory API and the service to be authenticated with
+    ``https://www.googleapis.com/auth/admin.directory.user.readonly`` scope.
+    """
+    emails: list[str] = []
+    page_token: str | None = None
+    while True:
+        resp = (
+            admin_service.users()
+            .list(
+                customer="my_customer",
+                maxResults=500,
+                pageToken=page_token,
+                fields="nextPageToken,users(primaryEmail,suspended)",
+                orderBy="email",
+            )
+            .execute()
+        )
+        for u in resp.get("users") or []:
+            if not u.get("suspended"):
+                email = u.get("primaryEmail")
+                if email:
+                    emails.append(email)
+        page_token = resp.get("nextPageToken")
+        if not page_token:
+            break
+    return emails
+
+
+def walk_all_user_my_drives(
+    get_user_service,  # callable(email: str) -> Drive API service
+    users: list[str],
+    *,
+    shared_drives: list[dict[str, Any]] | None = None,
+    shared_drive_service=None,
+    max_files: int | None = None,
+    progress_log: Callable[[str], None] | None = None,
+    progress_every: int = 500,
+    scan_cache_path: str | Path | None = None,
+) -> list[dict[str, Any]]:
+    """Walk each user's My Drive via impersonation, then walk all Shared Drives.
+
+    ``get_user_service(email)`` must return a Drive API service authenticated as
+    that user (typically via service account DWD).
+
+    ``shared_drives`` is a pre-fetched list from ``list_shared_drives``.
+    ``shared_drive_service`` is a Drive service with access to walk each shared drive
+    (typically the admin's impersonated service).
+    """
+    all_rows: list[dict[str, Any]] = []
+    remaining = max_files
+
+    for email in users:
+        if remaining is not None and remaining <= 0:
+            break
+        if progress_log:
+            progress_log(f"[workspace] My Drive → {email}")
+        try:
+            svc = get_user_service(email)
+            user_cache = (
+                str(scan_cache_path) + f".{email}.jsonl" if scan_cache_path else None
+            )
+            rows = walk_drive_folder(
+                svc,
+                "root",
+                path_prefix=f"My Drive ({email})",
+                max_files=remaining,
+                progress_log=progress_log,
+                progress_every=progress_every,
+                scan_cache_path=user_cache,
+            )
+            all_rows.extend(rows)
+            if remaining is not None:
+                remaining = max(0, remaining - len(rows))
+        except Exception as exc:
+            if progress_log:
+                progress_log(f"[workspace] WARNING: skipping {email} — {exc}")
+
+    if shared_drives and shared_drive_service is not None:
+        if progress_log:
+            progress_log(f"[workspace] walking {len(shared_drives)} Shared Drive(s)")
+        for drv in shared_drives:
+            if remaining is not None and remaining <= 0:
+                break
+            did = drv["id"]
+            dname = drv.get("name") or did
+            if progress_log:
+                progress_log(f"[workspace] Shared Drive → {dname!r}")
+            drv_cache = (
+                str(scan_cache_path) + f".{did}.jsonl" if scan_cache_path else None
+            )
+            try:
+                rows = walk_drive_folder(
+                    shared_drive_service,
+                    did,
+                    path_prefix=dname,
+                    max_files=remaining,
+                    progress_log=progress_log,
+                    progress_every=progress_every,
+                    scan_cache_path=drv_cache,
+                )
+                all_rows.extend(rows)
+                if remaining is not None:
+                    remaining = max(0, remaining - len(rows))
+            except Exception as exc:
+                if progress_log:
+                    progress_log(f"[workspace] WARNING: skipping shared drive {dname!r} — {exc}")
+
+    return all_rows
 
 
 def walk_entire_workspace(

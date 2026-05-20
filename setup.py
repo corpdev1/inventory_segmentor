@@ -216,6 +216,70 @@ def step_google_login(env: dict[str, str]) -> None:
         _print("  Run manually later: python tools/gdrive_scan.py --login-only")
 
 
+def step_service_account(env: dict[str, str]) -> dict[str, str]:
+    _print()
+    _print("=" * 60)
+    _print("STEP 4 — Google Workspace full scan (optional)")
+    _print("=" * 60)
+    _print("This step is only needed to scan ALL users' My Drives in the organisation.")
+    _print("If you only need Shared Drives or a single folder, skip this.")
+    _print()
+
+    want = _ask("Set up Service Account for full workspace scan? (y/n)", default="n")
+    if want.lower() not in ("y", "yes"):
+        _print("  → skipped")
+        return env
+
+    secrets_dir = ROOT / ".secrets"
+
+    existing_sa = env.get("GOOGLE_SERVICE_ACCOUNT_FILE", "")
+    if existing_sa and Path(existing_sa).expanduser().is_file():
+        _print(f"  Service account JSON already configured: {existing_sa}")
+        reuse = _ask("  Use existing file? (y/n)", default="y")
+        if reuse.lower() in ("y", "yes"):
+            _print("  → keeping existing service account")
+        else:
+            existing_sa = ""
+
+    if not existing_sa:
+        _print()
+        _print("Paste the path to your service account JSON key file.")
+        _print("(Download it from Google Cloud Console → IAM & Admin → Service Accounts → Keys)")
+        while True:
+            src_raw = _ask("Path to service account JSON file")
+            if not src_raw:
+                _print("  → skipped (no path provided)")
+                return env
+            src = Path(src_raw).expanduser().resolve()
+            if not src.is_file():
+                _print(f"  File not found: {src}")
+                continue
+            try:
+                data = json.loads(src.read_text(encoding="utf-8"))
+                if data.get("type") != "service_account":
+                    _print("  That doesn't look like a service account JSON. Try again.")
+                    continue
+            except Exception as e:
+                _print(f"  Could not parse JSON: {e}")
+                continue
+            break
+        dest = secrets_dir / "service_account.json"
+        secrets_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dest)
+        env["GOOGLE_SERVICE_ACCOUNT_FILE"] = str(dest)
+        _print(f"  → copied to {dest}")
+
+    existing_admin = env.get("GOOGLE_ADMIN_EMAIL", "")
+    admin_email = _ask("Super-admin email (e.g. admin@yourdomain.com)", default=existing_admin)
+    if admin_email:
+        env["GOOGLE_ADMIN_EMAIL"] = admin_email
+        _print(f"  → saved GOOGLE_ADMIN_EMAIL={admin_email}")
+    else:
+        _print("  → no admin email set; add GOOGLE_ADMIN_EMAIL to .env before running")
+
+    return env
+
+
 def main() -> None:
     _print()
     _print("  Inventory Segmentor — Setup Wizard")
@@ -226,6 +290,7 @@ def main() -> None:
 
     env = step_llm_api_key(env)
     env = step_google_oauth(env)
+    env = step_service_account(env)
 
     _write_env(env_path, env)
     _print()
@@ -237,9 +302,10 @@ def main() -> None:
     _print("=" * 60)
     _print("Setup complete. You can now run:")
     _print()
-    _print("  Local folder:   python run_dump.py --dump /path/to/data --out out/inventory.xlsx")
-    _print("  Google Drive:   python run_drive.py --out out/inventory.xlsx")
-    _print("  Full workspace: python run_drive.py --all-drives --out out/inventory.xlsx")
+    _print("  Local folder:     python run_dump.py --dump /path/to/data --out out/inventory.xlsx")
+    _print("  Google Drive:     python run_drive.py --out out/inventory.xlsx")
+    _print("  Shared Drives:    python run_drive.py --all-drives --out out/inventory.xlsx")
+    _print("  Full workspace:   python run_drive.py --all-drives --service-account .secrets/service_account.json --admin-email admin@yourdomain.com --out out/inventory.xlsx")
     _print("=" * 60)
     _print()
 
