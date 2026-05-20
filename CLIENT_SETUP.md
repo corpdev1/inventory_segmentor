@@ -110,40 +110,28 @@ This will take 1–3 minutes. Wait for it to finish before moving on.
 
 ## Part 3 — Add Your API Key
 
-The tool uses an AI model (Claude by Anthropic) to read and classify your files. You need an API key.
+The tool uses an AI model to read and classify your files. It supports three providers — use whichever one you have a key for:
 
-**Getting an Anthropic API key (if you don't have one):**
+| Provider | Key starts with | Where to get one |
+|---|---|---|
+| **Anthropic (Claude)** | `sk-ant-` | https://console.anthropic.com/ → API Keys |
+| **Google Gemini** | `AIza` | https://aistudio.google.com/app/apikey |
+| **OpenAI** | `sk-proj-` | https://platform.openai.com/api-keys |
 
-1. Go to: **https://console.anthropic.com/**
-2. Sign up or log in.
-3. Click **API Keys** in the left sidebar.
-4. Click **Create Key**, give it any name, and copy the key (it starts with `sk-ant-`).
-
-**Step 7 — Open the `.env` file in a text editor:**
-
-Mac:
-```
-open -a TextEdit .env
-```
-
-Windows:
-```
-notepad .env
-```
-
-**Step 8 — Find this line in the file:**
+**Step 7 — Run the setup wizard:**
 
 ```
-ANTHROPIC_API_KEY=
+python setup.py
 ```
 
-Paste your API key directly after the `=` sign, with no spaces:
+When the wizard asks `API key:`, paste your key and press Enter. It will automatically detect which provider you are using based on the key prefix and save it correctly. Press Enter again to skip the Google Drive step for now (or continue to Part 4).
 
-```
-ANTHROPIC_API_KEY=sk-ant-api03-xxxxxxxxxxxxxxxxxxxxxxxx
-```
+That's it — the wizard handles the `.env` file for you.
 
-Save the file (`Cmd + S` on Mac, `Ctrl + S` on Windows) and close it.
+> **Manual alternative:** If you prefer to edit the file yourself, open `.env` in any text editor and fill in the line that matches your provider:
+> - Anthropic: `ANTHROPIC_API_KEY=sk-ant-...`
+> - Gemini: `GEMINI_API_KEY=AIza...`
+> - OpenAI: `OPENAI_API_KEY=sk-proj-...`
 
 ---
 

@@ -80,10 +80,13 @@ def step_llm_api_key(env: dict[str, str]) -> dict[str, str]:
 
     current_ant = env.get("ANTHROPIC_API_KEY", "")
     current_oai = env.get("OPENAI_API_KEY", "")
+    current_gem = env.get("GEMINI_API_KEY", "")
     if current_ant:
         _print(f"  Anthropic key already set: {current_ant[:12]}…")
     if current_oai:
         _print(f"  OpenAI key already set:    {current_oai[:12]}…")
+    if current_gem:
+        _print(f"  Gemini key already set:    {current_gem[:12]}…")
     _print()
 
     _print("Paste your API key below (sk-ant-… for Anthropic, sk-proj-… for OpenAI, AIza… for Gemini).")
