@@ -7,15 +7,17 @@ from typing import Any, Literal
 
 import env_loader  # noqa: F401 — load `.env` before env reads below
 
-LLMProvider = Literal["anthropic", "openai"]
+LLMProvider = Literal["anthropic", "openai", "gemini"]
+
+_GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
 
 # ---------------------------------------------------------------------------
 # Singleton clients — created once, reused across all threads.
-# Both Anthropic and OpenAI clients are thread-safe for concurrent requests.
 # ---------------------------------------------------------------------------
 _client_lock = threading.Lock()
 _anthropic_client: Any = None
 _openai_client: Any = None
+_gemini_client: Any = None
 
 _API_TIMEOUT = float(os.environ.get("LLM_REQUEST_TIMEOUT", "120"))
 
@@ -53,20 +55,51 @@ def _get_openai_client() -> Any:
     return _openai_client
 
 
+def _get_gemini_client() -> Any:
+    global _gemini_client
+    if _gemini_client is None:
+        with _client_lock:
+            if _gemini_client is None:
+                from openai import OpenAI
+                key = (
+                    os.environ.get("GEMINI_API_KEY")
+                    or os.environ.get("ANTHROPIC_API_KEY")
+                    or ""
+                ).strip()
+                if not key:
+                    raise RuntimeError(
+                        "Gemini API key not set. Set GEMINI_API_KEY=AIza..., or put "
+                        "the key in ANTHROPIC_API_KEY when LLM_PROVIDER=gemini."
+                    )
+                _gemini_client = OpenAI(
+                    api_key=key,
+                    base_url=_GEMINI_BASE_URL,
+                    timeout=_API_TIMEOUT,
+                )
+    return _gemini_client
+
+
 def llm_provider() -> LLMProvider:
     explicit = (os.environ.get("LLM_PROVIDER") or "").strip().lower()
+    if explicit == "gemini":
+        return "gemini"
     if explicit == "openai":
         return "openai"
     if explicit == "anthropic":
         return "anthropic"
 
+    # Auto-detect from key prefix
+    if (os.environ.get("GEMINI_API_KEY") or "").strip():
+        return "gemini"
+
     if (os.environ.get("OPENAI_API_KEY") or "").strip():
         return "openai"
 
     akey = (os.environ.get("ANTHROPIC_API_KEY") or "").strip()
+    if akey.startswith("AIza"):           # Gemini key in ANTHROPIC_API_KEY slot
+        return "gemini"
     if akey.startswith("sk-ant-"):
         return "anthropic"
-    # OpenAI project / standard keys often use sk-proj-…
     if akey.startswith("sk-proj-") or akey.startswith("sk-or-v1-"):
         return "openai"
 
@@ -74,7 +107,12 @@ def llm_provider() -> LLMProvider:
 
 
 def llm_api_configured() -> bool:
-    if llm_provider() == "openai":
+    p = llm_provider()
+    if p == "gemini":
+        return bool(
+            (os.environ.get("GEMINI_API_KEY") or os.environ.get("ANTHROPIC_API_KEY") or "").strip()
+        )
+    if p == "openai":
         return bool(
             (os.environ.get("OPENAI_API_KEY") or os.environ.get("ANTHROPIC_API_KEY") or "").strip()
         )
@@ -82,7 +120,10 @@ def llm_api_configured() -> bool:
 
 
 def default_llm_model() -> str:
-    if llm_provider() == "openai":
+    p = llm_provider()
+    if p == "gemini":
+        return (os.environ.get("GEMINI_MODEL") or "gemini-2.0-flash").strip()
+    if p == "openai":
         return (
             os.environ.get("OPENAI_MODEL")
             or os.environ.get("ANTHROPIC_MODEL")
@@ -107,7 +148,7 @@ def is_retryable_llm_error(exc: BaseException) -> bool:
     name = type(exc).__name__
     if mod.startswith("anthropic"):
         return name in ("APIConnectionError", "APITimeoutError", "RateLimitError", "OverloadedError")
-    if mod.startswith("openai"):
+    if mod.startswith("openai"):  # also covers Gemini (uses openai client)
         if name in ("APIConnectionError", "APITimeoutError", "RateLimitError"):
             return True
         if name == "APIStatusError":
@@ -126,7 +167,9 @@ def call_forced_tool(
     user_content: str,
 ) -> dict[str, Any]:
     """One model turn with a single forced tool; returns parsed tool arguments (object)."""
-    if llm_provider() == "anthropic":
+    provider = llm_provider()
+
+    if provider == "anthropic":
         client = _get_anthropic_client()
         resp = client.messages.create(
             model=model,
@@ -145,7 +188,8 @@ def call_forced_tool(
             f"stop_reason={getattr(resp, 'stop_reason', None)!r}"
         )
 
-    client = _get_openai_client()
+    # OpenAI and Gemini both use the OpenAI chat completions interface.
+    client = _get_gemini_client() if provider == "gemini" else _get_openai_client()
     oai_tools = [_anthropic_tool_to_openai(t) for t in tools]
     resp = client.chat.completions.create(
         model=model,
@@ -167,9 +211,9 @@ def call_forced_tool(
             try:
                 parsed = json.loads(raw)
             except json.JSONDecodeError as e:
-                raise RuntimeError(f"OpenAI tool arguments were not valid JSON: {raw[:300]!r}") from e
+                raise RuntimeError(f"Tool arguments were not valid JSON: {raw[:300]!r}") from e
             return parsed if isinstance(parsed, dict) else {}
     raise RuntimeError(
-        f"OpenAI model did not return tool_calls for {tool_name!r}. "
+        f"Model did not return tool_calls for {tool_name!r}. "
         f"finish_reason={getattr(choice, 'finish_reason', None)!r}"
     )
