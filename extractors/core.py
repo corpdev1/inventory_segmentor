@@ -590,34 +590,55 @@ def _extract_pst_text(path: Path, *, max_chars: int = MAX_CHARS_DEFAULT) -> str 
     try:
         import pypff  # type: ignore
     except ImportError:
-        _log.debug("libpff-python not installed; cannot extract PST/OST: %s", path)
+        print(f"[pst] libpff-python not installed — cannot read {path.name}", flush=True)
         return None
 
     def _decode(raw: bytes | str | None) -> str:
         if raw is None:
             return ""
         if isinstance(raw, bytes):
+            for enc in ("utf-8", "latin-1", "cp1252"):
+                try:
+                    return raw.decode(enc)
+                except Exception:
+                    pass
             return raw.decode("utf-8", errors="replace")
         return str(raw)
+
+    def _rtf_to_text(raw: bytes | str | None) -> str:
+        """Strip RTF markup to plain text as a last-resort body fallback."""
+        text = _decode(raw)
+        if not text:
+            return ""
+        import re as _re
+        text = _re.sub(r"\\[a-z]+[-\d]*\s?", " ", text)
+        text = _re.sub(r"[{}\\]", " ", text)
+        return _re.sub(r"\s+", " ", text).strip()
 
     parts: list[str] = []
     total = 0
 
-    def _walk(folder: "pypff.folder") -> None:
+    def _walk(folder) -> None:
         nonlocal total
         if total >= max_chars:
             return
-        for msg in folder.sub_messages:
+        try:
+            n_msgs = folder.number_of_sub_messages
+        except Exception:
+            n_msgs = 0
+        for i in range(n_msgs):
             if total >= max_chars:
                 break
             try:
+                msg = folder.get_sub_message(i)
                 subject = _decode(msg.subject).strip()
                 sender  = _decode(msg.sender_name).strip()
                 date    = str(msg.delivery_time or msg.client_submit_time or "")
                 body    = _decode(msg.plain_text_body).strip()
                 if not body:
-                    html = _decode(msg.html_body)
-                    body = _strip_html(html).strip() if html else ""
+                    body = _strip_html(_decode(msg.html_body)).strip()
+                if not body:
+                    body = _rtf_to_text(msg.rtf_body).strip()
                 n_att = msg.number_of_attachments
                 att_note = f"  [{n_att} attachment(s)]" if n_att else ""
                 block = (
@@ -627,22 +648,40 @@ def _extract_pst_text(path: Path, *, max_chars: int = MAX_CHARS_DEFAULT) -> str 
                 )
                 parts.append(block)
                 total += len(block)
-            except Exception:
-                pass
-        for sub in folder.sub_folders:
-            _walk(sub)
+            except Exception as exc:
+                _log.debug("PST message %d failed in %s: %s", i, path.name, exc)
+
+        try:
+            n_folders = folder.number_of_sub_folders
+        except Exception:
+            n_folders = 0
+        for i in range(n_folders):
+            if total >= max_chars:
+                break
+            try:
+                _walk(folder.get_sub_folder(i))
+            except Exception as exc:
+                _log.debug("PST sub-folder %d failed in %s: %s", i, path.name, exc)
 
     try:
         pst = pypff.file()
         pst.open(str(path))
-        _walk(pst.root_folder)
+        root = pst.get_root_folder()
+        if root is None:
+            print(f"[pst] WARNING: no root folder found in {path.name}", flush=True)
+            pst.close()
+            return None
+        _walk(root)
         pst.close()
-    except Exception:
-        _log.debug("PST extraction failed for %s", path, exc_info=True)
+    except Exception as exc:
+        print(f"[pst] WARNING: failed to open/read {path.name} — {exc}", flush=True)
         return None
 
     text = "\n\n".join(parts)
-    return _normalize_extracted_text(text[:max_chars]) if text.strip() else None
+    if not text.strip():
+        print(f"[pst] WARNING: no message text extracted from {path.name}", flush=True)
+        return None
+    return _normalize_extracted_text(text[:max_chars])
 
 
 def extract_full_text(
